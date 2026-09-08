@@ -1,5 +1,35 @@
 # Kith priority qualification — 8 September 2026
 
+## Download commit recovery — build 10
+
+Kith source `a225208055cd236b0d2efb2f498284232617827b` pins PersonalSyncKit
+`e52fc1cffbb86b4a04f10ec2799f5bb7ed024b17`. The new apply callback commits
+downloaded people and notes before the shared coordinator advances its cursor.
+The coordinator serializes overlapping attempts; bookkeeping actors publish
+their new in-memory state only after atomic file persistence succeeds.
+
+Four shared bookkeeping regressions failed before repair. The application-save
+regression also reproduced a skipped download after reopening sync state.
+All 25 Swift tests and 53 Worker tests passed in
+[shared-package CI 34242998549](https://github.com/Significant-Hobbies/significanthobbies/actions/runs/34242998549).
+Coverage includes failed local apply/restart, partial multi-page download,
+cursor-write failure after app commit, concurrent sync and failed state writes.
+
+Kith's native integration test injects a failed app-file write, verifies that
+the cursor remains zero, retries the same person and note, reopens the local
+document and verifies replay creates no duplicates. The complete local gate
+passed 19 unit tests, 8 UI tests and unsigned Release compilation. Local result:
+`Test-Kith-2026.09.08_20-41-35-+0530.xcresult` in `/tmp/kith-ios-derived/Logs/Test/`.
+[Exact-source native CI 34243385917](https://github.com/Significant-Hobbies/kith/actions/runs/34243385917)
+passed all 19 unit tests, 8 UI tests and Release compilation. All fault injection
+uses synthetic records and temporary files.
+
+Build 10 has not been installed or distributed. Build 8 remains the last
+verified phone installation. Physical signed-in synchronization is unqualified.
+The return-only shared sync API remains deprecated; other consumers must migrate
+before they gain the app-commit guarantee. See
+[Hub issue 155](https://github.com/Significant-Hobbies/significanthobbies/issues/155).
+
 ## Local startup follow-up — build 9
 
 Source `070697d7f62cae8ce077954e9832f80b60515ed8` is pushed to main.

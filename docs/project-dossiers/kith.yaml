@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1341d4937afef9ebc5affd4f4446b76072b33a05437632b0a5ed47b1e24c2569
+      sha256: 6111a5668609e18da8f9540878aecb11cab1056e6348ec51471800551a27a223
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: kith
-      revision: 070697d7f62cae8ce077954e9832f80b60515ed8
+      revision: a225208055cd236b0d2efb2f498284232617827b
       githubRepository: Significant-Hobbies/kith
       expectedHomepage: https://kith.significanthobbies.com
       observedHomepage: https://kith.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: kith
-      revision: 070697d7f62cae8ce077954e9832f80b60515ed8
+      revision: a225208055cd236b0d2efb2f498284232617827b
       githubRepository: Significant-Hobbies/kith
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T14:58:42.275Z
+      observedAt: 2026-09-08T15:26:36.067Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -108,12 +108,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-08
-    retainedCommitCount: 46
+    retainedCommitCount: 47
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: kith
-  observedRevision: 070697d7f62cae8ce077954e9832f80b60515ed8
+  observedRevision: a225208055cd236b0d2efb2f498284232617827b
   githubRepository: Significant-Hobbies/kith
   githubHomepageUrl: https://kith.significanthobbies.com
   worktree: *a1
@@ -129,7 +129,7 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-08T14:58:42.275Z
+  observedAt: 2026-09-08T15:26:36.067Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -137,7 +137,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/kith
     defaultBranch: main
-    defaultBranchSha: 070697d7f62cae8ce077954e9832f80b60515ed8
+    defaultBranchSha: a225208055cd236b0d2efb2f498284232617827b
     homepage: https://kith.significanthobbies.com
     query: verified
     disposition:
@@ -162,15 +162,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34241153787
+          id: 34243385917
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 070697d7f62cae8ce077954e9832f80b60515ed8
-          createdAt: 2026-09-08T14:53:03Z
-          updatedAt: 2026-09-08T14:57:54Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34241153787
+          headSha: a225208055cd236b0d2efb2f498284232617827b
+          createdAt: 2026-09-08T15:13:42Z
+          updatedAt: 2026-09-08T15:26:34Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/34243385917
         ageDays: 0
       schedule:
         health: not-applicable
@@ -180,15 +180,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34241153787
+          id: 34243385917
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 070697d7f62cae8ce077954e9832f80b60515ed8
-          createdAt: 2026-09-08T14:53:03Z
-          updatedAt: 2026-09-08T14:57:54Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34241153787
+          headSha: a225208055cd236b0d2efb2f498284232617827b
+          createdAt: 2026-09-08T15:13:42Z
+          updatedAt: 2026-09-08T15:26:34Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/34243385917
         ageDays: 0
       attention: clear
 deployment:
@@ -220,7 +220,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-08
-  reason: "Build 9 also opens local people and notes before optional network startup completes. A suspended-iCloud regression and the full local gate passed: 18 unit tests, 8 UI journeys and unsigned Release compilation. Build 8 remains the last verified phone installation. Signed-in sync still advances its download cursor before the app's local save; failure/retry needs repair. Build-9 installation, physical use and public distribution remain unqualified; physical-device tools are unavailable in the current session."
+  reason: "Build 10 commits downloaded people and notes before acknowledging the Hub cursor; synthetic native failure/retry, reopen and duplicate-free replay passed. Local gate: 19 unit tests, 8 UI tests and Release compilation. Shared-package CI passed 25 Swift and 53 Worker tests. Local startup no longer waits for network calls. Build 8 remains the last verified phone installation; build-10 installation, physical signed-in use and public distribution remain unqualified."
   changelogUrl: https://kith.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/kith/issues
   geoIdentity:

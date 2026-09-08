@@ -1183,8 +1183,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "The local session/return-path defect is repaired. Hosted Google sign-in, deployed binding topology, production session retention and native-app sync remain unqualified."
+          "verifiedAt": "2026-09-08",
+          "reason": "The local session/return-path defect is repaired. Shared sync source e52fc1c now acknowledges downloads after an app commit and preserves bookkeeping on failed writes; CI passed 25 Swift and 53 Worker tests. Kith adopted the contract; remaining consumer migration is tracked in issue 155. Hosted Google sign-in, deployed binding topology, production session retention and physical native-app sync remain unqualified."
         }
       },
       "aliases": [
@@ -1725,7 +1725,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Build 9 also opens local people and notes before optional network startup completes. A suspended-iCloud regression and the full local gate passed: 18 unit tests, 8 UI journeys and unsigned Release compilation. Build 8 remains the last verified phone installation. Signed-in sync still advances its download cursor before the app's local save; failure/retry needs repair. Build-9 installation, physical use and public distribution remain unqualified; physical-device tools are unavailable in the current session."
+          "reason": "Build 10 commits downloaded people and notes before acknowledging the Hub cursor; synthetic native failure/retry, reopen and duplicate-free replay passed. Local gate: 19 unit tests, 8 UI tests and Release compilation. Shared-package CI passed 25 Swift and 53 Worker tests. Local startup no longer waits for network calls. Build 8 remains the last verified phone installation; build-10 installation, physical signed-in use and public distribution remain unqualified."
         }
       },
       "name": "Kith",
