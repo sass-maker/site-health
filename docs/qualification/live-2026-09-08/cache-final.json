@@ -1,0 +1,572 @@
+{
+  "observedAt": "2026-09-08T09:21:24.506Z",
+  "results": [
+    {
+      "path": "/hobbies",
+      "passes": [
+        {
+          "status": 200,
+          "url": "https://live.significanthobbies.com/hobbies",
+          "cache": "MISS",
+          "cacheControl": "public, max-age=0, s-maxage=86400, must-revalidate",
+          "scripts": [
+            {
+              "path": "/_next/static/chunks/8ab23275-42c77ff22913334b.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2938-2a218f76ac33ace3.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/main-app-55f5aa891fd593c8.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/3e39e73d-2ad5fbc71b91009c.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/9445-77241f440df17cfb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/412-7a1f17292eb167a1.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2550-f54f7e2d0752d742.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/7299-3fe8dcc37e07077d.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1686-7d115f78ba0d6e26.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/4242-f233ec2b487122eb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8893-f80d7ca8edecf1d7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1116-ef879abf460de503.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/layout-d9a4e0b7618a6e40.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/global-error-4669b45fc62aef46.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8422-9c6d75984f583ec7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/5195-bb1922f055f0f394.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/hobbies/page-25ebfe456bd54b25.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/error-82366b2eff13e794.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/webpack-2da312f578ef100a.js",
+              "status": 200
+            }
+          ]
+        },
+        {
+          "status": 200,
+          "url": "https://live.significanthobbies.com/hobbies",
+          "cache": "HIT",
+          "cacheControl": "public, max-age=0, s-maxage=86400, must-revalidate",
+          "scripts": [
+            {
+              "path": "/_next/static/chunks/8ab23275-42c77ff22913334b.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2938-2a218f76ac33ace3.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/main-app-55f5aa891fd593c8.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/3e39e73d-2ad5fbc71b91009c.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/9445-77241f440df17cfb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/412-7a1f17292eb167a1.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2550-f54f7e2d0752d742.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/7299-3fe8dcc37e07077d.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1686-7d115f78ba0d6e26.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/4242-f233ec2b487122eb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8893-f80d7ca8edecf1d7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1116-ef879abf460de503.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/layout-d9a4e0b7618a6e40.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/global-error-4669b45fc62aef46.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8422-9c6d75984f583ec7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/5195-bb1922f055f0f394.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/hobbies/page-25ebfe456bd54b25.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/error-82366b2eff13e794.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/webpack-2da312f578ef100a.js",
+              "status": 200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "passes": [
+        {
+          "status": 200,
+          "url": "https://live.significanthobbies.com/login",
+          "cache": null,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "scripts": [
+            {
+              "path": "/_next/static/chunks/8ab23275-42c77ff22913334b.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2938-2a218f76ac33ace3.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/main-app-55f5aa891fd593c8.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/3e39e73d-2ad5fbc71b91009c.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/9445-77241f440df17cfb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/412-7a1f17292eb167a1.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2550-f54f7e2d0752d742.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/7299-3fe8dcc37e07077d.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1686-7d115f78ba0d6e26.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/4242-f233ec2b487122eb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8893-f80d7ca8edecf1d7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1116-ef879abf460de503.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/layout-d9a4e0b7618a6e40.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/global-error-4669b45fc62aef46.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8422-9c6d75984f583ec7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/login/page-11975bbcd373ba66.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/error-82366b2eff13e794.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/not-found-686e5a773d7af5d4.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/webpack-2da312f578ef100a.js",
+              "status": 200
+            }
+          ]
+        },
+        {
+          "status": 200,
+          "url": "https://live.significanthobbies.com/login",
+          "cache": null,
+          "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "scripts": [
+            {
+              "path": "/_next/static/chunks/8ab23275-42c77ff22913334b.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2938-2a218f76ac33ace3.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/main-app-55f5aa891fd593c8.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/3e39e73d-2ad5fbc71b91009c.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/9445-77241f440df17cfb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/412-7a1f17292eb167a1.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2550-f54f7e2d0752d742.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/7299-3fe8dcc37e07077d.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1686-7d115f78ba0d6e26.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/4242-f233ec2b487122eb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8893-f80d7ca8edecf1d7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1116-ef879abf460de503.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/layout-d9a4e0b7618a6e40.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/global-error-4669b45fc62aef46.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8422-9c6d75984f583ec7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/login/page-11975bbcd373ba66.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/error-82366b2eff13e794.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/not-found-686e5a773d7af5d4.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/webpack-2da312f578ef100a.js",
+              "status": 200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/find-your-hobby",
+      "passes": [
+        {
+          "status": 200,
+          "url": "https://live.significanthobbies.com/find-your-hobby",
+          "cache": "MISS",
+          "cacheControl": "public, max-age=0, s-maxage=86400, must-revalidate",
+          "scripts": [
+            {
+              "path": "/_next/static/chunks/8ab23275-42c77ff22913334b.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2938-2a218f76ac33ace3.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/main-app-55f5aa891fd593c8.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/3e39e73d-2ad5fbc71b91009c.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/9445-77241f440df17cfb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/412-7a1f17292eb167a1.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2550-f54f7e2d0752d742.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/7299-3fe8dcc37e07077d.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1686-7d115f78ba0d6e26.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/4242-f233ec2b487122eb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8893-f80d7ca8edecf1d7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1116-ef879abf460de503.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/layout-d9a4e0b7618a6e40.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/global-error-4669b45fc62aef46.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/error-82366b2eff13e794.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/not-found-686e5a773d7af5d4.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8422-9c6d75984f583ec7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/4905-cd20449d5219e4a2.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1037-262017f23e96df54.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/5195-bb1922f055f0f394.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/find-your-hobby/page-11802de2d5dcd893.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/webpack-2da312f578ef100a.js",
+              "status": 200
+            }
+          ]
+        },
+        {
+          "status": 200,
+          "url": "https://live.significanthobbies.com/find-your-hobby",
+          "cache": "HIT",
+          "cacheControl": "public, max-age=0, s-maxage=86400, must-revalidate",
+          "scripts": [
+            {
+              "path": "/_next/static/chunks/8ab23275-42c77ff22913334b.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2938-2a218f76ac33ace3.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/main-app-55f5aa891fd593c8.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/3e39e73d-2ad5fbc71b91009c.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/9445-77241f440df17cfb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/412-7a1f17292eb167a1.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/2550-f54f7e2d0752d742.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/7299-3fe8dcc37e07077d.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1686-7d115f78ba0d6e26.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/4242-f233ec2b487122eb.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8893-f80d7ca8edecf1d7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1116-ef879abf460de503.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/layout-d9a4e0b7618a6e40.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/global-error-4669b45fc62aef46.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/error-82366b2eff13e794.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/not-found-686e5a773d7af5d4.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/8422-9c6d75984f583ec7.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/4905-cd20449d5219e4a2.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/1037-262017f23e96df54.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/5195-bb1922f055f0f394.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/app/find-your-hobby/page-11802de2d5dcd893.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+              "status": 200
+            },
+            {
+              "path": "/_next/static/chunks/webpack-2da312f578ef100a.js",
+              "status": 200
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

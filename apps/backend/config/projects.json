@@ -255,8 +255,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Saving and authenticated history untested."
+          "verifiedAt": "2026-09-08",
+          "reason": "Hosted mobile guest onboarding and local bucket-list save, abort recovery, completion, deletion and reload verified in Chromium and WebKit on 9a4c9d1 at 100% traffic. Public HTML MISS/HIT cache policy and referenced assets verified. Actual Google sign-in is blocked by provider redirect_uri_mismatch; authenticated persistence, isolation and Hub continuity remain unqualified. Sharing is limited to the guest surface."
         }
       },
       "aliases": [

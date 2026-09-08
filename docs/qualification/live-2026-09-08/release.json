@@ -1,0 +1,81 @@
+{
+  "observedAt": "2026-09-08",
+  "source": "9a4c9d1b55c1f75e79c55513a856d56958b1e7c7",
+  "workerVersion": "7b0b99fc-1e03-4cff-911d-392de6d8f272",
+  "deployment": "2b477a55-54cf-4d80-8cd2-20e3610b68c8",
+  "trafficPercent": 100,
+  "hostedGuest": {
+    "chromium": {
+      "engine": "chromium",
+      "observedAt": "2026-09-08T09:21:24.495Z",
+      "actualHostedOnboarding": true,
+      "saveAbortRetry": true,
+      "completeDeleteReload": true,
+      "overflow": false,
+      "writes": []
+    },
+    "webkit": {
+      "engine": "webkit",
+      "observedAt": "2026-09-08T09:21:04.389Z",
+      "actualHostedOnboarding": true,
+      "saveAbortRetry": true,
+      "completeDeleteReload": true,
+      "overflow": false,
+      "writes": []
+    }
+  },
+  "google": {
+    "handoffStatus": 200,
+    "callback": "https://live.significanthobbies.com/api/auth/callback/google",
+    "actualProviderError": "redirect_uri_mismatch",
+    "authenticatedJourney": "unverified",
+    "observedAt": "2026-09-08T09:22:21.313Z"
+  },
+  "cacheRepair": {
+    "source": "640c7e95a27507789c47259e98e1c54b91d8945e",
+    "state": "released and hosted verified, including browser revalidation follow-up",
+    "localQuality": "passed, 593 tests",
+    "releaseBuild": "passed",
+    "workerVersion": "3e4560ff-28ce-4244-afac-6c6dde48edf5",
+    "deployment": "d7479708-fcaa-4c26-9c00-ee73d2efb163",
+    "qualityRun": 34207675150,
+    "browserRun": 34207675287,
+    "remainingDefect": null,
+    "followup": {
+      "source": "9a4c9d1b55c1f75e79c55513a856d56958b1e7c7",
+      "state": "deployed and hosted verified",
+      "qualityRun": 34208622633,
+      "browserRun": 34208622688,
+      "workerVersion": "7b0b99fc-1e03-4cff-911d-392de6d8f272",
+      "deployment": "2b477a55-54cf-4d80-8cd2-20e3610b68c8",
+      "cachePolicy": "max-age=0 on both MISS and HIT",
+      "assetCheck": "all referenced scripts return 200 on /hobbies, /login and /find-your-hobby; two requests each",
+      "receipt": "cache-final.json"
+    },
+    "initialHostedHobbies": {
+      "miss": {
+        "status": 200,
+        "scripts": 20,
+        "missing": 0,
+        "browserMaxAge": 0
+      },
+      "hit": {
+        "status": 200,
+        "scripts": 20,
+        "missing": 0,
+        "browserMaxAge": 14400
+      }
+    }
+  },
+  "githubDeployment": {
+    "run": 34205783560,
+    "state": "failed before deployment",
+    "missingSecretNames": [
+      "CLOUDFLARE_API_TOKEN",
+      "CLOUDFLARE_ACCOUNT_ID"
+    ]
+  },
+  "ownerUseReady": false,
+  "qualityRun": 34208622633,
+  "browserRun": 34208622688
+}

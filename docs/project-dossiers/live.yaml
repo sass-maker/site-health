@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8820d0f149b558de369a191d8bc29a5c34b002f94d4e9deb22937558e729a64c
+      sha256: 770a8e93ede407806d99cfe5be901b3c71e3af023777960536e04e6ce7a82059
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: live
-      revision: b7a47863699ca954cda62a734c67953fddcd8b29
+      revision: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
       githubRepository: Significant-Hobbies/live
       expectedHomepage: https://live.significanthobbies.com
       observedHomepage: https://live.significanthobbies.com
@@ -46,22 +46,24 @@ verification:
       observedAt: 2026-09-08
       state: available
       checkout: live
-      revision: b7a47863699ca954cda62a734c67953fddcd8b29
+      revision: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
       githubRepository: Significant-Hobbies/live
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-03-01
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T08:09:38.257Z
+      observedAt: 2026-09-08T09:12:45.402Z
       staleAfterDays: 30
-      healthy: 4
+      healthy: 5
       failing: 1
       attention: &a2
         clear: 4
         review-history: 1
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: "Help me understand: where was the lab repository and is it still inside Significant Hobbies?"
@@ -117,13 +119,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-03-01
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 560
+    latestCommitAt: 2026-09-08
+    retainedCommitCount: 566
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: live
-  observedRevision: b7a47863699ca954cda62a734c67953fddcd8b29
+  observedRevision: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
   githubRepository: Significant-Hobbies/live
   githubHomepageUrl: https://live.significanthobbies.com
   worktree: *a1
@@ -200,23 +202,23 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-08T08:09:38.257Z
+  observedAt: 2026-09-08T09:12:45.402Z
   staleAfterDays: 30
   summary:
-    healthy: 4
+    healthy: 5
     failing: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/live
     defaultBranch: main
-    defaultBranchSha: b7a47863699ca954cda62a734c67953fddcd8b29
+    defaultBranchSha: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
     homepage: https://live.significanthobbies.com
     query: verified
     disposition:
       disposition: active
       reason: tracked project
   workflows:
-    - name: CI
+    - name: Browser CI
       file: .github/workflows/ci.yml
       triggers:
         - pull_request
@@ -234,15 +236,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34112604750
+          id: 34208622688
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b7a47863699ca954cda62a734c67953fddcd8b29
-          createdAt: 2026-09-07T10:39:41Z
-          updatedAt: 2026-09-07T10:44:29Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34112604750
+          headSha: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
+          createdAt: 2026-09-08T09:11:31Z
+          updatedAt: 2026-09-08T09:18:36Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34208622688
         ageDays: 0
       schedule:
         health: not-applicable
@@ -252,15 +254,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34112604750
+          id: 34208622688
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b7a47863699ca954cda62a734c67953fddcd8b29
-          createdAt: 2026-09-07T10:39:41Z
-          updatedAt: 2026-09-07T10:44:29Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34112604750
+          headSha: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
+          createdAt: 2026-09-08T09:11:31Z
+          updatedAt: 2026-09-08T09:18:36Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34208622688
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
@@ -280,16 +282,16 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 34016193990
+          id: 34205783560
           status: completed
           conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: b78fe4d66b2f0862accd5d8151867897d9d6c626
-          createdAt: 2026-09-06T06:19:34Z
-          updatedAt: 2026-09-06T06:19:43Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34016193990
-        ageDays: 2
+          headSha: 054f80218f890bb695d7aae350bdc51212e0e7c0
+          createdAt: 2026-09-08T08:40:33Z
+          updatedAt: 2026-09-08T08:40:39Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34205783560
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -317,15 +319,61 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34112604719
+          id: 34207675174
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b7a47863699ca954cda62a734c67953fddcd8b29
-          createdAt: 2026-09-07T10:39:41Z
-          updatedAt: 2026-09-07T10:39:56Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34112604719
+          headSha: 640c7e95a27507789c47259e98e1c54b91d8945e
+          createdAt: 2026-09-08T09:01:16Z
+          updatedAt: 2026-09-08T09:01:24Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34207675174
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 9a4c9d1
+        lastRun:
+          id: 34207675174
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 640c7e95a27507789c47259e98e1c54b91d8945e
+          createdAt: 2026-09-08T09:01:16Z
+          updatedAt: 2026-09-08T09:01:24Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34207675174
+      attention: missing-data
+    - name: Quality
+      file: .github/workflows/quality.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34208622633
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
+          createdAt: 2026-09-08T09:11:31Z
+          updatedAt: 2026-09-08T09:13:06Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34208622633
         ageDays: 0
       schedule:
         health: not-applicable
@@ -335,15 +383,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34112604719
+          id: 34208622633
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b7a47863699ca954cda62a734c67953fddcd8b29
-          createdAt: 2026-09-07T10:39:41Z
-          updatedAt: 2026-09-07T10:39:56Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34112604719
+          headSha: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
+          createdAt: 2026-09-08T09:11:31Z
+          updatedAt: 2026-09-08T09:13:06Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34208622633
         ageDays: 0
       attention: clear
     - name: Production Smoke
@@ -400,12 +448,12 @@ githubActions:
       triggers: []
       schedules: []
       inventory:
-        source: github-generated
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: active
+        reason: tracked workflow
       live:
         health: healthy
         reason: latest run concluded success
@@ -509,8 +557,8 @@ sharing:
   publicListing: maintained
   maturity: experiment
   ready: true
-  verifiedAt: 2026-09-07
-  reason: Saving and authenticated history untested.
+  verifiedAt: 2026-09-08
+  reason: Hosted mobile guest onboarding and local bucket-list save, abort recovery, completion, deletion and reload verified in Chromium and WebKit on 9a4c9d1 at 100% traffic. Public HTML MISS/HIT cache policy and referenced assets verified. Actual Google sign-in is blocked by provider redirect_uri_mismatch; authenticated persistence, isolation and Hub continuity remain unqualified. Sharing is limited to the guest surface.
   changelogUrl: https://live.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/live/issues
   geoIdentity:

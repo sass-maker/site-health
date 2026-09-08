@@ -101,10 +101,10 @@
     {
       "id": "live",
       "name": "Live",
-      "classification": "No blocker to scoped sharing",
-      "biggestBlocker": "Saving and authenticated history untested.",
+      "classification": "Guest workflow qualified; signed-in owner use blocked",
+      "biggestBlocker": "Google OAuth client rejects canonical callback with redirect_uri_mismatch; signed-in persistence, account isolation and Hub continuity remain unverified. GitHub deployment workflow lacks its required Cloudflare credentials.",
       "shareable": true,
-      "repairProgress": "124ecd7 pushed clean. Fixed greedy whitespace-stripping identity parser in production smoke; all five actual read-only steps pass and exact Production Smoke 34108841803 green. Guest sharing scope unchanged."
+      "repairProgress": "Storage and canonical origin repairs hosted-qualified in mobile Chromium and WebKit. Build-specific HTML caching and browser revalidation fixed; source 9a4c9d1 passed both CI workflows and deployed at 100% traffic. /hobbies and /find-your-hobby MISS/HIT plus /login resolve all scripts; both mobile guest journeys repeated on final source. See docs/qualification/live-2026-09-08/release.json and Live issue 14."
     },
     {
       "id": "gitstat",
