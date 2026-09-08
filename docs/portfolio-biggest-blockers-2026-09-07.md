@@ -8,7 +8,7 @@ Priority: restore Open Historia turns; correct High Signal evidence claims; repa
 | --- | --- | --- |
 | Starboard | No blocker to scoped sharing | Public discovery only; saved projects and private star library not tested. Catalog metadata visibly dated August. |
 | High Signal Podcasts | No blocker to scoped sharing | Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed. |
-| High Signal | Product/evidence gap | Contradictory confidence labels and surge claims from six positive reviews undermine the core evidence promise. Calibrate claims against sample size and baseline. |
+| High Signal | Product/evidence gap | Two recent editions are empty despite successful jobs. Restore useful qualified daily output and audit scoring provenance. Live ledger now exposes its three-record denominator and pending counts. |
 | PostTrainLLM | No blocker to scoped sharing | Qualifies for the working browser demo only; native factory and Mac distribution remain unverified. |
 | Calorie | Qualification gap | No public consumer installation path. |
 | Motion | Qualification gap | No public consumer installation path; no camera or physical-control test performed. |

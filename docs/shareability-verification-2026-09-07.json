@@ -58,30 +58,34 @@
       "shareable": false,
       "surface": "Daily Brief and signal evidence",
       "actions": [
-        "Read September 7 brief",
-        "Opened ChatGPT positive-review signal and its proof section"
+        "Read both recent public daily editions",
+        "Inspected live Track Record at 390px and 1440px",
+        "Verified exact-source CI and web deployment metadata",
+        "Read-only aggregate scoring audit; no data edits"
       ],
-      "observed": "Web-only source ddefa8dd2e27648a8952e98640f96a682ba9b02b deployed to high-signal-web Worker950432b9-68e9-466d-8c19-78e00ee19e5c at100%. Actual ordinary-URL desktop/390px detail, list, embed, three feeds and methodology navigation pass. Six original review excerpts remain visible; headline describes a selected review sample and explicitly says Trend not established. Generated surge narrative and stored99/low diagnostics remain inspectable in closed disclosures. Noindex and omitted NewsArticle match the bounded evidence policy. A first release exposed regional stale Worker cache; versioned affected HTML/RSC keys repair the reproduced ordinary-URL mismatch.",
+      "observed": "Web-only source 2e0ab9e002cfd28b156f9db9e0429405a959e606 deployed at 100% as high-signal-web version caa21f9f-166f-4946-bd2c-854405f8785e. Live ordinary /track-record shows 3 hit/miss records, 1820 pending, 1823 total and an explicit small-sample/publication-provenance warning. Mobile 390px and desktop 1440px inspected. Historical outcomes preserved; API failure renders unavailable. Full quality, 31 suites, OpenNext build and exact-source CI/Docs passed. API and stored data unchanged.",
       "urls": [
         "https://highsignal.app/",
-        "https://highsignal.app/signals/openai-openai-s-chatgpt-sees-surge-in-positive-reviews"
+        "https://highsignal.app/signals/openai-openai-s-chatgpt-sees-surge-in-positive-reviews",
+        "https://highsignal.app/track-record"
       ],
-      "limitations": "Review-sample web presentation only, not broader claim calibration. The public request asked for100 but returned3 published records, all review-only; history access was gated, so no full-corpus conclusion. Mixed-source claims, API/MCP/Daily Brief consistency and provider/publishing recovery remain unqualified. No API, D1, generation or publishing job was changed or rerun.",
-      "verifiedAt": "2026-09-07",
+      "limitations": "September 8 and September 7 Brief editions are empty despite successful ingest/publisher jobs; the sole new draft failed editorial structure. Useful evidence-qualified daily output and generation reliability remain unproven. Historical scoring publication timing and repeated windows require audit; mixed-source claim and API/MCP semantics remain unqualified.",
+      "verifiedAt": "2026-09-08",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "public-surface-inspected",
       "loggedIn": "not-applicable-to-qualified-public-surface",
-      "presentation": "Hosted1440/390 screenshots inspected; factual lead and explicit evidence limitations, no horizontal overflow. Six original source excerpts and generated-history disclosures retained.",
+      "presentation": "Live warning and explanatory hierarchy readable at 390px and 1440px; document widths equal viewport widths. Desktop table columns remain dense and need presentation improvement. Full-product visual quality is not qualified.",
       "disposition": "retain-unpromoted",
       "release": {
-        "sourceRevision": "ddefa8dd2e27648a8952e98640f96a682ba9b02b",
-        "workerVersion": "950432b9-68e9-466d-8c19-78e00ee19e5c",
-        "deploymentId": "7153ee4f-c164-411c-88ea-2ddc4cba5cbb",
+        "sourceRevision": "2e0ab9e002cfd28b156f9db9e0429405a959e606",
+        "workerVersion": "caa21f9f-166f-4946-bd2c-854405f8785e",
+        "deploymentId": "8bb1802f-4c98-42c5-86d2-ba7a2e209c4c",
         "trafficPercent": 100,
-        "ciRun": 34133353634,
-        "rollbackVersion": "608508e0-0f44-46fa-8e80-e26eb2c679d5",
-        "evidence": "../../high-signal/docs/operations/2026-09-07-review-sample-qualification.md"
+        "ciRun": 34229571074,
+        "docsRun": 34229571059,
+        "rollbackVersion": "950432b9-68e9-466d-8c19-78e00ee19e5c",
+        "evidence": "docs/qualification/high-signal-2026-09-08/README.md"
       }
     },
     {

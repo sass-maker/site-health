@@ -805,8 +805,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Review-sample web presentation only, not broader claim calibration. The public request asked for100 but returned3 published records, all review-only; history access was gated, so no full-corpus conclusion. Mixed-source claims, API/MCP/Daily Brief consistency and provider/publishing recovery remain unqualified. No API, D1, generation or publishing job was changed or rerun."
+          "verifiedAt": "2026-09-08",
+          "reason": "September 8 and September 7 Brief editions are empty despite successful ingest/publisher jobs; the sole new draft failed editorial structure. Useful evidence-qualified daily output and generation reliability remain unproven. Historical scoring publication timing and repeated windows require audit; mixed-source claim and API/MCP semantics remain unqualified."
         }
       },
       "authModel": "public-persistent",
@@ -820,7 +820,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Next/OpenNext on Workers 2026-09-07 follow-up: pushed quality-score versus confidence copy correction (5aea172); CI passes. Sample/baseline and headline calibration remain unresolved; shareability stays false.",
+      "notes": "Web-only source 2e0ab9e002cfd28b156f9db9e0429405a959e606 deployed at 100% as high-signal-web version caa21f9f-166f-4946-bd2c-854405f8785e. Live ordinary /track-record shows 3 hit/miss records, 1820 pending, 1823 total and an explicit small-sample/publication-provenance warning. Mobile 390px and desktop 1440px inspected. Historical outcomes preserved; API failure renders unavailable. Full quality, 31 suites, OpenNext build and exact-source CI/Docs passed. API and stored data unchanged.",
       "name": "High Signal",
       "attention": "my-work",
       "lifecycle": {
@@ -5025,7 +5025,7 @@
         "resources": []
       },
       "high-signal": {
-        "updatedAt": "2026-08-30",
+        "updatedAt": "2026-09-08",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5085,7 +5085,8 @@
             "name": "High-Signal-App/.github",
             "state": "active"
           }
-        ]
+        ],
+        "notes": "Web-only release: source 2e0ab9e002cfd28b156f9db9e0429405a959e606, version caa21f9f-166f-4946-bd2c-854405f8785e, deployment 8bb1802f-4c98-42c5-86d2-ba7a2e209c4c at 100%. API unchanged. Receipt: docs/qualification/high-signal-2026-09-08/README.md."
       },
       "on-record": {
         "updatedAt": "2026-08-27",

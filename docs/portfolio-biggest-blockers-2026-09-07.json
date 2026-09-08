@@ -22,9 +22,9 @@
       "id": "high-signal",
       "name": "High Signal",
       "classification": "Product/evidence gap",
-      "biggestBlocker": "Review-sample web presentation only, not broader claim calibration. The public request asked for100 but returned3 published records, all review-only; history access was gated, so no full-corpus conclusion. Mixed-source claims, API/MCP/Daily Brief consistency and provider/publishing recovery remain unqualified. No API, D1, generation or publishing job was changed or rerun.",
+      "biggestBlocker": "September 8 and September 7 Brief editions are empty despite successful ingest/publisher jobs; the sole new draft failed editorial structure. Useful evidence-qualified daily output and generation reliability remain unproven. Historical scoring publication timing and repeated windows require audit; mixed-source claim and API/MCP semantics remain unqualified.",
       "shareable": false,
-      "repairProgress": "Web-only source ddefa8dd2e27648a8952e98640f96a682ba9b02b deployed to high-signal-web Worker950432b9-68e9-466d-8c19-78e00ee19e5c at100%. Actual ordinary-URL desktop/390px detail, list, embed, three feeds and methodology navigation pass. Six original review excerpts remain visible; headline describes a selected review sample and explicitly says Trend not established. Generated surge narrative and stored99/low diagnostics remain inspectable in closed disclosures. Noindex and omitted NewsArticle match the bounded evidence policy. A first release exposed regional stale Worker cache; versioned affected HTML/RSC keys repair the reproduced ordinary-URL mismatch."
+      "repairProgress": "Web-only source 2e0ab9e002cfd28b156f9db9e0429405a959e606 deployed at 100% as high-signal-web version caa21f9f-166f-4946-bd2c-854405f8785e. Live ordinary /track-record shows 3 hit/miss records, 1820 pending, 1823 total and an explicit small-sample/publication-provenance warning. Mobile 390px and desktop 1440px inspected. Historical outcomes preserved; API failure renders unavailable. Full quality, 31 suites, OpenNext build and exact-source CI/Docs passed. API and stored data unchanged."
     },
     {
       "id": "posttrainllm",
