@@ -338,13 +338,14 @@
       "surface": "Internal retrieval infrastructure",
       "observed": "Gated source protocol 98181c0e0dcc09f67c1a33a7a500fa11598e1f05 passes full quality: 387 Worker tests including 23 actual SQLite/Hono ownership scenarios and 6 dashboard tests; exact CI 34120165885/docs 34120165947 success. New-generation raw/parse/vector ownership supports independent A/B deletion, delayed writers and source visibility. Protocol remains default false; production legacy path unchanged.",
       "limitations": "Legacy copy/hash/backfill, unresolved-write recovery, authorized migration/activation and live private document journey remain #48. Completion covers indexed artifacts; saved conversation/trace metadata is retained. No public core document workflow.",
-      "verifiedAt": "2026-09-07",
+      "verifiedAt": "2026-09-08",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
-      "loggedIn": "synthetic-local-tenant-isolation-qualified; live-operator-not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "public landing and Markdown brief inspected; operator workspace redirects to Cloudflare Access",
+      "loggedIn": "not-verified; Cloudflare browser verification prevents sign-in",
+      "presentation": "Live hero reviewed at 390px and 1440px with no horizontal overflow; illustrative citation disclosure works",
+      "disposition": "retain-unpromoted",
+      "evidencePath": "docs/qualification/knowledge-base-live-2026-09-08/README.md"
     },
     {
       "id": "india-standards",
