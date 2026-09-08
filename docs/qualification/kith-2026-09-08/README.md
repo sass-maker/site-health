@@ -91,3 +91,9 @@ All 25 core/app tests pass in a temporary Mac harness using actual app/core/shar
 ## Landing copy checkpoint
 
 ios-landings source `61118ebcf20539d9defb7b494138adab913236ec` removes stale current-source build 7 claims from the private beta pages. The Kith-specific and full factory checks passed, as did exact-source CI 34259137764. Publication has not occurred: the deploy guard recognizes the Kith target but reports `unknown: no successful source-backed build/test push workflow`. No bypass or domain/provider configuration change was made.
+
+## Landing publication verified
+
+Factory source `c768b012676e3e77ff577650f4b123342ada8ec2` passed all eight jobs in CI 34260027560 and all six unmodified deploy-guard gates. Four synthetic CLI tests cover scoped deployment, missing targets, failed builds and invalid options. `pnpm run deploy kith --existing-only` published only Kith, without project creation or domain attachment. Cloudflare lists production deployment `b31f1441-d684-40d3-8371-836e6a2bf3bb` from that source.
+
+Both `https://kith.significanthobbies.com/` and `/testflight/` returned HTTP 200 with the corrected private-beta copy and without the stale current-build claim. The deployment URL also returned 200. Python urllib initially received 403; curl with a browser user agent received the expected content on both hosts. These are HTTP/content checks, not a new visual review or a public native distribution receipt.

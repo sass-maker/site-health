@@ -1725,7 +1725,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Landing copy correction 61118eb passed CI 34259137764 but publication is held by deploy-guard build/test workflow recognition."
+          "reason": "Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Corrected private-beta landing is live in Pages deployment b31f1441 from ios-landings c768b01; both public pages return 200 with no stale build claim."
         }
       },
       "name": "Kith",
@@ -1760,7 +1760,7 @@
         "maturity": "in-progress",
         "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
       },
-      "notes": "Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Landing copy correction 61118eb passed CI 34259137764 but publication is held by deploy-guard build/test workflow recognition.",
+      "notes": "Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Corrected private-beta landing is live in Pages deployment b31f1441 from ios-landings c768b01; both public pages return 200 with no stale build claim.",
       "category": "utility"
     },
     {
@@ -1804,7 +1804,7 @@
         "spotlight": false,
         "maturity": "in-progress"
       },
-      "notes": "Builds the Journal, Kith, Setline, Motion, Anchor, and compatibility Indulge/Habits landing trees. Journal's native source lives in its independent repository; Habits and Indulge now point to Anchor without removing their domains. Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker.",
+      "notes": "Builds the Journal, Kith, Setline, Motion, Anchor, and compatibility Indulge/Habits landing trees. Journal's native source lives in its independent repository; Habits and Indulge now point to Anchor without removing their domains. Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker. On 2026-09-08, source c768b01 added explicit eight-product CI and an existing-only content deployment option. All checks and six deploy gates passed; only Kith was published (b31f1441-d684-40d3-8371-836e6a2bf3bb).",
       "category": "utility"
     },
     {

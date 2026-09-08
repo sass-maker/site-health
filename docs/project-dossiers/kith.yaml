@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: c56e88a9978c83e41d4757d35155f0810e17e92776f7c9de17947740a0375784
+      sha256: 9f30f94b1d7b469ee95bdb99b4d777562c9c3fd2907e5ef190b790190d210427
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-08T17:51:56.715Z
+      observedAt: 2026-09-08T17:58:41.869Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -129,7 +129,7 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-08T17:51:56.715Z
+  observedAt: 2026-09-08T17:58:41.869Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -220,7 +220,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-08
-  reason: Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Landing copy correction 61118eb passed CI 34259137764 but publication is held by deploy-guard build/test workflow recognition.
+  reason: Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Corrected private-beta landing is live in Pages deployment b31f1441 from ios-landings c768b01; both public pages return 200 with no stale build claim.
   changelogUrl: https://kith.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/kith/issues
   geoIdentity:
@@ -243,5 +243,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Landing copy correction 61118eb passed CI 34259137764 but publication is held by deploy-guard build/test workflow recognition.
+  catalog: Build 11/source 5f2fa81 repairs reproduced deletion resurrection after restart. Local native tests and exact-source hosted CI 34258378181 passed. Signed build 11 installed successfully; fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Physical use, real signed-in isolation/sync and public distribution remain unqualified. Corrected private-beta landing is live in Pages deployment b31f1441 from ios-landings c768b01; both public pages return 200 with no stale build claim.
   infrastructure: Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has a Hub-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight.
