@@ -1,22 +1,23 @@
 {
   "observedAt": "2026-09-08",
-  "source": "9e4cca9c956311946b5aa3659065568c4068a139",
+  "source": "451b699fc6010812ae168b6e776d45f16544b2f9",
   "ci": {
-    "run": 34225523012,
+    "run": 34226441025,
     "state": "success"
   },
   "deployment": {
     "worker": "email-manager",
-    "version": "c94fa462-d536-4080-a12a-f51976d25e90",
-    "id": "c8acbcec-3c3e-4e33-884e-a871aaf4d56e",
+    "version": "b42e2e27-b358-4ee7-a338-f9cc9d4cbc69",
+    "id": "b2eb7176-344c-46f6-9a62-3ac37e6281e0",
     "percentage": 100
   },
   "validation": {
-    "localQuality": "passed; 104 tests, unchanged gates",
+    "localQuality": "passed; 110 tests, unchanged gates",
     "docs": "46 files passed",
     "isolatedMailbox": "real IndexedDB, synthetic mail and embeddings; colliding account IDs, distinct cursors and delayed writes passed",
     "routingRegression": "three exported-Worker tests failed before repair and passed after",
-    "browserModel": "real application model with application CSP passed in isolated browser"
+    "browserModel": "real application model with application CSP passed in isolated browser",
+    "indexCancellation": "four regressions failed before fix; six unit cases and real browser IndexedDB cancellation/retry passed"
   },
   "liveGuestRoutes": {
     "/api/health": 200,
@@ -35,6 +36,8 @@
     "finite": true,
     "norm": 0.9999997352863993,
     "cspViolations": 0,
-    "loadAndInferenceMs": 6195
-  }
+    "loadAndInferenceMs": 6195,
+    "verifiedSource": "9e4cca9c956311946b5aa3659065568c4068a139"
+  },
+  "liveGuestBundle": "/assets/index-QyIj82F-.js"
 }

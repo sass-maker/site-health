@@ -126,7 +126,7 @@
       "classification": "Qualification gap",
       "biggestBlocker": "Real signed-in mailbox qualification and retrieval quality: MiniLM missed three of ten synthetic diagnostic queries.",
       "shareable": false,
-      "repairProgress": "9e4cca9 deployed at 100% with green CI and 104 tests. Model loading CSP failure reproduced and repaired; deployed ONNX inference with synthetic text passes without CSP violations. BGE q8 comparison improved all ten examples, but production model remains unchanged pending safe vector-cache migration and wider evaluation. Issue 54 remains open."
+      "repairProgress": "451b699 deployed at 100% with green CI and 110 tests. Index cancellation accounting repaired and verified against actual browser IndexedDB. Model loading CSP failure reproduced and repaired; deployed ONNX inference with synthetic text passes without CSP violations. BGE q8 comparison improved all ten examples, but production model remains unchanged pending safe vector-cache migration and wider evaluation. Issue 54 remains open."
     },
     {
       "id": "knowledge-base",

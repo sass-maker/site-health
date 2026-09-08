@@ -321,7 +321,7 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Gmail workspace",
-      "observed": "9e4cca9 deployed at 100%, exact CI green, 104 tests. Fixed model CDN/runtime CSP blocks; actual deployed ONNX inference on synthetic text passes with zero CSP violations. Guest app/health/session 200, mail 401. Owner login pending.",
+      "observed": "451b699 deployed at 100%, exact CI green, 110 tests. Index cancellation/persisted counts repaired; real IndexedDB cancellation and retry passed. Fixed model CDN/runtime CSP blocks; actual deployed ONNX inference on synthetic text passes with zero CSP violations. Guest app/health/session 200, mail 401. Owner login pending.",
       "limitations": "Signed-in mailbox/presentation unverified; MiniLM missed three of ten synthetic diagnostic queries. Candidate improved this tiny corpus but broad ranking quality and model-cache migration remain unqualified.",
       "verifiedAt": "2026-09-08",
       "confidence": "low",

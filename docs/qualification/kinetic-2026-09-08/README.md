@@ -32,3 +32,20 @@ model download, but this is not a broad benchmark. Production model unchanged;
 model-tagged cache migration and wider retrieval qualification remain necessary
 before replacement. See the owning repository's
 [model evidence](https://github.com/Significant-Hobbies/email-manager/blob/9e4cca9c956311946b5aa3659065568c4068a139/docs/knowledge/learnings/browser-model-2026-09-08.md).
+
+## Indexing cancellation repair
+
+The current release is 451b699fc6010812ae168b6e776d45f16544b2f9, CI 34226441025
+passed. Four regressions reproduced falsely completed batches and incorrect
+pending counts. Indexing now checks cancellation before model loading and after
+inference, counts successful writes only, and leaves unprocessed messages pending.
+Six focused tests cover these boundaries, newest-first limits, zero-size batches
+and write failures. Actual browser IndexedDB verifies cancellation leaves a
+message pending and a subsequent run indexes it. Full local quality passed 110
+tests and unchanged gates; 46 documentation files passed.
+
+Worker b42e2e27-b358-4ee7-a338-f9cc9d4cbc69 carries the exact source at 100% in
+deployment b2eb7176-344c-46f6-9a62-3ac37e6281e0. A fresh guest browser loaded the
+new `/assets/index-QyIj82F-.js` bundle; app/health/session returned 200 and mail
+401. Test tab closed and owner login tabs preserved. These checks do not establish
+signed-in indexing or ranking quality; issue 54 and shareability false remain.
