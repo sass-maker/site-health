@@ -617,7 +617,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-08",
-          "reason": "Account-scoped cache and discovery-routing repairs are deployed at exact source 210e6ad with green CI. Live anonymous session/health/catalog/OpenAPI respond and mail is denied with 401. Owner OAuth completion, account switching, real mailbox workflows and ONNX model quality remain issue 54."
+          "reason": "Account-cache, API routing and browser model CSP repairs deployed at 9e4cca9 with green CI. Real deployed ONNX inference on synthetic text passes with no CSP violations. MiniLM misses three of ten diagnostic queries; owner OAuth, account switching and real mailbox workflows remain issue 54."
         }
       },
       "authModel": "required-user",
@@ -631,7 +631,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Canonical hostname moved to mail.significanthobbies.com on 2026-07-30. The former hostname remains attached only until the new Google OAuth callback is registered and verified. Source 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6 is deployed at 100% after account-cache and Worker routing verification; actual Google sign-in completion remains pending.",
+      "notes": "Canonical hostname is mail.significanthobbies.com; former hostname retained until actual OAuth callback verification. Source 9e4cca9c956311946b5aa3659065568c4068a139 is deployed at 100%; actual browser model loading verified with synthetic text. Signed-in mailbox qualification and retrieval improvements remain open.",
       "name": "Kinetic",
       "aliases": [
         "Email Manager"
@@ -4940,7 +4940,7 @@
             "state": "active"
           }
         ],
-        "notes": "Worker version c8900fd9-0d92-4973-b2dd-7e1509427081, deployment 1cd0620c-d582-4262-a00c-070fda259190, carries exact source 210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6 at 100%. Existing D1/auth configuration retained; signed-in qualification remains open."
+        "notes": "Worker version c94fa462-d536-4080-a12a-f51976d25e90, deployment c8acbcec-3c3e-4e33-884e-a871aaf4d56e, carries exact source 9e4cca9c956311946b5aa3659065568c4068a139 at 100%. CI 34225523012 passed; deployed model inference passed under live CSP with synthetic text. Existing D1/auth configuration retained."
       },
       "chatgpt-memory-insights": {
         "updatedAt": "2026-08-11",

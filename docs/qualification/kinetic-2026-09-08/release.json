@@ -1,21 +1,22 @@
 {
   "observedAt": "2026-09-08",
-  "source": "210e6ad02d9ea4e1e6ee8daae9e1addc103b6de6",
+  "source": "9e4cca9c956311946b5aa3659065568c4068a139",
   "ci": {
-    "run": 34223394319,
+    "run": 34225523012,
     "state": "success"
   },
   "deployment": {
     "worker": "email-manager",
-    "version": "c8900fd9-0d92-4973-b2dd-7e1509427081",
-    "id": "1cd0620c-d582-4262-a00c-070fda259190",
+    "version": "c94fa462-d536-4080-a12a-f51976d25e90",
+    "id": "c8acbcec-3c3e-4e33-884e-a871aaf4d56e",
     "percentage": 100
   },
   "validation": {
-    "localQuality": "passed; 103 tests, unchanged gates",
-    "docs": "45 files passed",
+    "localQuality": "passed; 104 tests, unchanged gates",
+    "docs": "46 files passed",
     "isolatedMailbox": "real IndexedDB, synthetic mail and embeddings; colliding account IDs, distinct cursors and delayed writes passed",
-    "routingRegression": "three exported-Worker tests failed before repair and passed after"
+    "routingRegression": "three exported-Worker tests failed before repair and passed after",
+    "browserModel": "real application model with application CSP passed in isolated browser"
   },
   "liveGuestRoutes": {
     "/api/health": 200,
@@ -27,5 +28,13 @@
   "openapiVersion": "3.1.0",
   "loggedIn": "unverified; owner Google sign-in pending",
   "shareable": false,
-  "issue": "https://github.com/Significant-Hobbies/email-manager/issues/54"
+  "issue": "https://github.com/Significant-Hobbies/email-manager/issues/54",
+  "liveModel": {
+    "scope": "deployed Transformers bundle with app MiniLM fp32 configuration, synthetic text; no real mailbox",
+    "dimensions": 384,
+    "finite": true,
+    "norm": 0.9999997352863993,
+    "cspViolations": 0,
+    "loadAndInferenceMs": 6195
+  }
 }

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: dd5b2015dbe5fee8cb97181a14d03c18838ff11a8ed51e1b80217959ab550948
+      sha256: 7df01d1673eb085e9349ac803a0c65f1f37ce8b4150f5000a8d8d09f56ddc959
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T12:02:00.387Z
+      observedAt: 2026-09-08T12:24:47.038Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -162,7 +162,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T12:02:00.387Z
+  observedAt: 2026-09-08T12:24:47.038Z
   staleAfterDays: 30
   summary:
     healthy: 2

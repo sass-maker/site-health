@@ -21,7 +21,7 @@ Priority: restore Open Historia turns; correct High Signal evidence claims; repa
 | Live | No blocker to scoped sharing | Saving and authenticated history untested. |
 | GitStat | No blocker to scoped sharing | One public profile; private repositories untested. |
 | Field Track | No blocker to scoped sharing | Demo only; no Android/device/real workforce qualification. |
-| Kinetic | Qualification gap | Mailbox workflow and presentation after sign-in unverified. |
+| Kinetic | Qualification gap | Model loading repaired and verified live. Signed-in mailbox qualification and retrieval quality remain; MiniLM missed three of ten synthetic diagnostic queries. |
 | Knowledge Base | Qualification gap | No public core document workflow. |
 | India Standards | Qualification gap | No calculated result verified; did not bypass verification. |
 | Anime List | Product/evidence gap | Guest workflow and personal tracking unverified; no private content retained. |
