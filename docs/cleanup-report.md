@@ -1,6 +1,6 @@
 # Portfolio Cleanup Report
 
-Updated 2026-09-07. Tracking: [Site Health #491](https://github.com/sass-maker/site-health/issues/491).
+Updated 2026-09-09. Tracking: [Site Health #491](https://github.com/sass-maker/site-health/issues/491).
 Original requirements: `/Users/sarthak/Downloads/PORTFOLIO_CLEANUP_PRD_FINAL.md`.
 
 ## Current outcome
@@ -8,17 +8,17 @@ Original requirements: `/Users/sarthak/Downloads/PORTFOLIO_CLEANUP_PRD_FINAL.md`
 The lifecycle migration is implemented; the requested shareability exercise is
 **not complete**. A direct catalog check found 57 unique retained identities,
 with exactly the three required lifecycle fields on every record: 2 primary,
-19 active and 36 inactive. Every `shareable` is a JSON boolean and every
-`resumeCondition` is null. These fields do not authorize automatic reactivation.
+20 active and 35 inactive. Every `shareable` is a JSON boolean. All primary/active
+`resumeCondition` values are null; Verified Bases is the only inactive record
+with a concrete restart condition, tied to buyer need and support economics. These fields do not authorize automatic reactivation.
 
 The owner subsequently added Nomad as active, excluded it from this exercise,
-and removed Chess and Journal from the Fleet lineup. Their source, data and
-identity history remain preserved. The resulting goal covers **54 projects**:
-**22 have scoped hands-on sharing evidence, eight are retained without an
-adoption push, and 24 still require qualification or a product decision**. This is
-not 22 fully tested products: each pass applies only to its recorded experience.
-The public projection contains 21 identities because ChatGPT Connections keeps
-its separate hidden-listing choice despite its scoped sharing pass.
+kept Kith active, and removed Chess and Journal from the Fleet lineup. Their
+source, data and identity history remain preserved. The resulting goal covers
+**54 projects**. The earlier 22-pass/eight-retention/24-pending tally was a dated
+checkpoint, not a current completion count. No refreshed fleet-wide hands-on
+total is claimed here; per-project receipts and limitations remain authoritative.
+A catalog sharing flag or a green build alone does not qualify an experience.
 
 The original migration copied 32 sharing flags from recorded metadata without
 fresh verification. Those flags are superseded. The untouched migration body
@@ -48,7 +48,7 @@ and separate [condensed intent](portfolio-condensed-2026-08-23.md) remain distin
 | --- | --- |
 | Exact lifecycle schema and allocation | Directly checked all 57 current records; 54 remain in goal scope after the owner's later decisions. No invented resume conditions. |
 | Independent shareability | Public/lifecycle tests and catalog validation exist; current promotion uses recorded hands-on evidence, not the old flags. Each pass still has a bounded scope. |
-| Public projection | 21 qualified public identities deployed and verified on SaaS Maker and the personal site at desktop/mobile sizes; shared footer assets match the released build. |
+| Public projection | Earlier bounded deployment receipts are linked below. Reconcile the current generated identities and live surfaces before asserting a fresh fleet-wide count; public listing and shareability remain separate choices. |
 | Project tasks | The 54-repository scan at 11:34:09Z found 43 open issues, zero PRs and every issue referenced in its README. Exact-revision runs were refreshed too: High Signal retains a failed cron monitor, Anchor subsequently passed its repaired exact-head native run34118659206 after an earlier failed gate, and Mobile Dev Cockpit has Actions disabled with no current-head run. Later repairs and new findings change these counts; this snapshot is not a completed-task claim. Publication drafts and unfinished requirements remain open. |
 | Source checks | Checked repairs have per-commit receipts in the linked records. Local build/CI success does not prove hosted authentication, real providers, device behavior or deployment. |
 | Clean repositories | Owned temporary installations, databases, browser instances and worktrees are cleaned after each bounded task. Unrelated edits, unique branch history and pre-existing stashes remain preserved; the portfolio is not universally single-branch or clean. |
@@ -76,15 +76,34 @@ with their owning repository's rollout and rollback requirements.
 ## Next work
 
 Continue complete core journeys with authorized synthetic inputs, repair actual
-failures, then verify the intended distribution surface. Ongoing work includes
-Reader hosted acceptance and concurrency limits after its cached-note repair,
-Knowledge Base legacy migration/live qualification after its gated isolation repair,
-and Anchor signed-account/installed acceptance after the repaired hosted gate passed.
-Drank live personal tracking and 45/45 fresh proxy reads now pass; scheduled direct
-collection, distribution terms and source deployment remain separate gates. Keep every unfinished requirement actionable in its owning
-README/issue. Do not mark the overall goal achieved until all 54 projects have an evidence-backed
-sharing or retention outcome and the required operational reconciliation is verified.
-The owner explicitly permits retaining experiments without making them shareable.
+failures, then verify the intended distribution surface. Priority remains the
+Hub family: Kith, Setline, Anchor, Calorie and Live.
+
+- Reader source `90bc39768fcb773f91ecde87549aa3e5a4b3cb51` passed full quality,
+  seven synthetic-account handler/browser tests, exact-source CI and Docs, and
+  production deployment. The active Worker version was verified at 100% with
+  that full SHA tag. Independent concurrent-note loss and the invisible board
+  canvas are repaired. A fresh production guest smoke passed; the real signed-in
+  Google/D1/R2 import/read/annotate/reopen journey remains open. See
+  [Reader issue 55 release receipt](https://github.com/Significant-Hobbies/reader/issues/55#issuecomment-5591320099).
+- Anchor hosted review `34268576639` failed Mac authentication cancellation and
+  iPhone metadata navigation. Test-only source `b75c1c2` repairs the latter
+  test visibility handling and passes its focused local iPhone journey. The
+  Mac runner and manual local launch did not reach a usable reproduction;
+  neither clears the hosted cancellation failure. Installed iPhone build 24
+  and Mac build 21 do not establish physical signed-in use, CloudKit compatibility
+  or the distraction-note privacy boundary. See
+  [Anchor issue 51 checkpoint](https://github.com/Significant-Hobbies/anchor/issues/51#issuecomment-5591335590).
+- Knowledge Base retains legacy-data and live-provider qualification gates;
+  Drank retains scheduled direct-provider collection and distribution gates.
+  Their local or bounded public checks do not close those requirements.
+
+Keep every unfinished requirement actionable in its owning README/issue. Do not
+mark the overall goal achieved until all 54 projects have an evidence-backed
+sharing or retention outcome and the required operational reconciliation is
+verified. The owner explicitly permits retaining experiments without making
+them shareable. The dated records below preserve history rather than overriding
+newer exact-revision receipts and the canonical catalog.
 
 ## Earlier cleanup checkpoint
 
