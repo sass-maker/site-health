@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: cf77634275489b214711f6dbe2f23257c32a93797b3bd36257ffff0b02abab0b
+      sha256: 9a2a8e6578d5c0e159acc139a2d2a810e7dedc1425e613387e1515688ce7e29d
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T13:52:56.516Z
+      observedAt: 2026-09-09T14:42:54.766Z
       staleAfterDays: 30
       healthy: 5
       cancelled: 1
@@ -205,7 +205,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T13:52:56.516Z
+  observedAt: 2026-09-09T14:42:54.766Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -381,7 +381,7 @@ githubActions:
           createdAt: 2026-09-02T14:21:35Z
           updatedAt: 2026-09-02T15:10:21Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/33641528148
-        ageDays: 6
+        ageDays: 7
       schedule:
         health: failing
         reason: latest scheduled run concluded failure
@@ -512,7 +512,7 @@ githubActions:
         reason: GitHub-generated workflow
       live:
         health: stale
-        reason: latest run is 113 days old
+        reason: latest run is 114 days old
         apiState: active
         lastRun:
           id: 26038689795
@@ -524,7 +524,7 @@ githubActions:
           createdAt: 2026-05-18T14:07:24Z
           updatedAt: 2026-05-18T14:09:18Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/26038689795
-        ageDays: 113
+        ageDays: 114
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: cf77634275489b214711f6dbe2f23257c32a93797b3bd36257ffff0b02abab0b
+      sha256: 9a2a8e6578d5c0e159acc139a2d2a810e7dedc1425e613387e1515688ce7e29d
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T13:52:56.516Z
+      observedAt: 2026-09-09T14:42:54.766Z
       staleAfterDays: 30
       healthy: 4
       attention: &a2
@@ -188,7 +188,7 @@ repository:
       - typecheck
       - upload:cf
 githubActions:
-  observedAt: 2026-09-09T13:52:56.516Z
+  observedAt: 2026-09-09T14:42:54.766Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -230,7 +230,7 @@ githubActions:
           createdAt: 2026-09-07T14:00:47Z
           updatedAt: 2026-09-07T14:03:31Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582355
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -248,7 +248,7 @@ githubActions:
           createdAt: 2026-09-07T14:00:47Z
           updatedAt: 2026-09-07T14:03:31Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582355
-        ageDays: 1
+        ageDays: 2
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -313,7 +313,7 @@ githubActions:
           createdAt: 2026-09-07T14:00:47Z
           updatedAt: 2026-09-07T14:00:58Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -331,7 +331,7 @@ githubActions:
           createdAt: 2026-09-07T14:00:47Z
           updatedAt: 2026-09-07T14:00:58Z
           url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
-        ageDays: 1
+        ageDays: 2
       attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
