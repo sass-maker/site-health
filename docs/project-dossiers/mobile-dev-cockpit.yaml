@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: db7fcf7d862d79524330bf0c870243ad2b022a2a0609ae971f704727dffd7720
+      sha256: 2dae8c8b79d87bf3a4895ea654f032fd002c2984eb4a0640dbbff68d64b41683
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T06:56:15.821Z
+      observedAt: 2026-09-09T07:34:23.807Z
       staleAfterDays: 30
       stuck: 1
       attention: &a2
@@ -146,7 +146,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T06:56:15.821Z
+  observedAt: 2026-09-09T07:34:23.807Z
   staleAfterDays: 30
   summary:
     stuck: 1

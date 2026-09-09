@@ -63,14 +63,14 @@
         "Verified exact-source CI and web deployment metadata",
         "Read-only aggregate scoring audit; no data edits"
       ],
-      "observed": "Web-only source 2e0ab9e002cfd28b156f9db9e0429405a959e606 deployed at 100% as high-signal-web version caa21f9f-166f-4946-bd2c-854405f8785e. Live ordinary /track-record shows 3 hit/miss records, 1820 pending, 1823 total and an explicit small-sample/publication-provenance warning. Mobile 390px and desktop 1440px inspected. Historical outcomes preserved; API failure renders unavailable. Full quality, 31 suites, OpenNext build and exact-source CI/Docs passed. API and stored data unchanged.",
+      "observed": "Web source 077c30d2 is deployed at 100% with exact CI and Docs green. Real 390px Sources page returns 200 with document width 390 and 60 source labels, repairing reproduced overflow. Bounded judge retries fail honestly; retry 34321907153 published zero and exited 1 after HTTP502. Post-Free-AI-release retry 34324493619 passed with 0 published, 1 killed and 0 errors; Brief rebuild, freshness and MCP parity checks passed. This is one successful consumer run, not sustained recovery. Useful daily publication, calibration and broader API/MCP acceptance remain issue 133.",
       "urls": [
         "https://highsignal.app/",
         "https://highsignal.app/signals/openai-openai-s-chatgpt-sees-surge-in-positive-reviews",
         "https://highsignal.app/track-record"
       ],
       "limitations": "September 8 and September 7 Brief editions are empty despite successful ingest/publisher jobs; the sole new draft failed editorial structure. Useful evidence-qualified daily output and generation reliability remain unproven. Historical scoring publication timing and repeated windows require audit; mixed-source claim and API/MCP semantics remain unqualified.",
-      "verifiedAt": "2026-09-08",
+      "verifiedAt": "2026-09-09",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "public-surface-inspected",
@@ -149,15 +149,16 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Native relationship app",
-      "observed": "Source 59f4e31 build 8 repairs false local saves and failed-load mutation. Two before-fix regressions failed; all five focused regressions and full native gate passed (9 core, 8 app, 8 UI tests and Release build). Physical launch remains blocked by FBS Locked. Signed development build 8 installed successfully; its fresh launch remains blocked by FBS Locked.",
+      "observed": "Source 34a6cae build 12 fixes accepted timestamp decoding and adds explicit account-bound replay recovery, preserving the durable cursor and local edits. Local 41 native tests and Release passed; exact CI 34320766156 attempt 2 passed after an XCTest infrastructure failure. Signed Release installed on the owner iPhone on 2026-09-09; deliberately not launched. Physical use, account recovery, sync and public distribution remain unqualified.",
       "urls": [
-        "https://kith.significanthobbies.com/"
+        "https://kith.significanthobbies.com/",
+        "https://github.com/Significant-Hobbies/kith/issues/27#issuecomment-5597955713"
       ],
       "limitations": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
-      "verifiedAt": "2026-09-08",
+      "verifiedAt": "2026-09-09",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "development-build-installed; physical-journey-not-qualified",
+      "loggedOut": "signed-development-release-installed; not-launched; physical-journey-not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
       "disposition": "retain-unpromoted",
@@ -187,15 +188,16 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Native workout app",
-      "observed": "0283a79 build 8 fixes three reproduced storage defects and preserves failed workout recording/finish through retry. Six storage regressions, recovery UI and full native gate pass: 182 core, 17 app and 17 UI tests, one explicit iCloud-credential skip, Release build and 80.9537% coverage. Optional account validation follows local load and is skipped during active workouts. Signed development build 8 installed on the physical iPhone; installation does not establish a physical workout or sync pass.",
+      "observed": "Source c4f9616 build 10 fixes accepted timestamp decoding and adds explicit account-bound history replay recovery. Exact CI 34321631834 passed 232 native tests (one existing credential skip), Release and 81.0271% coverage. Signed Release installed on the owner iPhone on 2026-09-09 after one retry on verified reconnection; deliberately not launched. A real workout, restart, account recovery, sync and public distribution remain unqualified.",
       "urls": [
-        "https://setline.significanthobbies.com/"
+        "https://setline.significanthobbies.com/",
+        "https://github.com/Significant-Hobbies/setline/issues/77#issuecomment-5597955994"
       ],
       "limitations": "Physical installed workflow, signed-in sync, and TestFlight/public distribution remain unverified. Development installation alone is not a shareability pass.",
-      "verifiedAt": "2026-09-08",
+      "verifiedAt": "2026-09-09",
       "confidence": "medium",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "development-build-installed; physical-journey-not-qualified",
+      "loggedOut": "signed-development-release-installed; not-launched; physical-journey-not-qualified",
       "loggedIn": "not-verified",
       "presentation": "not-separately-screenshot-qualified",
       "disposition": "retain-unpromoted",
@@ -206,12 +208,12 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Inference API",
-      "observed": "Source 555915b9238e3dc1a2830ba47bb0169a9e841f66 repairs Gemini catalog pagination with bounded fixed-origin requests and fail-closed incomplete results. 252 tests/full quality, docs/playground build and exact CI 34120940384/Docs 34120940338 pass.",
+      "observed": "Source 65a3cf12 fixes round-robin ordering so only healthy equivalent external candidates rotate; fallback order remains intact. Exact CI and 261 tests passed. Manual deployment 34324194568 passed; full source tag and 100% traffic verified. Post-release High Signal retry 34324493619 passed with zero operational errors; its candidate was rejected editorially and no new signal published. Sustained authorized inference and consumer qualification remain issue 65.",
       "urls": [
         "https://ai-gateway.sassmaker.com/authentication/"
       ],
       "limitations": "Actual live inference/operator access and consumer qualification remain #65; historical Gemini HTTP400 and missing provider credentials remain #62. Pagination repair does not establish their cause or recovery.",
-      "verifiedAt": "2026-09-07",
+      "verifiedAt": "2026-09-09",
       "confidence": "low",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "not-qualified",
@@ -325,16 +327,19 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Gmail workspace",
-      "observed": "451b699 deployed at 100%, exact CI green, 110 tests. Index cancellation/persisted counts repaired; real IndexedDB cancellation and retry passed. Fixed model CDN/runtime CSP blocks; actual deployed ONNX inference on synthetic text passes with zero CSP violations. Guest app/health/session 200, mail 401. Owner login pending.",
-      "limitations": "Signed-in mailbox/presentation unverified; MiniLM missed three of ten synthetic diagnostic queries. Candidate improved this tiny corpus but broad ranking quality and model-cache migration remain unqualified.",
-      "verifiedAt": "2026-09-08",
+      "observed": "Runtime 24142fee is deployed at 100%; exact CI 34323190467 passed 124 tests. Search accepts only dense finite normalized 384-dimensional vectors with the pinned MiniLM identity. Stale or untagged vectors remain pending explicit reindexing; mail is preserved. Real IndexedDB migration/reload and public 390px landing/login checks pass. A 16-message synthetic diagnostic scored MiniLM 16/18 versus BGE 17/18; this is not real-mailbox acceptance. Owner OAuth, account switching and real mailbox workflows remain issue 54. Documentation-only fc460af8 has green CI 34323671625.",
+      "limitations": "Current synthetic diagnostic uses only 16 messages and 18 queries; it is not a real-mailbox benchmark. IndexedDB cache migration/reload is tested locally. Owner OAuth, account switching, migration of a real account and real mailbox workflows remain unqualified.",
+      "verifiedAt": "2026-09-09",
       "confidence": "low",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "live sign-in surface and anonymous API boundaries verified",
       "loggedIn": "not-verified; owner Google sign-in pending",
       "presentation": "public hero visually inspected at 390px; terms renders within 390px viewport",
       "disposition": "retain-unpromoted",
-      "evidencePath": "docs/qualification/kinetic-2026-09-08/README.md"
+      "evidencePath": "docs/qualification/kinetic-2026-09-08/README.md",
+      "urls": [
+        "https://github.com/Significant-Hobbies/email-manager/issues/54#issuecomment-5597898024"
+      ]
     },
     {
       "id": "knowledge-base",
@@ -627,9 +632,9 @@
       "verdict": "not_verified",
       "shareable": false,
       "surface": "Private integration Hub",
-      "observed": "Landing states owner-only; Open private Hub redirects to Live login. Continue with Google returned to login without completing access.",
+      "observed": "Runtime 629d8e7 is deployed at 100%. Actual 390px public directory lists exactly Live, Calorie, Setline, Kith and Anchor, without Journal or overflow. Private entry follows apex /hub to Live /hub and login with the correct return path. All 53 Worker tests and six deploy gates passed. Google still visibly rejects login with redirect_uri_mismatch. Personal account continuity and physical native sync remain unqualified; shareability stays false.",
       "limitations": "Private summary/sync workflow unverified; guest quiz belongs to Live.",
-      "verifiedAt": "2026-09-07",
+      "verifiedAt": "2026-09-09",
       "confidence": "low",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "not-qualified",

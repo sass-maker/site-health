@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: db7fcf7d862d79524330bf0c870243ad2b022a2a0609ae971f704727dffd7720
+      sha256: 2dae8c8b79d87bf3a4895ea654f032fd002c2984eb4a0640dbbff68d64b41683
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,11 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T06:56:15.821Z
+      observedAt: 2026-09-09T07:34:23.807Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 1
       attention: &a2
-        action-required: 1
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
@@ -129,10 +129,10 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T06:56:15.821Z
+  observedAt: 2026-09-09T07:34:23.807Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/kith
@@ -158,18 +158,18 @@ githubActions:
         status: active
         reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
           id: 34320766156
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
           headSha: 34a6cae0afd6db659d218081cc14d1aa78b7eb80
           createdAt: 2026-09-09T06:48:39Z
-          updatedAt: 2026-09-09T06:56:08Z
+          updatedAt: 2026-09-09T07:09:23Z
           url: https://github.com/Significant-Hobbies/kith/actions/runs/34320766156
         ageDays: 0
       schedule:
@@ -177,20 +177,20 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
+        health: healthy
+        reason: current main push concluded success
         lastRun:
           id: 34320766156
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
           headSha: 34a6cae0afd6db659d218081cc14d1aa78b7eb80
           createdAt: 2026-09-09T06:48:39Z
-          updatedAt: 2026-09-09T06:56:08Z
+          updatedAt: 2026-09-09T07:09:23Z
           url: https://github.com/Significant-Hobbies/kith/actions/runs/34320766156
         ageDays: 0
-      attention: action-required
+      attention: clear
 deployment:
   kind: pages
   deployed: true
@@ -220,7 +220,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-09
-  reason: Build 12/source 8d661d8 saves explicit Hub account approval with the local document before backfill, refuses cross-account ownership/downloads, and pauses incompatible iCloud mirrors. Four ownership regressions and full local native unit/UI/Release passed. Exact-source CI 34262940871 passed; signed build 12 installed on 2026-09-09. Fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Actual signed-in approval/reconciliation, physical use and public native distribution remain unqualified. Corrected private-beta landing is live (b31f1441).
+  reason: Source 34a6cae build 12 fixes accepted timestamp decoding and adds explicit account-bound replay recovery, preserving the durable cursor and local edits. Local 41 native tests and Release passed; exact CI 34320766156 attempt 2 passed after an XCTest infrastructure failure. Signed Release installed on the owner iPhone on 2026-09-09; deliberately not launched. Physical use, account recovery, sync and public distribution remain unqualified.
   changelogUrl: https://kith.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/kith/issues
   geoIdentity:
@@ -243,5 +243,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Build 12/source 8d661d8 saves explicit Hub account approval with the local document before backfill, refuses cross-account ownership/downloads, and pauses incompatible iCloud mirrors. Four ownership regressions and full local native unit/UI/Release passed. Exact-source CI 34262940871 passed; signed build 12 installed on 2026-09-09. Fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Actual signed-in approval/reconciliation, physical use and public native distribution remain unqualified. Corrected private-beta landing is live (b31f1441).
+  catalog: Source 34a6cae build 12 fixes accepted timestamp decoding and adds explicit account-bound replay recovery, preserving the durable cursor and local edits. Local 41 native tests and Release passed; exact CI 34320766156 attempt 2 passed after an XCTest infrastructure failure. Signed Release installed on the owner iPhone on 2026-09-09; deliberately not launched. Physical use, account recovery, sync and public distribution remain unqualified.
   infrastructure: Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has a Hub-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight.

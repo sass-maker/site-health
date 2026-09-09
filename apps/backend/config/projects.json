@@ -616,8 +616,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "Account-cache, API routing and browser model CSP repairs and indexing cancellation fix deployed at 451b699 with green CI. Real deployed ONNX inference on synthetic text passes with no CSP violations. MiniLM misses three of ten diagnostic queries; owner OAuth, account switching and real mailbox workflows remain issue 54."
+          "verifiedAt": "2026-09-09",
+          "reason": "Runtime 24142fee is deployed at 100%; exact CI 34323190467 passed 124 tests. Search accepts only dense finite normalized 384-dimensional vectors with the pinned MiniLM identity. Stale or untagged vectors remain pending explicit reindexing; mail is preserved. Real IndexedDB migration/reload and public 390px landing/login checks pass. A 16-message synthetic diagnostic scored MiniLM 16/18 versus BGE 17/18; this is not real-mailbox acceptance. Owner OAuth, account switching and real mailbox workflows remain issue 54. Documentation-only fc460af8 has green CI 34323671625."
         }
       },
       "authModel": "required-user",
@@ -631,7 +631,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Canonical hostname is mail.significanthobbies.com; former hostname retained until actual OAuth callback verification. Source 451b699fc6010812ae168b6e776d45f16544b2f9 is deployed at 100%; actual browser model loading verified with synthetic text. Signed-in mailbox qualification and retrieval improvements remain open.",
+      "notes": "Runtime 24142fee is deployed at 100%; exact CI 34323190467 passed 124 tests. Search accepts only dense finite normalized 384-dimensional vectors with the pinned MiniLM identity. Stale or untagged vectors remain pending explicit reindexing; mail is preserved. Real IndexedDB migration/reload and public 390px landing/login checks pass. A 16-message synthetic diagnostic scored MiniLM 16/18 versus BGE 17/18; this is not real-mailbox acceptance. Owner OAuth, account switching and real mailbox workflows remain issue 54. Documentation-only fc460af8 has green CI 34323671625.",
       "name": "Kinetic",
       "aliases": [
         "Email Manager"
@@ -711,8 +711,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "Routing fix d77eb5a3 is live at 100 percent and public ordering now prefers higher-success models. Actual authorized inference, sustained recovery, operator access and consumer qualification remain #65; GATEWAY_API_KEY is absent from this session and GitHub Actions. Provider catalog coverage gaps remain #62."
+          "verifiedAt": "2026-09-09",
+          "reason": "Source 65a3cf12 fixes round-robin ordering so only healthy equivalent external candidates rotate; fallback order remains intact. Exact CI and 261 tests passed. Manual deployment 34324194568 passed; full source tag and 100% traffic verified. Post-release High Signal retry 34324493619 passed with zero operational errors; its candidate was rejected editorially and no new signal published. Sustained authorized inference and consumer qualification remain issue 65."
         }
       },
       "authModel": "required-service",
@@ -726,7 +726,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "2026-09-07: a70262f5 checked and pushed with green CI; copied quickstarts now carry required project_id and access copy describes operator provisioning. Public aggregate telemetry reports recent AliveVille and High Signal callers, so keep active. Actual authorized inference, deployed copy and consumer qualification remain unverified; no retirement or provider change performed.",
+      "notes": "Source 65a3cf12 fixes round-robin ordering so only healthy equivalent external candidates rotate; fallback order remains intact. Exact CI and 261 tests passed. Manual deployment 34324194568 passed; full source tag and 100% traffic verified. Post-release High Signal retry 34324493619 passed with zero operational errors; its candidate was rejected editorially and no new signal published. Sustained authorized inference and consumer qualification remain issue 65.",
       "name": "Free AI",
       "attention": "toolbox",
       "lifecycle": {
@@ -805,8 +805,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "September 8 and September 7 Brief editions are empty despite successful ingest/publisher jobs; the sole new draft failed editorial structure. Useful evidence-qualified daily output and generation reliability remain unproven. Historical scoring publication timing and repeated windows require audit; mixed-source claim and API/MCP semantics remain unqualified."
+          "verifiedAt": "2026-09-09",
+          "reason": "Web source 077c30d2 is deployed at 100% with exact CI and Docs green. Real 390px Sources page returns 200 with document width 390 and 60 source labels, repairing reproduced overflow. Bounded judge retries fail honestly; retry 34321907153 published zero and exited 1 after HTTP502. Post-Free-AI-release retry 34324493619 passed with 0 published, 1 killed and 0 errors; Brief rebuild, freshness and MCP parity checks passed. This is one successful consumer run, not sustained recovery. Useful daily publication, calibration and broader API/MCP acceptance remain issue 133."
         }
       },
       "authModel": "public-persistent",
@@ -820,7 +820,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Web-only source 2e0ab9e002cfd28b156f9db9e0429405a959e606 deployed at 100% as high-signal-web version caa21f9f-166f-4946-bd2c-854405f8785e. Live ordinary /track-record shows 3 hit/miss records, 1820 pending, 1823 total and an explicit small-sample/publication-provenance warning. Mobile 390px and desktop 1440px inspected. Historical outcomes preserved; API failure renders unavailable. Full quality, 31 suites, OpenNext build and exact-source CI/Docs passed. API and stored data unchanged.",
+      "notes": "Web source 077c30d2 is deployed at 100% with exact CI and Docs green. Real 390px Sources page returns 200 with document width 390 and 60 source labels, repairing reproduced overflow. Bounded judge retries fail honestly; retry 34321907153 published zero and exited 1 after HTTP502. Post-Free-AI-release retry 34324493619 passed with 0 published, 1 killed and 0 errors; Brief rebuild, freshness and MCP parity checks passed. This is one successful consumer run, not sustained recovery. Useful daily publication, calibration and broader API/MCP acceptance remain issue 133.",
       "name": "High Signal",
       "attention": "my-work",
       "lifecycle": {
@@ -1183,8 +1183,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "The local session/return-path defect is repaired. Shared sync source e52fc1c now acknowledges downloads after an app commit and preserves bookkeeping on failed writes; CI passed 25 Swift and 53 Worker tests. Kith and Setline adopted the contract with green native CI. Anchor build 23/source a32e94a preserves its outbound-only boundary; hosted review passed 186 package tests, 14 Mac UI tests, 8 iPhone UI tests and Watch compilation. The updated Kith, Setline, Calorie and Anchor builds are installed on the phone; hands-on and account checks remain open. Remaining consumer audit is tracked in issue 155. Hosted Google sign-in, deployed binding topology, production session retention and physical native-app sync remain unqualified."
+          "verifiedAt": "2026-09-09",
+          "reason": "Runtime 629d8e7 is deployed at 100%. Actual 390px public directory lists exactly Live, Calorie, Setline, Kith and Anchor, without Journal or overflow. Private entry follows apex /hub to Live /hub and login with the correct return path. All 53 Worker tests and six deploy gates passed. Google still visibly rejects login with redirect_uri_mismatch. Personal account continuity and physical native sync remain unqualified; shareability stays false."
         }
       },
       "aliases": [
@@ -1211,7 +1211,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Canonical Hub repository and backend for the five-app Significant Hobbies family. The personal-platform Worker and D1 provide signed-in aggregation, sync, and action contracts; the habits domain remains for historical data compatibility after Anchor absorbed the maintained Habits/Indulge product. Live owns the apex Worker route. Source revisions Hub 3cd97827 and Live b7a47863 keep the public directory at https://significanthobbies.com/ and move the private entry to https://live.significanthobbies.com/hub through the existing Hub binding and Live host-only session. This routing change is locally qualified and not yet deployed. PersonalSyncKit is versioned from this repository for native consumers. Identity source b1b838c rejects stale account callbacks (27 Swift tests and 53 Worker tests passed locally; exact CI 34261323910 passed). Issue 156 retains a reproduced account-switch queue leak: durable sync state and product backfill still need account ownership. No provider deployment or native pin update occurred. Runtime source 118fc55 now binds durable sync to an explicitly approved stable account and rejects different-user reuse; 34 Swift tests and CI 34262036486 passed. Legacy approval UI, Kith document ownership and native consumer pin migrations remain open in issue 156.",
+      "notes": "Runtime 629d8e7 is deployed at 100%. Actual 390px public directory lists exactly Live, Calorie, Setline, Kith and Anchor, without Journal or overflow. Private entry follows apex /hub to Live /hub and login with the correct return path. All 53 Worker tests and six deploy gates passed. Google still visibly rejects login with redirect_uri_mismatch. Personal account continuity and physical native sync remain unqualified; shareability stays false.",
       "name": "Significant Hobbies",
       "attention": "toolbox",
       "lifecycle": {
@@ -1628,7 +1628,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Build 10 product source 6c1b1f4d694f1804c47861a774af476dd1038996 passed hosted CI 34265090575, including native quality. Explicit approval durably binds workout history and waiting Hub changes to a verified account; another account cannot adopt owned history. Session ownership survives existing iCloud payloads, active workouts stay offline, and incoming summaries preserve native details. Eight new core/app regressions and the full local unit/UI/Release gate passed with 81.1086% coverage against the unchanged 80.60% floor. The signed Release app passed strict/deep signature verification, installed and launched successfully on the owner iPhone on 9 September (process 18770). Physical UI inspection was unavailable due to computer-use native pipe startup failure. A real workout/restart, approval, signed-in continuity and public distribution remain unqualified. Documentation-only follow-up 3004cd0 records these receipts."
+          "reason": "Source c4f9616 build 10 fixes accepted timestamp decoding and adds explicit account-bound history replay recovery. Exact CI 34321631834 passed 232 native tests (one existing credential skip), Release and 81.0271% coverage. Signed Release installed on the owner iPhone on 2026-09-09 after one retry on verified reconnection; deliberately not launched. A real workout, restart, account recovery, sync and public distribution remain unqualified."
         }
       },
       "name": "Setline",
@@ -1725,7 +1725,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Build 12/source 8d661d8 saves explicit Hub account approval with the local document before backfill, refuses cross-account ownership/downloads, and pauses incompatible iCloud mirrors. Four ownership regressions and full local native unit/UI/Release passed. Exact-source CI 34262940871 passed; signed build 12 installed on 2026-09-09. Fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Actual signed-in approval/reconciliation, physical use and public native distribution remain unqualified. Corrected private-beta landing is live (b31f1441)."
+          "reason": "Source 34a6cae build 12 fixes accepted timestamp decoding and adds explicit account-bound replay recovery, preserving the durable cursor and local edits. Local 41 native tests and Release passed; exact CI 34320766156 attempt 2 passed after an XCTest infrastructure failure. Signed Release installed on the owner iPhone on 2026-09-09; deliberately not launched. Physical use, account recovery, sync and public distribution remain unqualified."
         }
       },
       "name": "Kith",
@@ -1760,7 +1760,7 @@
         "maturity": "in-progress",
         "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
       },
-      "notes": "Build 12/source 8d661d8 saves explicit Hub account approval with the local document before backfill, refuses cross-account ownership/downloads, and pauses incompatible iCloud mirrors. Four ownership regressions and full local native unit/UI/Release passed. Exact-source CI 34262940871 passed; signed build 12 installed on 2026-09-09. Fresh launch was denied by CoreDeviceError 10002 / FBS Locked. Actual signed-in approval/reconciliation, physical use and public native distribution remain unqualified. Corrected private-beta landing is live (b31f1441).",
+      "notes": "Source 34a6cae build 12 fixes accepted timestamp decoding and adds explicit account-bound replay recovery, preserving the durable cursor and local edits. Local 41 native tests and Release passed; exact CI 34320766156 attempt 2 passed after an XCTest infrastructure failure. Signed Release installed on the owner iPhone on 2026-09-09; deliberately not launched. Physical use, account recovery, sync and public distribution remain unqualified.",
       "category": "utility"
     },
     {
@@ -4919,7 +4919,7 @@
         ]
       },
       "email-manager": {
-        "updatedAt": "2026-09-08",
+        "updatedAt": "2026-09-09",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4937,7 +4937,7 @@
             "state": "active"
           }
         ],
-        "notes": "Worker version b42e2e27-b358-4ee7-a338-f9cc9d4cbc69, deployment b2eb7176-344c-46f6-9a62-3ac37e6281e0, carries exact source 451b699fc6010812ae168b6e776d45f16544b2f9 at 100%. CI 34226441025 passed with 110 tests; deployed model inference passed under live CSP with synthetic text. Existing D1/auth configuration retained."
+        "notes": "Worker 9ad4e473-50cb-4cfb-8735-895e4a909941 / deployment 5df53469-9e8c-40fa-b4bb-59febc65be2d carries runtime 24142fee34c39a2f941e4c8855b5926c24a62255 at 100%. Exact CI 34323190467 passed. Deployed /app asset matched the local build byte-for-byte; public mobile page had no overflow or page errors. Documentation-only fc460af8 was not separately deployed. Existing D1/auth configuration retained; real-account acceptance remains open."
       },
       "chatgpt-memory-insights": {
         "updatedAt": "2026-08-11",
@@ -4953,7 +4953,7 @@
         "resources": []
       },
       "free-ai": {
-        "updatedAt": "2026-08-11",
+        "updatedAt": "2026-09-09",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5006,7 +5006,8 @@
             "name": "AI",
             "state": "active"
           }
-        ]
+        ],
+        "notes": "Worker 002855ee-319d-4a6c-8231-6050f35c2a9c / deployment b7219624-3a72-48e3-8dbb-cf592fead821 carries 65a3cf1228e117525dc42b2136acc52dacfd0ff6 at 100%. Existing manual workflow 34324194568 passed. No provider registry, credentials, quotas or schema changed."
       },
       "psi-swarm": {
         "updatedAt": "2026-08-11",
@@ -5022,7 +5023,7 @@
         "resources": []
       },
       "high-signal": {
-        "updatedAt": "2026-09-08",
+        "updatedAt": "2026-09-09",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5083,7 +5084,7 @@
             "state": "active"
           }
         ],
-        "notes": "Web-only release: source 2e0ab9e002cfd28b156f9db9e0429405a959e606, version caa21f9f-166f-4946-bd2c-854405f8785e, deployment 8bb1802f-4c98-42c5-86d2-ba7a2e209c4c at 100%. API unchanged. Receipt: docs/qualification/high-signal-2026-09-08/README.md."
+        "notes": "Web Worker 0aa26236-4b19-4d44-bd48-672694f7c4af / deployment 1e280e29-9252-4a4e-af4f-d5bc55f06bbe carries 077c30d2b5a3cba5c1ccd09f16f69564aa41ab1e at 100%. Exact CI34323627453 and Docs34323627468 passed. API Worker unchanged."
       },
       "on-record": {
         "updatedAt": "2026-08-27",
@@ -5324,7 +5325,7 @@
         "notes": "The knowledgebase-app Worker is the retained legacy OpenNext app deployment; the current app surface is the Cloudflare Pages project with the same name. On 2026-08-30 the RAG Worker moved all indexed corpora to Workers AI embeddings, removed its Free AI gateway binding and direct-provider runtime configuration, and retained the old 1536-dimensional Vectorize index only as unreferenced rollback data."
       },
       "significanthobbies": {
-        "updatedAt": "2026-08-23",
+        "updatedAt": "2026-09-09",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5354,7 +5355,7 @@
             "state": "active"
           }
         ],
-        "notes": "Worker version dc4e0603-594f-4bf3-a584-459efe46c2e1 is live from exact Git SHA 56bf264b8bcf2aed5230398b34f9250f0de5c14a. D1 personal-platform and both domain service bindings remain active."
+        "notes": "Worker personal-platform version 8549fc16-e9dd-4ed8-864f-363c6cfde642 carries 629d8e7be44295044e60c950395ec3232541a373 at 100%. Prior rollback version d9b6ea57-7b9c-4a75-8f25-db62bd6d4db8 is tagged c821abfde26550c6adac9bce4213845ae37fd255. Existing D1 and service bindings unchanged. Issue154 comment5598004640 records release and browser proof."
       },
       "india-standards": {
         "updatedAt": "2026-08-11",
