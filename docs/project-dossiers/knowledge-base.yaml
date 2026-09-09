@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 870a98cba2456758bb5274def76c67aa292c7774e770f1ba854c10007a61bfee
+      sha256: 8d0e7eae13d5b620041d9e6a4b4185eee48fe3d3471194b3a14980e45e76e6e4
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: knowledge-base
-      revision: 4562c71d80e9bc8861e525bb0f0f442d7455675f
+      revision: e6b4a348b89a612031f8cfdf67eb27ef88a04722
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: knowledge-base
-      revision: 4562c71d80e9bc8861e525bb0f0f442d7455675f
+      revision: e6b4a348b89a612031f8cfdf67eb27ef88a04722
       githubRepository: sass-maker/knowledge-base
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T07:53:09.394Z
+      observedAt: 2026-09-09T08:38:25.782Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -109,13 +109,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-05-27
-    latestCommitAt: 2026-09-08
-    retainedCommitCount: 222
+    latestCommitAt: 2026-09-09
+    retainedCommitCount: 224
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: 4562c71d80e9bc8861e525bb0f0f442d7455675f
+  observedRevision: e6b4a348b89a612031f8cfdf67eb27ef88a04722
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -168,7 +168,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-09-09T07:53:09.394Z
+  observedAt: 2026-09-09T08:38:25.782Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -176,7 +176,7 @@ githubActions:
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: 4562c71d80e9bc8861e525bb0f0f442d7455675f
+    defaultBranchSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -201,15 +201,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34221819695
+          id: 34329574260
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4562c71d80e9bc8861e525bb0f0f442d7455675f
-          createdAt: 2026-09-08T11:39:12Z
-          updatedAt: 2026-09-08T11:40:35Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34221819695
+          headSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
+          createdAt: 2026-09-09T08:31:24Z
+          updatedAt: 2026-09-09T08:32:25Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34329574260
         ageDays: 0
       schedule:
         health: not-applicable
@@ -219,15 +219,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34221819695
+          id: 34329574260
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4562c71d80e9bc8861e525bb0f0f442d7455675f
-          createdAt: 2026-09-08T11:39:12Z
-          updatedAt: 2026-09-08T11:40:35Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34221819695
+          headSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
+          createdAt: 2026-09-09T08:31:24Z
+          updatedAt: 2026-09-09T08:32:25Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34329574260
         ageDays: 0
       attention: clear
     - name: docs
@@ -248,15 +248,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34221819621
+          id: 34329574244
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4562c71d80e9bc8861e525bb0f0f442d7455675f
-          createdAt: 2026-09-08T11:39:12Z
-          updatedAt: 2026-09-08T11:39:22Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34221819621
+          headSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
+          createdAt: 2026-09-09T08:31:24Z
+          updatedAt: 2026-09-09T08:31:34Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34329574244
         ageDays: 0
       schedule:
         health: not-applicable
@@ -266,15 +266,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34221819621
+          id: 34329574244
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4562c71d80e9bc8861e525bb0f0f442d7455675f
-          createdAt: 2026-09-08T11:39:12Z
-          updatedAt: 2026-09-08T11:39:22Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34221819621
+          headSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
+          createdAt: 2026-09-09T08:31:24Z
+          updatedAt: 2026-09-09T08:31:34Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34329574244
         ageDays: 0
       attention: clear
     - name: worker-eval-on-pr
@@ -468,7 +468,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-09
-  reason: "Current source 4562c71d80e9bc8861e525bb0f0f442d7455675f passed exact CI34221819695 and Docs34221819621. Verified offline raw-copy staging and synthetic ownership tests preserve source bytes and snapshot. Fresh September 9 390px guest landing is readable without overflow and explicitly illustrative; its operator link reaches Cloudflare Access for Knowledgebase Internal Dashboard. Fresh 31 SQLite/handler/staging tests pass. No operator sign-in, private corpus read, upload, provider mutation or deployment occurred. Authorized Access sign-in and a live upload/cited-query/reopen/foreign-tenant-denial/scoped-cleanup journey remain unqualified under #48. Legacy writer drain, verified provider copy, parse/indexed provenance rebuild, conditional publication and unresolved-write reconciliation still require implementation/review and controlled activation. Offline staging and fixture bindings do not prove live D1/R2/Vectorize convergence."
+  reason: "Source e6b4a348b89a612031f8cfdf67eb27ef88a04722 passed exact quality CI34329574260 and Docs34329574244. Offline raw and per-file/page parse staging now verifies snapshot identity, raw hashes, tenant provenance, PDF page order and immutable retry outputs. Limits reject oversized raw files and batches before reading; unsupported, encrypted or image-only PDFs remain blocked. 411 Worker tests, 6 dashboard tests, 12 Sharp round-trips and desktop/mobile landing parity pass. No production migration, provider write or activation occurred; readyForPublication remains false. Writer drain, production backfill, ledger reservation, recovery, indexed provenance and controlled activation remain open under #48, as does authenticated upload/cited-query/reopen/foreign-tenant-denial/scoped-cleanup acceptance. Synthetic and offline proofs do not establish live D1/R2/Vectorize convergence."
   changelogUrl: https://knowledgebase.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/knowledge-base/issues
   geoIdentity:

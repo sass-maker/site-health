@@ -54,7 +54,7 @@ agree at this snapshot; their descriptive narratives are not equally current.
 | Email Manager | Real account → mailbox → search/reindex → reload/account switch. Real local model/IndexedDB migration and deployed mobile guest UI pass; the tiny synthetic ranking diagnostic is not mailbox acceptance. | [#54 receipt](https://github.com/Significant-Hobbies/email-manager/issues/54#issuecomment-5597898024) |
 | Free AI | Sustained protected inference and consumer recovery. One post-release consumer run had zero operational errors but published no signal. | [#65](https://github.com/sass-maker/free-ai/issues/65) |
 | High Signal | Useful evidence-qualified daily publication and sustained generation reliability. Successful infrastructure jobs and an editorially rejected candidate do not establish a useful daily edition. | [#133](https://github.com/High-Signal-App/high-signal/issues/133) |
-| Knowledge Base | Legacy provenance backfill/recovery, controlled activation and real private document workflow. Offline staging and synthetic ownership tests do not prove live D1/R2/Vectorize convergence. | [#48 fresh receipt](https://github.com/sass-maker/knowledge-base/issues/48#issuecomment-5597534921) |
+| Knowledge Base | Legacy provenance backfill/recovery, controlled activation and real private document workflow. Verified offline per-file/page parse staging is implemented, but does not prove live D1/R2/Vectorize convergence. | [#48 fresh receipt](https://github.com/sass-maker/knowledge-base/issues/48#issuecomment-5598850769) |
 | Significant Hobbies Hub | Google rejects the Live callback registration. Real hosted Hub session, account isolation and native continuity remain unqualified despite deployed routing repairs. | [#154](https://github.com/Significant-Hobbies/significanthobbies/issues/154), [Live #14](https://github.com/Significant-Hobbies/live/issues/14) |
 | India Standards | A normal visible Turnstile click still fails in the isolated browser; no hosted default/sparse/unsupported calculation completed. This does not establish a MotherDuck outage. Usage/NFHS gates remain separate. | [#35 fresh receipt](https://github.com/Significant-Hobbies/india-standards/issues/35#issuecomment-5598017386), [#36](https://github.com/Significant-Hobbies/india-standards/issues/36) |
 | Anime List | Real authenticated tracking, reload, account isolation and expiry/write recovery. Fresh mobile guest search → detail → reload passes without overflow. | [#89 fresh receipt](https://github.com/Significant-Hobbies/anime-list/issues/89#issuecomment-5598081800) |
@@ -88,8 +88,8 @@ Held experiments retain specific evidence without becoming launch queues:
 AliveVille now has local scripted talk/memory/save and font resilience proof,
 but its latest mobile hosted check reaches only world selection, with model
 downloads deliberately blocked. Open Historia now has a live three-turn
-rewind/save/reload proof; historical campaign coherence, authenticated saves
-and remaining panel/branch crowding are still open. Motion needs physical
+rewind/save/reload proof plus deployed panel/branch repairs verified at six sizes;
+historical campaign coherence and authenticated saves remain open. Motion needs physical
 camera/control evidence; Companion Robot has no working hardware product.
 Reel Pipeline and Forecast Lab do not require licensing/release decisions merely
 to remain experiments. Cockpit and TrueHire remain historical references.
@@ -101,7 +101,14 @@ Open Historia qualification narratives from their owning receipts. Scope and
 readiness flags remain unchanged. Anchor source-only acceptance is separated
 from older installed builds; Reader's deployed concurrent note merge is no
 longer described as missing; Open Historia's repaired persistence is separated
-from campaign coherence and current layout work.
+from campaign coherence. Its layout follow-up passed clean first-attempt hosted
+CI34327732410 after an explicitly recorded earlier flaky run.
+
+Knowledge Base's offline per-file/page parse staging and dependency repair are
+committed separately, with exact CI34329574260 green. Production publication,
+recovery and owner-account acceptance remain open; no migration or activation
+was performed. High Signal's geographic NNE attribution repair merged with exact
+CI34328950533 green; this does not establish a useful new daily edition.
 
 Reel/Forecast licensing language now preserves their explicit retention without
 a release requirement. Old deployment-pending paragraphs in issue/status

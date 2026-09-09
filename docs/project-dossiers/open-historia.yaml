@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 870a98cba2456758bb5274def76c67aa292c7774e770f1ba854c10007a61bfee
+      sha256: 8d0e7eae13d5b620041d9e6a4b4185eee48fe3d3471194b3a14980e45e76e6e4
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: open-historia
-      revision: 4ab2b5cadba70c00b01dcdab4db5bedfec793d9a
+      revision: 6b7fa8f883f261291a5c32a47516f06b18668da0
       githubRepository: sarthakagrawal927/open-historia
       expectedHomepage: https://historia.aliveville.com
       observedHomepage: https://historia.aliveville.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: open-historia
-      revision: 4ab2b5cadba70c00b01dcdab4db5bedfec793d9a
+      revision: 6b7fa8f883f261291a5c32a47516f06b18668da0
       githubRepository: sarthakagrawal927/open-historia
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,11 +56,10 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T07:53:09.394Z
+      observedAt: 2026-09-09T08:38:25.782Z
       staleAfterDays: 30
-      running: 1
+      healthy: 3
       failing: 1
-      healthy: 2
       attention: &a2
         ignored: 4
   unknowns: []
@@ -111,12 +110,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-02-08
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 231
+    retainedCommitCount: 234
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: open-historia
-  observedRevision: 4ab2b5cadba70c00b01dcdab4db5bedfec793d9a
+  observedRevision: 6b7fa8f883f261291a5c32a47516f06b18668da0
   githubRepository: sarthakagrawal927/open-historia
   githubHomepageUrl: https://historia.aliveville.com
   worktree: *a1
@@ -179,17 +178,16 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-09T07:53:09.394Z
+  observedAt: 2026-09-09T08:38:25.782Z
   staleAfterDays: 30
   summary:
-    running: 1
+    healthy: 3
     failing: 1
-    healthy: 2
   attention: *a2
   remote:
     repository: sarthakagrawal927/open-historia
     defaultBranch: main
-    defaultBranchSha: 4ab2b5cadba70c00b01dcdab4db5bedfec793d9a
+    defaultBranchSha: 6b7fa8f883f261291a5c32a47516f06b18668da0
     homepage: https://historia.aliveville.com
     query: verified
     disposition:
@@ -210,37 +208,37 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34325919612
-          status: in_progress
-          conclusion: null
-          event: pull_request
-          branch: imgbot
-          headSha: d080c06628783aead447a899b12feec2be731071
-          createdAt: 2026-09-09T07:50:30Z
-          updatedAt: 2026-09-09T07:50:34Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34325919612
+          id: 34327732410
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 6b7fa8f883f261291a5c32a47516f06b18668da0
+          createdAt: 2026-09-09T08:11:05Z
+          updatedAt: 2026-09-09T08:16:29Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34327732410
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 34325773666
-          status: in_progress
-          conclusion: null
+          id: 34327732410
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: 4ab2b5cadba70c00b01dcdab4db5bedfec793d9a
-          createdAt: 2026-09-09T07:48:49Z
-          updatedAt: 2026-09-09T07:48:52Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34325773666
+          headSha: 6b7fa8f883f261291a5c32a47516f06b18668da0
+          createdAt: 2026-09-09T08:11:05Z
+          updatedAt: 2026-09-09T08:16:29Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34327732410
         ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
@@ -401,10 +399,10 @@ sharing:
   maturity: null
   ready: false
   verifiedAt: 2026-09-09
-  reason: "Source d6d052f69942e19362c665ac1ed8dfc99d62a17c was released after CI34323177334 and six guard gates as Worker e4a26fe5-9d2f-46fd-83e6-228d1e8c7a75 at100% with the exact fullSHA tag. September 9 real390 guest three-turn replay returned200 in2441/2543/1859ms. Rewind/save/reload restores checkpoint summary, relations and timeline; the next request uses checkpoint memory and the new snapshot parents that checkpoint. Final1280 reopen equality passes. Durable live receipt is retained at docs commit933a824. No authenticated save or database migration occurred. Experiment remains inactive/nonshareable under #27. Historical faction/scenario coherence and coarse geography, authenticated cloud saves, desktop story/terminal overlap and mobile branch crowding remain unqualified. The earlier relationship/timeline reload loss and future-memory rewind leak are repaired in the named bounded live scope; do not generalize that receipt to a coherent complete campaign."
+  reason: "Guest checkpoint persistence and desktop/mobile layout repairs are deployed from 9445110fc7857238eadff2de27804deca754f380 as Worker e529a943-f06e-4529-9323-dd3a384d5fc7 at100%, deployment21a0e2d9-30a1-4636-a6f5-c884b501a960. The September9 receipt proves six viewport sizes without panel overlap or branch-control collisions, 44px branch targets, public asset parity and actual guest Save/reload preserving three snapshots, relations, summary and selected branch. Earlier real guest AI turns also proved checkpoint memory and branch parent continuity. Final tests/docs-only HEAD6b7fa8f883f261291a5c32a47516f06b18668da0 passed CI34327732410 on the first attempt with22 browser and87 unit tests, after an explicitly recorded earlier flaky run. Historical faction/scenario coherence, geography and authenticated cloud saves/account isolation remain unqualified under #27. Keep inactive/nonshareable; these repairs do not establish a coherent complete campaign."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/open-historia/issues
   geoIdentity: null
 notes:
   catalog: "September 8: a79b6e2598cdf965e3cee0fc7e23ca32cf4f0021 deployed at 100% as d420bcf2-f9e9-46af-9703-c1aa78b38731 after exact CI 34238119844. Responsive campaign panels, local terminal scrolling, empty timeline reopening and valid map zoom expression repaired. Both browser projects passed in CI. Live 390px guest turn returned HTTP 200 in 4117ms; map, controls, narrative, relation and timeline save verified. Remains held/unqualified for historical coherence and authenticated cloud journeys."
-  infrastructure: Runtime d6d052f69942e19362c665ac1ed8dfc99d62a17c is verified at 100% as Worker e4a26fe5-9d2f-46fd-83e6-228d1e8c7a75, deployment26b34bf1-5493-4f59-89b7-a9557ea54a65. Actual guest three-turn rewind/save/reload and checkpoint parent/memory proof passes. Subsequent layout source4ab2b5c is still awaiting hosted release qualification; no new deployment is claimed here.
+  infrastructure: "September9 release receipt: runtime9445110fc7857238eadff2de27804deca754f380 is deployed at100% as Worker e529a943-f06e-4529-9323-dd3a384d5fc7, deployment21a0e2d9-30a1-4636-a6f5-c884b501a960. Six-size layout, public asset parity and guest Save/reload passed. Final tests/docs-only source6b7fa8f passed clean CI34327732410. Prior runtime e4a26fe5-9d2f-46fd-83e6-228d1e8c7a75 remains the rollback. Campaign coherence and authenticated save qualification remain open."

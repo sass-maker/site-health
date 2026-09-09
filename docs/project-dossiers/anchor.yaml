@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 870a98cba2456758bb5274def76c67aa292c7774e770f1ba854c10007a61bfee
+      sha256: 8d0e7eae13d5b620041d9e6a4b4185eee48fe3d3471194b3a14980e45e76e6e4
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: anchor
-      revision: 309a3ff0c23c9235426987c1fa13e3cc5935dbf0
+      revision: f2b3b4caf967e1054e1f8fd6e36dc309d92c9e66
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 11
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-09
       state: available
       checkout: anchor
-      revision: 309a3ff0c23c9235426987c1fa13e3cc5935dbf0
+      revision: f2b3b4caf967e1054e1f8fd6e36dc309d92c9e66
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T07:53:09.394Z
+      observedAt: 2026-09-09T08:38:25.782Z
       staleAfterDays: 30
       failing: 1
       attention: &a2
@@ -124,12 +124,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 104
+    retainedCommitCount: 105
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: 309a3ff0c23c9235426987c1fa13e3cc5935dbf0
+  observedRevision: f2b3b4caf967e1054e1f8fd6e36dc309d92c9e66
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -145,7 +145,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T07:53:09.394Z
+  observedAt: 2026-09-09T08:38:25.782Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -153,7 +153,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: 309a3ff0c23c9235426987c1fa13e3cc5935dbf0
+    defaultBranchSha: f2b3b4caf967e1054e1f8fd6e36dc309d92c9e66
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
