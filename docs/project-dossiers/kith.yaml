@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3f8c09cbfd91a397b5345edc2d46a444a9e1bfd4dee8685c55e1e521c5b1d1e9
+      sha256: db7fcf7d862d79524330bf0c870243ad2b022a2a0609ae971f704727dffd7720
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: kith
-      revision: 8d661d8736baa0e3388e2b542d020b6fa248a02c
+      revision: 34a6cae0afd6db659d218081cc14d1aa78b7eb80
       githubRepository: Significant-Hobbies/kith
       expectedHomepage: https://kith.significanthobbies.com
       observedHomepage: https://kith.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: kith
-      revision: 8d661d8736baa0e3388e2b542d020b6fa248a02c
+      revision: 34a6cae0afd6db659d218081cc14d1aa78b7eb80
       githubRepository: Significant-Hobbies/kith
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,11 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T06:20:28.972Z
+      observedAt: 2026-09-09T06:56:15.821Z
       staleAfterDays: 30
-      healthy: 1
+      failing: 1
       attention: &a2
-        clear: 1
+        action-required: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
@@ -107,13 +107,13 @@ product:
     - PersonalSyncKit
   retainedGitHistory:
     firstCommitAt: 2026-08-16
-    latestCommitAt: 2026-09-08
-    retainedCommitCount: 50
+    latestCommitAt: 2026-09-09
+    retainedCommitCount: 52
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: kith
-  observedRevision: 8d661d8736baa0e3388e2b542d020b6fa248a02c
+  observedRevision: 34a6cae0afd6db659d218081cc14d1aa78b7eb80
   githubRepository: Significant-Hobbies/kith
   githubHomepageUrl: https://kith.significanthobbies.com
   worktree: *a1
@@ -129,15 +129,15 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T06:20:28.972Z
+  observedAt: 2026-09-09T06:56:15.821Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    failing: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/kith
     defaultBranch: main
-    defaultBranchSha: 8d661d8736baa0e3388e2b542d020b6fa248a02c
+    defaultBranchSha: 34a6cae0afd6db659d218081cc14d1aa78b7eb80
     homepage: https://kith.significanthobbies.com
     query: verified
     disposition:
@@ -158,39 +158,39 @@ githubActions:
         status: active
         reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 34262940871
+          id: 34320766156
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 8d661d8736baa0e3388e2b542d020b6fa248a02c
-          createdAt: 2026-09-08T18:25:24Z
-          updatedAt: 2026-09-08T18:33:50Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34262940871
+          headSha: 34a6cae0afd6db659d218081cc14d1aa78b7eb80
+          createdAt: 2026-09-09T06:48:39Z
+          updatedAt: 2026-09-09T06:56:08Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/34320766156
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: failing
+        reason: current main push concluded failure
         lastRun:
-          id: 34262940871
+          id: 34320766156
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 8d661d8736baa0e3388e2b542d020b6fa248a02c
-          createdAt: 2026-09-08T18:25:24Z
-          updatedAt: 2026-09-08T18:33:50Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34262940871
+          headSha: 34a6cae0afd6db659d218081cc14d1aa78b7eb80
+          createdAt: 2026-09-09T06:48:39Z
+          updatedAt: 2026-09-09T06:56:08Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/34320766156
         ageDays: 0
-      attention: clear
+      attention: action-required
 deployment:
   kind: pages
   deployed: true

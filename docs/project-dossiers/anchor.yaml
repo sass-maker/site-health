@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3f8c09cbfd91a397b5345edc2d46a444a9e1bfd4dee8685c55e1e521c5b1d1e9
+      sha256: db7fcf7d862d79524330bf0c870243ad2b022a2a0609ae971f704727dffd7720
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,11 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T06:20:28.972Z
+      observedAt: 2026-09-09T06:56:15.821Z
       staleAfterDays: 30
-      healthy: 1
+      failing: 1
       attention: &a2
-        clear: 1
+        review-history: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
@@ -145,15 +145,15 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T06:20:28.972Z
+  observedAt: 2026-09-09T06:56:15.821Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    failing: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: b75c1c2161752fc531721b69f2ef1a8655787b9a
+    defaultBranchSha: 578778ca086e7d9014a723a070256172578032be
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -173,19 +173,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 34274284513
+          id: 34321290511
           status: completed
-          conclusion: success
+          conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: b75c1c2161752fc531721b69f2ef1a8655787b9a
-          createdAt: 2026-09-08T20:21:05Z
-          updatedAt: 2026-09-08T20:42:40Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34274284513
+          headSha: c9927b9b7abb7d2bec281a9c1d3d047f50a0483a
+          createdAt: 2026-09-09T06:55:16Z
+          updatedAt: 2026-09-09T06:55:26Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34321290511
         ageDays: 0
       schedule:
         health: not-applicable
@@ -195,7 +195,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: review-history
 deployment:
   kind: pages
   deployed: true

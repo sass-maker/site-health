@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3f8c09cbfd91a397b5345edc2d46a444a9e1bfd4dee8685c55e1e521c5b1d1e9
+      sha256: db7fcf7d862d79524330bf0c870243ad2b022a2a0609ae971f704727dffd7720
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T06:20:28.972Z
+      observedAt: 2026-09-09T06:56:15.821Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -162,7 +162,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T06:20:28.972Z
+  observedAt: 2026-09-09T06:56:15.821Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -205,7 +205,7 @@ githubActions:
           createdAt: 2026-09-07T06:54:33Z
           updatedAt: 2026-09-07T07:05:48Z
           url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34092921882
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -223,7 +223,7 @@ githubActions:
           createdAt: 2026-09-07T06:54:33Z
           updatedAt: 2026-09-07T07:05:48Z
           url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34092921882
-        ageDays: 1
+        ageDays: 2
       attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml

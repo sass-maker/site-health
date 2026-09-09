@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3f8c09cbfd91a397b5345edc2d46a444a9e1bfd4dee8685c55e1e521c5b1d1e9
+      sha256: db7fcf7d862d79524330bf0c870243ad2b022a2a0609ae971f704727dffd7720
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,11 +56,10 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T06:20:28.972Z
+      observedAt: 2026-09-09T06:56:15.821Z
       staleAfterDays: 30
-      healthy: 11
+      healthy: 12
       failing: 1
-      running: 1
       attention: &a2
         missing-data: 2
         clear: 11
@@ -276,12 +275,11 @@ repository:
       - version:check
       - version:sync
 githubActions:
-  observedAt: 2026-09-09T06:20:28.972Z
+  observedAt: 2026-09-09T06:56:15.821Z
   staleAfterDays: 30
   summary:
-    healthy: 11
+    healthy: 12
     failing: 1
-    running: 1
   attention: *a2
   remote:
     repository: Codevetter/codevetter
@@ -807,18 +805,18 @@ githubActions:
         status: managed
         reason: GitHub-generated workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
           id: 34318030911
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: success
           event: dynamic
           branch: main
           headSha: 12b934322797a15751ba925993f19e1e005b29f8
           createdAt: 2026-09-09T06:12:12Z
-          updatedAt: 2026-09-09T06:12:24Z
+          updatedAt: 2026-09-09T06:37:04Z
           url: https://github.com/Codevetter/codevetter/actions/runs/34318030911
         ageDays: 0
       schedule:

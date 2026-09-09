@@ -105,7 +105,7 @@
         "listing": "maintained",
         "id": "codevetter",
         "name": "CodeVetter",
-        "description": "Execution-backed verification for AI-written software changes — local-first and inspectable.",
+        "description": "Execution-backed verification for AI-written software changes \u2014 local-first and inspectable.",
         "category": "product",
         "pillarId": "build",
         "spotlight": true,
@@ -255,8 +255,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "Hosted mobile guest onboarding and local bucket-list save, abort recovery, completion, deletion and reload verified in Chromium and WebKit on 9a4c9d1 at 100% traffic. Public HTML MISS/HIT cache policy and referenced assets verified. Actual Google sign-in is blocked by provider redirect_uri_mismatch; authenticated persistence, isolation and Hub continuity remain unqualified. Sharing is limited to the guest surface."
+          "verifiedAt": "2026-09-09",
+          "reason": "Guest sharing only. Security release 207f11bff5e03207bbe0ffaf79fa446b4629ef72 passed 593 quality tests and 142 hosted browser tests; Worker ecd54c8c-8df1-4c60-8f52-0942b3b89ced is verified at 100% traffic with the full SHA tag. Actual 390px production landing returns 200, has readable spacing and no horizontal overflow. Actual Google sign-in still fails with provider redirect_uri_mismatch; authenticated persistence, isolation and Hub continuity remain unqualified."
         }
       },
       "aliases": [
@@ -4645,7 +4645,7 @@
         "notes": "Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched."
       },
       "live": {
-        "updatedAt": "2026-08-30",
+        "updatedAt": "2026-09-09",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -4705,7 +4705,7 @@
             "state": "retired-confirmed-account-retained"
           }
         ],
-        "notes": "Worker version b12f3076-3eb9-4cb0-95b0-fd0dea393fe1 is live from exact Git SHA 62c42a7b4acdbcb74f042da4eaa0f792020d1da9. Live retains its existing data and authentication boundary and proxies only Hub routes to personal-platform. The former Turso database was confirmed deleted on 2026-08-30; the empty account is retained."
+        "notes": "Worker version ecd54c8c-8df1-4c60-8f52-0942b3b89ced is live at 100% traffic from exact Git SHA 207f11bff5e03207bbe0ffaf79fa446b4629ef72, deployment a10dc6ea-1707-4f3e-9021-4eb98cab8aa9. Live retains its existing data and authentication boundary and proxies only Hub routes to personal-platform. Google callback configuration remains blocked; guest sharing only. The former Turso database was confirmed deleted on 2026-08-30; the empty account is retained."
       },
       "chatgpt-connections": {
         "updatedAt": "2026-08-22",
