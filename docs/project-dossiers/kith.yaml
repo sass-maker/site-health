@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 82357b0b86e7ef50a42f32ba8bde05262b925645760ed2d29aa910c24f56e22e
+      sha256: d86383034196d36229c3dce7825638a4a2365a49044d05fb9ed5dbf8ad2885d5
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: kith
-      revision: f812595eb132c8c3f678e168c20914702cdcd7d1
+      revision: 03689bf67f07ce1dde4d41d6b471b5153c287996
       githubRepository: Significant-Hobbies/kith
       expectedHomepage: https://kith.significanthobbies.com
       observedHomepage: https://kith.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: kith
-      revision: f812595eb132c8c3f678e168c20914702cdcd7d1
+      revision: 03689bf67f07ce1dde4d41d6b471b5153c287996
       githubRepository: Significant-Hobbies/kith
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T08:56:44.353Z
+      observedAt: 2026-09-09T09:32:36.232Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -108,12 +108,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 53
+    retainedCommitCount: 54
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: kith
-  observedRevision: f812595eb132c8c3f678e168c20914702cdcd7d1
+  observedRevision: 03689bf67f07ce1dde4d41d6b471b5153c287996
   githubRepository: Significant-Hobbies/kith
   githubHomepageUrl: https://kith.significanthobbies.com
   worktree: *a1
@@ -129,7 +129,7 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T08:56:44.353Z
+  observedAt: 2026-09-09T09:32:36.232Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -137,7 +137,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/kith
     defaultBranch: main
-    defaultBranchSha: f812595eb132c8c3f678e168c20914702cdcd7d1
+    defaultBranchSha: 03689bf67f07ce1dde4d41d6b471b5153c287996
     homepage: https://kith.significanthobbies.com
     query: verified
     disposition:
@@ -162,15 +162,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34330034379
+          id: 34333207923
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f812595eb132c8c3f678e168c20914702cdcd7d1
-          createdAt: 2026-09-09T08:36:23Z
-          updatedAt: 2026-09-09T08:48:06Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34330034379
+          headSha: 03689bf67f07ce1dde4d41d6b471b5153c287996
+          createdAt: 2026-09-09T09:10:24Z
+          updatedAt: 2026-09-09T09:21:42Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/34333207923
         ageDays: 0
       schedule:
         health: not-applicable
@@ -180,15 +180,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34330034379
+          id: 34333207923
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f812595eb132c8c3f678e168c20914702cdcd7d1
-          createdAt: 2026-09-09T08:36:23Z
-          updatedAt: 2026-09-09T08:48:06Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34330034379
+          headSha: 03689bf67f07ce1dde4d41d6b471b5153c287996
+          createdAt: 2026-09-09T09:10:24Z
+          updatedAt: 2026-09-09T09:21:42Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/34333207923
         ageDays: 0
       attention: clear
 deployment:
@@ -220,7 +220,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-09
-  reason: "Source f812595eb132c8c3f678e168c20914702cdcd7d1 passed exact CI34330034379: 43 native tests and Release compilation. Actual AppModel tests verify late account-A responses cannot affect account B, failed local imports preserve the cursor, and successful retry persists exactly once across disk reopen. The shared Hub composition seam is pinned to31f6b4e; this adds test coverage without AppModel behavior changes. Installed build12/source34a6cae is unchanged and deliberately not launched. Complete rendered create/edit/delete/relaunch, physical use, real account recovery/sync and public distribution remain unqualified."
+  reason: "Source 03689bf67f07ce1dde4d41d6b471b5153c287996 passed exact CI34333207923: 44 native tests including 9 UI, plus Release compilation. Actual rendered create-person, edit-closeness, selective note deletion, person deletion and repeated process relaunch preserve the expected local records; screenshots were independently reviewed. Earlier actual AppModel tests verify account-switch isolation and durable failed-import retry. The new UUID fixture is DEBUG-only with cloud and Hub disabled. Installed build12/source34a6cae is unchanged. Physical use, real account recovery/sync, iCloud convergence and public distribution remain unqualified."
   changelogUrl: https://kith.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/kith/issues
   geoIdentity:
@@ -243,5 +243,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: "Source f812595eb132c8c3f678e168c20914702cdcd7d1 passed exact CI34330034379: 43 native tests and Release compilation. Actual AppModel tests verify late account-A responses cannot affect account B, failed local imports preserve the cursor, and successful retry persists exactly once across disk reopen. The shared Hub composition seam is pinned to31f6b4e; this adds test coverage without AppModel behavior changes. Installed build12/source34a6cae is unchanged and deliberately not launched. Complete rendered create/edit/delete/relaunch, physical use, real account recovery/sync and public distribution remain unqualified."
+  catalog: "Source 03689bf67f07ce1dde4d41d6b471b5153c287996 passed exact CI34333207923: 44 native tests including 9 UI, plus Release compilation. Actual rendered create-person, edit-closeness, selective note deletion, person deletion and repeated process relaunch preserve the expected local records; screenshots were independently reviewed. Earlier actual AppModel tests verify account-switch isolation and durable failed-import retry. The new UUID fixture is DEBUG-only with cloud and Hub disabled. Installed build12/source34a6cae is unchanged. Physical use, real account recovery/sync, iCloud convergence and public distribution remain unqualified."
   infrastructure: Cloudflare Pages project kith with custom domain kith.significanthobbies.com. App Store Connect ID 6803666674 has a Hub-enabled iPhone build 1.0.0 (2) processed for internal-only TestFlight.

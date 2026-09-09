@@ -108,6 +108,33 @@ connection, not live D1 concurrency. Migration0010 remains unapplied; started or
 uncertain writes, legacy backfill, activation and real document acceptance remain
 open. [Recovery receipt](https://github.com/sass-maker/knowledge-base/issues/48#issuecomment-5598937698).
 
+## Latest priority-app evidence
+
+This later wave supersedes the earlier native checkpoints above without changing
+installed builds or shareability flags.
+
+| App | Newly verified | Remaining practical gate |
+| --- | --- | --- |
+| Kith | `03689bf` passed exact CI34333207923: 44 tests, including nine UI, and Release. Actual create/edit/selective-delete/person-delete/relaunch preserves expected records; screenshots were reviewed. | Unlocked physical use, real account approval/recovery and iCloud convergence; current signed distribution remains unqualified. Installed build12/source34a6cae is unchanged. |
+| Setline | `af7071d` fixes the reproduced history numbering error. Actual record/rest/relaunch/resume/finish/reopen preserves set segments and authored order. All239 local tests, including18 UI, plus Release pass; one existing credential test is skipped. | Exact CI34334618829 is pending at this snapshot. Physical workout, real account/iCloud and distribution remain open; installed build10/sourcec4f9616 is unchanged. |
+| Calorie | `3739744` removes the invented budget after an explicit no-target choice. Actual food210kcal/water250ml persist after relaunch; the independent journal is empty. Configured-target edit/delete/undo still passes. Final focused UI, Release and87 server checks pass. | Exact CI34335213288 is pending; prior c1ef9d4 CI34332653952 passed. Physical use, real account/sync and processed external distribution remain open; installed build14/source6ecaf4f is unchanged. Scrolled content behind the status bar remains a separate polish finding. |
+| Anchor | `c3704f6` retains219 package-test and three-platform compile evidence and improves test-store isolation. The stable-Xcode Mac test compiled but its runner failed before any product assertion. | A working native runner or restored hosted capacity, then signed privacy-migration/mixed-version CloudKit acceptance and distribution. Build25 remains uninstalled and unreleased. |
+| Live / Hub | Stale current task descriptions now acknowledge completed source/caller repairs. Live README `2c4fe15` records the earlier verified207f11b deployment; no runtime redeployment occurred. | Google callback registration still blocks real private Hub login. Subsequent login/save/reload/account-isolation acceptance is required. |
+
+Owning evidence: [Kith](https://github.com/Significant-Hobbies/kith/issues/27#issuecomment-5599534717),
+[Setline](https://github.com/Significant-Hobbies/setline/tree/af7071d/docs/qualification/workout-relaunch-2026-09-09),
+[Calorie](https://github.com/Significant-Hobbies/calorie/blob/3739744/docs/qualification/2026-09-09/native-persistence.md),
+[Anchor](https://github.com/Significant-Hobbies/anchor/tree/c3704f6/docs/qualification/mac-runner-2026-09-09),
+[Hub task reconciliation](https://github.com/Significant-Hobbies/significanthobbies/issues/156),
+[Live login gate](https://github.com/Significant-Hobbies/live/issues/14).
+
+Hub#156 and Anchor#52 remain open: their current bodies distinguish completed
+source work from real native/provider gates, while historical comments are
+preserved. Calorie's archive script alone does not upload or establish a
+processed App Store Connect build or external invitation. A public guest surface
+does not qualify private Hub continuity. No additional release, owner-store
+migration or shareability promotion is implied by this wave.
+
 ## Internal, held and reference boundaries
 
 Site Health's five-area local UI is qualified; provider collection/history and

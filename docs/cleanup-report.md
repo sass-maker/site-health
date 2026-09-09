@@ -326,3 +326,29 @@ for never-dispatched operations is implemented, but migration0010 is unapplied.
 The [qualification report](qualification-status-2026-09-09.md) retains all
 remaining rendered, device, provider and distribution gates. No shareability
 flag or public projection was promoted by these source-level proofs.
+
+
+## Priority native workflows and task reconciliation, 9 September
+
+Kith03689bf passed local and hosted44 tests/Release, including actual rendered
+create/edit/selective-delete/person-delete and relaunch. Setlineaf7071d fixes
+a reproduced one-too-high performed-position display;239 local tests/Release
+pass, with exactCI34334618829 pending. Calorie3739744 fixes an invented budget
+after explicit no-target onboarding; actual food/water relaunch and configured
+edit/delete/undo checks pass, along with Release and87 server tests. Its exact
+CI34335213288 is pending; earlier c1ef9d4 hostedCI passed. Installed native
+builds are unchanged. These are local source/workflow receipts, not new public
+distribution or owner-account acceptance.
+
+Anchorc3704f6 records a fresh stable-Xcode Mac UI runner failure before any
+product assertions, despite successful compilation.219 package tests remain
+passing evidence; historical CloudKit and signed/native gates remain open.
+Task fixture directories/build products were cleaned, with durable screenshots
+and precise failure evidence retained; owner stores and stash were preserved.
+
+Hub#156 and Anchor#52 current task bodies now acknowledge repaired source
+behavior and preserve outstanding provider/native gates. Historical comments
+were not rewritten and neither issue was closed. Live README2c4fe15 now cites
+the dated207f11b release correctly; no extra runtime deployment occurred.
+See the [latest priority-app evidence](qualification-status-2026-09-09.md#latest-priority-app-evidence)
+for exact remaining actions and links.

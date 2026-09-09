@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 82357b0b86e7ef50a42f32ba8bde05262b925645760ed2d29aa910c24f56e22e
+      sha256: d86383034196d36229c3dce7825638a4a2365a49044d05fb9ed5dbf8ad2885d5
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,10 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T08:56:44.353Z
+      observedAt: 2026-09-09T09:32:36.232Z
       staleAfterDays: 30
-      healthy: 12
+      healthy: 11
       failing: 1
+      running: 1
       attention: &a2
         missing-data: 2
         clear: 11
@@ -275,11 +276,12 @@ repository:
       - version:check
       - version:sync
 githubActions:
-  observedAt: 2026-09-09T08:56:44.353Z
+  observedAt: 2026-09-09T09:32:36.232Z
   staleAfterDays: 30
   summary:
-    healthy: 12
+    healthy: 11
     failing: 1
+    running: 1
   attention: *a2
   remote:
     repository: Codevetter/codevetter
@@ -805,19 +807,19 @@ githubActions:
         status: managed
         reason: GitHub-generated workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34318030911
-          status: completed
-          conclusion: success
+          id: 34334371257
+          status: in_progress
+          conclusion: null
           event: dynamic
           branch: main
           headSha: 12b934322797a15751ba925993f19e1e005b29f8
-          createdAt: 2026-09-09T06:12:12Z
-          updatedAt: 2026-09-09T06:37:04Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/34318030911
+          createdAt: 2026-09-09T09:22:54Z
+          updatedAt: 2026-09-09T09:23:07Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/34334371257
         ageDays: 0
       schedule:
         health: not-applicable

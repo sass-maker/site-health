@@ -1581,7 +1581,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Installed native build 14 remains source 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308. Current checked main 90a23b5653979dc43f28ef79fe940ad11f2154dc adds documentation/development dependency repair without native source changes; CI34319654997 passed 30 core, 41 app and 9 UI tests plus Release. September 9 public landing/TestFlight pages return 200 at390 with no overflow and explicitly internal-only access; private food/dashboard APIs return401. No native launch, account sync, reinstall or release occurred in the fresh audit. Unlocked physical food/water logging, interruption/relaunch and retained totals; approved real-account isolation/sync; and processed-build/audience verification in App Store Connect remain #88 gates. Development installation and configured-auth health flags are not sign-in or public distribution proof. The checked-in archive script creates a local archive without uploading."
+          "reason": "Source 3739744db1899bf4d509c3f42b98a195676b1a35 removes the fabricated daily budget after an explicit no-target choice. Actual isolated native UI verifies food210kcal and water250ml survive process relaunch, a separate journal remains empty, and configured-target edit/delete/undo still produces515/925/105/925kcal. Final focused UI checks, Release compilation and87 server checks pass. DEBUG fixture markers are absent from Release. Exact CI34335213288 is pending; preceding c1ef9d4 CI34332653952 passed. Installed build14/source6ecaf4f is unchanged. Physical use, real account isolation/sync and processed public distribution remain unqualified. A secondary scrolled-content/status-bar overlap remains a recorded polish finding."
         }
       },
       "name": "Calorie",
@@ -1628,7 +1628,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Source 168a5544f7801fb28ea2b9316a525bf9b8773980 passes local native qualification: 234 tests including17 UI, one existing credential skip, Release compilation and81.2483% coverage. Actual AppModel tests verify account-switch isolation and delayed Hub pulls cannot interrupt an active workout or erase detailed set history; offline finish/reopen/recovery preserves native records. Changes add tests and the shared Hub composition seam pin, with no product behavior change. Exact CI34331558029 is still running at this snapshot. Installed build10/sourcec4f9616 is unchanged and deliberately not launched. Real workout interruption/relaunch, account recovery/sync and public distribution remain unqualified."
+          "reason": "Source af7071d5db4aeacb91c52184b343a971b68cadbd repairs a reproduced off-by-one history display: stored performed positions were already correct. Actual rendered record/rest/terminate/relaunch/resume/finish/reopen preserves adjusted rest, exact set segments and authored order without fabricating skipped work. 239 local native tests including18 UI pass, with one existing iCloud-credential skip; Release and81.4891% coverage pass. Exact CI34334618829 is pending at this snapshot. Prior caller-source CI34331558029 is green. Installed build10/sourcec4f9616 is unchanged. Physical workout acceptance, real account/iCloud sync and public distribution remain unqualified."
         }
       },
       "name": "Setline",
@@ -1725,7 +1725,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Source f812595eb132c8c3f678e168c20914702cdcd7d1 passed exact CI34330034379: 43 native tests and Release compilation. Actual AppModel tests verify late account-A responses cannot affect account B, failed local imports preserve the cursor, and successful retry persists exactly once across disk reopen. The shared Hub composition seam is pinned to31f6b4e; this adds test coverage without AppModel behavior changes. Installed build12/source34a6cae is unchanged and deliberately not launched. Complete rendered create/edit/delete/relaunch, physical use, real account recovery/sync and public distribution remain unqualified."
+          "reason": "Source 03689bf67f07ce1dde4d41d6b471b5153c287996 passed exact CI34333207923: 44 native tests including 9 UI, plus Release compilation. Actual rendered create-person, edit-closeness, selective note deletion, person deletion and repeated process relaunch preserve the expected local records; screenshots were independently reviewed. Earlier actual AppModel tests verify account-switch isolation and durable failed-import retry. The new UUID fixture is DEBUG-only with cloud and Hub disabled. Installed build12/source34a6cae is unchanged. Physical use, real account recovery/sync, iCloud convergence and public distribution remain unqualified."
         }
       },
       "name": "Kith",
@@ -1760,7 +1760,7 @@
         "maturity": "in-progress",
         "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
       },
-      "notes": "Source f812595eb132c8c3f678e168c20914702cdcd7d1 passed exact CI34330034379: 43 native tests and Release compilation. Actual AppModel tests verify late account-A responses cannot affect account B, failed local imports preserve the cursor, and successful retry persists exactly once across disk reopen. The shared Hub composition seam is pinned to31f6b4e; this adds test coverage without AppModel behavior changes. Installed build12/source34a6cae is unchanged and deliberately not launched. Complete rendered create/edit/delete/relaunch, physical use, real account recovery/sync and public distribution remain unqualified.",
+      "notes": "Source 03689bf67f07ce1dde4d41d6b471b5153c287996 passed exact CI34333207923: 44 native tests including 9 UI, plus Release compilation. Actual rendered create-person, edit-closeness, selective note deletion, person deletion and repeated process relaunch preserve the expected local records; screenshots were independently reviewed. Earlier actual AppModel tests verify account-switch isolation and durable failed-import retry. The new UUID fixture is DEBUG-only with cloud and Hub disabled. Installed build12/source34a6cae is unchanged. Physical use, real account recovery/sync, iCloud convergence and public distribution remain unqualified.",
       "category": "utility"
     },
     {
@@ -2846,7 +2846,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Build25 source b7f1e999d25e2c643a3a58ba5656923aead51952 preserves device-only distraction notes and repairs failed-save behavior for end/surrender, resume, start/extend and scheduled starts. New session, schedule link and deliberate replan save atomically; exact retries avoid duplicates while intentional changed activity still starts a new session. 219 package tests pass in owning and isolated pinned-Hub copies, including real disk rollback/retry/reopen; Mac/iOS/Watch DebugLocal compilation passes. Hosted native review34325826905 failed before steps due to GitHub payment/spending limits; dispatch-only workflow has no exact-head run. Build25 is not installed or released. Rendered daily-loop, signed-device, mixed-version CloudKit and distribution remain unqualified."
+          "reason": "Build25 source c3704f6a8ceb1771621605d38e981ec8fe449989 includes the reviewed persistence repairs through b7f1e99: end/surrender, resume, start/extend and atomic session/schedule/replan starts. 219 package tests and Mac/iOS/Watch compilation pass. A fresh stable-Xcode Mac UI attempt compiled, but its runner was killed before connecting: zero product assertions or screenshots, underlying cause unknown. Hosted native review34325826905 remains a recorded billing-before-steps failure; no exact-head dispatch was run. Safer UUID-directory test isolation and precise failed-run receipt are committed. Build25 is not installed or released. Rendered daily-loop, signed-device, historical/mixed-version CloudKit and distribution remain unqualified."
         }
       },
       "name": "Anchor",
@@ -2871,7 +2871,7 @@
       "inRegistry": true,
       "status": "live",
       "app": "swift",
-      "notes": "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build25 source b7f1e999d25e2c643a3a58ba5656923aead51952 preserves device-only distraction notes and repairs failed-save behavior for end/surrender, resume, start/extend and scheduled starts. New session, schedule link and deliberate replan save atomically; exact retries avoid duplicates while intentional changed activity still starts a new session. 219 package tests pass in owning and isolated pinned-Hub copies, including real disk rollback/retry/reopen; Mac/iOS/Watch DebugLocal compilation passes. Hosted native review34325826905 failed before steps due to GitHub payment/spending limits; dispatch-only workflow has no exact-head run. Build25 is not installed or released. Rendered daily-loop, signed-device, mixed-version CloudKit and distribution remain unqualified.",
+      "notes": "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build25 source c3704f6a8ceb1771621605d38e981ec8fe449989 includes the reviewed persistence repairs through b7f1e99: end/surrender, resume, start/extend and atomic session/schedule/replan starts. 219 package tests and Mac/iOS/Watch compilation pass. A fresh stable-Xcode Mac UI attempt compiled, but its runner was killed before connecting: zero product assertions or screenshots, underlying cause unknown. Hosted native review34325826905 remains a recorded billing-before-steps failure; no exact-head dispatch was run. Safer UUID-directory test isolation and precise failed-run receipt are committed. Build25 is not installed or released. Rendered daily-loop, signed-device, historical/mixed-version CloudKit and distribution remain unqualified.",
       "public": {
         "listing": "maintained",
         "id": "anchor",
@@ -6212,7 +6212,7 @@
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project anchor-landing remains live; historical habits and indulge Pages projects are compatibility redirects. Historical App Store Connect record 6803853891/build12 and Mac build12 upload/install observations are not current installed-version evidence. Current build25/sourceb7f1e99 is not installed or released; signed distribution, production CloudKit compatibility and account/device acceptance remain open."
+        "notes": "Cloudflare Pages project anchor-landing remains live; historical habits and indulge Pages projects are compatibility redirects. Historical App Store Connect record 6803853891/build12 and Mac build12 upload/install observations are not current installed-version evidence. Current build25/sourcec3704f6 is not installed or released; signed distribution, production CloudKit compatibility and account/device acceptance remain open."
       },
       "nomad-data-adventure": {
         "updatedAt": "2026-09-07",

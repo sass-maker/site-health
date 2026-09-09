@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 82357b0b86e7ef50a42f32ba8bde05262b925645760ed2d29aa910c24f56e22e
+      sha256: d86383034196d36229c3dce7825638a4a2365a49044d05fb9ed5dbf8ad2885d5
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T08:56:44.353Z
+      observedAt: 2026-09-09T09:32:36.232Z
       staleAfterDays: 30
       healthy: 1
       failing: 1
@@ -153,7 +153,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T08:56:44.353Z
+  observedAt: 2026-09-09T09:32:36.232Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -196,7 +196,7 @@ githubActions:
           createdAt: 2026-09-07T09:28:01Z
           updatedAt: 2026-09-07T09:28:26Z
           url: https://github.com/sarthakagrawal927/web-playables/actions/runs/34106166702
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -214,7 +214,7 @@ githubActions:
           createdAt: 2026-09-07T09:28:01Z
           updatedAt: 2026-09-07T09:28:26Z
           url: https://github.com/sarthakagrawal927/web-playables/actions/runs/34106166702
-        ageDays: 1
+        ageDays: 2
       attention: ignored
     - name: Deploy web-playables to Cloudflare Pages
       file: .github/workflows/deploy.yml

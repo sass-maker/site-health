@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 82357b0b86e7ef50a42f32ba8bde05262b925645760ed2d29aa910c24f56e22e
+      sha256: d86383034196d36229c3dce7825638a4a2365a49044d05fb9ed5dbf8ad2885d5
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: calorie
-      revision: 90a23b5653979dc43f28ef79fe940ad11f2154dc
+      revision: 3739744db1899bf4d509c3f42b98a195676b1a35
       githubRepository: Significant-Hobbies/calorie
       expectedHomepage: https://calorie.significanthobbies.com
       observedHomepage: https://calorie.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: calorie
-      revision: 90a23b5653979dc43f28ef79fe940ad11f2154dc
+      revision: 3739744db1899bf4d509c3f42b98a195676b1a35
       githubRepository: Significant-Hobbies/calorie
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T08:56:44.353Z
+      observedAt: 2026-09-09T09:32:36.232Z
       staleAfterDays: 30
-      healthy: 1
+      running: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -120,12 +120,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-07-25
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 126
+    retainedCommitCount: 128
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: calorie
-  observedRevision: 90a23b5653979dc43f28ef79fe940ad11f2154dc
+  observedRevision: 3739744db1899bf4d509c3f42b98a195676b1a35
   githubRepository: Significant-Hobbies/calorie
   githubHomepageUrl: https://calorie.significanthobbies.com
   worktree: *a1
@@ -178,15 +178,15 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-09-09T08:56:44.353Z
+  observedAt: 2026-09-09T09:32:36.232Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/calorie
     defaultBranch: main
-    defaultBranchSha: 90a23b5653979dc43f28ef79fe940ad11f2154dc
+    defaultBranchSha: 3739744db1899bf4d509c3f42b98a195676b1a35
     homepage: https://calorie.significanthobbies.com
     query: verified
     disposition:
@@ -207,37 +207,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34319654997
-          status: completed
-          conclusion: success
+          id: 34335213288
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 90a23b5653979dc43f28ef79fe940ad11f2154dc
-          createdAt: 2026-09-09T06:34:07Z
-          updatedAt: 2026-09-09T06:44:21Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/34319654997
+          headSha: 3739744db1899bf4d509c3f42b98a195676b1a35
+          createdAt: 2026-09-09T09:31:47Z
+          updatedAt: 2026-09-09T09:31:59Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/34335213288
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: running
+        reason: current main push is in_progress
         lastRun:
-          id: 34319654997
-          status: completed
-          conclusion: success
+          id: 34335213288
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 90a23b5653979dc43f28ef79fe940ad11f2154dc
-          createdAt: 2026-09-09T06:34:07Z
-          updatedAt: 2026-09-09T06:44:21Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/34319654997
+          headSha: 3739744db1899bf4d509c3f42b98a195676b1a35
+          createdAt: 2026-09-09T09:31:47Z
+          updatedAt: 2026-09-09T09:31:59Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/34335213288
         ageDays: 0
       attention: clear
 deployment:
@@ -276,7 +276,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-09
-  reason: "Installed native build 14 remains source 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308. Current checked main 90a23b5653979dc43f28ef79fe940ad11f2154dc adds documentation/development dependency repair without native source changes; CI34319654997 passed 30 core, 41 app and 9 UI tests plus Release. September 9 public landing/TestFlight pages return 200 at390 with no overflow and explicitly internal-only access; private food/dashboard APIs return401. No native launch, account sync, reinstall or release occurred in the fresh audit. Unlocked physical food/water logging, interruption/relaunch and retained totals; approved real-account isolation/sync; and processed-build/audience verification in App Store Connect remain #88 gates. Development installation and configured-auth health flags are not sign-in or public distribution proof. The checked-in archive script creates a local archive without uploading."
+  reason: Source 3739744db1899bf4d509c3f42b98a195676b1a35 removes the fabricated daily budget after an explicit no-target choice. Actual isolated native UI verifies food210kcal and water250ml survive process relaunch, a separate journal remains empty, and configured-target edit/delete/undo still produces515/925/105/925kcal. Final focused UI checks, Release compilation and87 server checks pass. DEBUG fixture markers are absent from Release. Exact CI34335213288 is pending; preceding c1ef9d4 CI34332653952 passed. Installed build14/source6ecaf4f is unchanged. Physical use, real account isolation/sync and processed public distribution remain unqualified. A secondary scrolled-content/status-bar overlap remains a recorded polish finding.
   changelogUrl: https://calorie.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/calorie/issues
   geoIdentity:
