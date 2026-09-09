@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 296719ee0e56a97f944de7ad0da68b011f07aa05133fa3db9a332b58dfaf347d
+      sha256: 0f2780ecb2d94c0f491745043d9fa28688eb6267a5b599c47d86c26cae56a7a5
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: anchor
-      revision: c3704f6a8ceb1771621605d38e981ec8fe449989
+      revision: 077f8564ee3e85631f1807c365b03e9d283c41db
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: anchor
-      revision: c3704f6a8ceb1771621605d38e981ec8fe449989
+      revision: 077f8564ee3e85631f1807c365b03e9d283c41db
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T09:57:24.711Z
+      observedAt: 2026-09-09T10:15:46.618Z
       staleAfterDays: 30
       failing: 1
       attention: &a2
@@ -124,12 +124,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 108
+    retainedCommitCount: 109
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: c3704f6a8ceb1771621605d38e981ec8fe449989
+  observedRevision: 077f8564ee3e85631f1807c365b03e9d283c41db
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -145,7 +145,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T09:57:24.711Z
+  observedAt: 2026-09-09T10:15:46.618Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -153,7 +153,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: c3704f6a8ceb1771621605d38e981ec8fe449989
+    defaultBranchSha: 077f8564ee3e85631f1807c365b03e9d283c41db
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -235,7 +235,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-09
-  reason: "Build25 source c3704f6a8ceb1771621605d38e981ec8fe449989 includes the reviewed persistence repairs through b7f1e99: end/surrender, resume, start/extend and atomic session/schedule/replan starts. 219 package tests and Mac/iOS/Watch compilation pass. A fresh stable-Xcode Mac UI attempt compiled, but its runner was killed before connecting: zero product assertions or screenshots, underlying cause unknown. Hosted native review34325826905 remains a recorded billing-before-steps failure; no exact-head dispatch was run. Safer UUID-directory test isolation and precise failed-run receipt are committed. Build25 is not installed or released. Rendered daily-loop, signed-device, historical/mixed-version CloudKit and distribution remain unqualified."
+  reason: "Build25 source c3704f6a8ceb1771621605d38e981ec8fe449989 includes the reviewed persistence repairs through b7f1e99: end/surrender, resume, start/extend and atomic session/schedule/replan starts. 219 package tests and Mac/iOS/Watch compilation pass. Later diagnosis077f8564ee3e85631f1807c365b03e9d283c41db confirms Gatekeeper terminated the earlier runner. Invocation-only normal development signing repaired its invalid bundle signature and enabled testmanagerd connection, but one isolated prepared test timed out enabling automation mode after62.640s. Zero product assertions/screenshots or fixture stores were created. No explicit permission denial was found, so no security-setting change is prescribed. Hosted native review34325826905 remains a recorded billing-before-steps failure; no exact-head dispatch was run. Safer UUID-directory test isolation and exact signing/automation receipts are committed; task products were cleaned and owner stores/stash preserved. Build25 is not installed or released. Rendered daily-loop, signed-device, historical/mixed-version CloudKit and distribution remain unqualified."
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:
@@ -258,5 +258,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build25 source c3704f6a8ceb1771621605d38e981ec8fe449989 includes the reviewed persistence repairs through b7f1e99: end/surrender, resume, start/extend and atomic session/schedule/replan starts. 219 package tests and Mac/iOS/Watch compilation pass. A fresh stable-Xcode Mac UI attempt compiled, but its runner was killed before connecting: zero product assertions or screenshots, underlying cause unknown. Hosted native review34325826905 remains a recorded billing-before-steps failure; no exact-head dispatch was run. Safer UUID-directory test isolation and precise failed-run receipt are committed. Build25 is not installed or released. Rendered daily-loop, signed-device, historical/mixed-version CloudKit and distribution remain unqualified."
+  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build25 source c3704f6a8ceb1771621605d38e981ec8fe449989 includes the reviewed persistence repairs through b7f1e99: end/surrender, resume, start/extend and atomic session/schedule/replan starts. 219 package tests and Mac/iOS/Watch compilation pass. Later diagnosis077f8564ee3e85631f1807c365b03e9d283c41db confirms Gatekeeper terminated the earlier runner. Invocation-only normal development signing repaired its invalid bundle signature and enabled testmanagerd connection, but one isolated prepared test timed out enabling automation mode after62.640s. Zero product assertions/screenshots or fixture stores were created. No explicit permission denial was found, so no security-setting change is prescribed. Hosted native review34325826905 remains a recorded billing-before-steps failure; no exact-head dispatch was run. Safer UUID-directory test isolation and exact signing/automation receipts are committed; task products were cleaned and owner stores/stash preserved. Build25 is not installed or released. Rendered daily-loop, signed-device, historical/mixed-version CloudKit and distribution remain unqualified."
   infrastructure: Cloudflare Pages project anchor-landing remains live; historical habits and indulge Pages projects are compatibility redirects. Historical App Store Connect record 6803853891/build12 and Mac build12 upload/install observations are not current installed-version evidence. Current build25/sourcec3704f6 is not installed or released; signed distribution, production CloudKit compatibility and account/device acceptance remain open.

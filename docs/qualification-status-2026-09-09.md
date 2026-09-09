@@ -118,13 +118,13 @@ new signed installation, as does Calorie; shareability flags retain the outstand
 | Kith | `03689bf` passed exact CI34333207923: 44 tests, including nine UI, and Release. Actual create/edit/selective-delete/person-delete/relaunch preserves expected records; screenshots were reviewed. | Unlocked physical use, real account approval/recovery and iCloud convergence; current signed distribution remains unqualified. Installed build12/source34a6cae is unchanged. |
 | Setline | `af7071d` fixes the reproduced history numbering error. Actual record/rest/relaunch/resume/finish/reopen preserves set segments and authored order. All239 local tests, including18 UI, plus Release pass; one existing credential test is skipped. | Exact CI34334618829 passed239 native tests/Release. Signed af7071d installed as build10 without launch, sync or reset; source/hash receipts and the previous artifact are retained. Physical workout, real account/iCloud and distribution remain open. |
 | Calorie | `3739744` removes the invented budget after an explicit no-target choice. Actual food210kcal/water250ml persist after relaunch; the independent journal is empty. Configured-target edit/delete/undo still passes. Final focused UI, Release and87 server checks pass. | Exact CI34335213288 and prior c1ef9d4 CI34332653952 passed. Follow-up15c6aa1 fixes the status-bar collision, with the actual persistence/sheet/tab UI journey passing; exact CI34335890509 passed. Physical use, real account/sync and processed external distribution remain open; signed15c6aa1 installed as version1.0.0/build14 on the first attempt without launch, sync, reset or uninstall. Artifact hashes and source/install receipts are retained. |
-| Anchor | `c3704f6` retains219 package-test and three-platform compile evidence and improves test-store isolation. The stable-Xcode Mac test compiled but its runner failed before any product assertion. | A working native runner or restored hosted capacity, then signed privacy-migration/mixed-version CloudKit acceptance and distribution. Build25 remains uninstalled and unreleased. |
+| Anchor | `c3704f6` retains219 package-test and three-platform compile evidence and improves test-store isolation. Diagnosis077f856 proves the earlier Gatekeeper rejection. Proper development signing enabled runner connection, but the selected test then timed out initializing automation after62.640s, before any product assertion. | Working macOS XCTest automation initialization or restored hosted capacity, then signed privacy-migration/mixed-version CloudKit acceptance and distribution. No explicit permission denial was evidenced; no security settings were changed. Build25 remains uninstalled and unreleased. |
 | Live / Hub | Stale current task descriptions now acknowledge completed source/caller repairs. Live README `2c4fe15` records the earlier verified207f11b deployment; no runtime redeployment occurred. | Google callback registration still blocks real private Hub login. Subsequent login/save/reload/account-isolation acceptance is required. |
 
 Owning evidence: [Kith](https://github.com/Significant-Hobbies/kith/issues/27#issuecomment-5599534717),
 [Setline](https://github.com/Significant-Hobbies/setline/tree/af7071d/docs/qualification/workout-relaunch-2026-09-09),
 [Calorie](https://github.com/Significant-Hobbies/calorie/blob/3739744/docs/qualification/2026-09-09/native-persistence.md),
-[Anchor](https://github.com/Significant-Hobbies/anchor/tree/c3704f6/docs/qualification/mac-runner-2026-09-09),
+[Anchor](https://github.com/Significant-Hobbies/anchor/tree/077f856/docs/qualification/mac-runner-diagnosis-2026-09-09),
 [Hub task reconciliation](https://github.com/Significant-Hobbies/significanthobbies/issues/156),
 [Live login gate](https://github.com/Significant-Hobbies/live/issues/14).
 
@@ -194,3 +194,15 @@ a release requirement. Old deployment-pending paragraphs in issue/status
 histories must be read alongside later receipts.
 The condensed summary now includes Journal in its explicit removals and matches
 the canonical lifecycle totals; individual lifecycle assignments are unchanged.
+
+
+## Later Calorie test-gate repair
+
+Documentation-head CI34337638142 failed one existing UI check after the installed
+15c6aa1 source had passed. The original selector passed a local diagnostic, so
+no product navigation defect was reproduced. Actual hierarchy showed duplicate
+food text and an offscreen score. Test-only fc1bfce selects the picker button,
+asserts Add entry, scrolls to a hittable score and retains the calculation
+assertions. The focused check and87 server tests pass; before/after screenshots
+were reviewed. Exact CI34339196137 is pending. The installed app is unchanged;
+this pending check is not a new installation or public sharing qualification.

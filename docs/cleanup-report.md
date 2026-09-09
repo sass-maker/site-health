@@ -378,3 +378,16 @@ installed on the available owner iPhone on the first attempt, with retained
 artifact hashes verified. No app launch, sync, reset or uninstall occurred.
 This supersedes the pending installation checkpoint above; physical logging,
 real account continuity and external distribution remain unqualified.
+
+
+## Anchor runner diagnosis and Calorie test gate
+
+Anchor077f856 records an actual Gatekeeper rejection, the properly signed
+diagnostic runner that connected successfully, and the subsequent automation
+initialization timeout. Zero product assertions ran. No security settings or
+owner data changed; diagnostic products were cleaned and owner stash preserved.
+
+Calorie test-only fc1bfce strengthens the picker/score UI check after docs-head
+CI34337638142 failed. Focused UI and87 server tests pass; exact CI34339196137
+is pending. Installed15c6aa1 remains unchanged. See the qualification report
+for the evidence and remaining boundaries.
