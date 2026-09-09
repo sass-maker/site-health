@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d86383034196d36229c3dce7825638a4a2365a49044d05fb9ed5dbf8ad2885d5
+      sha256: 091b559c2c5b2857620ffddc5151ad71f9320db3c74fb88e6b1450b5a7619152
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: setline
-      revision: af7071d5db4aeacb91c52184b343a971b68cadbd
+      revision: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
       githubRepository: Significant-Hobbies/setline
       expectedHomepage: https://setline.significanthobbies.com
       observedHomepage: https://setline.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: setline
-      revision: af7071d5db4aeacb91c52184b343a971b68cadbd
+      revision: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
       githubRepository: Significant-Hobbies/setline
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T09:32:36.232Z
+      observedAt: 2026-09-09T09:46:55.926Z
       staleAfterDays: 30
       running: 1
       attention: &a2
@@ -108,12 +108,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-07-27
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 115
+    retainedCommitCount: 116
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: setline
-  observedRevision: af7071d5db4aeacb91c52184b343a971b68cadbd
+  observedRevision: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
   githubRepository: Significant-Hobbies/setline
   githubHomepageUrl: https://setline.significanthobbies.com
   worktree: *a1
@@ -150,7 +150,7 @@ repository:
       - quality:unused
       - test
 githubActions:
-  observedAt: 2026-09-09T09:32:36.232Z
+  observedAt: 2026-09-09T09:46:55.926Z
   staleAfterDays: 30
   summary:
     running: 1
@@ -158,7 +158,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/setline
     defaultBranch: main
-    defaultBranchSha: af7071d5db4aeacb91c52184b343a971b68cadbd
+    defaultBranchSha: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
     homepage: https://setline.significanthobbies.com
     query: verified
     disposition:
@@ -183,15 +183,15 @@ githubActions:
         reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34334618829
+          id: 34336313371
           status: in_progress
           conclusion: null
           event: push
           branch: main
-          headSha: af7071d5db4aeacb91c52184b343a971b68cadbd
-          createdAt: 2026-09-09T09:25:30Z
-          updatedAt: 2026-09-09T09:25:39Z
-          url: https://github.com/Significant-Hobbies/setline/actions/runs/34334618829
+          headSha: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
+          createdAt: 2026-09-09T09:43:31Z
+          updatedAt: 2026-09-09T09:43:40Z
+          url: https://github.com/Significant-Hobbies/setline/actions/runs/34336313371
         ageDays: 0
       schedule:
         health: not-applicable
@@ -201,15 +201,15 @@ githubActions:
         health: running
         reason: current main push is in_progress
         lastRun:
-          id: 34334618829
+          id: 34336313371
           status: in_progress
           conclusion: null
           event: push
           branch: main
-          headSha: af7071d5db4aeacb91c52184b343a971b68cadbd
-          createdAt: 2026-09-09T09:25:30Z
-          updatedAt: 2026-09-09T09:25:39Z
-          url: https://github.com/Significant-Hobbies/setline/actions/runs/34334618829
+          headSha: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
+          createdAt: 2026-09-09T09:43:31Z
+          updatedAt: 2026-09-09T09:43:40Z
+          url: https://github.com/Significant-Hobbies/setline/actions/runs/34336313371
         ageDays: 0
       attention: clear
 deployment:
@@ -241,7 +241,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-09
-  reason: "Source af7071d5db4aeacb91c52184b343a971b68cadbd repairs a reproduced off-by-one history display: stored performed positions were already correct. Actual rendered record/rest/terminate/relaunch/resume/finish/reopen preserves adjusted rest, exact set segments and authored order without fabricating skipped work. 239 local native tests including18 UI pass, with one existing iCloud-credential skip; Release and81.4891% coverage pass. Exact CI34334618829 is pending at this snapshot. Prior caller-source CI34331558029 is green. Installed build10/sourcec4f9616 is unchanged. Physical workout acceptance, real account/iCloud sync and public distribution remain unqualified."
+  reason: "Source af7071d5db4aeacb91c52184b343a971b68cadbd repairs a reproduced off-by-one history display: stored performed positions were already correct. Actual rendered record/rest/terminate/relaunch/resume/finish/reopen preserves adjusted rest, exact set segments and authored order without fabricating skipped work. 239 local native tests including18 UI pass, with one existing iCloud-credential skip; Release and81.4891% coverage pass. Exact CI34334618829 passed all239 native tests, Release and81.8057% hosted coverage. Signed source af7071d installed successfully as same-bundle version1.0.0/build10 on September9, without launch, sync, uninstall or reset; strict signature and source/hash receipts are retained alongside the previous artifact. Physical workout acceptance, real account/iCloud sync and public distribution remain unqualified."
   changelogUrl: https://setline.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/setline/issues
   geoIdentity:

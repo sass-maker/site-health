@@ -58,7 +58,7 @@ agree at this snapshot; their descriptive narratives are not equally current.
 | Significant Hobbies Hub | Google rejects the Live callback registration. Real hosted Hub session, account isolation and native continuity remain unqualified despite deployed routing repairs. | [#154](https://github.com/Significant-Hobbies/significanthobbies/issues/154), [Live #14](https://github.com/Significant-Hobbies/live/issues/14) |
 | India Standards | A normal visible Turnstile click still fails in the isolated browser; no hosted default/sparse/unsupported calculation completed. This does not establish a MotherDuck outage. Usage/NFHS gates remain separate. | [#35 fresh receipt](https://github.com/Significant-Hobbies/india-standards/issues/35#issuecomment-5598017386), [#36](https://github.com/Significant-Hobbies/india-standards/issues/36) |
 | Anime List | Real authenticated tracking, reload, account isolation and expiry/write recovery. Fresh mobile guest search → detail → reload passes without overflow. | [#89 fresh receipt](https://github.com/Significant-Hobbies/anime-list/issues/89#issuecomment-5598081800) |
-| Calorie | Unlocked physical use, approved account/sync isolation and distribution. Installed build 14 has not completed that acceptance; later checked changes do not alter its native source. | [#88 fresh receipt](https://github.com/Significant-Hobbies/calorie/issues/88#issuecomment-5598061379) |
+| Calorie | Unlocked physical use, approved account/sync isolation and distribution. Installed build14 has not completed that acceptance; a newer no-target/status-bar repair is qualified locally and awaiting its final CI/install gate. | [#88 fresh receipt](https://github.com/Significant-Hobbies/calorie/issues/88#issuecomment-5598061379) |
 | Setline | Real workout/restart/account recovery and distribution. Build 10 installed, deliberately not launched; tests do not replace physical exercise. | [#77 receipt](https://github.com/Significant-Hobbies/setline/issues/77#issuecomment-5597955994) |
 | Kith | Physical relationship workflow, account replay/recovery, sync and distribution. Build 12 installed, deliberately not launched. | [#27 receipt](https://github.com/Significant-Hobbies/kith/issues/27#issuecomment-5597955713) |
 | Karte | Protected profile workflow and real AI answer. A visible Turnstile attempt failed; Send stayed disabled and no synthetic conversation was created. | [#82](https://github.com/Significant-Hobbies/karte/issues/82) |
@@ -110,14 +110,14 @@ open. [Recovery receipt](https://github.com/sass-maker/knowledge-base/issues/48#
 
 ## Latest priority-app evidence
 
-This later wave supersedes the earlier native checkpoints above without changing
-installed builds or shareability flags.
+This later wave supersedes the earlier native checkpoints above. Setline has a
+new signed installation; shareability flags retain the outstanding acceptance gates.
 
 | App | Newly verified | Remaining practical gate |
 | --- | --- | --- |
 | Kith | `03689bf` passed exact CI34333207923: 44 tests, including nine UI, and Release. Actual create/edit/selective-delete/person-delete/relaunch preserves expected records; screenshots were reviewed. | Unlocked physical use, real account approval/recovery and iCloud convergence; current signed distribution remains unqualified. Installed build12/source34a6cae is unchanged. |
-| Setline | `af7071d` fixes the reproduced history numbering error. Actual record/rest/relaunch/resume/finish/reopen preserves set segments and authored order. All239 local tests, including18 UI, plus Release pass; one existing credential test is skipped. | Exact CI34334618829 is pending at this snapshot. Physical workout, real account/iCloud and distribution remain open; installed build10/sourcec4f9616 is unchanged. |
-| Calorie | `3739744` removes the invented budget after an explicit no-target choice. Actual food210kcal/water250ml persist after relaunch; the independent journal is empty. Configured-target edit/delete/undo still passes. Final focused UI, Release and87 server checks pass. | Exact CI34335213288 is pending; prior c1ef9d4 CI34332653952 passed. Physical use, real account/sync and processed external distribution remain open; installed build14/source6ecaf4f is unchanged. Scrolled content behind the status bar remains a separate polish finding. |
+| Setline | `af7071d` fixes the reproduced history numbering error. Actual record/rest/relaunch/resume/finish/reopen preserves set segments and authored order. All239 local tests, including18 UI, plus Release pass; one existing credential test is skipped. | Exact CI34334618829 passed239 native tests/Release. Signed af7071d installed as build10 without launch, sync or reset; source/hash receipts and the previous artifact are retained. Physical workout, real account/iCloud and distribution remain open. |
+| Calorie | `3739744` removes the invented budget after an explicit no-target choice. Actual food210kcal/water250ml persist after relaunch; the independent journal is empty. Configured-target edit/delete/undo still passes. Final focused UI, Release and87 server checks pass. | Exact CI34335213288 and prior c1ef9d4 CI34332653952 passed. Follow-up15c6aa1 fixes the status-bar collision, with the actual persistence/sheet/tab UI journey passing; exact CI34335890509 is still running. Physical use, real account/sync and processed external distribution remain open; installed build14/source6ecaf4f is unchanged. A signed15c6aa1 candidate is retained pending its exact CI gate. |
 | Anchor | `c3704f6` retains219 package-test and three-platform compile evidence and improves test-store isolation. The stable-Xcode Mac test compiled but its runner failed before any product assertion. | A working native runner or restored hosted capacity, then signed privacy-migration/mixed-version CloudKit acceptance and distribution. Build25 remains uninstalled and unreleased. |
 | Live / Hub | Stale current task descriptions now acknowledge completed source/caller repairs. Live README `2c4fe15` records the earlier verified207f11b deployment; no runtime redeployment occurred. | Google callback registration still blocks real private Hub login. Subsequent login/save/reload/account-isolation acceptance is required. |
 
@@ -132,8 +132,8 @@ Hub#156 and Anchor#52 remain open: their current bodies distinguish completed
 source work from real native/provider gates, while historical comments are
 preserved. Calorie's archive script alone does not upload or establish a
 processed App Store Connect build or external invitation. A public guest surface
-does not qualify private Hub continuity. No additional release, owner-store
-migration or shareability promotion is implied by this wave.
+does not qualify private Hub continuity. Setline received an install-only signed update; no owner-store migration, app
+launch, account sync or shareability promotion was performed.
 
 ## Internal, held and reference boundaries
 

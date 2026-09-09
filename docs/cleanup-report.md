@@ -352,3 +352,20 @@ were not rewritten and neither issue was closed. Live README2c4fe15 now cites
 the dated207f11b release correctly; no extra runtime deployment occurred.
 See the [latest priority-app evidence](qualification-status-2026-09-09.md#latest-priority-app-evidence)
 for exact remaining actions and links.
+
+
+## Signed Setline update and Calorie follow-up, 9 September
+
+Setline source af7071d passed exact CI34334618829: 239 native tests, Release
+and 81.8057% hosted coverage. Its signed version1.0.0/build10 installed on the
+connected owner iPhone on the first attempt. No app launch, sync, uninstall or
+reset occurred. Strict signature checks and source/hash/install receipts are
+retained beside the previous signed artifact. Physical workout and real cloud
+acceptance remain open.
+
+Calorie source3739744 passed exact CI34335213288. Follow-up15c6aa1 also fixes
+the observed scrolled-content/status-bar collision; its real persistence, sheet
+and tab journey passes with reviewed screenshots. Exact CI34335890509 is still
+running at this checkpoint. A signed candidate is ready, but installation waits
+for that check. This supersedes the earlier pending-CI and unresolved-polish
+notes without claiming physical use or public distribution.
