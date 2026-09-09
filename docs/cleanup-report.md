@@ -416,3 +416,35 @@ original qualification images remain intact. This is a declined proposal, not
 a completed product requirement. No unresolved issue was closed to reduce the
 count. Completed source work and outstanding account, device, provider and
 product acceptance remain distinct in the qualification report.
+
+
+## Why the issue count increased
+
+Compared with the 43-issue inventory preserved at commit85b5d446, the fresh
+September9 audit has **10 added open issues and 2 closed issues: 43 + 10 - 2 = 51**.
+The baseline is pinned by commit because later edits retained its top-level
+observation timestamp. Added means absent from that baseline and open in the
+fresh audit; it does not establish who created the issue.
+
+Added requirements and qualification issues:
+
+- [Simplify Anchor for daily use: habits, day schedules, project tags, and pause](https://github.com/Significant-Hobbies/anchor/issues/51)
+- [Keep distraction notes device-only with a failure-safe legacy migration](https://github.com/Significant-Hobbies/anchor/issues/52)
+- [Preserve food journal data and drafts when local saves fail](https://github.com/Significant-Hobbies/calorie/issues/88)
+- [Prevent false saves and lost drafts before priority phone use](https://github.com/Significant-Hobbies/kith/issues/27)
+- [Qualify priority mobile planning and signed-in persistence](https://github.com/Significant-Hobbies/live/issues/14)
+- [Restore guest tailoring generation and cover-letter qualification](https://github.com/Significant-Hobbies/rolepatch/issues/68)
+- [Preserve failed saves and concurrent workout edits before owner use](https://github.com/Significant-Hobbies/setline/issues/77)
+- [Acknowledge downloaded sync records only after local app commit](https://github.com/Significant-Hobbies/significanthobbies/issues/155)
+- [Bind native sync and local backfill to the approved account](https://github.com/Significant-Hobbies/significanthobbies/issues/156)
+- [Qualify campaign turns, retries and reloadable saves](https://github.com/sarthakagrawal927/open-historia/issues/27)
+
+Closed, with current GitHub states independently checked:
+
+- [Installed-upgrade proof cannot seed data: v1.11.0 incumbent CLI has no `rubrics` command](https://github.com/Codevetter/codevetter/issues/252)
+- [Download page: latest releases ship no assets, filename pattern is wrong, and the Sparkle update claim is unsubstantiated](https://github.com/Codevetter/codevetter/issues/253)
+
+Eight additions concern the priority apps and Hub; RolePatch and Open Historia
+account for the other two. Completed code inside an open issue is not counted
+as a closed issue while explicit acceptance remains. This issue ledger is
+separate from the count of shareable products.
