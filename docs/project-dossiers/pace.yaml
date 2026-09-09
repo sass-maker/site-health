@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 34907437c3a48bded0b613f47a187eccecce06558a0479d5d016c69b5778536a
-      infrastructureUpdatedAt: 2026-08-22
+      sha256: 870a98cba2456758bb5274def76c67aa292c7774e770f1ba854c10007a61bfee
+      infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Pace
@@ -314,7 +314,7 @@ deployment:
       - provider: cloudflare
         kind: pages
         name: pace
-        method: wrangler-direct
+        method: github-actions
         state: live
     resources:
       - provider: cloudflare
@@ -345,8 +345,8 @@ sharing:
   publicListing: maintained
   maturity: public-ready
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Voice/screen permissions and installed core workflow not exercised.
+  verifiedAt: 2026-09-09
+  reason: Website source d308989ecdacc24328f2d4bbaa3a2792b810396d passed exact CI and all six deployment gates. Deployment34329542452 succeeded at https://4c58050f.pace-6xg.pages.dev; public home and download pages at390/1440 return200 without overflow or page errors and show corrected Privacy & Security guidance. The Mac preview remains v0.3.19 ad-hoc signed, not notarized. Voice/screen/action permissions and installed core workflow remain unqualified.
   changelogUrl: https://heypace.app/changelog
   roadmapUrl: https://github.com/HeyPace/pace/issues
   geoIdentity:
