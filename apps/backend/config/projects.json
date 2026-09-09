@@ -5087,7 +5087,7 @@
         "notes": "Web Worker 0aa26236-4b19-4d44-bd48-672694f7c4af / deployment 1e280e29-9252-4a4e-af4f-d5bc55f06bbe carries 077c30d2b5a3cba5c1ccd09f16f69564aa41ab1e at 100%. Exact CI34323627453 and Docs34323627468 passed. API Worker unchanged."
       },
       "on-record": {
-        "updatedAt": "2026-08-27",
+        "updatedAt": "2026-09-09",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5117,7 +5117,8 @@
             "name": "on-record-raw",
             "state": "active"
           }
-        ]
+        ],
+        "notes": "API-only deployment34348609233 released 46badc63151dd30a7bd95914763cf493a653023c after exact CI34348449974 and six deployment gates passed. Worker version 6ac7d86c-e48f-4dad-986b-c3c5455afc27 / deployment eb87f76e-e2fc-4269-a644-2b3c2f204736 verified at 100% on 2026-09-09. Web unchanged; no migration. Twelve paired stats responses preserved all counts. Issue24 remains open for production D1 row-read evidence; source and live receipts are in on-record/docs/operations/stats-performance-2026-09-09.md."
       },
       "issue-pages": {
         "updatedAt": "2026-08-28",

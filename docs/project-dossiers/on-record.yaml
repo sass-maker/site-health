@@ -11,12 +11,12 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 635eedf62ff38c18297e7d93a1028c78d4043828d135edcdf345610c42d74707
-      infrastructureUpdatedAt: 2026-08-27
+      sha256: 87605efd1db76b0138447e2a18ad5a74b4b7f93b6fde934f0ba2df9598ec720e
+      infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: High Signal Podcasts
@@ -34,28 +34,29 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: on-record
-      revision: 825dd42a0484e7e23bde360aebe86cc819e0a43f
+      revision: 46badc63151dd30a7bd95914763cf493a653023c
       githubRepository: Significant-Hobbies/on-record
       expectedHomepage: https://podcasts.highsignal.app
       observedHomepage: https://podcasts.highsignal.app
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 2
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-09
       state: available
       checkout: on-record
-      revision: 825dd42a0484e7e23bde360aebe86cc819e0a43f
+      revision: 46badc63151dd30a7bd95914763cf493a653023c
       githubRepository: Significant-Hobbies/on-record
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-24
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T11:35:59.384Z
+      observedAt: 2026-09-09T12:03:05.745Z
       staleAfterDays: 30
       healthy: 2
       running: 1
@@ -109,13 +110,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-08-24
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 69
+    latestCommitAt: 2026-09-09
+    retainedCommitCount: 72
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: on-record
-  observedRevision: 825dd42a0484e7e23bde360aebe86cc819e0a43f
+  observedRevision: 46badc63151dd30a7bd95914763cf493a653023c
   githubRepository: Significant-Hobbies/on-record
   githubHomepageUrl: https://podcasts.highsignal.app
   worktree: *a1
@@ -181,7 +182,7 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T11:35:59.384Z
+  observedAt: 2026-09-09T12:03:05.745Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -190,7 +191,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/on-record
     defaultBranch: main
-    defaultBranchSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
+    defaultBranchSha: 438369ff71e04593a74456682ac294696ed2ffae
     homepage: https://podcasts.highsignal.app
     query: verified
     disposition:
@@ -216,34 +217,33 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34113186595
+          id: 34348449974
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
-          createdAt: 2026-09-07T10:46:25Z
-          updatedAt: 2026-09-07T10:47:18Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34113186595
-        ageDays: 2
+          headSha: 46badc63151dd30a7bd95914763cf493a653023c
+          createdAt: 2026-09-09T11:59:17Z
+          updatedAt: 2026-09-09T12:00:11Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34348449974
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 438369f
         lastRun:
-          id: 34113186595
+          id: 34348449974
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
-          createdAt: 2026-09-07T10:46:25Z
-          updatedAt: 2026-09-07T10:47:18Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34113186595
-        ageDays: 2
+          headSha: 46badc63151dd30a7bd95914763cf493a653023c
+          createdAt: 2026-09-09T11:59:17Z
+          updatedAt: 2026-09-09T12:00:11Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34348449974
       attention: ignored
     - name: cron-ingest
       file: .github/workflows/cron-ingest.yml
@@ -311,16 +311,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34029806639
+          id: 34348609233
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 9c7cd345ed37f08270c309455b4cc3c95d0571c4
-          createdAt: 2026-09-06T11:17:20Z
-          updatedAt: 2026-09-06T11:17:53Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34029806639
-        ageDays: 3
+          headSha: 46badc63151dd30a7bd95914763cf493a653023c
+          createdAt: 2026-09-09T12:00:56Z
+          updatedAt: 2026-09-09T12:01:40Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34348609233
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -407,4 +407,4 @@ sharing:
       url: https://podcasts.highsignal.app/pricing
 notes:
   catalog: High Signal sub-product (own layout). Live at podcasts.highsignal.app; API at api.podcasts.highsignal.app. Workers on-record-api and high-signal-podcasts. D1 on-record-db, R2 on-record-raw. Source https://github.com/Significant-Hobbies/on-record.
-  infrastructure: null
+  infrastructure: API-only deployment34348609233 released 46badc63151dd30a7bd95914763cf493a653023c after exact CI34348449974 and six deployment gates passed. Worker version 6ac7d86c-e48f-4dad-986b-c3c5455afc27 / deployment eb87f76e-e2fc-4269-a644-2b3c2f204736 verified at 100% on 2026-09-09. Web unchanged; no migration. Twelve paired stats responses preserved all counts. Issue24 remains open for production D1 row-read evidence; source and live receipts are in on-record/docs/operations/stats-performance-2026-09-09.md.

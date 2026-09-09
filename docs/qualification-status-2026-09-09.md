@@ -252,3 +252,8 @@ corroboration/forecast builder was removed. Title-case paraphrase regression als
 passes. Unknown English headline anchors remain research inputs; this discovery
 rule is not semantic proof. Live generation/publication is still unqualified.
 Evidence remains at80dbf9d under docs/operations/2026-09-09-*.json.
+
+
+## On Record transcript-count release
+
+PR26 merged 46badc63151dd30a7bd95914763cf493a653023c and deployed API-only in run34348609233 after exact-main CI and all six gates passed. Worker6ac7d86c-e48f-4dad-986b-c3c5455afc27 carries the source tag at100%. The indexed EXISTS query preserves trusted transcript counts; all12 before/after responses matched completely. Same-colo fresh median792 to635ms is a small network-inclusive sample, not sustained performance proof. Full local quality passed123 API and228 Python tests. Owning receipts and source are committed; the feature branch was removed. Initial post-release15m D1 insights still contain the old query and no EXISTS query, so reduced production rows remain unverified under existing issue24. No new issue or shareability promotion.
