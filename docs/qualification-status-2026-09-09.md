@@ -241,7 +241,14 @@ No publication was dispatched and shareability remains false.
 
 The ordinary publisher rubric rejects this draft for non-brief-ready prose;
 its public structural quality score does not establish semantic publication
-approval. The thematic coherence repair and source-excerpt judge follow-up are
-planned but not implemented. Both assigned agents stopped at the account usage
-limit before any source edits. Evidence is retained in High Signal at
-80dbf9d under docs/operations/2026-09-09-*.json.
+approval. Both assigned agents stopped at the account usage limit before source
+edits; root subsequently completed the repairs. PR155 merged as995033d with
+exact main CI34345130193 green: semantic review uses bounded retained excerpts,
+and unavailable text cannot receive verified alignment. PR156 merged as
+c9aa099 after all exact-head checks passed: named project/location/event grouping
+replaces whole-theme aggregation, and eligible stories use the existing semantic
+generator followed by independent-origin proof checks. The old deterministic
+corroboration/forecast builder was removed. Title-case paraphrase regression also
+passes. Unknown English headline anchors remain research inputs; this discovery
+rule is not semantic proof. Live generation/publication is still unqualified.
+Evidence remains at80dbf9d under docs/operations/2026-09-09-*.json.

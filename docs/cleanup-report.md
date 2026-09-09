@@ -462,3 +462,15 @@ funnel and rejected product outcome. Agent usage limits stopped the proposed
 source repairs before edits; three compact evidence receipts were preserved,
 and the empty task branch was removed normally. No product qualification was
 inferred from successful ingestion.
+
+
+## High Signal source repairs completed
+
+Root continued locally after the agent usage limit. PR155 merged995033d with
+exact main CI green; PR156 mergedc9aa099 after all PR checks passed. Retained
+source excerpts now ground legacy semantic review, and thematic inputs must
+form compatible named events before semantic generation and proof validation.
+The unsupported deterministic thematic builder is removed. Both task branches
+were removed normally after merge; no publication or runtime deployment ran.
+This supersedes the earlier agent-stop checkpoint without claiming a useful
+new edition. The qualification report retains source and live-evidence limits.
