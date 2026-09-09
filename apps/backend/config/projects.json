@@ -712,7 +712,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Source 65a3cf12 fixes round-robin ordering so only healthy equivalent external candidates rotate; fallback order remains intact. Exact CI and 261 tests passed. Manual deployment 34324194568 passed; full source tag and 100% traffic verified. Post-release High Signal retry 34324493619 passed with zero operational errors; its candidate was rejected editorially and no new signal published. Sustained authorized inference and consumer qualification remain issue 65."
+          "reason": "Source f4aa1bef repairs chat fallback when a selected upstream model returns 404, within the existing two-attempt cap. All 264 tests and exact main CI passed. Manual deployment 34375302646 passed health smoke; source tag and 100% traffic verified. High Signal replay 34375574748 is running. Protected inference and consumer qualification remain unverified under issue 65."
         }
       },
       "authModel": "required-service",
@@ -726,7 +726,7 @@
       ],
       "inRegistry": true,
       "status": "live",
-      "notes": "Source 65a3cf12 fixes round-robin ordering so only healthy equivalent external candidates rotate; fallback order remains intact. Exact CI and 261 tests passed. Manual deployment 34324194568 passed; full source tag and 100% traffic verified. Post-release High Signal retry 34324493619 passed with zero operational errors; its candidate was rejected editorially and no new signal published. Sustained authorized inference and consumer qualification remain issue 65.",
+      "notes": "Source f4aa1bef repairs chat fallback when a selected upstream model returns 404, within the existing two-attempt cap. All 264 tests and exact main CI passed. Manual deployment 34375302646 passed health smoke; source tag and 100% traffic verified. High Signal replay 34375574748 is running. Protected inference and consumer qualification remain unverified under issue 65.",
       "name": "Free AI",
       "attention": "toolbox",
       "lifecycle": {
@@ -5007,7 +5007,7 @@
             "state": "active"
           }
         ],
-        "notes": "Worker 002855ee-319d-4a6c-8231-6050f35c2a9c / deployment b7219624-3a72-48e3-8dbb-cf592fead821 carries 65a3cf1228e117525dc42b2136acc52dacfd0ff6 at 100%. Existing manual workflow 34324194568 passed. No provider registry, credentials, quotas or schema changed."
+        "notes": "Worker 76660b48-940e-4274-b941-36f22364e2fa / deployment 4e86f1b4-f5a3-408b-b19f-51f29251f9fa carries f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4 at 100%. Existing manual workflow 34375302646 passed health smoke. No provider registry, credentials, quotas or schema changed."
       },
       "psi-swarm": {
         "updatedAt": "2026-08-11",

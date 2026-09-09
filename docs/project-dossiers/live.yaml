@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: a9dca2733d7a0c6dddc0fc1991de322013151890b3ec0fd1c625b9c4328d031b
+      sha256: 0a2c8b26786fadbc89cb2d47e1fe887070d71a9791e115469f74a538fc375f07
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T15:39:52.873Z
+      observedAt: 2026-09-09T16:16:10.080Z
       staleAfterDays: 30
       healthy: 5
       failing: 1
@@ -200,7 +200,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-09T15:39:52.873Z
+  observedAt: 2026-09-09T16:16:10.080Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -412,29 +412,29 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34342590915
+          id: 34374324235
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T10:53:02Z
-          updatedAt: 2026-09-09T10:53:14Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34342590915
+          createdAt: 2026-09-09T16:03:47Z
+          updatedAt: 2026-09-09T16:04:05Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34374324235
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 34342590915
+          id: 34374324235
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T10:53:02Z
-          updatedAt: 2026-09-09T10:53:14Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34342590915
+          createdAt: 2026-09-09T16:03:47Z
+          updatedAt: 2026-09-09T16:04:05Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34374324235
         ageDays: 0
         freshnessDays: 1
       currentDefaultBranch:

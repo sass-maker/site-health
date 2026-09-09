@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: a9dca2733d7a0c6dddc0fc1991de322013151890b3ec0fd1c625b9c4328d031b
+      sha256: 0a2c8b26786fadbc89cb2d47e1fe887070d71a9791e115469f74a538fc375f07
       infrastructureUpdatedAt: 2026-09-07
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -52,7 +52,7 @@ verification:
       catalogDrift: []
       reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/nomads-data ls-files -z"
     githubActions:
-      observedAt: 2026-09-09T15:39:52.873Z
+      observedAt: 2026-09-09T16:16:10.080Z
       staleAfterDays: 30
       attention: &a1 {}
   unknowns:
@@ -120,7 +120,7 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T15:39:52.873Z
+  observedAt: 2026-09-09T16:16:10.080Z
   staleAfterDays: 30
   summary: {}
   attention: *a1
