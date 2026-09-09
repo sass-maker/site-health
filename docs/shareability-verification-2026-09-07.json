@@ -735,16 +735,22 @@
       "id": "codevetter",
       "shareable": false,
       "verdict": "not_verified",
-      "surface": "Native macOS app",
-      "observed": "Public download and release metadata inspected; current CI passes but release assets and version claims are being repaired in concurrent work.",
-      "limitations": "Native installed workflow not exercised; requires idle-screen authorization under its AGENTS.md.",
-      "verifiedAt": "2026-09-07",
-      "confidence": "low",
+      "surface": "Native macOS package, CLI verification and public download",
+      "observed": "Published 1.13.8 passes signed-package missing-target and symlink execution regressions. Live download HTML/Markdown match its assets. Signed/notarized 1.13.9 candidate dccfc613a5088099257bb1d50d231802a2b61ffbd4eacc344011da83dfb1fff9 completes a real Codex-backed review and passing correctness check, correctly recording unavailable performance as unqualified. Protected qualification passes all 17 gates; hosted tests pass 95 background and 10 interaction cases. Release run 34314906195 remains active.",
+      "limitations": "Public 1.13.9 package verification and actual Sparkle download/install/relaunch remain pending. The owner app was not replaced. CLI evidence uses a bounded Node fixture, and interface screenshots use fixtures; neither is broad product acceptance.",
+      "verifiedAt": "2026-09-09",
+      "confidence": "high",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
-      "loggedOut": "not-qualified",
-      "loggedIn": "not-verified",
-      "presentation": "not-separately-screenshot-qualified",
-      "disposition": "retain-unpromoted"
+      "loggedOut": "Public downloads/docs verified; published CLI invalid-target and symlink paths exercised.",
+      "loggedIn": "Real Codex executor completed review through the signed 1.13.9 candidate in an isolated database; other providers unqualified.",
+      "presentation": "Actual SwiftUI fixture renders inspected; hosted native interaction tests passed. Owner desktop not opened.",
+      "disposition": "retain-unpromoted",
+      "actions": [
+        "Verified live download HTML/Markdown, docs and privacy",
+        "Verified published 1.13.8 and signed 1.13.9 candidate signatures and Gatekeeper",
+        "Ran actual packaged CLI regressions and Codex-backed review",
+        "Inspected hosted native tests and upgrade/relaunch/rollback/rubric receipts"
+      ]
     },
     {
       "id": "pace",

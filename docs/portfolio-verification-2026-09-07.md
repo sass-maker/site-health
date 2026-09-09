@@ -1,12 +1,14 @@
-# Portfolio verification — 7 September 2026
+# Portfolio verification snapshot — 7 September 2026
+
+Historical snapshot: the counts, installations and operational states below describe that checkpoint. Later evidence is recorded in [cleanup receipts](cleanup-report.md) and the dated [per-project verification rows](shareability-verification-2026-09-07.json). These figures are not a current fleet completion tally.
 
 The canonical catalog contains **57 retained identities: 2 primary, 19 active and 36 inactive**. All have exactly `status`, `shareable` and `resumeCondition` in the lifecycle object; every resume condition remains null. Chess and Journal are removed from the lineup; Nomad is active and excluded from this 54-project exercise.
 
-**Current 54-project accounting: 23 scoped sharing passes, 8 retention outcomes without an adoption push, and 23 remaining qualification or decision items.** A pass applies only to the described experience. Authentication, native distribution and broader data/model coverage remain separate when unverified. Confidence is qualitative confidence in that bounded verdict.
+**September 7 accounting: 23 scoped sharing passes, 8 retention outcomes without an adoption push, and 23 remaining qualification or decision items.** A pass applies only to the described experience. Authentication, native distribution and broader data/model coverage remain separate when unverified. Confidence is qualitative confidence in that bounded verdict.
 
 The owner approved prepared releases and synthetic verification, and explicitly retained Reel Pipeline and Forecast Lab as nonshareable experiments. Companion Robot, AliveVille, Open Historia and Motion are also held experiments under the recorded owner intent; TrueHire and Mobile Dev Cockpit remain historical work. Office OS and Local AI Video Studio remain reconsideration decisions. Retention does not erase future-sharing limitations.
 
-## Immediate Hub use
+## September 7 Hub installation snapshot
 
 Kith 7, Setline 7, Calorie 11 and Anchor 22 are installed on the owner iPhone as development builds. Physical use remains unverified while the phone is locked. Anchor Mac build 21 is preserved pending Production CloudKit promotion. See [the bounded owner-use receipt](qualification/hub-2026-09-07/README.md). These installations do not change the 23 scoped sharing passes.
 
