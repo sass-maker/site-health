@@ -94,6 +94,27 @@ camera/control evidence; Companion Robot has no working hardware product.
 Reel Pipeline and Forecast Lab do not require licensing/release decisions merely
 to remain experiments. Cockpit and TrueHire remain historical references.
 
+## Replace rather than expand
+
+These are product-investment recommendations, not additional removals. Chess
+and Journal remain the only explicitly removed products in this exercise.
+
+| Fleet project | Recommendation | Preserve only if it proves a recurring advantage |
+| --- | --- | --- |
+| Local AI Video Studio | **Stop building general video-editor parity. Use DaVinci Resolve for finished creator work.** The native audit found titles/captions not rendered, missing crossfades and approximated audio/subject effects; its successful synthetic export proves a bounded effects pipeline. Resolve documents actual timeline editing, titles and rendered/exported subtitles. | Local validated effect graphs, reproducible variant comparison and native rendering. Reopen for a concrete job where these beat the established editor; broad editor features are not the objective. |
+| Office OS | **Replace ordinary assistant/research/recurring-summary work with an existing assistant; evaluate Claude Cowork first.** Its documented file workflows and scheduled tasks overlap this generic use case. An illustrated employee workspace alone does not justify another product. | Named employee identity, revisioned contracts and inspectable authority. Require one recurring duty to show better delivery correctness, recovery and owner effort before expanding. |
+
+Evidence: [native video audit](https://github.com/sass-maker/local-ai-video-studio/blob/main/docs/shareability-assessment-2026-09-07.md),
+[Office OS audit](https://github.com/sass-maker/agent-office/blob/main/docs/shareability-review-2026-09-07.md).
+Official alternatives rechecked September9: [Resolve editing and subtitles](https://www.blackmagicdesign.com/products/davinciresolve/edit),
+[Cowork product guide](https://claude.com/blog/the-claude-cowork-product-guide) and
+[scheduled tasks](https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork).
+These vendor capabilities are not a hands-on comparison on the owner's Mac.
+Cowork is not qualified as equivalent to Office OS's local execution and
+permission model; tasks requiring local files/apps require local execution.
+No replacement was installed, purchased or given private data, and lifecycle
+assignments remain unchanged.
+
 ## Record reconciliation
 
 This round updates stale Anchor, Calorie, Reader, Knowledge Base, AliveVille and
