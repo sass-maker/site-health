@@ -226,3 +226,22 @@ no accessible owner identity was available for correlating real telemetry with
 dashboard aggregates. Anonymous HTTP probes received Cloudflare 1010 responses;
 these do not demonstrate an application authentication failure. No telemetry,
 keys, allowlist changes or production writes were fabricated for acceptance.
+
+
+## Fresh High Signal ingestion result
+
+Archive34338300121 completed all 99 communities with immutable run-scoped
+objects. Ingestion34341530766 then succeeded on f6654bd: all 4,419 events
+were pushed, with 35 clusters reaching generation and three generation-request
+failures. The one entity candidate failed independent-origin evidence checks.
+One thematic draft was API-persisted, independently read back as548d65290de0c473.
+Its six citations combine chip technology, a Qatar lease and unrelated municipal
+zoning/retail items; its claim of 58 corroborating sources is unsupported.
+No publication was dispatched and shareability remains false.
+
+The ordinary publisher rubric rejects this draft for non-brief-ready prose;
+its public structural quality score does not establish semantic publication
+approval. The thematic coherence repair and source-excerpt judge follow-up are
+planned but not implemented. Both assigned agents stopped at the account usage
+limit before any source edits. Evidence is retained in High Signal at
+80dbf9d under docs/operations/2026-09-09-*.json.
