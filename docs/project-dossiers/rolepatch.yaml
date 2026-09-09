@@ -11,12 +11,12 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 87605efd1db76b0138447e2a18ad5a74b4b7f93b6fde934f0ba2df9598ec720e
-      infrastructureUpdatedAt: 2026-09-08
+      sha256: e222b6c18a4bde28c7742914a52a3fd3601bf3d45582bd52aa19e1146417ef1a
+      infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: RolePatch
@@ -34,30 +34,32 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: rolepatch
-      revision: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+      revision: 985dfd1f11a3c617482c49f05bf59708b9d7fd6b
       githubRepository: Significant-Hobbies/rolepatch
       expectedHomepage: https://rolepatch.com
       observedHomepage: https://rolepatch.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-09
       state: available
       checkout: rolepatch
-      revision: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+      revision: 985dfd1f11a3c617482c49f05bf59708b9d7fd6b
       githubRepository: Significant-Hobbies/rolepatch
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-23
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T12:03:05.745Z
+      observedAt: 2026-09-09T12:57:47.058Z
       staleAfterDays: 30
-      healthy: 4
+      running: 2
+      healthy: 2
       attention: &a2
         ignored: 4
   unknowns: []
@@ -108,13 +110,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-23
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 434
+    latestCommitAt: 2026-09-09
+    retainedCommitCount: 444
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: rolepatch
-  observedRevision: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+  observedRevision: 985dfd1f11a3c617482c49f05bf59708b9d7fd6b
   githubRepository: Significant-Hobbies/rolepatch
   githubHomepageUrl: https://rolepatch.com
   worktree: *a1
@@ -182,15 +184,16 @@ repository:
       - typecheck
       - verify:deploy-routes
 githubActions:
-  observedAt: 2026-09-09T12:03:05.745Z
+  observedAt: 2026-09-09T12:57:47.058Z
   staleAfterDays: 30
   summary:
-    healthy: 4
+    running: 2
+    healthy: 2
   attention: *a2
   remote:
     repository: Significant-Hobbies/rolepatch
     defaultBranch: main
-    defaultBranchSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
+    defaultBranchSha: 8e8282303b4a62d81c14f098dfa2a2c678f8e0e1
     homepage: https://rolepatch.com
     query: verified
     disposition:
@@ -211,38 +214,38 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34147870517
-          status: completed
-          conclusion: success
+          id: 34354145045
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
-          createdAt: 2026-09-07T17:30:15Z
-          updatedAt: 2026-09-07T17:33:37Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34147870517
-        ageDays: 1
+          headSha: 8e8282303b4a62d81c14f098dfa2a2c678f8e0e1
+          createdAt: 2026-09-09T12:58:05Z
+          updatedAt: 2026-09-09T12:58:09Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34354145045
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: running
+        reason: current main push is in_progress
         lastRun:
-          id: 34147870517
-          status: completed
-          conclusion: success
+          id: 34354145045
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
-          createdAt: 2026-09-07T17:30:15Z
-          updatedAt: 2026-09-07T17:33:37Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34147870517
-        ageDays: 1
+          headSha: 8e8282303b4a62d81c14f098dfa2a2c678f8e0e1
+          createdAt: 2026-09-09T12:58:05Z
+          updatedAt: 2026-09-09T12:58:09Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34354145045
+        ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -262,16 +265,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34148200452
+          id: 34353678503
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
-          createdAt: 2026-09-07T17:34:59Z
-          updatedAt: 2026-09-07T17:37:23Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34148200452
-        ageDays: 1
+          headSha: 985dfd1f11a3c617482c49f05bf59708b9d7fd6b
+          createdAt: 2026-09-09T12:53:27Z
+          updatedAt: 2026-09-09T12:55:36Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34353678503
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -295,38 +298,38 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34147870503
-          status: completed
-          conclusion: success
+          id: 34354145097
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
-          createdAt: 2026-09-07T17:30:15Z
-          updatedAt: 2026-09-07T17:30:28Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34147870503
-        ageDays: 1
+          headSha: 8e8282303b4a62d81c14f098dfa2a2c678f8e0e1
+          createdAt: 2026-09-09T12:58:05Z
+          updatedAt: 2026-09-09T12:58:09Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34354145097
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: running
+        reason: current main push is in_progress
         lastRun:
-          id: 34147870503
-          status: completed
-          conclusion: success
+          id: 34354145097
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
-          createdAt: 2026-09-07T17:30:15Z
-          updatedAt: 2026-09-07T17:30:28Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34147870503
-        ageDays: 1
+          headSha: 8e8282303b4a62d81c14f098dfa2a2c678f8e0e1
+          createdAt: 2026-09-09T12:58:05Z
+          updatedAt: 2026-09-09T12:58:09Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/34354145097
+        ageDays: 0
       attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
@@ -379,10 +382,10 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-07T18:47:02.322222+00:00
-          deploymentId: f85a8f01-5348-4faf-af1c-928e9b957319
-          sourceCommit: 0bd2285c4d59c77626fa39c35c02c93f8b89997b
-          evidencePath: docs/qualification/rolepatch-2026-09-07/export/final-worker-parity.json
+          observedAt: 2026-09-09T12:55:26.703806Z
+          deploymentId: cf264b17-55a9-4417-b815-7fd5629489fa
+          sourceCommit: 985dfd1f11a3c617482c49f05bf59708b9d7fd6b
+          evidencePath: docs/qualification/rolepatch-import-2026-09-09.json
     resources:
       - provider: cloudflare
         kind: d1
@@ -433,8 +436,8 @@ sharing:
   publicListing: maintained
   maturity: maintained
   ready: true
-  verifiedAt: 2026-09-07
-  reason: "Shareable guest resume-tailoring experiment: manual job entry, real AI generation, reviewed synthetic facts, save/reload and local text/HTML/Word-compatible downloads plus one- and two-page print-to-PDF pass. Account sync, file import, URL scraping, broader AI features and real application submission remain unqualified in #68."
+  verifiedAt: 2026-09-09
+  reason: "Shareable guest resume-tailoring experiment: manual job entry, real AI generation, reviewed synthetic facts, save/reload and local text/HTML/Word-compatible downloads plus one- and two-page print-to-PDF pass. Hosted synthetic PDF and DOCX imports now also pass real AI generation and reload persistence at 390px. Outputs preserve sampled facts but add a missing-contact placeholder. Account sync, URL scraping, broader AI features and real application submission remain unqualified in #68."
   changelogUrl: https://rolepatch.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/rolepatch/issues
   geoIdentity:

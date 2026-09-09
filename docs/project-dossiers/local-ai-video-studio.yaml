@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 87605efd1db76b0138447e2a18ad5a74b4b7f93b6fde934f0ba2df9598ec720e
+      sha256: e222b6c18a4bde28c7742914a52a3fd3601bf3d45582bd52aa19e1146417ef1a
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T12:03:05.745Z
+      observedAt: 2026-09-09T12:57:47.058Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -153,7 +153,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T12:03:05.745Z
+  observedAt: 2026-09-09T12:57:47.058Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -195,7 +195,7 @@ githubActions:
           createdAt: 2026-09-07T12:31:11Z
           updatedAt: 2026-09-07T12:33:19Z
           url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/34122300862
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -213,7 +213,7 @@ githubActions:
           createdAt: 2026-09-07T12:31:11Z
           updatedAt: 2026-09-07T12:33:19Z
           url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/34122300862
-        ageDays: 1
+        ageDays: 2
       attention: ignored
     - name: Site Check
       file: .github/workflows/site-check.yml
@@ -242,7 +242,7 @@ githubActions:
           createdAt: 2026-09-07T12:31:11Z
           updatedAt: 2026-09-07T12:31:21Z
           url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/34122300774
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -260,7 +260,7 @@ githubActions:
           createdAt: 2026-09-07T12:31:11Z
           updatedAt: 2026-09-07T12:31:21Z
           url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/34122300774
-        ageDays: 1
+        ageDays: 2
       attention: ignored
 deployment:
   kind: pages

@@ -47,7 +47,7 @@
     },
     "workers": "Use infrastructure._meta.cloudflareCoverage plus per-project deployment rows for current evidence. Wrangler supports known-name Worker probes but not a complete reverse account inventory.",
     "openGaps": [
-      "CF project 'tinygpt' name unchanged \u2014 cosmetic only and not user-visible. posttrainllm.com is the canonical live domain; the platform-generated tinygpt.pages.dev hostname is not a custom fallback.",
+      "CF project 'tinygpt' name unchanged — cosmetic only and not user-visible. posttrainllm.com is the canonical live domain; the platform-generated tinygpt.pages.dev hostname is not a custom fallback.",
       "Reddit Insights retains one configured-but-not-deployed daily collector Worker and one configured-but-not-provisioned archive bucket."
     ]
   },
@@ -1816,8 +1816,8 @@
         "deployed": true,
         "readyToBeShared": true,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Shareable guest resume-tailoring experiment: manual job entry, real AI generation, reviewed synthetic facts, save/reload and local text/HTML/Word-compatible downloads plus one- and two-page print-to-PDF pass. Account sync, file import, URL scraping, broader AI features and real application submission remain unqualified in #68."
+          "verifiedAt": "2026-09-09",
+          "reason": "Shareable guest resume-tailoring experiment: manual job entry, real AI generation, reviewed synthetic facts, save/reload and local text/HTML/Word-compatible downloads plus one- and two-page print-to-PDF pass. Hosted synthetic PDF and DOCX imports now also pass real AI generation and reload persistence at 390px. Outputs preserve sampled facts but add a missing-contact placeholder. Account sync, URL scraping, broader AI features and real application submission remain unqualified in #68."
         }
       },
       "authModel": "public-persistent",
@@ -5641,7 +5641,7 @@
         "notes": "Private landing factory. Product Pages deployments are attributed to their product rows; Journal native ownership now lives in Significant-Hobbies/journal."
       },
       "rolepatch": {
-        "updatedAt": "2026-09-08",
+        "updatedAt": "2026-09-09",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5650,10 +5650,10 @@
             "method": "wrangler-direct",
             "state": "live",
             "verification": {
-              "observedAt": "2026-09-07T18:47:02.322222+00:00",
-              "deploymentId": "f85a8f01-5348-4faf-af1c-928e9b957319",
-              "sourceCommit": "0bd2285c4d59c77626fa39c35c02c93f8b89997b",
-              "evidencePath": "docs/qualification/rolepatch-2026-09-07/export/final-worker-parity.json"
+              "observedAt": "2026-09-09T12:55:26.703806Z",
+              "deploymentId": "cf264b17-55a9-4417-b815-7fd5629489fa",
+              "sourceCommit": "985dfd1f11a3c617482c49f05bf59708b9d7fd6b",
+              "evidencePath": "docs/qualification/rolepatch-import-2026-09-09.json"
             }
           }
         ],
