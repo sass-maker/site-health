@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0a2c8b26786fadbc89cb2d47e1fe887070d71a9791e115469f74a538fc375f07
+      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T16:16:10.080Z
+      observedAt: 2026-09-09T17:31:03.115Z
       staleAfterDays: 30
       stuck: 1
       attention: &a2
@@ -146,7 +146,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T16:16:10.080Z
+  observedAt: 2026-09-09T17:31:03.115Z
   staleAfterDays: 30
   summary:
     stuck: 1
@@ -177,7 +177,7 @@ githubActions:
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: stuck
-        reason: latest run has remained queued for 19 day(s)
+        reason: latest run has remained queued for 20 day(s)
         apiState: active
         lastRun:
           id: 32396632476
@@ -189,7 +189,7 @@ githubActions:
           createdAt: 2026-08-20T17:15:48Z
           updatedAt: 2026-08-20T17:15:48Z
           url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/32396632476
-        ageDays: 19
+        ageDays: 20
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

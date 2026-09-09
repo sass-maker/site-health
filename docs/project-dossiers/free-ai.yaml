@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 0a2c8b26786fadbc89cb2d47e1fe887070d71a9791e115469f74a538fc375f07
+      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: free-ai
-      revision: f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4
+      revision: eb7846b5c8495eb3dfaeafbc1e317f15f36ef3ea
       githubRepository: sass-maker/free-ai
       expectedHomepage: https://ai-gateway.sassmaker.com
       observedHomepage: https://ai-gateway.sassmaker.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-09
       state: available
       checkout: free-ai
-      revision: f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4
+      revision: eb7846b5c8495eb3dfaeafbc1e317f15f36ef3ea
       githubRepository: sass-maker/free-ai
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T16:16:10.080Z
+      observedAt: 2026-09-09T17:31:03.115Z
       staleAfterDays: 30
       failing: 1
       healthy: 3
@@ -111,12 +111,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-02-15
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 254
+    retainedCommitCount: 257
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: free-ai
-  observedRevision: f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4
+  observedRevision: eb7846b5c8495eb3dfaeafbc1e317f15f36ef3ea
   githubRepository: sass-maker/free-ai
   githubHomepageUrl: https://ai-gateway.sassmaker.com
   worktree: *a1
@@ -195,7 +195,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T16:16:10.080Z
+  observedAt: 2026-09-09T17:31:03.115Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -204,7 +204,7 @@ githubActions:
   remote:
     repository: sass-maker/free-ai
     defaultBranch: main
-    defaultBranchSha: f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4
+    defaultBranchSha: eb7846b5c8495eb3dfaeafbc1e317f15f36ef3ea
     homepage: https://ai-gateway.sassmaker.com
     query: verified
     disposition:
@@ -277,15 +277,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34375083165
+          id: 34383188278
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4
-          createdAt: 2026-09-09T16:10:49Z
-          updatedAt: 2026-09-09T16:11:49Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/34375083165
+          headSha: eb7846b5c8495eb3dfaeafbc1e317f15f36ef3ea
+          createdAt: 2026-09-09T17:29:08Z
+          updatedAt: 2026-09-09T17:30:02Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34383188278
         ageDays: 0
       schedule:
         health: not-applicable
@@ -295,15 +295,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34375083165
+          id: 34383188278
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4
-          createdAt: 2026-09-09T16:10:49Z
-          updatedAt: 2026-09-09T16:11:49Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/34375083165
+          headSha: eb7846b5c8495eb3dfaeafbc1e317f15f36ef3ea
+          createdAt: 2026-09-09T17:29:08Z
+          updatedAt: 2026-09-09T17:30:02Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34383188278
         ageDays: 0
       attention: clear
     - name: Deploy Cloudflare
@@ -323,15 +323,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34375302646
+          id: 34382941138
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4
-          createdAt: 2026-09-09T16:12:57Z
-          updatedAt: 2026-09-09T16:14:31Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/34375302646
+          headSha: bcb190a9e88c0afd04ad05cca7ddb020fe5e37ae
+          createdAt: 2026-09-09T17:26:42Z
+          updatedAt: 2026-09-09T17:28:13Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34382941138
         ageDays: 0
       schedule:
         health: not-applicable
@@ -360,15 +360,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34375083279
+          id: 34383188223
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4
-          createdAt: 2026-09-09T16:10:49Z
-          updatedAt: 2026-09-09T16:11:54Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/34375083279
+          headSha: eb7846b5c8495eb3dfaeafbc1e317f15f36ef3ea
+          createdAt: 2026-09-09T17:29:08Z
+          updatedAt: 2026-09-09T17:30:10Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34383188223
         ageDays: 0
       schedule:
         health: not-applicable
@@ -378,15 +378,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34375083279
+          id: 34383188223
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4
-          createdAt: 2026-09-09T16:10:49Z
-          updatedAt: 2026-09-09T16:11:54Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/34375083279
+          headSha: eb7846b5c8495eb3dfaeafbc1e317f15f36ef3ea
+          createdAt: 2026-09-09T17:29:08Z
+          updatedAt: 2026-09-09T17:30:10Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34383188223
         ageDays: 0
       attention: clear
 deployment:
@@ -462,7 +462,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-09
-  reason: Source f4aa1bef repairs chat fallback when a selected upstream model returns 404, within the existing two-attempt cap. All 264 tests and exact main CI passed. Manual deployment 34375302646 passed health smoke; source tag and 100% traffic verified. High Signal replay 34375574748 is running. Protected inference and consumer qualification remain unverified under issue 65.
+  reason: Source bcb190a9 ranks poor-reliability fallbacks by health before tier preference. All 265 tests and exact main CI passed. Manual deployment 34382941138 passed; source tag and 100% traffic verified. Public routing now leads with Mistral instead of zero-success preferred-tier models. High Signal replay 34383136925 is running. Provider recovery and consumer qualification remain unverified under issue 65.
   changelogUrl: https://ai-gateway.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/free-ai/issues
   geoIdentity:
@@ -486,5 +486,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Source f4aa1bef repairs chat fallback when a selected upstream model returns 404, within the existing two-attempt cap. All 264 tests and exact main CI passed. Manual deployment 34375302646 passed health smoke; source tag and 100% traffic verified. High Signal replay 34375574748 is running. Protected inference and consumer qualification remain unverified under issue 65.
-  infrastructure: Worker 76660b48-940e-4274-b941-36f22364e2fa / deployment 4e86f1b4-f5a3-408b-b19f-51f29251f9fa carries f4aa1bef4a6d6ca5a00ad2b15cdf0c97abefe2c4 at 100%. Existing manual workflow 34375302646 passed health smoke. No provider registry, credentials, quotas or schema changed.
+  catalog: Source bcb190a9 ranks poor-reliability fallbacks by health before tier preference. All 265 tests and exact main CI passed. Manual deployment 34382941138 passed; source tag and 100% traffic verified. Public routing now leads with Mistral instead of zero-success preferred-tier models. High Signal replay 34383136925 is running. Provider recovery and consumer qualification remain unverified under issue 65.
+  infrastructure: Worker 7de98708-aac4-4bd9-8499-8973072d5518 / deployment db90db49-27de-4d2b-bfde-25aa35a47c24 carries bcb190a9e88c0afd04ad05cca7ddb020fe5e37ae at 100%. Manual workflow 34382941138 passed. Provider registry, credentials, quotas and schema are unchanged.
