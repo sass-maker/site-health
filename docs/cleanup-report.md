@@ -388,9 +388,10 @@ initialization timeout. Zero product assertions ran. No security settings or
 owner data changed; diagnostic products were cleaned and owner stash preserved.
 
 Calorie test-only fc1bfce strengthens the picker/score UI check after docs-head
-CI34337638142 failed. Focused UI and87 server tests pass; exact CI34339196137
-is pending. Installed15c6aa1 remains unchanged. See the qualification report
-for the evidence and remaining boundaries.
+CI34337638142 failed. Focused UI and87 server tests pass. Exact CI34339196137
+subsequently passed on fc1bfce: 82 native tests, Release and70.5574% coverage.
+Installed15c6aa1 remains unchanged. Physical/account acceptance and public
+distribution remain open; see the qualification report for evidence.
 
 
 ## Public retained-history reconciliation
@@ -401,3 +402,17 @@ only the public directory as e3d262d1-7b28-4903-8956-1042e050de4f. Exact-main CI
 six deployment gates, four smoke checks and full24-entry public/immutable
 projection comparisons passed. All task checkouts/branches were cleaned; owner
 edits were preserved. [Durable receipt](qualification/saas-maker-history-2026-09-09/README.md).
+
+
+## Fresh task audit, 9 September at 10:54 UTC
+
+The [repository-by-repository receipt](qualification/task-audit-2026-09-09.json)
+records 54 distinct canonical repositories, 51 open issues across 35 repositories,
+zero open PRs and zero query errors, with complete pagination. This supersedes
+earlier issue/PR counts. Protein Index uses its canonical resilience repository.
+
+Open Historia PR28 was closed without merging its optional image compression;
+original qualification images remain intact. This is a declined proposal, not
+a completed product requirement. No unresolved issue was closed to reduce the
+count. Completed source work and outstanding account, device, provider and
+product acceptance remain distinct in the qualification report.

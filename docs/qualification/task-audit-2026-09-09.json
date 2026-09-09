@@ -1,0 +1,1569 @@
+{
+  "observedAt": "2026-09-09T10:54:39.668543+00:00",
+  "observationStartedAt": "2026-09-09T10:54:35.815244+00:00",
+  "scope": {
+    "projectCount": 54,
+    "uniqueRepositoryCount": 54,
+    "excludedProjectIds": [
+      "chess",
+      "journal",
+      "nomad-data-adventure"
+    ],
+    "mappingSource": "apps/backend/config/projects.json plus docs/portfolio-task-inventory-2026-09-07.json repository identities",
+    "mappingExceptions": [
+      {
+        "projectId": "protein-index",
+        "repository": "Significant-Hobbies/protein-index-resilience",
+        "reason": "Canonical source override/public repository; local checkout origin still Significant-Hobbies/protein-index. Verified against project dossier repository.url."
+      }
+    ]
+  },
+  "method": "Single read-only GitHub GraphQL query, OPEN issues and pull requests, first 100 per connection. No issue/PR mutation.",
+  "summary": {
+    "openIssueCount": 51,
+    "openPullRequestCount": 0,
+    "repositoriesWithOpenIssues": 35,
+    "paginationComplete": true,
+    "queryErrorCount": 0
+  },
+  "queryErrors": [],
+  "repositories": [
+    {
+      "repository": "Codevetter/codevetter",
+      "projects": [
+        {
+          "projectId": "codevetter",
+          "checkout": "codevetter"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Codevetter/codevetter",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Codevetter/starboard",
+      "projects": [
+        {
+          "projectId": "starboard",
+          "checkout": "starboard"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Codevetter/starboard",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 107,
+            "title": "Scheduled seed run failed",
+            "url": "https://github.com/Codevetter/starboard/issues/107"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "HeyPace/companion-robot",
+      "projects": [
+        {
+          "projectId": "companion-robot",
+          "checkout": "companion-robot"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "HeyPace/companion-robot",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "HeyPace/pace",
+      "projects": [
+        {
+          "projectId": "pace",
+          "checkout": "pace"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "HeyPace/pace",
+      "issues": {
+        "count": 2,
+        "items": [
+          {
+            "number": 157,
+            "title": "Build Spatial Teach Mode and evidence-rich compiled flows",
+            "url": "https://github.com/HeyPace/pace/issues/157"
+          },
+          {
+            "number": 172,
+            "title": "Expose Pace's local Mac capabilities to Codex through MCP",
+            "url": "https://github.com/HeyPace/pace/issues/172"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "High-Signal-App/everythingrated",
+      "projects": [
+        {
+          "projectId": "everythingrated",
+          "checkout": "everythingrated"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "High-Signal-App/everythingrated",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 18,
+            "title": "Restore manual deployment workflow authentication",
+            "url": "https://github.com/High-Signal-App/everythingrated/issues/18"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "High-Signal-App/high-signal",
+      "projects": [
+        {
+          "projectId": "high-signal",
+          "checkout": "high-signal"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "High-Signal-App/high-signal",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 133,
+            "title": "Harden daily freshness, Digg verification, and publishability",
+            "url": "https://github.com/High-Signal-App/high-signal/issues/133"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "High-Signal-App/research-papers",
+      "projects": [
+        {
+          "projectId": "research-papers",
+          "checkout": "research-papers"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "High-Signal-App/research-papers",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "High-Signal-App/research-subreddit",
+      "projects": [
+        {
+          "projectId": "reddit-insights",
+          "checkout": "reddit-insights"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "High-Signal-App/research-subreddit",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "PostTrainLLM/posttrainllm",
+      "projects": [
+        {
+          "projectId": "posttrainllm",
+          "checkout": "posttrainllm"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "PostTrainLLM/posttrainllm",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/anchor",
+      "projects": [
+        {
+          "projectId": "anchor",
+          "checkout": "anchor"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/anchor",
+      "issues": {
+        "count": 5,
+        "items": [
+          {
+            "number": 40,
+            "title": "Verify signed Hub authentication and clean account provenance",
+            "url": "https://github.com/Significant-Hobbies/anchor/issues/40"
+          },
+          {
+            "number": 41,
+            "title": "Ship a signed app-mediated MCP bridge for macOS",
+            "url": "https://github.com/Significant-Hobbies/anchor/issues/41"
+          },
+          {
+            "number": 50,
+            "title": "Sync with Apple Reminders",
+            "url": "https://github.com/Significant-Hobbies/anchor/issues/50"
+          },
+          {
+            "number": 51,
+            "title": "Simplify Anchor for daily use: habits, day schedules, project tags, and pause",
+            "url": "https://github.com/Significant-Hobbies/anchor/issues/51"
+          },
+          {
+            "number": 52,
+            "title": "Keep distraction notes device-only with a failure-safe legacy migration",
+            "url": "https://github.com/Significant-Hobbies/anchor/issues/52"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/anime-list",
+      "projects": [
+        {
+          "projectId": "anime-list",
+          "checkout": "anime-list"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/anime-list",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 89,
+            "title": "Qualify hosted tracking persistence and account isolation after deployment",
+            "url": "https://github.com/Significant-Hobbies/anime-list/issues/89"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/calorie",
+      "projects": [
+        {
+          "projectId": "calorie",
+          "checkout": "calorie"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/calorie",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 88,
+            "title": "Preserve food journal data and drafts when local saves fail",
+            "url": "https://github.com/Significant-Hobbies/calorie/issues/88"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/chatgpt-memory-insights",
+      "projects": [
+        {
+          "projectId": "chatgpt-memory-insights",
+          "checkout": "chatgpt-memory-insights"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/chatgpt-memory-insights",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 37,
+            "title": "Qualify complete semantic import, search, save, restore, and forget journey",
+            "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues/37"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/email-manager",
+      "projects": [
+        {
+          "projectId": "email-manager",
+          "checkout": "email-manager"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/email-manager",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 54,
+            "title": "Qualify signed-in Kinetic mailbox and model journeys after deployment",
+            "url": "https://github.com/Significant-Hobbies/email-manager/issues/54"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/india-standards",
+      "projects": [
+        {
+          "projectId": "india-standards",
+          "checkout": "india-standards"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/india-standards",
+      "issues": {
+        "count": 2,
+        "items": [
+          {
+            "number": 35,
+            "title": "Qualify deployed calculator and hosted aggregate results before sharing",
+            "url": "https://github.com/Significant-Hobbies/india-standards/issues/35"
+          },
+          {
+            "number": 36,
+            "title": "Resolve source usage and NFHS gates before Survey-backed activation",
+            "url": "https://github.com/Significant-Hobbies/india-standards/issues/36"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/ios-landings",
+      "projects": [
+        {
+          "projectId": "ios-landings",
+          "checkout": "ios-landings"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/ios-landings",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/karte",
+      "projects": [
+        {
+          "projectId": "karte",
+          "checkout": "karte"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/karte",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 82,
+            "title": "Qualify published profile destinations and fresh protected journeys",
+            "url": "https://github.com/Significant-Hobbies/karte/issues/82"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/kith",
+      "projects": [
+        {
+          "projectId": "kith",
+          "checkout": "kith"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/kith",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 27,
+            "title": "Prevent false saves and lost drafts before priority phone use",
+            "url": "https://github.com/Significant-Hobbies/kith/issues/27"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/live",
+      "projects": [
+        {
+          "projectId": "live",
+          "checkout": "live"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/live",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 14,
+            "title": "Qualify priority mobile planning and signed-in persistence",
+            "url": "https://github.com/Significant-Hobbies/live/issues/14"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/looptv",
+      "projects": [
+        {
+          "projectId": "looptv",
+          "checkout": "looptv"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/looptv",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/materia",
+      "projects": [
+        {
+          "projectId": "materia",
+          "checkout": "materia"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/materia",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/motion",
+      "projects": [
+        {
+          "projectId": "motion",
+          "checkout": "motion"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/motion",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 38,
+            "title": "Verify Motion v1 on a physical device: camera, pose mapping, ReplayKit, and control feel",
+            "url": "https://github.com/Significant-Hobbies/motion/issues/38"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/on-record",
+      "projects": [
+        {
+          "projectId": "on-record",
+          "checkout": "on-record"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/on-record",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 24,
+            "title": "/api/stats costs ~1s on a cache miss: the publishedReferences six-table scan",
+            "url": "https://github.com/Significant-Hobbies/on-record/issues/24"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/protein-index-resilience",
+      "projects": [
+        {
+          "projectId": "protein-index",
+          "checkout": "protein-index"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/protein-index-resilience",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/reader",
+      "projects": [
+        {
+          "projectId": "reader",
+          "checkout": "reader"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/reader",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 55,
+            "title": "Qualify actual import, annotation, and reopen journeys after deployment",
+            "url": "https://github.com/Significant-Hobbies/reader/issues/55"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/rolepatch",
+      "projects": [
+        {
+          "projectId": "rolepatch",
+          "checkout": "rolepatch"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/rolepatch",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 68,
+            "title": "Restore guest tailoring generation and cover-letter qualification",
+            "url": "https://github.com/Significant-Hobbies/rolepatch/issues/68"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/setline",
+      "projects": [
+        {
+          "projectId": "setline",
+          "checkout": "setline"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/setline",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 77,
+            "title": "Preserve failed saves and concurrent workout edits before owner use",
+            "url": "https://github.com/Significant-Hobbies/setline/issues/77"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/significanthobbies",
+      "projects": [
+        {
+          "projectId": "significanthobbies",
+          "checkout": "significanthobbies"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/significanthobbies",
+      "issues": {
+        "count": 4,
+        "items": [
+          {
+            "number": 147,
+            "title": "Add a shared Significant Hobbies design foundation",
+            "url": "https://github.com/Significant-Hobbies/significanthobbies/issues/147"
+          },
+          {
+            "number": 154,
+            "title": "Preserve the private Hub destination through verified sign-in",
+            "url": "https://github.com/Significant-Hobbies/significanthobbies/issues/154"
+          },
+          {
+            "number": 155,
+            "title": "Acknowledge downloaded sync records only after local app commit",
+            "url": "https://github.com/Significant-Hobbies/significanthobbies/issues/155"
+          },
+          {
+            "number": 156,
+            "title": "Bind native sync and local backfill to the approved account",
+            "url": "https://github.com/Significant-Hobbies/significanthobbies/issues/156"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/swe-interview-prep",
+      "projects": [
+        {
+          "projectId": "swe-interview-prep",
+          "checkout": "swe-interview-prep"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/swe-interview-prep",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 97,
+            "title": "Qualify fresh exercise completion and account persistence on deployed app",
+            "url": "https://github.com/Significant-Hobbies/swe-interview-prep/issues/97"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/veg-protein-food",
+      "projects": [
+        {
+          "projectId": "veg-protein-food",
+          "checkout": "recipe-dashboard"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/veg-protein-food",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "Significant-Hobbies/what-it-takes-to-win",
+      "projects": [
+        {
+          "projectId": "what-it-takes-to-win",
+          "checkout": "what-it-takes-to-win"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "Significant-Hobbies/what-it-takes-to-win",
+      "issues": {
+        "count": 2,
+        "items": [
+          {
+            "number": 32,
+            "title": "Build comprehensive age-outlier coverage",
+            "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win/issues/32"
+          },
+          {
+            "number": 36,
+            "title": "Start the Look Sideways podcast: first-person accounts beside the evidence",
+            "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win/issues/36"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sarthakagrawal927/aliveville",
+      "projects": [
+        {
+          "projectId": "ai-game",
+          "checkout": "aliveville"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sarthakagrawal927/aliveville",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 30,
+            "title": "Retain live guest, runtime parity and human gameplay qualification gates",
+            "url": "https://github.com/sarthakagrawal927/aliveville/issues/30"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sarthakagrawal927/forecast-lab",
+      "projects": [
+        {
+          "projectId": "forecast-lab",
+          "checkout": "forecast-lab"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sarthakagrawal927/forecast-lab",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 5,
+            "title": "Retain paused learning and real-data qualification gates",
+            "url": "https://github.com/sarthakagrawal927/forecast-lab/issues/5"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sarthakagrawal927/issue-pages",
+      "projects": [
+        {
+          "projectId": "issue-pages",
+          "checkout": "issue-pages"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sarthakagrawal927/issue-pages",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 4,
+            "title": "A live edited field note from the issue-to-page pilot",
+            "url": "https://github.com/sarthakagrawal927/issue-pages/issues/4"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sarthakagrawal927/mobile-dev-cockpit",
+      "projects": [
+        {
+          "projectId": "mobile-dev-cockpit",
+          "checkout": "mobile-dev-cockpit"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sarthakagrawal927/mobile-dev-cockpit",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sarthakagrawal927/open-historia",
+      "projects": [
+        {
+          "projectId": "open-historia",
+          "checkout": "open-historia"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sarthakagrawal927/open-historia",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 27,
+            "title": "Qualify campaign turns, retries and reloadable saves",
+            "url": "https://github.com/sarthakagrawal927/open-historia/issues/27"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sarthakagrawal927/portfolio",
+      "projects": [
+        {
+          "projectId": "sarthakagrawal-personal",
+          "checkout": "portfolio"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sarthakagrawal927/portfolio",
+      "issues": {
+        "count": 4,
+        "items": [
+          {
+            "number": 28,
+            "title": "LLMs are fuzzy databases with tool calling\u2014until the analogy breaks",
+            "url": "https://github.com/sarthakagrawal927/portfolio/issues/28"
+          },
+          {
+            "number": 29,
+            "title": "How much of this was written by AI? A five-point scale",
+            "url": "https://github.com/sarthakagrawal927/portfolio/issues/29"
+          },
+          {
+            "number": 30,
+            "title": "The hidden infrastructure stress AI puts on GitHub",
+            "url": "https://github.com/sarthakagrawal927/portfolio/issues/30"
+          },
+          {
+            "number": 33,
+            "title": "Rise of idle games",
+            "url": "https://github.com/sarthakagrawal927/portfolio/issues/33"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sarthakagrawal927/truehire",
+      "projects": [
+        {
+          "projectId": "truehire",
+          "checkout": "truehire"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sarthakagrawal927/truehire",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sarthakagrawal927/web-playables",
+      "projects": [
+        {
+          "projectId": "web-playables",
+          "checkout": "web-playables"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sarthakagrawal927/web-playables",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/agent-office",
+      "projects": [
+        {
+          "projectId": "agent-office",
+          "checkout": "agent-office"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/agent-office",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/app-health",
+      "projects": [
+        {
+          "projectId": "app-health",
+          "checkout": "app-health"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/app-health",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 55,
+            "title": "Integrate across fleet",
+            "url": "https://github.com/sass-maker/app-health/issues/55"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/chatgpt-connections",
+      "projects": [
+        {
+          "projectId": "chatgpt-connections",
+          "checkout": "chatgpt-connections"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/chatgpt-connections",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/drank",
+      "projects": [
+        {
+          "projectId": "drank",
+          "checkout": "drank"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/drank",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 18,
+            "title": "Qualify fresh provider observations and deployed data visibility",
+            "url": "https://github.com/sass-maker/drank/issues/18"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/field-track",
+      "projects": [
+        {
+          "projectId": "field-track",
+          "checkout": "field-track"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/field-track",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 2,
+            "title": "Verify Android debug APK on physical pilot devices",
+            "url": "https://github.com/sass-maker/field-track/issues/2"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/free-ai",
+      "projects": [
+        {
+          "projectId": "free-ai",
+          "checkout": "free-ai"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/free-ai",
+      "issues": {
+        "count": 2,
+        "items": [
+          {
+            "number": 62,
+            "title": "[provider-registry] Catalog drift or coverage gap",
+            "url": "https://github.com/sass-maker/free-ai/issues/62"
+          },
+          {
+            "number": 65,
+            "title": "Qualify current consumers and protected inference before public promotion",
+            "url": "https://github.com/sass-maker/free-ai/issues/65"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/gitstat",
+      "projects": [
+        {
+          "projectId": "gitstat",
+          "checkout": "gitstat"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/gitstat",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/knowledge-base",
+      "projects": [
+        {
+          "projectId": "knowledge-base",
+          "checkout": "knowledge-base"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/knowledge-base",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 48,
+            "title": "Finish tenant-owned document cleanup and live consumer qualification",
+            "url": "https://github.com/sass-maker/knowledge-base/issues/48"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/local-ai-video-studio",
+      "projects": [
+        {
+          "projectId": "local-ai-video-studio",
+          "checkout": "local-ai-video-studio"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/local-ai-video-studio",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 33,
+            "title": "We should at least have these capabilities, but with local AI.",
+            "url": "https://github.com/sass-maker/local-ai-video-studio/issues/33"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/mashup",
+      "projects": [
+        {
+          "projectId": "mashup",
+          "checkout": "mashup"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/mashup",
+      "issues": {
+        "count": 1,
+        "items": [
+          {
+            "number": 11,
+            "title": "[Mashup] Ship the Startups clipping desk pilot",
+            "url": "https://github.com/sass-maker/mashup/issues/11"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/psi-swarm",
+      "projects": [
+        {
+          "projectId": "psi-swarm",
+          "checkout": "psi-swarm"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/psi-swarm",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/reel-pipeline",
+      "projects": [
+        {
+          "projectId": "reel-pipeline",
+          "checkout": "reel-pipeline"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/reel-pipeline",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/saas-maker",
+      "projects": [
+        {
+          "projectId": "saas-maker",
+          "checkout": "saas-maker"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/saas-maker",
+      "issues": {
+        "count": 2,
+        "items": [
+          {
+            "number": 91,
+            "title": "Cleanup repos and migrate unused projects to personal org",
+            "url": "https://github.com/sass-maker/saas-maker/issues/91"
+          },
+          {
+            "number": 103,
+            "title": "Add bounded web, media, and SEO research skills",
+            "url": "https://github.com/sass-maker/saas-maker/issues/103"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/site-health",
+      "projects": [
+        {
+          "projectId": "site-health",
+          "checkout": "site-health"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/site-health",
+      "issues": {
+        "count": 2,
+        "items": [
+          {
+            "number": 485,
+            "title": "Adopt Microsoft Clarity capabilities across Fleet site health",
+            "url": "https://github.com/sass-maker/site-health/issues/485"
+          },
+          {
+            "number": 491,
+            "title": "Portfolio lifecycle cleanup: three-field model (2 primary, 18 active, 36 inactive)",
+            "url": "https://github.com/sass-maker/site-health/issues/491"
+          }
+        ],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    },
+    {
+      "repository": "sass-maker/verified-bases",
+      "projects": [
+        {
+          "projectId": "verified-bases",
+          "checkout": "verified-bases"
+        }
+      ],
+      "querySucceeded": true,
+      "resolvedRepository": "sass-maker/verified-bases",
+      "issues": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      },
+      "pullRequests": {
+        "count": 0,
+        "items": [],
+        "paginationComplete": true,
+        "pageSize": 100
+      }
+    }
+  ],
+  "limitations": [
+    "Snapshot counts are not completion or shareability verdicts. Issues include publication content, held work and external acceptance gates.",
+    "No source/CI/runtime acceptance was revalidated by this inventory query.",
+    "Root separately closed Open Historia PR28 without merge before this fresh observation."
+  ]
+}

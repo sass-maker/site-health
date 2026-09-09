@@ -204,5 +204,25 @@ no product navigation defect was reproduced. Actual hierarchy showed duplicate
 food text and an offscreen score. Test-only fc1bfce selects the picker button,
 asserts Add entry, scrolls to a hittable score and retains the calculation
 assertions. The focused check and87 server tests pass; before/after screenshots
-were reviewed. Exact CI34339196137 is pending. The installed app is unchanged;
-this pending check is not a new installation or public sharing qualification.
+were reviewed. [Exact CI34339196137](https://github.com/Significant-Hobbies/calorie/actions/runs/34339196137)
+passed on fc1bfce8b7bbb71ec212ccf9e839a5d67d8eb2a1: 82 native tests, Release
+and 70.5574% production-line coverage. The installed app remains 15c6aa1;
+this test-only repair is not a new installation or public sharing qualification.
+
+
+## Account access rechecks, 9 September
+
+Reader remains unqualified for real-account capture and annotation persistence.
+The fresh hosted session request returned HTTP 200 with no authenticated session;
+Google sign-in reached its normal email entry with the Reader callback. The
+regular-browser automation channel failed at native-pipe startup. No credentials,
+owner records or uploads were accessed. Synthetic account tests do not replace
+this gate: a reachable authenticated session, and a second authorized account
+for isolation, remain necessary. The task browser tab was closed.
+
+App Health remains unqualified for real owned-service ingestion. Its existing
+identity and exact-origin contracts have local positive/negative coverage, but
+no accessible owner identity was available for correlating real telemetry with
+dashboard aggregates. Anonymous HTTP probes received Cloudflare 1010 responses;
+these do not demonstrate an application authentication failure. No telemetry,
+keys, allowlist changes or production writes were fabricated for acceptance.
