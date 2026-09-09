@@ -5037,7 +5037,13 @@
             "kind": "worker",
             "name": "high-signal-api",
             "method": "wrangler-direct",
-            "state": "live"
+            "state": "live",
+            "verification": {
+              "observedAt": "2026-09-09T13:18:48.469758Z",
+              "deploymentId": "3b55f080-a097-4c45-aa21-ea410fef79ec",
+              "sourceCommit": "76fb00152f6e262804284713ddd3cc019afb4c59",
+              "evidencePath": "docs/qualification/high-signal-ingest-repair-2026-09-09.json"
+            }
           }
         ],
         "resources": [
