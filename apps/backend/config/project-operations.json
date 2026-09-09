@@ -1303,7 +1303,7 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "9b174defbaa7c67f6f55a5327b0c06028df34c6b",
+        "revision": "d268f98af752acdc38c70d8395404529b0bdceeb",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "dirty",
@@ -1314,7 +1314,7 @@
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-09",
-        "retainedCommitCount": 1101,
+        "retainedCommitCount": 1102,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1342,15 +1342,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34354265747,
+              "id": 34356881262,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "9b174defbaa7c67f6f55a5327b0c06028df34c6b",
-              "createdAt": "2026-09-09T12:59:20Z",
-              "updatedAt": "2026-09-09T12:59:52Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34354265747"
+              "headSha": "d268f98af752acdc38c70d8395404529b0bdceeb",
+              "createdAt": "2026-09-09T13:24:33Z",
+              "updatedAt": "2026-09-09T13:25:13Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34356881262"
             },
             "ageDays": 0
           },
@@ -1363,15 +1363,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34354265747,
+              "id": 34356881262,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "9b174defbaa7c67f6f55a5327b0c06028df34c6b",
-              "createdAt": "2026-09-09T12:59:20Z",
-              "updatedAt": "2026-09-09T12:59:52Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/34354265747"
+              "headSha": "d268f98af752acdc38c70d8395404529b0bdceeb",
+              "createdAt": "2026-09-09T13:24:33Z",
+              "updatedAt": "2026-09-09T13:25:13Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/34356881262"
             },
             "ageDays": 0
           },
@@ -1420,7 +1420,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/site-health",
         "defaultBranch": "main",
-        "defaultBranchSha": "9b174defbaa7c67f6f55a5327b0c06028df34c6b",
+        "defaultBranchSha": "d268f98af752acdc38c70d8395404529b0bdceeb",
         "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -1754,7 +1754,7 @@
               "updatedAt": "2026-09-07T13:37:02Z",
               "url": "https://github.com/Significant-Hobbies/live/actions/runs/34128326947"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -3769,7 +3769,7 @@
               "updatedAt": "2026-09-07T13:41:04Z",
               "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/34128651214"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -3790,7 +3790,7 @@
               "updatedAt": "2026-09-07T13:41:04Z",
               "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/34128651214"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "attention": "ignored"
         },
@@ -4536,18 +4536,18 @@
       "source": {
         "state": "available",
         "path": "high-signal",
-        "revision": "42ac939095c1eb0687b76e1d91dc272e1c68fdb8",
+        "revision": "42ba39d3b001ac6985af8d8ed7c01ef442a96864",
         "repositorySlug": "High-Signal-App/high-signal",
         "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
+          "state": "dirty",
+          "trackedChangeCount": 1,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-04-25",
         "latestCommitAt": "2026-09-09",
-        "retainedCommitCount": 915,
+        "retainedCommitCount": 918,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4651,19 +4651,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "running",
-            "reason": "latest run is in_progress",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34356741748,
-              "status": "in_progress",
-              "conclusion": null,
+              "id": 34359483196,
+              "status": "completed",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "42ac939095c1eb0687b76e1d91dc272e1c68fdb8",
-              "createdAt": "2026-09-09T13:23:15Z",
-              "updatedAt": "2026-09-09T13:23:19Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34356741748"
+              "headSha": "42ba39d3b001ac6985af8d8ed7c01ef442a96864",
+              "createdAt": "2026-09-09T13:48:42Z",
+              "updatedAt": "2026-09-09T13:50:21Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34359483196"
             },
             "ageDays": 0
           },
@@ -4673,18 +4673,18 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "running",
-            "reason": "current main push is in_progress",
+            "health": "healthy",
+            "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34356741748,
-              "status": "in_progress",
-              "conclusion": null,
+              "id": 34359483196,
+              "status": "completed",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "42ac939095c1eb0687b76e1d91dc272e1c68fdb8",
-              "createdAt": "2026-09-09T13:23:15Z",
-              "updatedAt": "2026-09-09T13:23:19Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34356741748"
+              "headSha": "42ba39d3b001ac6985af8d8ed7c01ef442a96864",
+              "createdAt": "2026-09-09T13:48:42Z",
+              "updatedAt": "2026-09-09T13:50:21Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34359483196"
             },
             "ageDays": 0
           },
@@ -4891,15 +4891,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34354368777,
+              "id": 34357492999,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "85787fa78df72adc76cce79c7326ec0f24475b42",
-              "createdAt": "2026-09-09T13:00:22Z",
-              "updatedAt": "2026-09-09T13:01:04Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34354368777"
+              "headSha": "42ac939095c1eb0687b76e1d91dc272e1c68fdb8",
+              "createdAt": "2026-09-09T13:30:21Z",
+              "updatedAt": "2026-09-09T13:31:05Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34357492999"
             },
             "ageDays": 0
           },
@@ -5101,15 +5101,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34354372179,
+              "id": 34357496109,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "85787fa78df72adc76cce79c7326ec0f24475b42",
-              "createdAt": "2026-09-09T13:00:24Z",
-              "updatedAt": "2026-09-09T13:06:08Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34354372179"
+              "headSha": "42ac939095c1eb0687b76e1d91dc272e1c68fdb8",
+              "createdAt": "2026-09-09T13:30:23Z",
+              "updatedAt": "2026-09-09T13:33:59Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34357496109"
             },
             "ageDays": 0
           },
@@ -5403,15 +5403,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34356191933,
+              "id": 34359719365,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "76fb00152f6e262804284713ddd3cc019afb4c59",
-              "createdAt": "2026-09-09T13:17:55Z",
-              "updatedAt": "2026-09-09T13:18:59Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34356191933"
+              "headSha": "42ba39d3b001ac6985af8d8ed7c01ef442a96864",
+              "createdAt": "2026-09-09T13:50:51Z",
+              "updatedAt": "2026-09-09T13:51:44Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34359719365"
             },
             "ageDays": 0
           },
@@ -5490,19 +5490,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "running",
-            "reason": "latest run is in_progress",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34356741680,
-              "status": "in_progress",
-              "conclusion": null,
+              "id": 34359483146,
+              "status": "completed",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "42ac939095c1eb0687b76e1d91dc272e1c68fdb8",
-              "createdAt": "2026-09-09T13:23:15Z",
-              "updatedAt": "2026-09-09T13:23:18Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34356741680"
+              "headSha": "42ba39d3b001ac6985af8d8ed7c01ef442a96864",
+              "createdAt": "2026-09-09T13:48:42Z",
+              "updatedAt": "2026-09-09T13:48:52Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34359483146"
             },
             "ageDays": 0
           },
@@ -5512,18 +5512,18 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "running",
-            "reason": "current main push is in_progress",
+            "health": "healthy",
+            "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34356741680,
-              "status": "in_progress",
-              "conclusion": null,
+              "id": 34359483146,
+              "status": "completed",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "42ac939095c1eb0687b76e1d91dc272e1c68fdb8",
-              "createdAt": "2026-09-09T13:23:15Z",
-              "updatedAt": "2026-09-09T13:23:18Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34356741680"
+              "headSha": "42ba39d3b001ac6985af8d8ed7c01ef442a96864",
+              "createdAt": "2026-09-09T13:48:42Z",
+              "updatedAt": "2026-09-09T13:48:52Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/34359483146"
             },
             "ageDays": 0
           },
@@ -5850,7 +5850,7 @@
       "githubActionsMeta": {
         "repository": "High-Signal-App/high-signal",
         "defaultBranch": "main",
-        "defaultBranchSha": "42ac939095c1eb0687b76e1d91dc272e1c68fdb8",
+        "defaultBranchSha": "42ba39d3b001ac6985af8d8ed7c01ef442a96864",
         "homepage": "https://highsignal.app",
         "query": "verified",
         "disposition": {
@@ -6330,7 +6330,7 @@
               "updatedAt": "2026-09-07T13:38:32Z",
               "url": "https://github.com/High-Signal-App/everythingrated/actions/runs/34128373024"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -6351,7 +6351,7 @@
               "updatedAt": "2026-09-07T13:38:32Z",
               "url": "https://github.com/High-Signal-App/everythingrated/actions/runs/34128373024"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "attention": "ignored"
         },
@@ -6433,7 +6433,7 @@
               "updatedAt": "2026-09-07T13:36:57Z",
               "url": "https://github.com/High-Signal-App/everythingrated/actions/runs/34128372984"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -6454,7 +6454,7 @@
               "updatedAt": "2026-09-07T13:36:57Z",
               "url": "https://github.com/High-Signal-App/everythingrated/actions/runs/34128372984"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "attention": "ignored"
         },
@@ -10561,7 +10561,7 @@
               "updatedAt": "2026-09-07T13:51:08Z",
               "url": "https://github.com/Significant-Hobbies/karte/actions/runs/34129473645"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -11066,8 +11066,8 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "stale",
+            "reason": "latest run is 31 days old",
             "apiState": "active",
             "lastRun": {
               "id": 31315689133,
@@ -11080,7 +11080,7 @@
               "updatedAt": "2026-08-09T13:23:48Z",
               "url": "https://github.com/Codevetter/starboard/actions/runs/31315689133"
             },
-            "ageDays": 30
+            "ageDays": 31
           },
           "schedule": {
             "health": "not-applicable",
@@ -12108,7 +12108,7 @@
               "updatedAt": "2026-09-07T13:46:55Z",
               "url": "https://github.com/sass-maker/mashup/actions/runs/34129122957"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -12129,7 +12129,7 @@
               "updatedAt": "2026-09-07T13:46:55Z",
               "url": "https://github.com/sass-maker/mashup/actions/runs/34129122957"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "attention": "ignored"
         }
@@ -14214,7 +14214,7 @@
               "updatedAt": "2026-09-07T13:34:48Z",
               "url": "https://github.com/High-Signal-App/research-subreddit/actions/runs/34128114103"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -14235,7 +14235,7 @@
               "updatedAt": "2026-09-07T13:34:48Z",
               "url": "https://github.com/High-Signal-App/research-subreddit/actions/runs/34128114103"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "attention": "ignored"
         }
@@ -14598,7 +14598,7 @@
       }
     }
   },
-  "githubObservedAt": "2026-09-09T13:23:05.022Z",
+  "githubObservedAt": "2026-09-09T13:52:56.516Z",
   "githubStaleAfterDays": 30,
   "githubPolicySchemaVersion": 1
 }

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ce3591063fd18ee2083458bbdf2b13f915f8a0b52f5bbe38666c84c3c4e90275
+      sha256: cf77634275489b214711f6dbe2f23257c32a93797b3bd36257ffff0b02abab0b
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T13:23:05.022Z
+      observedAt: 2026-09-09T13:52:56.516Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -161,7 +161,7 @@ repository:
       - typecheck
       - ui
 githubActions:
-  observedAt: 2026-09-09T13:23:05.022Z
+  observedAt: 2026-09-09T13:52:56.516Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -203,7 +203,7 @@ githubActions:
           createdAt: 2026-09-07T13:34:09Z
           updatedAt: 2026-09-07T13:34:48Z
           url: https://github.com/High-Signal-App/research-subreddit/actions/runs/34128114103
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -221,7 +221,7 @@ githubActions:
           createdAt: 2026-09-07T13:34:09Z
           updatedAt: 2026-09-07T13:34:48Z
           url: https://github.com/High-Signal-App/research-subreddit/actions/runs/34128114103
-        ageDays: 1
+        ageDays: 2
       attention: ignored
 deployment:
   kind: worker+pages

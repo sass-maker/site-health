@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ce3591063fd18ee2083458bbdf2b13f915f8a0b52f5bbe38666c84c3c4e90275
+      sha256: cf77634275489b214711f6dbe2f23257c32a93797b3bd36257ffff0b02abab0b
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: high-signal
-      revision: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
+      revision: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
       githubRepository: High-Signal-App/high-signal
       expectedHomepage: https://highsignal.app
       observedHomepage: https://highsignal.app
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-09
       state: available
       checkout: high-signal
-      revision: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
+      revision: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
       githubRepository: High-Signal-App/high-signal
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -55,12 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T13:23:05.022Z
+      observedAt: 2026-09-09T13:52:56.516Z
       staleAfterDays: 30
       stale: 1
       manual-or-reusable-never-run: 2
-      running: 3
-      healthy: 16
+      healthy: 18
+      running: 1
       attention: &a2
         clear: 22
   unknowns: []
@@ -112,12 +112,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-04-25
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 915
+    retainedCommitCount: 918
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: high-signal
-  observedRevision: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
+  observedRevision: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
   githubRepository: High-Signal-App/high-signal
   githubHomepageUrl: https://highsignal.app
   worktree: *a1
@@ -271,18 +271,18 @@ repository:
       - watchlist-impact:test
       - youtube:brand-probe
 githubActions:
-  observedAt: 2026-09-09T13:23:05.022Z
+  observedAt: 2026-09-09T13:52:56.516Z
   staleAfterDays: 30
   summary:
     stale: 1
     manual-or-reusable-never-run: 2
-    running: 3
-    healthy: 16
+    healthy: 18
+    running: 1
   attention: *a2
   remote:
     repository: High-Signal-App/high-signal
     defaultBranch: main
-    defaultBranchSha: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
+    defaultBranchSha: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
     homepage: https://highsignal.app
     query: verified
     disposition:
@@ -367,37 +367,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34356741748
-          status: in_progress
-          conclusion: null
+          id: 34359483196
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
-          createdAt: 2026-09-09T13:23:15Z
-          updatedAt: 2026-09-09T13:23:19Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34356741748
+          headSha: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
+          createdAt: 2026-09-09T13:48:42Z
+          updatedAt: 2026-09-09T13:50:21Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34359483196
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 34356741748
-          status: in_progress
-          conclusion: null
+          id: 34359483196
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
-          createdAt: 2026-09-09T13:23:15Z
-          updatedAt: 2026-09-09T13:23:19Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34356741748
+          headSha: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
+          createdAt: 2026-09-09T13:48:42Z
+          updatedAt: 2026-09-09T13:50:21Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34359483196
         ageDays: 0
       attention: clear
     - name: cron-acceptance-monitor
@@ -564,15 +564,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34354368777
+          id: 34357492999
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 85787fa78df72adc76cce79c7326ec0f24475b42
-          createdAt: 2026-09-09T13:00:22Z
-          updatedAt: 2026-09-09T13:01:04Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34354368777
+          headSha: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
+          createdAt: 2026-09-09T13:30:21Z
+          updatedAt: 2026-09-09T13:31:05Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34357492999
         ageDays: 0
       schedule:
         health: not-applicable
@@ -734,15 +734,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34354372179
+          id: 34357496109
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 85787fa78df72adc76cce79c7326ec0f24475b42
-          createdAt: 2026-09-09T13:00:24Z
-          updatedAt: 2026-09-09T13:06:08Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34354372179
+          headSha: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
+          createdAt: 2026-09-09T13:30:23Z
+          updatedAt: 2026-09-09T13:33:59Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34357496109
         ageDays: 0
       schedule:
         health: not-applicable
@@ -978,15 +978,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34356191933
+          id: 34359719365
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 76fb00152f6e262804284713ddd3cc019afb4c59
-          createdAt: 2026-09-09T13:17:55Z
-          updatedAt: 2026-09-09T13:18:59Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34356191933
+          headSha: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
+          createdAt: 2026-09-09T13:50:51Z
+          updatedAt: 2026-09-09T13:51:44Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34359719365
         ageDays: 0
       schedule:
         health: not-applicable
@@ -1047,37 +1047,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34356741680
-          status: in_progress
-          conclusion: null
+          id: 34359483146
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
-          createdAt: 2026-09-09T13:23:15Z
-          updatedAt: 2026-09-09T13:23:18Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34356741680
+          headSha: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
+          createdAt: 2026-09-09T13:48:42Z
+          updatedAt: 2026-09-09T13:48:52Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34359483146
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 34356741680
-          status: in_progress
-          conclusion: null
+          id: 34359483146
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: 42ac939095c1eb0687b76e1d91dc272e1c68fdb8
-          createdAt: 2026-09-09T13:23:15Z
-          updatedAt: 2026-09-09T13:23:18Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34356741680
+          headSha: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
+          createdAt: 2026-09-09T13:48:42Z
+          updatedAt: 2026-09-09T13:48:52Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/34359483146
         ageDays: 0
       attention: clear
     - name: personal-brief
@@ -1213,10 +1213,10 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-09T13:18:48.469758Z
-          deploymentId: 3b55f080-a097-4c45-aa21-ea410fef79ec
-          sourceCommit: 76fb00152f6e262804284713ddd3cc019afb4c59
-          evidencePath: docs/qualification/high-signal-ingest-repair-2026-09-09.json
+          observedAt: 2026-09-09T13:51:33.397889Z
+          deploymentId: f06526cc-a1e8-4ae2-afb0-f8fe0749c61b
+          sourceCommit: 42ba39d3b001ac6985af8d8ed7c01ef442a96864
+          evidencePath: docs/qualification/high-signal-brief-gate-2026-09-09.json
     resources:
       - provider: cloudflare
         kind: d1

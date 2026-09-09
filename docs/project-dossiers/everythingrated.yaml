@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ce3591063fd18ee2083458bbdf2b13f915f8a0b52f5bbe38666c84c3c4e90275
+      sha256: cf77634275489b214711f6dbe2f23257c32a93797b3bd36257ffff0b02abab0b
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T13:23:05.022Z
+      observedAt: 2026-09-09T13:52:56.516Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -175,7 +175,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T13:23:05.022Z
+  observedAt: 2026-09-09T13:52:56.516Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -218,7 +218,7 @@ githubActions:
           createdAt: 2026-09-07T13:36:49Z
           updatedAt: 2026-09-07T13:38:32Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/34128373024
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -236,7 +236,7 @@ githubActions:
           createdAt: 2026-09-07T13:36:49Z
           updatedAt: 2026-09-07T13:38:32Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/34128373024
-        ageDays: 1
+        ageDays: 2
       attention: ignored
     - name: Deploy Cloudflare
       file: .github/workflows/cloudflare-deploy.yml
@@ -302,7 +302,7 @@ githubActions:
           createdAt: 2026-09-07T13:36:49Z
           updatedAt: 2026-09-07T13:36:57Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/34128372984
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -320,7 +320,7 @@ githubActions:
           createdAt: 2026-09-07T13:36:49Z
           updatedAt: 2026-09-07T13:36:57Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/34128372984
-        ageDays: 1
+        ageDays: 2
       attention: ignored
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
