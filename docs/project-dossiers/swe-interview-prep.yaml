@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T10:29:20.876Z
+      observedAt: 2026-09-09T11:35:59.384Z
       staleAfterDays: 30
       healthy: 5
       attention: &a2
@@ -199,7 +199,7 @@ repository:
       - verify:citations
       - verify:sources
 githubActions:
-  observedAt: 2026-09-09T10:29:20.876Z
+  observedAt: 2026-09-09T11:35:59.384Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -373,7 +373,7 @@ githubActions:
           createdAt: 2026-09-07T10:47:03Z
           updatedAt: 2026-09-07T10:49:18Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34113238833
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -387,7 +387,7 @@ githubActions:
           createdAt: 2026-09-07T10:47:03Z
           updatedAt: 2026-09-07T10:49:18Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34113238833
-        ageDays: 1
+        ageDays: 2
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable

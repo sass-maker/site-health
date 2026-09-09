@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T10:29:20.876Z
+      observedAt: 2026-09-09T11:35:59.384Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -171,7 +171,7 @@ repository:
       - test:e2e:local
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T10:29:20.876Z
+  observedAt: 2026-09-09T11:35:59.384Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -298,7 +298,7 @@ githubActions:
           createdAt: 2026-08-29T11:11:27Z
           updatedAt: 2026-08-29T11:12:00Z
           url: https://github.com/sarthakagrawal927/truehire/actions/runs/33249538914
-        ageDays: 10
+        ageDays: 11
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

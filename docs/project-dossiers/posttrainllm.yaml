@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T10:29:20.876Z
+      observedAt: 2026-09-09T11:35:59.384Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -162,7 +162,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T10:29:20.876Z
+  observedAt: 2026-09-09T11:35:59.384Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -251,7 +251,7 @@ githubActions:
           createdAt: 2026-09-06T11:03:22Z
           updatedAt: 2026-09-06T11:04:42Z
           url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34029128125
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

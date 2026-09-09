@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T10:29:20.876Z
+      observedAt: 2026-09-09T11:35:59.384Z
       staleAfterDays: 30
       healthy: 5
       stale: 2
@@ -197,7 +197,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T10:29:20.876Z
+  observedAt: 2026-09-09T11:35:59.384Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -242,7 +242,7 @@ githubActions:
           createdAt: 2026-09-07T10:50:53Z
           updatedAt: 2026-09-07T10:53:35Z
           url: https://github.com/Codevetter/starboard/actions/runs/34113562625
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -260,7 +260,7 @@ githubActions:
           createdAt: 2026-09-07T10:50:53Z
           updatedAt: 2026-09-07T10:53:35Z
           url: https://github.com/Codevetter/starboard/actions/runs/34113562625
-        ageDays: 1
+        ageDays: 2
       attention: clear
     - name: Cloudflare operator smoke
       file: .github/workflows/cloudflare-operator-smoke.yml
@@ -362,7 +362,7 @@ githubActions:
           createdAt: 2026-09-07T10:50:53Z
           updatedAt: 2026-09-07T10:51:02Z
           url: https://github.com/Codevetter/starboard/actions/runs/34113562425
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -380,7 +380,7 @@ githubActions:
           createdAt: 2026-09-07T10:50:53Z
           updatedAt: 2026-09-07T10:51:02Z
           url: https://github.com/Codevetter/starboard/actions/runs/34113562425
-        ageDays: 1
+        ageDays: 2
       attention: clear
     - name: Embed pending repos
       file: .github/workflows/embed-pending.yml

@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T10:29:20.876Z
+      observedAt: 2026-09-09T11:35:59.384Z
       staleAfterDays: 30
       healthy: 5
       failing: 1
@@ -200,7 +200,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-09T10:29:20.876Z
+  observedAt: 2026-09-09T11:35:59.384Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -412,29 +412,29 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34307474376
+          id: 34342590915
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
-          createdAt: 2026-09-09T03:31:50Z
-          updatedAt: 2026-09-09T03:32:03Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34307474376
+          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
+          createdAt: 2026-09-09T10:53:02Z
+          updatedAt: 2026-09-09T10:53:14Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34342590915
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 34307474376
+          id: 34342590915
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 9a4c9d1b55c1f75e79c55513a856d56958b1e7c7
-          createdAt: 2026-09-09T03:31:50Z
-          updatedAt: 2026-09-09T03:32:03Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34307474376
+          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
+          createdAt: 2026-09-09T10:53:02Z
+          updatedAt: 2026-09-09T10:53:14Z
+          url: https://github.com/Significant-Hobbies/live/actions/runs/34342590915
         ageDays: 0
         freshnessDays: 1
       currentDefaultBranch:

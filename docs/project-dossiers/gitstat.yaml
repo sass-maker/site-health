@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T10:29:20.876Z
+      observedAt: 2026-09-09T11:35:59.384Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -138,7 +138,7 @@ repository:
       - lint
       - preview
 githubActions:
-  observedAt: 2026-09-09T10:29:20.876Z
+  observedAt: 2026-09-09T11:35:59.384Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -181,7 +181,7 @@ githubActions:
           createdAt: 2026-09-06T11:25:52Z
           updatedAt: 2026-09-06T11:26:10Z
           url: https://github.com/sass-maker/gitstat/actions/runs/34030231936
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -199,7 +199,7 @@ githubActions:
           createdAt: 2026-09-06T11:25:52Z
           updatedAt: 2026-09-06T11:26:10Z
           url: https://github.com/sass-maker/gitstat/actions/runs/34030231936
-        ageDays: 2
+        ageDays: 3
       attention: ignored
 deployment:
   kind: pages

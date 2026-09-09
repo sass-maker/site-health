@@ -55,10 +55,10 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T10:29:20.876Z
+      observedAt: 2026-09-09T11:35:59.384Z
       staleAfterDays: 30
       healthy: 2
-      failing: 1
+      running: 1
       attention: &a2
         ignored: 3
   unknowns: []
@@ -181,11 +181,11 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T10:29:20.876Z
+  observedAt: 2026-09-09T11:35:59.384Z
   staleAfterDays: 30
   summary:
     healthy: 2
-    failing: 1
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/on-record
@@ -225,7 +225,7 @@ githubActions:
           createdAt: 2026-09-07T10:46:25Z
           updatedAt: 2026-09-07T10:47:18Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/34113186595
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -243,7 +243,7 @@ githubActions:
           createdAt: 2026-09-07T10:46:25Z
           updatedAt: 2026-09-07T10:47:18Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/34113186595
-        ageDays: 1
+        ageDays: 2
       attention: ignored
     - name: cron-ingest
       file: .github/workflows/cron-ingest.yml
@@ -261,33 +261,33 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34216404620
-          status: completed
-          conclusion: failure
+          id: 34342106974
+          status: in_progress
+          conclusion: null
           event: schedule
           branch: main
           headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
-          createdAt: 2026-09-08T10:37:09Z
-          updatedAt: 2026-09-08T12:30:10Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34216404620
+          createdAt: 2026-09-09T10:47:30Z
+          updatedAt: 2026-09-09T10:47:33Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34342106974
         ageDays: 0
       schedule:
-        health: failing
-        reason: latest scheduled run concluded failure
+        health: running
+        reason: latest scheduled run is in_progress
         lastRun:
-          id: 34216404620
-          status: completed
-          conclusion: failure
+          id: 34342106974
+          status: in_progress
+          conclusion: null
           event: schedule
           branch: main
           headSha: 825dd42a0484e7e23bde360aebe86cc819e0a43f
-          createdAt: 2026-09-08T10:37:09Z
-          updatedAt: 2026-09-08T12:30:10Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34216404620
+          createdAt: 2026-09-09T10:47:30Z
+          updatedAt: 2026-09-09T10:47:33Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/34342106974
         ageDays: 0
       currentDefaultBranch:
         health: not-applicable
@@ -320,7 +320,7 @@ githubActions:
           createdAt: 2026-09-06T11:17:20Z
           updatedAt: 2026-09-06T11:17:53Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/34029806639
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
