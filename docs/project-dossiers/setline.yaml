@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8d0e7eae13d5b620041d9e6a4b4185eee48fe3d3471194b3a14980e45e76e6e4
+      sha256: 82357b0b86e7ef50a42f32ba8bde05262b925645760ed2d29aa910c24f56e22e
       infrastructureUpdatedAt: 2026-08-21
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: setline
-      revision: c4f9616e6155335ed08a3b6cc740100c9f174d05
+      revision: 168a5544f7801fb28ea2b9316a525bf9b8773980
       githubRepository: Significant-Hobbies/setline
       expectedHomepage: https://setline.significanthobbies.com
       observedHomepage: https://setline.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: setline
-      revision: c4f9616e6155335ed08a3b6cc740100c9f174d05
+      revision: 168a5544f7801fb28ea2b9316a525bf9b8773980
       githubRepository: Significant-Hobbies/setline
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T08:38:25.782Z
+      observedAt: 2026-09-09T08:56:44.353Z
       staleAfterDays: 30
-      healthy: 1
+      running: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -108,12 +108,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-07-27
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 113
+    retainedCommitCount: 114
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: setline
-  observedRevision: c4f9616e6155335ed08a3b6cc740100c9f174d05
+  observedRevision: 168a5544f7801fb28ea2b9316a525bf9b8773980
   githubRepository: Significant-Hobbies/setline
   githubHomepageUrl: https://setline.significanthobbies.com
   worktree: *a1
@@ -150,15 +150,15 @@ repository:
       - quality:unused
       - test
 githubActions:
-  observedAt: 2026-09-09T08:38:25.782Z
+  observedAt: 2026-09-09T08:56:44.353Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/setline
     defaultBranch: main
-    defaultBranchSha: c4f9616e6155335ed08a3b6cc740100c9f174d05
+    defaultBranchSha: 168a5544f7801fb28ea2b9316a525bf9b8773980
     homepage: https://setline.significanthobbies.com
     query: verified
     disposition:
@@ -179,37 +179,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 34321631834
-          status: completed
-          conclusion: success
+          id: 34331558029
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: c4f9616e6155335ed08a3b6cc740100c9f174d05
-          createdAt: 2026-09-09T06:59:36Z
-          updatedAt: 2026-09-09T07:12:07Z
-          url: https://github.com/Significant-Hobbies/setline/actions/runs/34321631834
+          headSha: 168a5544f7801fb28ea2b9316a525bf9b8773980
+          createdAt: 2026-09-09T08:52:49Z
+          updatedAt: 2026-09-09T08:52:56Z
+          url: https://github.com/Significant-Hobbies/setline/actions/runs/34331558029
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: running
+        reason: current main push is in_progress
         lastRun:
-          id: 34321631834
-          status: completed
-          conclusion: success
+          id: 34331558029
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: c4f9616e6155335ed08a3b6cc740100c9f174d05
-          createdAt: 2026-09-09T06:59:36Z
-          updatedAt: 2026-09-09T07:12:07Z
-          url: https://github.com/Significant-Hobbies/setline/actions/runs/34321631834
+          headSha: 168a5544f7801fb28ea2b9316a525bf9b8773980
+          createdAt: 2026-09-09T08:52:49Z
+          updatedAt: 2026-09-09T08:52:56Z
+          url: https://github.com/Significant-Hobbies/setline/actions/runs/34331558029
         ageDays: 0
       attention: clear
 deployment:
@@ -241,7 +241,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-09
-  reason: Source c4f9616 build 10 fixes accepted timestamp decoding and adds explicit account-bound history replay recovery. Exact CI 34321631834 passed 232 native tests (one existing credential skip), Release and 81.0271% coverage. Signed Release installed on the owner iPhone on 2026-09-09 after one retry on verified reconnection; deliberately not launched. A real workout, restart, account recovery, sync and public distribution remain unqualified.
+  reason: "Source 168a5544f7801fb28ea2b9316a525bf9b8773980 passes local native qualification: 234 tests including17 UI, one existing credential skip, Release compilation and81.2483% coverage. Actual AppModel tests verify account-switch isolation and delayed Hub pulls cannot interrupt an active workout or erase detailed set history; offline finish/reopen/recovery preserves native records. Changes add tests and the shared Hub composition seam pin, with no product behavior change. Exact CI34331558029 is still running at this snapshot. Installed build10/sourcec4f9616 is unchanged and deliberately not launched. Real workout interruption/relaunch, account recovery/sync and public distribution remain unqualified."
   changelogUrl: https://setline.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/setline/issues
   geoIdentity:

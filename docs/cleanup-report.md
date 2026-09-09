@@ -301,3 +301,28 @@ Stale qualification narratives for Reader, Knowledge Base, Calorie, AliveVille a
 Anchor source `309a3ff0c23c9235426987c1fa13e3cc5935dbf0` repairs a reproduced end/surrender partial-save failure. A single durable commit now precedes clearing the active session, stopping its timer and ending notifications/Live Activity; failure preserves timing and the draft, while retry commits exactly once. All208 package tests and Mac/iOS compile-only checks pass. Hosted34325826905 failed before steps due to GitHub payment/spending limits. No build25 installation, release or owner-store operation occurred. Temporary build products/worktree were cleaned; the owner's stash remains.
 
 Pace PR187 merged as `d308989ecdacc24328f2d4bbaa3a2792b810396d` and corrects macOS26 preview-opening guidance and patches the existing website/docs dependency advisories. Local dependency, duplication, Markdown, Blume/Astro and390/1440render checks pass; all82HTML routes and normalized visible text survived the dependency upgrade. Website audit has zero advisories; docs retain two already accepted image-size highs and no critical. PR native CI34325789215 passed; exact merged-main CI34326318008 is still running, so the website is not yet redeployed. Preview servers stopped and generated-only release metadata restored.
+
+
+## Source qualification follow-up, 9 September
+
+Later receipts supersede the pending Pace website paragraph above: exact-main
+CI34326318008 and deploy34329542452 passed. Public home/download checks at390/1440
+pass with corrected opening guidance. The Mac binary remains the same ad-hoc
+preview; physical voice/screen/action acceptance remains open.
+
+Anchor b7f1e99 now atomically commits new scheduled sessions, links and deliberate
+replans, in addition to the earlier resume/start/extend/end repairs. All219
+package tests and Mac/iOS/Watch compile-only checks pass. Checkout is clean and
+its scratch copy is removed; owner stash is preserved. No build25 installation
+or new hosted native result is implied.
+
+Kith f812595 passed exact CI34330034379 with43 native tests. Setline168a554
+passed local234 native tests and Release; exact CI34331558029 is still running
+at this snapshot. Their caller tests verify account isolation and durable retry
+without changing installed builds. Knowledge Base33b0e33 passed exact quality
+CI34331170867 and Docs34331170937 with424Worker/6dashboard tests; gated recovery
+for never-dispatched operations is implemented, but migration0010 is unapplied.
+
+The [qualification report](qualification-status-2026-09-09.md) retains all
+remaining rendered, device, provider and distribution gates. No shareability
+flag or public projection was promoted by these source-level proofs.

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8d0e7eae13d5b620041d9e6a4b4185eee48fe3d3471194b3a14980e45e76e6e4
+      sha256: 82357b0b86e7ef50a42f32ba8bde05262b925645760ed2d29aa910c24f56e22e
       infrastructureUpdatedAt: 2026-09-08
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T08:38:25.782Z
+      observedAt: 2026-09-09T08:56:44.353Z
       staleAfterDays: 30
       healthy: 5
       attention: &a2
@@ -200,7 +200,7 @@ repository:
       - verify:citations
       - verify:sources
 githubActions:
-  observedAt: 2026-09-09T08:38:25.782Z
+  observedAt: 2026-09-09T08:56:44.353Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -420,7 +420,7 @@ githubActions:
           createdAt: 2026-09-07T08:53:36Z
           updatedAt: 2026-09-07T08:54:30Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/34103011927
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

@@ -1116,7 +1116,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Source e6b4a348b89a612031f8cfdf67eb27ef88a04722 passed exact quality CI34329574260 and Docs34329574244. Offline raw and per-file/page parse staging now verifies snapshot identity, raw hashes, tenant provenance, PDF page order and immutable retry outputs. Limits reject oversized raw files and batches before reading; unsupported, encrypted or image-only PDFs remain blocked. 411 Worker tests, 6 dashboard tests, 12 Sharp round-trips and desktop/mobile landing parity pass. No production migration, provider write or activation occurred; readyForPublication remains false. Writer drain, production backfill, ledger reservation, recovery, indexed provenance and controlled activation remain open under #48, as does authenticated upload/cited-query/reopen/foreign-tenant-denial/scoped-cleanup acceptance. Synthetic and offline proofs do not establish live D1/R2/Vectorize convergence."
+          "reason": "Source 33b0e338d965bd90256b29754a311921d777d811 passed exact quality CI34331170867 and Docs34331170937. Offline raw/per-file/page parse staging verifies hashes, tenant provenance, page order, bounded input and immutable retries. Authenticated tenant-scoped cancellation now recovers only operations whose artifact writes never started, behind the existing gate. 424 Worker tests (40 ownership) and 6 dashboard tests pass. Race tests use independent ledger instances on one real SQLite connection, not live D1 concurrency. Migration0010 is source-only; no production migration, provider write or activation occurred. Started/uncertain-write recovery, legacy backfill, indexed provenance, controlled activation and real authenticated document acceptance remain open under #48. Offline and synthetic proofs do not establish live D1/R2/Vectorize convergence."
         }
       },
       "authModel": "required-service",
@@ -1628,7 +1628,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Source c4f9616 build 10 fixes accepted timestamp decoding and adds explicit account-bound history replay recovery. Exact CI 34321631834 passed 232 native tests (one existing credential skip), Release and 81.0271% coverage. Signed Release installed on the owner iPhone on 2026-09-09 after one retry on verified reconnection; deliberately not launched. A real workout, restart, account recovery, sync and public distribution remain unqualified."
+          "reason": "Source 168a5544f7801fb28ea2b9316a525bf9b8773980 passes local native qualification: 234 tests including17 UI, one existing credential skip, Release compilation and81.2483% coverage. Actual AppModel tests verify account-switch isolation and delayed Hub pulls cannot interrupt an active workout or erase detailed set history; offline finish/reopen/recovery preserves native records. Changes add tests and the shared Hub composition seam pin, with no product behavior change. Exact CI34331558029 is still running at this snapshot. Installed build10/sourcec4f9616 is unchanged and deliberately not launched. Real workout interruption/relaunch, account recovery/sync and public distribution remain unqualified."
         }
       },
       "name": "Setline",
@@ -1725,7 +1725,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Source 34a6cae build 12 fixes accepted timestamp decoding and adds explicit account-bound replay recovery, preserving the durable cursor and local edits. Local 41 native tests and Release passed; exact CI 34320766156 attempt 2 passed after an XCTest infrastructure failure. Signed Release installed on the owner iPhone on 2026-09-09; deliberately not launched. Physical use, account recovery, sync and public distribution remain unqualified."
+          "reason": "Source f812595eb132c8c3f678e168c20914702cdcd7d1 passed exact CI34330034379: 43 native tests and Release compilation. Actual AppModel tests verify late account-A responses cannot affect account B, failed local imports preserve the cursor, and successful retry persists exactly once across disk reopen. The shared Hub composition seam is pinned to31f6b4e; this adds test coverage without AppModel behavior changes. Installed build12/source34a6cae is unchanged and deliberately not launched. Complete rendered create/edit/delete/relaunch, physical use, real account recovery/sync and public distribution remain unqualified."
         }
       },
       "name": "Kith",
@@ -1760,7 +1760,7 @@
         "maturity": "in-progress",
         "repositoryUrl": "https://github.com/Significant-Hobbies/kith"
       },
-      "notes": "Source 34a6cae build 12 fixes accepted timestamp decoding and adds explicit account-bound replay recovery, preserving the durable cursor and local edits. Local 41 native tests and Release passed; exact CI 34320766156 attempt 2 passed after an XCTest infrastructure failure. Signed Release installed on the owner iPhone on 2026-09-09; deliberately not launched. Physical use, account recovery, sync and public distribution remain unqualified.",
+      "notes": "Source f812595eb132c8c3f678e168c20914702cdcd7d1 passed exact CI34330034379: 43 native tests and Release compilation. Actual AppModel tests verify late account-A responses cannot affect account B, failed local imports preserve the cursor, and successful retry persists exactly once across disk reopen. The shared Hub composition seam is pinned to31f6b4e; this adds test coverage without AppModel behavior changes. Installed build12/source34a6cae is unchanged and deliberately not launched. Complete rendered create/edit/delete/relaunch, physical use, real account recovery/sync and public distribution remain unqualified.",
       "category": "utility"
     },
     {
@@ -2846,7 +2846,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Build 25 source 309a3ff0c23c9235426987c1fa13e3cc5935dbf0 preserves device-only distraction notes and now commits end/surrender atomically. Actual disk tests reproduce the prior partial capture/session-loss failure and verify preserved active session, one successful retry and no premature notification/Live Activity end. All 208 package tests and compile-only DebugLocal Mac/iOS builds pass without warnings. Hosted native review 34325826905 failed before steps because of GitHub payment/spending limits. Build 25 is not installed or released; signed-device/UI, mixed-version CloudKit and distribution remain unqualified."
+          "reason": "Build25 source b7f1e999d25e2c643a3a58ba5656923aead51952 preserves device-only distraction notes and repairs failed-save behavior for end/surrender, resume, start/extend and scheduled starts. New session, schedule link and deliberate replan save atomically; exact retries avoid duplicates while intentional changed activity still starts a new session. 219 package tests pass in owning and isolated pinned-Hub copies, including real disk rollback/retry/reopen; Mac/iOS/Watch DebugLocal compilation passes. Hosted native review34325826905 failed before steps due to GitHub payment/spending limits; dispatch-only workflow has no exact-head run. Build25 is not installed or released. Rendered daily-loop, signed-device, mixed-version CloudKit and distribution remain unqualified."
         }
       },
       "name": "Anchor",
@@ -2871,7 +2871,7 @@
       "inRegistry": true,
       "status": "live",
       "app": "swift",
-      "notes": "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build 25 source 309a3ff0c23c9235426987c1fa13e3cc5935dbf0 preserves device-only distraction notes and now commits end/surrender atomically. Actual disk tests reproduce the prior partial capture/session-loss failure and verify preserved active session, one successful retry and no premature notification/Live Activity end. All 208 package tests and compile-only DebugLocal Mac/iOS builds pass without warnings. Hosted native review 34325826905 failed before steps because of GitHub payment/spending limits. Build 25 is not installed or released; signed-device/UI, mixed-version CloudKit and distribution remain unqualified.",
+      "notes": "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build25 source b7f1e999d25e2c643a3a58ba5656923aead51952 preserves device-only distraction notes and repairs failed-save behavior for end/surrender, resume, start/extend and scheduled starts. New session, schedule link and deliberate replan save atomically; exact retries avoid duplicates while intentional changed activity still starts a new session. 219 package tests pass in owning and isolated pinned-Hub copies, including real disk rollback/retry/reopen; Mac/iOS/Watch DebugLocal compilation passes. Hosted native review34325826905 failed before steps due to GitHub payment/spending limits; dispatch-only workflow has no exact-head run. Build25 is not installed or released. Rendered daily-loop, signed-device, mixed-version CloudKit and distribution remain unqualified.",
       "public": {
         "listing": "maintained",
         "id": "anchor",
@@ -6212,7 +6212,7 @@
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project anchor-landing remains live; historical habits and indulge Pages projects are compatibility redirects. Historical App Store Connect record 6803853891/build12 and Mac build12 upload/install observations are not current installed-version evidence. Current build25/source309a3ff is not installed or released; signed distribution, production CloudKit compatibility and account/device acceptance remain open."
+        "notes": "Cloudflare Pages project anchor-landing remains live; historical habits and indulge Pages projects are compatibility redirects. Historical App Store Connect record 6803853891/build12 and Mac build12 upload/install observations are not current installed-version evidence. Current build25/sourceb7f1e99 is not installed or released; signed distribution, production CloudKit compatibility and account/device acceptance remain open."
       },
       "nomad-data-adventure": {
         "updatedAt": "2026-09-07",

@@ -54,7 +54,7 @@ agree at this snapshot; their descriptive narratives are not equally current.
 | Email Manager | Real account → mailbox → search/reindex → reload/account switch. Real local model/IndexedDB migration and deployed mobile guest UI pass; the tiny synthetic ranking diagnostic is not mailbox acceptance. | [#54 receipt](https://github.com/Significant-Hobbies/email-manager/issues/54#issuecomment-5597898024) |
 | Free AI | Sustained protected inference and consumer recovery. One post-release consumer run had zero operational errors but published no signal. | [#65](https://github.com/sass-maker/free-ai/issues/65) |
 | High Signal | Useful evidence-qualified daily publication and sustained generation reliability. Successful infrastructure jobs and an editorially rejected candidate do not establish a useful daily edition. | [#133](https://github.com/High-Signal-App/high-signal/issues/133) |
-| Knowledge Base | Legacy provenance backfill/recovery, controlled activation and real private document workflow. Verified offline per-file/page parse staging is implemented, but does not prove live D1/R2/Vectorize convergence. | [#48 fresh receipt](https://github.com/sass-maker/knowledge-base/issues/48#issuecomment-5598850769) |
+| Knowledge Base | Legacy provenance backfill/recovery, controlled activation and real private document workflow. Offline parse staging and gated never-dispatched recovery are verified in source/tests; migration0010 is unapplied and live D1/R2/Vectorize convergence remains unproven. | [#48 fresh receipt](https://github.com/sass-maker/knowledge-base/issues/48#issuecomment-5598850769) |
 | Significant Hobbies Hub | Google rejects the Live callback registration. Real hosted Hub session, account isolation and native continuity remain unqualified despite deployed routing repairs. | [#154](https://github.com/Significant-Hobbies/significanthobbies/issues/154), [Live #14](https://github.com/Significant-Hobbies/live/issues/14) |
 | India Standards | A normal visible Turnstile click still fails in the isolated browser; no hosted default/sparse/unsupported calculation completed. This does not establish a MotherDuck outage. Usage/NFHS gates remain separate. | [#35 fresh receipt](https://github.com/Significant-Hobbies/india-standards/issues/35#issuecomment-5598017386), [#36](https://github.com/Significant-Hobbies/india-standards/issues/36) |
 | Anime List | Real authenticated tracking, reload, account isolation and expiry/write recovery. Fresh mobile guest search → detail → reload passes without overflow. | [#89 fresh receipt](https://github.com/Significant-Hobbies/anime-list/issues/89#issuecomment-5598081800) |
@@ -63,7 +63,7 @@ agree at this snapshot; their descriptive narratives are not equally current.
 | Kith | Physical relationship workflow, account replay/recovery, sync and distribution. Build 12 installed, deliberately not launched. | [#27 receipt](https://github.com/Significant-Hobbies/kith/issues/27#issuecomment-5597955713) |
 | Karte | Protected profile workflow and real AI answer. A visible Turnstile attempt failed; Send stayed disabled and no synthetic conversation was created. | [#82](https://github.com/Significant-Hobbies/karte/issues/82) |
 | App Health | Owner-key onboarding, origin-allowlisted ingest and real production aggregates. Published SDK installation/release parity are verified. | [#55](https://github.com/sass-maker/app-health/issues/55) |
-| Anchor | End/surrender failed-save inconsistency is repaired at309a3ff with actual disk rollback/retry tests; see below. Build 25 privacy work still needs hosted native acceptance after billing/spending blocked the run before steps. Signed/device, historical CloudKit copies and distribution gates remain. | [#52](https://github.com/Significant-Hobbies/anchor/issues/52), [#40](https://github.com/Significant-Hobbies/anchor/issues/40) |
+| Anchor | Failed-save repairs now include resume, start/extend and atomic scheduled starts at b7f1e99, with 219 tests and three platform compilation checks; see below. Build 25 still needs hosted native acceptance after billing/spending blocked the prior run before steps. Signed/device, historical CloudKit copies and distribution gates remain. | [#52](https://github.com/Significant-Hobbies/anchor/issues/52), [#40](https://github.com/Significant-Hobbies/anchor/issues/40) |
 | Reader | Real Google/D1/R2 capture → read → annotate → reopen. Google reaches credential entry; concurrent note repair is deployed, but real account/cloud acceptance remains absent. | [#55 fresh receipt](https://github.com/Significant-Hobbies/reader/issues/55#issuecomment-5597460215) |
 | Office OS | No recurring native outcome workflow or public distribution qualified; due-work dispatch is foreground-only. Compare existing assistants before expansion; keep the project under current owner instructions. | [README](https://github.com/sass-maker/agent-office/blob/main/README.md) |
 | Local AI Video Studio | No complete creator workflow or supported public installation qualified. Actual local export/catalog evidence exists, but effects retain disclosed approximations/fallbacks. Compare established editors; do not retire autonomously. | [#33](https://github.com/sass-maker/local-ai-video-studio/issues/33), [README](https://github.com/sass-maker/local-ai-video-studio/blob/main/README.md) |
@@ -76,6 +76,37 @@ the active session and draft on failure, and delays observable finish effects
 until success. All 208 package tests and Mac/iOS compile-only checks pass.
 Hosted run34325826905 failed before steps due to GitHub payment/spending limits.
 Build25 remains uninstalled and unreleased. [Owning receipt](https://github.com/Significant-Hobbies/anchor/issues/52#issuecomment-5598218479).
+
+Later source `b7f1e999d25e2c643a3a58ba5656923aead51952` also repairs resume,
+start/extend and scheduled-start persistence. Session, schedule link and deliberate
+replan now commit together; failed writes restore state and exact retries do not
+duplicate sessions. An intentional changed activity still starts a new session.
+All 219 package tests pass in owning and isolated pinned-Hub copies, with
+Mac/iOS/Watch compile-only checks passing. The dispatch-only hosted workflow has
+no exact-head run; the prior billing failure remains the latest hosted evidence.
+[Scheduled-start receipt](https://github.com/Significant-Hobbies/anchor/issues/51#issuecomment-5599058806).
+
+Kith source `f812595eb132c8c3f678e168c20914702cdcd7d1` passed exact
+[CI34330034379](https://github.com/Significant-Hobbies/kith/actions/runs/34330034379):
+43 native tests and Release compilation. Actual AppModel callers now have proof
+for late account responses, failed-import cursor preservation and retry/reopen.
+Setline source `168a5544f7801fb28ea2b9316a525bf9b8773980` passes 234 local
+native tests (17 UI, one existing credential skip), Release compilation and
+81.2483% coverage. Its caller tests preserve detailed workout history during
+delayed Hub pulls and account changes. Exact
+[CI34331558029](https://github.com/Significant-Hobbies/setline/actions/runs/34331558029)
+is running at this snapshot. These changes add tests and a shared composition
+seam; the installed builds are unchanged. Complete rendered persistence loops
+and real-device/provider acceptance remain separate work.
+
+Knowledge Base source `33b0e338d965bd90256b29754a311921d777d811` passed exact
+[quality CI34331170867](https://github.com/sass-maker/knowledge-base/actions/runs/34331170867)
+and Docs34331170937, with 424 Worker and 6 dashboard tests. Authenticated,
+tenant-scoped recovery cancels only operations whose artifact writes never
+started. Race proof uses independent ledger instances on one real SQLite
+connection, not live D1 concurrency. Migration0010 remains unapplied; started or
+uncertain writes, legacy backfill, activation and real document acceptance remain
+open. [Recovery receipt](https://github.com/sass-maker/knowledge-base/issues/48#issuecomment-5598937698).
 
 ## Internal, held and reference boundaries
 

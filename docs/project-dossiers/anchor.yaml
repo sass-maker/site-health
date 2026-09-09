@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8d0e7eae13d5b620041d9e6a4b4185eee48fe3d3471194b3a14980e45e76e6e4
+      sha256: 82357b0b86e7ef50a42f32ba8bde05262b925645760ed2d29aa910c24f56e22e
       infrastructureUpdatedAt: 2026-08-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: anchor
-      revision: f2b3b4caf967e1054e1f8fd6e36dc309d92c9e66
+      revision: b7f1e999d25e2c643a3a58ba5656923aead51952
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 11
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-09
       state: available
       checkout: anchor
-      revision: f2b3b4caf967e1054e1f8fd6e36dc309d92c9e66
+      revision: b7f1e999d25e2c643a3a58ba5656923aead51952
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T08:38:25.782Z
+      observedAt: 2026-09-09T08:56:44.353Z
       staleAfterDays: 30
       failing: 1
       attention: &a2
@@ -124,12 +124,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-16
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 105
+    retainedCommitCount: 107
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: f2b3b4caf967e1054e1f8fd6e36dc309d92c9e66
+  observedRevision: b7f1e999d25e2c643a3a58ba5656923aead51952
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -145,7 +145,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T08:38:25.782Z
+  observedAt: 2026-09-09T08:56:44.353Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -153,7 +153,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: f2b3b4caf967e1054e1f8fd6e36dc309d92c9e66
+    defaultBranchSha: b7f1e999d25e2c643a3a58ba5656923aead51952
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -235,7 +235,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-09-09
-  reason: Build 25 source 309a3ff0c23c9235426987c1fa13e3cc5935dbf0 preserves device-only distraction notes and now commits end/surrender atomically. Actual disk tests reproduce the prior partial capture/session-loss failure and verify preserved active session, one successful retry and no premature notification/Live Activity end. All 208 package tests and compile-only DebugLocal Mac/iOS builds pass without warnings. Hosted native review 34325826905 failed before steps because of GitHub payment/spending limits. Build 25 is not installed or released; signed-device/UI, mixed-version CloudKit and distribution remain unqualified.
+  reason: Build25 source b7f1e999d25e2c643a3a58ba5656923aead51952 preserves device-only distraction notes and repairs failed-save behavior for end/surrender, resume, start/extend and scheduled starts. New session, schedule link and deliberate replan save atomically; exact retries avoid duplicates while intentional changed activity still starts a new session. 219 package tests pass in owning and isolated pinned-Hub copies, including real disk rollback/retry/reopen; Mac/iOS/Watch DebugLocal compilation passes. Hosted native review34325826905 failed before steps due to GitHub payment/spending limits; dispatch-only workflow has no exact-head run. Build25 is not installed or released. Rendered daily-loop, signed-device, mixed-version CloudKit and distribution remain unqualified.
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:
@@ -258,5 +258,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build 25 source 309a3ff0c23c9235426987c1fa13e3cc5935dbf0 preserves device-only distraction notes and now commits end/surrender atomically. Actual disk tests reproduce the prior partial capture/session-loss failure and verify preserved active session, one successful retry and no premature notification/Live Activity end. All 208 package tests and compile-only DebugLocal Mac/iOS builds pass without warnings. Hosted native review 34325826905 failed before steps because of GitHub payment/spending limits. Build 25 is not installed or released; signed-device/UI, mixed-version CloudKit and distribution remain unqualified."
-  infrastructure: Cloudflare Pages project anchor-landing remains live; historical habits and indulge Pages projects are compatibility redirects. Historical App Store Connect record 6803853891/build12 and Mac build12 upload/install observations are not current installed-version evidence. Current build25/source309a3ff is not installed or released; signed distribution, production CloudKit compatibility and account/device acceptance remain open.
+  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build25 source b7f1e999d25e2c643a3a58ba5656923aead51952 preserves device-only distraction notes and repairs failed-save behavior for end/surrender, resume, start/extend and scheduled starts. New session, schedule link and deliberate replan save atomically; exact retries avoid duplicates while intentional changed activity still starts a new session. 219 package tests pass in owning and isolated pinned-Hub copies, including real disk rollback/retry/reopen; Mac/iOS/Watch DebugLocal compilation passes. Hosted native review34325826905 failed before steps due to GitHub payment/spending limits; dispatch-only workflow has no exact-head run. Build25 is not installed or released. Rendered daily-loop, signed-device, mixed-version CloudKit and distribution remain unqualified."
+  infrastructure: Cloudflare Pages project anchor-landing remains live; historical habits and indulge Pages projects are compatibility redirects. Historical App Store Connect record 6803853891/build12 and Mac build12 upload/install observations are not current installed-version evidence. Current build25/sourceb7f1e99 is not installed or released; signed distribution, production CloudKit compatibility and account/device acceptance remain open.

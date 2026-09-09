@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8d0e7eae13d5b620041d9e6a4b4185eee48fe3d3471194b3a14980e45e76e6e4
+      sha256: 82357b0b86e7ef50a42f32ba8bde05262b925645760ed2d29aa910c24f56e22e
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: knowledge-base
-      revision: e6b4a348b89a612031f8cfdf67eb27ef88a04722
+      revision: 33b0e338d965bd90256b29754a311921d777d811
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-09
       state: available
       checkout: knowledge-base
-      revision: e6b4a348b89a612031f8cfdf67eb27ef88a04722
+      revision: 33b0e338d965bd90256b29754a311921d777d811
       githubRepository: sass-maker/knowledge-base
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T08:38:25.782Z
+      observedAt: 2026-09-09T08:56:44.353Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -110,12 +110,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-05-27
     latestCommitAt: 2026-09-09
-    retainedCommitCount: 224
+    retainedCommitCount: 225
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: e6b4a348b89a612031f8cfdf67eb27ef88a04722
+  observedRevision: 33b0e338d965bd90256b29754a311921d777d811
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -168,7 +168,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-09-09T08:38:25.782Z
+  observedAt: 2026-09-09T08:56:44.353Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -176,7 +176,7 @@ githubActions:
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
+    defaultBranchSha: 33b0e338d965bd90256b29754a311921d777d811
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -201,15 +201,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34329574260
+          id: 34331170867
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
-          createdAt: 2026-09-09T08:31:24Z
-          updatedAt: 2026-09-09T08:32:25Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34329574260
+          headSha: 33b0e338d965bd90256b29754a311921d777d811
+          createdAt: 2026-09-09T08:48:38Z
+          updatedAt: 2026-09-09T08:49:53Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170867
         ageDays: 0
       schedule:
         health: not-applicable
@@ -219,15 +219,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34329574260
+          id: 34331170867
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
-          createdAt: 2026-09-09T08:31:24Z
-          updatedAt: 2026-09-09T08:32:25Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34329574260
+          headSha: 33b0e338d965bd90256b29754a311921d777d811
+          createdAt: 2026-09-09T08:48:38Z
+          updatedAt: 2026-09-09T08:49:53Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170867
         ageDays: 0
       attention: clear
     - name: docs
@@ -248,15 +248,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34329574244
+          id: 34331170937
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
-          createdAt: 2026-09-09T08:31:24Z
-          updatedAt: 2026-09-09T08:31:34Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34329574244
+          headSha: 33b0e338d965bd90256b29754a311921d777d811
+          createdAt: 2026-09-09T08:48:38Z
+          updatedAt: 2026-09-09T08:48:47Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170937
         ageDays: 0
       schedule:
         health: not-applicable
@@ -266,15 +266,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34329574244
+          id: 34331170937
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: e6b4a348b89a612031f8cfdf67eb27ef88a04722
-          createdAt: 2026-09-09T08:31:24Z
-          updatedAt: 2026-09-09T08:31:34Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34329574244
+          headSha: 33b0e338d965bd90256b29754a311921d777d811
+          createdAt: 2026-09-09T08:48:38Z
+          updatedAt: 2026-09-09T08:48:47Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170937
         ageDays: 0
       attention: clear
     - name: worker-eval-on-pr
@@ -468,7 +468,7 @@ sharing:
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-09
-  reason: "Source e6b4a348b89a612031f8cfdf67eb27ef88a04722 passed exact quality CI34329574260 and Docs34329574244. Offline raw and per-file/page parse staging now verifies snapshot identity, raw hashes, tenant provenance, PDF page order and immutable retry outputs. Limits reject oversized raw files and batches before reading; unsupported, encrypted or image-only PDFs remain blocked. 411 Worker tests, 6 dashboard tests, 12 Sharp round-trips and desktop/mobile landing parity pass. No production migration, provider write or activation occurred; readyForPublication remains false. Writer drain, production backfill, ledger reservation, recovery, indexed provenance and controlled activation remain open under #48, as does authenticated upload/cited-query/reopen/foreign-tenant-denial/scoped-cleanup acceptance. Synthetic and offline proofs do not establish live D1/R2/Vectorize convergence."
+  reason: "Source 33b0e338d965bd90256b29754a311921d777d811 passed exact quality CI34331170867 and Docs34331170937. Offline raw/per-file/page parse staging verifies hashes, tenant provenance, page order, bounded input and immutable retries. Authenticated tenant-scoped cancellation now recovers only operations whose artifact writes never started, behind the existing gate. 424 Worker tests (40 ownership) and 6 dashboard tests pass. Race tests use independent ledger instances on one real SQLite connection, not live D1 concurrency. Migration0010 is source-only; no production migration, provider write or activation occurred. Started/uncertain-write recovery, legacy backfill, indexed provenance, controlled activation and real authenticated document acceptance remain open under #48. Offline and synthetic proofs do not establish live D1/R2/Vectorize convergence."
   changelogUrl: https://knowledgebase.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/knowledge-base/issues
   geoIdentity:
