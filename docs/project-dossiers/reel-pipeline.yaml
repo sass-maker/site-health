@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 79f7d35bd999bd1c79cf897397e663f818ffe263fe22137e4c255949829d429d
+      sha256: 3f8c09cbfd91a397b5345edc2d46a444a9e1bfd4dee8685c55e1e521c5b1d1e9
       infrastructureUpdatedAt: 2026-08-20
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T06:05:01.774Z
+      observedAt: 2026-09-09T06:20:28.972Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -207,7 +207,7 @@ repository:
       - watch:render:once
       - worker:dry-run
 githubActions:
-  observedAt: 2026-09-09T06:05:01.774Z
+  observedAt: 2026-09-09T06:20:28.972Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -296,7 +296,7 @@ githubActions:
           createdAt: 2026-09-01T06:12:50Z
           updatedAt: 2026-09-01T06:13:13Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/33476639197
-        ageDays: 7
+        ageDays: 8
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

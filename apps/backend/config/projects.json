@@ -59,10 +59,10 @@
         "priority": "P1",
         "status": "active",
         "deployed": true,
-        "readyToBeShared": false,
+        "readyToBeShared": true,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Published v1.13.9 ZIP dca160a9c1be748f16f06c22a042d05d9219f022349dc01699644a45c0da38e8 and DMG f0478d4c993e285e02d43d135b08df73b86bf05601dda3e32b0fe9c86dccebae match GitHub digests and pass signature/Gatekeeper checks. Actual packaged CLI with Codex correctly passes corrected-fixture correctness, rejects broken-fixture correctness, and distinguishes unavailable performance from failed execution; reopened isolated SQLite receipts preserve both results. Issue 276 is closed with public-package evidence; missing-target/symlink defects 272 and 273 were verified in published 1.13.8. Release run 34314906195 succeeded. Landing remains at e6a3b44c on Pages 961fb962.codevetter.pages.dev and Worker ab4401c1-9768-4c12-8d19-c35fb7977acb at 100% traffic as last verified. PR 279 updates manual-installation guidance and is awaiting hosted checks and deployment. Actual Sparkle download/install/relaunch remains unqualified in issue 253. Owner application and data were not upgraded. Shareability remains false pending website closeout and scoped acceptance."
+          "reason": "Shareable developer preview: public 1.13.9 ZIP and DMG match GitHub digests and pass signature/Gatekeeper checks. The published CLI with real Codex correctly rejects a broken Node calculation and passes the corrected calculation; unavailable performance stays unqualified, and isolated persisted receipts preserve both outcomes. Hosted native qualification passed. Manual installation/update is documented; actual Sparkle installation and other providers remain unqualified. Website commit 12b934322797a15751ba925993f19e1e005b29f8 passed all six deploy gates and is live on Pages 90936fbc.codevetter.pages.dev plus Worker 45c3f6e6-9021-4801-b3bb-bde6bf6fda77 at 100% traffic with its full SHA tag verified. Public download HTML/Markdown show 1.13.9 and honest update guidance; docs/privacy respond successfully. Owner installation was not replaced. This is bounded preview acceptance, not whole-product production qualification."
         }
       },
       "authModel": "public-persistent",
@@ -97,7 +97,7 @@
       "attention": "my-work",
       "lifecycle": {
         "status": "primary",
-        "shareable": false,
+        "shareable": true,
         "resumeCondition": null
       },
       "repositoryVisibility": "public",
@@ -105,11 +105,11 @@
         "listing": "maintained",
         "id": "codevetter",
         "name": "CodeVetter",
-        "description": "Execution-backed verification for AI-written software changes \u2014 local-first and inspectable.",
+        "description": "Execution-backed verification for AI-written software changes — local-first and inspectable.",
         "category": "product",
         "pillarId": "build",
         "spotlight": true,
-        "maturity": "public-ready",
+        "maturity": "experiment",
         "repositoryUrl": "https://github.com/Codevetter/codevetter"
       },
       "category": "utility"
@@ -2935,8 +2935,8 @@
           "audience": "Developers and teams shipping code produced with AI agents.",
           "outcome": "Higher confidence that an agent completed the requested change correctly and safely.",
           "mechanism": "Local-first review combines repository context, executable checks, targeted evaluation, and inspectable verification receipts.",
-          "proof": "The desktop product already performs source-aware review and is being extended toward execution-backed, receipt-based verification.",
-          "nextAction": "Inspect the product and public roadmap; use current evidence to judge the verification workflow while the flagship continues to mature."
+          "proof": "Published macOS 1.13.9 is signed and notarized. Its CLI has verified real Codex review, passing and failing executable checks, and persisted receipts on a bounded Node fixture.",
+          "nextAction": "Try the developer preview on a small local repository. Use the documented manual update path; in-app updating and other review providers remain unqualified."
         },
         "form": "Desktop app",
         "platforms": [
