@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9a2a8e6578d5c0e159acc139a2d2a810e7dedc1425e613387e1515688ce7e29d
+      sha256: a9dca2733d7a0c6dddc0fc1991de322013151890b3ec0fd1c625b9c4328d031b
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T14:42:54.766Z
+      observedAt: 2026-09-09T15:39:52.873Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -175,7 +175,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T14:42:54.766Z
+  observedAt: 2026-09-09T15:39:52.873Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -350,7 +350,7 @@ githubActions:
           createdAt: 2026-09-07T14:47:41Z
           updatedAt: 2026-09-07T14:48:55Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/34134896067
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -364,7 +364,7 @@ githubActions:
           createdAt: 2026-09-07T14:47:41Z
           updatedAt: 2026-09-07T14:48:55Z
           url: https://github.com/High-Signal-App/everythingrated/actions/runs/34134896067
-        ageDays: 1
+        ageDays: 2
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
