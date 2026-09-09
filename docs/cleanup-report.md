@@ -369,3 +369,12 @@ and tab journey passes with reviewed screenshots. Exact CI34335890509 is still
 running at this checkpoint. A signed candidate is ready, but installation waits
 for that check. This supersedes the earlier pending-CI and unresolved-polish
 notes without claiming physical use or public distribution.
+
+
+## Calorie signed installation, 9 September
+
+Exact source15c6aa1 CI34335890509 passed. The signed version1.0.0/build14
+installed on the available owner iPhone on the first attempt, with retained
+artifact hashes verified. No app launch, sync, reset or uninstall occurred.
+This supersedes the pending installation checkpoint above; physical logging,
+real account continuity and external distribution remain unqualified.

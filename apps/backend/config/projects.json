@@ -1581,7 +1581,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Source 3739744db1899bf4d509c3f42b98a195676b1a35 removes the fabricated daily budget after an explicit no-target choice. Actual isolated native UI verifies food210kcal and water250ml survive process relaunch, a separate journal remains empty, and configured-target edit/delete/undo still produces515/925/105/925kcal. Final focused UI checks, Release compilation and87 server checks pass. DEBUG fixture markers are absent from Release. Exact CI34335213288 and preceding c1ef9d4 CI34332653952 passed. Installed build14/source6ecaf4f is unchanged. Physical use, real account isolation/sync and processed public distribution remain unqualified. Follow-up source15c6aa1e050fdb123778cd8ab71ce4e0dae20d12 fixes the scrolled-content/status-bar overlap; the actual persistence, sheet and tab journey passes and the corrected screenshot was reviewed. Its exact CI34335890509 remains in progress; a verified signed candidate is retained pending that gate."
+          "reason": "Source 3739744db1899bf4d509c3f42b98a195676b1a35 removes the fabricated daily budget after an explicit no-target choice. Actual isolated native UI verifies food210kcal and water250ml survive process relaunch, a separate journal remains empty, and configured-target edit/delete/undo still produces515/925/105/925kcal. Final focused UI checks, Release compilation and87 server checks pass. DEBUG fixture markers are absent from Release. Exact CI34335213288 and preceding c1ef9d4 CI34332653952 passed. Physical use, real account isolation/sync and processed public distribution remain unqualified. Follow-up source15c6aa1e050fdb123778cd8ab71ce4e0dae20d12 fixes the scrolled-content/status-bar overlap; the actual persistence, sheet and tab journey passes and the corrected screenshot was reviewed. Exact CI34335890509 passed. Signed source15c6aa1 installed successfully as version1.0.0/build14 on the available owner iPhone, with artifact hashes verified and no app launch, sync, reset or uninstall. Source/hash/install receipts are retained in the owning repository."
         }
       },
       "name": "Calorie",
@@ -1615,7 +1615,7 @@
         "maturity": "maintained",
         "repositoryUrl": "https://github.com/Significant-Hobbies/calorie"
       },
-      "notes": "Native-first food journal with optional private cloud sync. Development build 14 from 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308 is installed on the owner iPhone following full hosted native qualification. Actual physical use is blocked by the locked device; signed-in isolation/sync and public distribution remain unverified. See issue 88 and docs/qualification/calorie-2026-09-08/.",
+      "notes": "Native-first food journal with optional private cloud sync. Signed version1.0.0/build14 from15c6aa1e050fdb123778cd8ab71ce4e0dae20d12 installed on the available owner iPhone after exact hosted CI passed82 native tests and Release. No app launch, sync, reset or uninstall occurred. Physical use, signed-in isolation/sync and public distribution remain unverified. See issue88 and docs/qualification/2026-09-09/owner-install.md.",
       "category": "utility"
     },
     {
@@ -5568,7 +5568,7 @@
             "state": "active"
           }
         ],
-        "notes": "Fresh read-only provider audit verifies Worker e21daa8e-a4a9-42a5-948e-86840d61b5d8, source d0b71cd56e195bdff23b787b035d378b39af5072 at 100%. No runtime src/landing/public/schema/config diff exists from that revision to checked main90a23b5; later changes concern native/docs/development dependencies. Installed native build14 remains6ecaf4f. Public beta page is internal-only, not a public install offer. No launch, sync, deployment or provider write occurred in this audit; issue88 comment5598061379 records the next gate."
+        "notes": "Fresh read-only provider audit verifies Worker e21daa8e-a4a9-42a5-948e-86840d61b5d8, source d0b71cd56e195bdff23b787b035d378b39af5072 at 100%. No runtime src/landing/public/schema/config diff exists from that revision to checked main90a23b5; later changes concern native/docs/development dependencies. At that provider audit, installed native build14 was6ecaf4f; the later September9 install-only update is15c6aa1, recorded separately in sharing readiness. Public beta page is internal-only, not a public install offer. No launch, sync, deployment or provider write occurred in this audit; issue88 comment5598061379 records the next gate."
       },
       "setline": {
         "updatedAt": "2026-08-21",

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 091b559c2c5b2857620ffddc5151ad71f9320db3c74fb88e6b1450b5a7619152
+      sha256: 296719ee0e56a97f944de7ad0da68b011f07aa05133fa3db9a332b58dfaf347d
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T09:46:55.926Z
+      observedAt: 2026-09-09T09:57:24.711Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -151,7 +151,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T09:46:55.926Z
+  observedAt: 2026-09-09T09:57:24.711Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -193,7 +193,7 @@ githubActions:
           createdAt: 2026-09-07T09:47:21Z
           updatedAt: 2026-09-07T09:51:23Z
           url: https://github.com/sass-maker/agent-office/actions/runs/34107979534
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -211,7 +211,7 @@ githubActions:
           createdAt: 2026-09-07T09:47:21Z
           updatedAt: 2026-09-07T09:51:23Z
           url: https://github.com/sass-maker/agent-office/actions/runs/34107979534
-        ageDays: 1
+        ageDays: 2
       attention: ignored
     - name: Site Check
       file: .github/workflows/site-check.yml
@@ -240,7 +240,7 @@ githubActions:
           createdAt: 2026-09-07T09:47:21Z
           updatedAt: 2026-09-07T09:47:40Z
           url: https://github.com/sass-maker/agent-office/actions/runs/34107979727
-        ageDays: 1
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -258,7 +258,7 @@ githubActions:
           createdAt: 2026-09-07T09:47:21Z
           updatedAt: 2026-09-07T09:47:40Z
           url: https://github.com/sass-maker/agent-office/actions/runs/34107979727
-        ageDays: 1
+        ageDays: 2
       attention: ignored
 deployment:
   kind: pages
