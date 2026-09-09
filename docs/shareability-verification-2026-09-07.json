@@ -736,20 +736,21 @@
       "shareable": false,
       "verdict": "not_verified",
       "surface": "Native macOS package, CLI verification and public download",
-      "observed": "Published 1.13.8 passes signed-package missing-target and symlink execution regressions. Live download HTML/Markdown match its assets. Signed/notarized 1.13.9 candidate dccfc613a5088099257bb1d50d231802a2b61ffbd4eacc344011da83dfb1fff9 completes a real Codex-backed review and passing correctness check, correctly recording unavailable performance as unqualified. Protected qualification passes all 17 gates; hosted tests pass 95 background and 10 interaction cases. Release run 34314906195 remains active.",
-      "limitations": "Public 1.13.9 package verification and actual Sparkle download/install/relaunch remain pending. The owner app was not replaced. CLI evidence uses a bounded Node fixture, and interface screenshots use fixtures; neither is broad product acceptance.",
+      "observed": "Published 1.13.8 passes missing-target and symlink execution regressions. Public 1.13.9 ZIP dca160a9c1be748f16f06c22a042d05d9219f022349dc01699644a45c0da38e8 matches the GitHub digest and passes strict signature and Gatekeeper verification. Its packaged CLI completes a real Codex review with passing correctness, zero failed QA runs and one unqualified performance run. Reopened isolated SQLite receipt matches CLI output except the request_id envelope. Issue 276 is closed with public-package evidence. Release run 34314906195 succeeded; protected candidate qualification passed all 17 gates and hosted tests passed 95 background and 10 interaction cases.",
+      "limitations": "Actual Sparkle download/install/relaunch remains pending in issue 253. The owner app was not replaced. CLI evidence uses a bounded Node fixture, and interface screenshots use fixtures; neither is broad product acceptance. Updated manual-installation website guidance is in PR 279 awaiting checks and deployment.",
       "verifiedAt": "2026-09-09",
       "confidence": "high",
       "confidenceMeaning": "Confidence in the stated surface verdict, not whole-product readiness or a statistical probability.",
       "loggedOut": "Public downloads/docs verified; published CLI invalid-target and symlink paths exercised.",
-      "loggedIn": "Real Codex executor completed review through the signed 1.13.9 candidate in an isolated database; other providers unqualified.",
+      "loggedIn": "Real Codex executor completed review through the published 1.13.9 package in an isolated database; other providers unqualified.",
       "presentation": "Actual SwiftUI fixture renders inspected; hosted native interaction tests passed. Owner desktop not opened.",
       "disposition": "retain-unpromoted",
       "actions": [
         "Verified live download HTML/Markdown, docs and privacy",
-        "Verified published 1.13.8 and signed 1.13.9 candidate signatures and Gatekeeper",
+        "Verified published 1.13.8 and 1.13.9 signatures and Gatekeeper",
         "Ran actual packaged CLI regressions and Codex-backed review",
-        "Inspected hosted native tests and upgrade/relaunch/rollback/rubric receipts"
+        "Inspected hosted native tests and upgrade/relaunch/rollback/rubric receipts",
+        "Verified persisted public 1.13.9 QA receipt and closed issue 276 with evidence"
       ]
     },
     {
