@@ -1,0 +1,54 @@
+{
+  "observedAt": "2026-09-09T10:27:17.189Z",
+  "sourceCommit": "e391a869a0fd26d7d9be4156deef32716ac9c792",
+  "receipts": [
+    {
+      "url": "https://sassmaker.com/projects.json",
+      "status": 200,
+      "count": 24,
+      "exactProjectionMatch": true,
+      "dates": [
+        {
+          "id": "codevetter",
+          "latestCommitAt": "2026-09-09"
+        },
+        {
+          "id": "live",
+          "latestCommitAt": "2026-09-09"
+        },
+        {
+          "id": "saas-maker",
+          "latestCommitAt": "2026-09-09"
+        },
+        {
+          "id": "swe-interview-prep",
+          "latestCommitAt": "2026-09-08"
+        }
+      ]
+    },
+    {
+      "url": "https://e3d262d1.saas-maker-home.pages.dev/projects.json",
+      "status": 200,
+      "count": 24,
+      "exactProjectionMatch": true,
+      "dates": [
+        {
+          "id": "codevetter",
+          "latestCommitAt": "2026-09-09"
+        },
+        {
+          "id": "live",
+          "latestCommitAt": "2026-09-09"
+        },
+        {
+          "id": "saas-maker",
+          "latestCommitAt": "2026-09-09"
+        },
+        {
+          "id": "swe-interview-prep",
+          "latestCommitAt": "2026-09-08"
+        }
+      ]
+    }
+  ]
+}

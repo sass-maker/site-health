@@ -1,0 +1,177 @@
+
+> saas-maker@1.0.0 deploy:directory /private/tmp/saas-history-release-20260909/saas-maker
+> pnpm deploy:guard && pnpm -F @saas-maker/landing-page run deploy
+
+
+> saas-maker@1.0.0 deploy:guard /private/tmp/saas-history-release-20260909/saas-maker
+> bash tooling/scripts/fleet-deploy-guard.sh saas-maker
+
+PROJECT: saas-maker
+
+Branch                ✓ main
+Git                   ✓ clean
+Remote                ✓ synced
+CI                    ✓ green for e391a869: 2 push workflows, 1 build/test definitions
+CF target             ✓ name = "saasmaker-api" (subdir)
+Work queue            ✓ GitHub Issues are authoritative; review linked blockers
+
+→ READY TO DEPLOY (6 gates passed)
+
+> @saas-maker/landing-page@0.1.0 deploy /private/tmp/saas-history-release-20260909/saas-maker/apps/showcase
+> pnpm build && wrangler pages deploy dist --project-name saas-maker-home --branch main && node ../../scripts/smoke-prod.mjs --directory-only
+
+
+> @saas-maker/landing-page@0.1.0 build /private/tmp/saas-history-release-20260909/saas-maker/apps/showcase
+> pnpm build:ideas && astro build
+
+
+> @saas-maker/landing-page@0.1.0 build:ideas /private/tmp/saas-history-release-20260909/saas-maker/apps/showcase
+> python3 ideas/build.py
+
+Starterstory: kept 92; dropped 17 for <$5K/mo, 179 for non-tech-first category
+Filtered to T >= 7: kept 140 of 216
+Total 140 | best bets: 71 | fun max 19 | money max 9
+Wrote src/data/ideas.json
+15:56:40 [content] Syncing content
+15:56:40 [content] Synced content
+15:56:40 [types] Generated 195ms
+15:56:40 [build] output: "static"
+15:56:40 [build] mode: "static"
+15:56:40 [build] directory: /private/tmp/saas-history-release-20260909/saas-maker/apps/showcase/dist/
+15:56:40 [build] Collecting build info...
+15:56:40 [build] ✓ Completed in 203ms.
+15:56:40 [build] Building static entrypoints...
+15:56:40 [vite] ✓ built in 385ms
+15:56:40 [build] ✓ Completed in 396ms.
+
+ building client (vite) 
+15:56:40 [vite] transforming...
+15:56:40 [vite] ✓ 2 modules transformed.
+15:56:40 [vite] rendering chunks...
+15:56:40 [vite] ✓ built in 9ms
+
+ generating static routes 
+15:56:40 λ src/pages/.well-known/ai-catalog.json.ts
+15:56:40   └─ /.well-known/ai-catalog.json (+1ms) 
+15:56:40 λ src/pages/ai-chat-footer.js.ts
+15:56:40   └─ /ai-chat-footer.js (+1ms) 
+15:56:40 λ src/pages/api/ai.ts
+15:56:40   └─ /api/ai (+1ms) 
+15:56:40 ▶ src/pages/changelog.astro
+15:56:40   └─ /changelog.html (+2ms) 
+15:56:40 ▶ src/pages/ideas.astro
+15:56:40   └─ /ideas.html (+3ms) 
+15:56:40 λ src/pages/ideas.json.ts
+15:56:40   └─ /ideas.json (+0ms) 
+15:56:40 λ src/pages/index.md.ts
+15:56:40   └─ /index.md (+0ms) 
+15:56:40 ▶ src/pages/learnings/skills-should-declare-capabilities-not-model-names.astro
+15:56:40   └─ /learnings/skills-should-declare-capabilities-not-model-names.html (+1ms) 
+15:56:40 ▶ src/pages/learnings/index.astro
+15:56:40   └─ /learnings.html (+1ms) 
+15:56:40 λ src/pages/llms-full.txt.ts
+15:56:40   └─ /llms-full.txt (+0ms) 
+15:56:40 λ src/pages/llms.txt.ts
+15:56:40   └─ /llms.txt (+0ms) 
+15:56:40 ▶ src/pages/p/[id].astro
+15:56:40   ├─ /p/codevetter.html (+1ms) 
+15:56:40   ├─ /p/posttrainllm.html (+1ms) 
+15:56:40   ├─ /p/live.html (+0ms) 
+15:56:40   ├─ /p/gitstat.html (+0ms) 
+15:56:40   ├─ /p/chatgpt-memory-insights.html (+0ms) 
+15:56:40   ├─ /p/psi-swarm.html (+1ms) 
+15:56:40   ├─ /p/on-record.html (+0ms) 
+15:56:40   ├─ /p/issue-pages.html (+0ms) 
+15:56:40   ├─ /p/everythingrated.html (+0ms) 
+15:56:40   ├─ /p/research-papers.html (+0ms) 
+15:56:40   ├─ /p/materia.html (+0ms) 
+15:56:40   ├─ /p/looptv.html (+0ms) 
+15:56:40   ├─ /p/swe-interview-prep.html (+0ms) 
+15:56:40   ├─ /p/rolepatch.html (+0ms) 
+15:56:40   ├─ /p/starboard.html (+0ms) 
+15:56:40   ├─ /p/protein-index.html (+0ms) 
+15:56:40   ├─ /p/veg-protein-food.html (+0ms) 
+15:56:40   ├─ /p/mashup.html (+0ms) 
+15:56:40   ├─ /p/web-playables.html (+0ms) 
+15:56:40   ├─ /p/what-it-takes-to-win.html (+0ms) 
+15:56:40   ├─ /p/sarthakagrawal-personal.html (+0ms) 
+15:56:40   ├─ /p/field-track.html (+0ms) 
+15:56:40   └─ /p/reddit-insights.html (+0ms) 
+15:56:40 ▶ src/pages/privacy.astro
+15:56:40   └─ /privacy.html (+0ms) 
+15:56:40 λ src/pages/project-strip.js.ts
+15:56:40   └─ /project-strip.js (+0ms) 
+15:56:40 ▶ src/pages/projects.astro
+15:56:40   └─ /projects.html (+3ms) 
+15:56:40 λ src/pages/projects.json.ts
+15:56:40   └─ /projects.json (+0ms) 
+15:56:40 λ src/pages/sitemap.xml.ts
+15:56:40   └─ /sitemap.xml (+0ms) 
+15:56:40 ▶ src/pages/studio.astro
+15:56:40   └─ /studio.html (+1ms) 
+15:56:40 ▶ src/pages/terms.astro
+15:56:40   └─ /terms.html (+0ms) 
+15:56:40 ▶ src/pages/tools.astro
+15:56:40   └─ /tools.html (+1ms) 
+15:56:40 λ src/pages/tools.json.ts
+15:56:40   └─ /tools.json (+0ms) 
+15:56:40 ▶ src/pages/index.astro
+15:56:40   └─ /index.html (+1ms) 
+15:56:40 λ src/pages/[...path].md.ts
+15:56:40   ├─ /studio.md (+0ms) 
+15:56:40   ├─ /projects.md (+0ms) 
+15:56:40   ├─ /ideas.md (+0ms) 
+15:56:40   ├─ /tools.md (+0ms) 
+15:56:40   ├─ /privacy.md (+0ms) 
+15:56:40   ├─ /terms.md (+0ms) 
+15:56:40   ├─ /changelog.md (+0ms) 
+15:56:40   ├─ /learnings.md (+0ms) 
+15:56:40   ├─ /learnings/skills-should-declare-capabilities-not-model-names.md (+0ms) 
+15:56:40   ├─ /p/codevetter.md (+0ms) 
+15:56:40   ├─ /p/posttrainllm.md (+0ms) 
+15:56:40   ├─ /p/live.md (+0ms) 
+15:56:40   ├─ /p/gitstat.md (+0ms) 
+15:56:40   ├─ /p/chatgpt-memory-insights.md (+0ms) 
+15:56:40   ├─ /p/psi-swarm.md (+0ms) 
+15:56:40   ├─ /p/on-record.md (+0ms) 
+15:56:40   ├─ /p/issue-pages.md (+0ms) 
+15:56:40   ├─ /p/everythingrated.md (+0ms) 
+15:56:40   ├─ /p/research-papers.md (+0ms) 
+15:56:40   ├─ /p/materia.md (+0ms) 
+15:56:40   ├─ /p/looptv.md (+0ms) 
+15:56:40   ├─ /p/swe-interview-prep.md (+0ms) 
+15:56:40   ├─ /p/rolepatch.md (+0ms) 
+15:56:40   ├─ /p/starboard.md (+0ms) 
+15:56:40   ├─ /p/protein-index.md (+0ms) 
+15:56:40   ├─ /p/veg-protein-food.md (+0ms) 
+15:56:40   ├─ /p/mashup.md (+0ms) 
+15:56:40   ├─ /p/web-playables.md (+0ms) 
+15:56:40   ├─ /p/what-it-takes-to-win.md (+0ms) 
+15:56:40   ├─ /p/sarthakagrawal-personal.md (+0ms) 
+15:56:40   ├─ /p/field-track.md (+0ms) 
+15:56:40   └─ /p/reddit-insights.md (+0ms) 
+15:56:40 ✓ Completed in 60ms.
+
+15:56:40 [build] 33 page(s) built in 674ms
+15:56:40 [build] Complete!
+
+ ⛅️ wrangler 4.85.0
+───────────────────
+✨ Compiled Worker successfully
+Uploading... (78/89)
+Uploading... (81/89)
+Uploading... (85/89)
+Uploading... (89/89)
+✨ Success! Uploaded 11 files (78 already uploaded) (1.20 sec)
+
+✨ Uploading _headers
+✨ Uploading _redirects
+✨ Uploading Functions bundle
+🌎 Deploying...
+✨ Deployment complete! Take a peek over at https://e3d262d1.saas-maker-home.pages.dev
+→ Public directory index renders ... ✓
+→ Public directory renders the checked-in shareable identities ... ✓
+→ Machine-readable directory matches the checked-in shareable identities ... ✓
+→ Curated Ideas UI and complete JSON render ... ✓
+
+✓ 4/4 passed in 2311ms

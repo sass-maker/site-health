@@ -391,3 +391,13 @@ Calorie test-only fc1bfce strengthens the picker/score UI check after docs-head
 CI34337638142 failed. Focused UI and87 server tests pass; exact CI34339196137
 is pending. Installed15c6aa1 remains unchanged. See the qualification report
 for the evidence and remaining boundaries.
+
+
+## Public retained-history reconciliation
+
+Canonical208ff071 updates23 observed latest-commit dates;56/57 identities match,
+with excluded Nomad unavailable. SaaS Maker PR107 merged e391a869 and deployed
+only the public directory as e3d262d1-7b28-4903-8956-1042e050de4f. Exact-main CI,
+six deployment gates, four smoke checks and full24-entry public/immutable
+projection comparisons passed. All task checkouts/branches were cleaned; owner
+edits were preserved. [Durable receipt](qualification/saas-maker-history-2026-09-09/README.md).
