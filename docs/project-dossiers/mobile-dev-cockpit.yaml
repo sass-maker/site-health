@@ -3,7 +3,7 @@ projectId: mobile-dev-cockpit
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-08
+  generatedAt: 2026-09-09
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3f024bb44ee05ad2df1ed9819ab8436f6884b5fc6a1cdd81884c46d264fda25e
+      sha256: 79f7d35bd999bd1c79cf897397e663f818ffe263fe22137e4c255949829d429d
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,7 +31,7 @@ verification:
       sha256: 9a06e8f7e45c161fdea60a2498588e371e48cb6899f438f74e174345fed23acf
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-08
+      observedAt: 2026-09-09
       state: available
       checkout: mobile-dev-cockpit
       revision: b2c188804af738f4b534c6a3e7909f1a028accde
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-08
+      observedAt: 2026-09-09
       state: available
       checkout: mobile-dev-cockpit
       revision: b2c188804af738f4b534c6a3e7909f1a028accde
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-08T23:04:23.507Z
+      observedAt: 2026-09-09T06:05:01.774Z
       staleAfterDays: 30
       stuck: 1
       attention: &a2
@@ -146,7 +146,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-08T23:04:23.507Z
+  observedAt: 2026-09-09T06:05:01.774Z
   staleAfterDays: 30
   summary:
     stuck: 1
