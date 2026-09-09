@@ -1,6 +1,6 @@
 # Fleet portfolio: compressed owner intent
 
-Date: 2026-08-23 (lifecycle and owner decisions updated 2026-09-07)
+Date: 2026-08-23 (lifecycle counts and explicit removals reconciled 2026-09-09)
 Scope: all 57 retained identities; Chess and Journal are removed from the Fleet lineup
 
 This document preserves the meaning of the owner's project review in compact,
@@ -26,8 +26,8 @@ change lifecycle or sharing decisions.
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | Primary | 2 | Receives focused feature development, experiments and validation. |
-| Active | 19 | Supported and kept useful; improvements follow concrete needs. |
-| Inactive | 36 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
+| Active | 20 | Supported and kept useful; improvements follow concrete needs. |
+| Inactive | 35 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
 | **Total** | **57** | Every canonical Fleet identity appears exactly once. |
 
 These statuses reflect current owner intent. They deliberately override misleading signals such as a live deployment for an inactive product or an old repository label that says maintenance while the owner is actively building.
@@ -152,7 +152,7 @@ Do not merge their runtimes. If Reel Pipeline is reopened, it should consume exp
 
 - Mobile Dev Cockpit depended on an abandoned desktop-control workflow.
 - TrueHire was superseded by RolePatch as the active employment-related product.
-- Chess Coach was stopped because the underlying personal interest disappeared.
+- Chess Coach and Journal were explicitly removed from Fleet; preserve their history without promotion or new work.
 - Habits/Indulge was superseded by Anchor; its original pattern artwork and
   humane replacement framing moved forward, while its separate shell and
   roadmap were retired.
@@ -173,7 +173,7 @@ Do not merge their runtimes. If Reel Pipeline is reopened, it should consume exp
 
 6. **Completed tools should stay boring.** Several active products have achieved their current purpose. Keeping them working is success, not neglect.
 
-7. **Three projects are permanently retired.** Chess Coach, Mobile Dev Cockpit, and TrueHire should remain historical artifacts unless the owner explicitly changes the underlying decision.
+7. **Four retained identities are removed or retired.** Chess Coach, Journal, Mobile Dev Cockpit, and TrueHire should remain historical artifacts unless the owner explicitly changes the underlying decision.
 
 ## Recommended operating policy
 

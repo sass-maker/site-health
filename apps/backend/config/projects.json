@@ -1115,8 +1115,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "Read-only inventory and verified offline raw-copy staging pass local quality at 4562c71 with 395 Worker and 6 dashboard tests. Source bytes and snapshot remain unchanged. Live provider verification, provenance backfill, unresolved-write recovery, activation and private document journey remain issue 48; staged exports do not qualify publication."
+          "verifiedAt": "2026-09-09",
+          "reason": "Current source 4562c71d80e9bc8861e525bb0f0f442d7455675f passed exact CI34221819695 and Docs34221819621. Verified offline raw-copy staging and synthetic ownership tests preserve source bytes and snapshot. Fresh September 9 390px guest landing is readable without overflow and explicitly illustrative; its operator link reaches Cloudflare Access for Knowledgebase Internal Dashboard. Fresh 31 SQLite/handler/staging tests pass. No operator sign-in, private corpus read, upload, provider mutation or deployment occurred. Authorized Access sign-in and a live upload/cited-query/reopen/foreign-tenant-denial/scoped-cleanup journey remain unqualified under #48. Legacy writer drain, verified provider copy, parse/indexed provenance rebuild, conditional publication and unresolved-write reconciliation still require implementation/review and controlled activation. Offline staging and fixture bindings do not prove live D1/R2/Vectorize convergence."
         }
       },
       "authModel": "required-service",
@@ -1458,8 +1458,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "Source 90bc39768fcb773f91ecde87549aa3e5a4b3cb51 passed full quality and seven synthetic-account browser/handler tests, then CI34273051317, Docs34273051412 and Deploy34273454449. Cloudflare version f5e1f86a-a051-4bc1-a6a2-cd91af8b2be9 serves that exact tag at 100%. Independent concurrent notes are merged atomically; conflicting edits retain the draft with 409. Board note provenance, retry acknowledgement and the zero-height canvas are repaired. Fresh production browser verified landing/sample and guest API isolation. Real Google callback, cloud URL/PDF import/read/annotate/reopen, expiry/account recovery and broader extension/provider paths remain unqualified. Concurrent board documents and AI conversations remain outside the note-merge guarantee."
+          "verifiedAt": "2026-09-09",
+          "reason": "Source 90bc39768fcb773f91ecde87549aa3e5a4b3cb51 is deployed at 100% as Worker f5e1f86a-a051-4bc1-a6a2-cd91af8b2be9 after CI34273051317, Docs34273051412 and Deploy34273454449. Independent concurrent notes merge atomically; conflicting same-note edits retain the draft with 409. Seven synthetic-account browser/handler cases cover board editing, save retry, reload and isolation. Fresh September 9 ordinary 390px guest URL-import flow reaches Google's normal credential entry without redirect_uri_mismatch; no credentials or article/PDF writes occurred. Completed Google callback/session and real-account cloud URL/PDF import, reading, annotation, reopen and account recovery remain unqualified under #55. Synthetic account checks and guest handoff do not establish that journey. Concurrent board-document and AI-conversation merging are outside the note-merge guarantee."
         }
       },
       "authModel": "public-persistent",
@@ -1580,8 +1580,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "Build 14/source 6ecaf4f repairs account-switching and stale queue acknowledgement failures and persists explicit journal ownership. Hosted CI 34255598804 passed all 80 tests, Release and 67.6728% coverage. The signed build is installed on the iPhone; fresh launch returned CoreDeviceError 10002 / FBS Locked. Physical use and real-account sync/isolation remain unqualified. Public landing and TestFlight-status pages return 200 but disclose internal-only access with no public install link."
+          "verifiedAt": "2026-09-09",
+          "reason": "Installed native build 14 remains source 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308. Current checked main 90a23b5653979dc43f28ef79fe940ad11f2154dc adds documentation/development dependency repair without native source changes; CI34319654997 passed 30 core, 41 app and 9 UI tests plus Release. September 9 public landing/TestFlight pages return 200 at390 with no overflow and explicitly internal-only access; private food/dashboard APIs return401. No native launch, account sync, reinstall or release occurred in the fresh audit. Unlocked physical food/water logging, interruption/relaunch and retained totals; approved real-account isolation/sync; and processed-build/audience verification in App Store Connect remain #88 gates. Development installation and configured-auth health flags are not sign-in or public distribution proof. The checked-in archive script creates a local archive without uploading."
         }
       },
       "name": "Calorie",
@@ -1980,8 +1980,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-07",
-          "reason": "Held game experiment under recorded owner intent; preserve saves and existing evidence without launching a new game-polish campaign."
+          "verifiedAt": "2026-09-09",
+          "reason": "Source dd3bdd9c7d37873e9314af01332c487299045907 has successful CI34111889148 and Docs34111889253. Retained local scripted qualification now proves setup clock hold, physical movement to Pip, a news interaction creating NPC memory, and actual browser save/reload restoration. Local font/notice regression proves geometry and movement survive blocked font lookup and repeated notices remain bounded. Fresh September 9 hosted390 guest world selector loads without page errors or horizontal overflow; model download hosts were deliberately blocked and Kokoro disclosed fallback. No hosted gameplay or provider inference was performed. Held experiment remains nonshareable under #30. Local scripted memory/save and blocked-font tests do not qualify deployed gameplay, Worker/local API parity, model-backed conversation/recall, voice/GPU or human fun/pacing. Hosted pass stops at world selection with model downloads blocked. Movement/combat input is keyboard-based; touch-only gameplay is unqualified. No new game-polish campaign or release is implied."
         }
       },
       "aliases": [
@@ -2321,8 +2321,8 @@
         "deployed": true,
         "readyToBeShared": false,
         "sharingReadiness": {
-          "verifiedAt": "2026-09-08",
-          "reason": "Live guest turns, save/reload and 390px controls are verified. Historical scenarios still use generic factions and coarse geography; complete rewind memory and authenticated cloud saves remain unqualified."
+          "verifiedAt": "2026-09-09",
+          "reason": "Source d6d052f69942e19362c665ac1ed8dfc99d62a17c was released after CI34323177334 and six guard gates as Worker e4a26fe5-9d2f-46fd-83e6-228d1e8c7a75 at100% with the exact fullSHA tag. September 9 real390 guest three-turn replay returned200 in2441/2543/1859ms. Rewind/save/reload restores checkpoint summary, relations and timeline; the next request uses checkpoint memory and the new snapshot parents that checkpoint. Final1280 reopen equality passes. Durable live receipt is retained at docs commit933a824. No authenticated save or database migration occurred. Experiment remains inactive/nonshareable under #27. Historical faction/scenario coherence and coarse geography, authenticated cloud saves, desktop story/terminal overlap and mobile branch crowding remain unqualified. The earlier relationship/timeline reload loss and future-memory rewind leak are repaired in the named bounded live scope; do not generalize that receipt to a coherent complete campaign."
         }
       },
       "authModel": "public-persistent",
@@ -2846,7 +2846,7 @@
         "readyToBeShared": false,
         "sharingReadiness": {
           "verifiedAt": "2026-09-09",
-          "reason": "Build 24 product source 5d1f87ac2673fa288124ac3f94fdec1d62d5e450 repairs durable Hub account ownership and keyboard-accessible session start. Test-only b75c1c2161752fc531721b69f2ef1a8655787b9a passed hosted native review 34274284513: 14 Mac UI tests, all 8 iPhone UI tests and Watch build; raw logs and final outcome gates verified. Mac Google cancellation passed via Escape this time without a Mac code change; the earlier failure remains intermittent evidence. Build 24 ReleaseDirect archive/export and strict Developer ID signature, hardened runtime and production CloudKit entitlements passed. Gatekeeper rejects this new app as Unnotarized Developer ID; documented anchor-notary profile is absent, so it was not installed or publicly released. Physical iPhone build 24 is installed but a fresh launch remains blocked by device lock. Installed Mac remains build 21; public notarized download remains build 20. Real signed-in use, production CloudKit compatibility and the distraction-note privacy boundary remain unqualified."
+          "reason": "Build 25 source 309a3ff0c23c9235426987c1fa13e3cc5935dbf0 preserves device-only distraction notes and now commits end/surrender atomically. Actual disk tests reproduce the prior partial capture/session-loss failure and verify preserved active session, one successful retry and no premature notification/Live Activity end. All 208 package tests and compile-only DebugLocal Mac/iOS builds pass without warnings. Hosted native review 34325826905 failed before steps because of GitHub payment/spending limits. Build 25 is not installed or released; signed-device/UI, mixed-version CloudKit and distribution remain unqualified."
         }
       },
       "name": "Anchor",
@@ -2871,7 +2871,7 @@
       "inRegistry": true,
       "status": "live",
       "app": "swift",
-      "notes": "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build 24 product repairs Hub history ownership and keyboard-accessible start. Hosted native review 34274284513 at test fix b75c1c2 passed 14 Mac and 8 iPhone UI tests plus Watch build. New signed Mac build 24 is prepared but notarization is blocked by missing anchor-notary profile; installed Mac remains 21. iPhone 24 is installed but physical launch remains Locked. Real account/CloudKit use and private-note iCloud boundary remain open. See Anchor issue 51.",
+      "notes": "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build 25 source 309a3ff0c23c9235426987c1fa13e3cc5935dbf0 preserves device-only distraction notes and now commits end/surrender atomically. Actual disk tests reproduce the prior partial capture/session-loss failure and verify preserved active session, one successful retry and no premature notification/Live Activity end. All 208 package tests and compile-only DebugLocal Mac/iOS builds pass without warnings. Hosted native review 34325826905 failed before steps because of GitHub payment/spending limits. Build 25 is not installed or released; signed-device/UI, mixed-version CloudKit and distribution remain unqualified.",
       "public": {
         "listing": "maintained",
         "id": "anchor",
@@ -5543,7 +5543,7 @@
         ]
       },
       "calorie": {
-        "updatedAt": "2026-08-21",
+        "updatedAt": "2026-09-09",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5568,7 +5568,7 @@
             "state": "active"
           }
         ],
-        "notes": "Worker version 56590a7b-7467-4074-a3af-008fc3fd3d7e is live from exact Git SHA 10bbb4740fa405c88100b9ebd34f15150338016e. Additive shared-identity migration 0008 is applied. Build 1.0.0 (3) remains available to internal testers while signed build 1.0.0 (4) waits for Xcode personal-account authentication."
+        "notes": "Fresh read-only provider audit verifies Worker e21daa8e-a4a9-42a5-948e-86840d61b5d8, source d0b71cd56e195bdff23b787b035d378b39af5072 at 100%. No runtime src/landing/public/schema/config diff exists from that revision to checked main90a23b5; later changes concern native/docs/development dependencies. Installed native build14 remains6ecaf4f. Public beta page is internal-only, not a public install offer. No launch, sync, deployment or provider write occurred in this audit; issue88 comment5598061379 records the next gate."
       },
       "setline": {
         "updatedAt": "2026-08-21",
@@ -5972,7 +5972,7 @@
         ]
       },
       "open-historia": {
-        "updatedAt": "2026-09-08",
+        "updatedAt": "2026-09-09",
         "deployments": [
           {
             "provider": "cloudflare",
@@ -5996,7 +5996,7 @@
             "state": "active"
           }
         ],
-        "notes": "Worker release a79b6e2598cdf965e3cee0fc7e23ca32cf4f0021: version d420bcf2-f9e9-46af-9703-c1aa78b38731, deployment e52bc48d-da5a-4ec2-9ee4-d5fded78c575, 100%. No database migration or provider configuration change. Evidence: docs/qualification/open-historia-2026-09-08/README.md."
+        "notes": "Runtime d6d052f69942e19362c665ac1ed8dfc99d62a17c is verified at 100% as Worker e4a26fe5-9d2f-46fd-83e6-228d1e8c7a75, deployment26b34bf1-5493-4f59-89b7-a9557ea54a65. Actual guest three-turn rewind/save/reload and checkpoint parent/memory proof passes. Subsequent layout source4ab2b5c is still awaiting hosted release qualification; no new deployment is claimed here."
       },
       "companion-robot": {
         "updatedAt": "2026-08-11",
@@ -6212,7 +6212,7 @@
           }
         ],
         "resources": [],
-        "notes": "Cloudflare Pages project anchor-landing remains live; the historical habits and indulge Pages projects are attributed here only as compatibility redirects. App Store Connect record 6803853891 has iOS/watchOS build 12 uploaded for processing. The matching Developer ID macOS build 12 is installed and running with Production CloudKit."
+        "notes": "Cloudflare Pages project anchor-landing remains live; historical habits and indulge Pages projects are compatibility redirects. Historical App Store Connect record 6803853891/build12 and Mac build12 upload/install observations are not current installed-version evidence. Current build25/source309a3ff is not installed or released; signed distribution, production CloudKit compatibility and account/device acceptance remain open."
       },
       "nomad-data-adventure": {
         "updatedAt": "2026-09-07",

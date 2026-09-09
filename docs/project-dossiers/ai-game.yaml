@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2dae8c8b79d87bf3a4895ea654f032fd002c2984eb4a0640dbbff68d64b41683
+      sha256: 34907437c3a48bded0b613f47a187eccecce06558a0479d5d016c69b5778536a
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9a06e8f7e45c161fdea60a2498588e371e48cb6899f438f74e174345fed23acf
+      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-09
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T07:34:23.807Z
+      observedAt: 2026-09-09T07:53:09.394Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -183,7 +183,7 @@ repository:
       - typecheck
       - verify:readiness
 githubActions:
-  observedAt: 2026-09-09T07:34:23.807Z
+  observedAt: 2026-09-09T07:53:09.394Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -378,8 +378,8 @@ sharing:
   publicListing: past
   maturity: null
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Held game experiment under recorded owner intent; preserve saves and existing evidence without launching a new game-polish campaign.
+  verifiedAt: 2026-09-09
+  reason: "Source dd3bdd9c7d37873e9314af01332c487299045907 has successful CI34111889148 and Docs34111889253. Retained local scripted qualification now proves setup clock hold, physical movement to Pip, a news interaction creating NPC memory, and actual browser save/reload restoration. Local font/notice regression proves geometry and movement survive blocked font lookup and repeated notices remain bounded. Fresh September 9 hosted390 guest world selector loads without page errors or horizontal overflow; model download hosts were deliberately blocked and Kokoro disclosed fallback. No hosted gameplay or provider inference was performed. Held experiment remains nonshareable under #30. Local scripted memory/save and blocked-font tests do not qualify deployed gameplay, Worker/local API parity, model-backed conversation/recall, voice/GPU or human fun/pacing. Hosted pass stops at world selection with model downloads blocked. Movement/combat input is keyboard-based; touch-only gameplay is unqualified. No new game-polish campaign or release is implied."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/aliveville/issues
   geoIdentity: null

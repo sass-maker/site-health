@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2dae8c8b79d87bf3a4895ea654f032fd002c2984eb4a0640dbbff68d64b41683
-      infrastructureUpdatedAt: 2026-08-21
+      sha256: 34907437c3a48bded0b613f47a187eccecce06558a0479d5d016c69b5778536a
+      infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Calorie
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9a06e8f7e45c161fdea60a2498588e371e48cb6899f438f74e174345fed23acf
+      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-09
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T07:34:23.807Z
+      observedAt: 2026-09-09T07:53:09.394Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -178,7 +178,7 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-09-09T07:34:23.807Z
+  observedAt: 2026-09-09T07:53:09.394Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -275,8 +275,8 @@ sharing:
   publicListing: maintained
   maturity: maintained
   ready: false
-  verifiedAt: 2026-09-08
-  reason: Build 14/source 6ecaf4f repairs account-switching and stale queue acknowledgement failures and persists explicit journal ownership. Hosted CI 34255598804 passed all 80 tests, Release and 67.6728% coverage. The signed build is installed on the iPhone; fresh launch returned CoreDeviceError 10002 / FBS Locked. Physical use and real-account sync/isolation remain unqualified. Public landing and TestFlight-status pages return 200 but disclose internal-only access with no public install link.
+  verifiedAt: 2026-09-09
+  reason: "Installed native build 14 remains source 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308. Current checked main 90a23b5653979dc43f28ef79fe940ad11f2154dc adds documentation/development dependency repair without native source changes; CI34319654997 passed 30 core, 41 app and 9 UI tests plus Release. September 9 public landing/TestFlight pages return 200 at390 with no overflow and explicitly internal-only access; private food/dashboard APIs return401. No native launch, account sync, reinstall or release occurred in the fresh audit. Unlocked physical food/water logging, interruption/relaunch and retained totals; approved real-account isolation/sync; and processed-build/audience verification in App Store Connect remain #88 gates. Development installation and configured-auth health flags are not sign-in or public distribution proof. The checked-in archive script creates a local archive without uploading."
   changelogUrl: https://calorie.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/calorie/issues
   geoIdentity:
@@ -300,4 +300,4 @@ sharing:
       state: not-declared
 notes:
   catalog: Native-first food journal with optional private cloud sync. Development build 14 from 6ecaf4faa3df07a0c6a07e87deb6b70c76abb308 is installed on the owner iPhone following full hosted native qualification. Actual physical use is blocked by the locked device; signed-in isolation/sync and public distribution remain unverified. See issue 88 and docs/qualification/calorie-2026-09-08/.
-  infrastructure: Worker version 56590a7b-7467-4074-a3af-008fc3fd3d7e is live from exact Git SHA 10bbb4740fa405c88100b9ebd34f15150338016e. Additive shared-identity migration 0008 is applied. Build 1.0.0 (3) remains available to internal testers while signed build 1.0.0 (4) waits for Xcode personal-account authentication.
+  infrastructure: Fresh read-only provider audit verifies Worker e21daa8e-a4a9-42a5-948e-86840d61b5d8, source d0b71cd56e195bdff23b787b035d378b39af5072 at 100%. No runtime src/landing/public/schema/config diff exists from that revision to checked main90a23b5; later changes concern native/docs/development dependencies. Installed native build14 remains6ecaf4f. Public beta page is internal-only, not a public install offer. No launch, sync, deployment or provider write occurred in this audit; issue88 comment5598061379 records the next gate.
