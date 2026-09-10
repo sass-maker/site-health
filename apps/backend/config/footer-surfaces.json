@@ -22,7 +22,7 @@
     { "id": "research-papers", "kind": "visual", "state": "required", "files": ["research-papers/web/src/pages/index.astro"] },
     { "id": "materia", "kind": "visual", "state": "required", "files": ["materia/src/layouts/BaseLayout.astro"] },
     { "id": "knowledge-base", "kind": "visual", "state": "required", "files": ["knowledge-base/landing-astro/src/layouts/Layout.astro"] },
-    { "id": "significanthobbies", "kind": "visual", "state": "required", "files": ["significanthobbies/services/hub-backend/src/hub.ts", "significanthobbies/src/app/layout.tsx"] },
+    { "id": "significanthobbies", "kind": "visual", "state": "required", "files": ["significanthobbies/services/hub-backend/src/hub.ts"] },
     { "id": "india-standards", "kind": "visual", "state": "required", "files": ["india-standards/app/layout.tsx"] },
     { "id": "anime-list", "kind": "visual", "state": "required", "files": ["anime-list/index.html"] },
     { "id": "chess", "kind": "visual", "state": "required", "files": ["chess/index.html", "chess/faq.html", "chess/changelog.html"] },
