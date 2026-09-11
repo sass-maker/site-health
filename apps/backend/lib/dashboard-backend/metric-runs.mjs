@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { existsSync, realpathSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { PSI_NODE_VERSION } from './psi-runtime.mjs';
 
 import {
   domainStrengthRoots,
@@ -50,8 +51,12 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot }) {
       fail('METRIC_RUNNER_UNAVAILABLE', 'PSI Swarm CLI is not built');
     }
     return {
-      command: process.execPath,
+      command: 'mise',
       args: [
+        'exec',
+        `node@${PSI_NODE_VERSION}`,
+        '--',
+        'node',
         cli,
         'run',
         `https://${domain}`,
@@ -155,6 +160,13 @@ function boundedStatusText(value) {
     .replace(/\u001b\[[0-9;]*m/g, '')
     .replace(/(?:\/Users|\/home|\/private|\/tmp)\/[^\s"'`<>]+/g, '[private path]')
     .slice(-MAX_CAPTURE_CHARACTERS);
+}
+
+function failureSummary(output, fallback) {
+  const lines = boundedStatusText(output).split(/\r?\n/).filter((line) => line.trim());
+  return lines.findLast((line) => /^[A-Za-z]*Error(?: \[[^\]]+\])?:/.test(line.trim()))?.trim()
+    ?? lines.filter((line) => !/^\s+at\s|^Node\.js v\d/.test(line)).at(-1)
+    ?? fallback;
 }
 
 function publicRun(run, { duplicate = false } = {}) {
@@ -261,8 +273,7 @@ export function createMetricRunController({
         run.finishedAt = now();
         run.summary = code === 0
           ? `${plan.label} completed.`
-          : boundedStatusText(run.capture).split(/\r?\n/).filter(Boolean).at(-1)
-            ?? `${plan.label} failed.`;
+          : failureSummary(run.capture, `${plan.label} failed.`);
         run.capture = '';
         active.delete(key);
         onRunChange(publicRun(run));

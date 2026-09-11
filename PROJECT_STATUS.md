@@ -19,6 +19,15 @@ backend.
 
 ## Timeline
 
+- **2026-09-11:** Aligned project and portfolio performance collectors on the
+  installed, supported Node 24 runtime. A real Node 22 audit completed but
+  failed to save because PSI Swarm's native SQLite module uses the Node 24
+  ABI. After the repair, the owner browser's CodeVetter refresh saved two
+  measurements and rendered their current score and LCP. Failed collector
+  summaries now retain the actionable error instead of a stack frame or Node
+  version footer. Ten metric-run tests and independent review passed; the
+  full backend suite had 144 passes and the same five local catalog failures.
+
 - **2026-09-11:** Corrected evidence freshness to use observation timestamps;
   a successful collector process can no longer make stale or missing data read
   as fresh. The owner browser reproduced this on Domains with August 17 data.

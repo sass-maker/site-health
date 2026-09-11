@@ -34,7 +34,7 @@ test('resolves PSI Swarm from the Fleet root beside Site Health', () => {
   );
 });
 
-test('runs PSI with the Node ABI used by its installed native module', () => {
+test('launches portfolio PSI with the supported Node 24 runtime', () => {
   let invocation;
   const result = runPerformancePortfolio(
     [{ projectId: 'pace', url: 'https://heypace.app/' }],
@@ -51,8 +51,22 @@ test('runs PSI with the Node ABI used by its installed native module', () => {
   assert.equal(result.completed, 1);
   assert.equal(invocation.command, 'mise');
   assert.deepEqual(invocation.args.slice(0, 5), [
-    'exec', 'node@22.23.1', '--', 'node', '/workspace/fleet/psi-swarm/cli/dist/cli.js',
+    'exec', 'node@24.20.0', '--', 'node', '/workspace/fleet/psi-swarm/cli/dist/cli.js',
   ]);
+});
+
+test('failed collector receipts show the error instead of its stack tail', () => {
+  const child = fakeProcess();
+  const controller = createMetricRunController({
+    projects: [project()],
+    spawnProcess: () => child,
+  });
+  const started = controller.start({ family: 'drank', projectId: 'pace' });
+  child.stderr.write('Error: No successful DR observations; history unchanged\n    at async fetchRating (file:///Users/private/collector.mjs:42)\n    at async main (file:///Users/private/collector.mjs:90)\nNode.js v26.8.1\n');
+  child.emit('close', 1);
+  const failed = controller.get(started.runId);
+  assert.equal(failed.state, 'failed');
+  assert.equal(failed.summary, 'Error: No successful DR observations; history unchanged');
 });
 
 test('starts and deduplicates project D-Rank runs without a shell', () => {

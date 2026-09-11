@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 import { DashboardStore, defaultDatabasePath } from '../lib/dashboard-backend/store.mjs';
+import { PSI_NODE_VERSION } from '../lib/dashboard-backend/psi-runtime.mjs';
 
 export function resolveFleetRoot(directory = import.meta.dirname) {
   return resolve(directory, '../../../..');
@@ -16,7 +17,6 @@ export function resolveFleetRoot(directory = import.meta.dirname) {
 const FLEET_ROOT = resolveFleetRoot();
 const PSI_ROOT = resolve(FLEET_ROOT, 'psi-swarm');
 const PSI_CLI = resolve(PSI_ROOT, 'cli/dist/cli.js');
-const PSI_NODE_VERSION = '22.23.1';
 const PROJECT_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export function parseTargets(args) {
