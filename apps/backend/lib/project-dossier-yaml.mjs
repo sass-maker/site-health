@@ -91,6 +91,32 @@ export function parseOwnerNarratives(markdown, projects) {
     narratives[projectId] = narrative;
   }
 
+  // New projects keep their exact owner message in the private catalog so the
+  // historical review archive can remain immutable.
+  for (const project of projects) {
+    const addition = project.ownerNarrative;
+    if (addition == null) continue;
+    if (narratives[project.id]) throw new Error(`duplicate owner narrative for ${project.id}`);
+    if (
+      typeof addition.text !== 'string' ||
+      !addition.text.trim() ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(addition.capturedAt ?? '')
+    ) {
+      throw new Error(`invalid owner narrative for ${project.id}`);
+    }
+    narratives[project.id] = {
+      sourcePath: 'apps/backend/config/projects.json',
+      sourceField: `projects[id=${project.id}].ownerNarrative`,
+      sourceHeading: project.name ?? project.id,
+      whyVerbatim: firstParagraph(addition.text),
+      reviewVerbatim: addition.text,
+      reviewSha256: sha256(addition.text),
+      capturedAt: addition.capturedAt,
+      restoredFromCommit: null,
+      restoredBlob: null,
+    };
+  }
+
   return { narratives, related, retired, unmapped };
 }
 
@@ -259,12 +285,15 @@ export function buildProjectDossier({
           infrastructureUpdatedAt: infrastructure.updatedAt ?? null,
         },
         ownerVoice: {
-          path: 'docs/portfolio-owner-narratives-2026-08-22.md',
+          path: ownerNarrative.sourcePath ?? 'docs/portfolio-owner-narratives-2026-08-22.md',
+          ...(ownerNarrative.sourceField ? { sourceField: ownerNarrative.sourceField } : {}),
           sourceHeading: ownerNarrative.sourceHeading,
           sourceKind: 'verbatim-owner-message',
           capturedAt: ownerNarrative.capturedAt,
           reviewSha256: ownerNarrative.reviewSha256,
-          documentSha256: sourceFingerprints.ownerNarratives,
+          documentSha256: ownerNarrative.sourcePath
+            ? sourceFingerprints.catalog
+            : sourceFingerprints.ownerNarratives,
           restoredFromCommit: ownerNarrative.restoredFromCommit,
           restoredBlob: ownerNarrative.restoredBlob,
         },
