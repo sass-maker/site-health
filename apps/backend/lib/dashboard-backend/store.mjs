@@ -6,6 +6,7 @@ import { DatabaseSync } from 'node:sqlite';
 
 import {
   DashboardValidationError,
+  normalizeBackupEvent,
   normalizeEvent,
   redactForExport,
 } from './contracts.mjs';
@@ -112,6 +113,10 @@ export class DashboardStore {
   }
 
   append(input, { now = new Date().toISOString() } = {}) {
+    return this.#append(input, { now, normalize: normalizeEvent });
+  }
+
+  #append(input, { now, normalize }) {
     const existing = input?.idempotencyKey
       ? this.getEventByIdempotencyKey(input.idempotencyKey)
       : null;
@@ -125,7 +130,7 @@ export class DashboardStore {
       return { event: existing, duplicate: true };
     }
 
-    const event = normalizeEvent(input, { now });
+    const event = normalize(input, { now });
     this.database.exec('BEGIN IMMEDIATE');
     try {
       this.database
@@ -233,7 +238,9 @@ export class DashboardStore {
     verifyBackup(backup);
     const existingCount = this.database.prepare('SELECT COUNT(*) AS count FROM events').get().count;
     if (existingCount > 0) throw new Error('restore requires an empty event ledger');
-    for (const event of backup.events) this.append(event, { now: event.recordedAt });
+    for (const event of backup.events) {
+      this.#append(event, { now: event.recordedAt, normalize: normalizeBackupEvent });
+    }
     return this.rebuildProjections({ now: backup.createdAt });
   }
 }
@@ -246,6 +253,8 @@ export function verifyBackup(backup) {
     throw new Error('backup event count does not match payload');
   }
   if (backup.digest !== backupDigest(backup.events)) throw new Error('backup digest mismatch');
-  for (const event of backup.events) normalizeEvent(event, { now: event.recordedAt });
+  for (const event of backup.events) {
+    normalizeBackupEvent(event, { now: event.recordedAt });
+  }
   return { valid: true, eventCount: backup.eventCount, digest: backup.digest };
 }

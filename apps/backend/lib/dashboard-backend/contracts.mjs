@@ -8,6 +8,9 @@ const MAX_STRING_LENGTH = 2_000;
 const EVENT_TYPES = new Set([
   'visibility.run-recorded',
 ]);
+const HISTORICAL_EVENT_TYPES = new Set([
+  'recommendation.created',
+]);
 
 const ACTOR_TYPES = new Set(['owner', 'agent', 'automation', 'provider']);
 const VISIBILITY_CLASSES = new Set(['private', 'aggregate-public']);
@@ -19,6 +22,7 @@ const unsafeKeyPattern =
 
 const requiredPayloadFields = {
   'visibility.run-recorded': ['runId', 'promptSetId', 'coverage', 'cost', 'metrics', 'citations', 'attempts'],
+  'recommendation.created': ['title', 'rationale', 'impact', 'effort', 'confidence', 'score', 'reversibility', 'attention'],
 };
 
 export class DashboardValidationError extends Error {
@@ -113,9 +117,9 @@ function normalizeEvidence(pointer) {
   };
 }
 
-export function normalizeEvent(input, { now = new Date().toISOString() } = {}) {
+function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventTypes = EVENT_TYPES } = {}) {
   assert(input && typeof input === 'object', 'EVENT_REQUIRED', 'event input is required');
-  assert(EVENT_TYPES.has(input.type), 'INVALID_EVENT_TYPE', `unsupported event type: ${input.type}`);
+  assert(eventTypes.has(input.type), 'INVALID_EVENT_TYPE', `unsupported event type: ${input.type}`);
   const eventId = input.id ?? randomUUID();
   assertIdentifier(eventId, 'id');
   assertIdentifier(input.idempotencyKey, 'idempotencyKey');
@@ -154,6 +158,23 @@ export function normalizeEvent(input, { now = new Date().toISOString() } = {}) {
   };
   assert(Buffer.byteLength(JSON.stringify(event)) <= MAX_EVENT_BYTES, 'EVENT_TOO_LARGE', `event exceeds ${MAX_EVENT_BYTES} bytes`);
   return event;
+}
+
+export function normalizeEvent(input, options = {}) {
+  return normalizeEventWithTypes(input, { ...options, eventTypes: EVENT_TYPES });
+}
+
+// Retired recommendation events remain in owner backups created by the former
+// dashboard. They are accepted only at the backup compatibility boundary;
+// normal event ingestion above remains limited to current event types.
+export function normalizeHistoricalEvent(input, options = {}) {
+  return normalizeEventWithTypes(input, { ...options, eventTypes: HISTORICAL_EVENT_TYPES });
+}
+
+export function normalizeBackupEvent(input, options = {}) {
+  return input?.type === 'recommendation.created'
+    ? normalizeHistoricalEvent(input, options)
+    : normalizeEvent(input, options);
 }
 
 export function redactForExport(value) {

@@ -19,6 +19,16 @@ backend.
 
 ## Timeline
 
+- **2026-09-11:** Fixed backup verification and restoration for retained
+  `recommendation.created` events. Normal event ingestion still accepts only
+  current types; backup compatibility validates the known historical shape and
+  rejects unknown or malformed events. A backup of the existing owner ledger
+  restored into a temporary empty database with all 161 events and its digest
+  unchanged. The original ledger was not restored or cleared. Seven focused
+  contract/store tests passed. The dossier check and web build passed; the full
+  backend suite had five unrelated failures in the locally modified catalog's
+  StorageDaddy metadata and inventory counts (141 passed).
+
 - **2026-09-01:** Completed the first project-scoped Clarity Data Export run.
   All 26 active eligible projects now resolve distinct tokens from the Fleet
   Infisical project's Development root; no token value entered source, argv,
