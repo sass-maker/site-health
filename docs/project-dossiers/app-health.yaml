@@ -1,66 +1,69 @@
 schemaVersion: 1
 projectId: app-health
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: App Health
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 45e55fc954108cf2675c0b6c86b9eab49cdd086382eb921ffa8beb018abfbd91
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: app-health
-      revision: 189ed565967cfe04d73e8af97139f07624d12994
+      revision: 9fd4cc8a9a75bbce69950120c47f23f701ec67ed
       githubRepository: sass-maker/app-health
       expectedHomepage: https://health.sassmaker.com
-      observedHomepage: https://health.sassmaker.com
+      observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 12
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: app-health
-      revision: 189ed565967cfe04d73e8af97139f07624d12994
+      revision: 9fd4cc8a9a75bbce69950120c47f23f701ec67ed
       githubRepository: sass-maker/app-health
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-20
       catalogLatestCommitAt: 2026-09-08
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://health.sassmaker.com.
 ownerVoice:
   whyVerbatim: |-
     I started App Health because in my production server, where I work, we had:
@@ -90,6 +93,10 @@ identity:
   aliases: []
   family: app-health
   category: utility
+  audience: public
+  personalUse: null
+  moneyOrPersonalBrand: true
+  unmetNeed: false
   kind: product
   priority: P2
   tier: active
@@ -105,32 +112,32 @@ product:
   description: Privacy-first endpoint health for Node, Go, and OpenTelemetry services.
   publicMakerNote: I built App Health because checking Sentry, PostHog, Slack, and cloud consoles separately made basic product health too fragmented.
   purposeContract:
-    purpose: App Health gives a developer an immediate, privacy-first view of how every observed service endpoint is performing.
-    audience: A developer or operator running Node, Go, Hono, Pages Functions, or OpenTelemetry-instrumented services.
-    outcome: See endpoint health across short time windows without opening several observability consoles or storing raw request data.
-    mechanism: One small SDK or OTLP connection feeds aggregate-only endpoint summaries into a focused private dashboard.
-    proof: The production V0 supports multiple Node and Go surfaces, OTLP ingestion, aggregate storage, and live dashboard and ingest hosts.
-    nextAction: Integrate a real owned service and use observed failures to guide the next change; the dashboard is not a generic public unlock page.
+    purpose: App Health helps product teams understand web traffic, intentional user actions, and application health across their projects.
+    audience: Product managers, founders, and product teams; developers connect the instrumentation.
+    outcome: See who is active as browser-session counts, which pages and named events are used, and whether backend failures explain product friction.
+    mechanism: A small browser tracker and explicit named events feed workspace-scoped analytics; service SDKs and OTLP add aggregate endpoint health in the same dashboard.
+    proof: The endpoint-health V0 has a production SDK canary. Google accounts, browser analytics, named-event reports, and workspace presence are implemented and tested locally; production activation and a real Google callback remain unverified.
+    nextAction: Explore the illustrative product preview or connect a project in the locally configured workspace; activate and verify Google accounts and analytics before public onboarding.
   form: Monitoring service
   platforms:
     - Web
     - API
   prominentTools:
-    - Hono
-    - TypeScript
+    - React
+    - shadcn/ui
     - Cloudflare Workers
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-07-20
-    latestCommitAt: 2026-09-08
-    retainedCommitCount: 100
+    latestCommitAt: 2026-09-11
+    retainedCommitCount: 102
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: app-health
-  observedRevision: 189ed565967cfe04d73e8af97139f07624d12994
+  observedRevision: 9fd4cc8a9a75bbce69950120c47f23f701ec67ed
   githubRepository: sass-maker/app-health
-  githubHomepageUrl: https://health.sassmaker.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/app-health
@@ -184,20 +191,12 @@ repository:
       - typecheck
       - verify:local-sdk
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sass-maker/app-health
-    defaultBranch: main
-    defaultBranchSha: 189ed565967cfe04d73e8af97139f07624d12994
-    homepage: https://health.sassmaker.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -205,47 +204,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34197187095
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 189ed565967cfe04d73e8af97139f07624d12994
-          createdAt: 2026-09-08T06:59:57Z
-          updatedAt: 2026-09-08T07:01:35Z
-          url: https://github.com/sass-maker/app-health/actions/runs/34197187095
-        ageDays: 1
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34197187095
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 189ed565967cfe04d73e8af97139f07624d12994
-          createdAt: 2026-09-08T06:59:57Z
-          updatedAt: 2026-09-08T07:01:35Z
-          url: https://github.com/sass-maker/app-health/actions/runs/34197187095
-        ageDays: 1
-      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -262,6 +220,14 @@ deployment:
         name: app-health-worker
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-11T12:46:45.237037+00:00
+          deploymentId: d08c3161-e966-4a9c-b6f2-e4aba8a7320c
+          versionId: 7d3e1ce8-6553-4556-a936-57b75ef3d9cc
+          sourceCommit: 9fd4cc8a9a75bbce69950120c47f23f701ec67ed
+          trafficPercent: 100
+          state: success-production-verified
+          evidencePath: docs/qualification/app-health-final-provider-2026-09-11.json
     resources:
       - provider: cloudflare
         kind: d1
@@ -284,8 +250,8 @@ sharing:
   publicListing: maintained
   maturity: public-ready
   ready: false
-  verifiedAt: 2026-09-08
-  reason: "Public SDK 0.3.0 installation and release parity are verified; hosted owner-key onboarding, origin-allowlisted browser ingest and real production aggregates remain unqualified under #55."
+  verifiedAt: 2026-09-11
+  reason: "Fresh production Node SDK canary passed: HTTP 200/200/503 reached production ingest, installation became connected, and authenticated aggregates reported 3 requests, 1 error, p50 1 ms and p95 5 ms. Only owner control-plane authentication was recovered; existing ingestion/query credentials and resources were preserved. Endpoint-health core is usable. Real production browser password unlock, restored canary endpoint table (3 requests, 33.3% errors, p50 1 ms, p95 5 ms), Data received view, Lock and credential-free reload all passed. Receipt: docs/qualification/app-health-production-canary-2026-09-11.json. Sharing remains limited to private owner use until external deployment onboarding is qualified."
   changelogUrl: https://health.sassmaker.com/changelog
   roadmapUrl: https://github.com/sass-maker/app-health/issues
   geoIdentity:
@@ -308,5 +274,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Independent SaaS Maker-owned aggregate-only endpoint health product. The public repository is sass-maker/app-health; health.sassmaker.com and ingest.sassmaker.com are live.
-  infrastructure: null
+  catalog: "Fresh production Node SDK canary passed: HTTP 200/200/503 reached production ingest, installation became connected, and authenticated aggregates reported 3 requests, 1 error, p50 1 ms and p95 5 ms. Only owner control-plane authentication was recovered; existing ingestion/query credentials and resources were preserved. Endpoint-health core is usable. Real production browser password unlock, restored canary endpoint table (3 requests, 33.3% errors, p50 1 ms, p95 5 ms), Data received view, Lock and credential-free reload all passed. Receipt: docs/qualification/app-health-production-canary-2026-09-11.json. Sharing remains limited to private owner use until external deployment onboarding is qualified."
+  infrastructure: Worker version 7d3e1ce8-6553-4556-a936-57b75ef3d9cc serves exact main 9fd4cc8a9a75bbce69950120c47f23f701ec67ed at 100%. CI 34599957521 passed after patching dev-tool transitive sharp to 0.35.4 and js-yaml to 4.3.2. Same owner credential was retained for final source alignment; query token, real consumer keys, routes, D1 and Analytics Engine resources were preserved. Production SDK canary and browser dashboard passed; three synthetic ingest keys are revoked and aggregate records retained.

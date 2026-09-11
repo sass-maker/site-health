@@ -13,12 +13,12 @@ const catalog = JSON.parse(
 );
 const projects = catalog.projects;
 
-// Portfolio scope follows the owner-prioritized lifecycle allocation (8 Sep 2026):
-// 2 primary + 20 active = 22 current projects, including Kith. Inactive projects are
+// Portfolio scope follows the recorded lifecycle allocation (12 Sep 2026):
+// 2 primary + 21 active = 23 current projects, including StorageDaddy and Slow SERP. Inactive projects are
 // excluded from portfolio metric scope. These numbers are the current
 // recorded scope; changing them requires changing the decision first.
 const PORTFOLIO_SCOPE = {
-  currentProjects: 22,
+  currentProjects: 23,
   publicMetricTargets: 18,
   domainStrengthRoots: 6,
 };
@@ -86,7 +86,7 @@ test('inactive projects never reach portfolio scope', () => {
       (typeof project.lifecycle === 'string' && project.lifecycle === 'past'),
   );
 
-  assert.ok(inactive.length === 35);
+  assert.ok(inactive.length === 36);
   assert.deepEqual(inactive.filter(isCurrentPortfolioProject), []);
 });
 

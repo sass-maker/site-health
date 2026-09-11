@@ -1,0 +1,681 @@
+{
+  "observedAt": "2026-09-11T10:02:47.528237+00:00",
+  "repository": "High-Signal-App/high-signal",
+  "sourceCommit": "eb9a8d6e71900de8887febaa517412d35e9f3731",
+  "changes": [
+    "Primary navigation loading feedback and shared route loading boundary",
+    "Automatic prefetch for the four primary routes",
+    "Build-specific HTML and RSC cache keys prevent stale fragments forcing document reloads"
+  ],
+  "checks": {
+    "fullQuality": "passed",
+    "focusedNavigationTests": 2,
+    "productionBuild": "passed",
+    "cloudflareBuild": "passed",
+    "workerBundleDryRun": "passed",
+    "independentCacheReview": "no P0/P1",
+    "designReview": "qualified preserve-mode; no P0/P1"
+  },
+  "github": {
+    "ci": {
+      "runId": 34586713888,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "docs": {
+      "runId": 34586713935,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "deployWeb": {
+      "runId": 34586737048,
+      "status": "completed",
+      "conclusion": "success"
+    }
+  },
+  "cloudflare": {
+    "observedAt": "2026-09-11T10:00:32.945600+00:00",
+    "deploymentId": "fb5d266e-7be1-43fd-aa70-bfc8965f573e",
+    "createdOn": "2026-09-11T09:59:36.953122Z",
+    "versions": [
+      {
+        "version_id": "fceddbbc-f3e1-4769-a299-1b9d63b26d5a",
+        "percentage": 100,
+        "annotations": {
+          "workers/tag": "eb9a8d6e71900de8887febaa517412d35e9f3731",
+          "workers/triggered_by": "version_upload"
+        }
+      }
+    ]
+  },
+  "localDelayedData": {
+    "observedAt": "2026-09-11T09:33:58.667Z",
+    "build": "Next production webpack build of working tree with automatic navigation prefetch",
+    "api": "Read-only production API proxy, two signal responses held until explicit release",
+    "prefetch": {
+      "status": 200
+    },
+    "timingsMs": {
+      "started": 2291.900000035763,
+      "pending": 17,
+      "route": 26,
+      "loading": 26
+    },
+    "heldRequests": 2,
+    "viewports": [
+      {
+        "width": 390,
+        "documentWidth": 390,
+        "navigationTargets": [
+          {
+            "label": "High Signal home",
+            "height": 44
+          },
+          {
+            "label": "brief",
+            "height": 44
+          },
+          {
+            "label": "signals",
+            "height": 44
+          },
+          {
+            "label": "sources",
+            "height": 44
+          },
+          {
+            "label": "track record",
+            "height": 44
+          }
+        ],
+        "animation": "none"
+      },
+      {
+        "width": 768,
+        "documentWidth": 768,
+        "navigationTargets": [
+          {
+            "label": "High Signal home",
+            "height": 44
+          },
+          {
+            "label": "brief",
+            "height": 44
+          },
+          {
+            "label": "signals",
+            "height": 44
+          },
+          {
+            "label": "sources",
+            "height": 44
+          },
+          {
+            "label": "track record",
+            "height": 44
+          }
+        ],
+        "animation": "none"
+      },
+      {
+        "width": 1440,
+        "documentWidth": 1440,
+        "navigationTargets": [
+          {
+            "label": "High Signal home",
+            "height": 44
+          },
+          {
+            "label": "brief",
+            "height": 44
+          },
+          {
+            "label": "signals",
+            "height": 44
+          },
+          {
+            "label": "sources",
+            "height": 44
+          },
+          {
+            "label": "track record",
+            "height": 44
+          }
+        ],
+        "animation": "none"
+      }
+    ],
+    "eventualSignalsPage": "passed",
+    "browserErrors": []
+  },
+  "liveColdCache": {
+    "observedAt": "2026-09-11T10:00:58.305Z",
+    "origin": "https://highsignal.app",
+    "context": "Mac desktop Chromium, public reader, 1440px, after automatic prefetch responses arrive",
+    "prefetches": [
+      {
+        "path": "/signals",
+        "status": 200
+      },
+      {
+        "path": "/data",
+        "status": 200
+      },
+      {
+        "path": "/track-record",
+        "status": 200
+      }
+    ],
+    "sourceCommit": "eb9a8d6e71900de8887febaa517412d35e9f3731",
+    "results": [
+      {
+        "label": "signals",
+        "path": "/signals",
+        "timingsMs": {
+          "pending": 13,
+          "route": 22,
+          "loading": 22,
+          "content": 3390
+        }
+      },
+      {
+        "label": "sources",
+        "path": "/data",
+        "timingsMs": {
+          "pending": 6,
+          "route": 17,
+          "loading": null,
+          "content": 17
+        }
+      },
+      {
+        "label": "track record",
+        "path": "/track-record",
+        "timingsMs": {
+          "pending": 6,
+          "route": 14,
+          "loading": 14,
+          "content": 944
+        }
+      },
+      {
+        "label": "brief",
+        "path": "/",
+        "timingsMs": {
+          "pending": 3,
+          "route": 11,
+          "loading": 11,
+          "content": 311
+        }
+      }
+    ],
+    "traffic": [
+      {
+        "path": "/",
+        "document": true,
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "edgeCache": "MISS"
+      },
+      {
+        "path": "/",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/track-record",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/signals",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/track-record",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/signals",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/data",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/data",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/signals",
+        "document": false,
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/data",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/data/digg",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component"
+      },
+      {
+        "path": "/data/edgar",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component"
+      },
+      {
+        "path": "/data/github",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component"
+      },
+      {
+        "path": "/data/mts",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component"
+      },
+      {
+        "path": "/track-record",
+        "document": false,
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      },
+      {
+        "path": "/",
+        "document": false,
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-MISS"
+      }
+    ],
+    "browserErrors": []
+  },
+  "liveWarmCache": {
+    "observedAt": "2026-09-11T10:01:35.528Z",
+    "origin": "https://highsignal.app",
+    "context": "Mac desktop Chromium, public reader, 1440px, after automatic prefetch responses arrive",
+    "prefetches": [
+      {
+        "path": "/signals",
+        "status": 200
+      },
+      {
+        "path": "/data",
+        "status": 200
+      },
+      {
+        "path": "/track-record",
+        "status": 200
+      }
+    ],
+    "sourceCommit": "eb9a8d6e71900de8887febaa517412d35e9f3731",
+    "results": [
+      {
+        "label": "signals",
+        "path": "/signals",
+        "timingsMs": {
+          "pending": 15,
+          "route": 20,
+          "loading": 20,
+          "content": 1380
+        }
+      },
+      {
+        "label": "sources",
+        "path": "/data",
+        "timingsMs": {
+          "pending": 6,
+          "route": 17,
+          "loading": null,
+          "content": 17
+        }
+      },
+      {
+        "label": "track record",
+        "path": "/track-record",
+        "timingsMs": {
+          "pending": 7,
+          "route": 15,
+          "loading": 15,
+          "content": 404
+        }
+      },
+      {
+        "label": "brief",
+        "path": "/",
+        "timingsMs": {
+          "pending": 2,
+          "route": 10,
+          "loading": 10,
+          "content": 310
+        }
+      }
+    ],
+    "traffic": [
+      {
+        "path": "/",
+        "document": true,
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "edgeCache": "HIT"
+      },
+      {
+        "path": "/",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/signals",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/track-record",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/data",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/data",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/signals",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/data",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/track-record",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/signals",
+        "document": false,
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/data/github",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component"
+      },
+      {
+        "path": "/data/mts",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component"
+      },
+      {
+        "path": "/data/digg",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component"
+      },
+      {
+        "path": "/data/edgar",
+        "document": false,
+        "prefetch": "1",
+        "status": 200,
+        "contentType": "text/x-component"
+      },
+      {
+        "path": "/track-record",
+        "document": false,
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      },
+      {
+        "path": "/",
+        "document": false,
+        "status": 200,
+        "contentType": "text/x-component",
+        "edgeCache": "RSC-HIT"
+      }
+    ],
+    "browserErrors": []
+  },
+  "buildSkewBefore": [
+    {
+      "path": "/",
+      "document": true,
+      "buildId": "EKQ3j2LVoD-NL1XB7CloD"
+    },
+    {
+      "path": "/signals",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": "sWDOTp7PhRQBfNIUMlmrx"
+    },
+    {
+      "path": "/",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": "sWDOTp7PhRQBfNIUMlmrx"
+    },
+    {
+      "path": "/data",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": null
+    },
+    {
+      "path": "/track-record",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": "EKQ3j2LVoD-NL1XB7CloD"
+    },
+    {
+      "path": "/",
+      "document": false,
+      "prefetch": "1",
+      "buildId": "EKQ3j2LVoD-NL1XB7CloD"
+    },
+    {
+      "path": "/data",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": null
+    },
+    {
+      "path": "/track-record",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": "EKQ3j2LVoD-NL1XB7CloD"
+    },
+    {
+      "path": "/data",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": null
+    }
+  ],
+  "buildSkewAfter": [
+    {
+      "path": "/",
+      "document": true,
+      "edgeCache": "HIT",
+      "buildId": "B9o6wVE1NlAZEXmRFbvh5"
+    },
+    {
+      "path": "/signals",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": "B9o6wVE1NlAZEXmRFbvh5"
+    },
+    {
+      "path": "/track-record",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": "B9o6wVE1NlAZEXmRFbvh5"
+    },
+    {
+      "path": "/",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": "B9o6wVE1NlAZEXmRFbvh5"
+    },
+    {
+      "path": "/data",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": null
+    },
+    {
+      "path": "/track-record",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": "B9o6wVE1NlAZEXmRFbvh5"
+    },
+    {
+      "path": "/data",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": null
+    },
+    {
+      "path": "/data",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": null
+    },
+    {
+      "path": "/signals",
+      "document": false,
+      "prefetch": "1",
+      "edgeCache": "RSC-HIT",
+      "buildId": "B9o6wVE1NlAZEXmRFbvh5"
+    }
+  ],
+  "scope": "Mac browser navigation acceptance; phone scope remains native Kith, Setline, Calorie and Anchor.",
+  "limits": [
+    "Navigation timings are measured after automatic prefetch; page data still takes longer to finish.",
+    "Sources navigation passed; its prefetch payload did not expose a build ID to this diagnostic.",
+    "A useful independently supported edition remains unqualified; shareable stays false."
+  ],
+  "cleanup": {
+    "observedAt": "2026-09-11T10:03:19.007533+00:00",
+    "generatedArtifactsMovedToTrash": [
+      {
+        "from": "/Users/sarthak/Desktop/fleet/high-signal/apps/web/.next",
+        "to": "/Users/sarthak/.Trash/high-signal-navigation-builds-20260911T100318Z/.next"
+      },
+      {
+        "from": "/Users/sarthak/Desktop/fleet/high-signal/apps/web/.open-next",
+        "to": "/Users/sarthak/.Trash/high-signal-navigation-builds-20260911T100318Z/.open-next"
+      },
+      {
+        "from": "/Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/high-signal-nav-20260911/worker-bundle",
+        "to": "/Users/sarthak/.Trash/high-signal-navigation-builds-20260911T100318Z/worker-bundle"
+      },
+      {
+        "from": "/var/folders/9_/1109_2dd1qz6zyvmxb5zp8pc0000gn/T/high-signal-cache-build-jNDrj6",
+        "to": "/Users/sarthak/.Trash/high-signal-navigation-builds-20260911T100318Z/high-signal-cache-build-jNDrj6"
+      },
+      {
+        "from": "/var/folders/9_/1109_2dd1qz6zyvmxb5zp8pc0000gn/T/high-signal-cache-build-dzcGe8",
+        "to": "/Users/sarthak/.Trash/high-signal-navigation-builds-20260911T100318Z/high-signal-cache-build-dzcGe8"
+      }
+    ],
+    "temporaryTaskBrowserPage": "closed",
+    "taskServers14317And14318": "absent",
+    "preExistingStash": "preserved sweep-abandoned-20260906"
+  }
+}

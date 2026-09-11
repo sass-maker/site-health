@@ -1,0 +1,101 @@
+{
+  "observedOn": "2026-09-11",
+  "installedVersion": "1.12.0",
+  "fixtureRoot": "/Users/sarthak/.Trash/codevetter-installed-core-20260911-cfd7h39n",
+  "ownerDataTouched": false,
+  "foregroundAppLaunched": false,
+  "existingMcpProcessesStopped": false,
+  "checks": [
+    {
+      "label": "passing",
+      "exitCode": 2,
+      "receiptKeys": [
+        "schema_version",
+        "request_id",
+        "run_id",
+        "ran_at",
+        "repo_path",
+        "task",
+        "source",
+        "stages",
+        "verdict",
+        "limitations"
+      ],
+      "verdict": "no_confidence",
+      "runId": "local-check-f7e55560-dee7-48b0-a91a-f192aace6d65",
+      "source": {
+        "kind": "range",
+        "input": "33a39af35947a2c8313bafd6fb6d0481d4f21555..f2f9b8278afcc4cc2922be471440aee9551519ad",
+        "base_sha": "33a39af35947a2c8313bafd6fb6d0481d4f21555",
+        "head_sha": "f2f9b8278afcc4cc2922be471440aee9551519ad",
+        "commits": [
+          "f2f9b8278afcc4cc2922be471440aee9551519ad"
+        ],
+        "changed_paths": [
+          "sum.mjs"
+        ]
+      },
+      "limitations": [
+        "Discovery found no dedicated performance workload; generic tests require explicit --perf-adapter and --perf-target selection",
+        "Optimization requires a qualified performance target"
+      ]
+    },
+    {
+      "label": "failing",
+      "exitCode": 1,
+      "receiptKeys": [
+        "schema_version",
+        "request_id",
+        "run_id",
+        "ran_at",
+        "repo_path",
+        "task",
+        "source",
+        "stages",
+        "verdict",
+        "limitations"
+      ],
+      "verdict": "failed",
+      "runId": "local-check-cab15aa6-678c-4c9f-89b6-2fbe30223cc5",
+      "source": {
+        "kind": "range",
+        "input": "f2f9b8278afcc4cc2922be471440aee9551519ad..b02874534ce82b690eadf7adf61b890d87b7858e",
+        "base_sha": "f2f9b8278afcc4cc2922be471440aee9551519ad",
+        "head_sha": "b02874534ce82b690eadf7adf61b890d87b7858e",
+        "commits": [
+          "b02874534ce82b690eadf7adf61b890d87b7858e"
+        ],
+        "changed_paths": [
+          "sum.mjs"
+        ]
+      },
+      "limitations": [
+        "No captured source frame matched the selected Git diff.",
+        "Discovery found no dedicated performance workload; generic tests require explicit --perf-adapter and --perf-target selection",
+        "Optimization requires a qualified performance target"
+      ]
+    }
+  ],
+  "persistedReceiptResultType": "dict",
+  "persistedReceiptCount": 2,
+  "outcome": "passed_correctness_review_persistence_scope",
+  "qualification": {
+    "reviewCompleted": true,
+    "correctnessPassingChange": "passed",
+    "correctnessInjectedRegression": "failed",
+    "injectedRegressionReviewFindings": 1,
+    "persistedRuns": 2,
+    "wholeCheckPassingChangeVerdict": "no_confidence",
+    "performanceQualification": "not provided; explicit no_confidence retained",
+    "upgradePerformed": false,
+    "installedVersion": "1.12.0",
+    "latestPublishedVersion": "1.13.9",
+    "mcpReadOnlyConsumer": "qa_workspace_inspect returned structured live receipt; indexed history and graph were explicitly stale"
+  },
+  "cleanup": {
+    "temporaryFixtureAndIsolatedDatabase": "moved recoverably to Trash",
+    "processesLeftRunning": false,
+    "ownerAppDatabaseTouched": false,
+    "existingMcpProcessesInterrupted": false
+  }
+}

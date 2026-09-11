@@ -1,67 +1,69 @@
 schemaVersion: 1
 projectId: psi-swarm
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: PSI Swarm
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 55b49e5ecd9836910ae1bac58c819379f6b3c865701ff418910a9f559f54edd7
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: psi-swarm
-      revision: 6c9b1b8991d50ae47829429d47c240439590cc20
-      githubRepository: sass-maker/psi-swarm
+      checkout: ../fleet-archive/psi-swarm
+      revision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
+      githubRepository: sarthakagrawal927/psi-swarm
       expectedHomepage: https://performance.sassmaker.com
-      observedHomepage: https://performance.sassmaker.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: psi-swarm
-      revision: 6c9b1b8991d50ae47829429d47c240439590cc20
-      githubRepository: sass-maker/psi-swarm
+      checkout: ../fleet-archive/psi-swarm
+      revision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
+      githubRepository: sarthakagrawal927/psi-swarm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-03
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 3
-      stale: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 3
       attention: &a2
-        ignored: 4
-  unknowns: []
+        unclassified: 3
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://performance.sassmaker.com.
 ownerVoice:
   whyVerbatim: Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
   fullReviewVerbatim: Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
@@ -69,25 +71,29 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Measure real product performance across repeated Lighthouse conditions.
-  currentState: Completed operational CLI and Site Health input.
-  nextDecision: Maintain compatibility and measurement integrity; no independent feature roadmap.
+  currentState: Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged.
+  nextDecision: "Keep: The performance-measurement scripts and reusable evidence format. Stop: An independent performance platform and public controller product."
 identity:
   name: PSI Swarm
   publicName: PSI Swarm
   aliases: []
   family: psi-swarm
   category: utility
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: platform
   priority: P4
-  tier: active
-  attention: toolbox
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
     status: inactive
-    shareable: true
+    shareable: false
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: Source-installed local Lighthouse audits with saved history; use the documented source setup, not the older packaged release.
   publicMakerNote: I wanted repeatable evidence of how my products perform under real Lighthouse conditions, not a single flattering test.
@@ -97,7 +103,7 @@ product:
     outcome: See typical performance, variability, and regressions under repeated real measurement conditions.
     mechanism: An operational CLI runs and aggregates multiple PageSpeed and Lighthouse observations for Site Health.
     proof: The completed measurement tool already feeds repeated performance evidence into the portfolio dashboard.
-    nextAction: Run it for a concrete performance investigation or consume its evidence in Site Health; keep the tool operationally narrow.
+    nextAction: Historical work only; no active roadmap.
   form: Local performance tool
   platforms:
     - Web
@@ -109,18 +115,18 @@ product:
     - Astro
   retainedGitHistory:
     firstCommitAt: 2026-06-03
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 80
+    latestCommitAt: 2026-09-10
+    retainedCommitCount: 81
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: psi-swarm
-  observedRevision: 6c9b1b8991d50ae47829429d47c240439590cc20
-  githubRepository: sass-maker/psi-swarm
-  githubHomepageUrl: https://performance.sassmaker.com
+  checkout: ../fleet-archive/psi-swarm
+  observedRevision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
+  githubRepository: sarthakagrawal927/psi-swarm
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/sass-maker/psi-swarm
+  url: https://github.com/sarthakagrawal927/psi-swarm
   aliases: []
   sourceOverride: null
   tooling:
@@ -158,21 +164,12 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 3
-    stale: 1
+    unverifiable: 3
   attention: *a2
-  remote:
-    repository: sass-maker/psi-swarm
-    defaultBranch: main
-    defaultBranchSha: 6c9b1b8991d50ae47829429d47c240439590cc20
-    homepage: https://performance.sassmaker.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: PSI Swarm CI
       file: .github/workflows/ci.yml
@@ -181,154 +178,16 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34123793244
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 6c9b1b8991d50ae47829429d47c240439590cc20
-          createdAt: 2026-09-07T12:47:27Z
-          updatedAt: 2026-09-07T12:48:14Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/34123793244
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34123793244
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 6c9b1b8991d50ae47829429d47c240439590cc20
-          createdAt: 2026-09-07T12:47:27Z
-          updatedAt: 2026-09-07T12:48:14Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/34123793244
-        ageDays: 2
-      attention: ignored
     - name: Deploy psi-swarm-web to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34015763349
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: ec79ed36c4e563a74a6c5a539b44de5f6cb1cd0d
-          createdAt: 2026-09-06T06:09:24Z
-          updatedAt: 2026-09-06T06:09:57Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/34015763349
-        ageDays: 3
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
     - name: Release PSI Swarm CLI
       file: .github/workflows/release-cli.yml
       triggers:
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 32910082428
-          status: completed
-          conclusion: success
-          event: push
-          branch: v0.4.2
-          headSha: 5cf4c85231d3460efb807614f88c4e6a54641b87
-          createdAt: 2026-08-25T23:17:14Z
-          updatedAt: 2026-08-25T23:21:05Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/32910082428
-        ageDays: 14
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run was returned for main
-        lastRun: null
-      attention: ignored
-    - name: pages-build-deployment
-      file: dynamic/pages/pages-build-deployment
-      triggers: []
-      schedules: []
-      inventory:
-        source: github-generated
-        local: false
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stale
-        reason: latest run is 98 days old
-        apiState: active
-        lastRun:
-          id: 26895965998
-          status: completed
-          conclusion: success
-          event: dynamic
-          branch: gh-pages
-          headSha: d9ea021fb81430761cd2287eb38adc67974826ae
-          createdAt: 2026-06-03T15:44:14Z
-          updatedAt: 2026-06-03T15:45:21Z
-          url: https://github.com/sass-maker/psi-swarm/actions/runs/26895965998
-        ageDays: 98
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -344,18 +203,24 @@ deployment:
         name: psi-swarm-web
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-09T23:02:39.600569+00:00
+          deploymentId: 652bd3d2-cddf-4541-809f-8a0c36749ed6
+          sourceCommit: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
+          sourcePath: psi-swarm
+          evidencePath: docs/qualification/flagged-deployment-resolution-2026-09-10.json
     resources: []
   otherProviders:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: maintained
-  ready: true
+  ready: false
   verifiedAt: 2026-09-07
   reason: Source-installed local tool only. Old v0.4.2 package retains percentile/output-path defects; hosted controller and AI reasoning unqualified. Two-run directional checks do not qualify tail statistics.
-  changelogUrl: https://performance.sassmaker.com/changelog
-  roadmapUrl: https://github.com/sass-maker/psi-swarm/issues
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/psi-swarm/issues
   geoIdentity:
     id: psi-swarm
     name: PSI Swarm

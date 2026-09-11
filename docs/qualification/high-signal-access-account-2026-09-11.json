@@ -1,0 +1,44 @@
+{
+  "task": "highsignal-access-config-inspection-20260911",
+  "checkedAt": "2026-09-11",
+  "tool": "native Chrome CUA",
+  "dashboard": {
+    "signedIn": true,
+    "accountLabel": "existing owner Cloudflare account",
+    "accountId": "0511d65a95b7b286d67bdcccbcf51173",
+    "visibleAccountCount": 1,
+    "zeroTrustState": "onboarding required",
+    "exactOwningAccountId": "7d048325699a5acddb44d3be31cf6ba9",
+    "exactOwningAccountDirectNavigation": "permission denied / page may not exist",
+    "currentBrowserAccountId": "0511d65a95b7b286d67bdcccbcf51173",
+    "currentBrowserAccountEmail": "existing browser account identity"
+  },
+  "target": {
+    "application": "High Signal Operator",
+    "hostname": "highsignal.app",
+    "teamDomain": "long-frog-c8a6.cloudflareaccess.com"
+  },
+  "inspection": {
+    "applicationsVisible": false,
+    "policiesVisible": false,
+    "configuredProvidersVisible": false,
+    "emailOtpToggleInspected": false,
+    "ownerPolicyChanged": false,
+    "protectedPathsChanged": false,
+    "reason": "Zero Trust routes redirect to Choose a plan; selecting a plan would create/enable a Zero Trust resource and was not authorized for this inspection.",
+    "exactOwningAccountReached": false,
+    "exactOwnerSavedProfileVisible": true,
+    "exactOwnerLoginMethod": "Email and password",
+    "passwordEntered": false,
+    "passwordOrUserPresenceRequired": true
+  },
+  "authReceipt": {
+    "reviewRendered": false,
+    "visibleLoginChoice": "Cloudflare",
+    "emailOtpControlVisible": false,
+    "gate": "Cloudflare sign-in is restricted to members of the account.",
+    "readOnlyAdminRequest": "not attempted because Access membership gate remained closed",
+    "mutations": false
+  },
+  "prerequisite": "Complete the existing saved exact-owner Cloudflare login in the browser (password/user presence required) so the account 7d048325699a5acddb44d3be31cf6ba9 can be inspected; then enable only an already configured Email OTP provider for High Signal Operator while preserving the owner-only policy and protected paths."
+}

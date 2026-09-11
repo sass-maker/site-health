@@ -162,6 +162,37 @@ test('project YAML starts with verification and preserves verbatim owner voice',
   assert.equal(parsed.verification.evidence.ownerVoice.sourceKind, 'verbatim-owner-message');
 });
 
+test('project public URL override preserves a canonical subpath', () => {
+  const { intents } = parsePortfolioIntents(intentMarkdown, catalog.projects);
+  const ownerSources = parseOwnerNarratives(ownerNarrativesMarkdown, catalog.projects);
+  const sourceProject = catalog.projects.find((entry) => entry.id === 'anchor');
+  const project = {
+    ...sourceProject,
+    public: {
+      ...sourceProject.public,
+      url: `https://${sourceProject.domains[0]}/storagedaddy/`,
+    },
+  };
+  const dossier = buildProjectDossier({
+    catalog,
+    operations,
+    project,
+    operation: operations.projects.anchor,
+    intent: intents.anchor,
+    ownerNarrative: ownerSources.narratives.anchor,
+    relatedNarratives: ownerSources.related.anchor,
+    sourceFingerprints: {
+      catalog: sha256(catalogSource),
+      ownerNarratives: sha256(ownerNarrativesMarkdown),
+      portfolioIntent: sha256(intentMarkdown),
+    },
+  });
+
+  assert.equal(dossier.verification.evidence.repository.expectedHomepage, project.public.url);
+  assert.equal(dossier.deployment.primaryUrl, project.public.url);
+  assert.equal(dossier.sharing.changelogUrl, `${project.public.url}changelog`);
+});
+
 test('workflow health distinguishes failures, staleness, stuck runs, and expected manual absence', () => {
   const workflow = { triggers: ['push'] };
   const apiWorkflow = { state: 'active' };

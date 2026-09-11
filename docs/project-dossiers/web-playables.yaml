@@ -1,49 +1,49 @@
 schemaVersion: 1
 projectId: web-playables
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Web Playables
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: c81dcad17da16a2f902f2210998f1f64d7c9c8435de5eb0a41f452e127662e2a
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: web-playables
       revision: 13ee2867522e1da6369a64c57d038db01daa87ce
       githubRepository: sarthakagrawal927/web-playables
       expectedHomepage: https://idle.aliveville.com
-      observedHomepage: https://idle.aliveville.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: web-playables
       revision: 13ee2867522e1da6369a64c57d038db01daa87ce
@@ -55,13 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
-      failing: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        ignored: 2
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://idle.aliveville.com.
 ownerVoice:
   whyVerbatim: Web-playables I built to study idle games, how idle games are built, and I was also doing research on HTML-based games since they are everywhere. Now I might add more games to it in the future but for now it's on hold.
   fullReviewVerbatim: Web-playables I built to study idle games, how idle games are built, and I was also doing research on HTML-based games since they are everywhere. Now I might add more games to it in the future but for now it's on hold.
@@ -69,17 +70,21 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Learn how idle and HTML-based games are built and distributed.
-  currentState: Research goal was met with a reusable game kit and an idle game; currently parked.
-  nextDecision: Add another game only when there is a specific mechanic worth studying.
+  currentState: Paused experiment; no current work or obligation to resume.
+  nextDecision: "Keep: A small shared starter used by the games you actually make. Stop: A general game engine or a constant obligation to ship more games."
 identity:
   name: Web Playables
   publicName: Web Playables
   aliases: []
   family: web-playables
   category: experimental
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: experiment
   priority: P4
-  tier: out-of-fleet
+  tier: parked
   attention: ignored
   lifecycle:
     status: inactive
@@ -97,7 +102,7 @@ product:
     outcome: Prototype a mechanic once and ship it as a normal web game and a submission-ready playable package.
     mechanism: A reusable gamekit supplies loops, saves, offline progress, platform adapters, and builds for a small games hub.
     proof: The research goal produced a working gamekit, a live idle game, and YouTube-compatible packaging; the project is now parked.
-    nextAction: Play the retained game or inspect the kit; add another game only when a specific mechanic is worth studying.
+    nextAction: Preserved experiment; no current work or obligation to resume.
   form: Game collection
   platforms:
     - Web
@@ -116,7 +121,7 @@ repository:
   checkout: web-playables
   observedRevision: 13ee2867522e1da6369a64c57d038db01daa87ce
   githubRepository: sarthakagrawal927/web-playables
-  githubHomepageUrl: https://idle.aliveville.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/web-playables
@@ -153,21 +158,12 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
-    failing: 1
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/web-playables
-    defaultBranch: main
-    defaultBranchSha: 13ee2867522e1da6369a64c57d038db01daa87ce
-    homepage: https://idle.aliveville.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -175,83 +171,11 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34106166702
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 13ee2867522e1da6369a64c57d038db01daa87ce
-          createdAt: 2026-09-07T09:28:01Z
-          updatedAt: 2026-09-07T09:28:26Z
-          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/34106166702
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34106166702
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 13ee2867522e1da6369a64c57d038db01daa87ce
-          createdAt: 2026-09-07T09:28:01Z
-          updatedAt: 2026-09-07T09:28:26Z
-          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/34106166702
-        ageDays: 2
-      attention: ignored
     - name: Deploy web-playables to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: failing
-        reason: latest run concluded failure
-        apiState: active
-        lastRun:
-          id: 34015647092
-          status: completed
-          conclusion: failure
-          event: workflow_dispatch
-          branch: main
-          headSha: 6d69f8e03d2d2ed10c4eb7bae17351bf1d34dcd7
-          createdAt: 2026-09-06T06:06:32Z
-          updatedAt: 2026-09-06T06:07:06Z
-          url: https://github.com/sarthakagrawal927/web-playables/actions/runs/34015647092
-        ageDays: 3
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
 deployment:
   kind: pages
   deployed: true

@@ -1,0 +1,344 @@
+{
+  "source": "saas-maker/.fleet-local/portfolio-review.json",
+  "savedAt": "2026-09-09T20:32:50.781309+00:00",
+  "appliedAt": "2026-09-10",
+  "meaning": "Owner review decisions; shareability changes do not constitute new technical verification. Unreviewed values remain unchanged.",
+  "changes": [
+    {
+      "id": "codevetter",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "pace",
+      "changes": {
+        "audience": {
+          "before": "public",
+          "after": "internal"
+        }
+      }
+    },
+    {
+      "id": "posttrainllm",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "site-health",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "live",
+      "changes": {
+        "category": {
+          "before": "utility",
+          "after": "media"
+        },
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "chatgpt-connections",
+      "changes": {
+        "lifecycle": {
+          "before": {
+            "status": "active",
+            "shareable": true,
+            "resumeCondition": null
+          },
+          "after": {
+            "status": "active",
+            "shareable": false,
+            "resumeCondition": null
+          }
+        },
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "saas-maker",
+      "changes": {
+        "category": {
+          "before": "utility",
+          "after": "media"
+        },
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "gitstat",
+      "changes": {
+        "category": {
+          "before": "utility",
+          "after": "experimental"
+        },
+        "personalUse": {
+          "before": null,
+          "after": false
+        }
+      }
+    },
+    {
+      "id": "mobile-dev-cockpit",
+      "changes": {
+        "category": {
+          "before": "utility",
+          "after": "experimental"
+        },
+        "personalUse": {
+          "before": null,
+          "after": false
+        }
+      }
+    },
+    {
+      "id": "drank",
+      "changes": {
+        "audience": {
+          "before": "internal",
+          "after": "public"
+        },
+        "lifecycle": {
+          "before": {
+            "status": "inactive",
+            "shareable": false,
+            "resumeCondition": null
+          },
+          "after": {
+            "status": "inactive",
+            "shareable": true,
+            "resumeCondition": null
+          }
+        },
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "email-manager",
+      "changes": {
+        "lifecycle": {
+          "before": {
+            "status": "inactive",
+            "shareable": false,
+            "resumeCondition": null
+          },
+          "after": {
+            "status": "inactive",
+            "shareable": true,
+            "resumeCondition": null
+          }
+        },
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "chatgpt-memory-insights",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "free-ai",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "psi-swarm",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "high-signal",
+      "changes": {
+        "lifecycle": {
+          "before": {
+            "status": "active",
+            "shareable": false,
+            "resumeCondition": null
+          },
+          "after": {
+            "status": "active",
+            "shareable": true,
+            "resumeCondition": null
+          }
+        },
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "significanthobbies",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "india-standards",
+      "changes": {
+        "category": {
+          "before": "utility",
+          "after": "experimental"
+        }
+      }
+    },
+    {
+      "id": "anime-list",
+      "changes": {
+        "lifecycle": {
+          "before": {
+            "status": "active",
+            "shareable": false,
+            "resumeCondition": null
+          },
+          "after": {
+            "status": "active",
+            "shareable": true,
+            "resumeCondition": null
+          }
+        },
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "looptv",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "reader",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": false
+        }
+      }
+    },
+    {
+      "id": "swe-interview-prep",
+      "changes": {
+        "category": {
+          "before": "utility",
+          "after": "media"
+        },
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "calorie",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "setline",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "kith",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "ios-landings",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "rolepatch",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": false
+        }
+      }
+    },
+    {
+      "id": "karte",
+      "changes": {
+        "personalUse": {
+          "before": null,
+          "after": true
+        }
+      }
+    },
+    {
+      "id": "field-track",
+      "changes": {
+        "category": {
+          "before": "utility",
+          "after": "experimental"
+        }
+      }
+    }
+  ]
+}

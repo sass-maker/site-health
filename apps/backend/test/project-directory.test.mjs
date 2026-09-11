@@ -15,9 +15,9 @@ const projects = loadDashboardProjects();
 test('Projects partitions the complete catalog without changing current scope', () => {
   const { current, inactive } = partitionProjects(projects);
 
-  assert.equal(projects.length, 57);
-  assert.equal(current.length, 22);
-  assert.equal(inactive.length, 35);
+  assert.equal(projects.length, 59);
+  assert.equal(current.length, 23);
+  assert.equal(inactive.length, 36);
   assert.equal(current.every(isCurrentProject), true);
   assert.equal(current.some(project => project.id === 'kith'), true);
   assert.equal(inactive.every((project) => !isCurrentProject(project)), true);
@@ -37,7 +37,7 @@ test('shared project search finds retained identities without reclassifying them
 
   assert.deepEqual(currentMatches, []);
   assert.deepEqual(inactiveMatches.map((project) => project.id), ['protein-index', 'veg-protein-food']);
-  assert.deepEqual(inactiveMatches.map(inactiveProjectState), ['archived', 'inactive']);
+  assert.deepEqual(inactiveMatches.map(inactiveProjectState), ['outside-fleet', 'outside-fleet']);
 });
 
 test('current evidence filters exclude inactive identities explicitly', () => {
@@ -77,12 +77,13 @@ test('registry retains canonical experiment rationale without making it shareabl
 });
 
 test('lifecycle and resume filters use their own fields, including non-null conditions', () => {
-  for (const [lifecycle, count] of [['primary', 2], ['active', 20], ['inactive', 35]]) {
+  for (const [lifecycle, count] of [['primary', 2], ['active', 21], ['inactive', 36]]) {
     assert.equal(projects.filter(p => matchesProjectFilters(p, { lifecycle })).length, count);
   }
-  assert.deepEqual(projects.filter(p => matchesProjectFilters(p, { resume: 'defined' })).map(p => p.id), ['verified-bases']);
-  assert.match(projects.find(p => p.id === 'verified-bases').lifecycle.resumeCondition, /buyer need/);
-  assert.equal(projects.filter(p => matchesProjectFilters(p, { resume: 'not-defined' })).length, 56);
+  assert.deepEqual(projects.filter(p => matchesProjectFilters(p, { resume: 'defined' })).map(p => p.id), ['rolepatch']);
+  assert.equal(projects.find(p => p.id === 'verified-bases').lifecycle.resumeCondition, null);
+  assert.equal(projects.find(p => p.id === 'open-historia').lifecycle.resumeCondition, null);
+  assert.equal(projects.filter(p => matchesProjectFilters(p, { resume: 'not-defined' })).length, 58);
   const fixture = { priority: 'P4', lifecycle: { status: 'inactive', shareable: true, resumeCondition: 'An owner-approved recurring workflow needs this tool' } };
   assert.equal(matchesProjectFilters(fixture, { lifecycle: 'inactive', sharing: 'shareable', resume: 'defined', priority: 'P4' }), true);
   assert.equal(matchesProjectFilters(fixture, { resume: 'not-defined' }), false);

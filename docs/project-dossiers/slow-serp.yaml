@@ -1,0 +1,176 @@
+schemaVersion: 1
+projectId: slow-serp
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-11
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: passed
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=slow-serp].ownerNarrative
+      sourceHeading: Slow SERP
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-12
+      reviewSha256: c4d0128a194fd6145af541880b8ed010fb4485aed8d8ca1c424984c612658da9
+      documentSha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-11
+      state: available
+      checkout: slow-serp
+      revision: 5855206f5d66be8145dafe1bab394e6fa8d6f48e
+      githubRepository: sarthakagrawal927/slow-serp
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-11
+      state: available
+      checkout: slow-serp
+      revision: 5855206f5d66be8145dafe1bab394e6fa8d6f48e
+      githubRepository: sarthakagrawal927/slow-serp
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-10
+      catalogLatestCommitAt: 2026-09-10
+      catalogDrift: []
+      reason: null
+    githubActions:
+      observedAt: null
+      staleAfterDays: null
+      attention: &a2 {}
+  unknowns: []
+ownerVoice:
+  whyVerbatim: slow serp needs IPs
+  fullReviewVerbatim: slow serp needs IPs
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Supply bounded public web extraction and paced search to internal workflows.
+  currentState: Private support tool; local crawler checks pass, while real Google search is blocked by upstream HTTP 429.
+  nextDecision: Qualify outbound IP infrastructure before treating the search path as usable; retain the existing bounded extraction scope.
+identity:
+  name: Slow SERP
+  publicName: null
+  aliases: []
+  family: slow-serp
+  category: utility
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
+  kind: platform
+  priority: P2
+  tier: active
+  attention: toolbox
+  lifecycle:
+    status: active
+    shareable: false
+    resumeCondition: null
+  operationalStatus: local-only
+  authenticationModel: local-only
+  inRegistry: false
+product:
+  description: A private HTTP-first crawler and paced search service with bounded Chrome fallback.
+  publicMakerNote: I need outbound IPs before the Google search path is usable.
+  purposeContract:
+    purpose: Collect bounded public web data and support paced search for internal workflows.
+    audience: The owner and internal Fleet consumers.
+    outcome: Produce normalized, attributable results while recording upstream failures honestly.
+    mechanism: HTTP-first extraction with bounded fetching and optional installed-Chrome rendering fallback.
+    proof: Local test and doctor checks passed; real Google search remains upstream-blocked.
+    nextAction: Qualify outbound IP infrastructure before relying on the search API.
+  form: Local service and CLI
+  platforms:
+    - macOS
+    - Local
+  prominentTools:
+    - Node.js
+    - Cheerio
+    - Playwright
+  retainedGitHistory:
+    firstCommitAt: 2026-09-10
+    latestCommitAt: 2026-09-10
+    retainedCommitCount: 3
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: slow-serp
+  observedRevision: 5855206f5d66be8145dafe1bab394e6fa8d6f48e
+  githubRepository: sarthakagrawal927/slow-serp
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: private
+  url: https://github.com/sarthakagrawal927/slow-serp
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: npm
+        evidence:
+          - package-lock.json
+    rootPackageScripts:
+      - crawl
+      - dev
+      - doctor
+      - jobs
+      - macos:install
+      - macos:status
+      - macos:uninstall
+      - macos:validate
+      - smoke
+      - start
+      - test
+githubActions:
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a2
+  remote: null
+  workflows: []
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-09-12
+  reason: "Private local support tool. Source tests and doctor passed; the real Google search workflow remains blocked by upstream HTTP 429. Owner identified outbound IPs as the dependency. No proxy infrastructure or successful organic result has been qualified. Receipt: docs/qualification/slow-serp-core-2026-09-11.json."
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/slow-serp/issues
+  geoIdentity: null
+notes:
+  catalog: Selected support tool from the reviewed readiness cohort, now reconciled into the private catalog. Checkout moved into Fleet with a compatibility link at the original Codex workspace path. Personal GitHub source remains private. No public product, Cloudflare resources or live search success are claimed.
+  infrastructure: Local HTTP-first crawler and search API. No Cloudflare resources or hosted endpoint. Outbound IP/proxy infrastructure is not provisioned or qualified. Scheduled crawler was not loaded during the placement check.

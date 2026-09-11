@@ -1102,3 +1102,19 @@ keep as active for now, ensure to cleanup after yourself
 ```
 
 Context: owner response to including the latest Nomad Data Adventure in this portfolio review. The existing August archive above is preserved verbatim.
+
+
+## StorageDaddy
+
+```text
+Working native Mac app
+
+Ensure to make this the most efficient tool in the market and use the most efficient AI tokens. Use other agents like GLM, Luna, and Terra wherever needed.
+
+Should be very pretty. You can check out Mole to see how to do it but ideally I don’t think it should be very complicated.
+
+lets call it storagedaddy
+make it very pretty
+
+I personally don’t love the design of Disc Buddy so I want you to rethink how we can design it.
+```

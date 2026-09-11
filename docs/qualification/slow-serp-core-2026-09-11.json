@@ -1,0 +1,39 @@
+{
+  "project": "Slow SERP",
+  "checkedAt": "2026-09-11T17:36:45+05:30",
+  "checkout": "/Users/sarthak/Documents/Codex/2026-09-10/x20-okay-with-lots-of-help",
+  "revision": "5855206f5d66be8145dafe1bab394e6fa8d6f48e",
+  "gitStatus": "clean main...origin/main",
+  "validation": {
+    "testCommand": "npm test",
+    "testsPassed": 24,
+    "testsFailed": 0
+  },
+  "runtime": {
+    "workflow": "existing npm run smoke provider workflow",
+    "query": "site:developer.mozilla.org fetch API",
+    "transport": "Google Chrome persistent context",
+    "proxyConfigured": false,
+    "apiContract": "POST /v1/search accepts an optional process-local Bearer key; no credential value recorded"
+  },
+  "search": {
+    "actualOrganicResults": false,
+    "status": "upstream_blocked",
+    "upstreamHttpStatus": 429,
+    "upstreamSurface": "Google /sorry/ response",
+    "cause": "http_429",
+    "localBrowserLaunch": "succeeded",
+    "localNavigation": "reached Google block response",
+    "parserBugEvidence": false,
+    "captchaBypassAttempted": false,
+    "engineSwitchAttempted": false
+  },
+  "interpretation": "The normal provider workflow reached Google successfully, but the current egress/profile was rate-blocked before organic results were available. The service failed closed as designed; no concrete local code bug was evidenced.",
+  "cleanup": {
+    "serviceStopped": true,
+    "browserProcessesRemaining": false,
+    "profileMovedToTrash": "/Users/sarthak/.Trash/slow-serp-chrome-profile-20260911-1736",
+    "sourceFilesChanged": false,
+    "checkoutPreservedClean": true
+  }
+}

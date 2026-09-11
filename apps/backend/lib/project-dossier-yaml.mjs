@@ -125,7 +125,37 @@ function repositoryUrl(project) {
 }
 
 function publicUrl(project) {
-  return project.domains?.[0] ? `https://${project.domains[0]}` : null;
+  const domain = project.domains?.[0];
+  if (!domain) return null;
+  const override = project.public?.url;
+  if (override == null) return `https://${domain}`;
+
+  let parsed;
+  try {
+    parsed = new URL(override);
+  } catch {
+    throw new Error(`${project.id}: public.url must be an absolute HTTPS URL on the canonical domain`);
+  }
+  if (
+    parsed.protocol !== 'https:' ||
+    parsed.hostname.toLowerCase() !== domain.toLowerCase() ||
+    parsed.port ||
+    parsed.username ||
+    parsed.password
+  ) {
+    throw new Error(`${project.id}: public.url must be an absolute HTTPS URL on the canonical domain`);
+  }
+  return parsed.toString();
+}
+
+function publicChangelogUrl(project) {
+  const url = publicUrl(project);
+  if (!url) return null;
+  const parsed = new URL(url);
+  parsed.pathname = `${parsed.pathname.replace(/\/+$/, '')}/changelog`;
+  parsed.search = '';
+  parsed.hash = '';
+  return parsed.toString();
 }
 
 function attributedResources(projectId, resources) {
@@ -344,6 +374,10 @@ export function buildProjectDossier({
       aliases: project.aliases ?? [],
       family: project.family,
       category: project.category ?? null,
+      audience: project.audience ?? null,
+      personalUse: project.personalUse ?? null,
+      moneyOrPersonalBrand: project.moneyOrPersonalBrand ?? null,
+      unmetNeed: project.unmetNeed ?? null,
       kind: project.portfolio.kind,
       priority: project.portfolio.priority,
       tier: project.tier,
@@ -415,7 +449,7 @@ export function buildProjectDossier({
         project.public?.listing === 'maintained' &&
         project.public?.hasChangelog !== false &&
         publicUrl(project)
-          ? `${publicUrl(project)}/changelog`
+          ? publicChangelogUrl(project)
           : null,
       roadmapUrl: repositoryUrl(project) ? `${repositoryUrl(project)}/issues` : null,
       geoIdentity,

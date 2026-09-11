@@ -1,0 +1,35 @@
+{
+  "observedOn": "2026-09-11",
+  "method": "Installed authenticated connector calls after normal ChatGPT reconnect",
+  "checks": [
+    {
+      "app": "anime-list",
+      "ok": true,
+      "errorCode": null,
+      "retrievalMode": "owner-watchlist",
+      "tool": "list_watchlist",
+      "total": null,
+      "itemsReturned": null
+    },
+    {
+      "app": "calorie",
+      "ok": true,
+      "errorCode": null,
+      "retrievalMode": "owner-api",
+      "tool": "get_daily_nutrition",
+      "total": null,
+      "itemsReturned": null
+    },
+    {
+      "app": "reader",
+      "ok": true,
+      "errorCode": null,
+      "retrievalMode": "owner-api",
+      "tool": "list_reader_collections",
+      "total": 8,
+      "itemsReturned": 5
+    }
+  ],
+  "privatePayloadRetained": false,
+  "scope": "Read-only existing owner data; no mutations"
+}

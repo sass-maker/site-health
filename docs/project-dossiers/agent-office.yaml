@@ -1,66 +1,69 @@
 schemaVersion: 1
 projectId: agent-office
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Agent Office
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 5f6c41e2a9413526d7cbd241ca5462c90d578f8149a48007a8712a7475cd0e68
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: agent-office
-      revision: b905c97a9e1aa602295b18456990ca7439e14969
+      revision: 21647744347807af10d65815efdec6f17f9b208b
       githubRepository: sass-maker/agent-office
       expectedHomepage: https://office-os.sassmaker.com
-      observedHomepage: https://office-os.sassmaker.com
+      observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 3
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: agent-office
-      revision: b905c97a9e1aa602295b18456990ca7439e14969
+      revision: 21647744347807af10d65815efdec6f17f9b208b
       githubRepository: sass-maker/agent-office
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-09
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 2
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        ignored: 2
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://office-os.sassmaker.com.
 ownerVoice:
   whyVerbatim: I started this project to hop on the transaction of AI employees and move away from coding-first AI employees instead of focusing on regular non-coder coding employees. Essentially trying to build a company in which humans and agents can live in synergy with each having ownership of an outcome and they just keep focusing on it endlessly.
   fullReviewVerbatim: |-
@@ -73,8 +76,8 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Give humans and non-coding agents durable ownership of outcomes.
-  currentState: Built to a credible testable stage, but not yet part of the owner's routine; the category has also become crowded.
-  nextDecision: Compare the strongest alternatives, define a differentiated wedge, then run a real recurring workflow before adding features.
+  currentState: Paused experiment; no current work or obligation to resume.
+  nextDecision: "Keep: A finished visual experiment in representing agent work. Stop: A staffed virtual company, a new workflow system and autonomous office features."
 identity:
   name: Office OS
   publicName: Office OS
@@ -82,10 +85,14 @@ identity:
     - office-os
   family: agent-office
   category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P1
-  tier: active
-  attention: toolbox
+  tier: parked
+  attention: ignored
   lifecycle:
     status: inactive
     shareable: false
@@ -102,7 +109,7 @@ product:
     outcome: Delegate bounded responsibilities, see progress and blockers, review artifacts, intervene safely, and resume work across days.
     mechanism: Named employees have durable roles, memory, workspaces, skills, scoped authority, and inspectable outcome loops inside a local organization folder.
     proof: A credible local proof of concept can run a bounded writer-manager workday, but differentiation and recurring owner use remain unproven.
-    nextAction: Review the local proof; reopen product investment only after comparing strong alternatives and proving one recurring workflow.
+    nextAction: Preserved experiment; no current work or obligation to resume.
   form: macOS app
   platforms:
     - macOS
@@ -113,15 +120,15 @@ product:
     - Codex CLI
   retainedGitHistory:
     firstCommitAt: 2026-08-09
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 65
+    latestCommitAt: 2026-09-12
+    retainedCommitCount: 67
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: agent-office
-  observedRevision: b905c97a9e1aa602295b18456990ca7439e14969
+  observedRevision: 21647744347807af10d65815efdec6f17f9b208b
   githubRepository: sass-maker/agent-office
-  githubHomepageUrl: https://office-os.sassmaker.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/agent-office
@@ -151,20 +158,12 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 2
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sass-maker/agent-office
-    defaultBranch: main
-    defaultBranchSha: b905c97a9e1aa602295b18456990ca7439e14969
-    homepage: https://office-os.sassmaker.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: Native Quality
       file: .github/workflows/native-quality.yml
@@ -172,94 +171,12 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34107979534
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b905c97a9e1aa602295b18456990ca7439e14969
-          createdAt: 2026-09-07T09:47:21Z
-          updatedAt: 2026-09-07T09:51:23Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/34107979534
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34107979534
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b905c97a9e1aa602295b18456990ca7439e14969
-          createdAt: 2026-09-07T09:47:21Z
-          updatedAt: 2026-09-07T09:51:23Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/34107979534
-        ageDays: 2
-      attention: ignored
     - name: Site Check
       file: .github/workflows/site-check.yml
       triggers:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34107979727
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b905c97a9e1aa602295b18456990ca7439e14969
-          createdAt: 2026-09-07T09:47:21Z
-          updatedAt: 2026-09-07T09:47:40Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/34107979727
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34107979727
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b905c97a9e1aa602295b18456990ca7439e14969
-          createdAt: 2026-09-07T09:47:21Z
-          updatedAt: 2026-09-07T09:47:40Z
-          url: https://github.com/sass-maker/agent-office/actions/runs/34107979727
-        ageDays: 2
-      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -275,6 +192,11 @@ deployment:
         name: office-os
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-11T20:13:47.112Z
+          deploymentId: 53e55e9c-1018-4101-b7e3-b909f380a6ec
+          sourceCommit: 21647744347807af10d65815efdec6f17f9b208b
+          evidencePath: ../saas-maker/.fleet-local/agent-office-repository-icon-release-20260912.json
     resources: []
   otherProviders:
     deployments:
@@ -285,7 +207,7 @@ deployment:
         state: local-only
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: past
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
@@ -314,4 +236,4 @@ sharing:
       state: not-applicable
 notes:
   catalog: The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.
-  infrastructure: null
+  infrastructure: " Repository icon release 21647744347807af10d65815efdec6f17f9b208b verified on existing office-os deployment 53e55e9c-1018-4101-b7e3-b909f380a6ec. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px."

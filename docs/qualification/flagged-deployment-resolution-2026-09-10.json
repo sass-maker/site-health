@@ -1,0 +1,224 @@
+{
+  "checkedAt": "2026-09-09T23:02:39.600569+00:00",
+  "scope": "16 flagged rows in the 82-repository default review view",
+  "projects": {
+    "agent-resume": {
+      "status": "current",
+      "summary": "Exact-head GitHub Pages deployment; public documentation responds. CLI execution not assessed.",
+      "sourceSha": "d919cebce2ce7737b1befc2b1b668fef2e79b0a4",
+      "deployment": {
+        "id": 5808504327,
+        "sha": "d919cebce2ce7737b1befc2b1b668fef2e79b0a4",
+        "environment": "github-pages",
+        "url": "https://sarthakagrawal927.github.io/agent-resume/",
+        "createdAt": "2026-08-08T12:04:43Z"
+      }
+    },
+    "port-whisperer": {
+      "status": "current",
+      "summary": "Exact-head GitHub Pages deployment; public documentation responds. Native tool execution not assessed.",
+      "sourceSha": "a6dd1bfb0ceb86a41a3e353876a9df969aa3e886",
+      "deployment": {
+        "id": 5119606796,
+        "sha": "a6dd1bfb0ceb86a41a3e353876a9df969aa3e886",
+        "environment": "github-pages",
+        "url": "https://sarthakagrawal927.github.io/port-whisperer/",
+        "createdAt": "2026-06-19T06:37:54Z"
+      }
+    },
+    "ai-badges": {
+      "status": "current",
+      "summary": "Exact-head production deployment; percentage and PR endpoints return SVG badges.",
+      "sourceSha": "e6f7aa539ba128b51fce062f1fcf694181a8ad6e",
+      "deployment": {
+        "id": 3840443502,
+        "sha": "e6f7aa539ba128b51fce062f1fcf694181a8ad6e",
+        "environment": "Production",
+        "url": "https://ai-percentage-9sqbsck5e-sarthak-agrawals-projects-5d4953f8.vercel.app",
+        "createdAt": "2026-02-14T05:46:45Z"
+      }
+    },
+    "placard": {
+      "status": "current",
+      "summary": "Exact-head production deployment; live card endpoint returns a valid PNG.",
+      "sourceSha": "530819ef2e240640329c8f9d4b1dafafb81d9ad7",
+      "deployment": {
+        "id": 5135083772,
+        "sha": "530819ef2e240640329c8f9d4b1dafafb81d9ad7",
+        "environment": "Production",
+        "url": "https://placard-k3eq1sxfy-sarthak-agrawals-projects-5d4953f8.vercel.app",
+        "createdAt": "2026-06-20T17:47:46Z"
+      }
+    },
+    "web-playables": {
+      "status": "current",
+      "summary": "Production Pages source matches main; public hub opens the playable Idle Startup game. Existing saved game was preserved.",
+      "sourceSha": "13ee2867522e1da6369a64c57d038db01daa87ce",
+      "deploymentId": "08fc26ac-1432-4a83-a80b-092672c87ab0"
+    },
+    "what-it-takes-to-win": {
+      "status": "current",
+      "summary": "Release checks and exact-head CI passed; production Pages source verified; public URL responds HTTP 200.",
+      "sourceSha": "ac61e3ffb173aa00aed518ac0c13a0c68cd55313",
+      "sourcePath": "what-it-takes-to-win",
+      "deploymentId": "f2e3c29e-e26a-4436-8167-91f33212f359",
+      "deploymentUrl": "https://f2e3c29e.success-by-26.pages.dev",
+      "checks": [
+        "full pnpm ready passed",
+        "0 critical/high audit findings",
+        "CI 34413702866 passed"
+      ]
+    },
+    "psi-swarm": {
+      "status": "current",
+      "summary": "Release checks and exact-head CI passed; production Pages source verified; public URL responds HTTP 200.",
+      "sourceSha": "af4ea1b4fcf22e39310ead8ec1d1f19c531bac33",
+      "sourcePath": "psi-swarm",
+      "deploymentId": "652bd3d2-cddf-4541-809f-8a0c36749ed6",
+      "deploymentUrl": "https://652bd3d2.psi-swarm-web.pages.dev",
+      "checks": [
+        "full quality passed on Node 24.20.0",
+        "0 critical/high audit findings",
+        "CI 34414192148 passed",
+        "deployment workflow 34414625397 passed"
+      ]
+    },
+    "setline": {
+      "status": "current",
+      "summary": "Release checks and exact-head CI passed; production Pages source verified; public URL responds HTTP 200. This verifies the shared-factory landing, not a new iPhone build.",
+      "sourceSha": "c5f994d9a886e9701dd97c7cf9de383c07acfeab",
+      "sourcePath": "ios-landings",
+      "deploymentId": "cc365369-1e3e-452f-bb17-9de756a39453",
+      "deploymentUrl": "https://cc365369.setline-a4r.pages.dev",
+      "checks": [
+        "4 deployment contract tests passed",
+        "all-product CI 34414064381 passed",
+        "existing-only Setline deployment completed"
+      ]
+    },
+    "saas-maker": {
+      "status": "current",
+      "summary": "All three hosted components are source-equivalent to current main. API and inbox source, workspace dependencies and lockfile have no changes since their deployed revision; directory inputs have no changes since its release. Public directory responds.",
+      "sourceSha": "f4f173070b37bd782de26b116e8dab09bdeb1104",
+      "components": [
+        {
+          "name": "saasmaker-api",
+          "deploymentId": "369c55e0-becc-43bf-a7dc-23df7916a821",
+          "sourceSha": "24933312f208e3614e2cf3426366763a384d1757",
+          "traffic": 100,
+          "parity": "component-source-equivalent"
+        },
+        {
+          "name": "saasmaker-dashboard",
+          "deploymentId": "efe2fcd1-f251-40f9-9d80-daa9e73ef2e7",
+          "sourceSha": "24933312f208e3614e2cf3426366763a384d1757",
+          "traffic": 100,
+          "parity": "component-source-equivalent"
+        },
+        {
+          "name": "saas-maker-home",
+          "deploymentId": "e3d262d1-7b28-4903-8956-1042e050de4f",
+          "sourceSha": "e391a869a0fd26d7d9be4156deef32716ac9c792",
+          "parity": "component-source-equivalent"
+        }
+      ],
+      "checks": [
+        "Current provider versions at 100 percent traffic",
+        "git diff 2493331..f4f1730 empty for workers/api, apps/cockpit, contracts, lockfile and workspace configuration",
+        "git diff e391a86..f4f1730 empty for directory source, catalog, packages and lockfile"
+      ]
+    },
+    "verified-bases": {
+      "status": "not-applicable",
+      "summary": "Owner-approved inactive storefront prototype; no active web launch required. Removed dead GitHub homepage. Retained API/resources are not deleted or claimed healthy.",
+      "sourceSha": "c2c389e20b51e1fda144ff5250fe47274ba272d4"
+    },
+    "knowledge-base": {
+      "status": "needs-attention",
+      "summary": "CI and all 16 local predeploy gates pass after fixing symlink-cycle scanning. Production release awaits required additive D1 migrations.",
+      "sourceSha": "eef2327498799abedb0d173e8155191cf717657c",
+      "blocker": "Explicit migration approval pending for 0008_file_artifact_ownership.sql, 0009_file_publication_visibility.sql and 0010_file_dispatch_recovery.sql. Existing production left running.",
+      "checks": [
+        "12 audit regression tests passed",
+        "all 16 predeploy gates passed",
+        "exact-head CI 34414777808 passed"
+      ]
+    },
+    "temp-splitwise": {
+      "status": "needs-attention",
+      "summary": "Latest main is deployed, but live room creation fails. /api/health is unconditional and does not test the database.",
+      "blocker": "Authenticated Vercel logs confirm LibsqlError SERVER_ERROR: Turso returns HTTP 502 at api/rooms.ts:15 (first database write). Restore the database service/connection and retry room creation; redeploying the unchanged frontend will not fix it.",
+      "logEvidence": "https://vercel.com/sarthak-agrawals-projects-5d4953f8/temp-splitwise/logs"
+    },
+    "society-relay": {
+      "status": "needs-attention",
+      "summary": "Live synthetic scenario creation works; inference fails before coordinating reports.",
+      "blocker": "Live activity evidence: failed after 20.01 seconds, gateway / command-r-plus-08-2024, EventLoopException. Source defaults to auto; hosting configuration and deployed revision require verification. No false success based on yesterday's acceptance record."
+    },
+    "mentionpilot": {
+      "status": "needs-attention",
+      "summary": "Documented API /health returns 404; intended web target is unprovisioned according to repository handover.",
+      "blocker": "Restore API and provision the web/authentication deployment with D1 bindings and OAuth configuration. Production configuration and credentials are outside current authorization."
+    },
+    "subreddit-research": {
+      "status": "needs-attention",
+      "summary": "Correct frontend is agent-mode.vercel.app; documented API /health returns 404. Actual current backend uses Turso/libSQL, not PostgreSQL.",
+      "blocker": "Restore the AgentData Worker, its Turso and provider configuration, then verify frontend-to-API requests. Production configuration and credentials are outside current authorization."
+    },
+    "truehire": {
+      "status": "current",
+      "summary": "Archived research Worker deployed at current main with 100 percent traffic. Live synthetic sample profile loads with explicit demo/archive labels. No marketplace relaunched.",
+      "sourceSha": "150d48822ad1197862fd67df56c7831a7b3374ef",
+      "deploymentId": "153813f4-8eed-4a76-acaf-0df4a44362ec",
+      "versionId": "cb2974e8-b0ab-49ae-b0de-fc79bce51611",
+      "traffic": 100,
+      "checks": [
+        "Package tests and exact-head CI 34414995825 passed",
+        "No pending D1 migrations",
+        "Cloudflare production build passed",
+        "Live homepage HTTP 200 and /demo browser smoke passed"
+      ],
+      "automationIssue": "GitHub workflow 34415233603 failed because CLOUDFLARE_API_TOKEN is missing. Released through existing local Wrangler login; no secret changes."
+    }
+  },
+  "counts": {
+    "current": 54,
+    "needs-attention": 5,
+    "unverified": 0,
+    "not-applicable": 23
+  },
+  "changedRepositoryState": {
+    "what-it-takes-to-win": {
+      "head": "ac61e3ffb173aa00aed518ac0c13a0c68cd55313",
+      "status": "",
+      "aheadBehind": "0\t0"
+    },
+    "psi-swarm": {
+      "head": "af4ea1b4fcf22e39310ead8ec1d1f19c531bac33",
+      "status": "",
+      "aheadBehind": "0\t0"
+    },
+    "ios-landings": {
+      "head": "c5f994d9a886e9701dd97c7cf9de383c07acfeab",
+      "status": "",
+      "aheadBehind": "0\t0"
+    },
+    "knowledge-base": {
+      "head": "eef2327498799abedb0d173e8155191cf717657c",
+      "status": "",
+      "aheadBehind": "0\t0"
+    },
+    "truehire": {
+      "head": "150d48822ad1197862fd67df56c7831a7b3374ef",
+      "status": "",
+      "aheadBehind": "0\t0"
+    }
+  },
+  "catalogChecks": {
+    "fullCheck": "passed",
+    "projectDossiers": "57 verified",
+    "ownerReview": "preserved locally; only repository deployment audit updated"
+  },
+  "cleared": 11,
+  "remaining": 5
+}

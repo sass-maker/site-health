@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: reel-pipeline
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-08-20
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,15 +23,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 61071b399acddcfc99b2252b8bc1601ec98e9d8b591f609e0f0c542cb94ae91e
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: reel-pipeline
       revision: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: reel-pipeline
       revision: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
@@ -55,12 +55,13 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 3
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 3
       attention: &a2
-        ignored: 3
-  unknowns: []
+        unclassified: 3
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: Reel pipeline, I don't know. It had the purpose of automating video building and just ensuring the videos were built for each product. They were auto-posted so this product kept spiralling into more and more features but never really got shipped. This is something I would definitely want to break and fix in the future but for now it is on hold.
   fullReviewVerbatim: Reel pipeline, I don't know. It had the purpose of automating video building and just ensuring the videos were built for each product. They were auto-posted so this product kept spiralling into more and more features but never really got shipped. This is something I would definitely want to break and fix in the future but for now it is on hold.
@@ -68,25 +69,29 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Explore automated product-video creation.
-  currentState: Retained experiment; the owner explicitly does not require sharing or a release.
-  nextDecision: Preserve the bounded render evidence and source; resume only for a deliberate video experiment.
+  currentState: Paused experiment; no current work or obligation to resume.
+  nextDecision: "Keep: One reproducible production recipe and its best finished video. Stop: More recipes, automatic distribution and a perpetual output pipeline without a chosen format."
 identity:
   name: Reel Pipeline
   publicName: null
   aliases: []
   family: reel-pipeline
   category: experimental
+  audience: internal
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: experiment
   priority: P2
-  tier: active
-  attention: my-work
+  tier: parked
+  attention: ignored
   lifecycle:
     status: inactive
     shareable: false
     resumeCondition: null
   operationalStatus: live
   authenticationModel: required-service
-  inRegistry: false
+  inRegistry: true
 product:
   description: A cost-bounded pipeline for planning, producing, and retaining short-form video artifacts.
   publicMakerNote: I wanted to automate the repetitive work of making and publishing useful product videos.
@@ -96,7 +101,7 @@ product:
     outcome: Plan, create, review, and retain useful videos without losing cost, provenance, or operator control.
     mechanism: A story-first pipeline records source approval, media-generation steps, artifacts, costs, and publication boundaries.
     proof: The repository contains substantial planning and media automation, but the full publishable loop never shipped and remains held.
-    nextAction: Treat the current work as a held pipeline; reopen only by proving one bounded video-to-publication loop with explicit cost limits.
+    nextAction: Preserved experiment; no current work or obligation to resume.
   form: Video pipeline
   platforms:
     - CLI
@@ -207,20 +212,12 @@ repository:
       - watch:render:once
       - worker:dry-run
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 3
+    unverifiable: 3
   attention: *a2
-  remote:
-    repository: sass-maker/reel-pipeline
-    defaultBranch: main
-    defaultBranchSha: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
-    homepage: null
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -229,130 +226,17 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34124384488
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
-          createdAt: 2026-09-07T12:53:58Z
-          updatedAt: 2026-09-07T12:55:14Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384488
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34124384488
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
-          createdAt: 2026-09-07T12:53:58Z
-          updatedAt: 2026-09-07T12:55:14Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384488
-        ageDays: 2
-      attention: ignored
     - name: Deploy artifacts worker
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 33476639197
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 549b4d5c2ac84d70a3ad596c66c84ed73af482e4
-          createdAt: 2026-09-01T06:12:50Z
-          updatedAt: 2026-09-01T06:13:13Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/33476639197
-        ageDays: 8
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34124384388
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
-          createdAt: 2026-09-07T12:53:57Z
-          updatedAt: 2026-09-07T12:54:09Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384388
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34124384388
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
-          createdAt: 2026-09-07T12:53:57Z
-          updatedAt: 2026-09-07T12:54:09Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384388
-        ageDays: 2
-      attention: ignored
 deployment:
   kind: worker
   deployed: true

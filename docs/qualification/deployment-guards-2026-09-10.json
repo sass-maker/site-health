@@ -1,0 +1,79 @@
+[
+  {
+    "project": "high-signal",
+    "exitCode": 0,
+    "output": "PROJECT: high-signal\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2713 green for 94a24ce2: 2 push workflows, 1 build/test definitions\nCF target             \u2713 name = \"high-signal-api\" (subdir)\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 READY TO DEPLOY (6 gates passed)\n"
+  },
+  {
+    "project": "reddit-insights",
+    "exitCode": 0,
+    "output": "PROJECT: reddit-insights\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2713 green for 3d6c61e4: 1 push workflows, 1 build/test definitions\nCF target             \u2713 reddit-insights\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 READY TO DEPLOY (6 gates passed)\n"
+  },
+  {
+    "project": "aliveville",
+    "exitCode": 0,
+    "output": "PROJECT: aliveville\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2713 green for dd3bdd9c: 2 push workflows, 1 build/test definitions\nCF target             \u2713 aliveville\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 READY TO DEPLOY (6 gates passed)\n"
+  },
+  {
+    "project": "issue-pages",
+    "exitCode": 0,
+    "output": "PROJECT: issue-pages\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2713 green for 65e20e96: 1 push workflows, 1 build/test definitions\nCF target             \u2713 issue-pages\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 READY TO DEPLOY (6 gates passed)\n"
+  },
+  {
+    "project": "knowledge-base",
+    "exitCode": 1,
+    "output": "PROJECT: knowledge-base\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2717 unknown: no successful source-backed build/test push workflow\nCF target             \u2713 knowledgebase-app (subdir)\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 NOT READY \u2014 fix 1 gate(s) above before deploying\n"
+  },
+  {
+    "project": "local-ai-video-studio",
+    "exitCode": 1,
+    "output": "PROJECT: local-ai-video-studio\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2717 unknown: no successful source-backed build/test push workflow\nCF target             \u2713 local-ai-video-studio\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 NOT READY \u2014 fix 1 gate(s) above before deploying\n"
+  },
+  {
+    "project": "psi-swarm",
+    "exitCode": 1,
+    "output": "PROJECT: psi-swarm\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2717 unknown: no successful source-backed build/test push workflow\nCF target             \u2713 package manual deploy script\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 NOT READY \u2014 fix 1 gate(s) above before deploying\n"
+  },
+  {
+    "project": "reel-pipeline",
+    "exitCode": 1,
+    "output": "PROJECT: reel-pipeline\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2717 unknown: no successful source-backed build/test push workflow\nCF target             \u2713 reel-pipeline-artifacts\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 NOT READY \u2014 fix 1 gate(s) above before deploying\n"
+  },
+  {
+    "project": "ios-landings",
+    "exitCode": 1,
+    "output": "PROJECT: ios-landings\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2717 unknown: no successful source-backed build/test push workflow\nCF target             \u2713 kith\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 NOT READY \u2014 fix 1 gate(s) above before deploying\n"
+  },
+  {
+    "project": "calorie",
+    "exitCode": 0,
+    "output": "PROJECT: calorie\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2713 green for fc1bfce8: 1 push workflows, 1 build/test definitions\nCF target             \u2713 calorie\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 READY TO DEPLOY (6 gates passed)\n"
+  },
+  {
+    "project": "on-record",
+    "exitCode": 0,
+    "output": "PROJECT: on-record\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2713 green for 438369ff: 1 push workflows, 1 build/test definitions\nCF target             \u2713 on-record-api (subdir)\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 READY TO DEPLOY (6 gates passed)\n"
+  },
+  {
+    "project": "protein-index",
+    "exitCode": 0,
+    "output": "PROJECT: protein-index\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2713 green for 25b503da: 1 push workflows, 1 build/test definitions\nCF target             \u2713 protein-index\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 READY TO DEPLOY (6 gates passed)\n"
+  },
+  {
+    "project": "what-it-takes-to-win",
+    "exitCode": 0,
+    "output": "PROJECT: what-it-takes-to-win\n\nBranch                \u2713 main\nGit                   \u2713 clean\nRemote                \u2713 synced\nCI                    \u2713 green for 88eafac7: 1 push workflows, 1 build/test definitions\nCF target             \u2713 success-by-26\nWork queue            \u2713 GitHub Issues are authoritative; review linked blockers\n\n\u2192 READY TO DEPLOY (6 gates passed)\n"
+  },
+  {
+    "project": "backpropagate",
+    "exitCode": 0,
+    "sourceSha": "c704e2d0ac899ebbbcc0d3a6ff35968d0385595d",
+    "output": "All six gates passed: main, clean, synced, exact-head source-backed CI, known Pages target, work queue reviewed."
+  },
+  {
+    "project": "ludo-pass-play",
+    "exitCode": 0,
+    "sourceSha": "440e342bbd92a1a8b173ec2f3c43f9fdd5515285",
+    "output": "All six gates passed: main, clean, synced, exact-head source-backed CI, known Pages target, work queue reviewed."
+  }
+]

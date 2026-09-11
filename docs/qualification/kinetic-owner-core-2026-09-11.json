@@ -1,0 +1,27 @@
+{
+  "observedOn": "2026-09-11",
+  "origin": "https://mail.significanthobbies.com",
+  "checks": {
+    "tabId": "673500282",
+    "auth": "Connected after existing-account Google OAuth flow",
+    "scopeBoundary": "gmail.readonly plus identity; no write actions used",
+    "inbox": "500 cached; Synced just now; 500 loaded; 442 unread",
+    "boundedSearch": "from:ahrefs returned 25 loaded results",
+    "contentCaptured": false,
+    "url": "https://mail.significanthobbies.com/app#search",
+    "reopenedAfterTabRecovery": true,
+    "semanticSearch": {
+      "query": "developer tools",
+      "indexStateBeforeQuery": "500 cached; 500 indexed; 100% ready",
+      "modelState": "on-device embedding index completed in browser",
+      "resultCount": 50,
+      "afterReload": "500 cached; 500 indexed; 100% ready; same query returned 50 results",
+      "contentCaptured": false
+    }
+  },
+  "result": "passed",
+  "limits": [
+    "Account switching and a forced expired-token refresh were not separately exercised. Existing historical broader permissions were displayed as already granted; the current request was Gmail read-only plus identity."
+  ],
+  "mutations": "No email send, move or delete actions."
+}

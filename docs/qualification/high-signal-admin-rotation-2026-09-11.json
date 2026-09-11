@@ -1,0 +1,61 @@
+{
+  "observedOn": "2026-09-11",
+  "outcome": "credential_rotation_passed_operator_browser_access_separate",
+  "steps": [
+    {
+      "step": "preflight",
+      "ownerAuthStatus": 200,
+      "modalSecretResolved": true,
+      "workersMatchSource": true
+    },
+    {
+      "step": "infisical_update",
+      "success": true
+    },
+    {
+      "step": "github_actions_update",
+      "success": true
+    },
+    {
+      "step": "worker_update_workers_api",
+      "success": true,
+      "versionId": "fe946b3e-8f28-4131-aadd-f6118eb771f1",
+      "deploymentId": "565ed754-cd72-442b-b90f-dad9076a270a",
+      "tag": "4f484f2d4e3e6c4b502079603da750c6c2a66a1e",
+      "trafficPercent": 100
+    },
+    {
+      "step": "worker_update_apps_web",
+      "success": true,
+      "versionId": "7401a8fc-70cb-4dab-bbd9-b17968439cd3",
+      "deploymentId": "8aea1fec-e351-4564-ac48-2c2dd6cde284",
+      "tag": "4f484f2d4e3e6c4b502079603da750c6c2a66a1e",
+      "trafficPercent": 100
+    },
+    {
+      "step": "modal_update",
+      "success": true,
+      "unmentionedKeysPreserved": true
+    },
+    {
+      "step": "auth_readback",
+      "newTokenStatus": 200,
+      "previousTokenStatus": 401
+    }
+  ],
+  "sourceSha": "4f484f2d4e3e6c4b502079603da750c6c2a66a1e",
+  "finishedAt": "2026-09-11T12:13:37.800401+00:00",
+  "localPlaintextCredentialFilesWritten": false,
+  "modalRuntime": {
+    "ok": true,
+    "httpStatus": 200,
+    "secUserAgentPreserved": true,
+    "mode": "fresh-modal-container-owner-read"
+  },
+  "modalRun": "ap-ZU2KXNJwpcSche99r14tkI",
+  "publicInstalledConsumer": {
+    "ok": true,
+    "retrievalMode": "public-api"
+  },
+  "operatorAccessReceipt": "highsignal-review-owner-20260911.json"
+}

@@ -1,67 +1,69 @@
 schemaVersion: 1
 projectId: sarthakagrawal-personal
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-22
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Portfolio
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 654979ba95b70df5ef8213f6ad7d44f7f2e991cfed86a79eae6da66b809a941d
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: portfolio
-      revision: 096d62df1dc97128c86b0b607a8b02deb5068234
+      revision: 1e8413fb9e0d63e0165235768c61d247927b45f4
       githubRepository: sarthakagrawal927/portfolio
       expectedHomepage: https://sarthakagrawal.dev
-      observedHomepage: https://sarthakagrawal.dev
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: portfolio
-      revision: 096d62df1dc97128c86b0b607a8b02deb5068234
+      revision: 1e8413fb9e0d63e0165235768c61d247927b45f4
       githubRepository: sarthakagrawal927/portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-22
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
-      stale: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        ignored: 2
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://sarthakagrawal.dev.
 ownerVoice:
   whyVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
   fullReviewVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
@@ -80,6 +82,10 @@ identity:
     - sarthakagrawal927
   family: personal
   category: media
+  audience: public
+  personalUse: null
+  moneyOrPersonalBrand: true
+  unmetNeed: false
   kind: product
   priority: P4
   tier: secondary
@@ -111,15 +117,15 @@ product:
     - IssuePages
   retainedGitHistory:
     firstCommitAt: 2026-05-22
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 94
+    latestCommitAt: 2026-09-10
+    retainedCommitCount: 99
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: portfolio
-  observedRevision: 096d62df1dc97128c86b0b607a8b02deb5068234
+  observedRevision: 1e8413fb9e0d63e0165235768c61d247927b45f4
   githubRepository: sarthakagrawal927/portfolio
-  githubHomepageUrl: https://sarthakagrawal.dev
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/portfolio
@@ -146,7 +152,9 @@ repository:
     rootPackageScripts:
       - astro
       - build
+      - catalog:check-hosted
       - catalog:check-public
+      - catalog:sync-hosted
       - catalog:sync-public
       - check
       - dev
@@ -167,21 +175,12 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
-    stale: 1
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/portfolio
-    defaultBranch: main
-    defaultBranchSha: 096d62df1dc97128c86b0b607a8b02deb5068234
-    homepage: https://sarthakagrawal.dev
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: Portfolio CI / Deploy
       file: .github/workflows/deploy.yml
@@ -190,93 +189,12 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34131820751
-          status: completed
-          conclusion: success
-          event: pull_request
-          branch: imgbot
-          headSha: d65deeab4e1c1fea45fceac9be3718a53b83f0d7
-          createdAt: 2026-09-07T14:13:58Z
-          updatedAt: 2026-09-07T14:14:32Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34131820751
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34130567895
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 096d62df1dc97128c86b0b607a8b02deb5068234
-          createdAt: 2026-09-07T14:00:38Z
-          updatedAt: 2026-09-07T14:01:13Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/34130567895
-        ageDays: 2
-      attention: ignored
     - name: Build résumé PDF
       file: .github/workflows/resume.yml
       triggers:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stale
-        reason: latest run is 110 days old
-        apiState: active
-        lastRun:
-          id: 26280785969
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: dd90b65bf3b37f2e7b225d90784b70edf11619a9
-          createdAt: 2026-05-22T09:48:57Z
-          updatedAt: 2026-05-22T09:50:23Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969
-        ageDays: 110
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 096d62d
-        lastRun:
-          id: 26280785969
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: dd90b65bf3b37f2e7b225d90784b70edf11619a9
-          createdAt: 2026-05-22T09:48:57Z
-          updatedAt: 2026-05-22T09:50:23Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969
-      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -292,6 +210,11 @@ deployment:
         name: sarthakagrawal
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-11T21:30:15.945541+00:00
+          sourceCommit: 462cdfdd2d3560f9d53ff89b638ea56f247b62c9
+          deploymentUrl: https://c579d4cb.sarthakagrawal.pages.dev
+          evidencePath: ../saas-maker/.fleet-local/portfolio-public-sync-20260912.json
     resources:
       - provider: cloudflare
         kind: zone
@@ -314,8 +237,8 @@ sharing:
   publicListing: maintained
   maturity: experiment
   ready: true
-  verifiedAt: 2026-09-07
-  reason: Public publication and navigation qualified; historical benchmark claims were not re-benchmarked and linked products retain their independent limits.
+  verifiedAt: 2026-09-12
+  reason: Published 22-project SaaS Maker feed synchronized to portfolio source 462cdfd. CI 34649440947 and manual deployment 34649533443 passed; Pages deployment c579d4cb. Live /projects returned 200 and contains all 22 published names. GitHub profile generated section exactly matches the same feed; latest sync 34646992594 passed. Linked products retain independent qualification limits.
   changelogUrl: https://sarthakagrawal.dev/changelog
   roadmapUrl: https://github.com/sarthakagrawal927/portfolio/issues
   geoIdentity:
@@ -344,4 +267,4 @@ sharing:
       state: not-applicable
 notes:
   catalog: personal portfolio site for Sarthak Agrawal
-  infrastructure: null
+  infrastructure: Published 22-project SaaS Maker feed synchronized to portfolio source 462cdfd. CI 34649440947 and manual deployment 34649533443 passed; Pages deployment c579d4cb. Live /projects returned 200 and contains all 22 published names. GitHub profile generated section exactly matches the same feed; latest sync 34646992594 passed. Linked products retain independent qualification limits.

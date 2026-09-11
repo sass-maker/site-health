@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: forecast-lab
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,15 +23,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 6373b541321e344e524cb75144096872740e51d1f1073240d77cbccc43b73b15
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: forecast-lab
       revision: 8b245ad7476d97812df4cba67f19473f29ac53c2
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: forecast-lab
       revision: 8b245ad7476d97812df4cba67f19473f29ac53c2
@@ -55,12 +55,13 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
   fullReviewVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
@@ -68,17 +69,21 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Learn forecasting through reproducible experiments.
-  currentState: Retained experiment; the owner explicitly does not require sharing or a release.
-  nextDecision: Preserve the bounded learning example and source; no adoption or license-choice task is required for retention.
+  currentState: Paused experiment; no current work or obligation to resume.
+  nextDecision: "Keep: Reproducible benchmark results and lessons already learned. Stop: A forecasting SaaS or more methods without a concrete research question."
 identity:
   name: Forecast Lab
   publicName: Forecast Lab
   aliases: []
   family: forecast-lab
   category: experimental
+  audience: internal
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: experiment
   priority: P4
-  tier: out-of-fleet
+  tier: parked
   attention: ignored
   lifecycle:
     status: inactive
@@ -86,7 +91,7 @@ identity:
     resumeCondition: null
   operationalStatus: undeployed
   authenticationModel: public-persistent
-  inRegistry: false
+  inRegistry: true
 product:
   description: Forecasting experiments and evaluation tooling.
   publicMakerNote: I wanted to learn forecasting by modeling how regional, temporal, and behavioral signals shape commerce demand.
@@ -96,7 +101,7 @@ product:
     outcome: Understand which signals improve a forecast and where the model fails, without pretending to offer a proven consulting product.
     mechanism: Rust, Python, and web experiments compare forecasting approaches against held-out data and visible metrics.
     proof: The research toolkit supports concrete experiments, but lacks the proprietary data and domain validation required for credible B2B claims.
-    nextAction: Use it for a specific learning or evaluation question; do not treat the held lab as an active consulting service.
+    nextAction: Preserved experiment; no current work or obligation to resume.
   form: Research toolkit
   platforms:
     - CLI
@@ -148,20 +153,12 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/forecast-lab
-    defaultBranch: main
-    defaultBranchSha: 8b245ad7476d97812df4cba67f19473f29ac53c2
-    homepage: null
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -169,47 +166,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34115663900
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 8b245ad7476d97812df4cba67f19473f29ac53c2
-          createdAt: 2026-09-07T11:15:10Z
-          updatedAt: 2026-09-07T11:15:36Z
-          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/34115663900
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34115663900
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 8b245ad7476d97812df4cba67f19473f29ac53c2
-          createdAt: 2026-09-07T11:15:10Z
-          updatedAt: 2026-09-07T11:15:36Z
-          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/34115663900
-        ageDays: 2
-      attention: ignored
 deployment:
   kind: none
   deployed: false

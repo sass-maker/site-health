@@ -1,49 +1,49 @@
 schemaVersion: 1
 projectId: kith
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-21
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Kith
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 08cbe2a327edb11ee198800b0042ab6dbd2347f16e6d8673820a95887b1c93b6
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: kith
       revision: 03689bf67f07ce1dde4d41d6b471b5153c287996
       githubRepository: Significant-Hobbies/kith
       expectedHomepage: https://kith.significanthobbies.com
-      observedHomepage: https://kith.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: kith
       revision: 03689bf67f07ce1dde4d41d6b471b5153c287996
@@ -55,12 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://kith.significanthobbies.com.
 ownerVoice:
   whyVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
   fullReviewVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
@@ -76,6 +78,10 @@ identity:
   aliases: []
   family: significanthobbies
   category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P2
   tier: secondary
@@ -114,7 +120,7 @@ repository:
   checkout: kith
   observedRevision: 03689bf67f07ce1dde4d41d6b471b5153c287996
   githubRepository: Significant-Hobbies/kith
-  githubHomepageUrl: https://kith.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/kith
@@ -128,20 +134,12 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/kith
-    defaultBranch: main
-    defaultBranchSha: 03689bf67f07ce1dde4d41d6b471b5153c287996
-    homepage: https://kith.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -149,47 +147,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34333207923
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 03689bf67f07ce1dde4d41d6b471b5153c287996
-          createdAt: 2026-09-09T09:10:24Z
-          updatedAt: 2026-09-09T09:21:42Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34333207923
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34333207923
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 03689bf67f07ce1dde4d41d6b471b5153c287996
-          createdAt: 2026-09-09T09:10:24Z
-          updatedAt: 2026-09-09T09:21:42Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34333207923
-        ageDays: 0
-      attention: clear
 deployment:
   kind: pages
   deployed: true
@@ -205,6 +162,13 @@ deployment:
         name: kith
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-11T19:29:31.188259+00:00
+          deploymentId: d73a7890-47ee-4175-80a1-e8a5f6c49a28
+          sourceCommit: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
+          sourcePath: ios-landings
+          state: success-production-verified
+          evidencePath: ../saas-maker/.fleet-local/ios-landings-repository-links-live-20260912.json
     resources: []
   otherProviders:
     deployments:
@@ -218,8 +182,8 @@ sharing:
   publicListing: maintained
   maturity: in-progress
   ready: false
-  verifiedAt: 2026-09-09
-  reason: "Source 03689bf67f07ce1dde4d41d6b471b5153c287996 passed exact CI34333207923: 44 native tests including 9 UI, plus Release compilation. Actual rendered create-person, edit-closeness, selective note deletion, person deletion and repeated process relaunch preserve the expected local records; screenshots were independently reviewed. Earlier actual AppModel tests verify account-switch isolation and durable failed-import retry. The new UUID fixture is DEBUG-only with cloud and Hub disabled. Installed build12/source34a6cae is unchanged. Physical use, real account recovery/sync, iCloud convergence and public distribution remain unqualified."
+  verifiedAt: 2026-09-11
+  reason: Physical iPhone add/edit/delete and relaunch persistence passed with an isolated person/notes fixture; fixture cleaned and normal Release restored. Real-account sync remains unverified.
   changelogUrl: https://kith.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/kith/issues
   geoIdentity:

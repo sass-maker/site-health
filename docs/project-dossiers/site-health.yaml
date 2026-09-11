@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: site-health
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,44 +23,46 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 898ad3494adf0f2eac9def552e57e351278a79ed8b7c20ed339f2d2d1f76bd3e
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: site-health
-      revision: 4b4a43b2835dd9e22110c9682c9388462ffa8203
+      revision: 971f51a630eed9554f4cb4af221880072dbb2b97
       githubRepository: sass-maker/site-health
       expectedHomepage: null
-      observedHomepage: https://sassmaker.com
+      observedHomepage: null
       worktree: &a1
         state: dirty
-        trackedChangeCount: 60
+        trackedChangeCount: 68
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: site-health
-      revision: 4b4a43b2835dd9e22110c9682c9388462ffa8203
+      revision: 971f51a630eed9554f4cb4af221880072dbb2b97
       githubRepository: sass-maker/site-health
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-02
       catalogLatestCommitAt: 2026-09-09
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: |-
     Scythe Health is essentially a local-only dashboard which has 5 main things:
@@ -88,6 +90,10 @@ identity:
   aliases: []
   family: site-health
   category: utility
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: platform
   priority: P2
   tier: active
@@ -119,15 +125,15 @@ product:
     - Node.js
   retainedGitHistory:
     firstCommitAt: 2026-05-02
-    latestCommitAt: 2026-09-09
-    retainedCommitCount: 1106
+    latestCommitAt: 2026-09-12
+    retainedCommitCount: 1112
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: site-health
-  observedRevision: 4b4a43b2835dd9e22110c9682c9388462ffa8203
+  observedRevision: 971f51a630eed9554f4cb4af221880072dbb2b97
   githubRepository: sass-maker/site-health
-  githubHomepageUrl: https://sassmaker.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/site-health
@@ -165,20 +171,12 @@ repository:
       - test:ai
       - test:backend
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sass-maker/site-health
-    defaultBranch: main
-    defaultBranchSha: 4b4a43b2835dd9e22110c9682c9388462ffa8203
-    homepage: https://sassmaker.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: Site Health CI
       file: .github/workflows/site-health-ci.yml
@@ -187,47 +185,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34375769932
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 4b4a43b2835dd9e22110c9682c9388462ffa8203
-          createdAt: 2026-09-09T16:17:20Z
-          updatedAt: 2026-09-09T16:17:50Z
-          url: https://github.com/sass-maker/site-health/actions/runs/34375769932
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34375769932
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 4b4a43b2835dd9e22110c9682c9388462ffa8203
-          createdAt: 2026-09-09T16:17:20Z
-          updatedAt: 2026-09-09T16:17:50Z
-          url: https://github.com/sass-maker/site-health/actions/runs/34375769932
-        ageDays: 0
-      attention: clear
 deployment:
   kind: none
   deployed: false
@@ -245,11 +202,11 @@ sharing:
   publicListing: hidden
   maturity: null
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Private owner dashboard, not an external product. Provider collections, normal historical database receipts and independently onboarded operator setup remain unqualified. File-backed local UI proof does not establish current provider health.
+  verifiedAt: 2026-09-11
+  reason: Internal owner dashboard. Existing owner ledger backup/restoration and all five browser areas were verified. Google Search recorded 17 project surfaces; repaired performance collection saved 34 measurements across 17 targets. Domains cannot obtain fresh provider observations, AI has no configured provider connection, and independent operator installation remains unverified. Cached evidence stays available with explicit freshness and failure states.
   changelogUrl: null
   roadmapUrl: https://github.com/sass-maker/site-health/issues
   geoIdentity: null
 notes:
-  catalog: Private local-only Site Health product. SaaS Maker owns Fleet reusable tooling; Feedback and ChatGPT Connections remain independently owned sibling repositories.
+  catalog: Private local-only Site Health product. SaaS Maker owns Fleet reusable tooling; Feedback and ChatGPT Connections remain independently owned sibling repositories. Performance collection uses installed Node 24.20.0 through mise to match PSI Swarm native SQLite.
   infrastructure: Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched.

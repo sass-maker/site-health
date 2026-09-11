@@ -1,49 +1,49 @@
 schemaVersion: 1
 projectId: issue-pages
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-28
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: IssuePages
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-25
       reviewSha256: 57840404050e7f321b4421628d548ecb34a3a40329a4320e5c9120b40d27f10c
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: issue-pages
       revision: 65e20e96cb9149baf1d7254b738027079541e4ea
       githubRepository: sarthakagrawal927/issue-pages
       expectedHomepage: https://issues.sarthakagrawal.dev
-      observedHomepage: https://issues.sarthakagrawal.dev
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: issue-pages
       revision: 65e20e96cb9149baf1d7254b738027079541e4ea
@@ -55,12 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://issues.sarthakagrawal.dev.
 ownerVoice:
   whyVerbatim: |-
     This website is a GitHub repository.
@@ -72,25 +74,29 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Make publishing a public page as simple as opening a GitHub issue.
-  currentState: Owner-only production pilot is live at issues.sarthakagrawal.dev; the issue/edit/archive/search/render loop is proven, while public moderation and authenticated GitHub rendering remain gated.
-  nextDecision: Connect the GitHub render token, then OpenAI moderation; study whether strangers publish and readers continue browsing.
+  currentState: Finished experiment; bounded artifact without an active roadmap.
+  nextDecision: "Keep: One finished example of publishing a page from a GitHub issue. Stop: A CMS, publishing network and multiple author workflows."
 identity:
   name: IssuePages
   publicName: IssuePages
   aliases: []
   family: issue-pages
-  category: utility
+  category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: experiment
   priority: P4
-  tier: active
-  attention: foundry
+  tier: parked
+  attention: ignored
   lifecycle:
     status: inactive
     shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: false
+  inRegistry: true
 product:
   description: Read public GitHub issues as focused articles; publishing requires repository-owner access.
   publicMakerNote: I wanted publishing a public page to be as simple as opening a GitHub issue.
@@ -100,7 +106,7 @@ product:
     outcome: Publish and update a durable page without adopting a separate CMS.
     mechanism: An owner-approved issue is rendered into a public page with edit, archive, search, and source-link behavior.
     proof: The owner-only production pilot has proven the issue-to-page loop at issues.sarthakagrawal.dev.
-    nextAction: Read the current pages or inspect the pilot; public authoring remains gated on moderation and authenticated rendering.
+    nextAction: Explore the finished experiment; no ongoing roadmap or maintenance promise.
   form: Issue-backed publishing website
   platforms:
     - Web
@@ -120,7 +126,7 @@ repository:
   checkout: issue-pages
   observedRevision: 65e20e96cb9149baf1d7254b738027079541e4ea
   githubRepository: sarthakagrawal927/issue-pages
-  githubHomepageUrl: https://issues.sarthakagrawal.dev
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/issue-pages
@@ -163,20 +169,12 @@ repository:
       - types
       - types:check
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/issue-pages
-    defaultBranch: main
-    defaultBranchSha: 65e20e96cb9149baf1d7254b738027079541e4ea
-    homepage: https://issues.sarthakagrawal.dev
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -184,47 +182,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34109717675
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 65e20e96cb9149baf1d7254b738027079541e4ea
-          createdAt: 2026-09-07T10:07:00Z
-          updatedAt: 2026-09-07T10:07:39Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/34109717675
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34109717675
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 65e20e96cb9149baf1d7254b738027079541e4ea
-          createdAt: 2026-09-07T10:07:00Z
-          updatedAt: 2026-09-07T10:07:39Z
-          url: https://github.com/sarthakagrawal927/issue-pages/actions/runs/34109717675
-        ageDays: 2
-      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -263,12 +220,12 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: past
   maturity: experiment
   ready: true
   verifiedAt: 2026-09-07
   reason: New issue publication not tested or required for retained read-only surface.
-  changelogUrl: https://issues.sarthakagrawal.dev/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/issue-pages/issues
   geoIdentity: null
 notes:

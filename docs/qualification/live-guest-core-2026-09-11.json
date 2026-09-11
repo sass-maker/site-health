@@ -1,0 +1,59 @@
+{
+  "observedOn": "2026-09-11",
+  "project": "live",
+  "origin": "https://live.significanthobbies.com",
+  "sourceSha": "db4286fb9df6f25854e7b75e038b26f47edf5c84",
+  "commits": [
+    "7d8c74f66869ce8d91fd2f739bede0b1d467460b",
+    "db4286fb9df6f25854e7b75e038b26f47edf5c84"
+  ],
+  "checks": {
+    "guestOnboarding": "Seven steps completed with isolated synthetic data; saved bucket item present",
+    "bucketList": "Added second item, marked complete, reloaded; both persisted",
+    "discoveryLinks": "Live idea page build/start actions now target /bucket-list",
+    "onboardingReturn": "Live Enter my life now navigates to /live-more and shows saved item after reload",
+    "focusedRegression": "Existing desktop onboarding spec passed on isolated local port48741",
+    "biome": "Passed changed files and full 442-file pre-push check",
+    "typecheck": "passed",
+    "docs": "30 files, zero errors or warnings",
+    "currentHeadActions": [
+      {
+        "run": 34594621854,
+        "name": "Browser CI",
+        "conclusion": "success"
+      },
+      {
+        "run": 34594621816,
+        "name": "Quality",
+        "conclusion": "success"
+      },
+      {
+        "run": 34594648914,
+        "name": "Deploy to Cloudflare Workers",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "release": {
+    "workflow": 34594648914,
+    "conclusion": "success",
+    "deploymentId": "beb99925-dc8d-4bc3-861c-4af9cc174c77",
+    "versionId": "0b523b91-b1df-4a97-9eca-64354b53f565",
+    "tag": "db4286fb9df6f25854e7b75e038b26f47edf5c84",
+    "trafficPercent": 100,
+    "routesChanged": false,
+    "credentialsChanged": false
+  },
+  "remaining": [
+    "Google OAuth redirect_uri_mismatch for the missing Live callback; prepared exact callback addition awaits approval.",
+    "Owner account saving and Hub return remain unqualified until callback is configured."
+  ],
+  "cleanup": {
+    "localTestServerStopped": true,
+    "port48741Free": true,
+    "temporaryConfigMovedToPrivateEvidence": true,
+    "automaticNextInstructionsRestored": true,
+    "unrelatedTabsAndStoresPreserved": true,
+    "isolatedGuestTabClosed": true
+  }
+}

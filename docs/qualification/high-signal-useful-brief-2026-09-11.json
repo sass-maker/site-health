@@ -1,0 +1,108 @@
+{
+  "checkedAt": "2026-09-11T11:00:06.304727+00:00",
+  "status": "passed-operator-curated-minimum",
+  "sourceCommit": "4f484f2d4e3e6c4b502079603da750c6c2a66a1e",
+  "acquisition": "operator-curated existing public September sources, imported through normal D1 audit/writer path",
+  "url": "https://highsignal.app/signals/openai-astra-terminal-bench-improvement-independent-september-2026",
+  "publication": {
+    "published": 1,
+    "killed": 0,
+    "held": 0,
+    "errors": 0,
+    "signalId": "518836626da1b6f2",
+    "claimId": "189d14a62deab113",
+    "claimVersion": 1,
+    "independentOrigins": 2,
+    "bodySha256": "e260ff5927d3733c67b6b619f413cbcb861e41b5485b789b7eef4472403165e4"
+  },
+  "replay": {
+    "passed": true,
+    "signalWrites": 0,
+    "proofWrites": 0,
+    "skipped": 1,
+    "failed": 0,
+    "bodyEvidenceAndClaimPreserved": true
+  },
+  "installedConsumer": {
+    "checkedAt": "2026-09-11T10:47:40.921Z",
+    "source": "actual installed MCP consumer calls",
+    "slug": "openai-astra-terminal-bench-improvement-independent-september-2026",
+    "daily": {
+      "ok": true,
+      "editionDate": "2026-09-11",
+      "publishStatus": "published",
+      "verifiedSignalCount": 1,
+      "claim": {
+        "claimId": "189d14a62deab113",
+        "assertion": "What changed",
+        "version": 1,
+        "evidenceCount": 2,
+        "primaryCount": 1,
+        "corroborationCount": 1,
+        "contradictionCount": 0,
+        "independentOriginCount": 2,
+        "evidenceUrls": [
+          "https://openai.com/index/gpt-6-astra/",
+          "https://artificialanalysis.ai/articles/benchmarking-gpt-6-astra"
+        ]
+      }
+    },
+    "signal": {
+      "ok": true,
+      "reviewStatus": "published",
+      "evidenceUrls": [
+        "https://openai.com/index/gpt-6-astra/",
+        "https://artificialanalysis.ai/articles/benchmarking-gpt-6-astra"
+      ],
+      "bodySha256": "e260ff5927d3733c67b6b619f413cbcb861e41b5485b789b7eef4472403165e4"
+    },
+    "browser": {
+      "checkedAt": "2026-09-11T11:00:06.304727+00:00",
+      "homeVerifiedSignals": 1,
+      "homeLinkToDetailPassed": true,
+      "detailReloadPassed": true,
+      "claimProofVisible": true,
+      "bothSourceLinksVisible": true,
+      "uncertaintyVisible": true,
+      "priorFailure": "Before repair, cached draft plus streamed HTTP200 not-found responses hid the published detail. Repaired and rechecked after deployment."
+    }
+  },
+  "localQuality": "pnpm quality passed and 15 focused Python audit tests passed",
+  "review": "Independent bounded review passed; complete publish receipt validation enforced",
+  "ci": {
+    "run": 34591448066,
+    "status": "success",
+    "docsRun": 34591448070,
+    "docsStatus": "success"
+  },
+  "deploy": {
+    "apiRun": 34591467832,
+    "webRun": 34591470974,
+    "status": "success",
+    "api": {
+      "deploymentId": "4a077c20-5622-4c90-aa58-4d6c9b805f79",
+      "versionId": "4aa16a5a-1d8e-4ce4-907e-157d9c53bac5",
+      "percentage": 100
+    },
+    "web": {
+      "deploymentId": "8cf4e216-c7d6-4050-8821-d33d910ecbc2",
+      "versionId": "f802d5ae-2a6f-4253-8dc3-e2ab9be85af7",
+      "percentage": 100
+    }
+  },
+  "limitations": [
+    "This demonstrates one useful operator-curated edition; reliable unattended acquisition remains issue 133.",
+    "No Git markdown archive was created by the D1-only operator import."
+  ],
+  "browser": {
+    "checkedAt": "2026-09-11T11:00:06.304727+00:00",
+    "homeVerifiedSignals": 1,
+    "homeLinkToDetailPassed": true,
+    "detailReloadPassed": true,
+    "claimProofVisible": true,
+    "bothSourceLinksVisible": true,
+    "uncertaintyVisible": true,
+    "priorFailure": "Before repair, cached draft plus streamed HTTP200 not-found responses hid the published detail. Repaired and rechecked after deployment."
+  },
+  "catalogValidation": "All58dossiers refreshed; SiteHealth pnpm run check passed; owner archive unchanged."
+}

@@ -1,0 +1,193 @@
+schemaVersion: 1
+projectId: storagedaddy
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-11
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: unavailable
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: StorageDaddy
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 717d82e30e6e65db941463289348752623c834efe4b1e542c113467d78b83b04
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-11
+      state: unavailable
+      checkout: storagedaddy
+      revision: null
+      githubRepository: null
+      expectedHomepage: https://storagedaddy.significanthobbies.com/
+      observedHomepage: null
+      worktree: null
+    retainedGitHistory:
+      observedAt: 2026-09-11
+      state: unavailable
+      checkout: storagedaddy
+      revision: null
+      githubRepository: null
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: null
+      catalogLatestCommitAt: null
+      catalogDrift: []
+      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/storagedaddy rev-parse HEAD"
+    githubActions:
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://storagedaddy.significanthobbies.com/.
+    - The owning checkout was unavailable during repository observation.
+ownerVoice:
+  whyVerbatim: Working native Mac app
+  fullReviewVerbatim: |-
+    Working native Mac app
+
+    Ensure to make this the most efficient tool in the market and use the most efficient AI tokens. Use other agents like GLM, Luna, and Terra wherever needed.
+
+    Should be very pretty. You can check out Mole to see how to do it but ideally I don’t think it should be very complicated.
+
+    lets call it storagedaddy
+    make it very pretty
+
+    I personally don’t love the design of Disc Buddy so I want you to rethink how we can design it.
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Build a pretty, efficient native Mac storage analyzer.
+  currentState: Working native Mac app; private local prototype with no public distribution.
+  nextDecision: Measure correctness and runtime efficiency before expanding scope.
+identity:
+  name: StorageDaddy
+  publicName: StorageDaddy
+  aliases: []
+  family: storagedaddy
+  category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: true
+  kind: experiment
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    shareable: true
+    resumeCondition: null
+  operationalStatus: live
+  authenticationModel: local-only
+  inRegistry: true
+product:
+  description: A native Mac storage analyzer for developer caches, builds, dependencies and AI session archives, with reviewed cleanup.
+  publicMakerNote: I am building a native Mac storage analyzer that makes disk usage clear and cleanup easy to review.
+  purposeContract:
+    purpose: StorageDaddy helps developers understand and review local storage through a native visual scanner, developer classifications and verified, deliberate cleanup.
+    audience: Developers whose Mac builds, dependencies, caches and AI session histories consume storage.
+    outcome: Find large storage consumers and review what to archive or move to Trash.
+    mechanism: A local SwiftUI and AppKit scanner provides visual exploration, developer insights, reviewed cache cleanup and compact AI conversation exports. Sparkle provides signed macOS update checks.
+    proof: Signed and notarized macOS 14+ Apple-silicon beta, measured scans, tested cancellation, verified archive cleanup and restoration, and a publicly downloaded DMG with matching checksum.
+    nextAction: Download the free beta at storagedaddy.significanthobbies.com, scan a folder, and review what to archive or move to Trash.
+  form: macOS app
+  platforms:
+    - macOS
+    - Web
+  prominentTools:
+    - SwiftUI
+    - Rust
+    - Cloudflare Workers
+    - Sparkle
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: storagedaddy
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
+  visibility: private
+  url: https://github.com/sarthakagrawal927/storagedaddy
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - storagedaddy.significanthobbies.com
+  primaryUrl: https://storagedaddy.significanthobbies.com/
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: storagedaddy
+        method: wrangler-direct
+        state: live
+        versionId: 0b64e5d4-e38b-43f6-bde7-6b5fe449bca4
+        attributionReason: Dedicated StorageDaddy custom subdomain with legacy prefix redirects; Significant Hobbies owns the shared apex application.
+    resources:
+      - provider: cloudflare
+        kind: analytics-engine
+        name: storagedaddy_launch
+        state: active
+        attributionReason: Aggregate page and full download request events for StorageDaddy launch; Cloudflare Studio query verified ingestion (one page view and two download requests from qualification).
+        scope: project
+        operationalOwner: storagedaddy
+      - provider: cloudflare
+        kind: custom-domain
+        name: storagedaddy.significanthobbies.com
+        state: active
+        attributionReason: Owner-requested canonical StorageDaddy public site; attached to the storagedaddy Worker.
+        scope: project
+        operationalOwner: storagedaddy
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: beta
+  ready: true
+  verifiedAt: 2026-09-11
+  reason: Free Apple-silicon macOS14+ 0.1.1 beta signed/notarized and publicly downloadable with matching SHA-256. Synthetic archive export/review/Trash/Put Back hash acceptance passed after archive metadata fix. Owner-approved Homebrew cache moved through normal UI. Beta limits documented.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/storagedaddy/issues
+  geoIdentity: null
+notes:
+  catalog: StorageDaddy 0.1.2 build22 beta is public with the selected doodle icon and signed Sparkle update feed. Executable unchanged from tested build21. Source not committed or pushed.
+  infrastructure: "StorageDaddy 0.1.2 build22 doodle-icon release: signed/notarized DMG and Ed25519-signed Sparkle appcast on existing dedicated Worker. Public /download and /updates/appcast.xml; prior versioned archives retained. SHA-256 79319966707d37423a51f309d58d2c8416f7ed6c2f922efde9742bfbf00373f3. Executable unchanged from tested build21; updater roundtrip build20-to-build21 already passed. No new provider resources; signing key stays in local Keychain."

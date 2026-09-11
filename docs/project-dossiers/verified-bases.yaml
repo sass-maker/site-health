@@ -1,53 +1,53 @@
 schemaVersion: 1
 projectId: verified-bases
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-23
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Verified Bases
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 9f6621f4383edfc05b28461008b16101da6386bc11b6efb4120e41429e4b5006
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: verified-bases
+      checkout: ../fleet-archive/verified-bases
       revision: c2c389e20b51e1fda144ff5250fe47274ba272d4
-      githubRepository: sass-maker/verified-bases
+      githubRepository: sarthakagrawal927/verified-bases
       expectedHomepage: null
-      observedHomepage: https://verified-bases-web.pages.dev
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: verified-bases
+      checkout: ../fleet-archive/verified-bases
       revision: c2c389e20b51e1fda144ff5250fe47274ba272d4
-      githubRepository: sass-maker/verified-bases
+      githubRepository: sarthakagrawal927/verified-bases
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-16
@@ -55,13 +55,13 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
-      stale: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        ignored: 2
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
   fullReviewVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
@@ -69,14 +69,18 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Sell inexpensive, verified versions of the owner's iOS and Mac codebases as templates.
-  currentState: Marketplace and fulfilment prototype exists, but expected ROI is unclear.
-  nextDecision: Validate buyer demand and support economics before reviving it or folding the idea into a successor.
+  currentState: Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged.
+  nextDecision: "Keep: The template/storefront concept as historical work. Stop: A marketplace, support commitments and more inventory without buyers."
 identity:
   name: Verified Bases
   publicName: null
   aliases: []
   family: verified-bases
   category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: experiment
   priority: P4
   tier: out-of-fleet
@@ -84,7 +88,7 @@ identity:
   lifecycle:
     status: inactive
     shareable: false
-    resumeCondition: A concrete buyer need and validated support economics for one verified software package; prefer an existing storefront before reviving marketplace infrastructure.
+    resumeCondition: null
   operationalStatus: retained-resources
   authenticationModel: public-persistent
   inRegistry: false
@@ -97,7 +101,7 @@ product:
     outcome: Start from a reviewed native base with clearer quality and delivery expectations.
     mechanism: A proposed storefront paired curated code packages with previews, verification, ownership, fulfilment, and optional assistance.
     proof: The marketplace and fulfilment prototype was archived before paid checkout or any catalogue listing proved buyer demand.
-    nextAction: Read the retained research identity only; there is no active store or purchasable template until demand and support economics are validated.
+    nextAction: Historical work only; no active roadmap.
   form: Research dataset
   platforms:
     - GitHub
@@ -111,13 +115,13 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: verified-bases
+  checkout: ../fleet-archive/verified-bases
   observedRevision: c2c389e20b51e1fda144ff5250fe47274ba272d4
-  githubRepository: sass-maker/verified-bases
-  githubHomepageUrl: https://verified-bases-web.pages.dev
+  githubRepository: sarthakagrawal927/verified-bases
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/sass-maker/verified-bases
+  url: https://github.com/sarthakagrawal927/verified-bases
   aliases: []
   sourceOverride: null
   tooling:
@@ -142,21 +146,12 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
-    stale: 1
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sass-maker/verified-bases
-    defaultBranch: main
-    defaultBranchSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
-    homepage: https://verified-bases-web.pages.dev
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: ci
       file: .github/workflows/ci.yml
@@ -164,83 +159,11 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34227660448
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
-          createdAt: 2026-09-08T12:43:07Z
-          updatedAt: 2026-09-08T12:43:38Z
-          url: https://github.com/sass-maker/verified-bases/actions/runs/34227660448
-        ageDays: 1
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34227660448
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
-          createdAt: 2026-09-08T12:43:07Z
-          updatedAt: 2026-09-08T12:43:38Z
-          url: https://github.com/sass-maker/verified-bases/actions/runs/34227660448
-        ageDays: 1
-      attention: ignored
     - name: Deploy API Worker
       file: .github/workflows/deploy-api.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stale
-        reason: latest run is 68 days old
-        apiState: active
-        lastRun:
-          id: 28654888874
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 2a83e566dc100fb0f7a79b94ac0ecb7de1a6c5d6
-          createdAt: 2026-07-03T10:32:56Z
-          updatedAt: 2026-07-03T10:33:51Z
-          url: https://github.com/sass-maker/verified-bases/actions/runs/28654888874
-        ageDays: 68
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -287,7 +210,7 @@ sharing:
   verifiedAt: 2026-09-08
   reason: Owner-held archived experiment, not an active launch queue. Retained TinyGPT listing is unqualified; preview, Pages and target hostnames fail local DNS. Launch requirements consolidated into README; zero open GitHub issues. Prefer an existing storefront if buyer demand appears.
   changelogUrl: null
-  roadmapUrl: https://github.com/sass-maker/verified-bases/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/verified-bases/issues
   geoIdentity: null
 notes:
   catalog: Historical product identity with a retained public checkout. The verified-bases-api Worker plus D1 and R2 resources still exist, but no live public route was found in the 2026-08-23 inventory.

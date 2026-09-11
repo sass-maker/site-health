@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: drank
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,31 +23,31 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: f2d2d7296870638728646e18422442d870c65ec7514b07bb9c0b3ca3e7bae039
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: drank
+      checkout: ../fleet-archive/drank
       revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
-      githubRepository: sass-maker/drank
+      githubRepository: sarthakagrawal927/drank
       expectedHomepage: https://domains.sassmaker.com
-      observedHomepage: https://domains.sassmaker.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: drank
+      checkout: ../fleet-archive/drank
       revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
-      githubRepository: sass-maker/drank
+      githubRepository: sarthakagrawal927/drank
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-10
@@ -55,12 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 2
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        ignored: 2
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://domains.sassmaker.com.
 ownerVoice:
   whyVerbatim: Drank, I started off because The domain ranking API suddenly got free and I was like I should have a tool to check domain rankings of my products.
   fullReviewVerbatim: |-
@@ -71,8 +73,8 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Track Domain Rating after the relevant API became freely usable.
-  currentState: Finished and already consumed by Site Health.
-  nextDecision: Maintain the adapter/data flow; no independent feature roadmap.
+  currentState: Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged.
+  nextDecision: "Keep: The domain-metric adapter and references used by Site Health. Stop: A separate public dashboard and independent product roadmap."
 identity:
   name: DRank
   publicName: DRank
@@ -80,17 +82,21 @@ identity:
     - Drank
   family: drank
   category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P4
-  tier: active
-  attention: toolbox
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
     status: inactive
     shareable: false
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: Domain Rating intelligence for product, SEO, and market research.
   publicMakerNote: I built DRank when domain-rating data became accessible enough to track the strength of my own domains over time.
@@ -100,7 +106,7 @@ product:
     outcome: See current Domain Rating and its changes without manually checking every domain.
     mechanism: A focused adapter collects available domain-rating data and feeds a consistent history into Site Health.
     proof: The integration is complete and already supplies domain-strength evidence to the private portfolio dashboard.
-    nextAction: Use the evidence through Site Health; maintain the adapter rather than expecting a separate product roadmap.
+    nextAction: Historical work only; no active roadmap.
   form: Web tool
   platforms:
     - Web
@@ -116,13 +122,13 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: drank
+  checkout: ../fleet-archive/drank
   observedRevision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
-  githubRepository: sass-maker/drank
-  githubHomepageUrl: https://domains.sassmaker.com
+  githubRepository: sarthakagrawal927/drank
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/sass-maker/drank
+  url: https://github.com/sarthakagrawal927/drank
   aliases: []
   sourceOverride: null
   tooling:
@@ -168,20 +174,12 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 2
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sass-maker/drank
-    defaultBranch: main
-    defaultBranchSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
-    homepage: https://domains.sassmaker.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: DRank CI
       file: .github/workflows/ci.yml
@@ -190,47 +188,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34198440414
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
-          createdAt: 2026-09-08T07:15:30Z
-          updatedAt: 2026-09-08T07:16:22Z
-          url: https://github.com/sass-maker/drank/actions/runs/34198440414
-        ageDays: 1
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34198440414
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
-          createdAt: 2026-09-08T07:15:30Z
-          updatedAt: 2026-09-08T07:16:22Z
-          url: https://github.com/sass-maker/drank/actions/runs/34198440414
-        ageDays: 1
-      attention: ignored
     - name: Update Global DR History
       file: .github/workflows/update-global-dr.yml
       triggers:
@@ -238,48 +195,6 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 4 * * 1
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34104568403
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 73dd19ad2d51e812026016780018e5b7c487a066
-          createdAt: 2026-09-07T09:10:56Z
-          updatedAt: 2026-09-07T09:11:56Z
-          url: https://github.com/sass-maker/drank/actions/runs/34104568403
-        ageDays: 2
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 34104568403
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 73dd19ad2d51e812026016780018e5b7c487a066
-          createdAt: 2026-09-07T09:10:56Z
-          updatedAt: 2026-09-07T09:11:56Z
-          url: https://github.com/sass-maker/drank/actions/runs/34104568403
-        ageDays: 2
-        freshnessDays: 9
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -314,13 +229,13 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-08
   reason: "Scheduled direct-provider collection remains unqualified: AHREFS_API_KEY is absent from repository Actions secrets (metadata-only check). All 45 shared latest observations remain August 17. Separate raw-data redistribution permission is unresolved; advisor and public nominations remain untested."
-  changelogUrl: https://domains.sassmaker.com/changelog
-  roadmapUrl: https://github.com/sass-maker/drank/issues
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/drank/issues
   geoIdentity:
     id: drank
     name: DRank

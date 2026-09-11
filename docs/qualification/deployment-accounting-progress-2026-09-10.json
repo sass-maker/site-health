@@ -1,0 +1,182 @@
+{
+  "date": "2026-09-10",
+  "gitstat": {
+    "deploymentId": "46d2caa8-2807-41d3-9bd4-cb793312de27",
+    "sourceSha": "cb9d0ff663b06c2f53178dbabff466444926b77a",
+    "url": "https://46d2caa8.gitstat.pages.dev",
+    "verifiedLiveAPI": "https://git.significanthobbies.com/api/ai",
+    "checks": "All six deploy gates, build, provider production listing and live API passed."
+  },
+  "posttrainllm": {
+    "runId": 34410153418,
+    "state": "success-production-verified",
+    "deploymentId": "89085e6a-b3e6-4518-b390-da05e6c01f3f",
+    "sourcePrefix": "4d41f8b",
+    "liveProbe": "https://posttrainllm.com/.well-known/agent-skills/index.json HTTP 200",
+    "sourceSha": "4d41f8bdbd957f3576b80bd17b99557aaddc6ae2"
+  },
+  "counts": {
+    "current": 54,
+    "needs-attention": 5,
+    "unverified": 0,
+    "not-applicable": 23
+  },
+  "remainingWork": "Five blockers remain in flagged-deployment-resolution-2026-09-10.json. No unverified rows remain in the default 82-repository view.",
+  "veg-protein-food": {
+    "state": "success-production-verified",
+    "deploymentUrl": "https://7f7a4275.veg-protein-food.pages.dev",
+    "sourcePrefix": "665bff53",
+    "checks": "Six release gates, static build and production deployment passed; live homepage HTTP 200.",
+    "deploymentId": "7f7a4275-183e-411c-915b-96475ecfbbbd",
+    "sourceSha": "665bff53538953ac329d6b2322cab9d95163022f"
+  },
+  "high-signal": {
+    "deploymentId": "ee6a9f6a-9935-4a9d-acf2-e1d49b02f484",
+    "versionId": "7081a4b6-678b-4d68-b9bb-002f964b0745",
+    "sourceSha": "94a24ce2ced4137d0db60f829fcb68e8477aa484",
+    "trafficPercent": 100,
+    "verifiedAt": "2026-09-10",
+    "state": "success-production-verified"
+  },
+  "issue-pages": {
+    "deploymentId": "d743716e-0d10-49e3-a20a-3e4e4c203463",
+    "versionId": "df19d8c3-84ef-4c43-bc8e-c3530b7614d1",
+    "sourceSha": "65e20e96cb9149baf1d7254b738027079541e4ea",
+    "trafficPercent": 100,
+    "verifiedAt": "2026-09-10",
+    "state": "success-production-verified"
+  },
+  "what-it-takes-to-win": {
+    "status": "current",
+    "summary": "Release checks and exact-head CI passed; production Pages source verified; public URL responds HTTP 200.",
+    "sourceSha": "ac61e3ffb173aa00aed518ac0c13a0c68cd55313",
+    "sourcePath": "what-it-takes-to-win",
+    "deploymentId": "f2e3c29e-e26a-4436-8167-91f33212f359",
+    "deploymentUrl": "https://f2e3c29e.success-by-26.pages.dev",
+    "checks": [
+      "full pnpm ready passed",
+      "0 critical/high audit findings",
+      "CI 34413702866 passed"
+    ]
+  },
+  "backpropagate": {
+    "state": "success-production-verified",
+    "sourceSha": "c704e2d0ac899ebbbcc0d3a6ff35968d0385595d",
+    "deploymentId": "9d6632be-b198-4cc3-b225-a453955a6eeb",
+    "url": "https://backpropagate.pages.dev",
+    "checks": "Six release gates, lint and build passed. Local browser verified repeated boss turns. Public HTTP 200; live browser blocked by browser tool network policy."
+  },
+  "ludo-pass-play": {
+    "state": "success-production-verified",
+    "sourceSha": "440e342bbd92a1a8b173ec2f3c43f9fdd5515285",
+    "deploymentId": "6ed8a42f-1bab-492d-9124-5a7c87a0dba6",
+    "url": "https://ludo-pass-play.pages.dev",
+    "checks": "Six release gates, 20 game tests, TypeScript and build passed. Local browser verified two-player start and dice roll. Public HTTP 200."
+  },
+  "aliveville": {
+    "state": "success-production-verified",
+    "sourceSha": "a879975756fd30d853e722d6370218007a0549d5",
+    "deploymentId": "ffbde06e-a222-4eeb-b819-c38cb190e77a",
+    "versionId": "ff80c529-29e3-4baf-846c-7f152a2144c0",
+    "trafficPercent": 100,
+    "verifiedAt": "2026-09-10",
+    "httpStatus": 200,
+    "checks": "Exact-head CI and six gates passed. Readiness suite passed. Local and live 3D screenshots inspected; live playtest exposed retired telemetry 404s, fixed and redeployed. Final live JS bundle verified to omit the dead collector. Cloud/on-device AI not qualified."
+  },
+  "clash-royale-meta": {
+    "state": "success-production-verified",
+    "sourceSha": "12368472ae0e79aa1b4fe0fb82b00fe2403b3378",
+    "deploymentId": "08a0352c-7b65-4f41-aa4f-2fa32750ef71",
+    "versionId": "e7339fed-b4b1-46c3-b720-0acba896a7e2",
+    "trafficPercent": 100,
+    "verifiedAt": "2026-09-10",
+    "httpStatus": 200,
+    "checks": "Standalone CI, lint, Next build and OpenNext Worker bundle passed. Six deploy gates passed. Live server renders the Clash Royale Meta heading with HTTP 200. GitHub homepage corrected to the Worker URL."
+  },
+  "latestResolutionEvidence": "docs/qualification/flagged-deployment-resolution-2026-09-10.json",
+  "psi-swarm": {
+    "status": "current",
+    "summary": "Release checks and exact-head CI passed; production Pages source verified; public URL responds HTTP 200.",
+    "sourceSha": "af4ea1b4fcf22e39310ead8ec1d1f19c531bac33",
+    "sourcePath": "psi-swarm",
+    "deploymentId": "652bd3d2-cddf-4541-809f-8a0c36749ed6",
+    "deploymentUrl": "https://652bd3d2.psi-swarm-web.pages.dev",
+    "checks": [
+      "full quality passed on Node 24.20.0",
+      "0 critical/high audit findings",
+      "CI 34414192148 passed",
+      "deployment workflow 34414625397 passed"
+    ]
+  },
+  "setline": {
+    "status": "current",
+    "summary": "Release checks and exact-head CI passed; production Pages source verified; public URL responds HTTP 200. This verifies the shared-factory landing, not a new iPhone build.",
+    "sourceSha": "c5f994d9a886e9701dd97c7cf9de383c07acfeab",
+    "sourcePath": "ios-landings",
+    "deploymentId": "cc365369-1e3e-452f-bb17-9de756a39453",
+    "deploymentUrl": "https://cc365369.setline-a4r.pages.dev",
+    "checks": [
+      "4 deployment contract tests passed",
+      "all-product CI 34414064381 passed",
+      "existing-only Setline deployment completed"
+    ]
+  },
+  "truehire": {
+    "status": "current",
+    "summary": "Archived research Worker deployed at current main with 100 percent traffic. Live synthetic sample profile loads with explicit demo/archive labels. No marketplace relaunched.",
+    "sourceSha": "150d48822ad1197862fd67df56c7831a7b3374ef",
+    "deploymentId": "153813f4-8eed-4a76-acaf-0df4a44362ec",
+    "versionId": "cb2974e8-b0ab-49ae-b0de-fc79bce51611",
+    "traffic": 100,
+    "checks": [
+      "Package tests and exact-head CI 34414995825 passed",
+      "No pending D1 migrations",
+      "Cloudflare production build passed",
+      "Live homepage HTTP 200 and /demo browser smoke passed"
+    ],
+    "automationIssue": "GitHub workflow 34415233603 failed because CLOUDFLARE_API_TOKEN is missing. Released through existing local Wrangler login; no secret changes."
+  },
+  "saas-maker": {
+    "status": "current",
+    "summary": "All three hosted components are source-equivalent to current main. API and inbox source, workspace dependencies and lockfile have no changes since their deployed revision; directory inputs have no changes since its release. Public directory responds.",
+    "sourceSha": "f4f173070b37bd782de26b116e8dab09bdeb1104",
+    "components": [
+      {
+        "name": "saasmaker-api",
+        "deploymentId": "369c55e0-becc-43bf-a7dc-23df7916a821",
+        "sourceSha": "24933312f208e3614e2cf3426366763a384d1757",
+        "traffic": 100,
+        "parity": "component-source-equivalent"
+      },
+      {
+        "name": "saasmaker-dashboard",
+        "deploymentId": "efe2fcd1-f251-40f9-9d80-daa9e73ef2e7",
+        "sourceSha": "24933312f208e3614e2cf3426366763a384d1757",
+        "traffic": 100,
+        "parity": "component-source-equivalent"
+      },
+      {
+        "name": "saas-maker-home",
+        "deploymentId": "e3d262d1-7b28-4903-8956-1042e050de4f",
+        "sourceSha": "e391a869a0fd26d7d9be4156deef32716ac9c792",
+        "parity": "component-source-equivalent"
+      }
+    ],
+    "checks": [
+      "Current provider versions at 100 percent traffic",
+      "git diff 2493331..f4f1730 empty for workers/api, apps/cockpit, contracts, lockfile and workspace configuration",
+      "git diff e391a86..f4f1730 empty for directory source, catalog, packages and lockfile"
+    ]
+  },
+  "knowledge-base": {
+    "status": "needs-attention",
+    "summary": "CI and all 16 local predeploy gates pass after fixing symlink-cycle scanning. Production release awaits required additive D1 migrations.",
+    "sourceSha": "eef2327498799abedb0d173e8155191cf717657c",
+    "blocker": "Explicit migration approval pending for 0008_file_artifact_ownership.sql, 0009_file_publication_visibility.sql and 0010_file_dispatch_recovery.sql. Existing production left running.",
+    "checks": [
+      "12 audit regression tests passed",
+      "all 16 predeploy gates passed",
+      "exact-head CI 34414777808 passed"
+    ]
+  }
+}

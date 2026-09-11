@@ -1,68 +1,69 @@
 schemaVersion: 1
 projectId: live
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-09-09
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Live
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 441d4838d21077af4bc4513865ec9fb571b9b6c889cef9dcf0234c1dbca6af19
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: live
-      revision: 2c4fe1569d982e5340b7dd7e7853a06de1018746
+      revision: b13d49258d8eeaa7d92263c02ef270c84f5b4999
       githubRepository: Significant-Hobbies/live
       expectedHomepage: https://live.significanthobbies.com
-      observedHomepage: https://live.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: live
-      revision: 2c4fe1569d982e5340b7dd7e7853a06de1018746
+      revision: b13d49258d8eeaa7d92263c02ef270c84f5b4999
       githubRepository: Significant-Hobbies/live
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-03-01
       catalogLatestCommitAt: 2026-09-09
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 5
-      failing: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 5
       attention: &a2
-        clear: 5
-        review-history: 1
-  unknowns: []
+        unclassified: 5
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://live.significanthobbies.com.
 ownerVoice:
   whyVerbatim: "Help me understand: where was the lab repository and is it still inside Significant Hobbies?"
   fullReviewVerbatim: |-
@@ -85,7 +86,11 @@ identity:
   aliases:
     - significant-hobbies-live
   family: significanthobbies
-  category: utility
+  category: media
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P2
   tier: active
@@ -98,7 +103,7 @@ identity:
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: A free personality and hobby quiz that suggests a small experiment to try; account planning is not yet qualified.
+  description: Explore hobbies and possibilities, build a personal bucket list, and save your progress on this device or in your account.
   publicMakerNote: I wanted a product that helps people live more intentionally through goals, possibilities, and things worth anticipating.
   purposeContract:
     purpose: Live helps a person turn passive wanting into a life they can deliberately imagine, plan, and experience.
@@ -117,19 +122,20 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-03-01
-    latestCommitAt: 2026-09-09
-    retainedCommitCount: 569
+    latestCommitAt: 2026-09-12
+    retainedCommitCount: 574
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: live
-  observedRevision: 2c4fe1569d982e5340b7dd7e7853a06de1018746
+  observedRevision: b13d49258d8eeaa7d92263c02ef270c84f5b4999
   githubRepository: Significant-Hobbies/live
-  githubHomepageUrl: https://live.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/live
-  aliases: []
+  aliases:
+    - https://github.com/sarthakagrawal927/hub-backend
   sourceOverride: null
   tooling:
     declaredPackageManager: pnpm@10.33.2
@@ -200,21 +206,12 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 5
-    failing: 1
+    unverifiable: 5
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/live
-    defaultBranch: main
-    defaultBranchSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-    homepage: https://live.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: Browser CI
       file: .github/workflows/ci.yml
@@ -222,177 +219,23 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34334839982
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T09:27:52Z
-          updatedAt: 2026-09-09T09:33:51Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34334839982
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34334839982
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T09:27:52Z
-          updatedAt: 2026-09-09T09:33:51Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34334839982
-        ageDays: 0
-      attention: clear
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: failing
-        reason: latest run concluded failure
-        apiState: active
-        lastRun:
-          id: 34205783560
-          status: completed
-          conclusion: failure
-          event: workflow_dispatch
-          branch: main
-          headSha: 054f80218f890bb695d7aae350bdc51212e0e7c0
-          createdAt: 2026-09-08T08:40:33Z
-          updatedAt: 2026-09-08T08:40:39Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34205783560
-        ageDays: 1
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: review-history
     - name: docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34334839926
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T09:27:52Z
-          updatedAt: 2026-09-09T09:28:01Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34334839926
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34334839926
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T09:27:52Z
-          updatedAt: 2026-09-09T09:28:01Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34334839926
-        ageDays: 0
-      attention: clear
     - name: Quality
       file: .github/workflows/quality.yml
       triggers:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34334840034
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T09:27:52Z
-          updatedAt: 2026-09-09T09:29:36Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34334840034
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34334840034
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T09:27:52Z
-          updatedAt: 2026-09-09T09:29:36Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34334840034
-        ageDays: 0
-      attention: clear
     - name: Production Smoke
       file: .github/workflows/smoke.yml
       triggers:
@@ -400,83 +243,6 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 */6 * * *
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34374324235
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T16:03:47Z
-          updatedAt: 2026-09-09T16:04:05Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34374324235
-        ageDays: 0
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 34374324235
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 2c4fe1569d982e5340b7dd7e7853a06de1018746
-          createdAt: 2026-09-09T16:03:47Z
-          updatedAt: 2026-09-09T16:04:05Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34374324235
-        ageDays: 0
-        freshnessDays: 1
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
-    - name: Dependabot Updates
-      file: dynamic/dependabot/dependabot-updates
-      triggers: []
-      schedules: []
-      inventory:
-        source: github-generated
-        local: false
-        remote: true
-      ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34128326947
-          status: completed
-          conclusion: success
-          event: dynamic
-          branch: main
-          headSha: b7a47863699ca954cda62a734c67953fddcd8b29
-          createdAt: 2026-09-07T13:36:20Z
-          updatedAt: 2026-09-07T13:37:02Z
-          url: https://github.com/Significant-Hobbies/live/actions/runs/34128326947
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -492,6 +258,14 @@ deployment:
         name: significanthobbies
         method: open-next-wrangler
         state: live
+        verification:
+          observedAt: 2026-09-11T19:45:28.798636+00:00
+          deploymentId: 6911b565-36b2-4072-a002-70fa085da49e
+          versionId: 826c6b1a-1081-4cc0-98cd-c0eec1edf0e9
+          sourceCommit: b13d49258d8eeaa7d92263c02ef270c84f5b4999
+          trafficPercent: 100
+          state: success-production-verified
+          evidencePath: ../saas-maker/.fleet-local/live-repository-icon-release-20260912.json
     resources:
       - provider: cloudflare
         kind: d1
@@ -556,8 +330,8 @@ sharing:
   publicListing: maintained
   maturity: experiment
   ready: true
-  verifiedAt: 2026-09-09
-  reason: Guest sharing only. Security release 207f11bff5e03207bbe0ffaf79fa446b4629ef72 passed 593 quality tests and 142 hosted browser tests; Worker ecd54c8c-8df1-4c60-8f52-0942b3b89ced is verified at 100% traffic with the full SHA tag. Actual 390px production landing returns 200, has readable spacing and no horizontal overflow. Actual Google sign-in still fails with provider redirect_uri_mismatch; authenticated persistence, isolation and Hub continuity remain unqualified.
+  verifiedAt: 2026-09-11
+  reason: "Production guest onboarding, bucket-list add/complete and local reload persistence passed. Existing Google OAuth callback is repaired; owner login and Hub return pass. Exact dc0ad9b5 is deployed at 100%, with quality, full browser CI and deployment smokes green. Owner bucket-list opens without DOB onboarding; a synthetic item was imported, completed, reloaded, reopened, reloaded, deleted and confirmed absent after reload. Original owner records were preserved. Receipts: docs/qualification/live-guest-core-2026-09-11.json and docs/qualification/live-bucket-owner-core-2026-09-11.json."
   changelogUrl: https://live.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/live/issues
   geoIdentity:
@@ -581,5 +355,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Independent home for the original Significant Hobbies experience, data, authentication, bookmarks, timelines, and deeper application routes. The existing significanthobbies Worker and D1 remain Live-owned; apex / and /hub proxy to the Hub service binding without migrating user data. The former Turso database is deleted; the empty Turso account is retained for possible future use.
-  infrastructure: Worker version ecd54c8c-8df1-4c60-8f52-0942b3b89ced is live at 100% traffic from exact Git SHA 207f11bff5e03207bbe0ffaf79fa446b4629ef72, deployment a10dc6ea-1707-4f3e-9021-4eb98cab8aa9. Live retains its existing data and authentication boundary and proxies only Hub routes to personal-platform. Google callback configuration remains blocked; guest sharing only. The former Turso database was confirmed deleted on 2026-08-30; the empty account is retained.
+  catalog: Live owns the existing significanthobbies Worker, D1 data and authentication; only Hub routes proxy to the independent Hub service. Guest and authenticated owner bucket-list core workflows passed on September 11, including persistence and test-item cleanup. Birth date remains confined to deeper Life in Weeks/profile onboarding. Former Turso database is deleted; the empty account is retained.
+  infrastructure: Live version 25d1b453-5e51-459b-8bcd-287adf4582bb serves exact dc0ad9b5fc58565950a44eff277354e8b8aeac38 at 100%. Quality, full browser CI and production deployment/smokes passed. Existing routes, D1, authentication identity and Hub service boundary were preserved. Google OAuth callback is repaired; authenticated bucket-list entry no longer requires the unrelated DOB onboarding. Former Turso database remains deleted; empty account retained.

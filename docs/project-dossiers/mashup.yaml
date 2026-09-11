@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: mashup
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-08-28
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,27 +23,27 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 96011b1c86bf4fa32e690ccc3de01e1da2b1c7b420ed871018579129c56ff8cf
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: mashup
       revision: b75e14f506197600dbb722ba318853e356826f3d
       githubRepository: sass-maker/mashup
       expectedHomepage: https://mashup.highsignal.app
-      observedHomepage: https://mashup.highsignal.app
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: mashup
       revision: b75e14f506197600dbb722ba318853e356826f3d
@@ -55,12 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://mashup.highsignal.app.
 ownerVoice:
   whyVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
   fullReviewVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
@@ -68,25 +70,29 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Turn a creator's archive into coherent topic-specific comedy, motivation, podcast, or clipping compilations.
-  currentState: Strong local clipper/merger with provenance and approval boundaries.
-  nextDecision: Reopen around one real creator archive and prove the comedy-topic workflow end to end.
+  currentState: Paused experiment; no current work or obligation to resume.
+  nextDecision: "Keep: One convincing thematic edit assembled from an existing archive. Stop: A general content factory, automatic viral clips and a publishing platform."
 identity:
   name: Mashup
   publicName: Mashup
   aliases: []
   family: mashup
   category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: experiment
   priority: P2
-  tier: active
-  attention: foundry
+  tier: parked
+  attention: ignored
   lifecycle:
     status: inactive
     shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: false
+  inRegistry: true
 product:
   description: Two playable examples of a local media-editing pipeline, with captions and inspectable source and approval receipts.
   publicMakerNote: I wanted a creator’s archive to become coherent topic-specific compilations instead of a pile of isolated clips.
@@ -96,7 +102,7 @@ product:
     outcome: Find, approve, sequence, and render useful clips without losing source provenance or editorial control.
     mechanism: A local pipeline combines archive analysis, clipping, editable EDLs, source receipts, approval boundaries, and deterministic rendering.
     proof: The first public Startups proof assembles a source-faithful 47-second argument from four beats across three Creative Commons podcast episodes, with captions and media receipts.
-    nextAction: Watch the public examples and inspect their source receipts. The local operator workflow and creator pilot remain separate from this showcase.
+    nextAction: Preserved experiment; no current work or obligation to resume.
   form: Local media tool with public proof
   platforms:
     - Web
@@ -117,7 +123,7 @@ repository:
   checkout: mashup
   observedRevision: b75e14f506197600dbb722ba318853e356826f3d
   githubRepository: sass-maker/mashup
-  githubHomepageUrl: https://mashup.highsignal.app
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/mashup
@@ -150,20 +156,12 @@ repository:
       - test
       - test:coverage
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sass-maker/mashup
-    defaultBranch: main
-    defaultBranchSha: b75e14f506197600dbb722ba318853e356826f3d
-    homepage: https://mashup.highsignal.app
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -172,47 +170,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34129122957
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b75e14f506197600dbb722ba318853e356826f3d
-          createdAt: 2026-09-07T13:44:54Z
-          updatedAt: 2026-09-07T13:46:55Z
-          url: https://github.com/sass-maker/mashup/actions/runs/34129122957
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34129122957
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b75e14f506197600dbb722ba318853e356826f3d
-          createdAt: 2026-09-07T13:44:54Z
-          updatedAt: 2026-09-07T13:46:55Z
-          url: https://github.com/sass-maker/mashup/actions/runs/34129122957
-        ageDays: 2
-      attention: ignored
 deployment:
   kind: pages
   deployed: true

@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: email-manager
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,44 +23,47 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 8f1b427ce3ebcf039c7b6b00f03140df5738d55aa1f4f0ec81737a6aa1be5278
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: email-manager
-      revision: fc460af8db2e72a2b41783f8d22c314e20d197bb
+      revision: 45db006bfd8aaf09bffd43e7c4241ef291298560
       githubRepository: Significant-Hobbies/email-manager
       expectedHomepage: https://mail.significanthobbies.com
-      observedHomepage: https://mail.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: email-manager
-      revision: fc460af8db2e72a2b41783f8d22c314e20d197bb
+      revision: 45db006bfd8aaf09bffd43e7c4241ef291298560
       githubRepository: Significant-Hobbies/email-manager
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-24
       catalogLatestCommitAt: 2026-09-09
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 3
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        ignored: 3
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://mail.significanthobbies.com.
 ownerVoice:
   whyVerbatim: Email Manager I built because I was getting a lot of mails and Gmail's UI was not doing it for me to analyse who is spamming me more and how to unsubscribe from them more efficiently. I would say it is done. I don't want to add more features. It just connects and does the job.
   fullReviewVerbatim: Email Manager I built because I was getting a lot of mails and Gmail's UI was not doing it for me to analyse who is spamming me more and how to unsubscribe from them more efficiently. I would say it is done. I don't want to add more features. It just connects and does the job.
@@ -77,13 +80,17 @@ identity:
     - Email Manager
   family: email-manager
   category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P4
   tier: active
   attention: toolbox
   lifecycle:
     status: inactive
-    shareable: false
+    shareable: true
     resumeCondition: null
   operationalStatus: live
   authenticationModel: required-user
@@ -109,15 +116,15 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-24
-    latestCommitAt: 2026-09-09
-    retainedCommitCount: 269
+    latestCommitAt: 2026-09-10
+    retainedCommitCount: 270
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: email-manager
-  observedRevision: fc460af8db2e72a2b41783f8d22c314e20d197bb
+  observedRevision: 45db006bfd8aaf09bffd43e7c4241ef291298560
   githubRepository: Significant-Hobbies/email-manager
-  githubHomepageUrl: https://mail.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/email-manager
@@ -184,20 +191,12 @@ repository:
       - verify:indexing
       - verify:local-mailbox
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 3
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/email-manager
-    defaultBranch: main
-    defaultBranchSha: fc460af8db2e72a2b41783f8d22c314e20d197bb
-    homepage: https://mail.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -205,118 +204,11 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34323671625
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: fc460af8db2e72a2b41783f8d22c314e20d197bb
-          createdAt: 2026-09-09T07:24:23Z
-          updatedAt: 2026-09-09T07:25:21Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34323671625
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34323671625
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: fc460af8db2e72a2b41783f8d22c314e20d197bb
-          createdAt: 2026-09-09T07:24:23Z
-          updatedAt: 2026-09-09T07:25:21Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34323671625
-        ageDays: 0
-      attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 33962356232
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 40dd756160eb959d90559834a9610196995f68e6
-          createdAt: 2026-09-05T11:04:48Z
-          updatedAt: 2026-09-05T11:05:19Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/33962356232
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
-    - name: Dependabot Updates
-      file: dynamic/dependabot/dependabot-updates
-      triggers: []
-      schedules: []
-      inventory:
-        source: github-generated
-        local: false
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34085731510
-          status: completed
-          conclusion: success
-          event: dynamic
-          branch: main
-          headSha: b8e59d80564ba49e4b1f69f5aae6a78d746427e3
-          createdAt: 2026-09-07T05:09:54Z
-          updatedAt: 2026-09-07T05:10:32Z
-          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34085731510
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -347,8 +239,8 @@ sharing:
   publicListing: maintained
   maturity: maintained
   ready: false
-  verifiedAt: 2026-09-09
-  reason: Runtime 24142fee is deployed at 100%; exact CI 34323190467 passed 124 tests. Search accepts only dense finite normalized 384-dimensional vectors with the pinned MiniLM identity. Stale or untagged vectors remain pending explicit reindexing; mail is preserved. Real IndexedDB migration/reload and public 390px landing/login checks pass. A 16-message synthetic diagnostic scored MiniLM 16/18 versus BGE 17/18; this is not real-mailbox acceptance. Owner OAuth, account switching and real mailbox workflows remain issue 54. Documentation-only fc460af8 has green CI 34323671625.
+  verifiedAt: 2026-09-11
+  reason: "September 11 ordinary existing-account Google OAuth completed with the requested gmail.readonly and identity scopes. 500 messages cached and indexed to 100%; sender search returned 25 results and a generic semantic query returned 50. After reload the mailbox remained connected and indexed, and the same query returned 50 results. No email write actions or message contents retained. Personal use is qualified; broad public sharing remains false. Account switching and a forced expired-token refresh were not separately exercised. Existing historical broader permissions were displayed as already granted; the current request was Gmail read-only plus identity. Receipt: docs/qualification/kinetic-owner-core-2026-09-11.json."
   changelogUrl: https://mail.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/email-manager/issues
   geoIdentity:

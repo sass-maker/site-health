@@ -1,0 +1,22 @@
+{
+  "observedOn": "2026-09-11",
+  "mode": "isolated-production-browser",
+  "credentialTransport": "process memory only",
+  "remoteWrites": false,
+  "selectedProjectRestoredFromKnownCanaryIds": true,
+  "loggedOutGate": true,
+  "ownerUnlock": true,
+  "canary": {
+    "requests": 3,
+    "errorRatePercent": 33.3,
+    "p50": "1 ms",
+    "p95": "5 ms",
+    "route": "/app-health-canary-20260911/:id"
+  },
+  "dataReceivedView": true,
+  "viewReturn": true,
+  "lockReturnsToPasswordGate": true,
+  "reloadDoesNotPersistCredential": true,
+  "outcome": "passed",
+  "browserClosed": true
+}

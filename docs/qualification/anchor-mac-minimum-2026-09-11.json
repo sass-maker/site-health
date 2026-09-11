@@ -1,0 +1,126 @@
+{
+  "reviewedAt": "2026-09-11T10:28:03.870745+00:00",
+  "status": "passed-single-device-core",
+  "sourceCommit": "585671477851ac2215f09211073c3649e01a6934",
+  "installedMacBuild": "25",
+  "coreFlow": {
+    "source": {
+      "repo": "/Users/sarthak/Desktop/fleet/anchor",
+      "commit": "585671477851ac2215f09211073c3649e01a6934",
+      "installedApp": "/Applications/Anchor.app",
+      "version": "1.0",
+      "build": "25",
+      "worktree": "clean"
+    },
+    "scope": "interactive macOS core workflow only; phone out of scope",
+    "store": {
+      "isolation": "task-specific isolated store/container paths",
+      "ownerDataTouched": false,
+      "cleanup": "isolated stores moved to /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/anchor-mac-ui-20260911-trash",
+      "persistenceAcrossRelaunch": "unproven",
+      "persistenceBlocker": "The installed sandboxed Developer ID app launched through the UI path did not honor standalone ANCHOR_STORE_PATH injection. Direct process launches reported sandbox error 513 for /tmp; the container-path relaunch opened clean."
+    },
+    "assertions": {
+      "scheduleDayEntry": "passed: created Mac core acceptance with context Verify the full day loop and saved it; Focus showed STILL OPEN block",
+      "focusStart": "passed: scheduled block entered In focus with countdown",
+      "pause": "passed: session changed to Paused",
+      "resumeCapture": "passed: resume opened Welcome back capture sheet",
+      "freeDecline": "passed: Nothing \u2014 just a break returned to In focus without a note",
+      "logDistraction": "passed: captured Slack from Ravi about the invoice, classified Message, and returned to focus with 1 thing parked",
+      "finish": "passed: End session returned Focus to no active block",
+      "history": "passed: History showed Mac core acceptance, 30m planned, 4m observed, and 1 captured interruption",
+      "relaunchPersistence": "blocked by store injection limitation; clean relaunch observed"
+    },
+    "evidence": {
+      "method": "XcodeBuildMCP stop/launch plus CUA accessibility tree and screenshots",
+      "interactiveAssertions": "visible UI state after every action",
+      "priorPackageTests": "219/219 passed in prior receipt; not used as a substitute for this UI pass"
+    },
+    "cleanup": {
+      "appStopped": true,
+      "temporaryStoresMoved": true,
+      "productionConfigChanged": false,
+      "secretsTouched": false,
+      "catalogEdited": false
+    },
+    "remainingHandoff": "For persistence proof, launch the installed app under an approved sandbox-aware test runner that can inject ANCHOR_STORE_PATH, or approve the OS-sandbox-specific test path. No permission bypass was attempted.",
+    "observedOn": "2026-09-11",
+    "recordedAt": "2026-09-11T10:21:04.297285+00:00",
+    "timestampNote": "Exact UI-action times were not retained; recordedAt is the original receipt file modification time, not an invented execution timestamp."
+  },
+  "relaunchPersistence": {
+    "source": {
+      "repo": "/Users/sarthak/Desktop/fleet/anchor",
+      "commit": "585671477851ac2215f09211073c3649e01a6934",
+      "installedApp": "/Applications/Anchor.app",
+      "version": "1.0",
+      "build": "25",
+      "worktree": "clean"
+    },
+    "isolation": {
+      "storePath": "/Users/sarthak/Library/Containers/com.significanthobbies.anchor/Data/anchor-mac-core-persist-20260911",
+      "mode": "explicit ANCHOR_STORE_PATH; AnchorStore.resilientStoreKinds selects localOnly before inMemory",
+      "sqliteVerifiedBeforeInteraction": true,
+      "storeSizeBeforeInteraction": "144K",
+      "launchCommand": "env ANCHOR_STORE_PATH=/Users/sarthak/Library/Containers/com.significanthobbies.anchor/Data/anchor-mac-core-persist-20260911 ANCHOR_INITIAL_TAB=history /Applications/Anchor.app/Contents/MacOS/Anchor",
+      "normalStoreTouched": false
+    },
+    "freshPersistenceAssertions": {
+      "createAndSaveBlock": "passed: Persistence acceptance / Prove persistence after relaunch",
+      "stop": "passed: XcodeBuildMCP stop_mac_app",
+      "relaunch": "passed: same foreground process command and same store path",
+      "savedBlockVisibleAfterRelaunch": "passed: visible STILL OPEN Persistence acceptance 3:00 PM \u00b7 30m",
+      "screenshot": "/Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/anchor-mac-core-persist-20260911-relaunch.png"
+    },
+    "earlierFreshAssertions": {
+      "scheduleEntry": "passed in prior same-turn CUA session",
+      "focusStartPauseResume": "passed in prior same-turn CUA session",
+      "freeDeclineCapture": "passed in prior same-turn CUA session",
+      "distractionLog": "passed in prior same-turn CUA session",
+      "finishAndHistory": "passed in prior same-turn CUA session; History showed 1 captured interruption"
+    },
+    "cleanup": {
+      "appStopped": true,
+      "storeMovedTo": null,
+      "storeCleanupStatus": "blocked: macOS returned Operation not permitted when moving the sandbox container file after app stop; task store remains at the exact isolated path and normal/default store was untouched",
+      "ownerDataChanged": false,
+      "permissionsChanged": false,
+      "productionConfigChanged": false
+    },
+    "limits": [
+      "The screenshot is the relaunch persistence proof; CUA accessibility snapshots were observed live and are represented by the recorded visible labels above.",
+      "No phone, Safari, web app, catalog, readiness report, or public rollout work was performed.",
+      "The task store is recoverable but remains in the sandbox container pending an OS-authorized cleanup path."
+    ],
+    "observedOn": "2026-09-11",
+    "recordedAt": "2026-09-11T10:25:36.666997+00:00",
+    "timestampNote": "Exact UI-action times were not retained; recordedAt is the original receipt file modification time, not an invented execution timestamp."
+  },
+  "limitations": [
+    "Cross-device/production CloudKit continuity is outside this single-device acceptance.",
+    "Public Mac distribution/notarization remains separate.",
+    "Three exact isolated test-store files remain protected: terminal move returned Operation not permitted and Finder Move to Bin was disabled. No permissions or normal owner store changed."
+  ],
+  "cleanup": {
+    "target": [
+      "/Users/sarthak/Library/Containers/com.significanthobbies.anchor/Data/anchor-mac-core-persist-20260911",
+      "/Users/sarthak/Library/Containers/com.significanthobbies.anchor/Data/anchor-mac-core-persist-20260911-shm",
+      "/Users/sarthak/Library/Containers/com.significanthobbies.anchor/Data/anchor-mac-core-persist-20260911-wal"
+    ],
+    "scopeCheck": "Finder showed exactly these three task-created files selected; normal/default store was not selected.",
+    "cleanupAttempt": {
+      "method": "Finder Action menu Move to Bin",
+      "result": "unavailable",
+      "reason": "Finder exposed Move to Bin disabled for the protected app-container files; no deletion or permission change was attempted."
+    },
+    "verification": {
+      "status": "files remain at exact isolated paths",
+      "normalStoreUntouched": true,
+      "appStopped": true
+    },
+    "acceptanceImpact": "none; cleanup limitation only",
+    "observedOn": "2026-09-11",
+    "recordedAt": "2026-09-11T10:30:04.554788+00:00",
+    "timestampNote": "Exact UI-action times were not retained; recordedAt is the original receipt file modification time, not an invented execution timestamp."
+  }
+}

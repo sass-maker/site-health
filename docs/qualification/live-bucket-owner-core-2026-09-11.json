@@ -1,0 +1,20 @@
+{
+  "task": "live-bucket-owner-core-20260911",
+  "checkedAt": "2026-09-11",
+  "surface": "https://live.significanthobbies.com/bucket-list",
+  "tool": "native Chrome CUA",
+  "tabId": "673500373",
+  "auth": "authenticated existing owner session",
+  "canary": {
+    "syntheticItem": "synthetic-production-canary-20260911-49ede0",
+    "create": "visible quick-add then Import private data; item rendered under Still calling",
+    "complete": "Done status rendered under Lived",
+    "completeReload": "persisted after reload",
+    "reopen": "Planned status rendered under Still calling",
+    "reopenReload": "persisted after reload",
+    "delete": "visible Remove then Delete confirmation removed item",
+    "cleanupReload": "item absent; empty-state rendered",
+    "dobOnboardingShown": false,
+    "preexistingRecordsModified": false
+  }
+}

@@ -1,0 +1,2267 @@
+{
+  "source": "portfolio-future-owner-reviewed-20260910-140427.json",
+  "scope": "Only the 51 non-personal project decisions. Personal tools are deferred unchanged.",
+  "projects": [
+    {
+      "id": "Codevetter/codevetter",
+      "name": "CodeVetter",
+      "futureForm": "active-product",
+      "keep": "Execution-backed verification of agent changes, with reproducible evidence for the requested task.",
+      "stopBuilding": "Generic project management, broad coding-assistant features and unsupported verdicts.",
+      "reason": "One of your two strongest ongoing technical investments.",
+      "repositories": [
+        {
+          "name": "Codevetter/codevetter",
+          "url": "https://github.com/Codevetter/codevetter"
+        },
+        {
+          "name": "sarthakagrawal927/taste",
+          "url": "https://github.com/sarthakagrawal927/taste"
+        }
+      ],
+      "previousReview": {
+        "id": "Codevetter/codevetter",
+        "category": "utility",
+        "audience": "public",
+        "lifecycle": {
+          "status": "primary",
+          "shareable": true,
+          "resumeCondition": null
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": true,
+        "unmetNeed": false,
+        "reviewNotes": "Execution-backed verification; prove superiority through reproducible evidence. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Execution-backed verification; prove superiority through reproducible evidence. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "active-product",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "Codevetter/starboard",
+      "name": "Starboard",
+      "futureForm": "active-product",
+      "keep": "Find a useful maintained repository from your own saved and discovered tools.",
+      "stopBuilding": "A social network, every developer-tool directory and unrelated intelligence feeds.",
+      "reason": "Keep the useful personal capability without a growth obligation.",
+      "repositories": [
+        {
+          "name": "Codevetter/starboard",
+          "url": "https://github.com/Codevetter/starboard"
+        }
+      ],
+      "previousReview": {
+        "id": "Codevetter/starboard",
+        "category": "utility",
+        "audience": "public",
+        "lifecycle": {
+          "status": "active",
+          "shareable": true,
+          "resumeCondition": null
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Repository discovery for your unmanageable stars; demonstrate better retrieval. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Repository discovery for your unmanageable stars; demonstrate better retrieval. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "personal-tool",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "High-Signal-App/everythingrated",
+      "name": "EverythingRated",
+      "futureForm": "archived-work",
+      "keep": "The existing comparison work as a dated historical artifact.",
+      "stopBuilding": "Crowdsourced ratings growth, new directories and a participation-driven platform.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "High-Signal-App/everythingrated",
+          "url": "https://github.com/High-Signal-App/everythingrated"
+        }
+      ],
+      "previousReview": {
+        "id": "High-Signal-App/everythingrated",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Retired; participation and trustworthy ratings were the missing assets. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Retired; participation and trustworthy ratings were the missing assets. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "High-Signal-App/high-signal",
+      "name": "High Signal",
+      "futureForm": "active-product",
+      "keep": "One small source-backed brief that helps you make a real decision.",
+      "stopBuilding": "All-topic coverage, endless feeds and a publishing volume target.",
+      "reason": "Keep the useful personal capability without a growth obligation.",
+      "repositories": [
+        {
+          "name": "High-Signal-App/high-signal",
+          "url": "https://github.com/High-Signal-App/high-signal"
+        }
+      ],
+      "previousReview": {
+        "id": "High-Signal-App/high-signal",
+        "category": "media",
+        "audience": "public",
+        "lifecycle": {
+          "status": "active",
+          "shareable": true,
+          "resumeCondition": null
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": true,
+        "unmetNeed": false,
+        "reviewNotes": "Original signals could earn an audience; aggregation alone is insufficient. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Original signals could earn an audience; aggregation alone is insufficient. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "personal-tool",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "High-Signal-App/research-papers",
+      "name": "Research Papers",
+      "futureForm": "finished-experiment",
+      "keep": "A bounded paper collection and one reproducible research example.",
+      "stopBuilding": "Universal scholarly search and growing the corpus without a question.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "High-Signal-App/research-papers",
+          "url": "https://github.com/High-Signal-App/research-papers"
+        }
+      ],
+      "previousReview": {
+        "id": "High-Signal-App/research-papers",
+        "category": "media",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "When a concrete research question requires corpus analysis beyond existing research tools."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": true,
+        "reviewNotes": "Needs original corpus analysis or a concrete research question. Retain inactive as requested.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": true,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Needs original corpus analysis or a concrete research question. Retain inactive as requested."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "High-Signal-App/research-subreddit",
+      "name": "Reddit Insights",
+      "futureForm": "finished-experiment",
+      "keep": "A documented experiment answering one historical community question.",
+      "stopBuilding": "A general social-monitoring product and unavailable-data promises.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "High-Signal-App/research-subreddit",
+          "url": "https://github.com/High-Signal-App/research-subreddit"
+        }
+      ],
+      "previousReview": {
+        "id": "High-Signal-App/research-subreddit",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "When usable historical data or a deliberate forward-collection plan supports a specific longitudinal question."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Historical Reddit analysis depends on obtaining useful longitudinal data. Retain inactive as requested.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Historical Reddit analysis depends on obtaining useful longitudinal data. Retain inactive as requested."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "PostTrainLLM/posttrainllm",
+      "name": "PostTrainLLM",
+      "futureForm": "active-product",
+      "keep": "A reproducible path from private task examples to a measured local-model improvement.",
+      "stopBuilding": "Supporting every model, training method and deployment platform before the core task works.",
+      "reason": "One of your two strongest ongoing technical investments.",
+      "repositories": [
+        {
+          "name": "PostTrainLLM/posttrainllm",
+          "url": "https://github.com/PostTrainLLM/posttrainllm"
+        }
+      ],
+      "previousReview": {
+        "id": "PostTrainLLM/posttrainllm",
+        "category": "utility",
+        "audience": "public",
+        "lifecycle": {
+          "status": "primary",
+          "shareable": true,
+          "resumeCondition": null
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": true,
+        "unmetNeed": true,
+        "reviewNotes": "Local training and evaluation can demonstrate depth; basic training already exists. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": true,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Local training and evaluation can demonstrate depth; basic training already exists. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "active-product",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/agent-resume",
+      "name": "agent-resume",
+      "futureForm": "archived-work",
+      "keep": "Historical resume/queue logic worth referencing later.",
+      "stopBuilding": "A separate agent supervisor and automatic fallback platform.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/agent-resume",
+          "url": "https://github.com/sarthakagrawal927/agent-resume"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/agent-resume",
+        "category": "utility",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Useful only while interrupted agent sessions remain a recurring problem. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Useful only while interrupted agent sessions remain a recurring problem. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/ai-badges",
+      "name": "ai-badges",
+      "futureForm": "archived-work",
+      "keep": "The existing badge assets and honest disclosure examples.",
+      "stopBuilding": "An AI-percentage scoring product or new badge infrastructure.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/ai-badges",
+          "url": "https://github.com/sarthakagrawal927/ai-badges"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/ai-badges",
+        "category": "utility",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only when actual use exposes a specific improvement worth making; otherwise retain inactive."
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Small README utility; limited technical or commercial differentiation. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Small README utility; limited technical or commercial differentiation. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/aliveville",
+      "name": "AliveVille",
+      "futureForm": "paused-experiment",
+      "keep": "One small persistent world you can visit and influence.",
+      "stopBuilding": "A sprawling game engine, huge content map and an autonomous civilization platform.",
+      "reason": "Keep the useful personal capability without a growth obligation.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/aliveville",
+          "url": "https://github.com/sarthakagrawal927/aliveville"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/aliveville",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "When the owner wants to play or demonstrate a small persistent world and commits to testing whether it is enjoyable."
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Persistent agents could impress; an engaging simulation remains the hard part. Retain inactive as requested.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Persistent agents could impress; an engaging simulation remains the hard part. Retain inactive as requested."
+        }
+      },
+      "recommendedFutureForm": "personal-tool",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sarthakagrawal927/backpropagate",
+      "name": "backpropagate",
+      "futureForm": "archived-work",
+      "keep": "The existing short game as historical work.",
+      "stopBuilding": "Further game systems or attempts to turn it into a business.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/backpropagate",
+          "url": "https://github.com/sarthakagrawal927/backpropagate"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/backpropagate",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Retired game; exceptional mechanics or technical contribution not established. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Retired game; exceptional mechanics or technical contribution not established. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/clash-royale-meta",
+      "name": "clash-royale-meta",
+      "futureForm": "archived-work",
+      "keep": "The existing deck-data experiment as historical work.",
+      "stopBuilding": "A comprehensive competitive-game analytics service.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/clash-royale-meta",
+          "url": "https://github.com/sarthakagrawal927/clash-royale-meta"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/clash-royale-meta",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Retired; game-data interface lacks a demonstrated analytical advantage. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Retired; game-data interface lacks a demonstrated analytical advantage. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/dev-workflow-migration",
+      "name": "dev-workflow-migration",
+      "futureForm": "archived-work",
+      "keep": "The useful machine-setup checklist and configuration references.",
+      "stopBuilding": "A separately maintained developer onboarding product.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/dev-workflow-migration",
+          "url": "https://github.com/sarthakagrawal927/dev-workflow-migration"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/dev-workflow-migration",
+        "category": "utility",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only when actual use exposes a specific improvement worth making; otherwise retain inactive."
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Occasional machine setup utility, not a standalone product. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Occasional machine setup utility, not a standalone product. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/forecast-lab",
+      "name": "Forecast Lab",
+      "futureForm": "paused-experiment",
+      "keep": "Reproducible benchmark results and lessons already learned.",
+      "stopBuilding": "A forecasting SaaS or more methods without a concrete research question.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/forecast-lab",
+          "url": "https://github.com/sarthakagrawal927/forecast-lab"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/forecast-lab",
+        "category": "experimental",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "When a defined learning question and a reproducible benchmark justify another experiment."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Rigorous benchmarks could demonstrate research skill; experiment only. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Rigorous benchmarks could demonstrate research skill; experiment only. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sarthakagrawal927/headcount",
+      "name": "headcount",
+      "futureForm": "archived-work",
+      "keep": "The playable hackathon artifact and simulation evidence.",
+      "stopBuilding": "A live-service game or general agent-designed-game platform.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/headcount",
+          "url": "https://github.com/sarthakagrawal927/headcount"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/headcount",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": true,
+        "unmetNeed": false,
+        "reviewNotes": "Agent-designed game changes with simulation and human approval form a credible showcase. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Agent-designed game changes with simulation and human approval form a credible showcase. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/issue-pages",
+      "name": "IssuePages",
+      "futureForm": "finished-experiment",
+      "keep": "One finished example of publishing a page from a GitHub issue.",
+      "stopBuilding": "A CMS, publishing network and multiple author workflows.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/issue-pages",
+          "url": "https://github.com/sarthakagrawal927/issue-pages"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/issue-pages",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "When the owner needs to publish real notes through GitHub issues and compares the workflow with simpler publishing."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Issue-to-publication simplicity could help; recurring personal use is unknown. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": true,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Issue-to-publication simplicity could help; recurring personal use is unknown. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/loadtesting",
+      "name": "loadtesting",
+      "futureForm": "archived-work",
+      "keep": "Useful scenario scripts as reference material.",
+      "stopBuilding": "A custom load-testing framework or separate product roadmap.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/loadtesting",
+          "url": "https://github.com/sarthakagrawal927/loadtesting"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/loadtesting",
+        "category": "experimental",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "No differentiated testing methodology established from available evidence. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "No differentiated testing methodology established from available evidence. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/local-ai",
+      "name": "local-ai",
+      "futureForm": "archived-work",
+      "keep": "The adapter code as historical integration work.",
+      "stopBuilding": "A new universal gateway when maintained tools or direct integration suffice.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/local-ai",
+          "url": "https://github.com/sarthakagrawal927/local-ai"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/local-ai",
+        "category": "utility",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "CLI-to-API integration is useful if internal consumers need the specific transport. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "CLI-to-API integration is useful if internal consumers need the specific transport. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/ludo-pass-play",
+      "name": "ludo-pass-play",
+      "futureForm": "archived-work",
+      "keep": "The existing pass-and-play game artifact.",
+      "stopBuilding": "Multiplayer infrastructure, accounts, rankings and ongoing game operations.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/ludo-pass-play",
+          "url": "https://github.com/sarthakagrawal927/ludo-pass-play"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/ludo-pass-play",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Retired generic game; no distinctive experience established. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Retired generic game; no distinctive experience established. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/mentionpilot",
+      "name": "mentionpilot",
+      "futureForm": "archived-work",
+      "keep": "Any already-reused internal monitoring code plus the historical demo.",
+      "stopBuilding": "A standalone mention-monitoring business and its dashboard expansion.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/mentionpilot",
+          "url": "https://github.com/sarthakagrawal927/mentionpilot"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/mentionpilot",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Competition and absorbed internal capabilities remove the standalone rationale. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Competition and absorbed internal capabilities remove the standalone rationale. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/mobile-dev-cockpit",
+      "name": "Mobile Dev Cockpit",
+      "futureForm": "archived-work",
+      "keep": "The prototype and any genuinely reusable handoff ideas.",
+      "stopBuilding": "A new mobile control plane for every developer workflow.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/mobile-dev-cockpit",
+          "url": "https://github.com/sarthakagrawal927/mobile-dev-cockpit"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/mobile-dev-cockpit",
+        "category": "experimental",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "You disliked the result and chose to stop. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "You disliked the result and chose to stop. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/open-historia",
+      "name": "Open Historia",
+      "futureForm": "paused-experiment",
+      "keep": "A small local campaign with meaningful decisions and consistent state.",
+      "stopBuilding": "An unlimited world simulator, enormous map scope and content breadth.",
+      "reason": "Keep the useful personal capability without a growth obligation.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/open-historia",
+          "url": "https://github.com/sarthakagrawal927/open-historia"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/open-historia",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "When the owner wants to play a sustained campaign and evaluate map quality, continuity and meaningful decisions."
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Local strategy campaigns require coherent state and meaningful decisions. Retain inactive as requested.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Local strategy campaigns require coherent state and meaningful decisions. Retain inactive as requested."
+        }
+      },
+      "recommendedFutureForm": "personal-tool",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sarthakagrawal927/ph-catalog",
+      "name": "ph-catalog",
+      "futureForm": "paused-experiment",
+      "keep": "A bounded dated product dataset for occasional research.",
+      "stopBuilding": "A discovery platform and collecting more products without an analysis goal.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/ph-catalog",
+          "url": "https://github.com/sarthakagrawal927/ph-catalog"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/ph-catalog",
+        "category": "utility",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Longitudinal research could matter; a scraped directory alone does not. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": true,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Longitudinal research could matter; a scraped directory alone does not. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sarthakagrawal927/pinpoint",
+      "name": "pinpoint",
+      "futureForm": "archived-work",
+      "keep": "The visual-feedback experiment and source-mapping lessons.",
+      "stopBuilding": "A full visual coding environment or another coding agent.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/pinpoint",
+          "url": "https://github.com/sarthakagrawal927/pinpoint"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/pinpoint",
+        "category": "utility",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Reliable visual feedback-to-source mapping needs proof in your workflow. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Reliable visual feedback-to-source mapping needs proof in your workflow. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/placard",
+      "name": "placard",
+      "futureForm": "archived-work",
+      "keep": "The existing card template and generated assets.",
+      "stopBuilding": "A standalone publishing service or customization platform.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/placard",
+          "url": "https://github.com/sarthakagrawal927/placard"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/placard",
+        "category": "utility",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only when actual use exposes a specific improvement worth making; otherwise retain inactive."
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Project cards help presentation but are a small utility. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Project cards help presentation but are a small utility. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/port-whisperer",
+      "name": "port-whisperer",
+      "futureForm": "archived-work",
+      "keep": "The port-diagnostic implementation as reference.",
+      "stopBuilding": "A separate developer-tool business or rewrite for its own sake.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/port-whisperer",
+          "url": "https://github.com/sarthakagrawal927/port-whisperer"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/port-whisperer",
+        "category": "utility",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Useful diagnostics if preferred; a port of existing tooling is not a new gap. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Useful diagnostics if preferred; a port of existing tooling is not a new gap. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/side-machine",
+      "name": "side-machine",
+      "futureForm": "archived-work",
+      "keep": "The remote-worker setup notes and working references.",
+      "stopBuilding": "A general distributed agent platform.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/side-machine",
+          "url": "https://github.com/sarthakagrawal927/side-machine"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/side-machine",
+        "category": "utility",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Useful only if a second Mac actively performs agent work. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Useful only if a second Mac actively performs agent work. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/society-relay",
+      "name": "society-relay",
+      "futureForm": "archived-work",
+      "keep": "The synthetic maintenance-workflow demo and its lessons.",
+      "stopBuilding": "A society management platform without an actual pilot operator.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/society-relay",
+          "url": "https://github.com/sarthakagrawal927/society-relay"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/society-relay",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "A real community pilot must prove reliable resolution and buyer value. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "A real community pilot must prove reliable resolution and buyer value. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/subreddit-research",
+      "name": "subreddit-research",
+      "futureForm": "archived-work",
+      "keep": "The historical collector and components already absorbed elsewhere.",
+      "stopBuilding": "A second standalone Reddit research tool.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/subreddit-research",
+          "url": "https://github.com/sarthakagrawal927/subreddit-research"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/subreddit-research",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Deprecated in favor of newer internal projects; no independent continuation case. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Deprecated in favor of newer internal projects; no independent continuation case. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/temp-splitwise",
+      "name": "temp-splitwise",
+      "futureForm": "archived-work",
+      "keep": "The archived expense-sharing experiment for possible future reference.",
+      "stopBuilding": "Further work while the current Splitwise workflow is acceptable.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/temp-splitwise",
+          "url": "https://github.com/sarthakagrawal927/temp-splitwise"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/temp-splitwise",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only if the owner becomes dissatisfied with the current Splitwise application and identifies a concrete missing workflow."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Return only when your current Splitwise experience becomes unacceptable. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Return only when your current Splitwise experience becomes unacceptable. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/today-little-log",
+      "name": "today-little-log",
+      "futureForm": "archived-work",
+      "keep": "The old daily-log implementation as historical work.",
+      "stopBuilding": "A second habit and day-planning application beside Anchor.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/today-little-log",
+          "url": "https://github.com/sarthakagrawal927/today-little-log"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/today-little-log",
+        "category": "experimental",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Overlaps daily tracking; separate need unknown. Not automatically merged. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Overlaps daily tracking; separate need unknown. Not automatically merged. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sarthakagrawal927/truehire",
+      "name": "TrueHire",
+      "futureForm": "paused-experiment",
+      "keep": "A clearly labelled concept demonstration of evidence-based candidate assessment.",
+      "stopBuilding": "A hiring marketplace, candidate scoring authority and ongoing recruiter operations.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/truehire",
+          "url": "https://github.com/sarthakagrawal927/truehire"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/truehire",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Candidate scoring validity unresolved; you explicitly stopped this project. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Candidate scoring validity unresolved; you explicitly stopped this project. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sarthakagrawal927/web-playables",
+      "name": "Web Playables",
+      "futureForm": "paused-experiment",
+      "keep": "A small shared starter used by the games you actually make.",
+      "stopBuilding": "A general game engine or a constant obligation to ship more games.",
+      "reason": "Keep the useful personal capability without a growth obligation.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/web-playables",
+          "url": "https://github.com/sarthakagrawal927/web-playables"
+        }
+      ],
+      "previousReview": {
+        "id": "sarthakagrawal927/web-playables",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "When the owner starts the next game and has a concrete reusable capability to add."
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Keep as your foundation for future games; quality of actual games determines showcase value. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Keep as your foundation for future games; quality of actual games determines showcase value. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "personal-tool",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sass-maker/agent-office",
+      "name": "Office OS",
+      "futureForm": "paused-experiment",
+      "keep": "A finished visual experiment in representing agent work.",
+      "stopBuilding": "A staffed virtual company, a new workflow system and autonomous office features.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "sass-maker/agent-office",
+          "url": "https://github.com/sass-maker/agent-office"
+        }
+      ],
+      "previousReview": {
+        "id": "sass-maker/agent-office",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Agent coordination can be hard; the office metaphor did not become a routine. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Agent coordination can be hard; the office metaphor did not become a routine. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sass-maker/drank",
+      "name": "DRank",
+      "futureForm": "archived-work",
+      "keep": "The domain-metric adapter and references used by Site Health.",
+      "stopBuilding": "A separate public dashboard and independent product roadmap.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sass-maker/drank",
+          "url": "https://github.com/sass-maker/drank"
+        }
+      ],
+      "previousReview": {
+        "id": "sass-maker/drank",
+        "category": "utility",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "Only when actual use exposes a specific improvement worth making; otherwise retain inactive."
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Useful Site Health adapter; weak standalone differentiation. Retain inactive as requested.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Useful Site Health adapter; weak standalone differentiation. Retain inactive as requested."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sass-maker/elves-hq",
+      "name": "elves-hq",
+      "futureForm": "archived-work",
+      "keep": "The abandoned cockpit prototype and implementation lessons.",
+      "stopBuilding": "Another competing supervisor for your coding sessions.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sass-maker/elves-hq",
+          "url": "https://github.com/sass-maker/elves-hq"
+        }
+      ],
+      "previousReview": {
+        "id": "sass-maker/elves-hq",
+        "category": "experimental",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only after a concrete user need or research question demonstrates value beyond existing alternatives."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Abandoned agent cockpit with no established adoption. Suggested classification for owner review.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Abandoned agent cockpit with no established adoption. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sass-maker/field-track",
+      "name": "Field Track",
+      "futureForm": "paused-experiment",
+      "keep": "A bounded field-work prototype for your father's operation.",
+      "stopBuilding": "A tracking SaaS or platform before a real field pilot is wanted.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "sass-maker/field-track",
+          "url": "https://github.com/sass-maker/field-track"
+        }
+      ],
+      "previousReview": {
+        "id": "sass-maker/field-track",
+        "category": "experimental",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "When the intended family business is ready for a real field pilot and the economics are acceptable."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Your father's field workflow offers a concrete pilot; adoption and economics unresolved. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Your father's field workflow offers a concrete pilot; adoption and economics unresolved. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sass-maker/local-ai-video-studio",
+      "name": "Local AI Video Studio",
+      "futureForm": "paused-experiment",
+      "keep": "A clearly labelled local-effects experiment and a sample output.",
+      "stopBuilding": "A new general video editor or generative studio without a specific unmet editing need.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "sass-maker/local-ai-video-studio",
+          "url": "https://github.com/sass-maker/local-ai-video-studio"
+        }
+      ],
+      "previousReview": {
+        "id": "sass-maker/local-ai-video-studio",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only if existing video products fail a specific personal editing need; try those products first."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Native media engineering could impress; return only for a specific missing capability. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Native media engineering could impress; return only for a specific missing capability. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sass-maker/mashup",
+      "name": "Mashup",
+      "futureForm": "paused-experiment",
+      "keep": "One convincing thematic edit assembled from an existing archive.",
+      "stopBuilding": "A general content factory, automatic viral clips and a publishing platform.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "sass-maker/mashup",
+          "url": "https://github.com/sass-maker/mashup"
+        }
+      ],
+      "previousReview": {
+        "id": "sass-maker/mashup",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "After the deferred decision: demonstrate coherent edits from the owner archive against a manual editing baseline."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Coherent archive-based storytelling may differentiate; owner decision deferred. Owner decision remains deferred.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Coherent archive-based storytelling may differentiate; owner decision deferred. Owner decision remains deferred."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sass-maker/psi-swarm",
+      "name": "PSI Swarm",
+      "futureForm": "archived-work",
+      "keep": "The performance-measurement scripts and reusable evidence format.",
+      "stopBuilding": "An independent performance platform and public controller product.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sass-maker/psi-swarm",
+          "url": "https://github.com/sass-maker/psi-swarm"
+        }
+      ],
+      "previousReview": {
+        "id": "sass-maker/psi-swarm",
+        "category": "utility",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "Only when actual use exposes a specific improvement worth making; otherwise retain inactive."
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Repeatable performance distributions and regression evidence support Fleet. Retain inactive as requested.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Repeatable performance distributions and regression evidence support Fleet. Retain inactive as requested."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "sass-maker/reel-pipeline",
+      "name": "Reel Pipeline",
+      "futureForm": "paused-experiment",
+      "keep": "One reproducible production recipe and its best finished video.",
+      "stopBuilding": "More recipes, automatic distribution and a perpetual output pipeline without a chosen format.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "sarthakagrawal927/reel-maker",
+          "url": "https://github.com/sarthakagrawal927/reel-maker"
+        },
+        {
+          "name": "sass-maker/reel-pipeline",
+          "url": "https://github.com/sass-maker/reel-pipeline"
+        }
+      ],
+      "previousReview": {
+        "id": "sass-maker/reel-pipeline",
+        "category": "experimental",
+        "audience": "internal",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "After the deferred decision: choose one recurring format and demonstrate three outputs worth publishing."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Value depends on consistently good published output; owner decision deferred. Owner decision remains deferred.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Value depends on consistently good published output; owner decision deferred. Owner decision remains deferred."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "sass-maker/verified-bases",
+      "name": "Verified Bases",
+      "futureForm": "archived-work",
+      "keep": "The template/storefront concept as historical work.",
+      "stopBuilding": "A marketplace, support commitments and more inventory without buyers.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "sass-maker/verified-bases",
+          "url": "https://github.com/sass-maker/verified-bases"
+        }
+      ],
+      "previousReview": {
+        "id": "sass-maker/verified-bases",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "No buyer validation and you do not want to invest further. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "No buyer validation and you do not want to invest further. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "Significant-Hobbies/chess",
+      "name": "chess",
+      "futureForm": "archived-work",
+      "keep": "The chess implementation as archived learning work.",
+      "stopBuilding": "An alternative chess ecosystem and ongoing coaching features.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "Significant-Hobbies/chess",
+          "url": "https://github.com/Significant-Hobbies/chess"
+        }
+      ],
+      "previousReview": {
+        "id": "Significant-Hobbies/chess",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Explicit removal; no special chess innovation or unmet personal need. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Explicit removal; no special chess innovation or unmet personal need. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "Significant-Hobbies/india-standards",
+      "name": "India Standards",
+      "futureForm": "archived-work",
+      "keep": "The dated, source-linked demographic comparison as historical work.",
+      "stopBuilding": "Ongoing data-product expansion after your interest has ended.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "Significant-Hobbies/india-standards",
+          "url": "https://github.com/Significant-Hobbies/india-standards"
+        }
+      ],
+      "previousReview": {
+        "id": "Significant-Hobbies/india-standards",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Careful Indian public-data comparisons could have editorial value; you lost interest. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Careful Indian public-data comparisons could have editorial value; you lost interest. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "Significant-Hobbies/journal",
+      "name": "journal",
+      "futureForm": "archived-work",
+      "keep": "The journal implementation as archived work.",
+      "stopBuilding": "A separate writing application you explicitly do not want to maintain.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "Significant-Hobbies/journal",
+          "url": "https://github.com/Significant-Hobbies/journal"
+        }
+      ],
+      "previousReview": {
+        "id": "Significant-Hobbies/journal",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Explicit removal; no distinctive technical or commercial reason. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Explicit removal; no distinctive technical or commercial reason. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "Significant-Hobbies/materia",
+      "name": "Materia",
+      "futureForm": "paused-experiment",
+      "keep": "A small, carefully sourced example of organizing evidence around one topic.",
+      "stopBuilding": "A whole-body medical encyclopaedia or advice product without expert validation.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "Significant-Hobbies/materia",
+          "url": "https://github.com/Significant-Hobbies/materia"
+        }
+      ],
+      "previousReview": {
+        "id": "Significant-Hobbies/materia",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "When a narrow evidence topic can be reviewed for source quality and useful interpretation."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Evidence quality and body-oriented synthesis matter more than breadth. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Evidence quality and body-oriented synthesis matter more than breadth. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "owner-edited"
+    },
+    {
+      "id": "Significant-Hobbies/on-record",
+      "name": "High Signal Podcasts",
+      "futureForm": "finished-experiment",
+      "keep": "One attributable cross-podcast insight collection with episode links.",
+      "stopBuilding": "A podcast app, universal transcription service and unlimited aggregation.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "Significant-Hobbies/on-record",
+          "url": "https://github.com/Significant-Hobbies/on-record"
+        }
+      ],
+      "previousReview": {
+        "id": "Significant-Hobbies/on-record",
+        "category": "media",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "When cross-episode questions justify attributable podcast analysis beyond summaries."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": true,
+        "unmetNeed": false,
+        "reviewNotes": "Podcast insight extraction and cross-podcast recommendations; distinct from Look Sideways. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Podcast insight extraction and cross-podcast recommendations; distinct from Look Sideways. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "Significant-Hobbies/protein-index-resilience",
+      "name": "Protein Index",
+      "futureForm": "archived-work",
+      "keep": "The existing Indian product-data experiment and provenance notes.",
+      "stopBuilding": "Ongoing retailer ingestion, price maintenance and a public comparison business.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "Significant-Hobbies/protein-index",
+          "url": "https://github.com/Significant-Hobbies/protein-index"
+        },
+        {
+          "name": "Significant-Hobbies/protein-index-resilience",
+          "url": "https://github.com/Significant-Hobbies/protein-index-resilience"
+        }
+      ],
+      "previousReview": {
+        "id": "Significant-Hobbies/protein-index-resilience",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "Indian pricing and availability data could matter; maintenance burden unresolved and owner retired it. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Indian pricing and availability data could matter; maintenance burden unresolved and owner retired it. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "Significant-Hobbies/reader",
+      "name": "Reader",
+      "futureForm": "finished-experiment",
+      "keep": "The current reader as a finished experiment you may revisit if actual reading exposes a need.",
+      "stopBuilding": "Competing feature-for-feature with established reading and annotation products.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "Significant-Hobbies/reader",
+          "url": "https://github.com/Significant-Hobbies/reader"
+        }
+      ],
+      "previousReview": {
+        "id": "Significant-Hobbies/reader",
+        "category": "utility",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": false,
+          "resumeCondition": "When regular reading and a real research output reveal a concrete limitation of the current workflow."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "You reported little use; existing readers set a high bar. Retain inactive as requested.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "You reported little use; existing readers set a high bar. Retain inactive as requested."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "Significant-Hobbies/veg-protein-food",
+      "name": "Recipe Index",
+      "futureForm": "archived-work",
+      "keep": "The recipe experiment as historical work.",
+      "stopBuilding": "Maintaining a recipe catalogue you do not want to use.",
+      "reason": "Preserves your latest removal selection as a proposal; execution remains paused.",
+      "repositories": [
+        {
+          "name": "Significant-Hobbies/veg-protein-food",
+          "url": "https://github.com/Significant-Hobbies/veg-protein-food"
+        }
+      ],
+      "previousReview": {
+        "id": "Significant-Hobbies/veg-protein-food",
+        "category": "experimental",
+        "audience": "public",
+        "lifecycle": {
+          "status": "inactive",
+          "shareable": true,
+          "resumeCondition": "No restart planned. Retain as a historical experimental concept; do not resume without a new explicit owner decision."
+        },
+        "personalUse": false,
+        "moneyOrPersonalBrand": false,
+        "unmetNeed": false,
+        "reviewNotes": "You disliked the recipes and your current food routine suffices. Marked for removal by the owner; no archival or deployment action is implied.",
+        "removeFromFleet": true,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "You disliked the recipes and your current food routine suffices. Marked for removal by the owner; no archival or deployment action is implied."
+        }
+      },
+      "recommendedFutureForm": "archived-work",
+      "selectionSource": "prefilled-proposal"
+    },
+    {
+      "id": "Significant-Hobbies/what-it-takes-to-win",
+      "name": "Look Sideways",
+      "futureForm": "finished-experiment",
+      "keep": "A bounded source-backed essay or small research collection that helps you think about success.",
+      "stopBuilding": "An all-person database, causal success scores and an endless research obligation.",
+      "reason": "Let the idea exist as a bounded artifact without a backlog or maintenance promise.",
+      "repositories": [
+        {
+          "name": "Significant-Hobbies/what-it-takes-to-win",
+          "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win"
+        }
+      ],
+      "previousReview": {
+        "id": "Significant-Hobbies/what-it-takes-to-win",
+        "category": "media",
+        "audience": "public",
+        "lifecycle": {
+          "status": "active",
+          "shareable": true,
+          "resumeCondition": null
+        },
+        "personalUse": true,
+        "moneyOrPersonalBrand": true,
+        "unmetNeed": false,
+        "reviewNotes": "Original, sourced success research could become recognizable editorial work. Suggested classification for owner review.",
+        "removeFromFleet": false,
+        "needsClassification": false,
+        "prefilled": true,
+        "hasBrowserEdits": false,
+        "recommendationBasis": {
+          "kind": "assistant-prefill-for-owner-review",
+          "originalOwnerReviewPreserved": true,
+          "browserEditsTakePrecedence": true,
+          "shareable": "Existing saved choice where available; otherwise conservatively false. No new logged-in or logged-out verification.",
+          "unmetNeed": "False means no demonstrated unmet need established, not proof that alternatives are sufficient. Anime List reflects the owner-reported filtering need.",
+          "personalUse": "Saved owner choice where available, then explicit conversation decisions, otherwise a conservative recommendation; not proof of daily use.",
+          "fieldRationale": "Original, sourced success research could become recognizable editorial work. Suggested classification for owner review."
+        }
+      },
+      "recommendedFutureForm": "finished-experiment",
+      "selectionSource": "prefilled-proposal"
+    }
+  ],
+  "canonicalProjectsUpdated": [
+    "codevetter",
+    "starboard",
+    "everythingrated",
+    "high-signal",
+    "research-papers",
+    "reddit-insights",
+    "posttrainllm",
+    "ai-game",
+    "forecast-lab",
+    "issue-pages",
+    "mobile-dev-cockpit",
+    "open-historia",
+    "truehire",
+    "web-playables",
+    "agent-office",
+    "drank",
+    "field-track",
+    "local-ai-video-studio",
+    "mashup",
+    "psi-swarm",
+    "reel-pipeline",
+    "verified-bases",
+    "chess",
+    "india-standards",
+    "journal",
+    "materia",
+    "on-record",
+    "protein-index",
+    "reader",
+    "veg-protein-food",
+    "what-it-takes-to-win"
+  ],
+  "repositoriesNotPreviouslyInCanonicalFleet": [
+    "sarthakagrawal927/agent-resume",
+    "sarthakagrawal927/ai-badges",
+    "sarthakagrawal927/backpropagate",
+    "sarthakagrawal927/clash-royale-meta",
+    "sarthakagrawal927/dev-workflow-migration",
+    "sarthakagrawal927/headcount",
+    "sarthakagrawal927/loadtesting",
+    "sarthakagrawal927/local-ai",
+    "sarthakagrawal927/ludo-pass-play",
+    "sarthakagrawal927/mentionpilot",
+    "sarthakagrawal927/ph-catalog",
+    "sarthakagrawal927/pinpoint",
+    "sarthakagrawal927/placard",
+    "sarthakagrawal927/port-whisperer",
+    "sarthakagrawal927/side-machine",
+    "sarthakagrawal927/society-relay",
+    "sarthakagrawal927/subreddit-research",
+    "sarthakagrawal927/temp-splitwise",
+    "sarthakagrawal927/today-little-log",
+    "sass-maker/elves-hq"
+  ],
+  "hostingChanges": "None; provider ownership records retained."
+}

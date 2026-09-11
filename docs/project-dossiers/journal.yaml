@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: journal
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: mismatch
     githubActionsLiveState: not-applicable
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,31 +23,31 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: ab4be138914270e62e5dd15e9b7015f59b36594d4e3ec5faf749f2f8452d29a6
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: journal
+      checkout: ../fleet-archive/journal
       revision: 81f437780292cd8d71309fcd31f03b5c1521a592
-      githubRepository: Significant-Hobbies/journal
+      githubRepository: sarthakagrawal927/journal
       expectedHomepage: https://journal.significanthobbies.com
-      observedHomepage: https://journal.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: journal
+      checkout: ../fleet-archive/journal
       revision: 81f437780292cd8d71309fcd31f03b5c1521a592
-      githubRepository: Significant-Hobbies/journal
+      githubRepository: sarthakagrawal927/journal
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-11
@@ -55,10 +55,11 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a2 {}
-  unknowns: []
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://journal.significanthobbies.com.
 ownerVoice:
   whyVerbatim: I am making a journal because I think a good journal app is very important and journaling as a habit is very important, so it fits well with our hub.
   fullReviewVerbatim: |-
@@ -69,14 +70,18 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Make journaling a durable habit within the Hub.
-  currentState: Owner explicitly removed it from Fleet on 2026-09-07.
-  nextDecision: Use an existing journal; preserve source and history without promotion or new work.
+  currentState: Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged.
+  nextDecision: "Keep: The journal implementation as archived work. Stop: A separate writing application you explicitly do not want to maintain."
 identity:
   name: Journal
   publicName: Journal
   aliases: []
   family: significanthobbies
-  category: utility
+  category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P4
   tier: out-of-fleet
@@ -97,7 +102,7 @@ product:
     outcome: Write regularly, revisit a personal archive, and notice useful patterns without surrendering ownership of the entries.
     mechanism: An independently owned native app keeps the writing loop simple, private, and compatible with privacy-safe Hub summaries.
     proof: Retained historical experiment; the owner explicitly removed it from Fleet on 2026-09-07.
-    nextAction: Use an existing journal or chess product; preserve this repository as history without an active roadmap.
+    nextAction: Historical work only; no active roadmap.
   form: iOS app
   platforms:
     - iOS
@@ -114,13 +119,13 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: journal
+  checkout: ../fleet-archive/journal
   observedRevision: 81f437780292cd8d71309fcd31f03b5c1521a592
-  githubRepository: Significant-Hobbies/journal
-  githubHomepageUrl: https://journal.significanthobbies.com
+  githubRepository: sarthakagrawal927/journal
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/journal
+  url: https://github.com/sarthakagrawal927/journal
   aliases: []
   sourceOverride: ios-landings
   tooling:
@@ -131,19 +136,11 @@ repository:
           - SignificantHobbies.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/journal
-    defaultBranch: main
-    defaultBranchSha: 81f437780292cd8d71309fcd31f03b5c1521a592
-    homepage: https://journal.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows: []
 deployment:
   kind: pages
@@ -176,7 +173,7 @@ sharing:
   verifiedAt: 2026-09-07
   reason: "Live landing states internal TestFlight only, processed build 5/source 6, no public enrollment. Limit: No public consumer installation path."
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/journal/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/journal/issues
   geoIdentity:
     id: journal
     name: Journal

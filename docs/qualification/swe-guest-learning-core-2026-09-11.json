@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-09-11",
+  "project": "SWE Interview Prep",
+  "origin": "https://learn.significanthobbies.com",
+  "browserContext": "Chrome Incognito isolated",
+  "authenticated": false,
+  "accountAccessed": false,
+  "signInVisible": true,
+  "checkout": {
+    "path": "/Users/sarthak/Desktop/fleet/swe-interview-prep",
+    "head": "1f99eed79aef6bac25aad77a77e7d5c421633546",
+    "originMain": "1f99eed79aef6bac25aad77a77e7d5c421633546",
+    "gitStatus": "clean; main tracks origin/main"
+  },
+  "currentHeadActions": [
+    { "workflow": "CI", "runId": "34592059369", "headSha": "1f99eed79aef6bac25aad77a77e7d5c421633546", "conclusion": "success" },
+    { "workflow": "Docs", "runId": "34592059371", "headSha": "1f99eed79aef6bac25aad77a77e7d5c421633546", "conclusion": "success" },
+    { "workflow": "Deploy to Cloudflare Pages", "runId": "34592264779", "headSha": "1f99eed79aef6bac25aad77a77e7d5c421633546", "conclusion": "success" }
+  ],
+  "liveGuestCore": {
+    "concept": {
+      "route": "/concepts/tokenization",
+      "loaded": true,
+      "evidence": ["mental model rendered", "curated resources rendered", "linked representative drill rendered", "review question answer revealed"],
+      "statusAfterLoop": "Learning",
+      "confidenceAfterReload": "1/5"
+    },
+    "drill": {
+      "route": "/drills/build-tokenizer",
+      "prompt": "tokenize('The Quick Brown Foxes!')",
+      "expectedOutput": ["quick", "brown", "fox"],
+      "run": "All tests passed",
+      "guestProgress": "saved attempt, then marked solved",
+      "reload": "solved · 2 attempts and passing output remained"
+    },
+    "practice": {
+      "route": "/practice?problem=build-tokenizer",
+      "run": "Output panel completed in <1ms with no Problems error; Explain became enabled",
+      "reload": "paced tokenizer implementation remained in editor",
+      "hostedAccountPersistence": "not tested"
+    },
+    "review": {
+      "selfReview": "Good clicked",
+      "question": "same analyzer at index and query time",
+      "answer": "revealed",
+      "reload": "concept remained Learning with 1/5 confidence"
+    }
+  },
+  "localVsLive": {
+    "local": "Earlier local proof at 127.0.0.1:4190 covered real drill grader, localStorage reload, practice run/reload, and concept review.",
+    "live": "This receipt covers the production origin above in an unauthenticated Incognito context; guest browser persistence was observed across reloads.",
+    "hostedAccountPersistence": "not tested",
+    "aiExplainBack": "not tested",
+    "googleLogin": "not used"
+  },
+  "sourceFilesChanged": false,
+  "scopeOutcome": "Guest Concept -> Drill -> practice -> review loop is usable on production with browser-local persistence. Hosted account sync and AI explain-back remain separate limits."
+}

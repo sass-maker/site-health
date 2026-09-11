@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-09-11T12:12:25.707078+00:00",
+  "tool": "native Chrome CUA via mcp__cua_repl.js",
+  "ownerLogin": {
+    "hubTabId": "673500292",
+    "liveOwnerTab": "673500295",
+    "result": "existing personal Google account reached authenticated Live Hub",
+    "hubRoute": "https://live.significanthobbies.com/hub",
+    "hubSurface": "Private read-only Hub visible"
+  },
+  "hubSummaryAfterCleanup": {
+    "Live": "0 records",
+    "Calorie": "0 records",
+    "Setline": "0 records",
+    "Kith": "0 records",
+    "Anchor": "35 records; updated 2026-08-30"
+  },
+  "timelineCanary": {
+    "recordId": "cx558rvob84x362nhm093amor",
+    "created": "one private timeline with one synthetic phase and one synthetic hobby",
+    "reloadVerified": "saved page reloaded with 1 phase and 1 hobby",
+    "cleanupVerified": "synthetic hobby removed; labels changed to generic Timeline and Phase; resulting record has 0 hobbies",
+    "hubReturn": "Hub Live summary returned to 0 records",
+    "wholeRecordDelete": "no visible delete action in privacy menu, edit screen, or account settings; record ID retained only in this private receipt",
+    "syntheticContentVisible": false
+  },
+  "bucketListCanary": {
+    "workspace": "https://live.significanthobbies.com/bucket-list",
+    "result": "blocked before editor",
+    "visibleGate": "owner onboarding requires birth date before bucket-list workspace opens",
+    "actionTaken": "none; no real personal data entered",
+    "syntheticItemCreated": false,
+    "exactPrerequisite": "Complete existing owner onboarding with the user-provided birth date, then retry bucket-list create/complete/reload/delete proof."
+  },
+  "testTabsClosed": [
+    "673500295",
+    "673500299"
+  ],
+  "contentCaptured": false,
+  "configChanged": false,
+  "usefulTabs": {
+    "gcpCallback": "673500289",
+    "hub": "673500292",
+    "chatgptApps": "673500251",
+    "kinetic": "673500304"
+  }
+}

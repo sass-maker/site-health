@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: india-standards
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,31 +23,31 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: a4472aa73179917eca02ccf14b7d8eba36286890949d79b402d03c32475c3143
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: india-standards
+      checkout: ../fleet-archive/india-standards
       revision: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
-      githubRepository: Significant-Hobbies/india-standards
+      githubRepository: sarthakagrawal927/india-standards
       expectedHomepage: https://india-standards.significanthobbies.com
-      observedHomepage: https://india-standards.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: india-standards
+      checkout: ../fleet-archive/india-standards
       revision: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
-      githubRepository: Significant-Hobbies/india-standards
+      githubRepository: sarthakagrawal927/india-standards
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-27
@@ -55,12 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://india-standards.significanthobbies.com.
 ownerVoice:
   whyVerbatim: "India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now."
   fullReviewVerbatim: "India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now."
@@ -68,25 +70,29 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Use official data to contextualize how a person is doing in India.
-  currentState: The transparent aggregate calculator exists, but data quality limits expansion.
-  nextDecision: Reopen when materially better authoritative data becomes available.
+  currentState: Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged.
+  nextDecision: "Keep: The dated, source-linked demographic comparison as historical work. Stop: Ongoing data-product expansion after your interest has ended."
 identity:
   name: India Standards
   publicName: India Standards
   aliases: []
   family: significanthobbies
-  category: utility
+  category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P4
-  tier: secondary
-  attention: toolbox
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
     status: inactive
     shareable: false
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: A transparent India demographic standards calculator using aggregate PLFS data, explicit uncertainty ranges, and clear source limits.
   publicMakerNote: I wanted official data to provide a more grounded answer to how a person is doing in the Indian context.
@@ -96,7 +102,7 @@ product:
     outcome: Understand where a value sits in aggregate context and see the uncertainty and source limits behind that estimate.
     mechanism: A transparent calculator uses aggregate PLFS data, explicit ranges, documented formulas, and visible caveats.
     proof: The working calculator exposes its aggregate sources and uncertainty, while current data quality limits further expansion.
-    nextAction: Use the calculator as a bounded contextual reference; expansion waits for materially better authoritative data.
+    nextAction: Historical work only; no active roadmap.
   form: Reference web app
   platforms:
     - Web
@@ -113,13 +119,13 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: india-standards
+  checkout: ../fleet-archive/india-standards
   observedRevision: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
-  githubRepository: Significant-Hobbies/india-standards
-  githubHomepageUrl: https://india-standards.significanthobbies.com
+  githubRepository: sarthakagrawal927/india-standards
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/india-standards
+  url: https://github.com/sarthakagrawal927/india-standards
   aliases: []
   sourceOverride: null
   tooling:
@@ -165,20 +171,12 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/india-standards
-    defaultBranch: main
-    defaultBranchSha: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
-    homepage: https://india-standards.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -187,47 +185,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34196345876
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
-          createdAt: 2026-09-08T06:49:00Z
-          updatedAt: 2026-09-08T06:50:13Z
-          url: https://github.com/Significant-Hobbies/india-standards/actions/runs/34196345876
-        ageDays: 1
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34196345876
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
-          createdAt: 2026-09-08T06:49:00Z
-          updatedAt: 2026-09-08T06:50:13Z
-          url: https://github.com/Significant-Hobbies/india-standards/actions/runs/34196345876
-        ageDays: 1
-      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -256,13 +213,13 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-08
   reason: "Normal human verification has not yielded a hosted calculator result; provider health, default/sparse/unsupported cases and displayed-filter sharing remain unqualified under #35. PLFS usage scope and NFHS activation remain #36."
-  changelogUrl: https://india-standards.significanthobbies.com/changelog
-  roadmapUrl: https://github.com/Significant-Hobbies/india-standards/issues
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/india-standards/issues
   geoIdentity:
     id: india-standards
     name: India Standards

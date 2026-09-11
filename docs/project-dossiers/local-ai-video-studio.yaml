@@ -1,66 +1,69 @@
 schemaVersion: 1
 projectId: local-ai-video-studio
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Local AI Video Studio
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 4871bb488c317d584b3b9784bdf8f5113a38d8a407a6da003fc3596ecaebe6a0
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: local-ai-video-studio
-      revision: 8c9f345f4a87b6cef4a55924896de1e8100a7fa3
+      revision: 9bff06ee628a36d39c06617c6519d4c24699c11e
       githubRepository: sass-maker/local-ai-video-studio
       expectedHomepage: https://local-ai-video-studio.sassmaker.com
-      observedHomepage: https://local-ai-video-studio.sassmaker.com
+      observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 3
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: local-ai-video-studio
-      revision: 8c9f345f4a87b6cef4a55924896de1e8100a7fa3
+      revision: 9bff06ee628a36d39c06617c6519d4c24699c11e
       githubRepository: sass-maker/local-ai-video-studio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-09
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 2
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        ignored: 2
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://local-ai-video-studio.sassmaker.com.
 ownerVoice:
   whyVerbatim: Local AI video studio. I think I started off this project because there are a lot of video editor tools which I was also researching, various video effects you can add, and how people using AI might be overkill for a lot of them. I wanted to build a system in which you can set up local video effects but with the help of an AI agent you can just tell it. It uses the best most optimised tool to add that effect for you without using current generative AI technologies. It's a product kind of like the past but it will also have fallbacks to go to the latest technology. It's an experiment. I lost interest after some time and might continue later.
   fullReviewVerbatim: Local AI video studio. I think I started off this project because there are a lot of video editor tools which I was also researching, various video effects you can add, and how people using AI might be overkill for a lot of them. I wanted to build a system in which you can set up local video effects but with the help of an AI agent you can just tell it. It uses the best most optimised tool to add that effect for you without using current generative AI technologies. It's a product kind of like the past but it will also have fallbacks to go to the latest technology. It's an experiment. I lost interest after some time and might continue later.
@@ -68,18 +71,22 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Translate editing intent into efficient local video effects instead of defaulting to generative video.
-  currentState: A bounded local-first experiment; owner interest faded.
-  nextDecision: Reopen only around a real creator workflow where deterministic local editing clearly helps.
+  currentState: Paused experiment; no current work or obligation to resume.
+  nextDecision: "Keep: A clearly labelled local-effects experiment and a sample output. Stop: A new general video editor or generative studio without a specific unmet editing need."
 identity:
   name: Local AI Video Studio
   publicName: Local AI Video Studio
   aliases: []
   family: local-ai-video-studio
   category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: experiment
   priority: P2
-  tier: active
-  attention: toolbox
+  tier: parked
+  attention: ignored
   lifecycle:
     status: inactive
     shareable: false
@@ -96,7 +103,7 @@ product:
     outcome: Translate an editing intention into visible effect variants and choose a result that can be reproduced.
     mechanism: A native Mac studio uses AVFoundation, Core Image, and hardware video tools to render comparable local variants from one source.
     proof: The bounded local experiment works, but owner interest faded before a recurring creator workflow was established.
-    nextAction: Treat it as a held local experiment; reopen only around a real creator job where deterministic effects clearly help.
+    nextAction: Preserved experiment; no current work or obligation to resume.
   form: macOS app
   platforms:
     - macOS
@@ -108,15 +115,15 @@ product:
     - VideoToolbox
   retainedGitHistory:
     firstCommitAt: 2026-08-09
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 30
+    latestCommitAt: 2026-09-12
+    retainedCommitCount: 32
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: local-ai-video-studio
-  observedRevision: 8c9f345f4a87b6cef4a55924896de1e8100a7fa3
+  observedRevision: 9bff06ee628a36d39c06617c6519d4c24699c11e
   githubRepository: sass-maker/local-ai-video-studio
-  githubHomepageUrl: https://local-ai-video-studio.sassmaker.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/local-ai-video-studio
@@ -153,20 +160,12 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 2
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sass-maker/local-ai-video-studio
-    defaultBranch: main
-    defaultBranchSha: 8c9f345f4a87b6cef4a55924896de1e8100a7fa3
-    homepage: https://local-ai-video-studio.sassmaker.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: Native Quality
       file: .github/workflows/native-quality.yml
@@ -174,94 +173,12 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34122300862
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 8c9f345f4a87b6cef4a55924896de1e8100a7fa3
-          createdAt: 2026-09-07T12:31:11Z
-          updatedAt: 2026-09-07T12:33:19Z
-          url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/34122300862
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34122300862
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 8c9f345f4a87b6cef4a55924896de1e8100a7fa3
-          createdAt: 2026-09-07T12:31:11Z
-          updatedAt: 2026-09-07T12:33:19Z
-          url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/34122300862
-        ageDays: 2
-      attention: ignored
     - name: Site Check
       file: .github/workflows/site-check.yml
       triggers:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34122300774
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 8c9f345f4a87b6cef4a55924896de1e8100a7fa3
-          createdAt: 2026-09-07T12:31:11Z
-          updatedAt: 2026-09-07T12:31:21Z
-          url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/34122300774
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34122300774
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 8c9f345f4a87b6cef4a55924896de1e8100a7fa3
-          createdAt: 2026-09-07T12:31:11Z
-          updatedAt: 2026-09-07T12:31:21Z
-          url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/34122300774
-        ageDays: 2
-      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -277,6 +194,11 @@ deployment:
         name: local-ai-video-studio
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-11T20:13:47.112Z
+          deploymentId: 2daf4099-0fff-4d98-a1e2-ca5ec11cafaf
+          sourceCommit: 9bff06ee628a36d39c06617c6519d4c24699c11e
+          evidencePath: ../saas-maker/.fleet-local/local-ai-video-studio-repository-icon-release-20260912.json
     resources: []
   otherProviders:
     deployments:
@@ -287,7 +209,7 @@ deployment:
         state: local-only
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: past
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-07
@@ -315,4 +237,4 @@ sharing:
       state: not-applicable
 notes:
   catalog: The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.
-  infrastructure: null
+  infrastructure: " Repository icon release 9bff06ee628a36d39c06617c6519d4c24699c11e verified on existing local-ai-video-studio deployment 2daf4099-0fff-4d98-a1e2-ca5ec11cafaf. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px."

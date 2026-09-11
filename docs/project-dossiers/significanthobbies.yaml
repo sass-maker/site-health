@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: significanthobbies
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,44 +23,47 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 2fbbfd2ed2ba8141b8be5c1ba7fbe416f6a77882e5088b10c1a9d53b29b2ee8e
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: significanthobbies
-      revision: 31f6b4eaa6d748b0fddd41ea66ed098655e9a541
+      revision: d997b71ee9864ed1004ca1bbf0883a93614a0b5b
       githubRepository: Significant-Hobbies/significanthobbies
       expectedHomepage: https://significanthobbies.com
-      observedHomepage: https://significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: significanthobbies
-      revision: 31f6b4eaa6d748b0fddd41ea66ed098655e9a541
+      revision: d997b71ee9864ed1004ca1bbf0883a93614a0b5b
       githubRepository: Significant-Hobbies/significanthobbies
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-03-01
       catalogLatestCommitAt: 2026-09-09
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 2
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 2
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://significanthobbies.com.
 ownerVoice:
   whyVerbatim: OK we need to move things outside and significanthobbies will be the hub and its backend, create a task for this reconcilliation
   fullReviewVerbatim: |-
@@ -80,6 +83,10 @@ identity:
     - significant-hobbies
   family: significanthobbies
   category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P2
   tier: secondary
@@ -113,15 +120,15 @@ product:
     - Swift
   retainedGitHistory:
     firstCommitAt: 2026-03-01
-    latestCommitAt: 2026-09-09
-    retainedCommitCount: 552
+    latestCommitAt: 2026-09-11
+    retainedCommitCount: 553
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: significanthobbies
-  observedRevision: 31f6b4eaa6d748b0fddd41ea66ed098655e9a541
+  observedRevision: d997b71ee9864ed1004ca1bbf0883a93614a0b5b
   githubRepository: Significant-Hobbies/significanthobbies
-  githubHomepageUrl: https://significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/significanthobbies
@@ -148,20 +155,12 @@ repository:
       - test:swift
       - test:worker
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 2
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/significanthobbies
-    defaultBranch: main
-    defaultBranchSha: 31f6b4eaa6d748b0fddd41ea66ed098655e9a541
-    homepage: https://significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -169,82 +168,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34329373999
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 31f6b4eaa6d748b0fddd41ea66ed098655e9a541
-          createdAt: 2026-09-09T08:29:17Z
-          updatedAt: 2026-09-09T08:30:06Z
-          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/34329373999
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34329373999
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 31f6b4eaa6d748b0fddd41ea66ed098655e9a541
-          createdAt: 2026-09-09T08:29:17Z
-          updatedAt: 2026-09-09T08:30:06Z
-          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/34329373999
-        ageDays: 0
-      attention: clear
-    - name: Dependabot Updates
-      file: dynamic/dependabot/dependabot-updates
-      triggers: []
-      schedules: []
-      inventory:
-        source: github-generated
-        local: false
-        remote: true
-      ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 32031376545
-          status: completed
-          conclusion: success
-          event: dynamic
-          branch: main
-          headSha: ae0798c244b56c07ceea2c257d84b2306fb3417d
-          createdAt: 2026-08-17T12:44:38Z
-          updatedAt: 2026-08-17T12:45:28Z
-          url: https://github.com/Significant-Hobbies/significanthobbies/actions/runs/32031376545
-        ageDays: 23
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -289,8 +212,8 @@ sharing:
   publicListing: maintained
   maturity: public-ready
   ready: false
-  verifiedAt: 2026-09-09
-  reason: Runtime 629d8e7 is deployed at 100%. Actual 390px public directory lists exactly Live, Calorie, Setline, Kith and Anchor, without Journal or overflow. Private entry follows apex /hub to Live /hub and login with the correct return path. All 53 Worker tests and six deploy gates passed. Google still visibly rejects login with redirect_uri_mismatch. Personal account continuity and physical native sync remain unqualified; shareability stays false.
+  verifiedAt: 2026-09-11
+  reason: "The existing Google OAuth client now includes the Live callback while preserving existing callbacks. Personal Google login returns to the private Hub and its authenticated five-app summaries; Anchor shows 35 existing records. Public directory includes exactly Live, Calorie, Setline, Kith and Anchor without Journal. Hub navigation and owner summary core passed. This does not certify fresh cross-device writes for every native app. Receipt: docs/qualification/live-hub-owner-core-2026-09-11.json. Sharing remains limited to the personal Hub; broader native sync claims are not certified by this check."
   changelogUrl: https://significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/significanthobbies/issues
   geoIdentity:
@@ -313,5 +236,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Runtime 629d8e7 is deployed at 100%. Actual 390px public directory lists exactly Live, Calorie, Setline, Kith and Anchor, without Journal or overflow. Private entry follows apex /hub to Live /hub and login with the correct return path. All 53 Worker tests and six deploy gates passed. Google still visibly rejects login with redirect_uri_mismatch. Personal account continuity and physical native sync remain unqualified; shareability stays false.
+  catalog: "The existing Google OAuth client now includes the Live callback while preserving existing callbacks. Personal Google login returns to the private Hub and its authenticated five-app summaries; Anchor shows 35 existing records. Public directory includes exactly Live, Calorie, Setline, Kith and Anchor without Journal. Hub navigation and owner summary core passed. This does not certify fresh cross-device writes for every native app. Receipt: docs/qualification/live-hub-owner-core-2026-09-11.json. Sharing remains limited to the personal Hub; broader native sync claims are not certified by this check."
   infrastructure: Worker personal-platform version 8549fc16-e9dd-4ed8-864f-363c6cfde642 carries 629d8e7be44295044e60c950395ec3232541a373 at 100%. Prior rollback version d9b6ea57-7b9c-4a75-8f25-db62bd6d4db8 is tagged c821abfde26550c6adac9bce4213845ae37fd255. Existing D1 and service bindings unchanged. Issue154 comment5598004640 records release and browser proof.

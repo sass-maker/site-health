@@ -1,0 +1,63 @@
+{
+  "receiptVersion": 1,
+  "recordedAt": "2026-09-11T17:42:00+05:30",
+  "project": "saas-maker",
+  "scope": "public-directory release only",
+  "source": {
+    "sha": "956aa73baa64a768c6872120ebbb148e28f113fe",
+    "branch": "main",
+    "checkout": "/Users/sarthak/.Trash/saas-maker",
+    "checkoutStatus": "clean and synced with origin/main",
+    "originalWorktree": "/Users/sarthak/Desktop/fleet/saas-maker",
+    "originalWorktreeStatus": "preserved unchanged, pre-existing dirty files retained"
+  },
+  "guard": {
+    "result": "ready",
+    "gatesPassed": 6,
+    "gates": [
+      "main branch",
+      "clean git tree",
+      "remote synced",
+      "exact-head CI green",
+      "known Cloudflare target",
+      "GitHub Issues work queue"
+    ]
+  },
+  "ci": {
+    "runs": [
+      34594707885,
+      34594707887
+    ],
+    "result": "green"
+  },
+  "validation": {
+    "staticBuildPages": 30,
+    "repositorySmokeChecks": 4,
+    "repositorySmokeResult": "4/4 passed"
+  },
+  "deployment": {
+    "provider": "Cloudflare Pages",
+    "project": "saas-maker-home",
+    "deploymentId": "31e4f241",
+    "deploymentUrl": "https://31e4f241.saas-maker-home.pages.dev",
+    "productionDomain": "https://sassmaker.com",
+    "status": "completed"
+  },
+  "liveVerification": {
+    "canonicalJson": "https://sassmaker.com/projects.json",
+    "directoryRoute": "https://sassmaker.com/projects",
+    "productRoute": "https://sassmaker.com/p/live",
+    "productId": "live",
+    "description": "Explore hobbies and possibilities, build a personal bucket list, and keep progress on this device; account sync is not yet qualified.",
+    "expectedDescriptionSha256": "4a06119d912bcc0db6aecf1f1aba10d8dc5c365993a57a8c10885526ddf45e28",
+    "liveDescriptionSha256": "4a06119d912bcc0db6aecf1f1aba10d8dc5c365993a57a8c10885526ddf45e28",
+    "descriptionMatch": true,
+    "directoryEntryRendered": true
+  },
+  "cleanup": {
+    "activeDeployProcesses": false,
+    "recoverableCheckoutPath": "/Users/sarthak/.Trash/saas-maker",
+    "recoverableGuardLinkPath": "/Users/sarthak/.Trash/saas-maker-guard-link",
+    "recoverableNodeModulesLinkPath": "/Users/sarthak/.Trash/saas-maker-directory-release-20260911-170737-node_modules-link"
+  }
+}

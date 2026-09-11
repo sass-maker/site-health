@@ -1,0 +1,47 @@
+{
+  "observedOn": "2026-09-11",
+  "outcome": "passed",
+  "steps": [
+    {
+      "step": "preflight",
+      "cleanMain": true,
+      "runtimeCodeUnchanged": true,
+      "currentHeadChecksGreen": true
+    },
+    {
+      "step": "workers/api",
+      "versionId": "f6f120ea-500c-4515-ac49-41950f9778c3",
+      "deploymentId": "e0881ec8-d3c4-4846-a1b8-73e4e8bc7795",
+      "tag": "4505493afae6f273560768302d65a06bdcc4962b",
+      "trafficPercent": 100
+    },
+    {
+      "step": "apps/web",
+      "versionId": "ae45f9e1-ac56-47a7-a9b0-b440fdbe1304",
+      "deploymentId": "5d812abd-61ae-4958-99d3-2c15c576696e",
+      "tag": "4505493afae6f273560768302d65a06bdcc4962b",
+      "trafficPercent": 100
+    },
+    {
+      "step": "readback",
+      "adminHttpStatus": 200
+    }
+  ],
+  "localPlaintextCredentialFilesWritten": false,
+  "credentialChanged": false,
+  "sourceSha": "4505493afae6f273560768302d65a06bdcc4962b",
+  "checks": [
+    {
+      "conclusion": "success",
+      "databaseId": 34598220374,
+      "name": "Docs",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 34598220366,
+      "name": "CI",
+      "status": "completed"
+    }
+  ]
+}

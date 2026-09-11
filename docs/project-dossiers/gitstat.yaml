@@ -1,66 +1,69 @@
 schemaVersion: 1
 projectId: gitstat
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-22
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: GitStat
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 3e52bb0c260d1fb0d88301274f64783d6f332dac8da370c55bfbdedd10168207
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: gitstat
-      revision: cb9d0ff663b06c2f53178dbabff466444926b77a
+      revision: 9bcb8d01f88d4a2618e9652d300203674f118da9
       githubRepository: sass-maker/gitstat
       expectedHomepage: https://git.significanthobbies.com
-      observedHomepage: https://git.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: gitstat
-      revision: cb9d0ff663b06c2f53178dbabff466444926b77a
+      revision: 9bcb8d01f88d4a2618e9652d300203674f118da9
       githubRepository: sass-maker/gitstat
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-21
       catalogLatestCommitAt: 2026-09-06
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://git.significanthobbies.com.
 ownerVoice:
   whyVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
   fullReviewVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
@@ -75,7 +78,11 @@ identity:
   publicName: GitStat
   aliases: []
   family: gitstat
-  category: utility
+  category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P2
   tier: secondary
@@ -107,15 +114,15 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-08-21
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 12
+    latestCommitAt: 2026-09-12
+    retainedCommitCount: 13
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: gitstat
-  observedRevision: cb9d0ff663b06c2f53178dbabff466444926b77a
+  observedRevision: 9bcb8d01f88d4a2618e9652d300203674f118da9
   githubRepository: sass-maker/gitstat
-  githubHomepageUrl: https://git.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/gitstat
@@ -138,20 +145,12 @@ repository:
       - lint
       - preview
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sass-maker/gitstat
-    defaultBranch: main
-    defaultBranchSha: cb9d0ff663b06c2f53178dbabff466444926b77a
-    homepage: https://git.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -160,47 +159,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34030231936
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: cb9d0ff663b06c2f53178dbabff466444926b77a
-          createdAt: 2026-09-06T11:25:52Z
-          updatedAt: 2026-09-06T11:26:10Z
-          url: https://github.com/sass-maker/gitstat/actions/runs/34030231936
-        ageDays: 3
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34030231936
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: cb9d0ff663b06c2f53178dbabff466444926b77a
-          createdAt: 2026-09-06T11:25:52Z
-          updatedAt: 2026-09-06T11:26:10Z
-          url: https://github.com/sass-maker/gitstat/actions/runs/34030231936
-        ageDays: 3
-      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -216,6 +174,11 @@ deployment:
         name: gitstat
         method: git-connected
         state: live
+        verification:
+          observedAt: 2026-09-11T20:01:17.602Z
+          deploymentId: effcff98-77df-443e-a4d6-3a67632dadda
+          sourceCommit: 9bcb8d01f88d4a2618e9652d300203674f118da9
+          evidencePath: ../saas-maker/.fleet-local/gitstat-repository-icon-release-20260912.json
     resources: []
   otherProviders:
     deployments: []
@@ -231,4 +194,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: Fleet-owned GitHub analytics product. Cloudflare Pages and the custom domain were live on 2026-08-22; anonymous public analysis works, while the optional browser OAuth connection flow still needs repair.
-  infrastructure: Live Cloudflare deployment owned by the Fleet GitStat product.
+  infrastructure: Live Cloudflare deployment owned by the Fleet GitStat product. Repository icon release 9bcb8d01f88d4a2618e9652d300203674f118da9 verified on existing gitstat deployment effcff98-77df-443e-a4d6-3a67632dadda. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px.

@@ -25,7 +25,7 @@ test('consolidated workspace boundaries remain explicit', () => {
   assert.equal(saasMaker?.repo, 'saas-maker');
   assert.equal(live?.repositoryUrl, 'https://github.com/Significant-Hobbies/live');
   assert.equal(hub?.cfProject, 'personal-platform');
-  assert.equal(journal?.repositoryUrl, 'https://github.com/Significant-Hobbies/journal');
+  assert.equal(journal?.repositoryUrl, 'https://github.com/sarthakagrawal927/journal');
   assert.deepEqual(siteHealth?.domains, []);
   assert.equal(siteHealth?.status, 'local-only');
   assert.deepEqual(catalog.infrastructure.projects['site-health'].deployments, []);
@@ -199,10 +199,10 @@ test('non-Vault organization repositories reconcile without duplicate products',
 
   assert.equal(
     projectById.get('protein-index')?.repositoryUrl,
-    'https://github.com/Significant-Hobbies/protein-index-resilience',
+    'https://github.com/sarthakagrawal927/protein-index-resilience',
   );
   assert.deepEqual(projectById.get('protein-index')?.repositoryAliases, [
-    'https://github.com/Significant-Hobbies/protein-index',
+    'https://github.com/sarthakagrawal927/protein-index',
   ]);
   assert.equal(
     projectById.get('anchor')?.repositoryUrl,
@@ -211,7 +211,7 @@ test('non-Vault organization repositories reconcile without duplicate products',
   assert.equal(projectById.has('saas-ideas'), false);
   assert.equal(
     projectById.get('verified-bases')?.repositoryUrl,
-    'https://github.com/sass-maker/verified-bases',
+    'https://github.com/sarthakagrawal927/verified-bases',
   );
 });
 
@@ -291,8 +291,8 @@ test('current product scope stays smaller than the complete retained inventory',
   const current = catalog.projects.filter((project) =>
     ['primary', 'active'].includes(project.lifecycle.status));
 
-  assert.equal(catalog.projects.length, 57);
-  assert.equal(current.length, 22);
+  assert.equal(catalog.projects.length, 59);
+  assert.equal(current.length, 23);
   assert.equal(current.some((project) => project.id === 'nomad-data-adventure'), true);
   for (const id of ['chess', 'journal']) {
     const project = catalog.projects.find((project) => project.id === id);

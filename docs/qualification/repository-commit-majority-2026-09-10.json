@@ -1,0 +1,886 @@
+{
+  "since": "2026-01-01T00:00:00Z",
+  "method": "GitHub default-branch reachable history totalCount, all commit authors and types; strictly more than half since January 1. Implementation eligibility remains separate.",
+  "repositories": [
+    {
+      "repository": "Codevetter/.github",
+      "branch": "main",
+      "allTimeCommits": 4,
+      "commitsIn2026": 4,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Codevetter/codevetter",
+      "branch": "main",
+      "allTimeCommits": 1349,
+      "commitsIn2026": 1345,
+      "fractionIn2026": 0.9970348406226834,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Codevetter/starboard",
+      "branch": "main",
+      "allTimeCommits": 407,
+      "commitsIn2026": 407,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "HeyPace/.github",
+      "branch": "main",
+      "allTimeCommits": 5,
+      "commitsIn2026": 5,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "HeyPace/companion-robot",
+      "branch": "main",
+      "allTimeCommits": 9,
+      "commitsIn2026": 9,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "HeyPace/pace",
+      "branch": "main",
+      "allTimeCommits": 65,
+      "commitsIn2026": 65,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "High-Signal-App/.github",
+      "branch": "main",
+      "allTimeCommits": 7,
+      "commitsIn2026": 7,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "High-Signal-App/everythingrated",
+      "branch": "main",
+      "allTimeCommits": 170,
+      "commitsIn2026": 170,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "High-Signal-App/high-signal",
+      "branch": "main",
+      "allTimeCommits": 952,
+      "commitsIn2026": 952,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "High-Signal-App/research-papers",
+      "branch": "main",
+      "allTimeCommits": 107,
+      "commitsIn2026": 107,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "High-Signal-App/research-subreddit",
+      "branch": "main",
+      "allTimeCommits": 24,
+      "commitsIn2026": 24,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "PostTrainLLM/.github",
+      "branch": "main",
+      "allTimeCommits": 5,
+      "commitsIn2026": 5,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "PostTrainLLM/awesome-mlx",
+      "branch": "main",
+      "allTimeCommits": 43,
+      "commitsIn2026": 14,
+      "fractionIn2026": 0.32558139534883723,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "PostTrainLLM/posttrainllm",
+      "branch": "main",
+      "allTimeCommits": 843,
+      "commitsIn2026": 843,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/agent-resume",
+      "branch": "main",
+      "allTimeCommits": 17,
+      "commitsIn2026": 17,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/ai-badges",
+      "branch": "main",
+      "allTimeCommits": 3,
+      "commitsIn2026": 3,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/ai-notes",
+      "branch": "main",
+      "allTimeCommits": 6,
+      "commitsIn2026": 1,
+      "fractionIn2026": 0.16666666666666666,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/aliveville",
+      "branch": "main",
+      "allTimeCommits": 371,
+      "commitsIn2026": 371,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/assistant",
+      "branch": "main",
+      "allTimeCommits": 21,
+      "commitsIn2026": 8,
+      "fractionIn2026": 0.38095238095238093,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/awesome-observability",
+      "branch": "master",
+      "allTimeCommits": 265,
+      "commitsIn2026": 110,
+      "fractionIn2026": 0.41509433962264153,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/backpropagate",
+      "branch": "main",
+      "allTimeCommits": 20,
+      "commitsIn2026": 20,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/clash-royale-meta",
+      "branch": "main",
+      "allTimeCommits": 21,
+      "commitsIn2026": 21,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/clickhouse-vs-elasticsearch",
+      "branch": "main",
+      "allTimeCommits": 13,
+      "commitsIn2026": 2,
+      "fractionIn2026": 0.15384615384615385,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/dev-notes",
+      "branch": "main",
+      "allTimeCommits": 88,
+      "commitsIn2026": 7,
+      "fractionIn2026": 0.07954545454545454,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/dev-workflow-migration",
+      "branch": "main",
+      "allTimeCommits": 11,
+      "commitsIn2026": 11,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/ecommerce-api",
+      "branch": "main",
+      "allTimeCommits": 10,
+      "commitsIn2026": 1,
+      "fractionIn2026": 0.1,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/face-match",
+      "branch": "main",
+      "allTimeCommits": 8,
+      "commitsIn2026": 2,
+      "fractionIn2026": 0.25,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/forecast-lab",
+      "branch": "main",
+      "allTimeCommits": 14,
+      "commitsIn2026": 14,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/git-tinder",
+      "branch": "master",
+      "allTimeCommits": 111,
+      "commitsIn2026": 2,
+      "fractionIn2026": 0.018018018018018018,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/headcount",
+      "branch": "main",
+      "allTimeCommits": 94,
+      "commitsIn2026": 94,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/issue-pages",
+      "branch": "main",
+      "allTimeCommits": 32,
+      "commitsIn2026": 32,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/language-comparison",
+      "branch": "main",
+      "allTimeCommits": 16,
+      "commitsIn2026": 2,
+      "fractionIn2026": 0.125,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/loadtesting",
+      "branch": "main",
+      "allTimeCommits": 5,
+      "commitsIn2026": 5,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/local-ai",
+      "branch": "main",
+      "allTimeCommits": 12,
+      "commitsIn2026": 12,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/location-tracker-app",
+      "branch": "main",
+      "allTimeCommits": 8,
+      "commitsIn2026": 2,
+      "fractionIn2026": 0.25,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/ludo-pass-play",
+      "branch": "main",
+      "allTimeCommits": 16,
+      "commitsIn2026": 16,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/maps-server",
+      "branch": "main",
+      "allTimeCommits": 3,
+      "commitsIn2026": 1,
+      "fractionIn2026": 0.3333333333333333,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/mentionpilot",
+      "branch": "main",
+      "allTimeCommits": 57,
+      "commitsIn2026": 57,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/mobile-dev-cockpit",
+      "branch": "main",
+      "allTimeCommits": 35,
+      "commitsIn2026": 35,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/open-historia",
+      "branch": "main",
+      "allTimeCommits": 234,
+      "commitsIn2026": 234,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/personalsite",
+      "branch": "main",
+      "allTimeCommits": 150,
+      "commitsIn2026": 42,
+      "fractionIn2026": 0.28,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/ph-catalog",
+      "branch": "main",
+      "allTimeCommits": 12,
+      "commitsIn2026": 12,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/pinpoint",
+      "branch": "main",
+      "allTimeCommits": 7,
+      "commitsIn2026": 7,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/placard",
+      "branch": "main",
+      "allTimeCommits": 24,
+      "commitsIn2026": 24,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/port-whisperer",
+      "branch": "main",
+      "allTimeCommits": 17,
+      "commitsIn2026": 17,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/portfolio",
+      "branch": "main",
+      "allTimeCommits": 94,
+      "commitsIn2026": 94,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/productivity",
+      "branch": "main",
+      "allTimeCommits": 51,
+      "commitsIn2026": 0,
+      "fractionIn2026": 0.0,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/productivity-backend",
+      "branch": "main",
+      "allTimeCommits": 114,
+      "commitsIn2026": 1,
+      "fractionIn2026": 0.008771929824561403,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/productivity-web",
+      "branch": "main",
+      "allTimeCommits": 76,
+      "commitsIn2026": 1,
+      "fractionIn2026": 0.013157894736842105,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/reel-maker",
+      "branch": "main",
+      "allTimeCommits": 14,
+      "commitsIn2026": 14,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/SadTalker",
+      "branch": "main",
+      "allTimeCommits": 291,
+      "commitsIn2026": 0,
+      "fractionIn2026": 0.0,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/sample-nodejs-app",
+      "branch": "master",
+      "allTimeCommits": 8,
+      "commitsIn2026": 1,
+      "fractionIn2026": 0.125,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/sarthakagrawal927",
+      "branch": "main",
+      "allTimeCommits": 77,
+      "commitsIn2026": 31,
+      "fractionIn2026": 0.4025974025974026,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/side-machine",
+      "branch": "main",
+      "allTimeCommits": 5,
+      "commitsIn2026": 5,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/society-relay",
+      "branch": "main",
+      "allTimeCommits": 12,
+      "commitsIn2026": 12,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/stumble-app",
+      "branch": "main",
+      "allTimeCommits": 298,
+      "commitsIn2026": 2,
+      "fractionIn2026": 0.006711409395973154,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/subreddit-research",
+      "branch": "main",
+      "allTimeCommits": 110,
+      "commitsIn2026": 74,
+      "fractionIn2026": 0.6727272727272727,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/taste",
+      "branch": "main",
+      "allTimeCommits": 58,
+      "commitsIn2026": 58,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/temp-splitwise",
+      "branch": "main",
+      "allTimeCommits": 19,
+      "commitsIn2026": 12,
+      "fractionIn2026": 0.631578947368421,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/today-little-log",
+      "branch": "main",
+      "allTimeCommits": 313,
+      "commitsIn2026": 266,
+      "fractionIn2026": 0.8498402555910544,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/truehire",
+      "branch": "main",
+      "allTimeCommits": 183,
+      "commitsIn2026": 183,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sarthakagrawal927/v0-drag-and-drop-game",
+      "branch": "main",
+      "allTimeCommits": 10,
+      "commitsIn2026": 2,
+      "fractionIn2026": 0.2,
+      "majorityIn2026": false
+    },
+    {
+      "repository": "sarthakagrawal927/web-playables",
+      "branch": "main",
+      "allTimeCommits": 40,
+      "commitsIn2026": 40,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/.github",
+      "branch": "main",
+      "allTimeCommits": 7,
+      "commitsIn2026": 7,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/agent-office",
+      "branch": "main",
+      "allTimeCommits": 65,
+      "commitsIn2026": 65,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/app-health",
+      "branch": "main",
+      "allTimeCommits": 100,
+      "commitsIn2026": 100,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/chatgpt-connections",
+      "branch": "main",
+      "allTimeCommits": 42,
+      "commitsIn2026": 42,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/drank",
+      "branch": "main",
+      "allTimeCommits": 98,
+      "commitsIn2026": 98,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/elves-hq",
+      "branch": "main",
+      "allTimeCommits": 81,
+      "commitsIn2026": 81,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/field-track",
+      "branch": "main",
+      "allTimeCommits": 14,
+      "commitsIn2026": 14,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/free-ai",
+      "branch": "main",
+      "allTimeCommits": 257,
+      "commitsIn2026": 257,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/gitstat",
+      "branch": "main",
+      "allTimeCommits": 12,
+      "commitsIn2026": 12,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/knowledge-base",
+      "branch": "main",
+      "allTimeCommits": 225,
+      "commitsIn2026": 225,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/local-ai-video-studio",
+      "branch": "main",
+      "allTimeCommits": 30,
+      "commitsIn2026": 30,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/mashup",
+      "branch": "main",
+      "allTimeCommits": 54,
+      "commitsIn2026": 54,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/psi-swarm",
+      "branch": "main",
+      "allTimeCommits": 80,
+      "commitsIn2026": 80,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/reel-pipeline",
+      "branch": "main",
+      "allTimeCommits": 111,
+      "commitsIn2026": 111,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/saas-ideas",
+      "branch": "main",
+      "allTimeCommits": 80,
+      "commitsIn2026": 41,
+      "fractionIn2026": 0.5125,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/saas-maker",
+      "branch": "main",
+      "allTimeCommits": 1307,
+      "commitsIn2026": 1307,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/site-health",
+      "branch": "main",
+      "allTimeCommits": 1107,
+      "commitsIn2026": 1107,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/verified-bases",
+      "branch": "main",
+      "allTimeCommits": 22,
+      "commitsIn2026": 22,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "sass-maker/workflows-and-skills",
+      "branch": "main",
+      "allTimeCommits": 41,
+      "commitsIn2026": 41,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/.github",
+      "branch": "main",
+      "allTimeCommits": 7,
+      "commitsIn2026": 7,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/anchor",
+      "branch": "main",
+      "allTimeCommits": 109,
+      "commitsIn2026": 109,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/anime-list",
+      "branch": "main",
+      "allTimeCommits": 417,
+      "commitsIn2026": 381,
+      "fractionIn2026": 0.9136690647482014,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/calorie",
+      "branch": "main",
+      "allTimeCommits": 131,
+      "commitsIn2026": 131,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/chatgpt-memory-insights",
+      "branch": "main",
+      "allTimeCommits": 68,
+      "commitsIn2026": 68,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/chess",
+      "branch": "main",
+      "allTimeCommits": 99,
+      "commitsIn2026": 99,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/email-manager",
+      "branch": "main",
+      "allTimeCommits": 269,
+      "commitsIn2026": 269,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/hub-backend",
+      "branch": "main",
+      "allTimeCommits": 27,
+      "commitsIn2026": 27,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/india-standards",
+      "branch": "main",
+      "allTimeCommits": 42,
+      "commitsIn2026": 42,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/indulge",
+      "branch": "main",
+      "allTimeCommits": 51,
+      "commitsIn2026": 51,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/ios-landings",
+      "branch": "main",
+      "allTimeCommits": 43,
+      "commitsIn2026": 43,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/journal",
+      "branch": "main",
+      "allTimeCommits": 30,
+      "commitsIn2026": 30,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/karte",
+      "branch": "main",
+      "allTimeCommits": 511,
+      "commitsIn2026": 511,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/kith",
+      "branch": "main",
+      "allTimeCommits": 54,
+      "commitsIn2026": 54,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/live",
+      "branch": "main",
+      "allTimeCommits": 569,
+      "commitsIn2026": 569,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/looptv",
+      "branch": "main",
+      "allTimeCommits": 261,
+      "commitsIn2026": 261,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/materia",
+      "branch": "main",
+      "allTimeCommits": 57,
+      "commitsIn2026": 57,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/motion",
+      "branch": "main",
+      "allTimeCommits": 85,
+      "commitsIn2026": 85,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/on-record",
+      "branch": "main",
+      "allTimeCommits": 73,
+      "commitsIn2026": 73,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/protein-index",
+      "branch": "main",
+      "allTimeCommits": 247,
+      "commitsIn2026": 247,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/protein-index-resilience",
+      "branch": "main",
+      "allTimeCommits": 232,
+      "commitsIn2026": 232,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/reader",
+      "branch": "main",
+      "allTimeCommits": 341,
+      "commitsIn2026": 326,
+      "fractionIn2026": 0.9560117302052786,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/rolepatch",
+      "branch": "main",
+      "allTimeCommits": 445,
+      "commitsIn2026": 445,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/setline",
+      "branch": "main",
+      "allTimeCommits": 116,
+      "commitsIn2026": 116,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/significanthobbies",
+      "branch": "main",
+      "allTimeCommits": 552,
+      "commitsIn2026": 552,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/swe-interview-prep",
+      "branch": "main",
+      "allTimeCommits": 449,
+      "commitsIn2026": 449,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/veg-protein-food",
+      "branch": "main",
+      "allTimeCommits": 11,
+      "commitsIn2026": 11,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    },
+    {
+      "repository": "Significant-Hobbies/what-it-takes-to-win",
+      "branch": "main",
+      "allTimeCommits": 271,
+      "commitsIn2026": 271,
+      "fractionIn2026": 1.0,
+      "majorityIn2026": true
+    }
+  ]
+}

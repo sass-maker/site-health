@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: protein-index
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,31 +23,31 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 1102b3d930cd4c2c4de3e14fdc1333023a6d890c0711da0c25225996a678555b
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: protein-index
+      checkout: ../fleet-archive/protein-index
       revision: 25b503da33092dfb937271a2126b185f5a8b63f5
-      githubRepository: Significant-Hobbies/protein-index
+      githubRepository: sarthakagrawal927/protein-index
       expectedHomepage: https://protein.significanthobbies.com
-      observedHomepage: https://protein.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
-      checkout: protein-index
+      checkout: ../fleet-archive/protein-index
       revision: 25b503da33092dfb937271a2126b185f5a8b63f5
-      githubRepository: Significant-Hobbies/protein-index
+      githubRepository: sarthakagrawal927/protein-index
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-15
@@ -55,12 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://protein.significanthobbies.com.
 ownerVoice:
   whyVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
   fullReviewVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
@@ -68,25 +70,29 @@ ownerVoice:
 decision:
   classification: Inactive
   whySummary: Catalogue and compare protein products available in India.
-  currentState: Product exists, but trustworthy market data is unavailable or too expensive.
-  nextDecision: Reopen only when authoritative, affordable product data can support current coverage.
+  currentState: Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged.
+  nextDecision: "Keep: The existing Indian product-data experiment and provenance notes. Stop: Ongoing retailer ingestion, price maintenance and a public comparison business."
 identity:
   name: Protein Index
   publicName: Protein Index
   aliases: []
   family: significanthobbies
   category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: experiment
   priority: P4
-  tier: parked
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
     status: inactive
-    shareable: true
+    shareable: false
     resumeCondition: null
   operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: Explore dated nutrition records with original label links, observation dates and explicit verification limits.
   publicMakerNote: I wanted a clear catalog for comparing the protein products available in India, despite the difficulty of reliable data.
@@ -96,7 +102,7 @@ product:
     outcome: Inspect recorded nutrition alongside its source, observation date and verification authority.
     mechanism: A product catalogue normalizes nutrition and comparison fields across available Indian protein products.
     proof: Hosted search and detail expose dated source and authority labels; one original nutrition label and its density calculation were independently checked. This does not verify the entire catalogue.
-    nextAction: Explore dated records and inspect original labels; current product identity and packaging require separate verification.
+    nextAction: Historical work only; no active roadmap.
   form: Data API and web app
   platforms:
     - Web
@@ -113,16 +119,16 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: protein-index
+  checkout: ../fleet-archive/protein-index
   observedRevision: 25b503da33092dfb937271a2126b185f5a8b63f5
-  githubRepository: Significant-Hobbies/protein-index
-  githubHomepageUrl: https://protein.significanthobbies.com
+  githubRepository: sarthakagrawal927/protein-index
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/protein-index-resilience
+  url: https://github.com/sarthakagrawal927/protein-index-resilience
   aliases:
-    - https://github.com/Significant-Hobbies/protein-index
-  sourceOverride: protein-index
+    - https://github.com/sarthakagrawal927/protein-index
+  sourceOverride: ../fleet-archive/protein-index
   tooling:
     declaredPackageManager: pnpm@10.13.1
     detectedSignals:
@@ -185,20 +191,12 @@ repository:
       - test:worker
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/protein-index
-    defaultBranch: main
-    defaultBranchSha: 25b503da33092dfb937271a2126b185f5a8b63f5
-    homepage: https://protein.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -206,47 +204,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34121612116
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 25b503da33092dfb937271a2126b185f5a8b63f5
-          createdAt: 2026-09-07T12:23:35Z
-          updatedAt: 2026-09-07T12:24:05Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34121612116
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34121612116
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 25b503da33092dfb937271a2126b185f5a8b63f5
-          createdAt: 2026-09-07T12:23:35Z
-          updatedAt: 2026-09-07T12:24:05Z
-          url: https://github.com/Significant-Hobbies/protein-index/actions/runs/34121612116
-        ageDays: 2
-      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -281,13 +238,13 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: past
+  publicListing: hidden
   maturity: null
-  ready: true
+  ready: false
   verifiedAt: 2026-09-07
   reason: Dated public nutrition-reference search/detail and one original label sample pass. Merchant title/current identity drift, full-catalog data quality and reliable current market coverage remain limitations. Canonical and historical histories are preserved separately.
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/protein-index-resilience/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/protein-index-resilience/issues
   geoIdentity: null
 notes:
   catalog: Inactive dated reference. The sourcePath checkout preserves historical alias Significant-Hobbies/protein-index; canonical public source is Significant-Hobbies/protein-index-resilience. Approved production release now has exact tag51c0583792f2c7d3aac70efa5e3d8b1f314ec77e at100% traffic. The prior production Git revision was unknown. Distinct source histories and automation remain preserved.

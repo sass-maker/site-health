@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "project": "app-health",
+  "observedAt": "2026-09-11T12:44:06.656426Z",
+  "repository": {
+    "revision": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+    "worktree": "clean",
+    "docsHead": "419475874df4dab6a6aec7408a56e58643ed6231",
+    "docsHeadDiffFromCanarySource": [
+      "PROJECT_STATUS.md",
+      "docs/production-canary.md"
+    ],
+    "dependencyFixHead": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+    "dependencyFixDiffFromCanarySource": [
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "ci": {
+      "workflow": "Code health",
+      "runId": "34599957521",
+      "head": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+      "status": "success",
+      "highAdvisories": 0,
+      "patchedTransitivePackages": {
+        "js-yaml": "4.3.2",
+        "sharp": "0.35.4"
+      }
+    }
+  },
+  "production": {
+    "worker": "app-health-worker",
+    "dashboard": "https://health.sassmaker.com",
+    "ingest": "https://ingest.sassmaker.com",
+    "versionId": "7d3e1ce8-6553-4556-a936-57b75ef3d9cc",
+    "versionTag": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+    "trafficPercent": 100,
+    "currentOwnerRecoveryVersionId": "7d3e1ce8-6553-4556-a936-57b75ef3d9cc",
+    "currentOwnerRecoveryVersionTrafficPercent": 100,
+    "currentOwnerRecoverySourceTag": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+    "docsHeadSourceAlignment": "aligned_green_ci",
+    "versionHistory": [
+      {
+        "versionId": "c0037301-acfe-4d77-ab58-0333f17362a8",
+        "sourceTag": "189ed565967cfe04d73e8af97139f07624d12994",
+        "trafficPercent": 100,
+        "role": "canary runtime with owner credential",
+        "status": "historical canary proof"
+      },
+      {
+        "versionId": "490686b6-5a36-4915-9a9a-d9cd8c30f927",
+        "sourceTag": "189ed565967cfe04d73e8af97139f07624d12994",
+        "trafficPercent": 100,
+        "role": "owner source recovery",
+        "status": "superseded by exact-head alignment"
+      },
+      {
+        "versionId": "7d3e1ce8-6553-4556-a936-57b75ef3d9cc",
+        "sourceTag": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+        "trafficPercent": 100,
+        "role": "current owner source alignment after green CI",
+        "status": "active at receipt time",
+        "deployedAt": "2026-09-11T12:43:47.098135Z"
+      }
+    ],
+    "ownerSecretRotation": "OWNER_AUTH_TOKEN only",
+    "ownerCredentialSource": {
+      "provider": "Infisical",
+      "project": "Fleet",
+      "environment": "prod",
+      "path": "/",
+      "key": "APP_HEALTH_OWNER_TOKEN",
+      "tag": "app-health"
+    },
+    "queryTokenChanged": false,
+    "resourcesChanged": false,
+    "canaryVersionId": "c0037301-acfe-4d77-ab58-0333f17362a8",
+    "canaryVersionTag": "189ed565967cfe04d73e8af97139f07624d12994"
+  },
+  "canary": {
+    "appId": "app-ce5537f6-3b1d-4933-a104-f4c97842c3fd",
+    "appName": "synthetic-production-canary-20260911-49ede0",
+    "environmentId": "env-e90e3cc2-113a-45fd-9852-0a3201bf9f8d",
+    "environment": "production",
+    "route": "/app-health-canary-20260911/:id",
+    "sdk": "Node SDK from app-health checkout dist",
+    "release": "production-canary-20260911",
+    "syntheticStatuses": [
+      200,
+      200,
+      503
+    ],
+    "installationState": "connected",
+    "before": null,
+    "after": {
+      "request_count": 3,
+      "error_count": 1,
+      "metrics_available": null,
+      "p50_ms": 1,
+      "p95_ms": 5,
+      "last_seen": 1789129414181
+    },
+    "deltas": {
+      "request_count": 3,
+      "error_count": 1
+    },
+    "attemptHistory": [
+      {
+        "appId": "app-9e114946-90fb-4810-be33-dae4eb6295bf",
+        "outcome": "failed_without_receipt",
+        "reason": "initial wrapper attempt did not reach a success receipt"
+      },
+      {
+        "appId": "app-c2bfb68b-1fd4-4a1f-bfae-ba27244acede",
+        "outcome": "failed_without_receipt",
+        "reason": "owner route was still propagating after version promotion"
+      },
+      {
+        "appId": "app-ce5537f6-3b1d-4933-a104-f4c97842c3fd",
+        "outcome": "passed",
+        "reason": "owner route was gated to 200 before canary execution"
+      }
+    ],
+    "postCleanupInstallationState": "revoked"
+  },
+  "scope": {
+    "realConsumerRecordsChanged": false,
+    "ingestKeysRotated": false,
+    "queryTokenRead": false,
+    "secretsWrittenToFiles": false,
+    "remoteCanaryExecuted": true
+  },
+  "cleanup": {
+    "ownSyntheticAppsCreated": [
+      {
+        "appId": "app-9e114946-90fb-4810-be33-dae4eb6295bf",
+        "environmentId": "env-e9f5444f-95d0-4b41-b452-26a1d553a735",
+        "appName": "synthetic-production-canary-20260911-0e8606"
+      },
+      {
+        "appId": "app-c2bfb68b-1fd4-4a1f-bfae-ba27244acede",
+        "environmentId": "env-a2115686-8de3-42c3-8f22-704e9ac080a6",
+        "appName": "synthetic-production-canary-20260911-85e0b5"
+      },
+      {
+        "appId": "app-ce5537f6-3b1d-4933-a104-f4c97842c3fd",
+        "environmentId": "env-e90e3cc2-113a-45fd-9852-0a3201bf9f8d",
+        "appName": "synthetic-production-canary-20260911-49ede0"
+      }
+    ],
+    "archiveOrDeleteRoute": "not exposed",
+    "status": "synthetic_app_records_retained; environment_keys_revoked",
+    "keyRevocation": {
+      "status": "revoked",
+      "targets": 3,
+      "aggregateRecordsRetained": true
+    },
+    "postAlignmentInstallationState": "revoked",
+    "postAlignmentValidatedAt": "2026-09-11T12:43:47.098135Z"
+  },
+  "qualification": "production SDK ingest and authenticated aggregate visibility passed",
+  "currentOwnerRecoveryVersionId": "7d3e1ce8-6553-4556-a936-57b75ef3d9cc",
+  "currentOwnerRecoverySourceTag": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+  "currentOwnerRecoveryVersionTrafficPercent": 100,
+  "ownerSecretSource": {
+    "provider": "Infisical",
+    "project": "Fleet",
+    "environment": "prod",
+    "path": "/",
+    "key": "APP_HEALTH_OWNER_TOKEN",
+    "value": "retained; value omitted"
+  },
+  "versionHistory": [
+    {
+      "versionId": "c0037301-acfe-4d77-ab58-0333f17362a8",
+      "sourceTag": "189ed565967cfe04d73e8af97139f07624d12994",
+      "trafficPercent": 100,
+      "role": "canary runtime with owner credential",
+      "status": "historical canary proof"
+    },
+    {
+      "versionId": "490686b6-5a36-4915-9a9a-d9cd8c30f927",
+      "sourceTag": "189ed565967cfe04d73e8af97139f07624d12994",
+      "trafficPercent": 100,
+      "role": "owner source recovery",
+      "status": "superseded by exact-head alignment"
+    },
+    {
+      "versionId": "7d3e1ce8-6553-4556-a936-57b75ef3d9cc",
+      "sourceTag": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+      "trafficPercent": 100,
+      "role": "current owner source alignment after green CI",
+      "status": "active at receipt time",
+      "deployedAt": "2026-09-11T12:43:47.098135Z"
+    }
+  ],
+  "deploymentAlignment": {
+    "versionId": "7d3e1ce8-6553-4556-a936-57b75ef3d9cc",
+    "sourceTag": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+    "trafficPercent": 100,
+    "ownerAppsStatus": 200,
+    "aggregateRetained": true,
+    "aggregate": {
+      "route": "/app-health-canary-20260911/:id",
+      "method": "GET",
+      "request_count": 3,
+      "error_count": 1,
+      "metrics_available": null,
+      "p50_ms": 1,
+      "p95_ms": 5,
+      "last_seen": 1789129414181
+    },
+    "installationStatus": 200,
+    "installationStateAfterCleanup": "revoked",
+    "validatedAt": "2026-09-11T12:43:47.098135Z"
+  }
+}

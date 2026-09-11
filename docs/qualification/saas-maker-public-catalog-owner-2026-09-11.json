@@ -1,0 +1,57 @@
+{
+  "receiptVersion": 1,
+  "recordedAt": "2026-09-11T18:16:00+05:30",
+  "project": "saas-maker",
+  "scope": "generated public catalog release",
+  "source": {
+    "sha": "51bcbdf0dbd8c02aadf6ed0072c90197043c8ba3",
+    "branch": "main",
+    "changedFile": "catalog/generated/public.json",
+    "commit": "51bcbdf0",
+    "originalWorktree": "/Users/sarthak/Desktop/fleet/saas-maker",
+    "originalWorktreeStatus": "pre-existing unrelated dirty files preserved"
+  },
+  "validation": {
+    "catalogCheck": "passed: SaaS Maker public catalog matches Site Health (21 identities)",
+    "diffCheck": "passed",
+    "exactHeadCi": {
+      "CI": {
+        "runId": 34599961163,
+        "result": "success"
+      },
+      "toolingCI": {
+        "runId": 34599961063,
+        "result": "success"
+      }
+    },
+    "deploymentGuard": "passed: 6 gates"
+  },
+  "deployment": {
+    "provider": "Cloudflare Pages",
+    "project": "saas-maker-home",
+    "previewDeploymentId": "60393eac",
+    "previewUrl": "https://60393eac.saas-maker-home.pages.dev",
+    "productionDomain": "https://sassmaker.com",
+    "guardedDirectorySmoke": "4/4 passed"
+  },
+  "liveVerification": {
+    "projectsJson": {
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "shape": "array",
+      "entryCount": 21,
+      "liveDescription": "Explore hobbies and possibilities, build a personal bucket list, and save your progress on this device or in your account.",
+      "descriptionMatch": true
+    },
+    "productsJson": {
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "shape": "html"
+    }
+  },
+  "cleanup": {
+    "temporaryClone": "/Users/sarthak/.Trash/saas-maker-directory-release-20260911-final",
+    "temporaryWorktree": "removed",
+    "activeDeploymentProcesses": false
+  }
+}

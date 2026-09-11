@@ -1,0 +1,32 @@
+{
+  "task": "highsignal-review-owner-20260911",
+  "checkedAt": "2026-09-11",
+  "surface": "https://highsignal.app/review",
+  "tool": "native Chrome CUA",
+  "tabId": "673500314",
+  "auth": {
+    "provider": "Cloudflare Access -> existing Google account flow",
+    "existingAccountChooserVisible": true,
+    "consentScopeObserved": "openid profile email",
+    "operatorAuthenticated": false,
+    "gate": "membership restricted",
+    "runbookChecked": "high-signal/docs/operations/runbooks/cf-access.md",
+    "visibleLoginChoices": [
+      "Cloudflare"
+    ],
+    "emailOtpControlVisible": false,
+    "emailOtpAttempted": false,
+    "configuredGoogleIdentityAttempted": true,
+    "membershipGateConfirmed": true
+  },
+  "reviewPageRendered": false,
+  "readOnlyAdminRequest": {
+    "attempted": false,
+    "status": "blocked before app request by Cloudflare Access membership gate"
+  },
+  "mutations": {
+    "published": false,
+    "dataEdited": false
+  },
+  "nextPrerequisite": "Cloudflare Access currently exposes only the Cloudflare provider; the selected existing identity is denied by the visible membership policy. Configure/restore the allowed owner identity in Access membership, or expose the documented Email OTP fallback, then retry."
+}

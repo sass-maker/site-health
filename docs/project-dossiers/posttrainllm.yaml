@@ -1,66 +1,69 @@
 schemaVersion: 1
 projectId: posttrainllm
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-22
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: PostTrainLLM
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 4d1869634815abb32d4ab07adf10304a07226c4b3a3d1d8253b500e50c927cbc
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: posttrainllm
-      revision: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
+      revision: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
       githubRepository: PostTrainLLM/posttrainllm
       expectedHomepage: https://posttrainllm.com
-      observedHomepage: https://posttrainllm.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: posttrainllm
-      revision: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
+      revision: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
       githubRepository: PostTrainLLM/posttrainllm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-21
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      healthy: 2
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        clear: 2
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://posttrainllm.com.
 ownerVoice:
   whyVerbatim: Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
   fullReviewVerbatim: Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
@@ -68,14 +71,18 @@ ownerVoice:
 decision:
   classification: Primary
   whySummary: Explore browser and Mac-local model training, then turn that work into repeatable specialist-model recipes.
-  currentState: Ongoing, ambitious, and rich in experiments and future plans.
-  nextDecision: Continue measured local training/evaluation recipes and publish reproducible proof rather than chasing scale.
+  currentState: Active product; ongoing investment within the approved narrow scope.
+  nextDecision: "Keep: A reproducible path from private task examples to a measured local-model improvement. Stop: Supporting every model, training method and deployment platform before the core task works."
 identity:
   name: PostTrainLLM
   publicName: PostTrainLLM
   aliases: []
   family: posttrainllm
-  category: experimental
+  category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: true
+  unmetNeed: true
   kind: product
   priority: P1
   tier: focus
@@ -108,15 +115,15 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-05-21
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 843
+    latestCommitAt: 2026-09-12
+    retainedCommitCount: 847
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: posttrainllm
-  observedRevision: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
+  observedRevision: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
   githubRepository: PostTrainLLM/posttrainllm
-  githubHomepageUrl: https://posttrainllm.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/PostTrainLLM/posttrainllm
@@ -162,20 +169,12 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 2
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: PostTrainLLM/posttrainllm
-    defaultBranch: main
-    defaultBranchSha: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
-    homepage: https://posttrainllm.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -184,83 +183,11 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34092921882
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
-          createdAt: 2026-09-07T06:54:33Z
-          updatedAt: 2026-09-07T07:05:48Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34092921882
-        ageDays: 2
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34092921882
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 4d41f8bdbd957f3576b80bd17b99557aaddc6ae2
-          createdAt: 2026-09-07T06:54:33Z
-          updatedAt: 2026-09-07T07:05:48Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34092921882
-        ageDays: 2
-      attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34029128125
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 234de2a8924661acb1ea56e55260e949c0410f8b
-          createdAt: 2026-09-06T11:03:22Z
-          updatedAt: 2026-09-06T11:04:42Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34029128125
-        ageDays: 3
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
   kind: pages
   deployed: true
@@ -276,6 +203,11 @@ deployment:
         name: tinygpt
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-11T20:32:35.940Z
+          deploymentId: 32fc1e98-50bc-4650-8ec6-2fde657fa28e
+          sourceCommit: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
+          evidencePath: ../saas-maker/.fleet-local/posttrainllm-repository-icon-release-20260912.json
     resources:
       - provider: cloudflare
         kind: zone
@@ -330,4 +262,4 @@ sharing:
       state: not-declared
 notes:
   catalog: REDEPLOYED fresh from main 2026-07-18 — stale-build fixed (leaderboard now JSON, RSS live, canonicals current). Canonical domains are posttrainllm.com and www.posttrainllm.com; the platform-generated tinygpt.pages.dev hostname is not a custom fallback. CF project name stays 'tinygpt' (cosmetic).
-  infrastructure: null
+  infrastructure: " Repository icon release 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a verified on existing tinygpt deployment 32fc1e98-50bc-4650-8ec6-2fde657fa28e. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px."

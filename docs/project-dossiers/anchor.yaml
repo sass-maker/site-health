@@ -1,66 +1,69 @@
 schemaVersion: 1
 projectId: anchor
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-09
+  generatedAt: 2026-09-11
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 09e6cc24f4d8c9bafd66e5d0a9a218a59469cff6453ad1e0299ae0f8c4ad2e34
-      infrastructureUpdatedAt: 2026-08-24
+      sha256: 2512f9d779de70a9cf3da93428060ba655de0b57aea0a9c5605ace68d3063ae0
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Anchor
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 035887da5a426c99c2c54759f30deeebf25f9f1528be599a68d2634f4d51ff05
-      documentSha256: 260910a40302f0d8fec01651ba685fe154ca10f414579d5bc957651a64587c8a
+      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a8e2911fdbebc4efe8a621949403e9ef9f4b232166e6a09a73362f0d1f23d2dc
+      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: anchor
-      revision: 077f8564ee3e85631f1807c365b03e9d283c41db
+      revision: 585671477851ac2215f09211073c3649e01a6934
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
-      observedHomepage: https://anchor.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-09
+      observedAt: 2026-09-11
       state: available
       checkout: anchor
-      revision: 077f8564ee3e85631f1807c365b03e9d283c41db
+      revision: 585671477851ac2215f09211073c3649e01a6934
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-16
       catalogLatestCommitAt: 2026-09-09
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-09T17:31:03.115Z
-      staleAfterDays: 30
-      failing: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        review-history: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://anchor.significanthobbies.com.
 ownerVoice:
   whyVerbatim: The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
   fullReviewVerbatim: |-
@@ -88,6 +91,10 @@ identity:
   aliases: []
   family: significanthobbies
   category: utility
+  audience: public
+  personalUse: null
+  moneyOrPersonalBrand: false
+  unmetNeed: false
   kind: product
   priority: P2
   tier: active
@@ -122,19 +129,20 @@ product:
     - Foundation Models
   retainedGitHistory:
     firstCommitAt: 2026-08-16
-    latestCommitAt: 2026-09-09
-    retainedCommitCount: 109
+    latestCommitAt: 2026-09-11
+    retainedCommitCount: 111
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: 077f8564ee3e85631f1807c365b03e9d283c41db
+  observedRevision: 585671477851ac2215f09211073c3649e01a6934
   githubRepository: Significant-Hobbies/anchor
-  githubHomepageUrl: https://anchor.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
-  visibility: private
+  visibility: public
   url: https://github.com/Significant-Hobbies/anchor
-  aliases: []
+  aliases:
+    - https://github.com/sarthakagrawal927/indulge
   sourceOverride: ios-landings
   tooling:
     declaredPackageManager: null
@@ -144,57 +152,18 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-09T17:31:03.115Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    failing: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/anchor
-    defaultBranch: main
-    defaultBranchSha: 077f8564ee3e85631f1807c365b03e9d283c41db
-    homepage: https://anchor.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: Anchor native review
       file: .github/workflows/native-review.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: failing
-        reason: latest run concluded failure
-        apiState: active
-        lastRun:
-          id: 34325826905
-          status: completed
-          conclusion: failure
-          event: workflow_dispatch
-          branch: main
-          headSha: 309a3ff0c23c9235426987c1fa13e3cc5935dbf0
-          createdAt: 2026-09-09T07:49:26Z
-          updatedAt: 2026-09-09T07:49:34Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34325826905
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: review-history
 deployment:
   kind: pages
   deployed: true
@@ -210,6 +179,13 @@ deployment:
         name: anchor-landing
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-09-11T19:29:31.188259+00:00
+          deploymentId: 7490b63c-357b-4965-a75e-d22e133b81cf
+          sourceCommit: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
+          sourcePath: ios-landings
+          state: success-production-verified
+          evidencePath: ../saas-maker/.fleet-local/ios-landings-repository-links-live-20260912.json
       - provider: cloudflare
         kind: pages
         name: habits
@@ -233,8 +209,8 @@ sharing:
   publicListing: maintained
   maturity: in-progress
   ready: false
-  verifiedAt: 2026-09-09
-  reason: "Build25 source c3704f6a8ceb1771621605d38e981ec8fe449989 includes the reviewed persistence repairs through b7f1e99: end/surrender, resume, start/extend and atomic session/schedule/replan starts. 219 package tests and Mac/iOS/Watch compilation pass. Later diagnosis077f8564ee3e85631f1807c365b03e9d283c41db confirms Gatekeeper terminated the earlier runner. Invocation-only normal development signing repaired its invalid bundle signature and enabled testmanagerd connection, but one isolated prepared test timed out enabling automation mode after62.640s. Zero product assertions/screenshots or fixture stores were created. No explicit permission denial was found, so no security-setting change is prescribed. Hosted native review34325826905 remains a recorded billing-before-steps failure; no exact-head dispatch was run. Safer UUID-directory test isolation and exact signing/automation receipts are committed; task products were cleaned and owner stores/stash preserved. Build25 is not installed or released. Rendered daily-loop, signed-device, historical/mixed-version CloudKit and distribution remain unqualified."
+  verifiedAt: 2026-09-12
+  reason: "Installed Mac build25 at5856714 passed interactive schedule/focus/pause/resume/free decline/distraction/finish/history and a same-store relaunch persistence check. Physical iPhone core flow passed; latest installed normal Release launch was build23 in native-minimum-phone-20260911.json. Owner normal data was untouched. Personal single-device core acceptance is complete. Public Mac notarization/distribution and cross-device production CloudKit continuity remain separately unverified; shareable stays false. Receipt: docs/qualification/anchor-mac-minimum-2026-09-11.json. September12 landing-only correction published from ios-landings4135729 as Pages155ccf31: HTML, Markdown and agent metadata accurately describe the existing build20 private-iCloud note behavior. Native download is unchanged; this does not close release issue52. September12 fresh installed-bundle checks confirm build25 and a valid strict/deep signature, but Gatekeeper rejects it as Unnotarized Developer ID (exit3). Public build25 distribution remains blocked. Qualification correction committed as50b2d27; issue52 remains open."
   changelogUrl: https://anchor.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/anchor/issues
   geoIdentity:
@@ -257,5 +233,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build25 source c3704f6a8ceb1771621605d38e981ec8fe449989 includes the reviewed persistence repairs through b7f1e99: end/surrender, resume, start/extend and atomic session/schedule/replan starts. 219 package tests and Mac/iOS/Watch compilation pass. Later diagnosis077f8564ee3e85631f1807c365b03e9d283c41db confirms Gatekeeper terminated the earlier runner. Invocation-only normal development signing repaired its invalid bundle signature and enabled testmanagerd connection, but one isolated prepared test timed out enabling automation mode after62.640s. Zero product assertions/screenshots or fixture stores were created. No explicit permission denial was found, so no security-setting change is prescribed. Hosted native review34325826905 remains a recorded billing-before-steps failure; no exact-head dispatch was run. Safer UUID-directory test isolation and exact signing/automation receipts are committed; task products were cleaned and owner stores/stash preserved. Build25 is not installed or released. Rendered daily-loop, signed-device, historical/mixed-version CloudKit and distribution remain unqualified."
-  infrastructure: Cloudflare Pages project anchor-landing remains live; historical habits and indulge Pages projects are compatibility redirects. Historical App Store Connect record 6803853891/build12 and Mac build12 upload/install observations are not current installed-version evidence. Current build25/sourcec3704f6 is not installed or released; signed distribution, production CloudKit compatibility and account/device acceptance remain open.
+  catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build25 includes the device-only private-note vault and durable session/schedule repairs. Hosted native run34470263891 passed 219 shared tests,14 Mac UI tests,8 iPhone simulator tests and Watch build at077f8564ee3e85631f1807c365b03e9d283c41db. Later isolated installed-Mac core flow and saved-block relaunch checks passed. September12 bundle inspection confirms installed build25 with a valid strict/deep signature, while Gatekeeper rejects it as Unnotarized Developer ID. Public build20 remains the distributed release. Production-entitled legacy note migration/reopen, signed mixed-version/account continuity and historical CloudKit note copies remain unverified. Current source585671477851ac2215f09211073c3649e01a6934; documentation correction50b2d27. No owner store or production service was changed in this refresh."
+  infrastructure: Cloudflare Pages anchor-landing serves landing source ios-landings4135729397639292ecd8a9ee79c7dc64113568b1 through deployment155ccf31, verified September12. The public Mac download remains notarized build20; landing privacy describes its private-iCloud note behavior. Historical habits and indulge Pages projects remain compatibility surfaces. Historical App Store Connect record6803853891/build12 is not current installed-version evidence. Installed Mac build25 isolated core and phone build23 launch have September11 receipts; current production CloudKit continuity, device-only note migration rollout and public build25 notarization/distribution remain unverified. Repository-icon publication from ios-landings b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330 supersedes the prior landing deployment, preserving build20 download and privacy content; current Pages deployment 7490b63c-357b-4965-a75e-d22e133b81cf.
