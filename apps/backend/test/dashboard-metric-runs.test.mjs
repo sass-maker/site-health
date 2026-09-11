@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { PassThrough } from 'node:stream';
+import { join } from 'node:path';
 import test from 'node:test';
 
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
@@ -71,6 +74,42 @@ test('starts and deduplicates project D-Rank runs without a shell', () => {
   assert.equal(duplicate.duplicate, true);
   assert.equal(invocation.options.shell, false);
   assert.deepEqual(invocation.args.slice(-2), ['--only', 'heypace.app']);
+});
+
+test('executes a symlinked Drank script through its canonical path', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'site-health-drank-link-'));
+  const marker = join(root, 'executed.txt');
+  const archiveScript = join(root, 'archive', 'drank', 'scripts', 'update-global-dr.mjs');
+  const linkedScript = join(root, 'drank', 'scripts', 'update-global-dr.mjs');
+  mkdirSync(join(root, 'archive', 'drank', 'scripts'), { recursive: true });
+  mkdirSync(join(root, 'drank', 'scripts'), { recursive: true });
+  mkdirSync(join(root, 'pace'), { recursive: true });
+  writeFileSync(archiveScript, [
+    "import { resolve } from 'node:path';",
+    "import { fileURLToPath } from 'node:url';",
+    "import { writeFileSync } from 'node:fs';",
+    `if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) writeFileSync(${JSON.stringify(marker)}, 'executed');`,
+  ].join('\n'));
+  symlinkSync(archiveScript, linkedScript);
+
+  const terminal = new Promise((resolve) => {
+    const controller = createMetricRunController({
+      projects: [project()],
+      workspaceRoot: root,
+      repositoryRoot: join(root, 'site-health'),
+      onRunChange: (run) => {
+        if (run.state !== 'running') resolve(run);
+      },
+    });
+    controller.start({ family: 'drank', projectId: 'pace' });
+  });
+  try {
+    const run = await terminal;
+    assert.equal(run.state, 'succeeded');
+    assert.equal(readFileSync(marker, 'utf8'), 'executed');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });
 
 test('starts portfolio D-Rank, PSI, and Search runs', () => {

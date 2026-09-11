@@ -19,6 +19,17 @@ backend.
 
 ## Timeline
 
+- **2026-09-11:** Corrected evidence freshness to use observation timestamps;
+  a successful collector process can no longer make stale or missing data read
+  as fresh. The owner browser reproduced this on Domains with August 17 data.
+  Drank execution now resolves compatibility links before invoking Node, so
+  its entrypoint runs after an archived checkout is moved. A real-process
+  symlink regression and focused freshness/service checks passed, with
+  independent review. Normal owner startup refreshed Google Search evidence
+  for 17 project surfaces and the browser rendered the new reporting window.
+  Backend checks: 143 passed, the same five unrelated local catalog checks
+  failed; web build, 11 AI tests, and the packed-consumer check passed.
+
 - **2026-09-11:** Fixed backup verification and restoration for retained
   `recommendation.created` events. Normal event ingestion still accepts only
   current types; backup compatibility validates the known historical shape and

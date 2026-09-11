@@ -55,6 +55,31 @@ test('a current observation is fresh without requiring a refresh receipt', () =>
   assert.equal(envelope.lastSuccessAt, '2026-08-21T08:00:00.000Z');
 });
 
+test('successful refresh cannot make stale or missing observations fresh', () => {
+  const receipt = {
+    state: 'succeeded',
+    lastAttemptAt: '2026-09-11T01:18:00.000Z',
+    lastSuccessAt: '2026-09-11T01:19:00.000Z',
+  };
+  for (const rows of [[], [{ observedAt: '2026-08-17T04:52:48.950Z' }]]) {
+    const envelope = buildEvidenceEnvelope({
+      family: 'drank', rows, receipt, now: '2026-09-11T02:00:00.000Z',
+    });
+    assert.equal(envelope.state, 'stale');
+    assert.equal(envelope.lastSuccessAt, receipt.lastSuccessAt);
+    assert.equal(envelope.observedAt, rows[0]?.observedAt ?? null);
+    assert.equal(envelope.freshUntil, rows.length ? '2026-08-24T04:52:48.950Z' : null);
+  }
+  const measured = buildEvidenceEnvelope({
+    family: 'drank',
+    rows: [{ observedAt: '2026-09-11T01:18:30.000Z' }],
+    receipt,
+    now: '2026-09-11T02:00:00.000Z',
+  });
+  assert.equal(measured.state, 'fresh');
+  assert.equal(measured.freshUntil, '2026-09-18T01:18:30.000Z');
+});
+
 const runningReceipt = Object.freeze({
   schemaVersion: 'site-health.refresh-receipt.v1',
   source: 'search',

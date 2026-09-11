@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, realpathSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import {
@@ -20,6 +20,10 @@ const PORTFOLIO_ONLY_FAMILIES = Object.freeze({
   search: 'Google Search',
 });
 const MAX_CAPTURE_CHARACTERS = 12_000;
+
+function existingRealPath(path) {
+  return existsSync(path) ? realpathSync(path) : path;
+}
 
 function fail(code, message) {
   throw Object.assign(new Error(message), { code });
@@ -67,10 +71,11 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot }) {
     };
   }
   if (family === 'drank') {
+    const script = existingRealPath(resolve(workspaceRoot, 'drank/scripts/update-global-dr.mjs'));
     return {
       command: process.execPath,
       args: [
-        resolve(workspaceRoot, 'drank/scripts/update-global-dr.mjs'),
+        script,
         '--sites',
         'data/fleet-sites.json',
         '--data',
@@ -104,7 +109,7 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
     return {
       command: process.execPath,
       args: [
-        resolve(workspaceRoot, 'drank/scripts/update-global-dr.mjs'),
+        existingRealPath(resolve(workspaceRoot, 'drank/scripts/update-global-dr.mjs')),
         '--sites',
         'data/fleet-sites.json',
         '--data',

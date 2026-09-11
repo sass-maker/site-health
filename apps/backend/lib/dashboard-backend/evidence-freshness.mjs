@@ -127,8 +127,10 @@ export function buildEvidenceEnvelope({
   const observedAt = latestTimestamp(rows.map((row) => row?.observedAt));
   const lastSuccessAt = latestTimestamp([receipt?.lastSuccessAt, observedAt]);
   const lastAttemptAt = timestamp(receipt?.lastAttemptAt);
-  const freshUntil = lastSuccessAt
-    ? new Date(Date.parse(lastSuccessAt) + policy.maximumAgeMs).toISOString()
+  // A successful process can return cached data or no observations. Keep its
+  // receipt for run history, but only measured evidence can advance freshness.
+  const freshUntil = observedAt
+    ? new Date(Date.parse(observedAt) + policy.maximumAgeMs).toISOString()
     : null;
   const expired = !freshUntil || Date.parse(now) > Date.parse(freshUntil);
   const abandoned = isAbandonedRefreshReceipt(receipt, now, abandonedRunMs);
