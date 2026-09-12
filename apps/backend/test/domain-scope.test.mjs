@@ -79,6 +79,21 @@ test('portfolio scope covers the recorded surface count against the real catalog
   );
 });
 
+test('shared hosting roots stay out of owned domain strength while retaining public eligibility', () => {
+  const hostedProject = {
+    id: 'nomad-data-adventure',
+    lifecycle: { status: 'active', shareable: true, resumeCondition: null },
+    publicListing: 'maintained',
+    domains: ['sarthakagrawal927.github.io'],
+  };
+
+  assert.deepEqual(domainStrengthRoots([hostedProject]), []);
+  assert.deepEqual(publicMetricTargets([hostedProject]), [{
+    projectId: 'nomad-data-adventure',
+    domain: 'sarthakagrawal927.github.io',
+  }]);
+});
+
 test('inactive projects never reach portfolio scope', () => {
   const inactive = projects.filter(
     (project) =>

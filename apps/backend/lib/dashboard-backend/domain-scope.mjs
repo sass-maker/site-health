@@ -6,6 +6,11 @@ const COMPOUND_PUBLIC_SUFFIXES = new Set([
   'com.br',
 ]);
 
+// These are shared hosting suffixes, not Fleet-owned roots. A project can
+// remain publicly eligible at a subdomain without claiming the provider root
+// in the domain-strength or root-brand metrics.
+const SHARED_HOSTING_PROVIDER_ROOTS = new Set(['github.io']);
+
 const EXCLUDED_PUBLIC_METRIC_LIFECYCLES = new Set(['past', 'non-product']);
 
 function lifecycleStatus(project) {
@@ -72,7 +77,8 @@ export function domainStrengthRoots(projects) {
       .flatMap((project) => project.domains ?? [])
       .map(normalizedDomain)
       .filter(Boolean)
-      .map(registrableDomain),
+      .map(registrableDomain)
+      .filter((root) => !SHARED_HOSTING_PROVIDER_ROOTS.has(root)),
   )].sort((left, right) => left.localeCompare(right));
 }
 
