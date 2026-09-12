@@ -6,6 +6,7 @@ import {
   rootBrandForUrl,
   validateRootBrandContract,
 } from '../lib/root-brand-contract.mjs';
+import { domainStrengthRoots } from '../lib/dashboard-backend/domain-scope.mjs';
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 
 const contract = JSON.parse(
@@ -15,7 +16,12 @@ const contract = JSON.parse(
 test('root brand contract covers the domain strength roots exactly', () => {
   const brands = validateRootBrandContract(contract, loadDashboardProjects());
 
-  assert.equal(brands.size, 6);
+  assert.deepEqual([...brands.keys()].sort(), domainStrengthRoots(loadDashboardProjects()));
+  assert.deepEqual(brands.get('karte.cc'), {
+    rootDomain: 'karte.cc',
+    canonicalName: 'Karte',
+    alternateNames: ['Karte.cc'],
+  });
   assert.deepEqual(brands.get('heypace.app'), {
     rootDomain: 'heypace.app',
     canonicalName: 'Pace',

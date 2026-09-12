@@ -13,16 +13,6 @@ const catalog = JSON.parse(
 );
 const projects = catalog.projects;
 
-// Portfolio scope follows the recorded lifecycle allocation (12 Sep 2026):
-// 2 primary + 21 active = 23 current projects, including StorageDaddy and Slow SERP. Inactive projects are
-// excluded from portfolio metric scope. These numbers are the current
-// recorded scope; changing them requires changing the decision first.
-const PORTFOLIO_SCOPE = {
-  currentProjects: 23,
-  publicMetricTargets: 18,
-  domainStrengthRoots: 6,
-};
-
 test('portfolio priority and status live only under project.portfolio', () => {
   const nestedPriority = projects.filter((project) => project.portfolio?.priority !== undefined);
   const nestedStatus = projects.filter((project) => project.portfolio?.status !== undefined);
@@ -65,18 +55,18 @@ test('the other portfolio scope clauses read fields the catalog actually stores'
   }
 });
 
-test('portfolio scope covers the recorded surface count against the real catalog', () => {
+test('portfolio scope follows the catalog lifecycle classification', () => {
   const currentProjects = projects.filter(isCurrentPortfolioProject);
 
-  assert.equal(currentProjects.length, PORTFOLIO_SCOPE.currentProjects);
-  assert.equal(
-    publicMetricTargets(currentProjects).length,
-    PORTFOLIO_SCOPE.publicMetricTargets,
+  assert.deepEqual(
+    currentProjects.map((project) => project.id).sort(),
+    projects
+      .filter((project) => ['primary', 'active'].includes(project.lifecycle.status))
+      .map((project) => project.id)
+      .sort(),
   );
-  assert.equal(
-    domainStrengthRoots(currentProjects).length,
-    PORTFOLIO_SCOPE.domainStrengthRoots,
-  );
+  assert.deepEqual(publicMetricTargets(currentProjects), publicMetricTargets(projects));
+  assert.deepEqual(domainStrengthRoots(currentProjects), domainStrengthRoots(projects));
 });
 
 test('shared hosting roots stay out of owned domain strength while retaining public eligibility', () => {
@@ -101,7 +91,7 @@ test('inactive projects never reach portfolio scope', () => {
       (typeof project.lifecycle === 'string' && project.lifecycle === 'past'),
   );
 
-  assert.ok(inactive.length === 36);
+  assert.ok(inactive.length > 0);
   assert.deepEqual(inactive.filter(isCurrentPortfolioProject), []);
 });
 

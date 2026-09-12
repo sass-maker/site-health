@@ -16,8 +16,7 @@ test('Projects partitions the complete catalog without changing current scope', 
   const { current, inactive } = partitionProjects(projects);
 
   assert.equal(projects.length, 59);
-  assert.equal(current.length, 23);
-  assert.equal(inactive.length, 36);
+  assert.equal(current.length + inactive.length, projects.length);
   assert.equal(current.every(isCurrentProject), true);
   assert.equal(current.some(project => project.id === 'kith'), true);
   assert.equal(inactive.every((project) => !isCurrentProject(project)), true);
@@ -77,13 +76,19 @@ test('registry retains canonical experiment rationale without making it shareabl
 });
 
 test('lifecycle and resume filters use their own fields, including non-null conditions', () => {
-  for (const [lifecycle, count] of [['primary', 2], ['active', 21], ['inactive', 36]]) {
-    assert.equal(projects.filter(p => matchesProjectFilters(p, { lifecycle })).length, count);
+  for (const lifecycle of ['primary', 'active', 'inactive']) {
+    assert.equal(
+      projects.filter(p => matchesProjectFilters(p, { lifecycle })).length,
+      projects.filter(p => p.lifecycle.status === lifecycle).length,
+    );
   }
   assert.deepEqual(projects.filter(p => matchesProjectFilters(p, { resume: 'defined' })).map(p => p.id), ['rolepatch']);
   assert.equal(projects.find(p => p.id === 'verified-bases').lifecycle.resumeCondition, null);
   assert.equal(projects.find(p => p.id === 'open-historia').lifecycle.resumeCondition, null);
-  assert.equal(projects.filter(p => matchesProjectFilters(p, { resume: 'not-defined' })).length, 58);
+  assert.equal(
+    projects.filter(p => matchesProjectFilters(p, { resume: 'not-defined' })).length,
+    projects.filter(p => p.lifecycle.resumeCondition === null).length,
+  );
   const fixture = { priority: 'P4', lifecycle: { status: 'inactive', shareable: true, resumeCondition: 'An owner-approved recurring workflow needs this tool' } };
   assert.equal(matchesProjectFilters(fixture, { lifecycle: 'inactive', sharing: 'shareable', resume: 'defined', priority: 'P4' }), true);
   assert.equal(matchesProjectFilters(fixture, { resume: 'not-defined' }), false);

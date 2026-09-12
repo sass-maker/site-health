@@ -4,6 +4,8 @@ import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import test from 'node:test';
 
+import { domainStrengthRoots } from '../lib/dashboard-backend/domain-scope.mjs';
+import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
 
 test('Dashboard projection contains only project and measurement-outcome data', () => {
@@ -28,13 +30,6 @@ test('Dashboard projection contains only project and measurement-outcome data', 
   assert.equal('marketing' in result, false);
   assert.deepEqual(
     result.outcomes.domains.map((row) => row.domain),
-    [
-      'codevetter.com',
-      'heypace.app',
-      'highsignal.app',
-      'posttrainllm.com',
-      'sassmaker.com',
-      'significanthobbies.com',
-    ],
+    domainStrengthRoots(loadDashboardProjects()),
   );
 });

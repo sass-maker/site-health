@@ -40,6 +40,17 @@
       ]
     },
     {
+      "rootDomain": "karte.cc",
+      "projectId": "karte",
+      "collision": { "state": "ambiguous", "note": "Karte is a common German word and the name of unrelated software companies." },
+      "queries": [
+        { "id": "karte-brand-2", "kind": "brand", "text": "Karte AI profile", "status": "active" },
+        { "id": "karte-brand", "kind": "exact-domain", "text": "karte.cc", "status": "active" },
+        { "id": "karte-category", "kind": "category", "text": "AI link-in-bio conversational profile", "status": "active" },
+        { "id": "karte-problem", "kind": "problem", "text": "create a profile people and AI agents can ask questions", "status": "active" }
+      ]
+    },
+    {
       "rootDomain": "posttrainllm.com",
       "projectId": "posttrainllm",
       "collision": { "state": "clear", "note": "The coined name directly describes the product and has no known dominant collision." },
