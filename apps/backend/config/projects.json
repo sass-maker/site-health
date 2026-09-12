@@ -144,7 +144,7 @@
       "authModel": "public-persistent",
       "family": "pace",
       "tier": "focus",
-      "repo": "pace",
+      "repo": "../fleet-archive/pace",
       "deployKind": "pages",
       "cfProject": "pace",
       "domains": [
@@ -501,7 +501,7 @@
       "authModel": "public-persistent",
       "family": "gitstat",
       "tier": "secondary",
-      "repo": "gitstat",
+      "repo": "../fleet-archive/gitstat",
       "deployKind": "pages",
       "cfProject": "gitstat",
       "domains": [
@@ -559,7 +559,7 @@
       "authModel": "required-service",
       "family": "reel-pipeline",
       "tier": "parked",
-      "repo": "reel-pipeline",
+      "repo": "../fleet-archive/reel-pipeline",
       "deployKind": "worker",
       "cfProject": "reel-pipeline-artifacts",
       "deployTargets": [
@@ -717,7 +717,7 @@
       "authModel": "required-user",
       "family": "email-manager",
       "tier": "active",
-      "repo": "email-manager",
+      "repo": "../fleet-archive/email-manager",
       "deployKind": "worker",
       "cfProject": "email-manager",
       "domains": [
@@ -995,7 +995,7 @@
       "authModel": "public-persistent",
       "family": "high-signal",
       "tier": "parked",
-      "repo": "on-record",
+      "repo": "../fleet-archive/on-record",
       "deployKind": "worker",
       "cfProject": "on-record-api, high-signal-podcasts",
       "deployTargets": [
@@ -1070,7 +1070,7 @@
       "authModel": "public-persistent",
       "family": "issue-pages",
       "tier": "parked",
-      "repo": "issue-pages",
+      "repo": "../fleet-archive/issue-pages",
       "deployKind": "worker",
       "cfProject": "issue-pages-production",
       "deployTargets": [
@@ -1199,7 +1199,7 @@
       "authModel": "public-persistent",
       "family": "high-signal",
       "tier": "parked",
-      "repo": "research-papers",
+      "repo": "../fleet-archive/research-papers",
       "deployKind": "pages",
       "cfProject": "research-papers",
       "domains": [
@@ -1256,7 +1256,7 @@
       "authModel": "public-persistent",
       "family": "materia",
       "tier": "parked",
-      "repo": "materia",
+      "repo": "../fleet-archive/materia",
       "sourcePath": "materia",
       "deployKind": "pages",
       "cfProject": "materia",
@@ -1640,7 +1640,7 @@
       "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "secondary",
-      "repo": "looptv",
+      "repo": "../fleet-archive/looptv",
       "deployKind": "pages",
       "cfProject": "looptv",
       "domains": [
@@ -1698,7 +1698,7 @@
       "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "parked",
-      "repo": "reader",
+      "repo": "../fleet-archive/reader",
       "deployKind": "worker",
       "cfProject": "reader",
       "d1Databases": [
@@ -2097,7 +2097,7 @@
       "authModel": "public-persistent",
       "family": "rolepatch",
       "tier": "secondary",
-      "repo": "rolepatch",
+      "repo": "../fleet-archive/rolepatch",
       "deployKind": "worker",
       "cfProject": "resume-tailor",
       "domains": [
@@ -2148,7 +2148,7 @@
       "authModel": "public-persistent",
       "family": "karte",
       "tier": "secondary",
-      "repo": "karte",
+      "repo": "../fleet-archive/karte",
       "deployKind": "worker",
       "cfProject": "linkchat",
       "d1Databases": [
@@ -2291,7 +2291,7 @@
       "authModel": "public-persistent",
       "family": "ai-game",
       "tier": "parked",
-      "repo": "aliveville",
+      "repo": "../fleet-archive/aliveville",
       "deployKind": "worker+pages",
       "cfProject": "aliveville",
       "deployTargets": [
@@ -2532,7 +2532,7 @@
       "authModel": "public-persistent",
       "family": "mashup",
       "tier": "parked",
-      "repo": "mashup",
+      "repo": "../fleet-archive/mashup",
       "deployKind": "pages",
       "cfProject": "mashup",
       "domains": [
@@ -2580,7 +2580,7 @@
       "authModel": "public-persistent",
       "family": "significanthobbies",
       "tier": "active",
-      "repo": "motion",
+      "repo": "../fleet-archive/motion",
       "sourcePath": "ios-landings",
       "deployKind": "pages",
       "cfProject": "motion",
@@ -2638,7 +2638,7 @@
       "authModel": "public-persistent",
       "family": "rolepatch",
       "tier": "parked",
-      "repo": "truehire",
+      "repo": "../fleet-archive/truehire",
       "deployKind": "worker",
       "cfProject": "truehire",
       "domains": [
@@ -2692,7 +2692,7 @@
       "authModel": "public-persistent",
       "family": "ai-game",
       "tier": "parked",
-      "repo": "open-historia",
+      "repo": "../fleet-archive/open-historia",
       "sourcePath": "open-historia",
       "deployKind": "worker",
       "cfProject": "open-historia",
@@ -2797,7 +2797,7 @@
         "shareable": false,
         "resumeCondition": null
       },
-      "repo": "forecast-lab",
+      "repo": "../fleet-archive/forecast-lab",
       "sourcePath": "forecast-lab",
       "repositoryVisibility": "public",
       "deployKind": "none",
@@ -2849,7 +2849,7 @@
         "shareable": true,
         "resumeCondition": null
       },
-      "repo": "web-playables",
+      "repo": "../fleet-archive/web-playables",
       "sourcePath": "web-playables",
       "repositoryVisibility": "public",
       "deployKind": "pages",
@@ -3144,7 +3144,7 @@
       "authModel": "public-persistent",
       "family": "field-track",
       "tier": "parked",
-      "repo": "field-track",
+      "repo": "../fleet-archive/field-track",
       "deployKind": "worker",
       "cfProject": "field-track",
       "domains": [
@@ -3202,7 +3202,7 @@
       "authModel": "public-persistent",
       "family": "high-signal",
       "tier": "parked",
-      "repo": "reddit-insights",
+      "repo": "../fleet-archive/reddit-insights",
       "deployKind": "worker+pages",
       "cfProject": "reddit-insights, reddit-proxy",
       "deployTargets": [
