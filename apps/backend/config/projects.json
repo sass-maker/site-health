@@ -2734,7 +2734,8 @@
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
           "reason": "Classified from recorded owner ideation-only hardware intent under permission to retain other experiments; no implementation or release target."
-        }
+        },
+        "futureForm": "paused-experiment"
       },
       "name": "Companion Robot",
       "authModel": "public-persistent",
@@ -3365,7 +3366,8 @@
         "sharingReadiness": {
           "verifiedAt": "2026-09-07",
           "reason": "Dataset rights, reproducible setup, user-facing value and distribution not qualified."
-        }
+        },
+        "futureForm": "active-product"
       },
       "authModel": "local-only",
       "family": "significanthobbies",
