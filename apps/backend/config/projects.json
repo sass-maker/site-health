@@ -8215,5 +8215,662 @@
         "state": "not-declared"
       }
     }
-  ]
+  ],
+  "repositoryReview": {
+    "scope": "Original 82 implementation repositories with a majority of default-branch commits in 2026; repository rows are not unique products.",
+    "cohortAsOf": "2026-09-10",
+    "reviewedAt": "2026-09-12",
+    "classificationRule": "Linked repository rows inherit category and shareability from projects; standalone rows have an explicit category and no implied shareability or Fleet membership.",
+    "repositories": [
+      {
+        "originalRepository": "Codevetter/codevetter",
+        "currentRepository": "Codevetter/codevetter",
+        "projectId": "codevetter",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Codevetter/starboard",
+        "currentRepository": "Codevetter/starboard",
+        "projectId": "starboard",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "HeyPace/pace",
+        "currentRepository": "HeyPace/pace",
+        "projectId": "pace",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "High-Signal-App/everythingrated",
+        "currentRepository": "High-Signal-App/everythingrated",
+        "projectId": "everythingrated",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "High-Signal-App/high-signal",
+        "currentRepository": "High-Signal-App/high-signal",
+        "projectId": "high-signal",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "High-Signal-App/research-papers",
+        "currentRepository": "High-Signal-App/research-papers",
+        "projectId": "research-papers",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "High-Signal-App/research-subreddit",
+        "currentRepository": "High-Signal-App/research-subreddit",
+        "projectId": "reddit-insights",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "PostTrainLLM/posttrainllm",
+        "currentRepository": "PostTrainLLM/posttrainllm",
+        "projectId": "posttrainllm",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sarthakagrawal927/agent-resume",
+        "currentRepository": "sarthakagrawal927/agent-resume",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/agent-resume"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/ai-badges",
+        "currentRepository": "sarthakagrawal927/ai-badges",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/ai-badges"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/aliveville",
+        "currentRepository": "sarthakagrawal927/aliveville",
+        "projectId": "ai-game",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sarthakagrawal927/backpropagate",
+        "currentRepository": "sarthakagrawal927/backpropagate",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/backpropagate"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/clash-royale-meta",
+        "currentRepository": "sarthakagrawal927/clash-royale-meta",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/clash-royale-meta"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/dev-workflow-migration",
+        "currentRepository": "sarthakagrawal927/dev-workflow-migration",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/dev-workflow-migration"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/forecast-lab",
+        "currentRepository": "sarthakagrawal927/forecast-lab",
+        "projectId": "forecast-lab",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sarthakagrawal927/headcount",
+        "currentRepository": "sarthakagrawal927/headcount",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/headcount"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/issue-pages",
+        "currentRepository": "sarthakagrawal927/issue-pages",
+        "projectId": "issue-pages",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sarthakagrawal927/loadtesting",
+        "currentRepository": "sarthakagrawal927/loadtesting",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/loadtesting"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/local-ai",
+        "currentRepository": "sarthakagrawal927/local-ai",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/local-ai"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/ludo-pass-play",
+        "currentRepository": "sarthakagrawal927/ludo-pass-play",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/ludo-pass-play"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/mentionpilot",
+        "currentRepository": "sarthakagrawal927/mentionpilot",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/mentionpilot"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/mobile-dev-cockpit",
+        "currentRepository": "sarthakagrawal927/mobile-dev-cockpit",
+        "projectId": "mobile-dev-cockpit",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sarthakagrawal927/open-historia",
+        "currentRepository": "sarthakagrawal927/open-historia",
+        "projectId": "open-historia",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sarthakagrawal927/ph-catalog",
+        "currentRepository": "sarthakagrawal927/ph-catalog",
+        "projectId": null,
+        "classificationSource": "owner-confirmed",
+        "futureForm": "paused-experiment",
+        "reason": "Owner classified PH Catalog as a paused experiment on 2026-09-12; no repository or deployment changes authorized.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": false,
+          "url": "https://github.com/sarthakagrawal927/ph-catalog"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/pinpoint",
+        "currentRepository": "sarthakagrawal927/pinpoint",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/pinpoint"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/placard",
+        "currentRepository": "sarthakagrawal927/placard",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/placard"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/port-whisperer",
+        "currentRepository": "sarthakagrawal927/port-whisperer",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/port-whisperer"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/portfolio",
+        "currentRepository": "sarthakagrawal927/portfolio",
+        "projectId": "sarthakagrawal-personal",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sarthakagrawal927/reel-maker",
+        "currentRepository": "sarthakagrawal927/reel-maker",
+        "projectId": "reel-pipeline",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sarthakagrawal927/side-machine",
+        "currentRepository": "sarthakagrawal927/side-machine",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/side-machine"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/society-relay",
+        "currentRepository": "sarthakagrawal927/society-relay",
+        "projectId": null,
+        "classificationSource": "owner-confirmed",
+        "futureForm": "finished-experiment",
+        "reason": "Owner approved this classification on 2026-09-12; repository and deployment state remain unchanged.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": false,
+          "url": "https://github.com/sarthakagrawal927/society-relay"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/subreddit-research",
+        "currentRepository": "sarthakagrawal927/subreddit-research",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/subreddit-research"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/taste",
+        "currentRepository": "sarthakagrawal927/taste",
+        "projectId": null,
+        "classificationSource": "owner-confirmed",
+        "futureForm": "paused-experiment",
+        "reason": "Owner approved this classification on 2026-09-12; repository and deployment state remain unchanged.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": false,
+          "url": "https://github.com/sarthakagrawal927/taste"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/temp-splitwise",
+        "currentRepository": "sarthakagrawal927/temp-splitwise",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/temp-splitwise"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/today-little-log",
+        "currentRepository": "sarthakagrawal927/today-little-log",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/today-little-log"
+        }
+      },
+      {
+        "originalRepository": "sarthakagrawal927/truehire",
+        "currentRepository": "sarthakagrawal927/truehire",
+        "projectId": "truehire",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sarthakagrawal927/web-playables",
+        "currentRepository": "sarthakagrawal927/web-playables",
+        "projectId": "web-playables",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/agent-office",
+        "currentRepository": "sass-maker/agent-office",
+        "projectId": "agent-office",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/app-health",
+        "currentRepository": "sass-maker/app-health",
+        "projectId": "app-health",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/chatgpt-connections",
+        "currentRepository": "sass-maker/chatgpt-connections",
+        "projectId": "chatgpt-connections",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/drank",
+        "currentRepository": "sass-maker/drank",
+        "projectId": "drank",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/elves-hq",
+        "currentRepository": "sarthakagrawal927/elves-hq",
+        "projectId": null,
+        "classificationSource": "github-archived",
+        "futureForm": "archived-work",
+        "reason": "Repository is already archived on GitHub; retain as historical work.",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/elves-hq"
+        }
+      },
+      {
+        "originalRepository": "sass-maker/field-track",
+        "currentRepository": "sass-maker/field-track",
+        "projectId": "field-track",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/free-ai",
+        "currentRepository": "sass-maker/free-ai",
+        "projectId": "free-ai",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/gitstat",
+        "currentRepository": "sass-maker/gitstat",
+        "projectId": "gitstat",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/knowledge-base",
+        "currentRepository": "sass-maker/knowledge-base",
+        "projectId": "knowledge-base",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/local-ai-video-studio",
+        "currentRepository": "sass-maker/local-ai-video-studio",
+        "projectId": "local-ai-video-studio",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/mashup",
+        "currentRepository": "sass-maker/mashup",
+        "projectId": "mashup",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/psi-swarm",
+        "currentRepository": "sass-maker/psi-swarm",
+        "projectId": "psi-swarm",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/reel-pipeline",
+        "currentRepository": "sass-maker/reel-pipeline",
+        "projectId": "reel-pipeline",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/saas-ideas",
+        "currentRepository": "sass-maker/saas-ideas",
+        "projectId": "saas-maker",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/saas-maker",
+        "currentRepository": "sass-maker/saas-maker",
+        "projectId": "saas-maker",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/site-health",
+        "currentRepository": "sass-maker/site-health",
+        "projectId": "site-health",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/verified-bases",
+        "currentRepository": "sass-maker/verified-bases",
+        "projectId": "verified-bases",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "sass-maker/workflows-and-skills",
+        "currentRepository": "sass-maker/workflows-and-skills",
+        "projectId": "saas-maker",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/anchor",
+        "currentRepository": "Significant-Hobbies/anchor",
+        "projectId": "anchor",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/anime-list",
+        "currentRepository": "Significant-Hobbies/anime-list",
+        "projectId": "anime-list",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/calorie",
+        "currentRepository": "Significant-Hobbies/calorie",
+        "projectId": "calorie",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/chatgpt-memory-insights",
+        "currentRepository": "Significant-Hobbies/chatgpt-memory-insights",
+        "projectId": "chatgpt-memory-insights",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/chess",
+        "currentRepository": "sarthakagrawal927/chess",
+        "projectId": "chess",
+        "classificationSource": "canonical-project",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/chess"
+        }
+      },
+      {
+        "originalRepository": "Significant-Hobbies/email-manager",
+        "currentRepository": "Significant-Hobbies/email-manager",
+        "projectId": "email-manager",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/hub-backend",
+        "currentRepository": "Significant-Hobbies/hub-backend",
+        "projectId": "significanthobbies",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/india-standards",
+        "currentRepository": "Significant-Hobbies/india-standards",
+        "projectId": "india-standards",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/indulge",
+        "currentRepository": "Significant-Hobbies/indulge",
+        "projectId": "anchor",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/ios-landings",
+        "currentRepository": "Significant-Hobbies/ios-landings",
+        "projectId": "ios-landings",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/journal",
+        "currentRepository": "sarthakagrawal927/journal",
+        "projectId": "journal",
+        "classificationSource": "canonical-project",
+        "githubVerification": {
+          "observedAt": "2026-09-12",
+          "archived": true,
+          "url": "https://github.com/sarthakagrawal927/journal"
+        }
+      },
+      {
+        "originalRepository": "Significant-Hobbies/karte",
+        "currentRepository": "Significant-Hobbies/karte",
+        "projectId": "karte",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/kith",
+        "currentRepository": "Significant-Hobbies/kith",
+        "projectId": "kith",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/live",
+        "currentRepository": "Significant-Hobbies/live",
+        "projectId": "live",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/looptv",
+        "currentRepository": "Significant-Hobbies/looptv",
+        "projectId": "looptv",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/materia",
+        "currentRepository": "Significant-Hobbies/materia",
+        "projectId": "materia",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/motion",
+        "currentRepository": "Significant-Hobbies/motion",
+        "projectId": "motion",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/on-record",
+        "currentRepository": "Significant-Hobbies/on-record",
+        "projectId": "on-record",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/protein-index",
+        "currentRepository": "Significant-Hobbies/protein-index",
+        "projectId": "protein-index",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/protein-index-resilience",
+        "currentRepository": "Significant-Hobbies/protein-index-resilience",
+        "projectId": "protein-index",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/reader",
+        "currentRepository": "Significant-Hobbies/reader",
+        "projectId": "reader",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/rolepatch",
+        "currentRepository": "Significant-Hobbies/rolepatch",
+        "projectId": "rolepatch",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/setline",
+        "currentRepository": "Significant-Hobbies/setline",
+        "projectId": "setline",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/significanthobbies",
+        "currentRepository": "Significant-Hobbies/significanthobbies",
+        "projectId": "significanthobbies",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/swe-interview-prep",
+        "currentRepository": "Significant-Hobbies/swe-interview-prep",
+        "projectId": "swe-interview-prep",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/veg-protein-food",
+        "currentRepository": "Significant-Hobbies/veg-protein-food",
+        "projectId": "veg-protein-food",
+        "classificationSource": "canonical-project"
+      },
+      {
+        "originalRepository": "Significant-Hobbies/what-it-takes-to-win",
+        "currentRepository": "Significant-Hobbies/what-it-takes-to-win",
+        "projectId": "what-it-takes-to-win",
+        "classificationSource": "canonical-project"
+      }
+    ]
+  }
 }
