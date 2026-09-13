@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
+      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-13
       state: available
       checkout: nomad-data-adventure
-      revision: 0eccb3032d243415bad2edbc54670a09bab2d550
+      revision: 7a2a9fddf4b14bd11bfe3590b7af3b146e1fadde
       githubRepository: sarthakagrawal927/nomad-data-adventure
       expectedHomepage: https://sarthakagrawal927.github.io/nomad-data-adventure/
       observedHomepage: null
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-13
       state: available
       checkout: nomad-data-adventure
-      revision: 0eccb3032d243415bad2edbc54670a09bab2d550
+      revision: 7a2a9fddf4b14bd11bfe3590b7af3b146e1fadde
       githubRepository: sarthakagrawal927/nomad-data-adventure
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -111,13 +111,13 @@ product:
     - JavaScript
   retainedGitHistory:
     firstCommitAt: 2026-09-12
-    latestCommitAt: 2026-09-12
-    retainedCommitCount: 1
+    latestCommitAt: 2026-09-13
+    retainedCommitCount: 2
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: nomad-data-adventure
-  observedRevision: 0eccb3032d243415bad2edbc54670a09bab2d550
+  observedRevision: 7a2a9fddf4b14bd11bfe3590b7af3b146e1fadde
   githubRepository: sarthakagrawal927/nomad-data-adventure
   githubHomepageUrl: null
   worktree: *a1
@@ -169,5 +169,5 @@ sharing:
   roadmapUrl: https://github.com/sarthakagrawal927/nomad-data-adventure/issues
   geoIdentity: null
 notes:
-  catalog: Owner confirmed active on 2026-09-07. Local nomads-data directory has collection scripts and generated data, but no Git repository or public deployment. Do not publish raw collected datasets without establishing redistribution rights.
+  catalog: "Owner confirmed active on 2026-09-07. One workspace at nomad-data-adventure: the root contains the public synthetic demo; its Git-ignored data/ directory retains collected datasets, collection scripts, and logs. The local Astro app and local demos were removed from the workspace."
   infrastructure: No Git repository or deployed provider resources verified; local directory only.

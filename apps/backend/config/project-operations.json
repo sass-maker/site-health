@@ -488,18 +488,18 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "7dfc2f2a2bdaa6313591c4a550018bf96d78c49d",
+        "revision": "881daa0c16e5078a7b6d0da755206423125c3959",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 72,
+          "trackedChangeCount": 61,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-05-02",
-        "latestCommitAt": "2026-09-12",
-        "retainedCommitCount": 1118,
+        "latestCommitAt": "2026-09-13",
+        "retainedCommitCount": 1119,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -804,7 +804,7 @@
         "repositorySlug": "sass-maker/saas-maker",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 1,
+          "trackedChangeCount": 2,
           "deletedWorkflowFiles": []
         }
       },
@@ -1855,22 +1855,18 @@
       "source": {
         "state": "available",
         "path": "high-signal",
-        "revision": "bc54c00bdc4a297aff8a8253148821137beac81c",
+        "revision": "31f6f4276851369304dd5a251e97b279f21ebeb7",
         "repositorySlug": "High-Signal-App/high-signal",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 105,
-          "deletedWorkflowFiles": [
-            ".github/workflows/cron-acceptance-monitor.yml",
-            ".github/workflows/cron-d2c-opportunities.yml",
-            ".github/workflows/personal-brief.yml"
-          ]
+          "state": "clean",
+          "trackedChangeCount": 0,
+          "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-04-25",
         "latestCommitAt": "2026-09-13",
-        "retainedCommitCount": 984,
+        "retainedCommitCount": 985,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2127,7 +2123,6 @@
         "company-universe:sync:remote",
         "company-universe:test",
         "company-universe:web-artifact",
-        "daily:seed-history",
         "db:migrate:local",
         "db:migrate:remote",
         "db:seed:local",
@@ -2153,7 +2148,6 @@
         "idempotency-guards:test",
         "ingest:local",
         "ingest:preflight",
-        "intent-opportunities:test",
         "lint",
         "market-snapshot:test",
         "market:refresh",
@@ -2198,8 +2192,7 @@
         "test",
         "tickers:bundle",
         "typecheck",
-        "watchlist-impact:test",
-        "youtube:brand-probe"
+        "watchlist-impact:test"
       ],
       "projectId": "high-signal"
     },
@@ -4953,18 +4946,18 @@
       "source": {
         "state": "available",
         "path": "app-health",
-        "revision": "1bf07738e47b32fb15048d8a5a74218a491b63e6",
+        "revision": "c3071821f501410ba0d29bd6f0c3e51178506b14",
         "repositorySlug": "sass-maker/app-health",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 46,
+          "trackedChangeCount": 45,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-07-20",
         "latestCommitAt": "2026-09-13",
-        "retainedCommitCount": 117,
+        "retainedCommitCount": 119,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6083,19 +6076,19 @@
     "reddit-insights": {
       "source": {
         "state": "available",
-        "path": "../fleet-archive/reddit-insights",
-        "revision": "e0fa78f0d97fad9a3e54c9b6af593e0ce5bc1930",
+        "path": "reddit-insights",
+        "revision": "959786032f72c9315a96ee65bb4c38ce6b817919",
         "repositorySlug": "High-Signal-App/research-subreddit",
         "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
+          "state": "dirty",
+          "trackedChangeCount": 3,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-08-07",
-        "latestCommitAt": "2026-09-12",
-        "retainedCommitCount": 25,
+        "latestCommitAt": "2026-09-13",
+        "retainedCommitCount": 26,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6283,7 +6276,7 @@
       "source": {
         "state": "available",
         "path": "nomad-data-adventure",
-        "revision": "0eccb3032d243415bad2edbc54670a09bab2d550",
+        "revision": "7a2a9fddf4b14bd11bfe3590b7af3b146e1fadde",
         "repositorySlug": "sarthakagrawal927/nomad-data-adventure",
         "worktree": {
           "state": "clean",
@@ -6293,8 +6286,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-12",
-        "latestCommitAt": "2026-09-12",
-        "retainedCommitCount": 1,
+        "latestCommitAt": "2026-09-13",
+        "retainedCommitCount": 2,
         "historyCompleteness": "complete",
         "reason": null
       },

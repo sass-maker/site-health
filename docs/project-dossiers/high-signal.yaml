@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
+      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,22 +34,19 @@ verification:
       observedAt: 2026-09-13
       state: available
       checkout: high-signal
-      revision: bc54c00bdc4a297aff8a8253148821137beac81c
+      revision: 31f6f4276851369304dd5a251e97b279f21ebeb7
       githubRepository: High-Signal-App/high-signal
       expectedHomepage: https://highsignal.app
       observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 105
-        deletedWorkflowFiles:
-          - .github/workflows/cron-acceptance-monitor.yml
-          - .github/workflows/cron-d2c-opportunities.yml
-          - .github/workflows/personal-brief.yml
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-13
       state: available
       checkout: high-signal
-      revision: bc54c00bdc4a297aff8a8253148821137beac81c
+      revision: 31f6f4276851369304dd5a251e97b279f21ebeb7
       githubRepository: High-Signal-App/high-signal
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -119,12 +116,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-04-25
     latestCommitAt: 2026-09-13
-    retainedCommitCount: 984
+    retainedCommitCount: 985
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: high-signal
-  observedRevision: bc54c00bdc4a297aff8a8253148821137beac81c
+  observedRevision: 31f6f4276851369304dd5a251e97b279f21ebeb7
   githubRepository: High-Signal-App/high-signal
   githubHomepageUrl: null
   worktree: *a1
@@ -181,7 +178,6 @@ repository:
       - company-universe:sync:remote
       - company-universe:test
       - company-universe:web-artifact
-      - daily:seed-history
       - db:migrate:local
       - db:migrate:remote
       - db:seed:local
@@ -207,7 +203,6 @@ repository:
       - idempotency-guards:test
       - ingest:local
       - ingest:preflight
-      - intent-opportunities:test
       - lint
       - market-snapshot:test
       - market:refresh
@@ -253,7 +248,6 @@ repository:
       - tickers:bundle
       - typecheck
       - watchlist-impact:test
-      - youtube:brand-probe
 githubActions:
   observedAt: null
   staleAfterDays: null

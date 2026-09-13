@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
+      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -33,20 +33,20 @@ verification:
     repository:
       observedAt: 2026-09-13
       state: available
-      checkout: ../fleet-archive/reddit-insights
-      revision: e0fa78f0d97fad9a3e54c9b6af593e0ce5bc1930
+      checkout: reddit-insights
+      revision: 959786032f72c9315a96ee65bb4c38ce6b817919
       githubRepository: High-Signal-App/research-subreddit
       expectedHomepage: https://reddit-insights.highsignal.app
       observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 3
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-13
       state: available
-      checkout: ../fleet-archive/reddit-insights
-      revision: e0fa78f0d97fad9a3e54c9b6af593e0ce5bc1930
+      checkout: reddit-insights
+      revision: 959786032f72c9315a96ee65bb4c38ce6b817919
       githubRepository: High-Signal-App/research-subreddit
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -114,13 +114,13 @@ product:
     - R2
   retainedGitHistory:
     firstCommitAt: 2026-08-07
-    latestCommitAt: 2026-09-12
-    retainedCommitCount: 25
+    latestCommitAt: 2026-09-13
+    retainedCommitCount: 26
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: ../fleet-archive/reddit-insights
-  observedRevision: e0fa78f0d97fad9a3e54c9b6af593e0ce5bc1930
+  checkout: reddit-insights
+  observedRevision: 959786032f72c9315a96ee65bb4c38ce6b817919
   githubRepository: High-Signal-App/research-subreddit
   githubHomepageUrl: null
   worktree: *a1
