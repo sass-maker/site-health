@@ -4,10 +4,10 @@ Observed through the GitHub API at `not refreshed`. This is the agent-visible in
 
 Dossier contract: [`schema.json`](./schema.json). Verification means evidence was collected and attributed; workflow health is reported separately.
 
-- Workflows: 160
+- Workflows: 171
 - Cron/scheduled workflows: 25
-- Attention: unclassified 160
-- Inventory sources: unknown 160
+- Attention: unclassified 171
+- Inventory sources: unknown 171
 
 “Latest” is the latest run of any trigger. “Default branch” checks the latest push run against the exact current default-branch SHA. “Schedule” queries scheduled runs separately so a manual dispatch cannot hide a stopped cron.
 
@@ -65,9 +65,7 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [high-signal](./high-signal.yaml) | backfill-sources | `.github/workflows/backfill-sources.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | backfill | `.github/workflows/backfill.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | CI | `.github/workflows/ci.yml` | — | — | pull_request, push, workflow_dispatch | — | unverified | unverified | unverified | — | — |
-| [high-signal](./high-signal.yaml) | cron-acceptance-monitor | `.github/workflows/cron-acceptance-monitor.yml` | — | — | schedule, workflow_dispatch | 15 5 * * * | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | cron-backtest | `.github/workflows/cron-backtest.yml` | — | — | schedule, workflow_dispatch | 0 9 * * * | unverified | unverified | unverified | — | — |
-| [high-signal](./high-signal.yaml) | cron-d2c-opportunities | `.github/workflows/cron-d2c-opportunities.yml` | — | — | schedule, workflow_dispatch | 0 7 * * 1 | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | cron-digg | `.github/workflows/cron-digg.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | cron-equities | `.github/workflows/cron-equities.yml` | — | — | schedule, workflow_dispatch | 30 21 * * 1-5 | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | cron-ingest | `.github/workflows/cron-ingest.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
@@ -81,7 +79,6 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [high-signal](./high-signal.yaml) | Deploy API | `.github/workflows/deploy-api.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | Deploy web | `.github/workflows/deploy-web.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | Docs | `.github/workflows/docs.yml` | — | — | pull_request, push | — | unverified | unverified | unverified | — | — |
-| [high-signal](./high-signal.yaml) | personal-brief | `.github/workflows/personal-brief.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | reddit-archive-redact | `.github/workflows/reddit-archive-redact.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [high-signal](./high-signal.yaml) | Weekly Quality Check | `.github/workflows/weekly.yml` | — | — | schedule, workflow_dispatch | 0 9 * * 1 | unverified | unverified | unverified | — | — |
 | [india-standards](./india-standards.yaml) | CI | `.github/workflows/ci.yml` | — | — | pull_request, push, workflow_dispatch | — | unverified | unverified | unverified | — | — |
@@ -123,6 +120,20 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [posttrainllm](./posttrainllm.yaml) | CI | `.github/workflows/ci.yml` | — | — | pull_request, push, workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [posttrainllm](./posttrainllm.yaml) | Deploy to Cloudflare Pages | `.github/workflows/deploy.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [protein-index](./protein-index.yaml) | CI | `.github/workflows/ci.yml` | — | — | pull_request, push | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Docs | `.github/workflows/docs.yml` | — | — | pull_request, push | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Enrich Open Food Facts evidence | `.github/workflows/enrich-open-food-facts.yml` | — | — | workflow_dispatch, workflow_run | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Extract ingredient label evidence | `.github/workflows/extract-robotoff-ingredients.yml` | — | — | workflow_dispatch, workflow_run | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Extract label evidence with Robotoff | `.github/workflows/extract-robotoff.yml` | — | — | workflow_dispatch, workflow_run | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Official brand discovery | `.github/workflows/official-brand-discovery.yml` | — | — | schedule, workflow_dispatch | 19 3 * * 1 | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Publish verified evidence manually | `.github/workflows/publish-automatic-evidence.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Publish reviewed catalog | `.github/workflows/publish-catalog.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Publish reviewed evidence enrichment | `.github/workflows/publish-enrichment.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Publish guarded reviewed label evidence | `.github/workflows/publish-guarded-reviewed-labels.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Publish machine-verified evidence | `.github/workflows/publish-machine-evidence.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Publish official brand discoveries | `.github/workflows/publish-official-brand-discoveries.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Publish reviewed evidence | `.github/workflows/publish-reviewed-evidence.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Publish reviewed label candidates | `.github/workflows/publish-robotoff-candidates.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
+| [protein-index](./protein-index.yaml) | Source sync | `.github/workflows/source-sync.yml` | — | — | schedule, workflow_dispatch | 23 2 * * 1 | unverified | unverified | unverified | — | — |
 | [psi-swarm](./psi-swarm.yaml) | PSI Swarm CI | `.github/workflows/ci.yml` | — | — | pull_request, push, workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [psi-swarm](./psi-swarm.yaml) | Deploy psi-swarm-web to Cloudflare Pages | `.github/workflows/deploy.yml` | — | — | workflow_dispatch | — | unverified | unverified | unverified | — | — |
 | [psi-swarm](./psi-swarm.yaml) | Release PSI Swarm CLI | `.github/workflows/release-cli.yml` | — | — | push | — | unverified | unverified | unverified | — | — |
@@ -188,9 +199,7 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [drank](./drank.yaml) | Update Global DR History | 0 4 * * 1 | — | — | — |
 | [everythingrated](./everythingrated.yaml) | Weekly Quality Check | 0 9 * * 1 | — | — | — |
 | [free-ai](./free-ai.yaml) | Check Provider Catalogs | 0 9 * * 0 | — | — | — |
-| [high-signal](./high-signal.yaml) | cron-acceptance-monitor | 15 5 * * * | — | — | — |
 | [high-signal](./high-signal.yaml) | cron-backtest | 0 9 * * * | — | — | — |
-| [high-signal](./high-signal.yaml) | cron-d2c-opportunities | 0 7 * * 1 | — | — | — |
 | [high-signal](./high-signal.yaml) | cron-equities | 30 21 * * 1-5 | — | — | — |
 | [high-signal](./high-signal.yaml) | cron-markets | 0 */4 * * * | — | — | — |
 | [high-signal](./high-signal.yaml) | cron-score | 30 22 * * * | — | — | — |
@@ -200,6 +209,8 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [looptv](./looptv.yaml) | Fetch Catalog Sources | 0 6 1,15 * * | — | — | — |
 | [on-record](./on-record.yaml) | cron-ingest | 0 6 * * *<br>0 7 * * 0 | — | — | — |
 | [open-historia](./open-historia.yaml) | Weekly Quality Check | 0 9 * * 1 | — | — | — |
+| [protein-index](./protein-index.yaml) | Official brand discovery | 19 3 * * 1 | — | — | — |
+| [protein-index](./protein-index.yaml) | Source sync | 23 2 * * 1 | — | — | — |
 | [saas-maker](./saas-maker.yaml) | Public Performance Sweep | 0 9 * * 1 | — | — | — |
 | [saas-maker](./saas-maker.yaml) | Public Surface Audit | 37 6 * * 3 | — | — | — |
 | [saas-maker](./saas-maker.yaml) | Weekly Quality Check | 0 9 * * 1 | — | — | — |

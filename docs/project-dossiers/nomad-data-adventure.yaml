@@ -3,20 +3,20 @@ projectId: nomad-data-adventure
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-11
+  generatedAt: 2026-09-13
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: unavailable
-    githubHomepage: not-applicable
+    repositorySnapshot: passed
+    githubHomepage: mismatch
     githubActionsLiveState: not-applicable
-    retainedGitHistory: unavailable
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdb8cf1f0bc35455a3e82908403a61b128fea4917f4e3fc43125f8f40526c962
-      infrastructureUpdatedAt: 2026-09-07
+      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Nomad Data Adventure
@@ -28,35 +28,40 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-11
-      state: unavailable
-      checkout: nomads-data
-      revision: null
-      githubRepository: null
-      expectedHomepage: null
+      observedAt: 2026-09-13
+      state: available
+      checkout: nomad-data-adventure
+      revision: 0eccb3032d243415bad2edbc54670a09bab2d550
+      githubRepository: sarthakagrawal927/nomad-data-adventure
+      expectedHomepage: https://sarthakagrawal927.github.io/nomad-data-adventure/
       observedHomepage: null
-      worktree: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-11
-      state: unavailable
-      checkout: nomads-data
-      revision: null
-      githubRepository: null
+      observedAt: 2026-09-13
+      state: available
+      checkout: nomad-data-adventure
+      revision: 0eccb3032d243415bad2edbc54670a09bab2d550
+      githubRepository: sarthakagrawal927/nomad-data-adventure
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: null
       catalogLatestCommitAt: null
-      catalogDrift: []
-      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/nomads-data ls-files -z"
+      catalogDrift:
+        - firstCommitAt
+        - latestCommitAt
+      reason: null
     githubActions:
       observedAt: null
       staleAfterDays: null
-      attention: &a1 {}
+      attention: &a2 {}
   unknowns:
-    - The owning checkout was unavailable during repository observation.
+    - GitHub repository homepage does not match the canonical deployed URL https://sarthakagrawal927.github.io/nomad-data-adventure/.
 ownerVoice:
   whyVerbatim: keep as active for now, ensure to cleanup after yourself
   fullReviewVerbatim: keep as active for now, ensure to cleanup after yourself
@@ -64,8 +69,8 @@ ownerVoice:
 decision:
   classification: Active
   whySummary: Explore city data in a bounded local experiment.
-  currentState: Owner confirmed active; local collection and slicing scripts exist, with no verified public product or redistribution rights.
-  nextDecision: Establish a useful reproducible exploration and data rights before sharing.
+  currentState: A standalone fictional-data demo is public and verified for sorting, budget filtering and offline/mobile use; collected datasets remain local.
+  nextDecision: Share the bounded experiment; establish redistribution rights before expanding to real collected data.
 identity:
   name: Nomad Data Adventure
   publicName: Nomad Data Adventure
@@ -82,43 +87,44 @@ identity:
   attention: toolbox
   lifecycle:
     status: active
-    shareable: false
     resumeCondition: null
-  operationalStatus: undeployed
+    shareable: true
+  operationalStatus: live
   authenticationModel: local-only
   inRegistry: true
 product:
-  description: A local city-data exploration experiment.
+  description: A small city-comparison experiment with fictional sample data, sortable trade-offs and a budget filter.
   publicMakerNote: I am keeping Nomad Data Adventure active for now as a data exploration experiment.
   purposeContract:
     purpose: Explore city data through a bounded local experiment.
-    audience: The owner exploring the available city datasets.
-    outcome: Learn what useful comparisons the data supports.
-    mechanism: Local Python collection and slicing scripts produce JSON datasets.
-    proof: Scripts and generated local files exist; no public viewer or reproducible product journey is verified.
-    nextAction: Keep active; establish data rights and a useful reproducible exploration before sharing.
-  form: Data experiment
+    audience: A viewer exploring a small city-comparison interface.
+    outcome: Compare fictional city trade-offs and narrow a sample shortlist by budget.
+    mechanism: A self-contained HTML page sorts and filters original fictional records in the browser.
+    proof: Public synthetic demo, mobile layout, offline use, sorting, budget filtering and empty state verified on September 12.
+    nextAction: Try the sample; the full collected dataset remains private pending redistribution rights.
+  form: Browser experiment
   platforms:
-    - Local
-    - CLI
+    - Web
   prominentTools:
-    - Python
+    - HTML
+    - CSS
+    - JavaScript
   retainedGitHistory:
-    firstCommitAt: null
-    latestCommitAt: null
-    retainedCommitCount: null
-    historyCompleteness: null
+    firstCommitAt: 2026-09-12
+    latestCommitAt: 2026-09-12
+    retainedCommitCount: 1
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: nomads-data
-  observedRevision: null
-  githubRepository: null
+  checkout: nomad-data-adventure
+  observedRevision: 0eccb3032d243415bad2edbc54670a09bab2d550
+  githubRepository: sarthakagrawal927/nomad-data-adventure
   githubHomepageUrl: null
-  worktree: null
-  visibility: private
-  url: null
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/nomad-data-adventure
   aliases: []
-  sourceOverride: nomads-data
+  sourceOverride: nomad-data-adventure
   tooling:
     declaredPackageManager: null
     detectedSignals: []
@@ -127,30 +133,40 @@ githubActions:
   observedAt: null
   staleAfterDays: null
   summary: {}
-  attention: *a1
+  attention: *a2
   remote: null
   workflows: []
 deployment:
-  kind: none
-  deployed: false
-  domains: []
-  primaryUrl: null
+  kind: pages
+  deployed: true
+  domains:
+    - sarthakagrawal927.github.io
+  primaryUrl: https://sarthakagrawal927.github.io/nomad-data-adventure/
   domainProbePaths: {}
   targets: []
   cloudflare:
     deployments: []
     resources: []
   otherProviders:
-    deployments: []
+    deployments:
+      - provider: github
+        kind: pages
+        name: sarthakagrawal927/nomad-data-adventure
+        method: branch-main-root
+        state: live
+        url: https://sarthakagrawal927.github.io/nomad-data-adventure/
+        scope: project
+        operationalOwner: nomad-data-adventure
+        attributionReason: Reviewed two-file synthetic demo for Nomad Data Adventure; original collected data excluded.
     resources: []
 sharing:
-  publicListing: hidden
-  maturity: null
-  ready: false
+  publicListing: maintained
+  maturity: experiment
+  ready: true
   verifiedAt: 2026-09-07
   reason: Dataset rights, reproducible setup, user-facing value and distribution not qualified.
   changelogUrl: null
-  roadmapUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/nomad-data-adventure/issues
   geoIdentity: null
 notes:
   catalog: Owner confirmed active on 2026-09-07. Local nomads-data directory has collection scripts and generated data, but no Git repository or public deployment. Do not publish raw collected datasets without establishing redistribution rights.

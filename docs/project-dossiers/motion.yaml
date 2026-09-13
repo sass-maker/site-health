@@ -3,7 +3,7 @@ projectId: motion
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-11
+  generatedAt: 2026-09-13
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdb8cf1f0bc35455a3e82908403a61b128fea4917f4e3fc43125f8f40526c962
+      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,12 +28,12 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
-      checkout: motion
+      checkout: ../fleet-archive/motion
       revision: 6ac4700feea7683c86efc214470e6d9dd8bf846a
       githubRepository: Significant-Hobbies/motion
       expectedHomepage: https://motion.significanthobbies.com
@@ -43,9 +43,9 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
-      checkout: motion
+      checkout: ../fleet-archive/motion
       revision: 6ac4700feea7683c86efc214470e6d9dd8bf846a
       githubRepository: Significant-Hobbies/motion
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
@@ -88,8 +88,8 @@ identity:
   attention: toolbox
   lifecycle:
     status: inactive
-    shareable: false
     resumeCondition: null
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -120,7 +120,7 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: motion
+  checkout: ../fleet-archive/motion
   observedRevision: 6ac4700feea7683c86efc214470e6d9dd8bf846a
   githubRepository: Significant-Hobbies/motion
   githubHomepageUrl: null

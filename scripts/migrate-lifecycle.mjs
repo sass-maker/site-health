@@ -18,10 +18,12 @@
  * explicit owner evidence exists (never fabricated).
  */
 
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
+import { compatibilityCatalog } from '../../saas-maker/scripts/catalog-schema.mjs';
+import { saveCatalog } from '../../saas-maker/scripts/catalog-store.mjs';
 
 const CATALOG_PATH = new URL(
-  '../apps/backend/config/projects.json',
+  '../../saas-maker/catalog/projects.json',
   import.meta.url,
 ).pathname;
 
@@ -109,7 +111,7 @@ function deriveResumeCondition(project, status) {
 
 async function main() {
   const raw = await readFile(CATALOG_PATH, 'utf8');
-  const catalog = JSON.parse(raw);
+  const catalog = compatibilityCatalog(JSON.parse(raw));
   const projects = catalog.projects;
 
   // Validate: every project in the catalog has a binding status
@@ -159,8 +161,7 @@ async function main() {
   }
 
   // Write updated catalog
-  const output = JSON.stringify(catalog, null, 2) + '\n';
-  await writeFile(CATALOG_PATH, output, 'utf8');
+  await saveCatalog(CATALOG_PATH, catalog, raw);
 
   // Print report
   console.log(`Migrated ${projects.length} projects`);

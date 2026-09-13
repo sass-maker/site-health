@@ -3,7 +3,7 @@ projectId: high-signal
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-11
+  generatedAt: 2026-09-13
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdb8cf1f0bc35455a3e82908403a61b128fea4917f4e3fc43125f8f40526c962
-      infrastructureUpdatedAt: 2026-09-11
+      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
+      infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: High Signal
@@ -28,39 +28,42 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
       checkout: high-signal
-      revision: 4505493afae6f273560768302d65a06bdcc4962b
+      revision: bc54c00bdc4a297aff8a8253148821137beac81c
       githubRepository: High-Signal-App/high-signal
       expectedHomepage: https://highsignal.app
       observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+        state: dirty
+        trackedChangeCount: 105
+        deletedWorkflowFiles:
+          - .github/workflows/cron-acceptance-monitor.yml
+          - .github/workflows/cron-d2c-opportunities.yml
+          - .github/workflows/personal-brief.yml
     retainedGitHistory:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
       checkout: high-signal
-      revision: 4505493afae6f273560768302d65a06bdcc4962b
+      revision: bc54c00bdc4a297aff8a8253148821137beac81c
       githubRepository: High-Signal-App/high-signal
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-04-25
-      catalogLatestCommitAt: 2026-09-09
+      catalogLatestCommitAt: 2026-09-12
       catalogDrift:
         - latestCommitAt
       reason: null
     githubActions:
       observedAt: null
       staleAfterDays: null
-      unverifiable: 22
+      unverifiable: 19
       attention: &a2
-        unclassified: 22
+        unclassified: 19
   unknowns:
     - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://highsignal.app.
@@ -89,8 +92,8 @@ identity:
   attention: my-work
   lifecycle:
     status: active
-    shareable: false
     resumeCondition: null
+    shareable: true
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -115,13 +118,13 @@ product:
     - Cloudflare
   retainedGitHistory:
     firstCommitAt: 2026-04-25
-    latestCommitAt: 2026-09-11
-    retainedCommitCount: 975
+    latestCommitAt: 2026-09-13
+    retainedCommitCount: 984
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: high-signal
-  observedRevision: 4505493afae6f273560768302d65a06bdcc4962b
+  observedRevision: bc54c00bdc4a297aff8a8253148821137beac81c
   githubRepository: High-Signal-App/high-signal
   githubHomepageUrl: null
   worktree: *a1
@@ -142,9 +145,6 @@ repository:
         evidence:
           - apps/web/wrangler.toml
           - workers/api/wrangler.toml
-      - name: Docker
-        evidence:
-          - python/lab/docker-compose.yml
       - name: Drizzle
         evidence:
           - packages/db/drizzle.config.ts
@@ -161,7 +161,6 @@ repository:
       - name: Python pyproject
         evidence:
           - python/ingest/pyproject.toml
-          - python/lab/pyproject.toml
       - name: Vitest
         evidence:
           - workers/api/vitest.config.ts
@@ -182,22 +181,7 @@ repository:
       - company-universe:sync:remote
       - company-universe:test
       - company-universe:web-artifact
-      - competitor-perception:prototype
-      - competitor-perception:test
-      - d2c:agent-visibility
-      - d2c:bundle
-      - d2c:collect
-      - d2c:sync
-      - d2c:sync-av
-      - d2c:sync-av:api
-      - d2c:sync-av:remote
-      - d2c:sync:api
-      - d2c:sync:remote
-      - daily-automation:test
-      - daily-range:test
-      - daily-source-audit:test
       - daily:seed-history
-      - daily:snapshot
       - db:migrate:local
       - db:migrate:remote
       - db:seed:local
@@ -226,13 +210,11 @@ repository:
       - intent-opportunities:test
       - lint
       - market-snapshot:test
+      - market:refresh
       - market:snapshot
       - openlens-visibility:test
-      - personal:brief
       - prepare
       - price:snapshot
-      - product-flow:seed:local
-      - product-flow:seed:remote
       - public-corpus:receipt
       - public-corpus:receipt:accept
       - public-corpus:test
@@ -251,7 +233,6 @@ repository:
       - reddit:archive:redact
       - reddit:archive:test
       - reddit:archive:verify
-      - requirements:test
       - seo:test
       - signals:auto-publish:dry
       - signals:auto-publish:local
@@ -264,7 +245,6 @@ repository:
       - signals:sync:local
       - signals:sync:remote
       - signals:test
-      - source-registry:test
       - source:diagnose
       - source:quality
       - sync:month:local
@@ -278,7 +258,7 @@ githubActions:
   observedAt: null
   staleAfterDays: null
   summary:
-    unverifiable: 22
+    unverifiable: 19
   attention: *a2
   remote: null
   workflows:
@@ -299,13 +279,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-    - name: cron-acceptance-monitor
-      file: .github/workflows/cron-acceptance-monitor.yml
-      triggers:
-        - schedule
-        - workflow_dispatch
-      schedules:
-        - 15 5 * * *
     - name: cron-backtest
       file: .github/workflows/cron-backtest.yml
       triggers:
@@ -313,13 +286,6 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 9 * * *
-    - name: cron-d2c-opportunities
-      file: .github/workflows/cron-d2c-opportunities.yml
-      triggers:
-        - schedule
-        - workflow_dispatch
-      schedules:
-        - 0 7 * * 1
     - name: cron-digg
       file: .github/workflows/cron-digg.yml
       triggers:
@@ -396,11 +362,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-    - name: personal-brief
-      file: .github/workflows/personal-brief.yml
-      triggers:
-        - workflow_dispatch
-      schedules: []
     - name: reddit-archive-redact
       file: .github/workflows/reddit-archive-redact.yml
       triggers:
@@ -429,26 +390,26 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-11
-          deploymentId: 5d812abd-61ae-4958-99d3-2c15c576696e
-          versionId: ae45f9e1-ac56-47a7-a9b0-b440fdbe1304
-          sourceCommit: 4505493afae6f273560768302d65a06bdcc4962b
+          observedAt: 2026-09-12
+          deploymentId: 38de8f85-602f-449c-a56b-1f0e3165b0e7
+          versionId: 74411c4b-d500-4b1b-b876-9f2c2b5b9f6e
+          sourceCommit: 6185c4db9648b2fbd1d5f8d667a4b0dc46ced355
           trafficPercent: 100
           state: success-production-verified
-          evidencePath: docs/qualification/high-signal-source-alignment-2026-09-11.json
+          evidencePath: ../high-signal/docs/operations/runbooks/app-health.md
       - provider: cloudflare
         kind: worker
         name: high-signal-api
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-11
-          deploymentId: e0881ec8-d3c4-4846-a1b8-73e4e8bc7795
-          versionId: f6f120ea-500c-4515-ac49-41950f9778c3
-          sourceCommit: 4505493afae6f273560768302d65a06bdcc4962b
+          observedAt: 2026-09-12
+          deploymentId: de7e89bc-5c60-496f-adf4-04776925c25b
+          versionId: 54771d41-0556-4811-b075-3cf563f42ef8
+          sourceCommit: 6185c4db9648b2fbd1d5f8d667a4b0dc46ced355
           trafficPercent: 100
           state: success-production-verified
-          evidencePath: docs/qualification/high-signal-source-alignment-2026-09-11.json
+          evidencePath: ../high-signal/docs/operations/runbooks/app-health.md
     resources:
       - provider: cloudflare
         kind: d1
@@ -531,4 +492,4 @@ sharing:
       state: not-declared
 notes:
   catalog: "The bounded operator-curated Brief workflow is usable: one source-backed edition passed semantic publication, independent evidence-origin checks, installed MCP reads and live proof navigation. Reliable unattended acquisition remains unverified in issue 133. Navigation responds before data. Production ADMIN_TOKEN rotation and consumer checks passed September 11; the operator review page still requires the exact owner Cloudflare dashboard login to restore its documented Email OTP option. No publication rule was weakened."
-  infrastructure: "Both Workers serve 4505493afae6f273560768302d65a06bdcc4962b at 100%. Exact-head CI and Docs passed. ADMIN_TOKEN was rotated through Infisical, GitHub Actions, both Workers and Modal; new token returns 200 and previous token 401. A fresh Modal container authenticated successfully while SEC_USER_AGENT was preserved. Same-token version alignment kept runtime code and existing triggers unchanged. Native /review is separately blocked by Cloudflare Access: the current browser dashboard identity is not the owning account, and the saved owning account requires password login. No Access policy or membership was changed."
+  infrastructure: "Both Workers serve 4505493afae6f273560768302d65a06bdcc4962b at 100%. Exact-head CI and Docs passed. ADMIN_TOKEN was rotated through Infisical, GitHub Actions, both Workers and Modal; new token returns 200 and previous token 401. A fresh Modal container authenticated successfully while SEC_USER_AGENT was preserved. Same-token version alignment kept runtime code and existing triggers unchanged. Native /review is separately blocked by Cloudflare Access: the current browser dashboard identity is not the owning account, and the saved owning account requires password login. No Access policy or membership was changed. September 12: both Workers now serve 6185c4db9648b2fbd1d5f8d667a4b0dc46ced355 at 100%. App Health analytics, endpoints and logs have production receipts; declared-bot summaries and history.blocked logs verified. Private ingest key is stored in High Signal Infisical prod and both Workers. A revocable public aggregate analytics link is attached to the footer. The observation baseline includes controlled release-test traffic."

@@ -1,7 +1,7 @@
 # Fleet portfolio: compressed owner intent
 
 Date: 2026-08-23 (lifecycle counts and explicit removals reconciled 2026-09-09)
-Scope: all 59 retained canonical identities; archived identities remain recorded for infrastructure ownership but are excluded from Fleet listings.
+Scope: all 60 retained canonical identities; archived identities remain recorded for infrastructure ownership but are excluded from Fleet listings.
 
 This document preserves the meaning of the owner's project review in compact,
 decision-oriented language. It deliberately does not retain transcript wording
@@ -26,9 +26,9 @@ change lifecycle or sharing decisions.
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | Primary | 2 | Receives focused feature development, experiments and validation. |
-| Active | 21 | Supported and kept useful; improvements follow concrete needs. |
+| Active | 22 | Supported and kept useful; improvements follow concrete needs. |
 | Inactive | 36 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
-| **Total** | **59** | Every canonical Fleet identity appears exactly once. |
+| **Total** | **60** | Every canonical Fleet identity appears exactly once. |
 
 These statuses reflect current owner intent. They deliberately override misleading signals such as a live deployment for an inactive product or an old repository label that says maintenance while the owner is actively building.
 
@@ -36,6 +36,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 
 | Project | Classification | Why it exists | Current state | Next decision or action |
 | --- | --- | --- | --- | --- |
+| Unified Portfolio (`unified-portfolio`) | Active | Observe personal investments across Zerodha, Angel One and INDmoney through a private normalized dashboard and read-only MCP. | New owner-requested local build; live connections and production acceptance remain unverified. | Complete the supplied PRD with resilient official authentication, atomic snapshots, explicit freshness and no trading operations. |
 | Office OS (`agent-office`) | Inactive | Give humans and non-coding agents durable ownership of outcomes. | Paused experiment; no current work or obligation to resume. | Keep: A finished visual experiment in representing agent work. Stop: A staffed virtual company, a new workflow system and autonomous office features. |
 | AliveVille | Inactive | Create a long-running AI-agent world with memory, conflict, grudges, and open-world behavior. | Paused experiment; no current work or obligation to resume. | Keep: One small persistent world you can visit and influence. Stop: A sprawling game engine, huge content map and an autonomous civilization platform. |
 | Anchor | Active | Plan a realistic day, follow it with a focus timer, and explain why the lived day differed. | Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; the owner simplified the daily loop to direct habit tracking, editable/copyable days, project-linked entries and pause recovery. Native builds are under daily-use qualification; account continuity, the distraction-note privacy contract, and production CloudKit compatibility remain release gates. Current installation receipts belong in the canonical catalog. | Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change. |
@@ -69,11 +70,11 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | Mashup | Inactive | Turn a creator's archive into coherent topic-specific comedy, motivation, podcast, or clipping compilations. | Paused experiment; no current work or obligation to resume. | Keep: One convincing thematic edit assembled from an existing archive. Stop: A general content factory, automatic viral clips and a publishing platform. |
 | Materia | Inactive | Build an interactive anatomy and evidence-based remedies encyclopedia. | Paused experiment; no current work or obligation to resume. | Keep: A small, carefully sourced example of organizing evidence around one topic. Stop: A whole-body medical encyclopaedia or advice product without expert validation. |
 | Mobile Dev Cockpit | Inactive | Supervise desktop development workflows from a phone. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The prototype and any genuinely reusable handoff ideas. Stop: A new mobile control plane for every developer workflow. |
-| Nomad Data Adventure (`nomad-data-adventure`) | Active | Explore city data in a bounded local experiment. | Owner confirmed active; local collection and slicing scripts exist, with no verified public product or redistribution rights. | Establish a useful reproducible exploration and data rights before sharing. |
+| Nomad Data Adventure (`nomad-data-adventure`) | Active | Explore city data in a bounded local experiment. | A standalone fictional-data demo is public and verified for sorting, budget filtering and offline/mobile use; collected datasets remain local. | Share the bounded experiment; establish redistribution rights before expanding to real collected data. |
 | Motion | Inactive | Turn body movement captured by a phone into games displayed on a TV. | Promising body-as-controller prototype, but physical play quality and distribution remain unproven. | Reopen for focused physical-device playtesting of one genuinely fun control loop. |
 | Open Historia | Inactive | Recreate an AI grand-strategy game locally and without credit limits. | Paused experiment; no current work or obligation to resume. | Keep: A small local campaign with meaningful decisions and consistent state. Stop: An unlimited world simulator, enormous map scope and content breadth. |
 | HeyPace (`pace`) | Active | Build a fast, privacy-first local Mac assistant inspired by Hey Clicky. | Technically broad and well made, but the owner never formed a usage habit. | Find one or two moments it should own through daily use before building more capabilities. |
-| Sarthak Agrawal (`portfolio`) | Inactive | Maintain the owner's necessary personal website and professional record. | Complete and satisfactory. | Update only when the underlying work, writing, résumé, or positioning changes. |
+| Sarthak Agrawal (`sarthakagrawal-personal`) | Inactive | Maintain the owner's necessary personal website and professional record. | Complete and satisfactory. | Update only when the underlying work, writing, résumé, or positioning changes. |
 | PostTrainLLM | Primary | Explore browser and Mac-local model training, then turn that work into repeatable specialist-model recipes. | Active product; ongoing investment within the approved narrow scope. | Keep: A reproducible path from private task examples to a measured local-model improvement. Stop: Supporting every model, training method and deployment platform before the core task works. |
 | Protein Index | Inactive | Catalogue and compare protein products available in India. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The existing Indian product-data experiment and provenance notes. Stop: Ongoing retailer ingestion, price maintenance and a public comparison business. |
 | PSI Swarm | Inactive | Measure real product performance across repeated Lighthouse conditions. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The performance-measurement scripts and reusable evidence format. Stop: An independent performance platform and public controller product. |

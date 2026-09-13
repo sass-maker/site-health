@@ -3,7 +3,7 @@ projectId: protein-index
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-11
+  generatedAt: 2026-09-13
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdb8cf1f0bc35455a3e82908403a61b128fea4917f4e3fc43125f8f40526c962
+      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,14 +28,14 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
-      checkout: ../fleet-archive/protein-index
-      revision: 25b503da33092dfb937271a2126b185f5a8b63f5
-      githubRepository: sarthakagrawal927/protein-index
+      checkout: ../fleet-archive/protein-index-resilience
+      revision: 76e1bb28165b6ed7b11f9ce51aeb1144fb4836a2
+      githubRepository: sarthakagrawal927/protein-index-resilience
       expectedHomepage: https://protein.significanthobbies.com
       observedHomepage: null
       worktree: &a1
@@ -43,11 +43,11 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
-      checkout: ../fleet-archive/protein-index
-      revision: 25b503da33092dfb937271a2126b185f5a8b63f5
-      githubRepository: sarthakagrawal927/protein-index
+      checkout: ../fleet-archive/protein-index-resilience
+      revision: 76e1bb28165b6ed7b11f9ce51aeb1144fb4836a2
+      githubRepository: sarthakagrawal927/protein-index-resilience
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-15
@@ -57,9 +57,9 @@ verification:
     githubActions:
       observedAt: null
       staleAfterDays: null
-      unverifiable: 1
+      unverifiable: 15
       attention: &a2
-        unclassified: 1
+        unclassified: 15
   unknowns:
     - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://protein.significanthobbies.com.
@@ -88,8 +88,8 @@ identity:
   attention: ignored
   lifecycle:
     status: inactive
-    shareable: false
     resumeCondition: null
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: false
@@ -115,20 +115,20 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-07-15
     latestCommitAt: 2026-09-07
-    retainedCommitCount: 247
+    retainedCommitCount: 232
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: ../fleet-archive/protein-index
-  observedRevision: 25b503da33092dfb937271a2126b185f5a8b63f5
-  githubRepository: sarthakagrawal927/protein-index
+  checkout: ../fleet-archive/protein-index-resilience
+  observedRevision: 76e1bb28165b6ed7b11f9ce51aeb1144fb4836a2
+  githubRepository: sarthakagrawal927/protein-index-resilience
   githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/protein-index-resilience
   aliases:
     - https://github.com/sarthakagrawal927/protein-index
-  sourceOverride: ../fleet-archive/protein-index
+  sourceOverride: ../fleet-archive/protein-index-resilience
   tooling:
     declaredPackageManager: pnpm@10.13.1
     detectedSignals:
@@ -178,9 +178,11 @@ repository:
       - db:migrate
       - deploy
       - dev
+      - docs:build
+      - docs:check
+      - docs:dev
+      - docs:preview
       - docs:validate
-      - knip
-      - knip:strict
       - preview
       - release:dry-run
       - release:preflight
@@ -194,7 +196,7 @@ githubActions:
   observedAt: null
   staleAfterDays: null
   summary:
-    unverifiable: 1
+    unverifiable: 15
   attention: *a2
   remote: null
   workflows:
@@ -204,6 +206,84 @@ githubActions:
         - pull_request
         - push
       schedules: []
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+    - name: Enrich Open Food Facts evidence
+      file: .github/workflows/enrich-open-food-facts.yml
+      triggers:
+        - workflow_dispatch
+        - workflow_run
+      schedules: []
+    - name: Extract ingredient label evidence
+      file: .github/workflows/extract-robotoff-ingredients.yml
+      triggers:
+        - workflow_dispatch
+        - workflow_run
+      schedules: []
+    - name: Extract label evidence with Robotoff
+      file: .github/workflows/extract-robotoff.yml
+      triggers:
+        - workflow_dispatch
+        - workflow_run
+      schedules: []
+    - name: Official brand discovery
+      file: .github/workflows/official-brand-discovery.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 19 3 * * 1
+    - name: Publish verified evidence manually
+      file: .github/workflows/publish-automatic-evidence.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish reviewed catalog
+      file: .github/workflows/publish-catalog.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish reviewed evidence enrichment
+      file: .github/workflows/publish-enrichment.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish guarded reviewed label evidence
+      file: .github/workflows/publish-guarded-reviewed-labels.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish machine-verified evidence
+      file: .github/workflows/publish-machine-evidence.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish official brand discoveries
+      file: .github/workflows/publish-official-brand-discoveries.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish reviewed evidence
+      file: .github/workflows/publish-reviewed-evidence.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish reviewed label candidates
+      file: .github/workflows/publish-robotoff-candidates.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Source sync
+      file: .github/workflows/source-sync.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 23 2 * * 1
 deployment:
   kind: worker
   deployed: true

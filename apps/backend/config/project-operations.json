@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-09-11",
-  "historyObservedAt": "2026-09-11",
+  "observedAt": "2026-09-13",
+  "historyObservedAt": "2026-09-13",
   "observationSemantics": "Read-only snapshot of tracked workflow and toolchain files in the Fleet workspace. It reads workflow names, triggers, cron expressions, tracked-worktree state, root package script keys, package-manager declarations, and the commit dates and commit count retained by the checked-out HEAD only; environment files, credential-bearing configuration, secrets, command values, commit messages, and commit authorship are not retained.",
   "projects": {
     "codevetter": {
@@ -11,8 +11,8 @@
         "revision": "12b934322797a15751ba925993f19e1e005b29f8",
         "repositorySlug": "Codevetter/codevetter",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 348,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
@@ -149,6 +149,16 @@
           "evidence": [
             "docs-site/pnpm-lock.yaml",
             "pnpm-lock.yaml"
+          ]
+        },
+        {
+          "name": "Rust Cargo",
+          "evidence": [
+            "crates/codevetter-core/Cargo.toml",
+            "crates/codevetter-core/tests/fixtures/structural-coverage-v1/crate_a/Cargo.toml",
+            "crates/codevetter-core/tests/fixtures/structural-coverage-v1/crate_b/Cargo.toml",
+            "crates/codevetter-transport-macros/Cargo.toml",
+            "crates/codevetter-transport/Cargo.toml"
           ]
         },
         {
@@ -289,7 +299,7 @@
     "pace": {
       "source": {
         "state": "available",
-        "path": "pace",
+        "path": "../fleet-archive/pace",
         "revision": "d308989ecdacc24328f2d4bbaa3a2792b810396d",
         "repositorySlug": "HeyPace/pace",
         "worktree": {
@@ -478,18 +488,18 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "971f51a630eed9554f4cb4af221880072dbb2b97",
+        "revision": "7dfc2f2a2bdaa6313591c4a550018bf96d78c49d",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 68,
+          "trackedChangeCount": 72,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-12",
-        "retainedCommitCount": 1112,
+        "retainedCommitCount": 1118,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -790,18 +800,18 @@
       "source": {
         "state": "available",
         "path": "saas-maker",
-        "revision": "c7dfae784d091f09b3a49a67a5b442727acd02c2",
+        "revision": "84ab560e5930adff653cb5cb38d09eb5464258ae",
         "repositorySlug": "sass-maker/saas-maker",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 6,
+          "trackedChangeCount": 1,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-02-26",
-        "latestCommitAt": "2026-09-12",
-        "retainedCommitCount": 1319,
+        "latestCommitAt": "2026-09-13",
+        "retainedCommitCount": 1325,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -956,8 +966,15 @@
         "build:cockpit",
         "build:showcase",
         "build:widget",
+        "catalog:check-operations",
         "catalog:check-public",
+        "catalog:check-source",
+        "catalog:check-table",
+        "catalog:sync",
+        "catalog:sync-operations",
         "catalog:sync-public",
+        "catalog:table",
+        "catalog:test-schema",
         "catalog:validate-public",
         "check:docs",
         "check:shared-packages",
@@ -986,7 +1003,7 @@
     "gitstat": {
       "source": {
         "state": "available",
-        "path": "gitstat",
+        "path": "../fleet-archive/gitstat",
         "revision": "9bcb8d01f88d4a2618e9652d300203674f118da9",
         "repositorySlug": "sass-maker/gitstat",
         "worktree": {
@@ -1042,7 +1059,7 @@
     "reel-pipeline": {
       "source": {
         "state": "available",
-        "path": "reel-pipeline",
+        "path": "../fleet-archive/reel-pipeline",
         "revision": "4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9",
         "repositorySlug": "sass-maker/reel-pipeline",
         "worktree": {
@@ -1364,7 +1381,7 @@
     "email-manager": {
       "source": {
         "state": "available",
-        "path": "email-manager",
+        "path": "../fleet-archive/email-manager",
         "revision": "45db006bfd8aaf09bffd43e7c4241ef291298560",
         "repositorySlug": "Significant-Hobbies/email-manager",
         "worktree": {
@@ -1486,7 +1503,7 @@
     "chatgpt-memory-insights": {
       "source": {
         "state": "available",
-        "path": "chatgpt-memory-insights",
+        "path": "../fleet-archive/chatgpt-memory-insights",
         "revision": "815f5cf730ef4cd650c829f74851d04e09a88b2b",
         "repositorySlug": "Significant-Hobbies/chatgpt-memory-insights",
         "worktree": {
@@ -1590,7 +1607,7 @@
       "source": {
         "state": "available",
         "path": "free-ai",
-        "revision": "f401ec029bc12d674c1798c8bebfab279c6dcc8e",
+        "revision": "20dac0f5fba7b15b08df031faedae9774c6a8dd5",
         "repositorySlug": "sass-maker/free-ai",
         "worktree": {
           "state": "clean",
@@ -1601,7 +1618,7 @@
       "history": {
         "firstCommitAt": "2026-02-15",
         "latestCommitAt": "2026-09-12",
-        "retainedCommitCount": 261,
+        "retainedCommitCount": 262,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1838,18 +1855,22 @@
       "source": {
         "state": "available",
         "path": "high-signal",
-        "revision": "4505493afae6f273560768302d65a06bdcc4962b",
+        "revision": "bc54c00bdc4a297aff8a8253148821137beac81c",
         "repositorySlug": "High-Signal-App/high-signal",
         "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
-          "deletedWorkflowFiles": []
+          "state": "dirty",
+          "trackedChangeCount": 105,
+          "deletedWorkflowFiles": [
+            ".github/workflows/cron-acceptance-monitor.yml",
+            ".github/workflows/cron-d2c-opportunities.yml",
+            ".github/workflows/personal-brief.yml"
+          ]
         }
       },
       "history": {
         "firstCommitAt": "2026-04-25",
-        "latestCommitAt": "2026-09-11",
-        "retainedCommitCount": 975,
+        "latestCommitAt": "2026-09-13",
+        "retainedCommitCount": 984,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1881,17 +1902,6 @@
           "schedules": []
         },
         {
-          "name": "cron-acceptance-monitor",
-          "file": ".github/workflows/cron-acceptance-monitor.yml",
-          "triggers": [
-            "schedule",
-            "workflow_dispatch"
-          ],
-          "schedules": [
-            "15 5 * * *"
-          ]
-        },
-        {
           "name": "cron-backtest",
           "file": ".github/workflows/cron-backtest.yml",
           "triggers": [
@@ -1900,17 +1910,6 @@
           ],
           "schedules": [
             "0 9 * * *"
-          ]
-        },
-        {
-          "name": "cron-d2c-opportunities",
-          "file": ".github/workflows/cron-d2c-opportunities.yml",
-          "triggers": [
-            "schedule",
-            "workflow_dispatch"
-          ],
-          "schedules": [
-            "0 7 * * 1"
           ]
         },
         {
@@ -2033,14 +2032,6 @@
           "schedules": []
         },
         {
-          "name": "personal-brief",
-          "file": ".github/workflows/personal-brief.yml",
-          "triggers": [
-            "workflow_dispatch"
-          ],
-          "schedules": []
-        },
-        {
           "name": "reddit-archive-redact",
           "file": ".github/workflows/reddit-archive-redact.yml",
           "triggers": [
@@ -2081,12 +2072,6 @@
           ]
         },
         {
-          "name": "Docker",
-          "evidence": [
-            "python/lab/docker-compose.yml"
-          ]
-        },
-        {
           "name": "Drizzle",
           "evidence": [
             "packages/db/drizzle.config.ts"
@@ -2114,8 +2099,7 @@
         {
           "name": "Python pyproject",
           "evidence": [
-            "python/ingest/pyproject.toml",
-            "python/lab/pyproject.toml"
+            "python/ingest/pyproject.toml"
           ]
         },
         {
@@ -2143,22 +2127,7 @@
         "company-universe:sync:remote",
         "company-universe:test",
         "company-universe:web-artifact",
-        "competitor-perception:prototype",
-        "competitor-perception:test",
-        "d2c:agent-visibility",
-        "d2c:bundle",
-        "d2c:collect",
-        "d2c:sync",
-        "d2c:sync-av",
-        "d2c:sync-av:api",
-        "d2c:sync-av:remote",
-        "d2c:sync:api",
-        "d2c:sync:remote",
-        "daily-automation:test",
-        "daily-range:test",
-        "daily-source-audit:test",
         "daily:seed-history",
-        "daily:snapshot",
         "db:migrate:local",
         "db:migrate:remote",
         "db:seed:local",
@@ -2187,13 +2156,11 @@
         "intent-opportunities:test",
         "lint",
         "market-snapshot:test",
+        "market:refresh",
         "market:snapshot",
         "openlens-visibility:test",
-        "personal:brief",
         "prepare",
         "price:snapshot",
-        "product-flow:seed:local",
-        "product-flow:seed:remote",
         "public-corpus:receipt",
         "public-corpus:receipt:accept",
         "public-corpus:test",
@@ -2212,7 +2179,6 @@
         "reddit:archive:redact",
         "reddit:archive:test",
         "reddit:archive:verify",
-        "requirements:test",
         "seo:test",
         "signals:auto-publish:dry",
         "signals:auto-publish:local",
@@ -2225,7 +2191,6 @@
         "signals:sync:local",
         "signals:sync:remote",
         "signals:test",
-        "source-registry:test",
         "source:diagnose",
         "source:quality",
         "sync:month:local",
@@ -2241,7 +2206,7 @@
     "on-record": {
       "source": {
         "state": "available",
-        "path": "on-record",
+        "path": "../fleet-archive/on-record",
         "revision": "3e63f77c0fc0a5215063f75bf723d000aad17ee4",
         "repositorySlug": "Significant-Hobbies/on-record",
         "worktree": {
@@ -2376,7 +2341,7 @@
     "issue-pages": {
       "source": {
         "state": "available",
-        "path": "issue-pages",
+        "path": "../fleet-archive/issue-pages",
         "revision": "65e20e96cb9149baf1d7254b738027079541e4ea",
         "repositorySlug": "sarthakagrawal927/issue-pages",
         "worktree": {
@@ -2458,18 +2423,18 @@
       "source": {
         "state": "available",
         "path": "../fleet-archive/everythingrated",
-        "revision": "81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6",
+        "revision": "2abda5cb409b7e4a5e2facf6adf141c14ef0ab47",
         "repositorySlug": "sarthakagrawal927/everythingrated",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 3,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-04-26",
-        "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 170,
+        "latestCommitAt": "2026-09-12",
+        "retainedCommitCount": 171,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2595,7 +2560,7 @@
     "research-papers": {
       "source": {
         "state": "available",
-        "path": "research-papers",
+        "path": "../fleet-archive/research-papers",
         "revision": "79aa8af9c377bc53dc78f187599f64dd90b1f2b5",
         "repositorySlug": "High-Signal-App/research-papers",
         "worktree": {
@@ -2713,7 +2678,7 @@
     "materia": {
       "source": {
         "state": "available",
-        "path": "materia",
+        "path": "../fleet-archive/materia",
         "revision": "aa0cef3ca98734b587c3b3de1d5a74a85b641c2a",
         "repositorySlug": "Significant-Hobbies/materia",
         "worktree": {
@@ -3355,7 +3320,7 @@
     "looptv": {
       "source": {
         "state": "available",
-        "path": "looptv",
+        "path": "../fleet-archive/looptv",
         "revision": "825d342646b3e2f4fa02c34d1a336001484418c5",
         "repositorySlug": "Significant-Hobbies/looptv",
         "worktree": {
@@ -3497,7 +3462,7 @@
     "reader": {
       "source": {
         "state": "available",
-        "path": "reader",
+        "path": "../fleet-archive/reader",
         "revision": "90bc39768fcb773f91ecde87549aa3e5a4b3cb51",
         "repositorySlug": "Significant-Hobbies/reader",
         "worktree": {
@@ -3653,7 +3618,7 @@
       "source": {
         "state": "available",
         "path": "swe-interview-prep",
-        "revision": "1f99eed79aef6bac25aad77a77e7d5c421633546",
+        "revision": "f4bb802e3c3be7cfb7690af07187dd190fd4dd42",
         "repositorySlug": "Significant-Hobbies/swe-interview-prep",
         "worktree": {
           "state": "clean",
@@ -3663,8 +3628,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-09-11",
-        "retainedCommitCount": 451,
+        "latestCommitAt": "2026-09-12",
+        "retainedCommitCount": 452,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4122,7 +4087,7 @@
     "rolepatch": {
       "source": {
         "state": "available",
-        "path": "rolepatch",
+        "path": "../fleet-archive/rolepatch",
         "revision": "3636c1fafde0aecdc2d12bd42c4b33742e4231c7",
         "repositorySlug": "Significant-Hobbies/rolepatch",
         "worktree": {
@@ -4254,7 +4219,7 @@
       "source": {
         "state": "available",
         "path": "karte",
-        "revision": "2a1927bd3b98293ed53abeff9402f186b50b1d3f",
+        "revision": "745254fff16d003c1ed8a4e1d594924dc8c2894d",
         "repositorySlug": "Significant-Hobbies/karte",
         "worktree": {
           "state": "clean",
@@ -4264,8 +4229,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-05",
-        "latestCommitAt": "2026-09-11",
-        "retainedCommitCount": 523,
+        "latestCommitAt": "2026-09-12",
+        "retainedCommitCount": 525,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4568,7 +4533,7 @@
     "ai-game": {
       "source": {
         "state": "available",
-        "path": "aliveville",
+        "path": "../fleet-archive/aliveville",
         "revision": "a879975756fd30d853e722d6370218007a0549d5",
         "repositorySlug": "sarthakagrawal927/aliveville",
         "worktree": {
@@ -4694,9 +4659,9 @@
     "protein-index": {
       "source": {
         "state": "available",
-        "path": "../fleet-archive/protein-index",
-        "revision": "25b503da33092dfb937271a2126b185f5a8b63f5",
-        "repositorySlug": "sarthakagrawal927/protein-index",
+        "path": "../fleet-archive/protein-index-resilience",
+        "revision": "76e1bb28165b6ed7b11f9ce51aeb1144fb4836a2",
+        "repositorySlug": "sarthakagrawal927/protein-index-resilience",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -4706,7 +4671,7 @@
       "history": {
         "firstCommitAt": "2026-07-15",
         "latestCommitAt": "2026-09-07",
-        "retainedCommitCount": 247,
+        "retainedCommitCount": 232,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4719,6 +4684,128 @@
             "push"
           ],
           "schedules": []
+        },
+        {
+          "name": "Docs",
+          "file": ".github/workflows/docs.yml",
+          "triggers": [
+            "pull_request",
+            "push"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Enrich Open Food Facts evidence",
+          "file": ".github/workflows/enrich-open-food-facts.yml",
+          "triggers": [
+            "workflow_dispatch",
+            "workflow_run"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Extract ingredient label evidence",
+          "file": ".github/workflows/extract-robotoff-ingredients.yml",
+          "triggers": [
+            "workflow_dispatch",
+            "workflow_run"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Extract label evidence with Robotoff",
+          "file": ".github/workflows/extract-robotoff.yml",
+          "triggers": [
+            "workflow_dispatch",
+            "workflow_run"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Official brand discovery",
+          "file": ".github/workflows/official-brand-discovery.yml",
+          "triggers": [
+            "schedule",
+            "workflow_dispatch"
+          ],
+          "schedules": [
+            "19 3 * * 1"
+          ]
+        },
+        {
+          "name": "Publish verified evidence manually",
+          "file": ".github/workflows/publish-automatic-evidence.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Publish reviewed catalog",
+          "file": ".github/workflows/publish-catalog.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Publish reviewed evidence enrichment",
+          "file": ".github/workflows/publish-enrichment.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Publish guarded reviewed label evidence",
+          "file": ".github/workflows/publish-guarded-reviewed-labels.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Publish machine-verified evidence",
+          "file": ".github/workflows/publish-machine-evidence.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Publish official brand discoveries",
+          "file": ".github/workflows/publish-official-brand-discoveries.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Publish reviewed evidence",
+          "file": ".github/workflows/publish-reviewed-evidence.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Publish reviewed label candidates",
+          "file": ".github/workflows/publish-robotoff-candidates.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": []
+        },
+        {
+          "name": "Source sync",
+          "file": ".github/workflows/source-sync.yml",
+          "triggers": [
+            "schedule",
+            "workflow_dispatch"
+          ],
+          "schedules": [
+            "23 2 * * 1"
+          ]
         }
       ],
       "toolingSignals": [
@@ -4782,9 +4869,11 @@
         "db:migrate",
         "deploy",
         "dev",
+        "docs:build",
+        "docs:check",
+        "docs:dev",
+        "docs:preview",
         "docs:validate",
-        "knip",
-        "knip:strict",
         "preview",
         "release:dry-run",
         "release:preflight",
@@ -4800,7 +4889,7 @@
     "veg-protein-food": {
       "source": {
         "state": "available",
-        "path": "../fleet-archive/recipe-dashboard",
+        "path": "../fleet-archive/veg-protein-food",
         "revision": "665bff53538953ac329d6b2322cab9d95163022f",
         "repositorySlug": "sarthakagrawal927/veg-protein-food",
         "worktree": {
@@ -4864,18 +4953,18 @@
       "source": {
         "state": "available",
         "path": "app-health",
-        "revision": "9fd4cc8a9a75bbce69950120c47f23f701ec67ed",
+        "revision": "1bf07738e47b32fb15048d8a5a74218a491b63e6",
         "repositorySlug": "sass-maker/app-health",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 12,
+          "trackedChangeCount": 46,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-07-20",
-        "latestCommitAt": "2026-09-11",
-        "retainedCommitCount": 102,
+        "latestCommitAt": "2026-09-13",
+        "retainedCommitCount": 117,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4913,9 +5002,21 @@
           ]
         },
         {
+          "name": "Playwright",
+          "evidence": [
+            "apps/web/playwright.config.ts"
+          ]
+        },
+        {
           "name": "pnpm",
           "evidence": [
             "pnpm-lock.yaml"
+          ]
+        },
+        {
+          "name": "Swift Package Manager",
+          "evidence": [
+            "packages/swift/Package.swift"
           ]
         },
         {
@@ -4928,6 +5029,7 @@
       "packageManager": "pnpm@10.33.2",
       "rootPackageScripts": [
         "build",
+        "build:production",
         "check",
         "clean",
         "d1:migrate:production",
@@ -4951,14 +5053,19 @@
         "quality:unused",
         "test",
         "typecheck",
-        "verify:local-sdk"
+        "verify:asset-routing",
+        "verify:cloudflare-sample",
+        "verify:js-runtimes",
+        "verify:local-sdk",
+        "verify:public-viewer",
+        "verify:swift-runtime"
       ],
       "projectId": "app-health"
     },
     "mashup": {
       "source": {
         "state": "available",
-        "path": "mashup",
+        "path": "../fleet-archive/mashup",
         "revision": "b75e14f506197600dbb722ba318853e356826f3d",
         "repositorySlug": "sass-maker/mashup",
         "worktree": {
@@ -5030,7 +5137,7 @@
     "motion": {
       "source": {
         "state": "available",
-        "path": "motion",
+        "path": "../fleet-archive/motion",
         "revision": "6ac4700feea7683c86efc214470e6d9dd8bf846a",
         "repositorySlug": "Significant-Hobbies/motion",
         "worktree": {
@@ -5122,7 +5229,7 @@
     "truehire": {
       "source": {
         "state": "available",
-        "path": "truehire",
+        "path": "../fleet-archive/truehire",
         "revision": "7d5b53281da26803e3f690cb2e0866adacb730fa",
         "repositorySlug": "sarthakagrawal927/truehire",
         "worktree": {
@@ -5243,7 +5350,7 @@
     "open-historia": {
       "source": {
         "state": "available",
-        "path": "open-historia",
+        "path": "../fleet-archive/open-historia",
         "revision": "6b7fa8f883f261291a5c32a47516f06b18668da0",
         "repositorySlug": "sarthakagrawal927/open-historia",
         "worktree": {
@@ -5413,7 +5520,7 @@
     "forecast-lab": {
       "source": {
         "state": "available",
-        "path": "forecast-lab",
+        "path": "../fleet-archive/forecast-lab",
         "revision": "8b245ad7476d97812df4cba67f19473f29ac53c2",
         "repositorySlug": "sarthakagrawal927/forecast-lab",
         "worktree": {
@@ -5489,7 +5596,7 @@
     "web-playables": {
       "source": {
         "state": "available",
-        "path": "web-playables",
+        "path": "../fleet-archive/web-playables",
         "revision": "13ee2867522e1da6369a64c57d038db01daa87ce",
         "repositorySlug": "sarthakagrawal927/web-playables",
         "worktree": {
@@ -5573,7 +5680,7 @@
       "source": {
         "state": "available",
         "path": "what-it-takes-to-win",
-        "revision": "89e7e67578194e57675783bb362c946e4e83d571",
+        "revision": "8ab4abc5bda09495d1ffeb754c4c60c9fd35c867",
         "repositorySlug": "Significant-Hobbies/what-it-takes-to-win",
         "worktree": {
           "state": "clean",
@@ -5583,8 +5690,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-21",
-        "latestCommitAt": "2026-09-10",
-        "retainedCommitCount": 273,
+        "latestCommitAt": "2026-09-12",
+        "retainedCommitCount": 275,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -5661,8 +5768,8 @@
     "sarthakagrawal-personal": {
       "source": {
         "state": "available",
-        "path": "portfolio",
-        "revision": "1e8413fb9e0d63e0165235768c61d247927b45f4",
+        "path": "../fleet-archive/portfolio",
+        "revision": "4f028c867a3c4752b530c65781a94a1c3b8e4d88",
         "repositorySlug": "sarthakagrawal927/portfolio",
         "worktree": {
           "state": "clean",
@@ -5672,8 +5779,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-22",
-        "latestCommitAt": "2026-09-10",
-        "retainedCommitCount": 99,
+        "latestCommitAt": "2026-09-12",
+        "retainedCommitCount": 103,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -5762,7 +5869,7 @@
     "agent-office": {
       "source": {
         "state": "available",
-        "path": "agent-office",
+        "path": "../fleet-archive/agent-office",
         "revision": "21647744347807af10d65815efdec6f17f9b208b",
         "repositorySlug": "sass-maker/agent-office",
         "worktree": {
@@ -5833,7 +5940,7 @@
     "local-ai-video-studio": {
       "source": {
         "state": "available",
-        "path": "local-ai-video-studio",
+        "path": "../fleet-archive/local-ai-video-studio",
         "revision": "9bff06ee628a36d39c06617c6519d4c24699c11e",
         "repositorySlug": "sass-maker/local-ai-video-studio",
         "worktree": {
@@ -5911,7 +6018,7 @@
     "field-track": {
       "source": {
         "state": "available",
-        "path": "field-track",
+        "path": "../fleet-archive/field-track",
         "revision": "3afae26a96e6ad66a40b4d0a51a7a506c8bf1da4",
         "repositorySlug": "sass-maker/field-track",
         "worktree": {
@@ -5976,7 +6083,7 @@
     "reddit-insights": {
       "source": {
         "state": "available",
-        "path": "reddit-insights",
+        "path": "../fleet-archive/reddit-insights",
         "revision": "e0fa78f0d97fad9a3e54c9b6af593e0ce5bc1930",
         "repositorySlug": "High-Signal-App/research-subreddit",
         "worktree": {
@@ -6135,7 +6242,7 @@
       "source": {
         "state": "available",
         "path": "anchor",
-        "revision": "585671477851ac2215f09211073c3649e01a6934",
+        "revision": "50b2d278162820535eab1548e2b012674c3bf669",
         "repositorySlug": "Significant-Hobbies/anchor",
         "worktree": {
           "state": "clean",
@@ -6145,8 +6252,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-16",
-        "latestCommitAt": "2026-09-11",
-        "retainedCommitCount": 111,
+        "latestCommitAt": "2026-09-12",
+        "retainedCommitCount": 112,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6173,48 +6280,79 @@
       "projectId": "anchor"
     },
     "nomad-data-adventure": {
-      "projectId": "nomad-data-adventure",
       "source": {
-        "state": "unavailable",
-        "path": "nomads-data",
-        "revision": null,
-        "repositorySlug": null,
-        "worktree": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/nomads-data ls-files -z"
+        "state": "available",
+        "path": "nomad-data-adventure",
+        "revision": "0eccb3032d243415bad2edbc54670a09bab2d550",
+        "repositorySlug": "sarthakagrawal927/nomad-data-adventure",
+        "worktree": {
+          "state": "clean",
+          "trackedChangeCount": 0,
+          "deletedWorkflowFiles": []
+        }
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/nomads-data ls-files -z"
+        "firstCommitAt": "2026-09-12",
+        "latestCommitAt": "2026-09-12",
+        "retainedCommitCount": 1,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
       "packageManager": null,
-      "rootPackageScripts": []
+      "rootPackageScripts": [],
+      "projectId": "nomad-data-adventure"
     },
     "storagedaddy": {
-      "projectId": "storagedaddy",
       "source": {
-        "state": "unavailable",
+        "state": "available",
         "path": "storagedaddy",
-        "revision": null,
-        "repositorySlug": null,
-        "worktree": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/storagedaddy rev-parse HEAD"
+        "revision": "2a308d7a11f213c6021e1f6e3dc7bf25341427d4",
+        "repositorySlug": "sarthakagrawal927/storagedaddy",
+        "worktree": {
+          "state": "clean",
+          "trackedChangeCount": 0,
+          "deletedWorkflowFiles": []
+        }
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/storagedaddy rev-parse HEAD"
+        "firstCommitAt": "2026-09-13",
+        "latestCommitAt": "2026-09-13",
+        "retainedCommitCount": 6,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
-      "toolingSignals": [],
+      "toolingSignals": [
+        {
+          "name": "Cloudflare Wrangler",
+          "evidence": [
+            "site/wrangler.jsonc"
+          ]
+        },
+        {
+          "name": "npm",
+          "evidence": [
+            "site/package-lock.json"
+          ]
+        },
+        {
+          "name": "Rust Cargo",
+          "evidence": [
+            "Vendor/MemoryPack/Cargo.toml"
+          ]
+        },
+        {
+          "name": "Swift Package Manager",
+          "evidence": [
+            "Package.swift"
+          ]
+        }
+      ],
       "packageManager": null,
-      "rootPackageScripts": []
+      "rootPackageScripts": [],
+      "projectId": "storagedaddy"
     },
     "slow-serp": {
       "source": {
@@ -6259,6 +6397,28 @@
         "test"
       ],
       "projectId": "slow-serp"
+    },
+    "unified-portfolio": {
+      "projectId": "unified-portfolio",
+      "source": {
+        "state": "unavailable",
+        "path": "unified-portfolio",
+        "revision": null,
+        "repositorySlug": null,
+        "worktree": null,
+        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/unified-portfolio rev-parse HEAD"
+      },
+      "history": {
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/unified-portfolio rev-parse HEAD"
+      },
+      "githubActions": [],
+      "toolingSignals": [],
+      "packageManager": null,
+      "rootPackageScripts": []
     }
   }
 }

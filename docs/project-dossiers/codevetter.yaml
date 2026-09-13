@@ -3,7 +3,7 @@ projectId: codevetter
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-11
+  generatedAt: 2026-09-13
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdb8cf1f0bc35455a3e82908403a61b128fea4917f4e3fc43125f8f40526c962
+      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,10 +28,10 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
       checkout: codevetter
       revision: 12b934322797a15751ba925993f19e1e005b29f8
@@ -39,11 +39,11 @@ verification:
       expectedHomepage: https://codevetter.com
       observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 348
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
       checkout: codevetter
       revision: 12b934322797a15751ba925993f19e1e005b29f8
@@ -88,8 +88,8 @@ identity:
   attention: my-work
   lifecycle:
     status: primary
-    shareable: true
     resumeCondition: null
+    shareable: true
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -146,6 +146,13 @@ repository:
         evidence:
           - docs-site/pnpm-lock.yaml
           - pnpm-lock.yaml
+      - name: Rust Cargo
+        evidence:
+          - crates/codevetter-core/Cargo.toml
+          - crates/codevetter-core/tests/fixtures/structural-coverage-v1/crate_a/Cargo.toml
+          - crates/codevetter-core/tests/fixtures/structural-coverage-v1/crate_b/Cargo.toml
+          - crates/codevetter-transport-macros/Cargo.toml
+          - crates/codevetter-transport/Cargo.toml
       - name: Swift Package Manager
         evidence:
           - apps/macos/CodeVetterPackage/Package.swift

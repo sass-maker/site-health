@@ -1,0 +1,183 @@
+schemaVersion: 1
+projectId: unified-portfolio
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-13
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: unavailable
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
+      infrastructureUpdatedAt: 2026-09-13
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=unified-portfolio].ownerNarrative
+      sourceHeading: Unified Portfolio
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-12
+      reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
+      documentSha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-13
+      state: unavailable
+      checkout: unified-portfolio
+      revision: null
+      githubRepository: null
+      expectedHomepage: https://money.significanthobbies.com
+      observedHomepage: null
+      worktree: null
+    retainedGitHistory:
+      observedAt: 2026-09-13
+      state: unavailable
+      checkout: unified-portfolio
+      revision: null
+      githubRepository: null
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: null
+      catalogLatestCommitAt: null
+      catalogDrift: []
+      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/unified-portfolio rev-parse HEAD"
+    githubActions:
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://money.significanthobbies.com.
+    - The owning checkout was unavailable during repository observation.
+ownerVoice:
+  whyVerbatim: build the prod in prd
+  fullReviewVerbatim: |-
+    build the prod in prd
+
+    New project: unified-portfolio
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Observe personal investments across Zerodha, Angel One and INDmoney through a private normalized dashboard and read-only MCP.
+  currentState: New owner-requested local build; live connections and production acceptance remain unverified.
+  nextDecision: Complete the supplied PRD with resilient official authentication, atomic snapshots, explicit freshness and no trading operations.
+identity:
+  name: Unified Portfolio
+  publicName: Unified Portfolio
+  aliases: []
+  family: unified-portfolio
+  category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: true
+  kind: product
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: false
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: Private read-only investment observability.
+  publicMakerNote: my private normalized view of personal investments across brokers.
+  purposeContract:
+    purpose: Unified Portfolio helps people understand their own investments through an isolated read-only portfolio.
+    audience: People signed in with Google, each accessing only their own investments.
+    outcome: Understand holdings, allocation, portfolio history and connection freshness without trading.
+    mechanism: Official broker adapters and an INDmoney MCP client feed immutable normalized snapshots shared by the web dashboard and read-only MCP tools.
+    proof: INDmoney US_STOCK_WALLET discovered in authenticated networth_snapshot. Dashboard and MCP now include a clearly marked USD estimate, converted using provider-implied FX only when the stock valuations match across responses. Native USD wallet balance is not supplied by the checked response. Live refresh and cash-inclusive overview verified. 33 tests pass. Other brokers and external MCP acceptance pending.
+    nextAction: Validate real broker sync and MCP authorization.
+  form: Web app with private user workspaces
+  platforms:
+    - Web
+  prominentTools:
+    - Cloudflare Workers
+    - D1
+    - Next.js / vinext
+    - MCP
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: unified-portfolio
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
+  visibility: private
+  url: https://github.com/sarthakagrawal927/unified-portfolio
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - money.significanthobbies.com
+    - unified-portfolio.sarthakagrawal927.workers.dev
+  primaryUrl: https://money.significanthobbies.com
+  domainProbePaths: {}
+  targets:
+    - id: web
+      kind: worker
+      name: unified-portfolio
+      sourcePath: unified-portfolio
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: unified-portfolio
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: unified-portfolio
+        id: bd1a2b65-7ab1-4ded-93f4-bfb2c3ca127f
+        state: active
+        scope: project
+        operationalOwner: unified-portfolio
+        attributionReason: "Canonical project owner: unified-portfolio"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: in-progress
+  ready: false
+  verifiedAt: 2026-09-13
+  reason: INDmoney US_STOCK_WALLET discovered in authenticated networth_snapshot. Dashboard and MCP now include a clearly marked USD estimate, converted using provider-implied FX only when the stock valuations match across responses. Native USD wallet balance is not supplied by the checked response. Live refresh and cash-inclusive overview verified. 33 tests pass. Other brokers and external MCP acceptance pending.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/unified-portfolio/issues
+  geoIdentity: null
+notes:
+  catalog: Owner supplied Unified Portfolio PRD. Read-only investment observability with five screens and a canonical backend exposed through MCP. No trading or money movement.
+  infrastructure: INDmoney US_STOCK_WALLET discovered in authenticated networth_snapshot. Dashboard and MCP now include a clearly marked USD estimate, converted using provider-implied FX only when the stock valuations match across responses. Native USD wallet balance is not supplied by the checked response. Live refresh and cash-inclusive overview verified. 33 tests pass. Source uncommitted.

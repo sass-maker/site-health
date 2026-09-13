@@ -3,7 +3,7 @@ projectId: live
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-11
+  generatedAt: 2026-09-13
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdb8cf1f0bc35455a3e82908403a61b128fea4917f4e3fc43125f8f40526c962
+      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,10 +28,10 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
       checkout: live
       revision: b13d49258d8eeaa7d92263c02ef270c84f5b4999
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
       checkout: live
       revision: b13d49258d8eeaa7d92263c02ef270c84f5b4999
@@ -97,8 +97,8 @@ identity:
   attention: toolbox
   lifecycle:
     status: active
-    shareable: true
     resumeCondition: null
+    shareable: true
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -319,13 +319,6 @@ deployment:
         scope: project
         operationalOwner: live
         attributionReason: "Canonical project owner: live"
-      - provider: turso
-        kind: database
-        name: significanthobbies
-        state: retired-confirmed-account-retained
-        scope: project
-        operationalOwner: live
-        attributionReason: "Canonical project owner: live"
 sharing:
   publicListing: maintained
   maturity: experiment
@@ -355,5 +348,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Live owns the existing significanthobbies Worker, D1 data and authentication; only Hub routes proxy to the independent Hub service. Guest and authenticated owner bucket-list core workflows passed on September 11, including persistence and test-item cleanup. Birth date remains confined to deeper Life in Weeks/profile onboarding. Former Turso database is deleted; the empty account is retained.
-  infrastructure: Live version 25d1b453-5e51-459b-8bcd-287adf4582bb serves exact dc0ad9b5fc58565950a44eff277354e8b8aeac38 at 100%. Quality, full browser CI and production deployment/smokes passed. Existing routes, D1, authentication identity and Hub service boundary were preserved. Google OAuth callback is repaired; authenticated bucket-list entry no longer requires the unrelated DOB onboarding. Former Turso database remains deleted; empty account retained.
+  catalog: Live owns the existing significanthobbies Worker, D1 data and authentication; only Hub routes proxy to the independent Hub service. Guest and authenticated owner bucket-list core workflows passed on September 11, including persistence and test-item cleanup. Birth date remains confined to deeper Life in Weeks/profile onboarding.
+  infrastructure: Live version 25d1b453-5e51-459b-8bcd-287adf4582bb serves exact dc0ad9b5fc58565950a44eff277354e8b8aeac38 at 100%. Quality, full browser CI and production deployment/smokes passed. Existing routes, D1, authentication identity and Hub service boundary were preserved. Google OAuth callback is repaired; authenticated bucket-list entry no longer requires the unrelated DOB onboarding.

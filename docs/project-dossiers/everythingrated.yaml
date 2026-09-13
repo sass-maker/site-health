@@ -3,7 +3,7 @@ projectId: everythingrated
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-11
+  generatedAt: 2026-09-13
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: mismatch
     githubActionsLiveState: unverified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdb8cf1f0bc35455a3e82908403a61b128fea4917f4e3fc43125f8f40526c962
+      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,31 +28,32 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
       checkout: ../fleet-archive/everythingrated
-      revision: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
+      revision: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
       githubRepository: sarthakagrawal927/everythingrated
       expectedHomepage: https://ratings.highsignal.app
       observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 3
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
       checkout: ../fleet-archive/everythingrated
-      revision: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
+      revision: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
       githubRepository: sarthakagrawal927/everythingrated
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-04-26
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
       observedAt: null
@@ -88,8 +89,8 @@ identity:
   attention: ignored
   lifecycle:
     status: inactive
-    shareable: false
     resumeCondition: null
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: false
@@ -113,13 +114,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-04-26
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 170
+    latestCommitAt: 2026-09-12
+    retainedCommitCount: 171
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/everythingrated
-  observedRevision: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
+  observedRevision: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
   githubRepository: sarthakagrawal927/everythingrated
   githubHomepageUrl: null
   worktree: *a1

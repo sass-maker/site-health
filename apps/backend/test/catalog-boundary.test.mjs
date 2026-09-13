@@ -290,7 +290,7 @@ test('current product scope stays smaller than the complete retained inventory',
   const current = catalog.projects.filter((project) =>
     ['primary', 'active'].includes(project.lifecycle.status));
 
-  assert.equal(catalog.projects.length, 59);
+  assert.equal(catalog.projects.length, 60);
   assert.equal(current.length < catalog.projects.length, true);
   assert.equal(current.some((project) => project.id === 'nomad-data-adventure'), true);
   for (const id of ['chess', 'journal']) {

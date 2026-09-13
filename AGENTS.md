@@ -7,8 +7,14 @@ This repository contains one product: Site Health and its backend.
 - The five product areas are Projects, Domains, Performance, Google Search,
   and AI Awareness.
 - Keep the UI under `apps/web/`.
-- Keep its backend, catalog, evidence adapters, storage, and internal AI engine
-  under `apps/backend/`.
+- Keep its backend, evidence adapters, storage, and internal AI engine under
+  `apps/backend/`. The single editable catalog lives at
+  `../saas-maker/catalog/projects.json`; `apps/backend/config/projects.json`
+  must remain a symlink to SaaS Maker's generated `catalog/generated/operations.json`.
+  This is a read-only compatibility output, never an editable classification source.
+  Run `pnpm --dir ../saas-maker catalog:sync` before refreshing derived views.
+- Edit classification only in that SaaS Maker source. Historical reviews,
+  generated dossiers and generated repository tables are not classification inputs.
 - Drank and PSI Swarm are independent repositories. Fleet-owned reusable workflows,
   skills, and operator scripts live under `saas-maker/tooling/`.
 - `docs/portfolio-owner-narratives-2026-08-22.md` is the verbatim owner archive;
@@ -22,7 +28,7 @@ This repository contains one product: Site Health and its backend.
 - Retained Git history (`firstCommitAt`, `latestCommitAt`, `retainedCommitCount`,
   `historyCompleteness`) is observed from each local checkout, never hand-written
   into the dossiers. `pnpm docs:projects:check` also audits the hand-maintained
-  `publicDirectory.projects.<id>` literals against the last observation and lists
+  `projects[<id>].presentation.directory` literals in the source against the last observation and lists
   drift by project id; that audit is advisory and does not fail the check. Use
   `pnpm docs:projects:refresh-history` to re-observe only the Git history when a
   full rescan would churn unrelated fields from mid-flight sibling checkouts.

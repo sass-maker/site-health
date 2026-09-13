@@ -3,7 +3,7 @@ projectId: pace
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-11
+  generatedAt: 2026-09-13
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdb8cf1f0bc35455a3e82908403a61b128fea4917f4e3fc43125f8f40526c962
+      sha256: 7519502a2d78928af7d087c7b99413c72a0822b471449c1bb0592540f587399d
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,12 +28,12 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 27dc9b89112d2f0dad844023a945336b12d77b8ab725c3ea937b5c5945f2d76a
+      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
-      checkout: pace
+      checkout: ../fleet-archive/pace
       revision: d308989ecdacc24328f2d4bbaa3a2792b810396d
       githubRepository: HeyPace/pace
       expectedHomepage: https://heypace.app
@@ -43,9 +43,9 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-11
+      observedAt: 2026-09-13
       state: available
-      checkout: pace
+      checkout: ../fleet-archive/pace
       revision: d308989ecdacc24328f2d4bbaa3a2792b810396d
       githubRepository: HeyPace/pace
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
@@ -88,13 +88,13 @@ identity:
   attention: my-work
   lifecycle:
     status: active
-    shareable: false
     resumeCondition: null
+    shareable: true
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Local-only macOS voice agent that can understand what is on your screen.
+  description: An experimental macOS voice-agent preview; installation and permission-dependent workflows are still being qualified.
   publicMakerNote: I wanted a fast, privacy-first Mac assistant that could understand what is on my screen while keeping the work local.
   purposeContract:
     purpose: HeyPace is a private Mac assistant for fast voice-driven help grounded in what is currently on screen.
@@ -119,7 +119,7 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: pace
+  checkout: ../fleet-archive/pace
   observedRevision: d308989ecdacc24328f2d4bbaa3a2792b810396d
   githubRepository: HeyPace/pace
   githubHomepageUrl: null
@@ -225,7 +225,7 @@ deployment:
         attributionReason: "Canonical project owner: pace"
 sharing:
   publicListing: maintained
-  maturity: public-ready
+  maturity: experiment
   ready: false
   verifiedAt: 2026-09-09
   reason: Website source d308989ecdacc24328f2d4bbaa3a2792b810396d passed exact CI and all six deployment gates. Deployment34329542452 succeeded at https://4c58050f.pace-6xg.pages.dev; public home and download pages at390/1440 return200 without overflow or page errors and show corrected Privacy & Security guidance. The Mac preview remains v0.3.19 ad-hoc signed, not notarized. Voice/screen/action permissions and installed core workflow remain unqualified.
