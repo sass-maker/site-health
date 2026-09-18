@@ -9,9 +9,11 @@
       "queries": [
         { "id": "codevetter-brand", "kind": "brand", "text": "CodeVetter", "status": "active" },
         { "id": "codevetter-exact-domain", "kind": "exact-domain", "text": "codevetter.com", "status": "active" },
-        { "id": "codevetter-category-2", "kind": "category", "text": "AI code review for agent generated code", "status": "active" },
-        { "id": "codevetter-problem", "kind": "problem", "text": "find bugs in AI generated code before merge", "status": "active" },
-        { "id": "codevetter-category", "kind": "category", "text": "AI code review benchmark agent-written bugs", "status": "historical", "supersededBy": "codevetter-category-2" }
+        { "id": "codevetter-oss-category", "kind": "category", "text": "open source agent verification CLI", "status": "active" },
+        { "id": "codevetter-evidence", "kind": "problem", "text": "verify AI generated code execution evidence", "status": "active" },
+        { "id": "codevetter-category-2", "kind": "category", "text": "AI code review for agent generated code", "status": "historical", "supersededBy": "codevetter-oss-category" },
+        { "id": "codevetter-problem", "kind": "problem", "text": "find bugs in AI generated code before merge", "status": "historical", "supersededBy": "codevetter-evidence" },
+        { "id": "codevetter-category", "kind": "category", "text": "AI code review benchmark agent-written bugs", "status": "historical", "supersededBy": "codevetter-oss-category" }
       ]
     },
     {

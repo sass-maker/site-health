@@ -1,6 +1,6 @@
 # GEO Observatory — latest report
 
-Generated from `apps/backend/data/geo-observatory/ledger.jsonl` (361 observations, 8 run(s): 2026-07-17, 2026-07-25, 2026-07-26, 2026-07-31, 2026-08-05, 2026-08-16, 2026-09-05, 2026-09-18).
+Generated from `apps/backend/data/geo-observatory/ledger.jsonl` (389 observations, 8 run(s): 2026-07-17, 2026-07-25, 2026-07-26, 2026-07-31, 2026-08-05, 2026-08-16, 2026-09-05, 2026-09-18).
 Rubric: A = own domain top-3 · B = partial page-one visibility · C = absent.
 Do not edit — regenerate via `geo-observatory-record.mjs`.
 
@@ -26,8 +26,8 @@ Do not edit — regenerate via `geo-observatory-record.mjs`.
 |---|---|---|---|---|---|---|
 | codevetter | CodeVetter (brand) | A | C | A | A | A |
 | codevetter | codevetter.com (exact-domain) | · | A | A | B | A |
-| codevetter | AI code review for agent generated code (category) | · | C | C | C | C |
-| codevetter | find bugs in AI generated code before merge (problem) | · | C | C | C | C |
+| codevetter | open source agent verification CLI (category) | · | · | · | · | C |
+| codevetter | verify AI generated code execution evidence (problem) | · | · | · | · | C |
 | agent-office | Office OS sassmaker (brand) | · | · | · | C | · |
 | agent-office | local-first Mac workplace for AI employees (category) | · | · | · | C | · |
 | local-ai-video-studio | Local AI Video Studio sassmaker (brand) | · | · | · | C | · |
@@ -157,8 +157,8 @@ Do not edit — regenerate via `geo-observatory-record.mjs`.
 
 - **codevetter / codevetter-brand** → A. Top: https://codevetter.com/, https://github.com/Codevetter/codevetter — Own origin ranks #1 with site, GitHub org repo, and download page filling the top results.
 - **codevetter / codevetter-exact-domain** → A. Top: https://codevetter.com/, https://codevetter.com/download — Exact-domain query returns the origin at #1 followed by its download page and GitHub repo.
-- **codevetter / codevetter-category-2** → C. Top: https://github.com/aezell/agrev, https://github.com/aurite-ai/agent-verifier — SERP owned by open-source agent-review repos (agrev, agent-verifier, deep-code-review); codevetter.com absent from page one.
-- **codevetter / codevetter-problem** → C. Top: https://github.com/seungdori/patchdrill, https://dev.to/quokkalabs/testing-ai-generated-code-2026-qa-checklist-for-teams-shipping-faster-75j — Diff-gate tools (PatchDrill, PatchBrake) and QA checklist articles lead; codevetter.com absent.
+- **codevetter / codevetter-oss-category** → C. Top: https://github.com/open-agent-ai-security/praxen, https://github.com/trusthandoff/agentverif — SERP held by agent-governance/verification OSS repos (praxen, agentverif, agent-proof-kit, agentnotary, AgentPin); codevetter absent.
+- **codevetter / codevetter-evidence** → C. Top: https://github.com/sebamar88/proofkit, https://github.com/shiki-yusuke/evigate — Exact-category SERP owned by tiny OSS repos (RunProof, evigate, did-it, taskwitness, runtime-proof-kit); codevetter absent — baseline before README/vs-page work.
 - **high-signal / highsignal-brand** → A. Top: https://highsignal.app/, https://highsignal.app/about — Exact-domain query returns the origin at #1 with about page and GitHub repo.
 - **high-signal / highsignal-category-2** → C. Top: https://presciente.com/, https://finpresso.com/ — Tracked-prediction brief SERP led by Presciente, Finpresso, Fintwit; highsignal.app absent.
 - **high-signal / highsignal-brand-2** → A. Top: https://highsignal.app/, https://highsignal.app/signals — Qualified brand query returns the origin at #1 with signals and methodology pages beneath.
