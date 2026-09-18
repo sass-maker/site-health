@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: verified-bases
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -55,13 +55,13 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
-      healthy: 1
-      stale: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        ignored: 2
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
   fullReviewVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
@@ -146,21 +146,12 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
-    stale: 1
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/verified-bases
-    defaultBranch: main
-    defaultBranchSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
-    homepage: null
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: ci
       file: .github/workflows/ci.yml
@@ -168,83 +159,11 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34227660448
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
-          createdAt: 2026-09-08T12:43:07Z
-          updatedAt: 2026-09-08T12:43:38Z
-          url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/34227660448
-        ageDays: 9
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34227660448
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
-          createdAt: 2026-09-08T12:43:07Z
-          updatedAt: 2026-09-08T12:43:38Z
-          url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/34227660448
-        ageDays: 9
-      attention: ignored
     - name: Deploy API Worker
       file: .github/workflows/deploy-api.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stale
-        reason: latest run is 76 days old
-        apiState: active
-        lastRun:
-          id: 28654888874
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 2a83e566dc100fb0f7a79b94ac0ecb7de1a6c5d6
-          createdAt: 2026-07-03T10:32:56Z
-          updatedAt: 2026-07-03T10:33:51Z
-          url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/28654888874
-        ageDays: 76
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
 deployment:
   kind: worker
   deployed: true

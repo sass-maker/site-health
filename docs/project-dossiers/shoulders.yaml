@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-09-14
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-14
       reviewSha256: e3a97ff166bf6d5304c4e0f43aba0876daaa2c63461414cd4b1ebe34b9f3d379
-      documentSha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      documentSha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -53,8 +53,8 @@ verification:
       catalogDrift: []
       reason: "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/shoulders rev-parse HEAD"
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a1 {}
   unknowns:
     - The owning checkout was unavailable during repository observation.
@@ -122,19 +122,11 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a1
-  remote:
-    repository: null
-    defaultBranch: null
-    defaultBranchSha: null
-    homepage: null
-    query: unverifiable
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows: []
 deployment:
   deployed: false

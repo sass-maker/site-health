@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: storagedaddy
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: mismatch
     githubActionsLiveState: not-applicable
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,16 +28,16 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
       state: available
       checkout: storagedaddy
-      revision: 895c0a9df372020b73d00526eee44f233cf0bdc8
+      revision: e1ee49ff933ec832125eb1ecf1192c1f20c088ba
       githubRepository: sarthakagrawal927/storagedaddy
       expectedHomepage: https://storagedaddy.significanthobbies.com/
-      observedHomepage: https://storagedaddy.significanthobbies.com/
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-18
       state: available
       checkout: storagedaddy
-      revision: 895c0a9df372020b73d00526eee44f233cf0bdc8
+      revision: e1ee49ff933ec832125eb1ecf1192c1f20c088ba
       githubRepository: sarthakagrawal927/storagedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,10 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a2 {}
-  unknowns: []
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://storagedaddy.significanthobbies.com/.
 ownerVoice:
   whyVerbatim: Working native Mac app
   fullReviewVerbatim: |-
@@ -121,15 +122,15 @@ product:
     - Sparkle
   retainedGitHistory:
     firstCommitAt: 2026-09-13
-    latestCommitAt: 2026-09-14
-    retainedCommitCount: 9
+    latestCommitAt: 2026-09-18
+    retainedCommitCount: 10
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: storagedaddy
-  observedRevision: 895c0a9df372020b73d00526eee44f233cf0bdc8
+  observedRevision: e1ee49ff933ec832125eb1ecf1192c1f20c088ba
   githubRepository: sarthakagrawal927/storagedaddy
-  githubHomepageUrl: https://storagedaddy.significanthobbies.com/
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/storagedaddy
@@ -152,19 +153,11 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/storagedaddy
-    defaultBranch: main
-    defaultBranchSha: 6c9ef9861a72abe7caaec58449ded44ebaad1580
-    homepage: https://storagedaddy.significanthobbies.com/
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows: []
 deployment:
   kind: worker

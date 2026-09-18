@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: gitstat
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -37,7 +37,7 @@ verification:
       revision: 9bcb8d01f88d4a2618e9652d300203674f118da9
       githubRepository: sass-maker/gitstat
       expectedHomepage: https://git.significanthobbies.com
-      observedHomepage: https://git.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://git.significanthobbies.com.
 ownerVoice:
   whyVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
   fullReviewVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
@@ -120,7 +122,7 @@ repository:
   checkout: ../fleet-archive/gitstat
   observedRevision: 9bcb8d01f88d4a2618e9652d300203674f118da9
   githubRepository: sass-maker/gitstat
-  githubHomepageUrl: https://git.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/gitstat
@@ -143,20 +145,12 @@ repository:
       - lint
       - preview
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sass-maker/gitstat
-    defaultBranch: main
-    defaultBranchSha: 9bcb8d01f88d4a2618e9652d300203674f118da9
-    homepage: https://git.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -165,47 +159,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34641490613
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 9bcb8d01f88d4a2618e9652d300203674f118da9
-          createdAt: 2026-09-11T19:56:05Z
-          updatedAt: 2026-09-11T19:56:26Z
-          url: https://github.com/sass-maker/gitstat/actions/runs/34641490613
-        ageDays: 6
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34641490613
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 9bcb8d01f88d4a2618e9652d300203674f118da9
-          createdAt: 2026-09-11T19:56:05Z
-          updatedAt: 2026-09-11T19:56:26Z
-          url: https://github.com/sass-maker/gitstat/actions/runs/34641490613
-        ageDays: 6
-      attention: ignored
 deployment:
   kind: pages
   deployed: true

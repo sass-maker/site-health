@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: reddit-insights
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -37,7 +37,7 @@ verification:
       revision: 959786032f72c9315a96ee65bb4c38ce6b817919
       githubRepository: High-Signal-App/research-subreddit
       expectedHomepage: https://reddit-insights.highsignal.app
-      observedHomepage: https://reddit-insights.highsignal.app
+      observedHomepage: null
       worktree: &a1
         state: dirty
         trackedChangeCount: 4
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://reddit-insights.highsignal.app.
 ownerVoice:
   whyVerbatim: Reddit Insights is a product in which I was trying to see how historically signals and emotions have changed in a subreddit but I was not able to finish because of a lack of data or lack of historical data. Reddit does not provide the historical data easily so that is why it kind of got blocked but I might reopen it and start storing the data soon.
   fullReviewVerbatim: Reddit Insights is a product in which I was trying to see how historically signals and emotions have changed in a subreddit but I was not able to finish because of a lack of data or lack of historical data. Reddit does not provide the historical data easily so that is why it kind of got blocked but I might reopen it and start storing the data soon.
@@ -120,7 +122,7 @@ repository:
   checkout: reddit-insights
   observedRevision: 959786032f72c9315a96ee65bb4c38ce6b817919
   githubRepository: High-Signal-App/research-subreddit
-  githubHomepageUrl: https://reddit-insights.highsignal.app
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/High-Signal-App/research-subreddit
@@ -166,20 +168,12 @@ repository:
       - typecheck
       - ui
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: High-Signal-App/research-subreddit
-    defaultBranch: main
-    defaultBranchSha: 959786032f72c9315a96ee65bb4c38ce6b817919
-    homepage: https://reddit-insights.highsignal.app
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -187,47 +181,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34757533224
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 959786032f72c9315a96ee65bb4c38ce6b817919
-          createdAt: 2026-09-13T12:36:03Z
-          updatedAt: 2026-09-13T12:36:50Z
-          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/34757533224
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34757533224
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 959786032f72c9315a96ee65bb4c38ce6b817919
-          createdAt: 2026-09-13T12:36:03Z
-          updatedAt: 2026-09-13T12:36:50Z
-          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/34757533224
-        ageDays: 4
-      attention: ignored
 deployment:
   kind: worker+pages
   deployed: true

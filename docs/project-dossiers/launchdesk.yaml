@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: launchdesk
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: mismatch
     githubActionsLiveState: not-applicable
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-09-18
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,30 +24,30 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-18
       reviewSha256: 8a69fbc483835d9b18bda3f1d5b8d0c1d4c8b157c8da8b37d895e3444d4bcc1e
-      documentSha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      documentSha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
       state: available
       checkout: launchdesk
-      revision: 137eb9d67c68b94f31ec77ee04adbc236507e958
+      revision: 7c4c1a78e456abc797852d9017c9bebcadbab871
       githubRepository: Significant-Hobbies/launchdesk
-      expectedHomepage: https://launchdesk.significanthobbies.com/
-      observedHomepage: https://launchdesk.significanthobbies.com/
+      expectedHomepage: https://sassmaker.com/launchdesk/
+      observedHomepage: null
       worktree: &a1
         state: dirty
-        trackedChangeCount: 1
+        trackedChangeCount: 8
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-18
       state: available
       checkout: launchdesk
-      revision: 137eb9d67c68b94f31ec77ee04adbc236507e958
+      revision: 7c4c1a78e456abc797852d9017c9bebcadbab871
       githubRepository: Significant-Hobbies/launchdesk
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,10 +56,11 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a2 {}
-  unknowns: []
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://sassmaker.com/launchdesk/.
 ownerVoice:
   whyVerbatim: Build this out and release it on CF.
   fullReviewVerbatim: Build this out and release it on CF.
@@ -67,7 +68,7 @@ ownerVoice:
 decision:
   classification: Active
   whySummary: Give makers a provenance-honest catalog of launch destinations with per-product submission tracking.
-  currentState: Live publicly at launchdesk.significanthobbies.com as a browser-storage static Worker app; the live link-checker stays local-only by owner decision.
+  currentState: Live publicly at sassmaker.com/launchdesk as a vendored static bundle in the shared SaaS Maker Pages site; the live link-checker stays local-only by owner decision.
   nextDecision: "Keep: The 966-destination attributed catalog with explicit unknowns and browser-local tracking. Stop: Accounts, automated submission, outreach features and invented metrics."
 identity:
   name: LaunchDesk
@@ -99,88 +100,65 @@ product:
     outcome: A filtered, queued and tracked set of real submission destinations instead of a stale copy-pasted list.
     mechanism: A deduplicated catalog of 966 prospects with source history, reported DR and link types, per-product queues and statuses; visitor state lives in browser storage, with an optional local Python/SQLite mode for live link checks.
     proof: Public site at launchdesk.significanthobbies.com, 36 passing unit tests, source attribution in data/sources, and explicit unknowns rather than invented metrics.
-    nextAction: Open the directory, set your product brief, and queue a small set of fitting destinations.
+    nextAction: Open sassmaker.com/launchdesk, set your product brief, and queue a small set of fitting destinations.
   form: Web app
   platforms:
     - Web
   prominentTools:
-    - Cloudflare Workers
+    - Cloudflare Pages
     - Python
     - SQLite
   retainedGitHistory:
     firstCommitAt: 2026-09-18
     latestCommitAt: 2026-09-18
-    retainedCommitCount: 2
+    retainedCommitCount: 3
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: launchdesk
-  observedRevision: 137eb9d67c68b94f31ec77ee04adbc236507e958
+  observedRevision: 7c4c1a78e456abc797852d9017c9bebcadbab871
   githubRepository: Significant-Hobbies/launchdesk
-  githubHomepageUrl: https://launchdesk.significanthobbies.com/
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/launchdesk
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: pnpm@10.33.2
-    detectedSignals:
-      - name: Cloudflare Wrangler
-        evidence:
-          - wrangler.jsonc
-      - name: pnpm
-        evidence:
-          - pnpm-lock.yaml
+    declaredPackageManager: null
+    detectedSignals: []
     rootPackageScripts:
       - build:catalog
-      - deploy
-      - dev
+      - sync:showcase
       - test
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/launchdesk
-    defaultBranch: main
-    defaultBranchSha: 03426425ffdf68be38aa39078e7e91700878d546
-    homepage: https://launchdesk.significanthobbies.com/
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows: []
 deployment:
-  kind: worker
+  kind: pages
   deployed: true
   domains:
-    - launchdesk.significanthobbies.com
-  primaryUrl: https://launchdesk.significanthobbies.com/
+    - sassmaker.com
+  primaryUrl: https://sassmaker.com/launchdesk/
   domainProbePaths: {}
   targets:
     - id: site
-      kind: worker
-      name: launchdesk
-      sourcePath: launchdesk
+      kind: pages
+      name: saas-maker-home
+      sourcePath: saas-maker/apps/showcase/public/launchdesk
   cloudflare:
     deployments:
       - provider: cloudflare
-        kind: worker
-        name: launchdesk
-        method: wrangler-direct
+        kind: pages
+        name: saas-maker-home
+        method: wrangler-pages
         state: live
-        versionId: fcb89550-858a-42de-b290-dec02f7a8cd6
-        attributionReason: Public LaunchDesk site; static-assets-only Worker deployed from the launchdesk checkout via wrangler deploy --tag.
-    resources:
-      - provider: cloudflare
-        kind: custom-domain
-        name: launchdesk.significanthobbies.com
-        state: active
-        attributionReason: Canonical public LaunchDesk domain attached to the launchdesk Worker.
-        scope: project
-        operationalOwner: launchdesk
+        attributionReason: LaunchDesk is a vendored static bundle served at sassmaker.com/launchdesk within the shared SaaS Maker Pages project; the dedicated launchdesk Worker was deleted on 2026-09-18.
+    resources: []
   otherProviders:
     deployments: []
     resources: []
@@ -194,5 +172,5 @@ sharing:
   roadmapUrl: https://github.com/Significant-Hobbies/launchdesk/issues
   geoIdentity: null
 notes:
-  catalog: Imported from the 2026-09-18 local package and released publicly on Cloudflare as a browser-storage static app. Owner chose to skip porting /api/verify to the Worker.
-  infrastructure: Static-assets-only Worker (no Worker script, no bindings) serving web/. Visitor workspace state is browser localStorage; no server-side persistence exists in production. The local Python/SQLite mode is not deployed.
+  catalog: Imported from the 2026-09-18 local package. Released first on a standalone Worker, then moved under the SaaS Maker site at sassmaker.com/launchdesk per owner decision; Worker deleted. Owner chose to skip porting /api/verify to Cloudflare.
+  infrastructure: Static bundle at apps/showcase/public/launchdesk synced from the launchdesk checkout via scripts/sync-launchdesk.mjs; no dedicated Worker, domain or storage resources. Visitor workspace state is browser localStorage.

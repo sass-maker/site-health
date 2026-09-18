@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: nomad-data-adventure
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -37,7 +37,7 @@ verification:
       revision: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
       githubRepository: sarthakagrawal927/nomad-data-adventure
       expectedHomepage: https://nomad.significanthobbies.com/
-      observedHomepage: https://nomad.significanthobbies.com/
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -57,13 +57,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
-      healthy: 1
-      cancelled: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 2
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://nomad.significanthobbies.com/.
 ownerVoice:
   whyVerbatim: keep as active for now, ensure to cleanup after yourself
   fullReviewVerbatim: keep as active for now, ensure to cleanup after yourself
@@ -122,7 +123,7 @@ repository:
   checkout: nomad-data-adventure
   observedRevision: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
   githubRepository: sarthakagrawal927/nomad-data-adventure
-  githubHomepageUrl: https://nomad.significanthobbies.com/
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/nomad-data-adventure
@@ -141,21 +142,12 @@ repository:
       - dev
       - test
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
-    cancelled: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/nomad-data-adventure
-    defaultBranch: main
-    defaultBranchSha: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
-    homepage: https://nomad.significanthobbies.com/
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: Static product checks
       file: .github/workflows/ci.yml
@@ -163,82 +155,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34769764408
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
-          createdAt: 2026-09-13T16:50:05Z
-          updatedAt: 2026-09-13T16:50:18Z
-          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34769764408
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34769764408
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
-          createdAt: 2026-09-13T16:50:05Z
-          updatedAt: 2026-09-13T16:50:18Z
-          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34769764408
-        ageDays: 4
-      attention: clear
-    - name: pages-build-deployment
-      file: dynamic/pages/pages-build-deployment
-      triggers: []
-      schedules: []
-      inventory:
-        source: github-generated
-        local: false
-        remote: true
-      ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
-      live:
-        health: cancelled
-        reason: latest run was cancelled
-        apiState: active
-        lastRun:
-          id: 34768583692
-          status: completed
-          conclusion: cancelled
-          event: dynamic
-          branch: main
-          headSha: 37c6a678c0f10a3a54b01b649b892ce9ba25d63d
-          createdAt: 2026-09-13T16:26:32Z
-          updatedAt: 2026-09-13T16:26:59Z
-          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34768583692
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
   kind: pages
   deployed: true

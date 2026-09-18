@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: chess
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -37,7 +37,7 @@ verification:
       revision: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
       githubRepository: sarthakagrawal927/chess
       expectedHomepage: https://chess.significanthobbies.com
-      observedHomepage: https://chess.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -55,12 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
-      healthy: 4
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 3
       attention: &a2
-        ignored: 4
-  unknowns: []
+        unclassified: 3
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://chess.significanthobbies.com.
 ownerVoice:
   whyVerbatim: I started off to have a chess player on board which can use my local AI agent to help me improve but I would call it B-0 completed. I have no intention of making more progress in this project since I have a bit lost interest in the game.
   fullReviewVerbatim: I started off to have a chess player on board which can use my local AI agent to help me improve but I would call it B-0 completed. I have no intention of making more progress in this project since I have a bit lost interest in the game.
@@ -119,7 +121,7 @@ repository:
   checkout: ../fleet-archive/chess
   observedRevision: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
   githubRepository: sarthakagrawal927/chess
-  githubHomepageUrl: https://chess.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/chess
@@ -164,20 +166,12 @@ repository:
       - test:e2e
       - typecheck
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 4
+    unverifiable: 3
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/chess
-    defaultBranch: main
-    defaultBranchSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
-    homepage: https://chess.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -186,164 +180,17 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34002481600
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
-          createdAt: 2026-09-06T00:53:55Z
-          updatedAt: 2026-09-06T00:55:21Z
-          url: https://github.com/sarthakagrawal927/chess/actions/runs/34002481600
-        ageDays: 12
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34002481600
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
-          createdAt: 2026-09-06T00:53:55Z
-          updatedAt: 2026-09-06T00:55:21Z
-          url: https://github.com/sarthakagrawal927/chess/actions/runs/34002481600
-        ageDays: 12
-      attention: ignored
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34015639226
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
-          createdAt: 2026-09-06T06:06:22Z
-          updatedAt: 2026-09-06T06:06:53Z
-          url: https://github.com/sarthakagrawal927/chess/actions/runs/34015639226
-        ageDays: 12
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 32900296311
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: e7e45f449a247b2ef5c7fc3fcd439954d67bb32f
-          createdAt: 2026-08-25T21:18:29Z
-          updatedAt: 2026-08-25T21:18:37Z
-          url: https://github.com/sarthakagrawal927/chess/actions/runs/32900296311
-        ageDays: 23
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision e8a34f7
-        lastRun:
-          id: 32900296311
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: e7e45f449a247b2ef5c7fc3fcd439954d67bb32f
-          createdAt: 2026-08-25T21:18:29Z
-          updatedAt: 2026-08-25T21:18:37Z
-          url: https://github.com/sarthakagrawal927/chess/actions/runs/32900296311
-      attention: ignored
-    - name: Dependabot Updates
-      file: dynamic/dependabot/dependabot-updates
-      triggers: []
-      schedules: []
-      inventory:
-        source: github-generated
-        local: false
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34079494964
-          status: completed
-          conclusion: success
-          event: dynamic
-          branch: main
-          headSha: e8a34f7ebc85f78d1a4d6de96ae938abcc6e8e06
-          createdAt: 2026-09-07T03:23:43Z
-          updatedAt: 2026-09-07T03:24:21Z
-          url: https://github.com/sarthakagrawal927/chess/actions/runs/34079494964
-        ageDays: 11
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
 deployment:
   kind: pages
   deployed: true

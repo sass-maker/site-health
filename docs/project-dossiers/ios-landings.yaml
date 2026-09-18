@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: ios-landings
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
       state: available
       checkout: ios-landings
-      revision: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
+      revision: 3ea6f6624e766932f2f932425c44238e036c17ed
       githubRepository: Significant-Hobbies/ios-landings
       expectedHomepage: null
       observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-18
       state: available
       checkout: ios-landings
-      revision: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
+      revision: 3ea6f6624e766932f2f932425c44238e036c17ed
       githubRepository: Significant-Hobbies/ios-landings
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,12 +56,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
   fullReviewVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
@@ -105,13 +106,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-08-17
-    latestCommitAt: 2026-09-12
-    retainedCommitCount: 47
+    latestCommitAt: 2026-09-18
+    retainedCommitCount: 48
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ios-landings
-  observedRevision: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
+  observedRevision: 3ea6f6624e766932f2f932425c44238e036c17ed
   githubRepository: Significant-Hobbies/ios-landings
   githubHomepageUrl: null
   worktree: *a1
@@ -155,20 +156,12 @@ repository:
       - dev:setline
       - preview
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/ios-landings
-    defaultBranch: main
-    defaultBranchSha: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
-    homepage: null
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -176,47 +169,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34638778014
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
-          createdAt: 2026-09-11T19:25:42Z
-          updatedAt: 2026-09-11T19:26:12Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/34638778014
-        ageDays: 6
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34638778014
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
-          createdAt: 2026-09-11T19:25:42Z
-          updatedAt: 2026-09-11T19:26:12Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/34638778014
-        ageDays: 6
-      attention: clear
 deployment:
   kind: none
   deployed: false

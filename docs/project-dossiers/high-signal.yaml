@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: high-signal
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
       infrastructureUpdatedAt: 2026-09-14
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -37,7 +37,7 @@ verification:
       revision: e20bedd442186581ea6317c84ca6cfeca0972331
       githubRepository: High-Signal-App/high-signal
       expectedHomepage: https://highsignal.app
-      observedHomepage: https://highsignal.app
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,17 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T08:50:03.268Z
-      staleAfterDays: 30
-      stale: 1
-      manual-or-reusable-never-run: 2
-      healthy: 15
-      failing: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 19
       attention: &a2
-        clear: 16
-        missing-data: 2
-        review-history: 1
-  unknowns: []
+        unclassified: 19
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://highsignal.app.
 ownerVoice:
   whyVerbatim: High-Signal is kind of started with very wide things but now I have focused it into just a data and news application. Currently it just aggregates information from a lot of sources and tries to derive signals. As of now I am not actively using it but I do see its potential. For now it's on hold and once I start using it then I will pick it up again.
   fullReviewVerbatim: High-Signal is kind of started with very wide things but now I have focused it into just a data and news application. Currently it just aggregates information from a lot of sources and tries to derive signals. As of now I am not actively using it but I do see its potential. For now it's on hold and once I start using it then I will pick it up again.
@@ -126,7 +123,7 @@ repository:
   checkout: high-signal
   observedRevision: e20bedd442186581ea6317c84ca6cfeca0972331
   githubRepository: High-Signal-App/high-signal
-  githubHomepageUrl: https://highsignal.app
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/High-Signal-App/high-signal
@@ -252,87 +249,23 @@ repository:
       - typecheck
       - watchlist-impact:test
 githubActions:
-  observedAt: 2026-09-18T08:50:03.268Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    stale: 1
-    manual-or-reusable-never-run: 2
-    healthy: 15
-    failing: 1
+    unverifiable: 19
   attention: *a2
-  remote:
-    repository: High-Signal-App/high-signal
-    defaultBranch: main
-    defaultBranchSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-    homepage: https://highsignal.app
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: backfill-sources
       file: .github/workflows/backfill-sources.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: stale
-        reason: latest run is 83 days old
-        apiState: active
-        lastRun:
-          id: 28280675345
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 6117b02bb8f2eda5b63f21d0a529aaaba09676fc
-          createdAt: 2026-06-27T06:04:18Z
-          updatedAt: 2026-06-27T06:13:58Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/28280675345
-        ageDays: 83
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: backfill
       file: .github/workflows/backfill.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: manual-or-reusable-never-run
-        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
-        apiState: active
-        lastRun: null
-        ageDays: null
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: CI
       file: .github/workflows/ci.yml
       triggers:
@@ -340,46 +273,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34776511365
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: e20bedd442186581ea6317c84ca6cfeca0972331
-          createdAt: 2026-09-13T19:03:27Z
-          updatedAt: 2026-09-13T19:05:22Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34776511365
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 363bed2
-        lastRun:
-          id: 34776511365
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: e20bedd442186581ea6317c84ca6cfeca0972331
-          createdAt: 2026-09-13T19:03:27Z
-          updatedAt: 2026-09-13T19:05:22Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34776511365
-      attention: missing-data
     - name: cron-backtest
       file: .github/workflows/cron-backtest.yml
       triggers:
@@ -387,84 +280,11 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 9 * * *
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35229744442
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 1ed1c60020937ef530e0cf9dc1f4be8b75e6c71e
-          createdAt: 2026-09-17T13:51:23Z
-          updatedAt: 2026-09-17T13:52:03Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35229744442
-        ageDays: 0
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 35229744442
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 1ed1c60020937ef530e0cf9dc1f4be8b75e6c71e
-          createdAt: 2026-09-17T13:51:23Z
-          updatedAt: 2026-09-17T13:52:03Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35229744442
-        ageDays: 0
-        freshnessDays: 2
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: cron-digg
       file: .github/workflows/cron-digg.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35324717522
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T08:30:26Z
-          updatedAt: 2026-09-18T08:31:20Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35324717522
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: cron-equities
       file: .github/workflows/cron-equities.yml
       triggers:
@@ -472,84 +292,11 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 30 21 * * 1-5
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35287572526
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 05877d5114db98008676f8faef66b90148d8e670
-          createdAt: 2026-09-17T23:36:11Z
-          updatedAt: 2026-09-17T23:43:54Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35287572526
-        ageDays: 0
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 35287572526
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 05877d5114db98008676f8faef66b90148d8e670
-          createdAt: 2026-09-17T23:36:11Z
-          updatedAt: 2026-09-17T23:43:54Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35287572526
-        ageDays: 0
-        freshnessDays: 9
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: cron-ingest
       file: .github/workflows/cron-ingest.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: failing
-        reason: latest run concluded failure
-        apiState: active
-        lastRun:
-          id: 35299597656
-          status: completed
-          conclusion: failure
-          event: workflow_dispatch
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T02:30:28Z
-          updatedAt: 2026-09-18T02:57:55Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35299597656
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: review-history
     - name: cron-markets
       file: .github/workflows/cron-markets.yml
       triggers:
@@ -557,156 +304,21 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 */4 * * *
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35324933672
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T08:32:59Z
-          updatedAt: 2026-09-18T08:36:18Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35324933672
-        ageDays: 0
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 35324933672
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T08:32:59Z
-          updatedAt: 2026-09-18T08:36:18Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35324933672
-        ageDays: 0
-        freshnessDays: 1
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: cron-mts
       file: .github/workflows/cron-mts.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35324720318
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T08:30:28Z
-          updatedAt: 2026-09-18T08:31:51Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35324720318
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: cron-publish
       file: .github/workflows/cron-publish.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35303462007
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T03:30:29Z
-          updatedAt: 2026-09-18T03:31:37Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35303462007
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: cron-reddit-archive
       file: .github/workflows/cron-reddit-archive.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35290555352
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T00:17:25Z
-          updatedAt: 2026-09-18T00:48:37Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35290555352
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: cron-score
       file: .github/workflows/cron-score.yml
       triggers:
@@ -714,48 +326,6 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 30 22 * * *
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35291560699
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T00:31:32Z
-          updatedAt: 2026-09-18T00:32:15Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35291560699
-        ageDays: 0
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 35291560699
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T00:31:32Z
-          updatedAt: 2026-09-18T00:32:15Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35291560699
-        ageDays: 0
-        freshnessDays: 2
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: cron-source-cadences
       file: .github/workflows/cron-source-cadences.yml
       triggers:
@@ -765,229 +335,32 @@ githubActions:
         - 0 1 * * *
         - 0 0 * * 0
         - 30 0 1 * *
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35311157731
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T05:31:51Z
-          updatedAt: 2026-09-18T05:32:28Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35311157731
-        ageDays: 0
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 35311157731
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T05:31:51Z
-          updatedAt: 2026-09-18T05:32:28Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35311157731
-        ageDays: 0
-        freshnessDays: 2
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: cron-validate-brief
       file: .github/workflows/cron-validate-brief.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35305308644
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 363bed27c8777c4ae6bec1849745c2ad79a42412
-          createdAt: 2026-09-18T04:00:30Z
-          updatedAt: 2026-09-18T04:01:01Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35305308644
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: Deploy API
       file: .github/workflows/deploy-api.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34776516050
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: e20bedd442186581ea6317c84ca6cfeca0972331
-          createdAt: 2026-09-13T19:03:32Z
-          updatedAt: 2026-09-13T19:04:20Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34776516050
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: Deploy web
       file: .github/workflows/deploy-web.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34773427168
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: d6026f460eec6eb9cb37f63dc7eeaab5ae5a1d6f
-          createdAt: 2026-09-13T18:03:08Z
-          updatedAt: 2026-09-13T18:06:29Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34773427168
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34776511431
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: e20bedd442186581ea6317c84ca6cfeca0972331
-          createdAt: 2026-09-13T19:03:27Z
-          updatedAt: 2026-09-13T19:03:37Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34776511431
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 363bed2
-        lastRun:
-          id: 34776511431
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: e20bedd442186581ea6317c84ca6cfeca0972331
-          createdAt: 2026-09-13T19:03:27Z
-          updatedAt: 2026-09-13T19:03:37Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34776511431
-      attention: missing-data
     - name: reddit-archive-redact
       file: .github/workflows/reddit-archive-redact.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: manual-or-reusable-never-run
-        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
-        apiState: active
-        lastRun: null
-        ageDays: null
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
       triggers:
@@ -995,48 +368,6 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 9 * * 1
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34863308027
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: a59360c8f275385edb75618c001a0976cc94e96b
-          createdAt: 2026-09-14T15:36:48Z
-          updatedAt: 2026-09-14T15:39:02Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34863308027
-        ageDays: 3
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 34863308027
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: a59360c8f275385edb75618c001a0976cc94e96b
-          createdAt: 2026-09-14T15:36:48Z
-          updatedAt: 2026-09-14T15:39:02Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/34863308027
-        ageDays: 3
-        freshnessDays: 9
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
   kind: worker
   deployed: true
