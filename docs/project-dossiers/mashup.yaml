@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: mashup
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-13
+  generatedAt: 2026-09-18
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
       infrastructureUpdatedAt: 2026-08-28
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,22 +28,22 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: ../fleet-archive/mashup
       revision: b75e14f506197600dbb722ba318853e356826f3d
       githubRepository: sass-maker/mashup
       expectedHomepage: https://mashup.highsignal.app
-      observedHomepage: null
+      observedHomepage: https://mashup.highsignal.app
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: ../fleet-archive/mashup
       revision: b75e14f506197600dbb722ba318853e356826f3d
@@ -55,14 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://mashup.highsignal.app.
+        ignored: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
   fullReviewVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
@@ -123,7 +121,7 @@ repository:
   checkout: ../fleet-archive/mashup
   observedRevision: b75e14f506197600dbb722ba318853e356826f3d
   githubRepository: sass-maker/mashup
-  githubHomepageUrl: null
+  githubHomepageUrl: https://mashup.highsignal.app
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/mashup
@@ -156,12 +154,20 @@ repository:
       - test
       - test:coverage
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sass-maker/mashup
+    defaultBranch: main
+    defaultBranchSha: b75e14f506197600dbb722ba318853e356826f3d
+    homepage: https://mashup.highsignal.app
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -170,6 +176,47 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34129122957
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b75e14f506197600dbb722ba318853e356826f3d
+          createdAt: 2026-09-07T13:44:54Z
+          updatedAt: 2026-09-07T13:46:55Z
+          url: https://github.com/sass-maker/mashup/actions/runs/34129122957
+        ageDays: 10
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34129122957
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b75e14f506197600dbb722ba318853e356826f3d
+          createdAt: 2026-09-07T13:44:54Z
+          updatedAt: 2026-09-07T13:46:55Z
+          url: https://github.com/sass-maker/mashup/actions/runs/34129122957
+        ageDays: 10
+      attention: ignored
 deployment:
   kind: pages
   deployed: true

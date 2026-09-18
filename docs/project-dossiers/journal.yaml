@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: journal
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-13
+  generatedAt: 2026-09-18
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
+    githubHomepage: passed
     githubActionsLiveState: not-applicable
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,22 +28,22 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: ../fleet-archive/journal
       revision: 81f437780292cd8d71309fcd31f03b5c1521a592
       githubRepository: sarthakagrawal927/journal
       expectedHomepage: https://journal.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://journal.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: ../fleet-archive/journal
       revision: 81f437780292cd8d71309fcd31f03b5c1521a592
@@ -55,11 +55,10 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
       attention: &a2 {}
-  unknowns:
-    - GitHub repository homepage does not match the canonical deployed URL https://journal.significanthobbies.com.
+  unknowns: []
 ownerVoice:
   whyVerbatim: I am making a journal because I think a good journal app is very important and journaling as a habit is very important, so it fits well with our hub.
   fullReviewVerbatim: |-
@@ -122,7 +121,7 @@ repository:
   checkout: ../fleet-archive/journal
   observedRevision: 81f437780292cd8d71309fcd31f03b5c1521a592
   githubRepository: sarthakagrawal927/journal
-  githubHomepageUrl: null
+  githubHomepageUrl: https://journal.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/journal
@@ -136,11 +135,19 @@ repository:
           - SignificantHobbies.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
   summary: {}
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/journal
+    defaultBranch: main
+    defaultBranchSha: 81f437780292cd8d71309fcd31f03b5c1521a592
+    homepage: https://journal.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows: []
 deployment:
   kind: pages

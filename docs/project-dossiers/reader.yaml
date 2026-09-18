@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: reader
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-13
+  generatedAt: 2026-09-18
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,22 +28,22 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: ../fleet-archive/reader
       revision: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
       githubRepository: Significant-Hobbies/reader
       expectedHomepage: https://read.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://read.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: ../fleet-archive/reader
       revision: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
@@ -55,14 +55,13 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 4
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
+      healthy: 4
+      failing: 1
       attention: &a2
-        unclassified: 4
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://read.significanthobbies.com.
+        ignored: 5
+  unknowns: []
 ownerVoice:
   whyVerbatim: I think Reader is one of the earliest products in the fleet and a product that started before all this by the way. Its purpose was to essentially let me post any website link and it just downloads everything and gets it ready for my viewing. While it is a good product, I also expanded it to have boards and other things. I've never really used it a lot. I have not been reading much. I will definitely want to pick and improve its tooling. I think there are a lot of tools that can improve the product once I start using it more.
   fullReviewVerbatim: I think Reader is one of the earliest products in the fleet and a product that started before all this by the way. Its purpose was to essentially let me post any website link and it just downloads everything and gets it ready for my viewing. While it is a good product, I also expanded it to have boards and other things. I've never really used it a lot. I have not been reading much. I will definitely want to pick and improve its tooling. I think there are a lot of tools that can improve the product once I start using it more.
@@ -122,7 +121,7 @@ repository:
   checkout: ../fleet-archive/reader
   observedRevision: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
   githubRepository: Significant-Hobbies/reader
-  githubHomepageUrl: null
+  githubHomepageUrl: https://read.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/reader
@@ -201,12 +200,21 @@ repository:
       - validate:env:deploy
       - validate:env:runtime
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 4
+    healthy: 4
+    failing: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/reader
+    defaultBranch: main
+    defaultBranchSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
+    homepage: https://read.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -214,11 +222,83 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34273051317
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
+          createdAt: 2026-09-08T20:08:32Z
+          updatedAt: 2026-09-08T20:11:27Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34273051317
+        ageDays: 9
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34273051317
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
+          createdAt: 2026-09-08T20:08:32Z
+          updatedAt: 2026-09-08T20:11:27Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34273051317
+        ageDays: 9
+      attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34273454449
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
+          createdAt: 2026-09-08T20:12:40Z
+          updatedAt: 2026-09-08T20:13:35Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34273454449
+        ageDays: 9
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -226,11 +306,118 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34273051412
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
+          createdAt: 2026-09-08T20:08:32Z
+          updatedAt: 2026-09-08T20:08:42Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34273051412
+        ageDays: 9
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34273051412
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
+          createdAt: 2026-09-08T20:08:32Z
+          updatedAt: 2026-09-08T20:08:42Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34273051412
+        ageDays: 9
+      attention: ignored
     - name: AI Code Review
       file: .github/workflows/review.yaml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 25568063470
+          status: completed
+          conclusion: failure
+          event: pull_request
+          branch: feat/chrome-extension-save-improvements
+          headSha: 37ba79deaf4774892fdd84edc79668655c4a5f9b
+          createdAt: 2026-05-08T16:51:58Z
+          updatedAt: 2026-05-08T16:52:04Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/25568063470
+        ageDays: 132
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34872551033
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
+          createdAt: 2026-09-14T17:04:57Z
+          updatedAt: 2026-09-14T17:05:46Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/34872551033
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
 deployment:
   kind: worker
   deployed: true

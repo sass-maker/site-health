@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: nomad-data-adventure
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-13
+  generatedAt: 2026-09-18
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: not-applicable
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
-      infrastructureUpdatedAt: 2026-09-12
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Nomad Data Adventure
@@ -28,25 +28,25 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: nomad-data-adventure
-      revision: 7a2a9fddf4b14bd11bfe3590b7af3b146e1fadde
+      revision: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
       githubRepository: sarthakagrawal927/nomad-data-adventure
-      expectedHomepage: https://sarthakagrawal927.github.io/nomad-data-adventure/
-      observedHomepage: null
+      expectedHomepage: https://nomad.significanthobbies.com/
+      observedHomepage: https://nomad.significanthobbies.com/
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: nomad-data-adventure
-      revision: 7a2a9fddf4b14bd11bfe3590b7af3b146e1fadde
+      revision: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
       githubRepository: sarthakagrawal927/nomad-data-adventure
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -57,20 +57,22 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      attention: &a2 {}
-  unknowns:
-    - GitHub repository homepage does not match the canonical deployed URL https://sarthakagrawal927.github.io/nomad-data-adventure/.
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
+      healthy: 1
+      cancelled: 1
+      attention: &a2
+        clear: 2
+  unknowns: []
 ownerVoice:
   whyVerbatim: keep as active for now, ensure to cleanup after yourself
   fullReviewVerbatim: keep as active for now, ensure to cleanup after yourself
   relatedHistoricalReviews: []
 decision:
-  classification: Active
-  whySummary: Explore city data in a bounded local experiment.
-  currentState: A standalone fictional-data demo is public and verified for sorting, budget filtering and offline/mobile use; collected datasets remain local.
-  nextDecision: Share the bounded experiment; establish redistribution rights before expanding to real collected data.
+  classification: Completed experiment
+  whySummary: Explore and compare places to live using collected city data.
+  currentState: "Shareable static Nomad Atlas explorer on Cloudflare Pages: 1,374 terrestrial places, cost and lifestyle filters, detailed comparisons and public JSON credited to Nomads.com. Canonical domain: nomad.significanthobbies.com."
+  nextDecision: Completed experiment; keep the public product and saved dataset, with no active expansion or collection roadmap.
 identity:
   name: Nomad Data Adventure
   publicName: Nomad Data Adventure
@@ -83,69 +85,184 @@ identity:
   unmetNeed: null
   kind: experiment
   priority: P2
-  tier: active
+  tier: secondary
   attention: toolbox
   lifecycle:
-    status: active
+    status: inactive
     resumeCondition: null
     shareable: true
   operationalStatus: live
-  authenticationModel: local-only
+  authenticationModel: public
   inRegistry: true
 product:
-  description: A small city-comparison experiment with fictional sample data, sortable trade-offs and a budget filter.
-  publicMakerNote: I am keeping Nomad Data Adventure active for now as a data exploration experiment.
+  description: Nomad Atlas explores 1,374 terrestrial places with living-cost profiles, lifestyle filters, city comparisons and downloadable source data credited to Nomads.com.
+  publicMakerNote: A completed, shareable city-data experiment. Explore the saved dataset, compare places and download your shortlist.
   purposeContract:
-    purpose: Explore city data through a bounded local experiment.
-    audience: A viewer exploring a small city-comparison interface.
-    outcome: Compare fictional city trade-offs and narrow a sample shortlist by budget.
-    mechanism: A self-contained HTML page sorts and filters original fictional records in the browser.
-    proof: Public synthetic demo, mobile layout, offline use, sorting, budget filtering and empty state verified on September 12.
-    nextAction: Try the sample; the full collected dataset remains private pending redistribution rights.
-  form: Browser experiment
+    purpose: Help people explore and compare places to live using a saved city dataset.
+    audience: People comparing destinations by budget, connectivity and everyday life.
+    outcome: Filter 1,374 terrestrial places, compare up to three across 22 metrics, and export matching records.
+    mechanism: Static HTML, CSS, JavaScript and JSON served by Cloudflare Pages; all filtering and comparisons run in the browser.
+    proof: Completed experiment verified at https://nomad.significanthobbies.com/ on September 13, commit e763b02. Six data tests, exact-commit CI and six release gates passed. Live search, comparison and downloads verified; 390px mobile layout checked. GitHub Pages disabled.
+    nextAction: Share and use the completed explorer at nomad.significanthobbies.com; no active expansion or collection roadmap.
+  form: Static city explorer
   platforms:
     - Web
   prominentTools:
+    - Cloudflare Pages
+    - JavaScript
     - HTML
     - CSS
-    - JavaScript
   retainedGitHistory:
     firstCommitAt: 2026-09-12
     latestCommitAt: 2026-09-13
-    retainedCommitCount: 2
+    retainedCommitCount: 8
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: nomad-data-adventure
-  observedRevision: 7a2a9fddf4b14bd11bfe3590b7af3b146e1fadde
+  observedRevision: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
   githubRepository: sarthakagrawal927/nomad-data-adventure
-  githubHomepageUrl: null
+  githubHomepageUrl: https://nomad.significanthobbies.com/
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/nomad-data-adventure
   aliases: []
   sourceOverride: nomad-data-adventure
   tooling:
-    declaredPackageManager: null
-    detectedSignals: []
-    rootPackageScripts: []
+    declaredPackageManager: pnpm@10.30.3
+    detectedSignals:
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - build
+      - check
+      - deploy
+      - dev
+      - test
 githubActions:
-  observedAt: null
-  staleAfterDays: null
-  summary: {}
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+    cancelled: 1
   attention: *a2
-  remote: null
-  workflows: []
+  remote:
+    repository: sarthakagrawal927/nomad-data-adventure
+    defaultBranch: main
+    defaultBranchSha: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
+    homepage: https://nomad.significanthobbies.com/
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: Static product checks
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34769764408
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
+          createdAt: 2026-09-13T16:50:05Z
+          updatedAt: 2026-09-13T16:50:18Z
+          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34769764408
+        ageDays: 4
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34769764408
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
+          createdAt: 2026-09-13T16:50:05Z
+          updatedAt: 2026-09-13T16:50:18Z
+          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34769764408
+        ageDays: 4
+      attention: clear
+    - name: pages-build-deployment
+      file: dynamic/pages/pages-build-deployment
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: cancelled
+        reason: latest run was cancelled
+        apiState: active
+        lastRun:
+          id: 34768583692
+          status: completed
+          conclusion: cancelled
+          event: dynamic
+          branch: main
+          headSha: 37c6a678c0f10a3a54b01b649b892ce9ba25d63d
+          createdAt: 2026-09-13T16:26:32Z
+          updatedAt: 2026-09-13T16:26:59Z
+          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34768583692
+        ageDays: 4
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: pages
   deployed: true
   domains:
-    - sarthakagrawal927.github.io
-  primaryUrl: https://sarthakagrawal927.github.io/nomad-data-adventure/
+    - nomad.significanthobbies.com
+    - nomad-data-adventure.pages.dev
+  primaryUrl: https://nomad.significanthobbies.com/
   domainProbePaths: {}
   targets: []
   cloudflare:
-    deployments: []
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: nomad-data-adventure
+        method: wrangler-direct
+        state: live
+        scope: project
+        operationalOwner: nomad-data-adventure
+        attributionReason: Owner requested Cloudflare-only static hosting for Nomad Atlas and its public JSON snapshot.
+        url: https://nomad.significanthobbies.com/
+        verification:
+          observedAt: 2026-09-13
+          deploymentId: 52e6b939
+          sourceCommit: e763b029b182fc2354ea250e0a5565ff4bb3f0d6
     resources: []
   otherProviders:
     deployments:
@@ -153,21 +270,21 @@ deployment:
         kind: pages
         name: sarthakagrawal927/nomad-data-adventure
         method: branch-main-root
-        state: live
+        state: retired
         url: https://sarthakagrawal927.github.io/nomad-data-adventure/
         scope: project
         operationalOwner: nomad-data-adventure
-        attributionReason: Reviewed two-file synthetic demo for Nomad Data Adventure; original collected data excluded.
+        attributionReason: GitHub Pages unpublished on 2026-09-13 after verified Cloudflare migration; repository remains source history and CI.
     resources: []
 sharing:
   publicListing: maintained
   maturity: experiment
   ready: true
-  verifiedAt: 2026-09-07
-  reason: Dataset rights, reproducible setup, user-facing value and distribution not qualified.
+  verifiedAt: 2026-09-13
+  reason: Shareable, completed experiment. Canonical HTTPS domain, live city search and source JSON verified on 2026-09-13. Desktop/mobile workflows, exact-commit CI and deployment gates passed; GitHub Pages is disabled.
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/nomad-data-adventure/issues
   geoIdentity: null
 notes:
-  catalog: "Owner confirmed active on 2026-09-07. One workspace at nomad-data-adventure: the root contains the public synthetic demo; its Git-ignored data/ directory retains collected datasets, collection scripts, and logs. The local Astro app and local demos were removed from the workspace."
-  infrastructure: No Git repository or deployed provider resources verified; local directory only.
+  catalog: Owner requested Cloudflare-only hosting and a richer visual explorer on 2026-09-13. Nomad Atlas shows 1,374 terrestrial places from the original 1,383-record JSON; nine Space novelty entries remain in the original download only. Alternative local exports contain the same records. Collection scripts, state, logs and duplicate exports stay in Git-ignored data/. No backend or scheduled collection. Owner marked this a shareable, completed experiment and requested nomad.significanthobbies.com on 2026-09-13.
+  infrastructure: Shareable completed experiment. Cloudflare Pages hosts the static explorer at nomad.significanthobbies.com with automatic CNAME and HTTPS; pages.dev remains the provider alias. No backend, database or collection service. GitHub Pages retired.

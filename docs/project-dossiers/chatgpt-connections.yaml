@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: chatgpt-connections
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-13
+  generatedAt: 2026-09-18
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,10 +28,10 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: chatgpt-connections
       revision: 5f0394d6f67713eddb117706785256eee78a37fe
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: chatgpt-connections
       revision: 5f0394d6f67713eddb117706785256eee78a37fe
@@ -56,13 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
+      healthy: 2
       attention: &a2
-        unclassified: 2
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
+        clear: 2
+  unknowns: []
 ownerVoice:
   whyVerbatim: "ChatGPT connections: the purpose for this was that I have a lot of projects and there was no solid way for me to connect with them with ChatGPT so this was built."
   fullReviewVerbatim: |-
@@ -162,12 +161,20 @@ repository:
       - types:worker
       - verify:activation
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    healthy: 2
   attention: *a2
-  remote: null
+  remote:
+    repository: sass-maker/chatgpt-connections
+    defaultBranch: main
+    defaultBranchSha: 5f0394d6f67713eddb117706785256eee78a37fe
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: ChatGPT Connections CI
       file: .github/workflows/ci.yml
@@ -176,6 +183,47 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34588663909
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 5f0394d6f67713eddb117706785256eee78a37fe
+          createdAt: 2026-09-11T10:19:40Z
+          updatedAt: 2026-09-11T10:20:04Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/34588663909
+        ageDays: 6
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34588663909
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 5f0394d6f67713eddb117706785256eee78a37fe
+          createdAt: 2026-09-11T10:19:40Z
+          updatedAt: 2026-09-11T10:20:04Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/34588663909
+        ageDays: 6
+      attention: clear
     - name: ChatGPT Connections Production Monitor
       file: .github/workflows/production-monitor.yml
       triggers:
@@ -183,6 +231,48 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 17 3 * * *
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35323752988
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 5f0394d6f67713eddb117706785256eee78a37fe
+          createdAt: 2026-09-18T08:19:02Z
+          updatedAt: 2026-09-18T08:19:29Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/35323752988
+        ageDays: 0
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 35323752988
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 5f0394d6f67713eddb117706785256eee78a37fe
+          createdAt: 2026-09-18T08:19:02Z
+          updatedAt: 2026-09-18T08:19:29Z
+          url: https://github.com/sass-maker/chatgpt-connections/actions/runs/35323752988
+        ageDays: 0
+        freshnessDays: 2
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: worker
   deployed: true

@@ -1,0 +1,198 @@
+schemaVersion: 1
+projectId: launchdesk
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-18
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: passed
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      infrastructureUpdatedAt: 2026-09-18
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=launchdesk].ownerNarrative
+      sourceHeading: LaunchDesk
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-18
+      reviewSha256: 8a69fbc483835d9b18bda3f1d5b8d0c1d4c8b157c8da8b37d895e3444d4bcc1e
+      documentSha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-18
+      state: available
+      checkout: launchdesk
+      revision: 137eb9d67c68b94f31ec77ee04adbc236507e958
+      githubRepository: Significant-Hobbies/launchdesk
+      expectedHomepage: https://launchdesk.significanthobbies.com/
+      observedHomepage: https://launchdesk.significanthobbies.com/
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 1
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-18
+      state: available
+      checkout: launchdesk
+      revision: 137eb9d67c68b94f31ec77ee04adbc236507e958
+      githubRepository: Significant-Hobbies/launchdesk
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-18
+      catalogLatestCommitAt: 2026-09-18
+      catalogDrift: []
+      reason: null
+    githubActions:
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
+      attention: &a2 {}
+  unknowns: []
+ownerVoice:
+  whyVerbatim: Build this out and release it on CF.
+  fullReviewVerbatim: Build this out and release it on CF.
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Give makers a provenance-honest catalog of launch destinations with per-product submission tracking.
+  currentState: Live publicly at launchdesk.significanthobbies.com as a browser-storage static Worker app; the live link-checker stays local-only by owner decision.
+  nextDecision: "Keep: The 966-destination attributed catalog with explicit unknowns and browser-local tracking. Stop: Accounts, automated submission, outreach features and invented metrics."
+identity:
+  name: LaunchDesk
+  publicName: LaunchDesk
+  aliases: []
+  family: launchdesk
+  category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: true
+  unmetNeed: true
+  kind: product
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: true
+  operationalStatus: live
+  authenticationModel: public
+  inRegistry: true
+product:
+  description: A local-first launch workspace with a provenance-bearing catalog of 966 submission destinations, per-product queues and source-attributed metrics. Your workspace stays in your browser.
+  publicMakerNote: A launch-submission tracker built from attributed public source lists. It keeps reported metrics honest — unknown stays blank, never zero — and stores your queue in your own browser.
+  purposeContract:
+    purpose: LaunchDesk helps builders choose where to submit a product and track each launch across destinations.
+    audience: Indie makers and small teams launching software products.
+    outcome: A filtered, queued and tracked set of real submission destinations instead of a stale copy-pasted list.
+    mechanism: A deduplicated catalog of 966 prospects with source history, reported DR and link types, per-product queues and statuses; visitor state lives in browser storage, with an optional local Python/SQLite mode for live link checks.
+    proof: Public site at launchdesk.significanthobbies.com, 36 passing unit tests, source attribution in data/sources, and explicit unknowns rather than invented metrics.
+    nextAction: Open the directory, set your product brief, and queue a small set of fitting destinations.
+  form: Web app
+  platforms:
+    - Web
+  prominentTools:
+    - Cloudflare Workers
+    - Python
+    - SQLite
+  retainedGitHistory:
+    firstCommitAt: 2026-09-18
+    latestCommitAt: 2026-09-18
+    retainedCommitCount: 2
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: launchdesk
+  observedRevision: 137eb9d67c68b94f31ec77ee04adbc236507e958
+  githubRepository: Significant-Hobbies/launchdesk
+  githubHomepageUrl: https://launchdesk.significanthobbies.com/
+  worktree: *a1
+  visibility: public
+  url: https://github.com/Significant-Hobbies/launchdesk
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - build:catalog
+      - deploy
+      - dev
+      - test
+githubActions:
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
+  summary: {}
+  attention: *a2
+  remote:
+    repository: Significant-Hobbies/launchdesk
+    defaultBranch: main
+    defaultBranchSha: 03426425ffdf68be38aa39078e7e91700878d546
+    homepage: https://launchdesk.significanthobbies.com/
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows: []
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - launchdesk.significanthobbies.com
+  primaryUrl: https://launchdesk.significanthobbies.com/
+  domainProbePaths: {}
+  targets:
+    - id: site
+      kind: worker
+      name: launchdesk
+      sourcePath: launchdesk
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: launchdesk
+        method: wrangler-direct
+        state: live
+        versionId: fcb89550-858a-42de-b290-dec02f7a8cd6
+        attributionReason: Public LaunchDesk site; static-assets-only Worker deployed from the launchdesk checkout via wrangler deploy --tag.
+    resources:
+      - provider: cloudflare
+        kind: custom-domain
+        name: launchdesk.significanthobbies.com
+        state: active
+        attributionReason: Canonical public LaunchDesk domain attached to the launchdesk Worker.
+        scope: project
+        operationalOwner: launchdesk
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: beta
+  ready: true
+  verifiedAt: 2026-09-18
+  reason: LaunchDesk is live at launchdesk.significanthobbies.com as a public static-assets Cloudflare Worker. The 966-destination catalog renders from the embedded seed and visitor workspaces persist in browser storage only; the live link-checker is intentionally not ported off the local Python mode. 36 Python unit tests pass; the deployed render was verified in headless Chromium.
+  changelogUrl: null
+  roadmapUrl: https://github.com/Significant-Hobbies/launchdesk/issues
+  geoIdentity: null
+notes:
+  catalog: Imported from the 2026-09-18 local package and released publicly on Cloudflare as a browser-storage static app. Owner chose to skip porting /api/verify to the Worker.
+  infrastructure: Static-assets-only Worker (no Worker script, no bindings) serving web/. Visitor workspace state is browser localStorage; no server-side persistence exists in production. The local Python/SQLite mode is not deployed.

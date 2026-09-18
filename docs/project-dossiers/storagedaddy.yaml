@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: storagedaddy
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-13
+  generatedAt: 2026-09-18
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
+    githubHomepage: passed
     githubActionsLiveState: not-applicable
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,38 +28,38 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: storagedaddy
-      revision: 2a308d7a11f213c6021e1f6e3dc7bf25341427d4
+      revision: 895c0a9df372020b73d00526eee44f233cf0bdc8
       githubRepository: sarthakagrawal927/storagedaddy
       expectedHomepage: https://storagedaddy.significanthobbies.com/
-      observedHomepage: null
+      observedHomepage: https://storagedaddy.significanthobbies.com/
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: storagedaddy
-      revision: 2a308d7a11f213c6021e1f6e3dc7bf25341427d4
+      revision: 895c0a9df372020b73d00526eee44f233cf0bdc8
       githubRepository: sarthakagrawal927/storagedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-13
       catalogLatestCommitAt: 2026-09-13
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
       attention: &a2 {}
-  unknowns:
-    - GitHub repository homepage does not match the canonical deployed URL https://storagedaddy.significanthobbies.com/.
+  unknowns: []
 ownerVoice:
   whyVerbatim: Working native Mac app
   fullReviewVerbatim: |-
@@ -121,15 +121,15 @@ product:
     - Sparkle
   retainedGitHistory:
     firstCommitAt: 2026-09-13
-    latestCommitAt: 2026-09-13
-    retainedCommitCount: 6
+    latestCommitAt: 2026-09-14
+    retainedCommitCount: 9
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: storagedaddy
-  observedRevision: 2a308d7a11f213c6021e1f6e3dc7bf25341427d4
+  observedRevision: 895c0a9df372020b73d00526eee44f233cf0bdc8
   githubRepository: sarthakagrawal927/storagedaddy
-  githubHomepageUrl: null
+  githubHomepageUrl: https://storagedaddy.significanthobbies.com/
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/storagedaddy
@@ -152,11 +152,19 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
   summary: {}
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/storagedaddy
+    defaultBranch: main
+    defaultBranchSha: 6c9ef9861a72abe7caaec58449ded44ebaad1580
+    homepage: https://storagedaddy.significanthobbies.com/
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows: []
 deployment:
   kind: worker

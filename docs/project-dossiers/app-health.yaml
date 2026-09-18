@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: app-health
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-13
+  generatedAt: 2026-09-18
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
-      infrastructureUpdatedAt: 2026-09-13
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      infrastructureUpdatedAt: 2026-09-14
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: App Health
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: app-health
-      revision: c3071821f501410ba0d29bd6f0c3e51178506b14
+      revision: 2b6d469d282506bb3354fc6880910170baed5a5f
       githubRepository: sass-maker/app-health
       expectedHomepage: https://health.sassmaker.com
-      observedHomepage: null
+      observedHomepage: https://health.sassmaker.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 45
+        trackedChangeCount: 58
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: app-health
-      revision: c3071821f501410ba0d29bd6f0c3e51178506b14
+      revision: 2b6d469d282506bb3354fc6880910170baed5a5f
       githubRepository: sass-maker/app-health
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,14 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://health.sassmaker.com.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: |-
     I started App Health because in my production server, where I work, we had:
@@ -129,15 +127,15 @@ product:
     - Swift
   retainedGitHistory:
     firstCommitAt: 2026-07-20
-    latestCommitAt: 2026-09-13
-    retainedCommitCount: 119
+    latestCommitAt: 2026-09-18
+    retainedCommitCount: 130
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: app-health
-  observedRevision: c3071821f501410ba0d29bd6f0c3e51178506b14
+  observedRevision: 2b6d469d282506bb3354fc6880910170baed5a5f
   githubRepository: sass-maker/app-health
-  githubHomepageUrl: null
+  githubHomepageUrl: https://health.sassmaker.com
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/app-health
@@ -203,12 +201,20 @@ repository:
       - verify:public-viewer
       - verify:swift-runtime
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sass-maker/app-health
+    defaultBranch: main
+    defaultBranchSha: 0210463bc4ecf677b143ea0d71b375c8e17cb2f2
+    homepage: https://health.sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -216,6 +222,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35325766482
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 0210463bc4ecf677b143ea0d71b375c8e17cb2f2
+          createdAt: 2026-09-18T08:42:47Z
+          updatedAt: 2026-09-18T08:47:13Z
+          url: https://github.com/sass-maker/app-health/actions/runs/35325766482
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35325766482
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 0210463bc4ecf677b143ea0d71b375c8e17cb2f2
+          createdAt: 2026-09-18T08:42:47Z
+          updatedAt: 2026-09-18T08:47:13Z
+          url: https://github.com/sass-maker/app-health/actions/runs/35325766482
+        ageDays: 0
+      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -233,13 +280,13 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-13T06:44:46.996732+00:00
-          deploymentId: e6b8aecc-5bb0-4fdf-902a-8f7877351236
-          versionId: 3ed4733f-febd-423a-977b-929a3a6eadbf
-          sourceCommit: 1bf07738e47b32fb15048d8a5a74218a491b63e6
+          observedAt: 2026-09-14T06:21:44.405250+00:00
+          deploymentId: 64193278-ff31-4a82-8aaf-50922bcb9909
+          versionId: bf4bf7a5-4f88-4769-ad63-4b3e8caa49a2
+          sourceCommit: fac56e145b24ea86ea51c80fef65bb0d573f7e02
           trafficPercent: 100
-          state: success-production-public-reports-verified
-          evidencePath: https://github.com/sass-maker/app-health/issues/60#issuecomment-5651734193
+          state: success-production-session-tracking-verified
+          evidencePath: https://github.com/sass-maker/app-health/issues/64
     resources:
       - provider: cloudflare
         kind: d1
@@ -319,7 +366,7 @@ sharing:
     id: app-health
     name: App Health
     aliases: []
-    description: Privacy-first endpoint health for Node, Go, and OpenTelemetry services.
+    description: Web analytics, product events, logs, and endpoint health in one workspace.
     origin: https://health.sassmaker.com
     source:
       state: public
@@ -336,4 +383,4 @@ sharing:
       state: not-declared
 notes:
   catalog: Production Google signup, returning login, sign-out and project creation verified; own signup/project milestone logs remain exactly one each. Known analytics traffic returned 3 sessions, 4 page views and 2 named events without duplicate-batch inflation, with correct 1h/24h boundaries and referral sources. Public live page and revocation verified. JavaScript SDK 0.4.0 published and artifact integrity checked. See app-health/docs/release-2026-09-12.md; broader analytics parity and remotely published Swift package remain follow-up work.
-  infrastructure: "App Health source 1bf07738e47b32fb15048d8a5a74218a491b63e6 serves 100% through Worker 3ed4733f-febd-423a-977b-929a3a6eadbf. Highsignal and StorageDaddy public Analytics Engine reports verified with routes, normalized sources, countries and repeated polling at 390/768/1440 widths. Signed-in production segment and session report interactions were unavailable for verification in this session. No migration, dependency, SDK or bound resource changes. Release receipt: https://github.com/sass-maker/app-health/issues/60#issuecomment-5651734193. Earlier acceptance evidence retained: Unified App Health runtime cadec991-0fac-4ec5-8d69-e280269cbca6 serves main 7354336ff554fe880b8fdfd214cceb48faf616e6 at 100%. Production Google signup, returning login, sign-out and project creation verified; own signup/project milestone logs remain exactly one each. Known analytics traffic returned 3 sessions, 4 page views and 2 named events without duplicate-batch inflation, with correct 1h/24h boundaries and referral sources. Public live page and revocation verified. JavaScript SDK 0.4.0 published and artifact integrity checked. See app-health/docs/release-2026-09-12.md; broader analytics parity and remotely published Swift package remain follow-up work. Additive migrations 0007-0011 applied after private backup. Primary queue retention 1 day, dead-letter queue 14 days, compressed R2 archive lifecycle 30 days. Existing unrelated legacy projects and credentials preserved."
+  infrastructure: "2026-09-14: Automatic attribution and browser-session reliability released at fac56e145b24ea86ea51c80fef65bb0d573f7e02, Worker bf4bf7a5-4f88-4769-ad63-4b3e8caa49a2, 100% traffic. Live tracker hash matches tested source; signed-in StorageDaddy analytics and public embed verified. A real website visit reached Analytics Engine (page views and sessions 5 to 6), presence 1, country IN. No new resources, schema migrations, dependencies or SDK publication. Receipt: https://github.com/sass-maker/app-health/issues/64. Earlier evidence: 2026-09-14: App Health backend dogfooding released at source 91ade4b0ceaa5d580249bf1701e5b8201f263fec, Worker 67e477c1-9fc0-4221-981a-edeb4380d8d1, 100% traffic. Dedicated scoped Worker secret and existing SDK ingest route enabled; global_fetch_strictly_public makes same-Worker delivery reach the public collector. Real signed-in dashboard traffic stored under the existing App Health production project; Backend request counts, error rates and p50/p95 verified. No new resource, schema migration or SDK publication. Receipt: https://github.com/sass-maker/app-health/issues/63. Earlier evidence: App Health source 1bf07738e47b32fb15048d8a5a74218a491b63e6 serves 100% through Worker 3ed4733f-febd-423a-977b-929a3a6eadbf. Highsignal and StorageDaddy public Analytics Engine reports verified with routes, normalized sources, countries and repeated polling at 390/768/1440 widths. Signed-in production segment and session report interactions were unavailable for verification in this session. No migration, dependency, SDK or bound resource changes. Release receipt: https://github.com/sass-maker/app-health/issues/60#issuecomment-5651734193. Earlier acceptance evidence retained: Unified App Health runtime cadec991-0fac-4ec5-8d69-e280269cbca6 serves main 7354336ff554fe880b8fdfd214cceb48faf616e6 at 100%. Production Google signup, returning login, sign-out and project creation verified; own signup/project milestone logs remain exactly one each. Known analytics traffic returned 3 sessions, 4 page views and 2 named events without duplicate-batch inflation, with correct 1h/24h boundaries and referral sources. Public live page and revocation verified. JavaScript SDK 0.4.0 published and artifact integrity checked. See app-health/docs/release-2026-09-12.md; broader analytics parity and remotely published Swift package remain follow-up work. Additive migrations 0007-0011 applied after private backup. Primary queue retention 1 day, dead-letter queue 14 days, compressed R2 archive lifecycle 30 days. Existing unrelated legacy projects and credentials preserved."

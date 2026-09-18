@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: forecast-lab
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-13
+  generatedAt: 2026-09-18
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3993aa9bd69dda9fa1b6e496fafc53fcc8b2ae0207a734f673f327f73985fbf0
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,10 +28,10 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ca850bbf67e4eb36dee4952588e658e4925a4fdcf7b3adf1836f8c8e00be1571
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: ../fleet-archive/forecast-lab
       revision: 8b245ad7476d97812df4cba67f19473f29ac53c2
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-13
+      observedAt: 2026-09-18
       state: available
       checkout: ../fleet-archive/forecast-lab
       revision: 8b245ad7476d97812df4cba67f19473f29ac53c2
@@ -55,13 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
+        ignored: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
   fullReviewVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
@@ -126,7 +125,7 @@ repository:
   visibility: public
   url: https://github.com/sarthakagrawal927/forecast-lab
   aliases: []
-  sourceOverride: forecast-lab
+  sourceOverride: ../fleet-archive/forecast-lab
   tooling:
     declaredPackageManager: null
     detectedSignals:
@@ -153,12 +152,20 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/forecast-lab
+    defaultBranch: main
+    defaultBranchSha: 8b245ad7476d97812df4cba67f19473f29ac53c2
+    homepage: null
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -166,6 +173,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34115663900
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8b245ad7476d97812df4cba67f19473f29ac53c2
+          createdAt: 2026-09-07T11:15:10Z
+          updatedAt: 2026-09-07T11:15:36Z
+          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/34115663900
+        ageDays: 10
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34115663900
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8b245ad7476d97812df4cba67f19473f29ac53c2
+          createdAt: 2026-09-07T11:15:10Z
+          updatedAt: 2026-09-07T11:15:36Z
+          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/34115663900
+        ageDays: 10
+      attention: ignored
 deployment:
   kind: none
   deployed: false

@@ -1,0 +1,162 @@
+schemaVersion: 1
+projectId: shoulders
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-18
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: unavailable
+    githubHomepage: not-applicable
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      infrastructureUpdatedAt: 2026-09-14
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=shoulders].ownerNarrative
+      sourceHeading: Shoulders
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-14
+      reviewSha256: e3a97ff166bf6d5304c4e0f43aba0876daaa2c63461414cd4b1ebe34b9f3d379
+      documentSha256: 818bbf631925c9fba4a0be4948ad89466edaf39b3402a27cf179cfd85f241253
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: d9e8ddde29655a4a4b292bfbe5f5302e5788155d18c89b96320e1f2754916d3c
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-18
+      state: unavailable
+      checkout: ../fleet-archive/shoulders
+      revision: null
+      githubRepository: null
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: null
+    retainedGitHistory:
+      observedAt: 2026-09-18
+      state: unavailable
+      checkout: ../fleet-archive/shoulders
+      revision: null
+      githubRepository: null
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: null
+      catalogLatestCommitAt: null
+      catalogDrift: []
+      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/shoulders rev-parse HEAD"
+    githubActions:
+      observedAt: 2026-09-18T08:50:03.268Z
+      staleAfterDays: 30
+      attention: &a1 {}
+  unknowns:
+    - The owning checkout was unavailable during repository observation.
+ownerVoice:
+  whyVerbatim: I lost interest in this product. Move this to archived as paused.
+  fullReviewVerbatim: I lost interest in this product. Move this to archived as paused.
+  relatedHistoricalReviews: []
+decision:
+  classification: Inactive / paused
+  whySummary: Explain familiar software through its documented foundations and creator contributions.
+  currentState: Owner lost interest and archived the local prototype on 2026-09-14; complete uncommitted checkout preserved in fleet-archive.
+  nextDecision: No further work unless the owner explicitly requests resumption.
+identity:
+  name: Shoulders
+  publicName: Shoulders
+  aliases: []
+  family: shoulders
+  category: experimental
+  audience: null
+  personalUse: null
+  moneyOrPersonalBrand: null
+  unmetNeed: null
+  kind: experiment
+  priority: P4
+  tier: archived
+  attention: paused
+  lifecycle:
+    status: inactive
+    resumeCondition: Resume only when the owner explicitly requests it.
+    shareable: false
+  operationalStatus: local-only
+product:
+  description: An editorial exploration of software foundations. Paused local prototype.
+  purposeContract:
+    purpose: Shoulders helps curious software users and builders understand familiar products through their documented foundations.
+    audience: Curious software users and builders.
+    outcome: Understand a foundation and what the product creators added.
+    mechanism: Curated interactive dependency trees with source evidence and independent-use guidance.
+    proof: Local six-product prototype with source-linked research; publication review pending.
+    nextAction: Paused; resume only at the owner’s request.
+  form: Static technical explainer
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - TypeScript
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: ../fleet-archive/shoulders
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
+  visibility: private
+  url: https://github.com/sarthakagrawal927/shoulders
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-09-18T08:50:03.268Z
+  staleAfterDays: 30
+  summary: {}
+  attention: *a1
+  remote:
+    repository: null
+    defaultBranch: null
+    defaultBranchSha: null
+    homepage: null
+    query: unverifiable
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows: []
+deployment:
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: experiment
+  ready: false
+  verifiedAt: null
+  reason: null
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/shoulders/issues
+  geoIdentity: null
+notes:
+  catalog: Paused by owner; local prototype and uncommitted work preserved in fleet-archive. GitHub repository is empty.
+  infrastructure: Local prototype only; no hosting or provider resources provisioned in the Shoulders build. Paused and archived by owner.
