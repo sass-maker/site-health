@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: kith
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
+      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,33 +34,36 @@ verification:
       observedAt: 2026-09-18
       state: available
       checkout: kith
-      revision: 03689bf67f07ce1dde4d41d6b471b5153c287996
+      revision: c9c21ba27f423f7b4d4ef35bf0f129c53acf2188
       githubRepository: Significant-Hobbies/kith
       expectedHomepage: https://kith.significanthobbies.com
-      observedHomepage: https://kith.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 2
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-18
       state: available
       checkout: kith
-      revision: 03689bf67f07ce1dde4d41d6b471b5153c287996
+      revision: c9c21ba27f423f7b4d4ef35bf0f129c53acf2188
       githubRepository: Significant-Hobbies/kith
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-16
       catalogLatestCommitAt: 2026-09-09
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T10:17:55.721Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://kith.significanthobbies.com.
 ownerVoice:
   whyVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
   fullReviewVerbatim: Keetha! It is also something I wanted to build. I saw a tweet in which someone has built a very beautiful relationship management app. I was like, I also need a relationship management app so I decided to build it out. In terms of the future I intend to use it and see how it goes.
@@ -110,15 +113,15 @@ product:
     - PersonalSyncKit
   retainedGitHistory:
     firstCommitAt: 2026-08-16
-    latestCommitAt: 2026-09-09
-    retainedCommitCount: 54
+    latestCommitAt: 2026-09-18
+    retainedCommitCount: 56
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: kith
-  observedRevision: 03689bf67f07ce1dde4d41d6b471b5153c287996
+  observedRevision: c9c21ba27f423f7b4d4ef35bf0f129c53acf2188
   githubRepository: Significant-Hobbies/kith
-  githubHomepageUrl: https://kith.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/kith
@@ -132,20 +135,12 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-18T10:17:55.721Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/kith
-    defaultBranch: main
-    defaultBranchSha: 03689bf67f07ce1dde4d41d6b471b5153c287996
-    homepage: https://kith.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -153,47 +148,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34333207923
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 03689bf67f07ce1dde4d41d6b471b5153c287996
-          createdAt: 2026-09-09T09:10:24Z
-          updatedAt: 2026-09-09T09:21:42Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34333207923
-        ageDays: 9
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34333207923
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 03689bf67f07ce1dde4d41d6b471b5153c287996
-          createdAt: 2026-09-09T09:10:24Z
-          updatedAt: 2026-09-09T09:21:42Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/34333207923
-        ageDays: 9
-      attention: clear
 deployment:
   kind: pages
   deployed: true

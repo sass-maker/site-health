@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: ai-game
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
+      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -37,7 +37,7 @@ verification:
       revision: a879975756fd30d853e722d6370218007a0549d5
       githubRepository: sarthakagrawal927/aliveville
       expectedHomepage: https://aliveville.com
-      observedHomepage: https://aliveville.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T10:17:55.721Z
-      staleAfterDays: 30
-      healthy: 3
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 3
       attention: &a2
-        ignored: 3
-  unknowns: []
+        unclassified: 3
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://aliveville.com.
 ownerVoice:
   whyVerbatim: I started AliveVille with a vision that there will be AI agents that are going on their life in a real-life-based game. It can be a fantasy game also but it will be AI, a long-running AI agent essentially doing actions, getting into fights, all the standard open-world game characteristics. With AI having long-form memory they can hold grudges and they can do things. It was a fairly technical thing to start so I wanted to do it.
   fullReviewVerbatim: |-
@@ -126,7 +128,7 @@ repository:
   checkout: ../fleet-archive/aliveville
   observedRevision: a879975756fd30d853e722d6370218007a0549d5
   githubRepository: sarthakagrawal927/aliveville
-  githubHomepageUrl: https://aliveville.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/aliveville
@@ -188,20 +190,12 @@ repository:
       - typecheck
       - verify:readiness
 githubActions:
-  observedAt: 2026-09-18T10:17:55.721Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 3
+    unverifiable: 3
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/aliveville
-    defaultBranch: main
-    defaultBranchSha: a879975756fd30d853e722d6370218007a0549d5
-    homepage: https://aliveville.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -209,130 +203,17 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34412688373
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: a879975756fd30d853e722d6370218007a0549d5
-          createdAt: 2026-09-09T22:32:04Z
-          updatedAt: 2026-09-09T22:32:44Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34412688373
-        ageDays: 8
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34412688373
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: a879975756fd30d853e722d6370218007a0549d5
-          createdAt: 2026-09-09T22:32:04Z
-          updatedAt: 2026-09-09T22:32:44Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34412688373
-        ageDays: 8
-      attention: ignored
     - name: Deploy aliveville landing
       file: .github/workflows/deploy-aliveville.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34015634206
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 31440a576e900479055bd7f49b41811c512d6675
-          createdAt: 2026-09-06T06:06:15Z
-          updatedAt: 2026-09-06T06:07:02Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34015634206
-        ageDays: 12
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34412688365
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: a879975756fd30d853e722d6370218007a0549d5
-          createdAt: 2026-09-09T22:32:04Z
-          updatedAt: 2026-09-09T22:32:18Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34412688365
-        ageDays: 8
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34412688365
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: a879975756fd30d853e722d6370218007a0549d5
-          createdAt: 2026-09-09T22:32:04Z
-          updatedAt: 2026-09-09T22:32:18Z
-          url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34412688365
-        ageDays: 8
-      attention: ignored
 deployment:
   kind: worker+pages
   deployed: true

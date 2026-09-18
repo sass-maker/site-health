@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: launchdesk
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: mismatch
     githubActionsLiveState: not-applicable
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
+      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
       infrastructureUpdatedAt: 2026-09-18
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-18
       reviewSha256: 8a69fbc483835d9b18bda3f1d5b8d0c1d4c8b157c8da8b37d895e3444d4bcc1e
-      documentSha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
+      documentSha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -35,19 +35,19 @@ verification:
       observedAt: 2026-09-18
       state: available
       checkout: launchdesk
-      revision: 22a82a3f59b994b1fec9d32135181c24d8da9e16
+      revision: dbcda83861b66aaf3551680b5c104a2c5dd77dd2
       githubRepository: Significant-Hobbies/launchdesk
       expectedHomepage: https://sassmaker.com/launchdesk
-      observedHomepage: https://sassmaker.com/launchdesk
+      observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 3
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-18
       state: available
       checkout: launchdesk
-      revision: 22a82a3f59b994b1fec9d32135181c24d8da9e16
+      revision: dbcda83861b66aaf3551680b5c104a2c5dd77dd2
       githubRepository: Significant-Hobbies/launchdesk
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,10 +56,11 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-18T10:17:55.721Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a2 {}
-  unknowns: []
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://sassmaker.com/launchdesk.
 ownerVoice:
   whyVerbatim: Build this out and release it on CF.
   fullReviewVerbatim: Build this out and release it on CF.
@@ -111,14 +112,14 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-09-18
     latestCommitAt: 2026-09-18
-    retainedCommitCount: 4
+    retainedCommitCount: 5
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: launchdesk
-  observedRevision: 22a82a3f59b994b1fec9d32135181c24d8da9e16
+  observedRevision: dbcda83861b66aaf3551680b5c104a2c5dd77dd2
   githubRepository: Significant-Hobbies/launchdesk
-  githubHomepageUrl: https://sassmaker.com/launchdesk
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/launchdesk
@@ -132,19 +133,11 @@ repository:
       - sync:showcase
       - test
 githubActions:
-  observedAt: 2026-09-18T10:17:55.721Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/launchdesk
-    defaultBranch: main
-    defaultBranchSha: 22a82a3f59b994b1fec9d32135181c24d8da9e16
-    homepage: https://sassmaker.com/launchdesk
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows: []
 deployment:
   kind: pages

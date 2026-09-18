@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: calorie
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
+      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -37,10 +37,10 @@ verification:
       revision: 82f624b09e63b8e7ff909903838638fc691cb271
       githubRepository: Significant-Hobbies/calorie
       expectedHomepage: https://calorie.significanthobbies.com
-      observedHomepage: https://calorie.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 19
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-18
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T10:17:55.721Z
-      staleAfterDays: 30
-      failing: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        action-required: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://calorie.significanthobbies.com.
 ownerVoice:
   whyVerbatim: |-
     I was trying to lose weight so I built this. It's just a simple calorie tracker in which you can input your food, you can input your log time, and it will tell you:
@@ -131,7 +133,7 @@ repository:
   checkout: calorie
   observedRevision: 82f624b09e63b8e7ff909903838638fc691cb271
   githubRepository: Significant-Hobbies/calorie
-  githubHomepageUrl: https://calorie.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/calorie
@@ -182,20 +184,12 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-09-18T10:17:55.721Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    failing: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/calorie
-    defaultBranch: main
-    defaultBranchSha: c5120c1cdf80dc95e416b8b9d9de181ddcef27c2
-    homepage: https://calorie.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -203,47 +197,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: failing
-        reason: latest run concluded failure
-        apiState: active
-        lastRun:
-          id: 35325315011
-          status: completed
-          conclusion: failure
-          event: push
-          branch: main
-          headSha: c5120c1cdf80dc95e416b8b9d9de181ddcef27c2
-          createdAt: 2026-09-18T08:37:26Z
-          updatedAt: 2026-09-18T08:49:46Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/35325315011
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
-        lastRun:
-          id: 35325315011
-          status: completed
-          conclusion: failure
-          event: push
-          branch: main
-          headSha: c5120c1cdf80dc95e416b8b9d9de181ddcef27c2
-          createdAt: 2026-09-18T08:37:26Z
-          updatedAt: 2026-09-18T08:49:46Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/35325315011
-        ageDays: 0
-      attention: action-required
 deployment:
   kind: worker
   deployed: true

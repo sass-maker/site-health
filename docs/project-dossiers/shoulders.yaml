@@ -8,14 +8,14 @@ verification:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: unavailable
+    repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: not-applicable
-    retainedGitHistory: unavailable
+    githubActionsLiveState: unverified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
+      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
       infrastructureUpdatedAt: 2026-09-14
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-14
       reviewSha256: e3a97ff166bf6d5304c4e0f43aba0876daaa2c63461414cd4b1ebe34b9f3d379
-      documentSha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
+      documentSha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -33,31 +33,38 @@ verification:
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
-      state: unavailable
+      state: available
       checkout: ../fleet-archive/shoulders
-      revision: null
-      githubRepository: null
+      revision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
+      githubRepository: sarthakagrawal927/shoulders
       expectedHomepage: null
       observedHomepage: null
-      worktree: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-18
-      state: unavailable
+      state: available
       checkout: ../fleet-archive/shoulders
-      revision: null
-      githubRepository: null
+      revision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
+      githubRepository: sarthakagrawal927/shoulders
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: null
       catalogLatestCommitAt: null
-      catalogDrift: []
-      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/shoulders rev-parse HEAD"
+      catalogDrift:
+        - firstCommitAt
+        - latestCommitAt
+      reason: null
     githubActions:
-      observedAt: 2026-09-18T10:17:55.721Z
-      staleAfterDays: 30
-      attention: &a1 {}
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
+      attention: &a2
+        unclassified: 1
   unknowns:
-    - The owning checkout was unavailable during repository observation.
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: I lost interest in this product. Move this to archived as paused.
   fullReviewVerbatim: I lost interest in this product. Move this to archived as paused.
@@ -102,40 +109,55 @@ product:
     - Astro
     - TypeScript
   retainedGitHistory:
-    firstCommitAt: null
-    latestCommitAt: null
-    retainedCommitCount: null
-    historyCompleteness: null
+    firstCommitAt: 2026-09-18
+    latestCommitAt: 2026-09-18
+    retainedCommitCount: 1
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/shoulders
-  observedRevision: null
-  githubRepository: null
+  observedRevision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
+  githubRepository: sarthakagrawal927/shoulders
   githubHomepageUrl: null
-  worktree: null
+  worktree: *a1
   visibility: private
   url: https://github.com/sarthakagrawal927/shoulders
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: null
-    detectedSignals: []
-    rootPackageScripts: []
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.mjs
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+    rootPackageScripts:
+      - build
+      - build:release
+      - check
+      - dev
+      - preview
+      - test
+      - test:e2e
 githubActions:
-  observedAt: 2026-09-18T10:17:55.721Z
-  staleAfterDays: 30
-  summary: {}
-  attention: *a1
-  remote:
-    repository: null
-    defaultBranch: null
-    defaultBranchSha: null
-    homepage: null
-    query: unverifiable
-    disposition:
-      disposition: active
-      reason: tracked project
-  workflows: []
+  observedAt: null
+  staleAfterDays: null
+  summary:
+    unverifiable: 1
+  attention: *a2
+  remote: null
+  workflows:
+    - name: Validate static site
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
 deployment:
   deployed: false
   domains: []

@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: companion-robot
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
+      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,12 +55,13 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-18T10:17:55.721Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: Companion robot is a project for the future. I don't think I have done anything yet apart from planning out the future. It is in an ideation state and something that I will pick in the future.
   fullReviewVerbatim: Companion robot is a project for the future. I don't think I have done anything yet apart from planning out the future. It is in an ideation state and something that I will pick in the future.
@@ -133,20 +134,12 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-09-18T10:17:55.721Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/companion-robot
-    defaultBranch: main
-    defaultBranchSha: 6653a2b6e82f551a48dc125af0437872d98e4dc0
-    homepage: null
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -154,47 +147,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34092836947
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 6653a2b6e82f551a48dc125af0437872d98e4dc0
-          createdAt: 2026-09-07T06:53:26Z
-          updatedAt: 2026-09-07T06:53:37Z
-          url: https://github.com/sarthakagrawal927/companion-robot/actions/runs/34092836947
-        ageDays: 11
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34092836947
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 6653a2b6e82f551a48dc125af0437872d98e4dc0
-          createdAt: 2026-09-07T06:53:26Z
-          updatedAt: 2026-09-07T06:53:37Z
-          url: https://github.com/sarthakagrawal927/companion-robot/actions/runs/34092836947
-        ageDays: 11
-      attention: ignored
 deployment:
   kind: none
   deployed: false

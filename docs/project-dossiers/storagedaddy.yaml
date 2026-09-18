@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: storagedaddy
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: mismatch
     githubActionsLiveState: not-applicable
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
+      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -37,7 +37,7 @@ verification:
       revision: 5cb82a019524ebdec39b466a423032265337ccd0
       githubRepository: sarthakagrawal927/storagedaddy
       expectedHomepage: https://storagedaddy.significanthobbies.com/
-      observedHomepage: https://storagedaddy.significanthobbies.com/
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,10 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T10:17:55.721Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a2 {}
-  unknowns: []
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://storagedaddy.significanthobbies.com/.
 ownerVoice:
   whyVerbatim: Working native Mac app
   fullReviewVerbatim: |-
@@ -129,7 +130,7 @@ repository:
   checkout: storagedaddy
   observedRevision: 5cb82a019524ebdec39b466a423032265337ccd0
   githubRepository: sarthakagrawal927/storagedaddy
-  githubHomepageUrl: https://storagedaddy.significanthobbies.com/
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/storagedaddy
@@ -152,19 +153,11 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-18T10:17:55.721Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/storagedaddy
-    defaultBranch: main
-    defaultBranchSha: 6c9ef9861a72abe7caaec58449ded44ebaad1580
-    homepage: https://storagedaddy.significanthobbies.com/
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows: []
 deployment:
   kind: worker
