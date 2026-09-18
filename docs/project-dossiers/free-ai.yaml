@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: free-ai
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
+      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,16 +28,16 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
+      sha256: 3c98651d8fbdf48e49c2a0463b0eb9ff0504cc8d17e06236c3cce93487b7e8bd
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
       state: available
       checkout: free-ai
-      revision: eb53fe68a5fb29f3c68851058d89ca654ae90237
+      revision: 8fada145ba20e3a15b934461e4404cd37d230a7f
       githubRepository: sass-maker/free-ai
       expectedHomepage: https://ai-gateway.sassmaker.com
-      observedHomepage: null
+      observedHomepage: https://ai-gateway.sassmaker.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-18
       state: available
       checkout: free-ai
-      revision: eb53fe68a5fb29f3c68851058d89ca654ae90237
+      revision: 8fada145ba20e3a15b934461e4404cd37d230a7f
       githubRepository: sass-maker/free-ai
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,14 +56,15 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 4
+      observedAt: 2026-09-18T10:17:55.721Z
+      staleAfterDays: 30
+      failing: 1
+      healthy: 3
       attention: &a2
-        unclassified: 4
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://ai-gateway.sassmaker.com.
+        action-required: 1
+        clear: 2
+        missing-data: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Free AI is also a really good product. There are a lot of free AI providers which give you a decent daily free tier. I aggregated them into what kind of tool they can provide and put them behind a load balancer type thing. I can get access to a free AI whenever I want. So far it has been working well for my internal products. In future I would want to add hopefully more free AI options.
   fullReviewVerbatim: Free AI is also a really good product. There are a lot of free AI providers which give you a decent daily free tier. I aggregated them into what kind of tool they can provide and put them behind a load balancer type thing. I can get access to a free AI whenever I want. So far it has been working well for my internal products. In future I would want to add hopefully more free AI options.
@@ -116,14 +117,14 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-02-15
     latestCommitAt: 2026-09-18
-    retainedCommitCount: 263
+    retainedCommitCount: 265
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: free-ai
-  observedRevision: eb53fe68a5fb29f3c68851058d89ca654ae90237
+  observedRevision: 8fada145ba20e3a15b934461e4404cd37d230a7f
   githubRepository: sass-maker/free-ai
-  githubHomepageUrl: null
+  githubHomepageUrl: https://ai-gateway.sassmaker.com
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/free-ai
@@ -200,12 +201,21 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T10:17:55.721Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 4
+    failing: 1
+    healthy: 3
   attention: *a2
-  remote: null
+  remote:
+    repository: sass-maker/free-ai
+    defaultBranch: main
+    defaultBranchSha: b48eccc25bb6c5b7144a153bc6c867c8f2a8be3f
+    homepage: https://ai-gateway.sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: Check Provider Catalogs
       file: .github/workflows/check-models.yml
@@ -214,23 +224,176 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 9 * * 0
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 34760173541
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: 20dac0f5fba7b15b08df031faedae9774c6a8dd5
+          createdAt: 2026-09-13T13:33:29Z
+          updatedAt: 2026-09-13T13:33:45Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34760173541
+        ageDays: 4
+      schedule:
+        health: failing
+        reason: latest scheduled run concluded failure
+        lastRun:
+          id: 34760173541
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: 20dac0f5fba7b15b08df031faedae9774c6a8dd5
+          createdAt: 2026-09-13T13:33:29Z
+          updatedAt: 2026-09-13T13:33:45Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34760173541
+        ageDays: 4
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: action-required
     - name: CI
       file: .github/workflows/ci.yml
       triggers:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35325322566
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b48eccc25bb6c5b7144a153bc6c867c8f2a8be3f
+          createdAt: 2026-09-18T08:37:31Z
+          updatedAt: 2026-09-18T08:38:27Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/35325322566
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35325322566
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b48eccc25bb6c5b7144a153bc6c867c8f2a8be3f
+          createdAt: 2026-09-18T08:37:31Z
+          updatedAt: 2026-09-18T08:38:27Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/35325322566
+        ageDays: 0
+      attention: clear
     - name: Deploy Cloudflare
       file: .github/workflows/cloudflare-deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34649185535
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 20dac0f5fba7b15b08df031faedae9774c6a8dd5
+          createdAt: 2026-09-11T21:24:00Z
+          updatedAt: 2026-09-11T21:25:33Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34649185535
+        ageDays: 6
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Docs Check
       file: .github/workflows/docs-check.yml
       triggers:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34640455619
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f401ec029bc12d674c1798c8bebfab279c6dcc8e
+          createdAt: 2026-09-11T19:44:26Z
+          updatedAt: 2026-09-11T19:45:27Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34640455619
+        ageDays: 6
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision b48eccc
+        lastRun:
+          id: 34640455619
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f401ec029bc12d674c1798c8bebfab279c6dcc8e
+          createdAt: 2026-09-11T19:44:26Z
+          updatedAt: 2026-09-11T19:45:27Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/34640455619
+      attention: missing-data
 deployment:
   kind: worker
   deployed: true

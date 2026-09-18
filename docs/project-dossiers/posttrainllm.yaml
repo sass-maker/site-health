@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: posttrainllm
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
+      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
+      sha256: 3c98651d8fbdf48e49c2a0463b0eb9ff0504cc8d17e06236c3cce93487b7e8bd
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -37,7 +37,7 @@ verification:
       revision: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
       githubRepository: PostTrainLLM/posttrainllm
       expectedHomepage: https://posttrainllm.com
-      observedHomepage: null
+      observedHomepage: https://posttrainllm.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,14 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-18T10:17:55.721Z
+      staleAfterDays: 30
+      healthy: 2
       attention: &a2
-        unclassified: 2
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://posttrainllm.com.
+        clear: 2
+  unknowns: []
 ownerVoice:
   whyVerbatim: Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
   fullReviewVerbatim: Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
@@ -123,7 +121,7 @@ repository:
   checkout: posttrainllm
   observedRevision: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
   githubRepository: PostTrainLLM/posttrainllm
-  githubHomepageUrl: null
+  githubHomepageUrl: https://posttrainllm.com
   worktree: *a1
   visibility: public
   url: https://github.com/PostTrainLLM/posttrainllm
@@ -169,12 +167,20 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T10:17:55.721Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    healthy: 2
   attention: *a2
-  remote: null
+  remote:
+    repository: PostTrainLLM/posttrainllm
+    defaultBranch: main
+    defaultBranchSha: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
+    homepage: https://posttrainllm.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -183,11 +189,83 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34643008710
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
+          createdAt: 2026-09-11T20:12:54Z
+          updatedAt: 2026-09-11T20:25:33Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34643008710
+        ageDays: 6
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34643008710
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
+          createdAt: 2026-09-11T20:12:54Z
+          updatedAt: 2026-09-11T20:25:33Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34643008710
+        ageDays: 6
+      attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34644352213
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
+          createdAt: 2026-09-11T20:27:58Z
+          updatedAt: 2026-09-11T20:29:12Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/34644352213
+        ageDays: 6
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: pages
   deployed: true

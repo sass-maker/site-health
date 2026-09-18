@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: ios-landings
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
+      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
+      sha256: 3c98651d8fbdf48e49c2a0463b0eb9ff0504cc8d17e06236c3cce93487b7e8bd
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -56,13 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-18T10:17:55.721Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
   fullReviewVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
@@ -156,12 +155,20 @@ repository:
       - dev:setline
       - preview
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T10:17:55.721Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/ios-landings
+    defaultBranch: main
+    defaultBranchSha: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -169,6 +176,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34638778014
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
+          createdAt: 2026-09-11T19:25:42Z
+          updatedAt: 2026-09-11T19:26:12Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/34638778014
+        ageDays: 6
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34638778014
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
+          createdAt: 2026-09-11T19:25:42Z
+          updatedAt: 2026-09-11T19:26:12Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/34638778014
+        ageDays: 6
+      attention: clear
 deployment:
   kind: none
   deployed: false

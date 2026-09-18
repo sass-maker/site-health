@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: launchdesk
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
+    githubHomepage: passed
     githubActionsLiveState: not-applicable
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
+      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
       infrastructureUpdatedAt: 2026-09-18
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,30 +24,30 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-18
       reviewSha256: 8a69fbc483835d9b18bda3f1d5b8d0c1d4c8b157c8da8b37d895e3444d4bcc1e
-      documentSha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
+      documentSha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
+      sha256: 3c98651d8fbdf48e49c2a0463b0eb9ff0504cc8d17e06236c3cce93487b7e8bd
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
       state: available
       checkout: launchdesk
-      revision: 7c4c1a78e456abc797852d9017c9bebcadbab871
+      revision: 22a82a3f59b994b1fec9d32135181c24d8da9e16
       githubRepository: Significant-Hobbies/launchdesk
-      expectedHomepage: https://sassmaker.com/launchdesk/
-      observedHomepage: null
+      expectedHomepage: https://sassmaker.com/launchdesk
+      observedHomepage: https://sassmaker.com/launchdesk
       worktree: &a1
         state: dirty
-        trackedChangeCount: 8
+        trackedChangeCount: 3
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-18
       state: available
       checkout: launchdesk
-      revision: 7c4c1a78e456abc797852d9017c9bebcadbab871
+      revision: 22a82a3f59b994b1fec9d32135181c24d8da9e16
       githubRepository: Significant-Hobbies/launchdesk
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,11 +56,10 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
+      observedAt: 2026-09-18T10:17:55.721Z
+      staleAfterDays: 30
       attention: &a2 {}
-  unknowns:
-    - GitHub repository homepage does not match the canonical deployed URL https://sassmaker.com/launchdesk/.
+  unknowns: []
 ownerVoice:
   whyVerbatim: Build this out and release it on CF.
   fullReviewVerbatim: Build this out and release it on CF.
@@ -68,7 +67,7 @@ ownerVoice:
 decision:
   classification: Active
   whySummary: Give makers a provenance-honest catalog of launch destinations with per-product submission tracking.
-  currentState: Live publicly at sassmaker.com/launchdesk as a vendored static bundle in the shared SaaS Maker Pages site; the live link-checker stays local-only by owner decision.
+  currentState: Live publicly at sassmaker.com/launchdesk as a native catalog page in the shared SaaS Maker Pages site, fed by the generated dataset; the workspace app and live link-checker stay local-only by owner decision.
   nextDecision: "Keep: The 966-destination attributed catalog with explicit unknowns and browser-local tracking. Stop: Accounts, automated submission, outreach features and invented metrics."
 identity:
   name: LaunchDesk
@@ -95,30 +94,31 @@ product:
   description: A local-first launch workspace with a provenance-bearing catalog of 966 submission destinations, per-product queues and source-attributed metrics. Your workspace stays in your browser.
   publicMakerNote: A launch-submission tracker built from attributed public source lists. It keeps reported metrics honest — unknown stays blank, never zero — and stores your queue in your own browser.
   purposeContract:
-    purpose: LaunchDesk helps builders choose where to submit a product and track each launch across destinations.
-    audience: Indie makers and small teams launching software products.
-    outcome: A filtered, queued and tracked set of real submission destinations instead of a stale copy-pasted list.
-    mechanism: A deduplicated catalog of 966 prospects with source history, reported DR and link types, per-product queues and statuses; visitor state lives in browser storage, with an optional local Python/SQLite mode for live link checks.
-    proof: Public site at launchdesk.significanthobbies.com, 36 passing unit tests, source attribution in data/sources, and explicit unknowns rather than invented metrics.
-    nextAction: Open sassmaker.com/launchdesk, set your product brief, and queue a small set of fitting destinations.
+    purpose: Give makers a provenance-honest catalog of launch destinations with per-product submission tracking.
+    audience: Builders planning a deliberate launch or backlink campaign.
+    outcome: Filter and compare 966 destinations by category, reported DR, link type, price and recorded submission routes.
+    mechanism: A static catalog page on the SaaS Maker site renders the attributed dataset with per-row source claims; the local Python/SQLite app adds per-product queues, statuses, notes and a link checker.
+    proof: Live catalog at sassmaker.com/launchdesk rendering 966 destinations, 36 passing unit tests, source attribution in data/sources, and explicit unknowns rather than invented metrics.
+    nextAction: Open sassmaker.com/launchdesk, filter to a fitting set, and check each row's source history before submitting.
   form: Web app
   platforms:
     - Web
   prominentTools:
+    - Astro
     - Cloudflare Pages
     - Python
     - SQLite
   retainedGitHistory:
     firstCommitAt: 2026-09-18
     latestCommitAt: 2026-09-18
-    retainedCommitCount: 3
+    retainedCommitCount: 4
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: launchdesk
-  observedRevision: 7c4c1a78e456abc797852d9017c9bebcadbab871
+  observedRevision: 22a82a3f59b994b1fec9d32135181c24d8da9e16
   githubRepository: Significant-Hobbies/launchdesk
-  githubHomepageUrl: null
+  githubHomepageUrl: https://sassmaker.com/launchdesk
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/launchdesk
@@ -132,24 +132,33 @@ repository:
       - sync:showcase
       - test
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T10:17:55.721Z
+  staleAfterDays: 30
   summary: {}
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/launchdesk
+    defaultBranch: main
+    defaultBranchSha: 22a82a3f59b994b1fec9d32135181c24d8da9e16
+    homepage: https://sassmaker.com/launchdesk
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows: []
 deployment:
   kind: pages
   deployed: true
   domains:
     - sassmaker.com
-  primaryUrl: https://sassmaker.com/launchdesk/
-  domainProbePaths: {}
+  primaryUrl: https://sassmaker.com/launchdesk
+  domainProbePaths:
+    /launchdesk: 200
   targets:
     - id: site
       kind: pages
       name: saas-maker-home
-      sourcePath: saas-maker/apps/showcase/public/launchdesk
+      sourcePath: saas-maker/apps/showcase/src/pages/launchdesk.astro
   cloudflare:
     deployments:
       - provider: cloudflare
@@ -157,7 +166,7 @@ deployment:
         name: saas-maker-home
         method: wrangler-pages
         state: live
-        attributionReason: LaunchDesk is a vendored static bundle served at sassmaker.com/launchdesk within the shared SaaS Maker Pages project; the dedicated launchdesk Worker was deleted on 2026-09-18.
+        attributionReason: LaunchDesk is a native catalog page (launchdesk.astro + generated src/data/launchdesk.json) served at sassmaker.com/launchdesk within the shared SaaS Maker Pages project; the dedicated launchdesk Worker was deleted on 2026-09-18.
     resources: []
   otherProviders:
     deployments: []
@@ -172,5 +181,5 @@ sharing:
   roadmapUrl: https://github.com/Significant-Hobbies/launchdesk/issues
   geoIdentity: null
 notes:
-  catalog: Imported from the 2026-09-18 local package. Released first on a standalone Worker, then moved under the SaaS Maker site at sassmaker.com/launchdesk per owner decision; Worker deleted. Owner chose to skip porting /api/verify to Cloudflare.
-  infrastructure: Static bundle at apps/showcase/public/launchdesk synced from the launchdesk checkout via scripts/sync-launchdesk.mjs; no dedicated Worker, domain or storage resources. Visitor workspace state is browser localStorage.
+  catalog: Imported from the 2026-09-18 local package. Released first on a standalone Worker, moved under the SaaS Maker site, then re-rendered as a native catalog page fed by the generated dataset per owner decision; the web/ app is local-only. /api/verify was never ported to Cloudflare.
+  infrastructure: Static catalog page generated by scripts/sync-launchdesk.mjs from the launchdesk checkout's data/catalog.json; no dedicated Worker, domain or storage resources. Workspace state lives only in the local app.

@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: knowledge-base
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 01452026f3c52b3c867d2230a77dfacd60630fb9936028dcc28d794ba203038a
+      sha256: 133397156b886f7b4138c5566e6fcbe29a0b7cf9ca0d306ebe21c5fa9e76badb
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: dc917359fd177356ea9a992af434ad9f271e3a960386435c4765f25ea012acb0
+      sha256: 3c98651d8fbdf48e49c2a0463b0eb9ff0504cc8d17e06236c3cce93487b7e8bd
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-18
@@ -37,7 +37,7 @@ verification:
       revision: de2a7faaba67a6ba595db5a2122b1212a0eab6cc
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
-      observedHomepage: null
+      observedHomepage: https://knowledgebase.sassmaker.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,14 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 3
+      observedAt: 2026-09-18T10:17:55.721Z
+      staleAfterDays: 30
+      healthy: 2
+      stale: 1
       attention: &a2
-        unclassified: 3
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://knowledgebase.sassmaker.com.
+        clear: 2
+        missing-data: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
   fullReviewVerbatim: Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
@@ -123,7 +123,7 @@ repository:
   checkout: knowledge-base
   observedRevision: de2a7faaba67a6ba595db5a2122b1212a0eab6cc
   githubRepository: sass-maker/knowledge-base
-  githubHomepageUrl: null
+  githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/knowledge-base
@@ -174,12 +174,21 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T10:17:55.721Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 3
+    healthy: 2
+    stale: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sass-maker/knowledge-base
+    defaultBranch: main
+    defaultBranchSha: 2143d4c847e534cc2186060a5670e340b6d1e426
+    homepage: https://knowledgebase.sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: ci
       file: .github/workflows/ci.yml
@@ -187,18 +196,130 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34502082535
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 2143d4c847e534cc2186060a5670e340b6d1e426
+          createdAt: 2026-09-10T16:26:15Z
+          updatedAt: 2026-09-10T16:27:27Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34502082535
+        ageDays: 7
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34502082535
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 2143d4c847e534cc2186060a5670e340b6d1e426
+          createdAt: 2026-09-10T16:26:15Z
+          updatedAt: 2026-09-10T16:27:27Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34502082535
+        ageDays: 7
+      attention: clear
     - name: docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34331170937
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 33b0e338d965bd90256b29754a311921d777d811
+          createdAt: 2026-09-09T08:48:38Z
+          updatedAt: 2026-09-09T08:48:47Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170937
+        ageDays: 9
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 2143d4c
+        lastRun:
+          id: 34331170937
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 33b0e338d965bd90256b29754a311921d777d811
+          createdAt: 2026-09-09T08:48:38Z
+          updatedAt: 2026-09-09T08:48:47Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170937
+      attention: missing-data
     - name: worker-eval-on-pr
       file: .github/workflows/eval.yml
       triggers:
         - pull_request
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: stale
+        reason: latest run is 32 days old
+        apiState: active
+        lastRun:
+          id: 31964660082
+          status: completed
+          conclusion: success
+          event: pull_request
+          branch: chore/split-worker-entrypoint
+          headSha: bb7a2f37f8eb01673fbef80d81bf4de942def80c
+          createdAt: 2026-08-16T18:27:47Z
+          updatedAt: 2026-08-16T18:27:59Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/31964660082
+        ageDays: 32
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: worker+pages
   deployed: true
