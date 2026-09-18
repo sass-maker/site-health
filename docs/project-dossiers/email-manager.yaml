@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: email-manager
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,8 +9,8 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
@@ -37,7 +37,7 @@ verification:
       revision: 45db006bfd8aaf09bffd43e7c4241ef291298560
       githubRepository: Significant-Hobbies/email-manager
       expectedHomepage: https://mail.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://mail.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,14 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      healthy: 3
       attention: &a2
-        unclassified: 2
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://mail.significanthobbies.com.
+        ignored: 3
+  unknowns: []
 ownerVoice:
   whyVerbatim: Email Manager I built because I was getting a lot of mails and Gmail's UI was not doing it for me to analyse who is spamming me more and how to unsubscribe from them more efficiently. I would say it is done. I don't want to add more features. It just connects and does the job.
   fullReviewVerbatim: Email Manager I built because I was getting a lot of mails and Gmail's UI was not doing it for me to analyse who is spamming me more and how to unsubscribe from them more efficiently. I would say it is done. I don't want to add more features. It just connects and does the job.
@@ -124,7 +122,7 @@ repository:
   checkout: ../fleet-archive/email-manager
   observedRevision: 45db006bfd8aaf09bffd43e7c4241ef291298560
   githubRepository: Significant-Hobbies/email-manager
-  githubHomepageUrl: null
+  githubHomepageUrl: https://mail.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/email-manager
@@ -191,12 +189,20 @@ repository:
       - verify:indexing
       - verify:local-mailbox
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    healthy: 3
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/email-manager
+    defaultBranch: main
+    defaultBranchSha: 45db006bfd8aaf09bffd43e7c4241ef291298560
+    homepage: https://mail.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -204,11 +210,118 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34501768853
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 45db006bfd8aaf09bffd43e7c4241ef291298560
+          createdAt: 2026-09-10T16:23:19Z
+          updatedAt: 2026-09-10T16:24:18Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34501768853
+        ageDays: 8
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34501768853
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 45db006bfd8aaf09bffd43e7c4241ef291298560
+          createdAt: 2026-09-10T16:23:19Z
+          updatedAt: 2026-09-10T16:24:18Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34501768853
+        ageDays: 8
+      attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 33962356232
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 40dd756160eb959d90559834a9610196995f68e6
+          createdAt: 2026-09-05T11:04:48Z
+          updatedAt: 2026-09-05T11:05:19Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/33962356232
+        ageDays: 13
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34808614348
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: 45db006bfd8aaf09bffd43e7c4241ef291298560
+          createdAt: 2026-09-14T05:09:58Z
+          updatedAt: 2026-09-14T05:10:48Z
+          url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34808614348
+        ageDays: 4
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
 deployment:
   kind: worker
   deployed: true

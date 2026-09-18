@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: karte
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,8 +9,8 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
@@ -37,7 +37,7 @@ verification:
       revision: e739d8f3b17472645aa7e6494ccdcbdb0ac097f0
       githubRepository: Significant-Hobbies/karte
       expectedHomepage: https://karte.cc
-      observedHomepage: null
+      observedHomepage: https://karte.cc
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,14 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 3
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      healthy: 4
       attention: &a2
-        unclassified: 3
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://karte.cc.
+        ignored: 4
+  unknowns: []
 ownerVoice:
   whyVerbatim: Karte is a product which is supposed to be a greeting card for a person, agent, or a company. I built this because I wanted to build a link tree clone but evolved it further so that it is now better. I will spend some time on it to make it company friendly. Since it also has a chat mechanism and everything is already sorted, it will also act as a personal agent for people so it is quite fancy.
   fullReviewVerbatim: Karte is a product which is supposed to be a greeting card for a person, agent, or a company. I built this because I wanted to build a link tree clone but evolved it further so that it is now better. I will spend some time on it to make it company friendly. Since it also has a chat mechanism and everything is already sorted, it will also act as a personal agent for people so it is quite fancy.
@@ -123,7 +121,7 @@ repository:
   checkout: karte
   observedRevision: e739d8f3b17472645aa7e6494ccdcbdb0ac097f0
   githubRepository: Significant-Hobbies/karte
-  githubHomepageUrl: null
+  githubHomepageUrl: https://karte.cc
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/karte
@@ -195,12 +193,20 @@ repository:
       - typecheck
       - upload:cf
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 3
+    healthy: 4
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/karte
+    defaultBranch: main
+    defaultBranchSha: e739d8f3b17472645aa7e6494ccdcbdb0ac097f0
+    homepage: https://karte.cc
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -208,17 +214,164 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35341742920
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e739d8f3b17472645aa7e6494ccdcbdb0ac097f0
+          createdAt: 2026-09-18T11:52:03Z
+          updatedAt: 2026-09-18T11:54:21Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/35341742920
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35341742920
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e739d8f3b17472645aa7e6494ccdcbdb0ac097f0
+          createdAt: 2026-09-18T11:52:03Z
+          updatedAt: 2026-09-18T11:54:21Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/35341742920
+        ageDays: 0
+      attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35343021086
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: e739d8f3b17472645aa7e6494ccdcbdb0ac097f0
+          createdAt: 2026-09-18T12:07:28Z
+          updatedAt: 2026-09-18T12:09:59Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/35343021086
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34130582349
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 2d073a711320494b99ef5a9f2884013765ffa2bb
+          createdAt: 2026-09-07T14:00:47Z
+          updatedAt: 2026-09-07T14:00:58Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
+        ageDays: 11
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision e739d8f
+        lastRun:
+          id: 34130582349
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 2d073a711320494b99ef5a9f2884013765ffa2bb
+          createdAt: 2026-09-07T14:00:47Z
+          updatedAt: 2026-09-07T14:00:58Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
+      attention: ignored
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34906295799
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: 745254fff16d003c1ed8a4e1d594924dc8c2894d
+          createdAt: 2026-09-14T22:53:38Z
+          updatedAt: 2026-09-14T22:54:34Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/34906295799
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
 deployment:
   kind: worker
   deployed: true

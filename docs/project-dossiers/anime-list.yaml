@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: anime-list
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,8 +9,8 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
@@ -37,7 +37,7 @@ verification:
       revision: a7fd343983ec1c8234ffaa538e9b2ce69388607e
       githubRepository: Significant-Hobbies/anime-list
       expectedHomepage: https://anime.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://anime.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,14 +56,17 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 6
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      failing: 1
+      healthy: 4
+      cancelled: 1
+      stale: 1
       attention: &a2
-        unclassified: 6
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://anime.significanthobbies.com.
+        action-required: 2
+        clear: 4
+        missing-data: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: I started anime-list to talk as just a backend service to have better filters that my anime-list was not providing. With the help of AI I was quickly able to build up content and it is something I use very frequently.
   fullReviewVerbatim: |-
@@ -128,7 +131,7 @@ repository:
   checkout: anime-list
   observedRevision: a7fd343983ec1c8234ffaa538e9b2ce69388607e
   githubRepository: Significant-Hobbies/anime-list
-  githubHomepageUrl: null
+  githubHomepageUrl: https://anime.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/anime-list
@@ -208,12 +211,23 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 6
+    failing: 1
+    healthy: 4
+    cancelled: 1
+    stale: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/anime-list
+    defaultBranch: main
+    defaultBranchSha: a7fd343983ec1c8234ffaa538e9b2ce69388607e
+    homepage: https://anime.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -222,11 +236,83 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 35341719708
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: a7fd343983ec1c8234ffaa538e9b2ce69388607e
+          createdAt: 2026-09-18T11:51:46Z
+          updatedAt: 2026-09-18T11:53:43Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/35341719708
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: failing
+        reason: current main push concluded failure
+        lastRun:
+          id: 35341719708
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: a7fd343983ec1c8234ffaa538e9b2ce69388607e
+          createdAt: 2026-09-18T11:51:46Z
+          updatedAt: 2026-09-18T11:53:43Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/35341719708
+        ageDays: 0
+      attention: action-required
     - name: Deploy anime_list to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34195638204
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 83b6713d5de114a685b4a82fc96115077e2eb6ae
+          createdAt: 2026-09-08T06:39:40Z
+          updatedAt: 2026-09-08T06:40:28Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34195638204
+        ageDays: 10
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -234,6 +320,46 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34194878258
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 595ec661d4edcdf9b87da20a750de13ba1ddd3fe
+          createdAt: 2026-09-08T06:29:26Z
+          updatedAt: 2026-09-08T06:29:37Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34194878258
+        ageDays: 10
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision a7fd343
+        lastRun:
+          id: 34194878258
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 595ec661d4edcdf9b87da20a750de13ba1ddd3fe
+          createdAt: 2026-09-08T06:29:26Z
+          updatedAt: 2026-09-08T06:29:37Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/34194878258
+      attention: missing-data
     - name: Quarterly Anime Sync
       file: .github/workflows/quarterly-anime-sync.yml
       triggers:
@@ -241,6 +367,47 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 0 1 1,4,7,10 *
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: cancelled
+        reason: latest run was cancelled
+        apiState: active
+        lastRun:
+          id: 33641528148
+          status: completed
+          conclusion: cancelled
+          event: workflow_dispatch
+          branch: main
+          headSha: 5268d9197025ed2e455976b85eec181f2ec7a294
+          createdAt: 2026-09-02T14:21:35Z
+          updatedAt: 2026-09-02T15:10:21Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/33641528148
+        ageDays: 16
+      schedule:
+        health: failing
+        reason: latest scheduled run concluded failure
+        lastRun:
+          id: 28493405418
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: d39411136d6b961fd316d4fac334b592873a36eb
+          createdAt: 2026-07-01T04:24:36Z
+          updatedAt: 2026-07-01T04:37:27Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/28493405418
+        ageDays: 79
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: action-required
     - name: Quarterly Manga Sync
       file: .github/workflows/quarterly-manga-sync.yml
       triggers:
@@ -248,6 +415,48 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 1 1 1,4,7,10 *
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 33648892733
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 403e7736eeb4f2417514e5e89fdbbc1cf33eb36b
+          createdAt: 2026-09-02T15:29:38Z
+          updatedAt: 2026-09-02T15:55:53Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/33648892733
+        ageDays: 16
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 28495233930
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: d39411136d6b961fd316d4fac334b592873a36eb
+          createdAt: 2026-07-01T05:15:13Z
+          updatedAt: 2026-07-01T05:17:44Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/28495233930
+        ageDays: 79
+        freshnessDays: 100
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Update Catalog Data
       file: .github/workflows/update-anime-data.yml
       triggers:
@@ -255,6 +464,83 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 0 * * *
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35301380681
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 83b6713d5de114a685b4a82fc96115077e2eb6ae
+          createdAt: 2026-09-18T02:57:49Z
+          updatedAt: 2026-09-18T03:01:07Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/35301380681
+        ageDays: 0
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 35301380681
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 83b6713d5de114a685b4a82fc96115077e2eb6ae
+          createdAt: 2026-09-18T02:57:49Z
+          updatedAt: 2026-09-18T03:01:07Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/35301380681
+        ageDays: 0
+        freshnessDays: 2
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: stale
+        reason: latest run is 123 days old
+        apiState: active
+        lastRun:
+          id: 26038689795
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: 9195210d08af4cc17f2a2e5ce34c4b326889ee0b
+          createdAt: 2026-05-18T14:07:24Z
+          updatedAt: 2026-05-18T14:09:18Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/26038689795
+        ageDays: 123
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: worker+pages
   deployed: true

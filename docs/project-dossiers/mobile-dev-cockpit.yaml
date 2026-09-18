@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: mobile-dev-cockpit
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -10,7 +10,7 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
@@ -55,13 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      stuck: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
+        ignored: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Mobile dev cockpit is kind of in beta and also stopped for now. The purpose for this was for it to act as the mobile version of elf's HQ but since elf's HQ never fanned out I doubt mobile cockpit will ever. Its also purpose was to view the website on mobile but I have decided to go for building the apps instead so this will probably be stopped forever.
   fullReviewVerbatim: Mobile dev cockpit is kind of in beta and also stopped for now. The purpose for this was for it to act as the mobile version of elf's HQ but since elf's HQ never fanned out I doubt mobile cockpit will ever. Its also purpose was to view the website on mobile but I have decided to go for building the apps instead so this will probably be stopped forever.
@@ -151,12 +150,20 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    stuck: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/mobile-dev-cockpit
+    defaultBranch: main
+    defaultBranchSha: b2c188804af738f4b534c6a3e7909f1a028accde
+    homepage: null
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -165,6 +172,46 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: stuck
+        reason: latest run has remained queued for 29 day(s)
+        apiState: active
+        lastRun:
+          id: 32396632476
+          status: queued
+          conclusion: null
+          event: workflow_dispatch
+          branch: main
+          headSha: c7ea69a1e6268285bc32c9d31953daa4afccc7aa
+          createdAt: 2026-08-20T17:15:48Z
+          updatedAt: 2026-08-20T17:15:48Z
+          url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/32396632476
+        ageDays: 29
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision b2c1888
+        lastRun:
+          id: 30117645410
+          status: completed
+          conclusion: cancelled
+          event: push
+          branch: main
+          headSha: cdebe82f243744ea972278cc3a2c48f41a5ac58c
+          createdAt: 2026-07-24T18:37:21Z
+          updatedAt: 2026-07-24T18:38:55Z
+          url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/30117645410
+      attention: ignored
 deployment:
   kind: none
   deployed: false

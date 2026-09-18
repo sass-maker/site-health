@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: chatgpt-memory-insights
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,8 +9,8 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
@@ -37,7 +37,7 @@ verification:
       revision: c45fbcae68fe48294125e4ef1139f6a3b4917793
       githubRepository: Significant-Hobbies/chatgpt-memory-insights
       expectedHomepage: https://chatgpt.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://chatgpt.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,14 +56,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      failing: 1
+      healthy: 1
       attention: &a2
-        unclassified: 2
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://chatgpt.significanthobbies.com.
+        ignored: 2
+  unknowns: []
 ownerVoice:
   whyVerbatim: I started off this product to have a way to analyse my conversations I have with ChatGPT. Its purpose is that I can use an exported version of ChatGPT's conversation and it will give me insights into memory, what I talk about, my emotions, and other relevant things.
   fullReviewVerbatim: |-
@@ -124,7 +123,7 @@ repository:
   checkout: ../fleet-archive/chatgpt-memory-insights
   observedRevision: c45fbcae68fe48294125e4ef1139f6a3b4917793
   githubRepository: Significant-Hobbies/chatgpt-memory-insights
-  githubHomepageUrl: null
+  githubHomepageUrl: https://chatgpt.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/chatgpt-memory-insights
@@ -174,12 +173,21 @@ repository:
       - test:import
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    failing: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/chatgpt-memory-insights
+    defaultBranch: main
+    defaultBranchSha: c45fbcae68fe48294125e4ef1139f6a3b4917793
+    homepage: https://chatgpt.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -187,12 +195,84 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 35378921489
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: c45fbcae68fe48294125e4ef1139f6a3b4917793
+          createdAt: 2026-09-18T18:13:33Z
+          updatedAt: 2026-09-18T18:14:10Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/35378921489
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: failing
+        reason: current main push concluded failure
+        lastRun:
+          id: 35378921489
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: c45fbcae68fe48294125e4ef1139f6a3b4917793
+          createdAt: 2026-09-18T18:13:33Z
+          updatedAt: 2026-09-18T18:14:10Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/35378921489
+        ageDays: 0
+      attention: ignored
     - name: memory-pack release
       file: .github/workflows/packer-release.yml
       triggers:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 33382333378
+          status: completed
+          conclusion: success
+          event: push
+          branch: memory-pack-v0.1.2
+          headSha: 04ffcd4934075d7cf4782a5028db61a6977af449
+          createdAt: 2026-08-31T10:25:24Z
+          updatedAt: 2026-08-31T10:27:17Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/33382333378
+        ageDays: 18
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run was returned for main
+        lastRun: null
+      attention: ignored
 deployment:
   kind: pages
   deployed: true

@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: local-ai-video-studio
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,8 +9,8 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
@@ -37,7 +37,7 @@ verification:
       revision: 09bb60bab35d5cf3fe9197da1254bbe88f3a9aaf
       githubRepository: sass-maker/local-ai-video-studio
       expectedHomepage: https://local-ai-video-studio.sassmaker.com
-      observedHomepage: null
+      observedHomepage: https://local-ai-video-studio.sassmaker.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,14 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      healthy: 2
       attention: &a2
-        unclassified: 2
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://local-ai-video-studio.sassmaker.com.
+        ignored: 2
+  unknowns: []
 ownerVoice:
   whyVerbatim: Local AI video studio. I think I started off this project because there are a lot of video editor tools which I was also researching, various video effects you can add, and how people using AI might be overkill for a lot of them. I wanted to build a system in which you can set up local video effects but with the help of an AI agent you can just tell it. It uses the best most optimised tool to add that effect for you without using current generative AI technologies. It's a product kind of like the past but it will also have fallbacks to go to the latest technology. It's an experiment. I lost interest after some time and might continue later.
   fullReviewVerbatim: Local AI video studio. I think I started off this project because there are a lot of video editor tools which I was also researching, various video effects you can add, and how people using AI might be overkill for a lot of them. I wanted to build a system in which you can set up local video effects but with the help of an AI agent you can just tell it. It uses the best most optimised tool to add that effect for you without using current generative AI technologies. It's a product kind of like the past but it will also have fallbacks to go to the latest technology. It's an experiment. I lost interest after some time and might continue later.
@@ -123,7 +121,7 @@ repository:
   checkout: ../fleet-archive/local-ai-video-studio
   observedRevision: 09bb60bab35d5cf3fe9197da1254bbe88f3a9aaf
   githubRepository: sass-maker/local-ai-video-studio
-  githubHomepageUrl: null
+  githubHomepageUrl: https://local-ai-video-studio.sassmaker.com
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/local-ai-video-studio
@@ -160,12 +158,20 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    healthy: 2
   attention: *a2
-  remote: null
+  remote:
+    repository: sass-maker/local-ai-video-studio
+    defaultBranch: main
+    defaultBranchSha: 09bb60bab35d5cf3fe9197da1254bbe88f3a9aaf
+    homepage: https://local-ai-video-studio.sassmaker.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: Native Quality
       file: .github/workflows/native-quality.yml
@@ -173,12 +179,94 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35378921060
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 09bb60bab35d5cf3fe9197da1254bbe88f3a9aaf
+          createdAt: 2026-09-18T18:13:33Z
+          updatedAt: 2026-09-18T18:16:21Z
+          url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/35378921060
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35378921060
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 09bb60bab35d5cf3fe9197da1254bbe88f3a9aaf
+          createdAt: 2026-09-18T18:13:33Z
+          updatedAt: 2026-09-18T18:16:21Z
+          url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/35378921060
+        ageDays: 0
+      attention: ignored
     - name: Site Check
       file: .github/workflows/site-check.yml
       triggers:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35378920771
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 09bb60bab35d5cf3fe9197da1254bbe88f3a9aaf
+          createdAt: 2026-09-18T18:13:32Z
+          updatedAt: 2026-09-18T18:13:47Z
+          url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/35378920771
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35378920771
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 09bb60bab35d5cf3fe9197da1254bbe88f3a9aaf
+          createdAt: 2026-09-18T18:13:32Z
+          updatedAt: 2026-09-18T18:13:47Z
+          url: https://github.com/sass-maker/local-ai-video-studio/actions/runs/35378920771
+        ageDays: 0
+      attention: ignored
 deployment:
   kind: pages
   deployed: true

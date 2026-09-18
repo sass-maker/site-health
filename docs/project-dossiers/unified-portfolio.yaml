@@ -53,8 +53,8 @@ verification:
       catalogDrift: []
       reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/unified-portfolio rev-parse HEAD"
     githubActions:
-      observedAt: null
-      staleAfterDays: null
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
       attention: &a1 {}
   unknowns:
     - GitHub repository homepage does not match the canonical deployed URL https://money.significanthobbies.com.
@@ -131,11 +131,19 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary: {}
   attention: *a1
-  remote: null
+  remote:
+    repository: null
+    defaultBranch: null
+    defaultBranchSha: null
+    homepage: null
+    query: unverifiable
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows: []
 deployment:
   kind: worker

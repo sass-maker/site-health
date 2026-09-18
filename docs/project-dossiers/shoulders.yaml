@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: shoulders
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -10,7 +10,7 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
@@ -58,13 +58,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: I lost interest in this product. Move this to archived as paused.
   fullReviewVerbatim: I lost interest in this product. Move this to archived as paused.
@@ -145,12 +144,20 @@ repository:
       - test
       - test:e2e
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/shoulders
+    defaultBranch: main
+    defaultBranchSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: Validate static site
       file: .github/workflows/ci.yml
@@ -158,6 +165,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35378929655
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
+          createdAt: 2026-09-18T18:13:37Z
+          updatedAt: 2026-09-18T18:15:31Z
+          url: https://github.com/sarthakagrawal927/shoulders/actions/runs/35378929655
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35378929655
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
+          createdAt: 2026-09-18T18:13:37Z
+          updatedAt: 2026-09-18T18:15:31Z
+          url: https://github.com/sarthakagrawal927/shoulders/actions/runs/35378929655
+        ageDays: 0
+      attention: clear
 deployment:
   deployed: false
   domains: []

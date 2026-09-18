@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: verified-bases
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -10,7 +10,7 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
@@ -55,13 +55,13 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      healthy: 1
+      stale: 1
       attention: &a2
-        unclassified: 2
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
+        ignored: 2
+  unknowns: []
 ownerVoice:
   whyVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
   fullReviewVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
@@ -146,12 +146,21 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    healthy: 1
+    stale: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/verified-bases
+    defaultBranch: main
+    defaultBranchSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
+    homepage: null
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: ci
       file: .github/workflows/ci.yml
@@ -159,11 +168,83 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34227660448
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
+          createdAt: 2026-09-08T12:43:07Z
+          updatedAt: 2026-09-08T12:43:38Z
+          url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/34227660448
+        ageDays: 10
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34227660448
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: c2c389e20b51e1fda144ff5250fe47274ba272d4
+          createdAt: 2026-09-08T12:43:07Z
+          updatedAt: 2026-09-08T12:43:38Z
+          url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/34227660448
+        ageDays: 10
+      attention: ignored
     - name: Deploy API Worker
       file: .github/workflows/deploy-api.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: stale
+        reason: latest run is 77 days old
+        apiState: active
+        lastRun:
+          id: 28654888874
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 2a83e566dc100fb0f7a79b94ac0ecb7de1a6c5d6
+          createdAt: 2026-07-03T10:32:56Z
+          updatedAt: 2026-07-03T10:33:51Z
+          url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/28654888874
+        ageDays: 77
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
 deployment:
   kind: worker
   deployed: true

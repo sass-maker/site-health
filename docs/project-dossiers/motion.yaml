@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: motion
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,8 +9,8 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
@@ -37,7 +37,7 @@ verification:
       revision: 6ac4700feea7683c86efc214470e6d9dd8bf846a
       githubRepository: Significant-Hobbies/motion
       expectedHomepage: https://motion.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://motion.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -55,14 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://motion.significanthobbies.com.
+        ignored: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Notion was another fancy thing that I wanted to build. Its purpose was to have mobile games playable on TV. For example you will set the mobile along with the TV. The mobile will record things and your actions will be transferred on the screen. You can play games like Subway while also getting a workout done. This is something I would definitely want to pursue in the future but for now it's on hold due to lack of time.
   fullReviewVerbatim: Notion was another fancy thing that I wanted to build. Its purpose was to have mobile games playable on TV. For example you will set the mobile along with the TV. The mobile will record things and your actions will be transferred on the screen. You can play games like Subway while also getting a workout done. This is something I would definitely want to pursue in the future but for now it's on hold due to lack of time.
@@ -123,7 +121,7 @@ repository:
   checkout: ../fleet-archive/motion
   observedRevision: 6ac4700feea7683c86efc214470e6d9dd8bf846a
   githubRepository: Significant-Hobbies/motion
-  githubHomepageUrl: null
+  githubHomepageUrl: https://motion.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/motion
@@ -174,12 +172,20 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/motion
+    defaultBranch: main
+    defaultBranchSha: 6ac4700feea7683c86efc214470e6d9dd8bf846a
+    homepage: https://motion.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -187,6 +193,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34098810812
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 6ac4700feea7683c86efc214470e6d9dd8bf846a
+          createdAt: 2026-09-07T08:06:17Z
+          updatedAt: 2026-09-07T08:08:26Z
+          url: https://github.com/Significant-Hobbies/motion/actions/runs/34098810812
+        ageDays: 11
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34098810812
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 6ac4700feea7683c86efc214470e6d9dd8bf846a
+          createdAt: 2026-09-07T08:06:17Z
+          updatedAt: 2026-09-07T08:08:26Z
+          url: https://github.com/Significant-Hobbies/motion/actions/runs/34098810812
+        ageDays: 11
+      attention: ignored
 deployment:
   kind: pages
   deployed: true

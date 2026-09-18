@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: setline
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,8 +9,8 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
@@ -37,7 +37,7 @@ verification:
       revision: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
       githubRepository: Significant-Hobbies/setline
       expectedHomepage: https://setline.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://setline.significanthobbies.com
       worktree: &a1
         state: dirty
         trackedChangeCount: 16
@@ -55,14 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://setline.significanthobbies.com.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Setline is an iOS app whose purpose is to help me exercise, have better timings, and show my workouts and track my workouts. I am still working on it.
   fullReviewVerbatim: Setline is an iOS app whose purpose is to help me exercise, have better timings, and show my workouts and track my workouts. I am still working on it.
@@ -120,7 +118,7 @@ repository:
   checkout: setline
   observedRevision: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
   githubRepository: Significant-Hobbies/setline
-  githubHomepageUrl: null
+  githubHomepageUrl: https://setline.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/setline
@@ -155,12 +153,20 @@ repository:
       - quality:unused
       - test
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/setline
+    defaultBranch: main
+    defaultBranchSha: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
+    homepage: https://setline.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -168,6 +174,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34336313371
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
+          createdAt: 2026-09-09T09:43:31Z
+          updatedAt: 2026-09-09T09:59:10Z
+          url: https://github.com/Significant-Hobbies/setline/actions/runs/34336313371
+        ageDays: 9
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34336313371
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8cee9ccd3edd0b783fe3e1f0803ed28a55936223
+          createdAt: 2026-09-09T09:43:31Z
+          updatedAt: 2026-09-09T09:59:10Z
+          url: https://github.com/Significant-Hobbies/setline/actions/runs/34336313371
+        ageDays: 9
+      attention: clear
 deployment:
   kind: pages
   deployed: true

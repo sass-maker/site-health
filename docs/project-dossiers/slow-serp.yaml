@@ -56,8 +56,8 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
 ownerVoice:
@@ -143,11 +143,19 @@ repository:
       - start
       - test
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary: {}
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/slow-serp
+    defaultBranch: main
+    defaultBranchSha: 5855206f5d66be8145dafe1bab394e6fa8d6f48e
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows: []
 deployment:
   kind: none

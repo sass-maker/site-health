@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: storagedaddy
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -9,7 +9,7 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
+    githubHomepage: passed
     githubActionsLiveState: not-applicable
     retainedGitHistory: catalog-drift
   evidence:
@@ -37,7 +37,7 @@ verification:
       revision: 5cb82a019524ebdec39b466a423032265337ccd0
       githubRepository: sarthakagrawal927/storagedaddy
       expectedHomepage: https://storagedaddy.significanthobbies.com/
-      observedHomepage: null
+      observedHomepage: https://storagedaddy.significanthobbies.com/
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,11 +56,10 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
       attention: &a2 {}
-  unknowns:
-    - GitHub repository homepage does not match the canonical deployed URL https://storagedaddy.significanthobbies.com/.
+  unknowns: []
 ownerVoice:
   whyVerbatim: Working native Mac app
   fullReviewVerbatim: |-
@@ -130,7 +129,7 @@ repository:
   checkout: storagedaddy
   observedRevision: 5cb82a019524ebdec39b466a423032265337ccd0
   githubRepository: sarthakagrawal927/storagedaddy
-  githubHomepageUrl: null
+  githubHomepageUrl: https://storagedaddy.significanthobbies.com/
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/storagedaddy
@@ -153,11 +152,19 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary: {}
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/storagedaddy
+    defaultBranch: main
+    defaultBranchSha: 5cb82a019524ebdec39b466a423032265337ccd0
+    homepage: https://storagedaddy.significanthobbies.com/
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows: []
 deployment:
   kind: worker

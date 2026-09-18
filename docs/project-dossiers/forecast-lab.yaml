@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: forecast-lab
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-18
   checks:
@@ -10,7 +10,7 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
@@ -55,13 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-18T18:17:37.385Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
+        ignored: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
   fullReviewVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
@@ -153,12 +152,20 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-18T18:17:37.385Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/forecast-lab
+    defaultBranch: main
+    defaultBranchSha: 8b245ad7476d97812df4cba67f19473f29ac53c2
+    homepage: null
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -166,6 +173,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34115663900
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8b245ad7476d97812df4cba67f19473f29ac53c2
+          createdAt: 2026-09-07T11:15:10Z
+          updatedAt: 2026-09-07T11:15:36Z
+          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/34115663900
+        ageDays: 11
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 34115663900
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 8b245ad7476d97812df4cba67f19473f29ac53c2
+          createdAt: 2026-09-07T11:15:10Z
+          updatedAt: 2026-09-07T11:15:36Z
+          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/34115663900
+        ageDays: 11
+      attention: ignored
 deployment:
   kind: none
   deployed: false
