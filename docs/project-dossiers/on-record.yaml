@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-19T13:18:07.430Z
       staleAfterDays: 30
       healthy: 2
       cancelled: 1
@@ -186,7 +186,7 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-19T13:18:07.430Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -270,29 +270,29 @@ githubActions:
         reason: latest run was cancelled
         apiState: active
         lastRun:
-          id: 35335539729
+          id: 35437163637
           status: completed
           conclusion: cancelled
           event: schedule
           branch: main
           headSha: 3e63f77c0fc0a5215063f75bf723d000aad17ee4
-          createdAt: 2026-09-18T10:36:32Z
-          updatedAt: 2026-09-18T12:36:51Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/35335539729
+          createdAt: 2026-09-19T10:21:08Z
+          updatedAt: 2026-09-19T12:21:28Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/35437163637
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded cancelled
         lastRun:
-          id: 35335539729
+          id: 35437163637
           status: completed
           conclusion: cancelled
           event: schedule
           branch: main
           headSha: 3e63f77c0fc0a5215063f75bf723d000aad17ee4
-          createdAt: 2026-09-18T10:36:32Z
-          updatedAt: 2026-09-18T12:36:51Z
-          url: https://github.com/Significant-Hobbies/on-record/actions/runs/35335539729
+          createdAt: 2026-09-19T10:21:08Z
+          updatedAt: 2026-09-19T12:21:28Z
+          url: https://github.com/Significant-Hobbies/on-record/actions/runs/35437163637
         ageDays: 0
         freshnessDays: 2
       currentDefaultBranch:

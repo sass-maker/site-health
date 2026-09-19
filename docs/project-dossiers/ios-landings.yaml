@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-19T13:18:07.430Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 1
       attention: &a2
         action-required: 1
   unknowns: []
@@ -155,10 +155,10 @@ repository:
       - dev:setline
       - preview
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-19T13:18:07.430Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/ios-landings
@@ -184,19 +184,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35341739719
+          id: 35444722718
           status: completed
-          conclusion: failure
-          event: push
-          branch: main
-          headSha: 3ea6f6624e766932f2f932425c44238e036c17ed
-          createdAt: 2026-09-18T11:52:01Z
-          updatedAt: 2026-09-18T11:52:33Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/35341739719
+          conclusion: success
+          event: pull_request
+          branch: release/kith-privacy-158
+          headSha: dbd50f5bd75e2be0d3081f2ecdfc3110384bfb26
+          createdAt: 2026-09-19T13:05:10Z
+          updatedAt: 2026-09-19T13:06:14Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/35444722718
         ageDays: 0
       schedule:
         health: not-applicable
@@ -215,7 +215,7 @@ githubActions:
           createdAt: 2026-09-18T11:52:01Z
           updatedAt: 2026-09-18T11:52:33Z
           url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/35341739719
-        ageDays: 0
+        ageDays: 1
       attention: action-required
 deployment:
   kind: none

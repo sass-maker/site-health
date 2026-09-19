@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-19T13:18:07.430Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -172,7 +172,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-19T13:18:07.430Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -215,7 +215,7 @@ githubActions:
           createdAt: 2026-09-08T07:15:30Z
           updatedAt: 2026-09-08T07:16:22Z
           url: https://github.com/sarthakagrawal927/drank/actions/runs/34198440414
-        ageDays: 10
+        ageDays: 11
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -233,7 +233,7 @@ githubActions:
           createdAt: 2026-09-08T07:15:30Z
           updatedAt: 2026-09-08T07:16:22Z
           url: https://github.com/sarthakagrawal927/drank/actions/runs/34198440414
-        ageDays: 10
+        ageDays: 11
       attention: ignored
     - name: Update Global DR History
       file: .github/workflows/update-global-dr.yml
@@ -263,10 +263,10 @@ githubActions:
           createdAt: 2026-09-07T09:10:56Z
           updatedAt: 2026-09-07T09:11:56Z
           url: https://github.com/sarthakagrawal927/drank/actions/runs/34104568403
-        ageDays: 11
+        ageDays: 12
       schedule:
         health: missed
-        reason: last scheduled run is 11 days old; expected within 9 day(s)
+        reason: last scheduled run is 12 days old; expected within 9 day(s)
         lastRun:
           id: 34104568403
           status: completed
@@ -277,7 +277,7 @@ githubActions:
           createdAt: 2026-09-07T09:10:56Z
           updatedAt: 2026-09-07T09:11:56Z
           url: https://github.com/sarthakagrawal927/drank/actions/runs/34104568403
-        ageDays: 11
+        ageDays: 12
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable

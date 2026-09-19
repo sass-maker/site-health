@@ -1,0 +1,31 @@
+{
+  // Shared operational steward: Site Health owns search discovery for the fleet.
+  // One IndexNow key served on /{key}.txt for every eligible product domain.
+  // Path-exact routes outrank product custom domains; all other traffic is untouched.
+  "name": "fleet-indexnow-key",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-19",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "codevetter.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "codevetter.com" },
+    { "pattern": "starboard.codevetter.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "codevetter.com" },
+    { "pattern": "heypace.app/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "heypace.app" },
+    { "pattern": "posttrainllm.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "posttrainllm.com" },
+    { "pattern": "highsignal.app/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "highsignal.app" },
+    { "pattern": "karte.cc/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "karte.cc" },
+    { "pattern": "sassmaker.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "sassmaker.com" },
+    { "pattern": "ai-gateway.sassmaker.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "sassmaker.com" },
+    { "pattern": "knowledgebase.sassmaker.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "sassmaker.com" },
+    { "pattern": "health.sassmaker.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "sassmaker.com" },
+    { "pattern": "significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" },
+    { "pattern": "live.significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" },
+    { "pattern": "anime.significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" },
+    { "pattern": "learn.significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" },
+    { "pattern": "calorie.significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" },
+    { "pattern": "setline.significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" },
+    { "pattern": "kith.significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" },
+    { "pattern": "paths.significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" },
+    { "pattern": "anchor.significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" },
+    { "pattern": "storagedaddy.significanthobbies.com/bdeaa89dd1f1f7869584f50121c6e7da.txt", "zone_name": "significanthobbies.com" }
+  ]
+}

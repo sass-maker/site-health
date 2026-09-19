@@ -7,8 +7,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "pace": {
     "url": "https://heypace.app/",
@@ -18,8 +18,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "posttrainllm": {
     "url": "https://posttrainllm.com/",
@@ -29,21 +29,19 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "live": {
     "url": "https://live.significanthobbies.com/",
-    "pass": 14,
+    "pass": 15,
     "fail": 0,
-    "warn": 1,
+    "warn": 0,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [
-      "json-ld"
-    ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "saas-maker": {
     "url": "https://sassmaker.com/",
@@ -53,8 +51,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "free-ai": {
     "url": "https://ai-gateway.sassmaker.com/",
@@ -64,21 +62,19 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "high-signal": {
     "url": "https://highsignal.app/",
-    "pass": 14,
+    "pass": 15,
     "fail": 0,
-    "warn": 1,
+    "warn": 0,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [
-      "json-ld"
-    ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "knowledge-base": {
     "url": "https://knowledgebase.sassmaker.com/",
@@ -88,8 +84,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "significanthobbies": {
     "url": "https://significanthobbies.com/",
@@ -99,8 +95,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "anime-list": {
     "url": "https://anime.significanthobbies.com/",
@@ -112,8 +108,8 @@
     "warningChecks": [
       "word-count"
     ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "swe-interview-prep": {
     "url": "https://learn.significanthobbies.com/",
@@ -123,73 +119,63 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "calorie": {
     "url": "https://calorie.significanthobbies.com/",
-    "pass": 14,
+    "pass": 15,
     "fail": 0,
-    "warn": 1,
+    "warn": 0,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [
-      "json-ld"
-    ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "setline": {
     "url": "https://setline.significanthobbies.com/",
-    "pass": 14,
+    "pass": 15,
     "fail": 0,
-    "warn": 1,
+    "warn": 0,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [
-      "json-ld"
-    ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "kith": {
     "url": "https://kith.significanthobbies.com/",
-    "pass": 14,
+    "pass": 15,
     "fail": 0,
-    "warn": 1,
+    "warn": 0,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [
-      "json-ld"
-    ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "karte": {
     "url": "https://karte.cc/",
-    "pass": 14,
+    "pass": 15,
     "fail": 0,
-    "warn": 1,
+    "warn": 0,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [
-      "json-ld"
-    ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "starboard": {
     "url": "https://starboard.codevetter.com/",
-    "pass": 14,
+    "pass": 15,
     "fail": 0,
-    "warn": 1,
+    "warn": 0,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [
-      "json-ld"
-    ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "app-health": {
     "url": "https://health.sassmaker.com/",
@@ -199,8 +185,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "what-it-takes-to-win": {
     "url": "https://paths.significanthobbies.com/",
@@ -210,34 +196,40 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "anchor": {
     "url": "https://anchor.significanthobbies.com/",
-    "pass": 14,
+    "pass": 15,
     "fail": 0,
-    "warn": 1,
+    "warn": 0,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [
-      "json-ld"
-    ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   },
   "storagedaddy": {
     "url": "https://storagedaddy.significanthobbies.com/",
-    "pass": 13,
+    "pass": 15,
     "fail": 0,
-    "warn": 2,
+    "warn": 0,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [
-      "meta-description",
-      "json-ld"
-    ],
-    "date": "2026-09-18",
-    "auditedAt": "2026-09-18T07:06:31.756Z"
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
+  },
+  "launchdesk": {
+    "url": "https://sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-19",
+    "auditedAt": "2026-09-19T04:14:32.705Z"
   }
 }

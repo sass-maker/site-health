@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
-      documentSha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      documentSha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -40,8 +40,8 @@ verification:
       expectedHomepage: https://money.significanthobbies.com
       observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-19
@@ -58,7 +58,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-19T13:18:07.430Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -167,7 +167,7 @@ repository:
       - start:vinext
       - test
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-19T13:18:07.430Z
   staleAfterDays: 30
   summary:
     healthy: 1

@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
-      infrastructureUpdatedAt: 2026-08-22
+      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
+      infrastructureUpdatedAt: 2026-09-19
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Site Health
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-19
       state: available
       checkout: site-health
-      revision: 819a934b3daf0dd38515146bafb71332158cba72
+      revision: 636db89014da692e675d4abb2125798a34940873
       githubRepository: sass-maker/site-health
       expectedHomepage: null
       observedHomepage: https://sassmaker.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 66
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-19
       state: available
       checkout: site-health
-      revision: 819a934b3daf0dd38515146bafb71332158cba72
+      revision: 636db89014da692e675d4abb2125798a34940873
       githubRepository: sass-maker/site-health
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-19T13:18:07.430Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -125,12 +125,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-05-02
     latestCommitAt: 2026-09-19
-    retainedCommitCount: 1133
+    retainedCommitCount: 1134
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: site-health
-  observedRevision: 819a934b3daf0dd38515146bafb71332158cba72
+  observedRevision: 636db89014da692e675d4abb2125798a34940873
   githubRepository: sass-maker/site-health
   githubHomepageUrl: https://sassmaker.com
   worktree: *a1
@@ -173,7 +173,7 @@ repository:
       - test:backend
       - test:backend:ci
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-19T13:18:07.430Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -181,7 +181,7 @@ githubActions:
   remote:
     repository: sass-maker/site-health
     defaultBranch: main
-    defaultBranchSha: 819a934b3daf0dd38515146bafb71332158cba72
+    defaultBranchSha: 636db89014da692e675d4abb2125798a34940873
     homepage: https://sassmaker.com
     query: verified
     disposition:
@@ -207,15 +207,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35421430237
+          id: 35422761422
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 819a934b3daf0dd38515146bafb71332158cba72
-          createdAt: 2026-09-19T04:29:39Z
-          updatedAt: 2026-09-19T04:30:07Z
-          url: https://github.com/sass-maker/site-health/actions/runs/35421430237
+          headSha: 636db89014da692e675d4abb2125798a34940873
+          createdAt: 2026-09-19T05:00:01Z
+          updatedAt: 2026-09-19T05:00:33Z
+          url: https://github.com/sass-maker/site-health/actions/runs/35422761422
         ageDays: 0
       schedule:
         health: not-applicable
@@ -225,15 +225,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35421430237
+          id: 35422761422
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 819a934b3daf0dd38515146bafb71332158cba72
-          createdAt: 2026-09-19T04:29:39Z
-          updatedAt: 2026-09-19T04:30:07Z
-          url: https://github.com/sass-maker/site-health/actions/runs/35421430237
+          headSha: 636db89014da692e675d4abb2125798a34940873
+          createdAt: 2026-09-19T05:00:01Z
+          updatedAt: 2026-09-19T05:00:33Z
+          url: https://github.com/sass-maker/site-health/actions/runs/35422761422
         ageDays: 0
       attention: clear
 deployment:
@@ -244,8 +244,22 @@ deployment:
   domainProbePaths: {}
   targets: []
   cloudflare:
-    deployments: []
-    resources: []
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: fleet-indexnow-key
+        method: wrangler-direct
+        state: live
+        versionId: 85f9521e-75d5-40ee-8b9f-47f3bacd2c4a
+        attributionReason: "Shared operational steward owned by Site Health search discovery: serves the fleet IndexNow key on /bdeaa89dd1f1f7869584f50121c6e7da.txt across 20 eligible product domains via path-exact routes that outrank product custom domains. Source: site-health/apps/backend/indexnow-worker."
+    resources:
+      - provider: cloudflare
+        kind: worker-routes
+        name: fleet-indexnow-key path routes
+        state: active
+        attributionReason: 20 path-exact routes (/{key}.txt) across zones significanthobbies.com, sassmaker.com, codevetter.com, heypace.app, posttrainllm.com, highsignal.app and karte.cc; verified live on all 20 domains 2026-09-19.
+        scope: project
+        operationalOwner: site-health
   otherProviders:
     deployments: []
     resources: []
@@ -260,4 +274,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: Private local-only Site Health product. SaaS Maker owns Fleet reusable tooling; Feedback and ChatGPT Connections remain independently owned sibling repositories. Performance collection uses installed Node 24.20.0 through mise to match PSI Swarm native SQLite.
-  infrastructure: Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched.
+  infrastructure: Site Health is local-only on 127.0.0.1 except fleet-indexnow-key, a shared operational steward Worker added 2026-09-19 to serve the IndexNow key fleet-wide; feeds scripts/indexnow-submit.mjs and the Search Console discovery cycle.

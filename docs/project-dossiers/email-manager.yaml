@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-19T13:18:07.430Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -189,7 +189,7 @@ repository:
       - verify:indexing
       - verify:local-mailbox
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-19T13:18:07.430Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -277,7 +277,7 @@ githubActions:
           createdAt: 2026-09-05T11:04:48Z
           updatedAt: 2026-09-05T11:05:19Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/33962356232
-        ageDays: 13
+        ageDays: 14
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -312,7 +312,7 @@ githubActions:
           createdAt: 2026-09-14T05:09:58Z
           updatedAt: 2026-09-14T05:10:48Z
           url: https://github.com/Significant-Hobbies/email-manager/actions/runs/34808614348
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

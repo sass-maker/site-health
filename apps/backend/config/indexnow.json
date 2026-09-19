@@ -1,0 +1,9 @@
+{
+  "schema": "fleet.indexnow.v1",
+  "key": "bdeaa89dd1f1f7869584f50121c6e7da",
+  "endpoint": "https://api.indexnow.org/indexnow",
+  "userAgent": "fleet-indexnow/2.0",
+  "batchSize": 100,
+  "timeoutMs": 20000,
+  "retries": 3
+}

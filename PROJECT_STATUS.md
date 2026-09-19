@@ -19,6 +19,19 @@ backend.
 
 ## Timeline
 
+- **2026-09-19:** Restored fleet IndexNow capability and completed the first
+  all-domain submission. `scripts/indexnow-submit.mjs` was missing while
+  `search-console-collect --discovery-cycle` still invoked it; a lean
+  replacement now lives at that path, reads the same eligible-project chain as
+  the Search Console collector, dedupes against `~/.fleet/indexnow-state.json`,
+  and prints the contract line the discovery cycle parses. The shared key is
+  served by `fleet-indexnow-key` (apps/backend/indexnow-worker), a new shared
+  operational steward Worker whose 20 path-exact `/{key}.txt` routes outrank
+  product custom domains without touching product repos. All 20 domains
+  verified serving the key; 15,822 sitemap URLs submitted in 172 batches with
+  zero failures. The run also submitted missing Google sitemaps for live, kith
+  and anchor. Catalog attribution recorded under infrastructure.projects.site-health.
+
 - **2026-09-11:** Aligned project and portfolio performance collectors on the
   installed, supported Node 24 runtime. A real Node 22 audit completed but
   failed to save because PSI Swarm's native SQLite module uses the Node 24

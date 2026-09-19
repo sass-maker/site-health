@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-19
       state: available
       checkout: pace
-      revision: d308989ecdacc24328f2d4bbaa3a2792b810396d
+      revision: 99da07b4862405692243ded9a8fc902d96b4ab08
       githubRepository: HeyPace/pace
       expectedHomepage: https://heypace.app
       observedHomepage: https://heypace.app
@@ -46,18 +46,20 @@ verification:
       observedAt: 2026-09-19
       state: available
       checkout: pace
-      revision: d308989ecdacc24328f2d4bbaa3a2792b810396d
+      revision: 99da07b4862405692243ded9a8fc902d96b4ab08
       githubRepository: HeyPace/pace
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-13
       catalogLatestCommitAt: 2026-09-09
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-19T13:18:07.430Z
       staleAfterDays: 30
-      healthy: 3
+      running: 1
+      healthy: 2
       attention: &a2
         clear: 3
   unknowns: []
@@ -112,13 +114,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-13
-    latestCommitAt: 2026-09-09
-    retainedCommitCount: 65
+    latestCommitAt: 2026-09-18
+    retainedCommitCount: 66
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: pace
-  observedRevision: d308989ecdacc24328f2d4bbaa3a2792b810396d
+  observedRevision: 99da07b4862405692243ded9a8fc902d96b4ab08
   githubRepository: HeyPace/pace
   githubHomepageUrl: https://heypace.app
   worktree: *a1
@@ -155,10 +157,11 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-19T13:18:07.430Z
   staleAfterDays: 30
   summary:
-    healthy: 3
+    running: 1
+    healthy: 2
   attention: *a2
   remote:
     repository: HeyPace/pace
@@ -185,19 +188,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 35374327500
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 99da07b4862405692243ded9a8fc902d96b4ab08
-          createdAt: 2026-09-18T17:26:15Z
-          updatedAt: 2026-09-18T17:34:39Z
-          url: https://github.com/HeyPace/pace/actions/runs/35374327500
+          id: 35445293693
+          status: in_progress
+          conclusion: null
+          event: pull_request
+          branch: feature/seo-article-drafts-pace-6405234972424120945
+          headSha: 7ab10ff729e1e8c42b7ebd6a44c2f63913793f32
+          createdAt: 2026-09-19T13:17:01Z
+          updatedAt: 2026-09-19T13:17:08Z
+          url: https://github.com/HeyPace/pace/actions/runs/35445293693
         ageDays: 0
       schedule:
         health: not-applicable
@@ -273,15 +276,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35374327502
+          id: 35445293688
           status: completed
           conclusion: success
-          event: push
-          branch: main
-          headSha: 99da07b4862405692243ded9a8fc902d96b4ab08
-          createdAt: 2026-09-18T17:26:15Z
-          updatedAt: 2026-09-18T17:26:59Z
-          url: https://github.com/HeyPace/pace/actions/runs/35374327502
+          event: pull_request
+          branch: feature/seo-article-drafts-pace-6405234972424120945
+          headSha: 7ab10ff729e1e8c42b7ebd6a44c2f63913793f32
+          createdAt: 2026-09-19T13:17:01Z
+          updatedAt: 2026-09-19T13:17:36Z
+          url: https://github.com/HeyPace/pace/actions/runs/35445293688
         ageDays: 0
       schedule:
         health: not-applicable
