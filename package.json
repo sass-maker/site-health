@@ -16,13 +16,16 @@
     "docs:projects:refresh-local": "node scripts/generate-project-dossiers.mjs --refresh",
     "docs:projects:refresh-history": "node scripts/generate-project-dossiers.mjs --refresh-history",
     "docs:projects:check": "node scripts/generate-project-dossiers.mjs --check",
+    "prepare:ci-catalog": "node scripts/prepare-ci-catalog.mjs",
     "docs:purpose-contracts": "node scripts/generate-purpose-contract-report.mjs",
     "docs:purpose-contracts:check": "node scripts/generate-purpose-contract-report.mjs --check",
     "build": "pnpm --dir apps/web build",
     "test:backend": "node --disable-warning=ExperimentalWarning --test apps/backend/test/*.test.mjs",
+    "test:backend:ci": "node scripts/test-backend-ci.mjs",
     "test:ai": "pnpm --dir apps/backend/packages/ai-visibility check",
     "test": "pnpm run test:backend && pnpm run test:ai",
-    "check": "pnpm run docs:projects:check && pnpm run build && pnpm run test"
+    "check": "pnpm run docs:projects:check && pnpm run build && pnpm run test",
+    "check:ci": "pnpm run prepare:ci-catalog && pnpm run build && pnpm run test:backend:ci && pnpm run test:ai"
   },
   "engines": {
     "node": ">=22"
