@@ -3,7 +3,7 @@ projectId: launchdesk
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-18
+  generatedAt: 2026-09-19
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
+      sha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
       infrastructureUpdatedAt: 2026-09-18
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,15 +24,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-18
       reviewSha256: 8a69fbc483835d9b18bda3f1d5b8d0c1d4c8b157c8da8b37d895e3444d4bcc1e
-      documentSha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
+      documentSha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3c98651d8fbdf48e49c2a0463b0eb9ff0504cc8d17e06236c3cce93487b7e8bd
+      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-18
+      observedAt: 2026-09-19
       state: available
       checkout: launchdesk
       revision: dbcda83861b66aaf3551680b5c104a2c5dd77dd2
@@ -44,7 +44,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-18
+      observedAt: 2026-09-19
       state: available
       checkout: launchdesk
       revision: dbcda83861b66aaf3551680b5c104a2c5dd77dd2
@@ -56,7 +56,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-18T18:17:37.385Z
+      observedAt: 2026-09-19T04:15:27.354Z
       staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
@@ -132,7 +132,7 @@ repository:
       - sync:showcase
       - test
 githubActions:
-  observedAt: 2026-09-18T18:17:37.385Z
+  observedAt: 2026-09-19T04:15:27.354Z
   staleAfterDays: 30
   summary: {}
   attention: *a2

@@ -3,7 +3,7 @@ projectId: drank
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-18
+  generatedAt: 2026-09-19
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
+      sha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,10 +28,10 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3c98651d8fbdf48e49c2a0463b0eb9ff0504cc8d17e06236c3cce93487b7e8bd
+      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-18
+      observedAt: 2026-09-19
       state: available
       checkout: ../fleet-archive/drank
       revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-18
+      observedAt: 2026-09-19
       state: available
       checkout: ../fleet-archive/drank
       revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-18T18:17:37.385Z
+      observedAt: 2026-09-19T04:15:27.354Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -172,7 +172,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-18T18:17:37.385Z
+  observedAt: 2026-09-19T04:15:27.354Z
   staleAfterDays: 30
   summary:
     healthy: 2

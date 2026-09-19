@@ -3,19 +3,19 @@ projectId: unified-portfolio
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-18
+  generatedAt: 2026-09-19
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: unavailable
+    repositorySnapshot: passed
     githubHomepage: mismatch
     githubActionsLiveState: not-applicable
-    retainedGitHistory: unavailable
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
+      sha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,41 +24,45 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
-      documentSha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
+      documentSha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3c98651d8fbdf48e49c2a0463b0eb9ff0504cc8d17e06236c3cce93487b7e8bd
+      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-18
-      state: unavailable
+      observedAt: 2026-09-19
+      state: available
       checkout: unified-portfolio
-      revision: null
-      githubRepository: null
+      revision: 91c40cfa45a2f1b42406b0317b60865adf2b5822
+      githubRepository: sarthakagrawal927/unified-portfolio
       expectedHomepage: https://money.significanthobbies.com
       observedHomepage: null
-      worktree: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-18
-      state: unavailable
+      observedAt: 2026-09-19
+      state: available
       checkout: unified-portfolio
-      revision: null
-      githubRepository: null
+      revision: 91c40cfa45a2f1b42406b0317b60865adf2b5822
+      githubRepository: sarthakagrawal927/unified-portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: null
       catalogLatestCommitAt: null
-      catalogDrift: []
-      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/unified-portfolio rev-parse HEAD"
+      catalogDrift:
+        - firstCommitAt
+        - latestCommitAt
+      reason: null
     githubActions:
-      observedAt: 2026-09-18T18:17:37.385Z
+      observedAt: 2026-09-19T04:15:27.354Z
       staleAfterDays: 30
-      attention: &a1 {}
+      attention: &a2 {}
   unknowns:
     - GitHub repository homepage does not match the canonical deployed URL https://money.significanthobbies.com.
-    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: build the prod in prd
   fullReviewVerbatim: |-
@@ -111,36 +115,66 @@ product:
     - Next.js / vinext
     - MCP
   retainedGitHistory:
-    firstCommitAt: null
-    latestCommitAt: null
-    retainedCommitCount: null
-    historyCompleteness: null
+    firstCommitAt: 2026-09-19
+    latestCommitAt: 2026-09-19
+    retainedCommitCount: 1
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: unified-portfolio
-  observedRevision: null
-  githubRepository: null
+  observedRevision: 91c40cfa45a2f1b42406b0317b60865adf2b5822
+  githubRepository: sarthakagrawal927/unified-portfolio
   githubHomepageUrl: null
-  worktree: null
+  worktree: *a1
   visibility: private
   url: https://github.com/sarthakagrawal927/unified-portfolio
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: null
-    detectedSignals: []
-    rootPackageScripts: []
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: Drizzle
+        evidence:
+          - docs/archive/drizzle.config.ts.txt
+      - name: Next.js
+        evidence:
+          - next.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - vite.config.ts
+    rootPackageScripts:
+      - build
+      - build:next
+      - build:vinext
+      - check
+      - db:migrate
+      - db:migrate:local
+      - deploy
+      - deploy:vinext
+      - dev
+      - dev:next
+      - dev:vinext
+      - jobs
+      - start
+      - start:vinext
+      - test
 githubActions:
-  observedAt: 2026-09-18T18:17:37.385Z
+  observedAt: 2026-09-19T04:15:27.354Z
   staleAfterDays: 30
   summary: {}
-  attention: *a1
+  attention: *a2
   remote:
-    repository: null
-    defaultBranch: null
-    defaultBranchSha: null
+    repository: sarthakagrawal927/unified-portfolio
+    defaultBranch: main
+    defaultBranchSha: 91c40cfa45a2f1b42406b0317b60865adf2b5822
     homepage: null
-    query: unverifiable
+    query: verified
     disposition:
       disposition: active
       reason: tracked project

@@ -3,7 +3,7 @@ projectId: open-historia
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-18
+  generatedAt: 2026-09-19
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 860ee2684e7ce4e81cfef8b5ac8fa97a09a1942d9d27ff50cb33f37624e285d0
+      sha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3c98651d8fbdf48e49c2a0463b0eb9ff0504cc8d17e06236c3cce93487b7e8bd
+      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-18
+      observedAt: 2026-09-19
       state: available
       checkout: ../fleet-archive/open-historia
-      revision: 6b7fa8f883f261291a5c32a47516f06b18668da0
+      revision: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
       githubRepository: sarthakagrawal927/open-historia
       expectedHomepage: https://historia.aliveville.com
       observedHomepage: https://historia.aliveville.com
@@ -43,19 +43,20 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-18
+      observedAt: 2026-09-19
       state: available
       checkout: ../fleet-archive/open-historia
-      revision: 6b7fa8f883f261291a5c32a47516f06b18668da0
+      revision: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
       githubRepository: sarthakagrawal927/open-historia
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-08
       catalogLatestCommitAt: 2026-09-09
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-18T18:17:37.385Z
+      observedAt: 2026-09-19T04:15:27.354Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -112,13 +113,13 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-02-08
-    latestCommitAt: 2026-09-09
-    retainedCommitCount: 234
+    latestCommitAt: 2026-09-19
+    retainedCommitCount: 238
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/open-historia
-  observedRevision: 6b7fa8f883f261291a5c32a47516f06b18668da0
+  observedRevision: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
   githubRepository: sarthakagrawal927/open-historia
   githubHomepageUrl: https://historia.aliveville.com
   worktree: *a1
@@ -181,7 +182,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-18T18:17:37.385Z
+  observedAt: 2026-09-19T04:15:27.354Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -190,7 +191,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/open-historia
     defaultBranch: main
-    defaultBranchSha: 6b7fa8f883f261291a5c32a47516f06b18668da0
+    defaultBranchSha: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
     homepage: https://historia.aliveville.com
     query: verified
     disposition:
@@ -215,16 +216,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34327732410
+          id: 35385682185
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6b7fa8f883f261291a5c32a47516f06b18668da0
-          createdAt: 2026-09-09T08:11:05Z
-          updatedAt: 2026-09-09T08:16:29Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34327732410
-        ageDays: 9
+          headSha: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
+          createdAt: 2026-09-18T19:23:41Z
+          updatedAt: 2026-09-18T19:28:48Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35385682185
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -233,16 +234,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34327732410
+          id: 35385682185
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6b7fa8f883f261291a5c32a47516f06b18668da0
-          createdAt: 2026-09-09T08:11:05Z
-          updatedAt: 2026-09-09T08:16:29Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34327732410
-        ageDays: 9
+          headSha: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
+          createdAt: 2026-09-18T19:23:41Z
+          updatedAt: 2026-09-18T19:28:48Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35385682185
+        ageDays: 0
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
