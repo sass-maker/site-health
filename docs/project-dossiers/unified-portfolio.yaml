@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: not-applicable
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
+      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
-      documentSha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
+      documentSha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -35,7 +35,7 @@ verification:
       observedAt: 2026-09-19
       state: available
       checkout: unified-portfolio
-      revision: 91c40cfa45a2f1b42406b0317b60865adf2b5822
+      revision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
       githubRepository: sarthakagrawal927/unified-portfolio
       expectedHomepage: https://money.significanthobbies.com
       observedHomepage: null
@@ -47,7 +47,7 @@ verification:
       observedAt: 2026-09-19
       state: available
       checkout: unified-portfolio
-      revision: 91c40cfa45a2f1b42406b0317b60865adf2b5822
+      revision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
       githubRepository: sarthakagrawal927/unified-portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -58,9 +58,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:15:27.354Z
+      observedAt: 2026-09-19T04:58:48.301Z
       staleAfterDays: 30
-      attention: &a2 {}
+      healthy: 1
+      attention: &a2
+        clear: 1
   unknowns:
     - GitHub repository homepage does not match the canonical deployed URL https://money.significanthobbies.com.
 ownerVoice:
@@ -117,12 +119,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-09-19
     latestCommitAt: 2026-09-19
-    retainedCommitCount: 1
+    retainedCommitCount: 2
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: unified-portfolio
-  observedRevision: 91c40cfa45a2f1b42406b0317b60865adf2b5822
+  observedRevision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
   githubRepository: sarthakagrawal927/unified-portfolio
   githubHomepageUrl: null
   worktree: *a1
@@ -165,20 +167,68 @@ repository:
       - start:vinext
       - test
 githubActions:
-  observedAt: 2026-09-19T04:15:27.354Z
+  observedAt: 2026-09-19T04:58:48.301Z
   staleAfterDays: 30
-  summary: {}
+  summary:
+    healthy: 1
   attention: *a2
   remote:
     repository: sarthakagrawal927/unified-portfolio
     defaultBranch: main
-    defaultBranchSha: 91c40cfa45a2f1b42406b0317b60865adf2b5822
+    defaultBranchSha: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
     homepage: null
     query: verified
     disposition:
       disposition: active
       reason: tracked project
-  workflows: []
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35422220683
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
+          createdAt: 2026-09-19T04:47:06Z
+          updatedAt: 2026-09-19T04:47:57Z
+          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35422220683
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35422220683
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
+          createdAt: 2026-09-19T04:47:06Z
+          updatedAt: 2026-09-19T04:47:57Z
+          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35422220683
+        ageDays: 0
+      attention: clear
 deployment:
   kind: worker
   deployed: true

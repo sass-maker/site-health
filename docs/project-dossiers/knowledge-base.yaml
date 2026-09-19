@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
+      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,15 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:15:27.354Z
+      observedAt: 2026-09-19T04:58:48.301Z
       staleAfterDays: 30
-      failing: 1
-      healthy: 1
-      stale: 1
+      healthy: 3
       attention: &a2
-        action-required: 1
+        clear: 2
         missing-data: 1
-        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Knowledge base is my internal rack service which powers other applications. It has been working fine so as long as it works fine I am not going to touch it.
@@ -176,17 +173,15 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-09-19T04:15:27.354Z
+  observedAt: 2026-09-19T04:58:48.301Z
   staleAfterDays: 30
   summary:
-    failing: 1
-    healthy: 1
-    stale: 1
+    healthy: 3
   attention: *a2
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: de2a7faaba67a6ba595db5a2122b1212a0eab6cc
+    defaultBranchSha: cf4ae0a3ff7d3a6ebb92807bf715323ab457e46c
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -207,39 +202,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35341746249
+          id: 35421425213
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: de2a7faaba67a6ba595db5a2122b1212a0eab6cc
-          createdAt: 2026-09-18T11:52:06Z
-          updatedAt: 2026-09-18T11:52:31Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/35341746249
+          headSha: cf4ae0a3ff7d3a6ebb92807bf715323ab457e46c
+          createdAt: 2026-09-19T04:29:32Z
+          updatedAt: 2026-09-19T04:30:44Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/35421425213
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 35341746249
+          id: 35421425213
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: de2a7faaba67a6ba595db5a2122b1212a0eab6cc
-          createdAt: 2026-09-18T11:52:06Z
-          updatedAt: 2026-09-18T11:52:31Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/35341746249
+          headSha: cf4ae0a3ff7d3a6ebb92807bf715323ab457e46c
+          createdAt: 2026-09-19T04:29:32Z
+          updatedAt: 2026-09-19T04:30:44Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/35421425213
         ageDays: 0
-      attention: action-required
+      attention: clear
     - name: docs
       file: .github/workflows/docs.yml
       triggers:
@@ -274,7 +269,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision de2a7fa
+        reason: no push run at current main revision cf4ae0a
         lastRun:
           id: 34331170937
           status: completed
@@ -300,20 +295,20 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: stale
-        reason: latest run is 33 days old
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 31964660082
+          id: 35421352099
           status: completed
           conclusion: success
           event: pull_request
-          branch: chore/split-worker-entrypoint
-          headSha: bb7a2f37f8eb01673fbef80d81bf4de942def80c
-          createdAt: 2026-08-16T18:27:47Z
-          updatedAt: 2026-08-16T18:27:59Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/31964660082
-        ageDays: 33
+          branch: parity-knowledge-base
+          headSha: 7b27916ce9539e4c8fea611edbb06757707bd238
+          createdAt: 2026-09-19T04:27:53Z
+          updatedAt: 2026-09-19T04:28:05Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/35421352099
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

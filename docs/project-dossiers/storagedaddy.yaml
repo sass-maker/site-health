@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: passed
-    githubActionsLiveState: not-applicable
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
+      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-19
       state: available
       checkout: storagedaddy
-      revision: 5cb82a019524ebdec39b466a423032265337ccd0
+      revision: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
       githubRepository: sarthakagrawal927/storagedaddy
       expectedHomepage: https://storagedaddy.significanthobbies.com/
       observedHomepage: https://storagedaddy.significanthobbies.com/
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-19
       state: available
       checkout: storagedaddy
-      revision: 5cb82a019524ebdec39b466a423032265337ccd0
+      revision: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
       githubRepository: sarthakagrawal927/storagedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:15:27.354Z
+      observedAt: 2026-09-19T04:58:48.301Z
       staleAfterDays: 30
-      attention: &a2 {}
+      healthy: 1
+      attention: &a2
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Working native Mac app
@@ -121,13 +123,13 @@ product:
     - Sparkle
   retainedGitHistory:
     firstCommitAt: 2026-09-13
-    latestCommitAt: 2026-09-18
-    retainedCommitCount: 19
+    latestCommitAt: 2026-09-19
+    retainedCommitCount: 22
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: storagedaddy
-  observedRevision: 5cb82a019524ebdec39b466a423032265337ccd0
+  observedRevision: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
   githubRepository: sarthakagrawal927/storagedaddy
   githubHomepageUrl: https://storagedaddy.significanthobbies.com/
   worktree: *a1
@@ -152,20 +154,68 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-19T04:15:27.354Z
+  observedAt: 2026-09-19T04:58:48.301Z
   staleAfterDays: 30
-  summary: {}
+  summary:
+    healthy: 1
   attention: *a2
   remote:
     repository: sarthakagrawal927/storagedaddy
     defaultBranch: main
-    defaultBranchSha: 5cb82a019524ebdec39b466a423032265337ccd0
+    defaultBranchSha: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
     homepage: https://storagedaddy.significanthobbies.com/
     query: verified
     disposition:
       disposition: active
       reason: tracked project
-  workflows: []
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35422398778
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
+          createdAt: 2026-09-19T04:51:13Z
+          updatedAt: 2026-09-19T04:54:34Z
+          url: https://github.com/sarthakagrawal927/storagedaddy/actions/runs/35422398778
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35422398778
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
+          createdAt: 2026-09-19T04:51:13Z
+          updatedAt: 2026-09-19T04:54:34Z
+          url: https://github.com/sarthakagrawal927/storagedaddy/actions/runs/35422398778
+        ageDays: 0
+      attention: clear
 deployment:
   kind: worker
   deployed: true
