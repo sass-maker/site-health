@@ -16,4 +16,4 @@ permissions:
 
 jobs:
   check:
-    uses: sass-maker/saas-maker/.github/workflows/site-health-ci.yml@4d9183a86f76e740e51d06c96299dbfc4f7d62d8
+    uses: sass-maker/saas-maker/.github/workflows/site-health-ci.yml@c2b0828686d76af52834228642278ff36d33c550
