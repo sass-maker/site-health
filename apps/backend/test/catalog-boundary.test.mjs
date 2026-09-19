@@ -143,7 +143,7 @@ test('every account-level Cloudflare resource has an explicit operational owner'
       coverageByKind.get('container-image-repository')?.observed,
       coverageByKind.get('container-image-repository')?.tracked,
     ],
-    [1, 1],
+    [0, 1],
   );
   // The Droid worker, its container and all 49 sandbox image versions were
   // deleted from Cloudflare on 2026-08-23. Mobile Dev Cockpit never owned it —
@@ -155,7 +155,7 @@ test('every account-level Cloudflare resource has an explicit operational owner'
     catalog.infrastructure.projects['saas-maker'].resources.some(
       (resource) => resource.kind === 'container-image-repository'
         && resource.name === 'box'
-        && resource.observedVersions === 1
+        && resource.observedVersions === 0
         && resource.scope === 'shared-fleet-account',
     ),
     true,
@@ -290,9 +290,10 @@ test('current product scope stays smaller than the complete retained inventory',
   const current = catalog.projects.filter((project) =>
     ['primary', 'active'].includes(project.lifecycle.status));
 
-  assert.equal(catalog.projects.length, 60);
+  assert.equal(catalog.projects.length, 63);
   assert.equal(current.length < catalog.projects.length, true);
-  assert.equal(current.some((project) => project.id === 'nomad-data-adventure'), true);
+  assert.equal(current.some((project) => project.id === 'ph-catalog'), true);
+  assert.equal(current.some((project) => project.id === 'nomad-data-adventure'), false);
   for (const id of ['chess', 'journal']) {
     const project = catalog.projects.find((project) => project.id === id);
     assert.equal(project.inRegistry, false);

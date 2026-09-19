@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
+      sha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
       infrastructureUpdatedAt: 2026-09-18
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-18
       reviewSha256: 8a69fbc483835d9b18bda3f1d5b8d0c1d4c8b157c8da8b37d895e3444d4bcc1e
-      documentSha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
+      documentSha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -92,7 +92,7 @@ identity:
   inRegistry: true
 product:
   description: A local-first launch workspace with a provenance-bearing catalog of 966 submission destinations, per-product queues and source-attributed metrics. Your workspace stays in your browser.
-  publicMakerNote: A launch-submission tracker built from attributed public source lists. It keeps reported metrics honest — unknown stays blank, never zero — and stores your queue in your own browser.
+  publicMakerNote: I built this launch-submission tracker from attributed public source lists. It keeps reported metrics honest — unknown stays blank, never zero — and stores your queue in your own browser.
   purposeContract:
     purpose: Give makers a provenance-honest catalog of launch destinations with per-product submission tracking.
     audience: Builders planning a deliberate launch or backlink campaign.

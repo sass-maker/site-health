@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
+      sha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
       infrastructureUpdatedAt: 2026-09-14
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-14
       reviewSha256: e3a97ff166bf6d5304c4e0f43aba0876daaa2c63461414cd4b1ebe34b9f3d379
-      documentSha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
+      documentSha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -92,8 +92,11 @@ identity:
     resumeCondition: Resume only when the owner explicitly requests it.
     shareable: false
   operationalStatus: local-only
+  authenticationModel: local-only
+  inRegistry: false
 product:
   description: An editorial exploration of software foundations. Paused local prototype.
+  publicMakerNote: I paused this local explainer after losing interest; the preserved prototype remains a dated exploration of software foundations.
   purposeContract:
     purpose: Shoulders helps curious software users and builders understand familiar products through their documented foundations.
     audience: Curious software users and builders.
@@ -207,6 +210,7 @@ githubActions:
         ageDays: 0
       attention: clear
 deployment:
+  kind: none
   deployed: false
   domains: []
   primaryUrl: null

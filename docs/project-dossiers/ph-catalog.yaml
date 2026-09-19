@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
+      sha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
       infrastructureUpdatedAt: 2026-09-19
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: 653d1bfeb2bf543031f5323d9237c1a59c9330bf616437ce905f2fa0e19d871a
-      documentSha256: 4f7c22bf98e10314a5842215743c69455054aac5086ab6bc84afae2c6068fb9c
+      documentSha256: 74f2d48d767dbf2a06234fb4d5b1fe917ca43d5b5abc761c30b2905a6e1f93ea
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -97,7 +97,7 @@ identity:
   inRegistry: true
 product:
   description: A resumable local Product Hunt catalogue and analytics experiment with a privacy-safe synthetic demo.
-  publicMakerNote: The full catalogue and analytics data stay local; the public repository demonstrates the real pipeline using original fictional fixtures.
+  publicMakerNote: I keep the full catalogue and analytics data local; the public repository demonstrates the real pipeline using original fictional fixtures.
   purposeContract:
     purpose: Build one resumable, deduplicated local product catalogue with explicit provenance and bounded analytical enrichment.
     audience: Developers and product researchers exploring reproducible catalogue and market-analysis workflows.
