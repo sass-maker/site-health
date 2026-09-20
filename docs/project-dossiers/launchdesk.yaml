@@ -34,7 +34,7 @@ verification:
     repository:
       observedAt: 2026-09-19
       state: available
-      checkout: launchdesk
+      checkout: ../fleet-archive/launchdesk
       revision: 724a7985efbfbb79e0de5cacbb65bb878c281e86
       githubRepository: Significant-Hobbies/launchdesk
       expectedHomepage: https://sassmaker.com/launchdesk
@@ -46,7 +46,7 @@ verification:
     retainedGitHistory:
       observedAt: 2026-09-19
       state: available
-      checkout: launchdesk
+      checkout: ../fleet-archive/launchdesk
       revision: 724a7985efbfbb79e0de5cacbb65bb878c281e86
       githubRepository: Significant-Hobbies/launchdesk
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
@@ -118,7 +118,7 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: launchdesk
+  checkout: ../fleet-archive/launchdesk
   observedRevision: 724a7985efbfbb79e0de5cacbb65bb878c281e86
   githubRepository: Significant-Hobbies/launchdesk
   githubHomepageUrl: https://sassmaker.com/launchdesk
