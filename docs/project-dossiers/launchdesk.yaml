@@ -68,31 +68,31 @@ ownerVoice:
   fullReviewVerbatim: Build this out and release it on CF.
   relatedHistoricalReviews: []
 decision:
-  classification: Active
-  whySummary: Give makers a provenance-honest catalog of launch destinations with per-product submission tracking.
-  currentState: Live publicly at sassmaker.com/launchdesk as a native catalog page in the shared SaaS Maker Pages site, fed by the generated dataset; the workspace app and live link-checker stay local-only by owner decision.
-  nextDecision: "Keep: The 966-destination attributed catalog with explicit unknowns and browser-local tracking. Stop: Accounts, automated submission, outreach features and invented metrics."
+  classification: Inactive / absorbed into SaaS Maker
+  whySummary: Historical source of SaaS Maker's launch-destination catalog; no separate product.
+  currentState: Owner removed the standalone identity on 2026-09-20. The /launchdesk feature and checked-in dataset now belong entirely to SaaS Maker.
+  nextDecision: No independent roadmap or portfolio listing. Any future catalog work belongs to SaaS Maker.
 identity:
   name: LaunchDesk
   publicName: LaunchDesk
   aliases: []
-  family: launchdesk
+  family: saas-maker
   category: utility
   audience: public
   personalUse: true
   moneyOrPersonalBrand: true
   unmetNeed: true
   kind: product
-  priority: P2
-  tier: active
-  attention: my-work
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
-    status: active
+    status: inactive
     resumeCondition: null
-    shareable: true
+    shareable: false
   operationalStatus: live
   authenticationModel: public
-  inRegistry: true
+  inRegistry: false
 product:
   description: A local-first launch workspace with a provenance-bearing catalog of 966 submission destinations, per-product queues and source-attributed metrics. Your workspace stays in your browser.
   publicMakerNote: I built this launch-submission tracker from attributed public source lists. It keeps reported metrics honest — unknown stays blank, never zero — and stores your queue in your own browser.
@@ -223,9 +223,9 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: beta
-  ready: true
+  ready: false
   verifiedAt: 2026-09-18
   reason: LaunchDesk is live at launchdesk.significanthobbies.com as a public static-assets Cloudflare Worker. The 966-destination catalog renders from the embedded seed and visitor workspaces persist in browser storage only; the live link-checker is intentionally not ported off the local Python mode. 36 Python unit tests pass; the deployed render was verified in headless Chromium.
   changelogUrl: null
