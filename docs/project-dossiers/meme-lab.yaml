@@ -1,0 +1,225 @@
+schemaVersion: 1
+projectId: meme-lab
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-22
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: unavailable
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      infrastructureUpdatedAt: 2026-09-20
+    ownerVoice:
+      path: docs/portfolio-owner-narratives-2026-08-22.md
+      sourceHeading: Meme Lab
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-08-22
+      reviewSha256: 9ae4195492bf97d0cae43a0a772cc853e30af57c01f95771a6905e7e6f94ca3f
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
+      restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
+      restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-22
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
+      expectedHomepage: https://memes.significanthobbies.com
+      observedHomepage: null
+      worktree: null
+    retainedGitHistory:
+      observedAt: 2026-09-22
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-19
+      catalogLatestCommitAt: 2026-09-20
+      catalogDrift: []
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
+    githubActions:
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://memes.significanthobbies.com.
+    - The owning checkout was unavailable during repository observation.
+ownerVoice:
+  whyVerbatim: I'm not going to read this out. What I want is, as soon as someone does a comment, we get a meme. That is it. I don't care about the implementation details. I want it live for me to play around with it. Once it's live I want to expand on the next things.
+  fullReviewVerbatim: |-
+    I'm not going to read this out. What I want is, as soon as someone does a comment, we get a meme. That is it. I don't care about the implementation details. I want it live for me to play around with it. Once it's live I want to expand on the next things.
+
+    Once we are at 3,000 we will want to do it at 30,000 as well because, while I don't think there are enough memes, the next set is movie dialogues (which would be far more
+
+    set it up at memes.significanthobbies.com
+
+    and get started for 3000
+
+    and add much better examples
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Turn a pasted comment or situation into the most relevant meme immediately.
+  currentState: A 300-reference personal playground is live at memes.significanthobbies.com; a separate 1,000-record source pool is under review.
+  nextDecision: Curate 700 stage-1,000 records, expand the evaluation set, then scale the same retrieval and ranking pipeline toward 3,000 memes.
+identity:
+  name: Meme Lab
+  publicName: null
+  aliases: []
+  family: meme-lab
+  category: experimental
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
+  kind: experiment
+  priority: P4
+  tier: secondary
+  attention: toolbox
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: true
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: A public personal tool that ranks 3,000 reaction memes for a pasted comment and returns the best match plus scored alternatives.
+  publicMakerNote: I built Meme Lab to test whether a model can pick the right reaction meme for a comment, with a public playground for feedback.
+  purposeContract:
+    purpose: Rank reaction memes against a pasted comment and evaluate local-model selection honestly.
+    audience: The owner; the public playground is a bounded demo surface.
+    outcome: Return the best meme first, with four scored alternatives across distinct perspectives when available.
+    mechanism: A corrected 3,000-reference catalogue uses dual-view BGE embeddings and Vectorize to retrieve 30 candidates, then Jev rates tone, social fit, and distinct perspectives. GIF results load their full animated asset while the searchable collection uses lightweight still previews.
+    proof: Custom domain and retained workers.dev route verified live on Worker version 873a5fa3 at 100% traffic from main commit 8a33c3b. Health reports 3,000 catalogue records, the public collection reports 1,195 GIFs and zero artwork fillers or excluded editing canvases, and Vectorize reports 6,000 vectors. The pending-review 100-case gate reached 67% retrieval-at-30, 60% top-three relevance, 90% top-three given retrieval, and 96% correct serious-content abstention.
+    nextAction: Try comments at memes.significanthobbies.com, label the returned options, and use misses to improve retrieval before the separate 30,000-item movie-dialogue corpus.
+  form: Local experiment and Worker playground
+  platforms:
+    - Web
+    - Local
+  prominentTools:
+    - Cloudflare Workers
+    - Workers AI
+    - Vectorize
+    - D1
+    - Node.js
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: null
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
+  visibility: public
+  url: https://github.com/sarthakagrawal927/meme-lab
+  aliases: []
+  sourceOverride: ../../Downloads/meme_lab
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - memes.significanthobbies.com
+  primaryUrl: https://memes.significanthobbies.com
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: meme-lab-play
+        method: wrangler-direct
+        state: live
+        versionId: 873a5fa3-db95-45aa-a411-9cf709c22821
+        notes: Corrected public playground deployed from main commit 8a33c3b9a7b2c092e7156036e281c6ec1a5329ce at 100% traffic on 2026-09-21. The custom domain and workers.dev route return HTTP 200; health reports 3,000 records. Static assets use run_worker_first on /api/*; daily cron 15 3 * * *; observability enabled.
+      - provider: cloudflare
+        kind: worker
+        name: meme-lab-catalogue-tool-stage-3000
+        method: wrangler-direct
+        state: live
+        versionId: 6147e95e-192b-4a7f-a093-2df0537ae5bc
+        notes: Stage-3,000 indexing and retrieval tool version fb041df2-b20d-49ca-b21a-3f23cc21e435 deployed from main commit 8a33c3b9a7b2c092e7156036e281c6ec1a5329ce at 100% traffic on 2026-09-21; it seeded the production 6,000-vector index in six bounded ranges.
+    resources:
+      - provider: cloudflare
+        kind: workers-ai
+        name: AI
+        state: active
+        scope: project
+        operationalOwner: meme-lab
+        attributionReason: "Canonical project owner: meme-lab"
+      - provider: cloudflare
+        kind: vectorize
+        name: meme-lab-catalogue
+        state: active
+        notes: Historical 768-dim cosine index retained from the initial catalogue stage.
+        scope: project
+        operationalOwner: meme-lab
+        attributionReason: "Canonical project owner: meme-lab"
+      - provider: cloudflare
+        kind: vectorize
+        name: meme-lab-catalogue-stage-1000
+        state: active
+        notes: Historical 1,000-record evaluation index retained for comparison.
+        scope: project
+        operationalOwner: meme-lab
+        attributionReason: "Canonical project owner: meme-lab"
+      - provider: cloudflare
+        kind: vectorize
+        name: meme-lab-catalogue-stage-3000
+        state: active
+        notes: Production 768-dim cosine index with 6,000 meaning and example vectors for the corrected 3,000-record catalogue; metadata indexes cover view, control, and core.
+        scope: project
+        operationalOwner: meme-lab
+        attributionReason: "Canonical project owner: meme-lab"
+      - provider: cloudflare
+        kind: d1
+        name: meme-lab-feedback
+        state: active
+        notes: database_id 5d85d86c-6383-4409-be18-d3ac05042d69, production; retains playground feedback for 30 days.
+        scope: project
+        operationalOwner: meme-lab
+        attributionReason: "Canonical project owner: meme-lab"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: true
+  verifiedAt: 2026-09-21
+  reason: Corrected 3,000-reference meme-selection playground verified on 2026-09-21. The live catalogue contains 1,805 static memes and 1,195 usage-backed reaction GIFs with no National Gallery artwork or inert editing canvases. The Worker returns one primary result plus four scored backups, exposes searchable pagination and a technical explainer, and retains one-tap feedback for 30 days. Worker version 873a5fa3 is live at 100% traffic from main commit 8a33c3b; health reports 3,000 catalogue records.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/meme-lab/issues
+  geoIdentity: null
+notes:
+  catalog: Owner requested catalog addition and public release on 2026-09-20; repository made public the same day. Checkout lives at ~/Downloads/meme_lab outside the Fleet workspace. The corrected 3,000-reference playground released on 2026-09-21 with 1,805 static memes, 1,195 usage-backed reaction GIFs, five ranked options, Jev, Vectorize, D1 feedback, and a daily cron. All 1,189 National Gallery artwork fillers plus six inert editing canvases were removed. Metadata and the 100-case evaluation remain assistant-authored pending owner feedback.
+  infrastructure: The production Worker and stage-3,000 catalogue tool are both deployed and tagged to main commit 8a33c3b9a7b2c092e7156036e281c6ec1a5329ce. Historical base and stage-1,000 Vectorize indexes remain attributed to Meme Lab.

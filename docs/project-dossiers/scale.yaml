@@ -1,0 +1,159 @@
+schemaVersion: 1
+projectId: scale
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-22
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: unavailable
+    githubHomepage: not-applicable
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      infrastructureUpdatedAt: 2026-09-20
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=scale].ownerNarrative
+      sourceHeading: Scale
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-20
+      reviewSha256: c19de664b1d979a9186baaadb154bf20dcb32107104f811de0cf99b125c75976
+      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-22
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: null
+    retainedGitHistory:
+      observedAt: 2026-09-22
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-11
+      catalogLatestCommitAt: 2026-09-11
+      catalogDrift: []
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
+    githubActions:
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - The owning checkout was unavailable during repository observation.
+ownerVoice:
+  whyVerbatim: Original standalone Scale prototype; maintained game now lives in SWE Interview Prep.
+  fullReviewVerbatim: Original standalone Scale prototype; maintained game now lives in SWE Interview Prep.
+  relatedHistoricalReviews: []
+decision:
+  classification: Inactive
+  whySummary: Teach systems-engineering capacity and architecture trade-offs through a small idle game.
+  currentState: The standalone prototype is archived; the maintained game lives inside SWE Interview Prep.
+  nextDecision: Preserve the original experiment and direct future play or maintenance to the SWE Interview Prep implementation.
+identity:
+  name: Scale
+  publicName: Scale
+  aliases: []
+  family: significanthobbies
+  category: experimental
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
+  kind: experiment
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
+  lifecycle:
+    status: inactive
+    resumeCondition: null
+    shareable: false
+  operationalStatus: local-only
+  authenticationModel: local-only
+  inRegistry: false
+product:
+  description: The original standalone Scale idle-game prototype, superseded by the game inside SWE Interview Prep.
+  publicMakerNote: This was the standalone prototype; the maintained game now lives inside SWE Interview Prep.
+  purposeContract:
+    purpose: Scale taught systems-engineering trade-offs through an idle game about growing a fictional company.
+    audience: Engineers learning capacity planning and architecture trade-offs.
+    outcome: Diagnose capacity pressure, compare fixes in Sandbox, and ship engineering changes.
+    mechanism: A simulated request path with selectable components, workloads, and alternative solutions.
+    proof: Single-commit prototype preserved on GitHub; the maintained implementation is verified inside SWE Interview Prep.
+    nextAction: Play the maintained game inside SWE Interview Prep.
+  form: Idle game prototype
+  platforms:
+    - Web
+    - Local
+  prominentTools:
+    - Vite
+    - TypeScript
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: null
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
+  visibility: public
+  url: https://github.com/sarthakagrawal927/scale
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: experiment
+  ready: false
+  verifiedAt: null
+  reason: null
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/scale/issues
+  geoIdentity: null
+notes:
+  catalog: Original standalone Scale prototype; the maintained game lives in SWE Interview Prep (learn.significanthobbies.com/play/scale). Owner made the repository public and archived it on 2026-09-20. No local checkout retained.
+  infrastructure: Local prototype only; no hosting or provider resources. Superseded by the Scale game inside SWE Interview Prep; GitHub repository public and archived 2026-09-20.

@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: app-health
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-22
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
       infrastructureUpdatedAt: 2026-09-14
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,27 +23,27 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 45e55fc954108cf2675c0b6c86b9eab49cdd086382eb921ffa8beb018abfbd91
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: app-health
       revision: 0b9e1076af6a684b2d99f7c7f59d6865a9e97dce
       githubRepository: sass-maker/app-health
       expectedHomepage: https://health.sassmaker.com
-      observedHomepage: https://health.sassmaker.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: app-health
       revision: 0b9e1076af6a684b2d99f7c7f59d6865a9e97dce
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T13:18:07.430Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://health.sassmaker.com.
 ownerVoice:
   whyVerbatim: |-
     I started App Health because in my production server, where I work, we had:
@@ -92,7 +94,7 @@ identity:
   family: app-health
   category: utility
   audience: public
-  personalUse: null
+  personalUse: true
   moneyOrPersonalBrand: true
   unmetNeed: false
   kind: product
@@ -135,7 +137,7 @@ repository:
   checkout: app-health
   observedRevision: 0b9e1076af6a684b2d99f7c7f59d6865a9e97dce
   githubRepository: sass-maker/app-health
-  githubHomepageUrl: https://health.sassmaker.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/app-health
@@ -201,20 +203,12 @@ repository:
       - verify:public-viewer
       - verify:swift-runtime
 githubActions:
-  observedAt: 2026-09-19T13:18:07.430Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sass-maker/app-health
-    defaultBranch: main
-    defaultBranchSha: 549336a7d46be0eca6b5d73017417cf015146fc6
-    homepage: https://health.sassmaker.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -222,47 +216,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35444418912
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 549336a7d46be0eca6b5d73017417cf015146fc6
-          createdAt: 2026-09-19T12:59:03Z
-          updatedAt: 2026-09-19T13:02:56Z
-          url: https://github.com/sass-maker/app-health/actions/runs/35444418912
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35444418912
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 549336a7d46be0eca6b5d73017417cf015146fc6
-          createdAt: 2026-09-19T12:59:03Z
-          updatedAt: 2026-09-19T13:02:56Z
-          url: https://github.com/sass-maker/app-health/actions/runs/35444418912
-        ageDays: 0
-      attention: clear
 deployment:
   kind: worker
   deployed: true

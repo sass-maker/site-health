@@ -1,0 +1,228 @@
+schemaVersion: 1
+projectId: nutrition-formula-engine
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-22
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: passed
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      infrastructureUpdatedAt: 2026-09-21
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=nutrition-formula-engine].ownerNarrative
+      sourceHeading: Formula Composition Engine
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-20
+      reviewSha256: a8abb04e76cd5e6f7f3feb386d4b30d465d06fe8d6fea2f253e0bf26ad29d651
+      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-22
+      state: available
+      checkout: nutrition-formula-engine
+      revision: ba987b8397a8ac7c7b5cb07596ee85c5889c5339
+      githubRepository: sarthakagrawal927/nutrition-formula-engine
+      expectedHomepage: https://formula.significanthobbies.com/
+      observedHomepage: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-22
+      state: available
+      checkout: nutrition-formula-engine
+      revision: ba987b8397a8ac7c7b5cb07596ee85c5889c5339
+      githubRepository: sarthakagrawal927/nutrition-formula-engine
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-21
+      catalogLatestCommitAt: 2026-09-21
+      catalogDrift: []
+      reason: null
+    githubActions:
+      observedAt: null
+      staleAfterDays: null
+      attention: &a2 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://formula.significanthobbies.com/.
+ownerVoice:
+  whyVerbatim: Okay can you release it and ensure you test it out so I can share it with people?
+  fullReviewVerbatim: |-
+    Okay can you release it and ensure you test it out so I can share it with people?
+
+    And can we also keep thorough logs for all the things we do so that we can take a look at them and improve them?
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Turn mixed-format food, nutraceutical and medicinal batch formulas into traceable theoretical composition reports before label and regulatory work.
+  currentState: Public browser-first workspace accepts pasted text and common files, requires row and identity review, exposes assumptions and per-result contributions, and stores saved formulas and reusable ingredients in one public D1 history shared by every device. The active Worker is tagged to clean pushed `main`.
+  nextDecision: Test more supplier-labelled food products, replace public reference assumptions with supplier specifications or lot CoAs, and keep regulatory formatting separate from the underlying calculation.
+identity:
+  name: Formula Composition Engine
+  publicName: null
+  aliases: []
+  family: nutrition-formula-engine
+  category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: true
+  unmetNeed: true
+  kind: product
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: true
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: A browser-first formulation tool that converts reviewed batch formulas into traceable theoretical composition reports.
+  publicMakerNote: I built this to turn mixed-format batch formulas into traceable composition drafts while keeping uncertain ingredient identities visible and correctable.
+  purposeContract:
+    purpose: Formula Composition Engine converts reviewed manufacturing formulas into theoretical macro, micronutrient, active-moiety, preservative, and missing-evidence reports.
+    audience: Food, nutraceutical, supplement, and medicinal-product formulation teams preparing composition work before label and regulatory review.
+    outcome: Recover a mixed-format formula, correct ambiguous rows and identities, and export a traceable non-zero composition report.
+    mechanism: Browser-local parsing and OCR feed a mandatory review step, then a Decimal-based Worker resolves versioned ingredient profiles, calculates normalized totals, ranges, coverage, and assumptions, and stores explicit saves in one public D1 history shared by every device.
+    proof: The public release shows 26 independently published products and all 55 supported ingredient and nutrient comparisons on a separate sourced page; the 15 medicine salt-to-active checks average 0.226% absolute difference with a 0.976% maximum in that subset.
+    nextAction: Submit a formula, review every recovered row and identity, and replace public reference assumptions with supplier specifications or lot CoAs before external use.
+  form: Formulation analysis web app
+  platforms:
+    - Web
+  prominentTools:
+    - Python
+    - Cloudflare Workers
+    - Cloudflare D1
+    - Vite
+    - Tesseract.js
+  retainedGitHistory:
+    firstCommitAt: 2026-09-21
+    latestCommitAt: 2026-09-21
+    retainedCommitCount: 11
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: nutrition-formula-engine
+  observedRevision: ba987b8397a8ac7c7b5cb07596ee85c5889c5339
+  githubRepository: sarthakagrawal927/nutrition-formula-engine
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: private
+  url: https://github.com/sarthakagrawal927/nutrition-formula-engine
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Python pyproject
+        evidence:
+          - pyproject.toml
+      - name: uv
+        evidence:
+          - uv.lock
+      - name: Vite
+        evidence:
+          - vite.config.js
+    rootPackageScripts:
+      - build
+      - check
+      - test
+githubActions:
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a2
+  remote: null
+  workflows: []
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - formula.significanthobbies.com
+  primaryUrl: https://formula.significanthobbies.com/
+  domainProbePaths:
+    formula.significanthobbies.com:
+      - /
+      - /recent-formulas/
+      - /case-studies/
+      - /api/health
+  targets:
+    - id: web
+      kind: worker
+      name: nutrition-formula-engine
+      sourcePath: nutrition-formula-engine
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: nutrition-formula-engine
+        method: wrangler-direct
+        state: live
+        versionId: 3c10c127-c5e6-4813-8877-3a109246e832
+        url: https://formula.significanthobbies.com/
+        verification:
+          observedAt: 2026-09-21
+          trafficPercent: 100
+          sourceState: clean-pushed-tagged
+          sourceCommit: ba987b8397a8ac7c7b5cb07596ee85c5889c5339
+          checks:
+            - custom domain DNS resolves through Cloudflare public DNS
+            - root and health HTTP 200 over valid TLS
+            - Recent formulas route renders the two preserved public formulas and opens saved history without credentials
+            - case-study route renders 26 products and all 55 supported comparison rows with no browser console errors
+            - valid calculation HTTP 200 with X-Request-ID, engine 2.0.0-pilot, 11 present components and 13 reconciled contribution entries
+            - invalid JSON HTTP 400
+            - local ingredient search returns candidate-only results and visibly reports external search unavailable
+            - health reports persistence available through the bound and migrated D1 database
+            - public formula list and saved history load without an account, access key, bearer token, or custom header
+            - D1 migration preserved two formulas, two active ingredient profiles, and all formula versions in the shared public scope
+            - canonical and Open Graph URLs use formula.significanthobbies.com
+            - active Worker version is tagged with the exact origin/main SHA
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: nutrition-formula-engine
+        state: active
+        notes: database_id f26fe712-fb44-4626-a1d8-6a9095512b0e; stores one intentionally public formula history and reusable ingredient library shared by every device.
+        scope: project
+        operationalOwner: nutrition-formula-engine
+        attributionReason: "Canonical project owner: nutrition-formula-engine"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: true
+  verifiedAt: 2026-09-21
+  reason: The canonical Cloudflare Custom Domain, root, Recent formulas, case-study and health routes, valid calculation, public D1 formula list and history, reusable-ingredient persistence, TLS, DNS, and current 100% SHA-tagged Worker deployment were verified. The separate case-study page shows 26 products and all 55 supported published ingredient and nutrient comparisons. Thirty-eight browser/data tests, 84 engine/API tests, the frozen 66-case benchmark, Ruff, production build, design review, and Cloudflare dry-run passed. Results remain theoretical and are not laboratory validation, regulatory classification, or government approval.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/nutrition-formula-engine/issues
+  geoIdentity: null
+notes:
+  catalog: Browser-first formula ingestion and theoretical composition prototype for food, nutraceutical, and medicinal product workflows. Supplier specifications, lot CoAs, finished-product assays, and regulatory formatting remain separate requirements.
+  infrastructure: Public browser-first formulation workspace with Static Assets, a Python calculation API, and a migrated D1 database. Cloudflare owns the formula.significanthobbies.com Custom Domain DNS record and TLS certificate. Workers Logs and Traces are enabled. Application-generated logs exclude raw formula and OCR contents; browser sessions can export privacy-safe audit metadata and hashes. Explicit saves store reviewed formulas, immutable reports, decisions, and reusable ingredient profiles in one intentionally public data set shared by every device; IndexedDB is a visibly labelled fallback. The active Worker is tagged to the clean pushed origin/main source commit.

@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: journal
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-22
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: mismatch
     githubActionsLiveState: not-applicable
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,27 +23,27 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: ab4be138914270e62e5dd15e9b7015f59b36594d4e3ec5faf749f2f8452d29a6
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/journal
       revision: 81f437780292cd8d71309fcd31f03b5c1521a592
       githubRepository: sarthakagrawal927/journal
       expectedHomepage: https://journal.significanthobbies.com
-      observedHomepage: https://journal.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/journal
       revision: 81f437780292cd8d71309fcd31f03b5c1521a592
@@ -55,10 +55,11 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T13:18:07.430Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a2 {}
-  unknowns: []
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://journal.significanthobbies.com.
 ownerVoice:
   whyVerbatim: I am making a journal because I think a good journal app is very important and journaling as a habit is very important, so it fits well with our hub.
   fullReviewVerbatim: |-
@@ -121,7 +122,7 @@ repository:
   checkout: ../fleet-archive/journal
   observedRevision: 81f437780292cd8d71309fcd31f03b5c1521a592
   githubRepository: sarthakagrawal927/journal
-  githubHomepageUrl: https://journal.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/journal
@@ -135,19 +136,11 @@ repository:
           - SignificantHobbies.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-19T13:18:07.430Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/journal
-    defaultBranch: main
-    defaultBranchSha: 81f437780292cd8d71309fcd31f03b5c1521a592
-    homepage: https://journal.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows: []
 deployment:
   kind: pages

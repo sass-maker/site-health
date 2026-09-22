@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: storagedaddy
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-22
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,30 +23,30 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 717d82e30e6e65db941463289348752623c834efe4b1e542c113467d78b83b04
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: storagedaddy
-      revision: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
+      revision: d71be6dbbfbb6e819e803b3b723a6d360f64749a
       githubRepository: sarthakagrawal927/storagedaddy
       expectedHomepage: https://storagedaddy.significanthobbies.com/
-      observedHomepage: https://storagedaddy.significanthobbies.com/
+      observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: storagedaddy
-      revision: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
+      revision: d71be6dbbfbb6e819e803b3b723a6d360f64749a
       githubRepository: sarthakagrawal927/storagedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T13:18:07.430Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://storagedaddy.significanthobbies.com/.
 ownerVoice:
   whyVerbatim: Working native Mac app
   fullReviewVerbatim: |-
@@ -121,17 +123,18 @@ product:
     - Rust
     - Cloudflare Workers
     - Sparkle
+    - Astro
   retainedGitHistory:
     firstCommitAt: 2026-09-13
-    latestCommitAt: 2026-09-19
-    retainedCommitCount: 22
+    latestCommitAt: 2026-09-20
+    retainedCommitCount: 29
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: storagedaddy
-  observedRevision: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
+  observedRevision: d71be6dbbfbb6e819e803b3b723a6d360f64749a
   githubRepository: sarthakagrawal927/storagedaddy
-  githubHomepageUrl: https://storagedaddy.significanthobbies.com/
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/storagedaddy
@@ -154,20 +157,12 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-19T13:18:07.430Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/storagedaddy
-    defaultBranch: main
-    defaultBranchSha: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
-    homepage: https://storagedaddy.significanthobbies.com/
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -175,47 +170,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35422398778
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
-          createdAt: 2026-09-19T04:51:13Z
-          updatedAt: 2026-09-19T04:54:34Z
-          url: https://github.com/sarthakagrawal927/storagedaddy/actions/runs/35422398778
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35422398778
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
-          createdAt: 2026-09-19T04:51:13Z
-          updatedAt: 2026-09-19T04:54:34Z
-          url: https://github.com/sarthakagrawal927/storagedaddy/actions/runs/35422398778
-        ageDays: 0
-      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -261,5 +215,5 @@ sharing:
   roadmapUrl: https://github.com/sarthakagrawal927/storagedaddy/issues
   geoIdentity: null
 notes:
-  catalog: Build75 released 2026-09-13 with folder symlink visibility. MIT source pushed through 2a308d7. Public download and native Sparkle71-to75 update verified. Existing black/mint landing, Fleet footer, SEO, open-source links and live traffic report retained.
+  catalog: Build75 released 2026-09-13 with folder symlink visibility. MIT source pushed through 2a308d7. Public download and native Sparkle71-to75 update verified. Existing black/mint landing, Fleet footer, SEO, open-source links and live traffic report retained. On 2026-09-19, a StorageDaddy landing was added locally to ios-landings alongside PerformanceDaddy, using the existing factory with desktop captures. No deployment or routing cutover; the existing Worker still owns download and update endpoints.
   infrastructure: Build75 release deployed 2026-09-13 from source2a308d7. Worker ec40ae08-b6a5-44cb-a520-ef55e6417a8f. 14 site checks pass. DMG and signed update feed verified publicly; installed app updated71-to75. Existing website preserved.

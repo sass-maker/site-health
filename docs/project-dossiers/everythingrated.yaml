@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: everythingrated
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-22
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,27 +23,27 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 3ddc5658f254146bc339f2acb1d78abbdbbf91c9a36c46aba2b7eed1ed2934ca
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/everythingrated
       revision: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
       githubRepository: sarthakagrawal927/everythingrated
       expectedHomepage: https://ratings.highsignal.app
-      observedHomepage: https://ratings.highsignal.app
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/everythingrated
       revision: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
@@ -56,13 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T13:18:07.430Z
-      staleAfterDays: 30
-      healthy: 3
-      failing: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 4
       attention: &a2
-        ignored: 4
-  unknowns: []
+        unclassified: 4
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://ratings.highsignal.app.
 ownerVoice:
   whyVerbatim: Everything Rated. This is also a fancy project that I had wanted to build for a long time. The purpose of this product was that you can come, make lists, and rate things. After building it out I realised this is a social product. As of now I didn't really have a lot of energy to build out a social product because it's a big chicken-and-egg problem to solve in those cases. This is something I would re-pick again once I'm more confident in my marketing skills.
   fullReviewVerbatim: Everything Rated. This is also a fancy project that I had wanted to build for a long time. The purpose of this product was that you can come, make lists, and rate things. After building it out I realised this is a social product. As of now I didn't really have a lot of energy to build out a social product because it's a big chicken-and-egg problem to solve in those cases. This is something I would re-pick again once I'm more confident in my marketing skills.
@@ -121,7 +122,7 @@ repository:
   checkout: ../fleet-archive/everythingrated
   observedRevision: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
   githubRepository: sarthakagrawal927/everythingrated
-  githubHomepageUrl: https://ratings.highsignal.app
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/everythingrated
@@ -180,21 +181,12 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-19T13:18:07.430Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 3
-    failing: 1
+    unverifiable: 4
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/everythingrated
-    defaultBranch: main
-    defaultBranchSha: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
-    homepage: https://ratings.highsignal.app
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -202,83 +194,11 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34648724853
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
-          createdAt: 2026-09-11T21:18:35Z
-          updatedAt: 2026-09-11T21:20:16Z
-          url: https://github.com/sarthakagrawal927/everythingrated/actions/runs/34648724853
-        ageDays: 7
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34648724853
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
-          createdAt: 2026-09-11T21:18:35Z
-          updatedAt: 2026-09-11T21:20:16Z
-          url: https://github.com/sarthakagrawal927/everythingrated/actions/runs/34648724853
-        ageDays: 7
-      attention: ignored
     - name: Deploy Cloudflare
       file: .github/workflows/cloudflare-deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: failing
-        reason: latest run concluded failure
-        apiState: active
-        lastRun:
-          id: 34125905065
-          status: completed
-          conclusion: failure
-          event: workflow_dispatch
-          branch: main
-          headSha: 53a6bc032e0da7b9ede516e53a103e4e6f26a47d
-          createdAt: 2026-09-07T13:10:35Z
-          updatedAt: 2026-09-07T13:12:10Z
-          url: https://github.com/sarthakagrawal927/everythingrated/actions/runs/34125905065
-        ageDays: 12
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -286,47 +206,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34648724884
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
-          createdAt: 2026-09-11T21:18:35Z
-          updatedAt: 2026-09-11T21:18:49Z
-          url: https://github.com/sarthakagrawal927/everythingrated/actions/runs/34648724884
-        ageDays: 7
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34648724884
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 2abda5cb409b7e4a5e2facf6adf141c14ef0ab47
-          createdAt: 2026-09-11T21:18:35Z
-          updatedAt: 2026-09-11T21:18:49Z
-          url: https://github.com/sarthakagrawal927/everythingrated/actions/runs/34648724884
-        ageDays: 7
-      attention: ignored
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
       triggers:
@@ -334,48 +213,6 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 9 * * 1
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34134896067
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
-          createdAt: 2026-09-07T14:47:41Z
-          updatedAt: 2026-09-07T14:48:55Z
-          url: https://github.com/sarthakagrawal927/everythingrated/actions/runs/34134896067
-        ageDays: 11
-      schedule:
-        health: missed
-        reason: last scheduled run is 11 days old; expected within 9 day(s)
-        lastRun:
-          id: 34134896067
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 81afded0cdccfa5d5dbc2594f8b797a9f9b74bf6
-          createdAt: 2026-09-07T14:47:41Z
-          updatedAt: 2026-09-07T14:48:55Z
-          url: https://github.com/sarthakagrawal927/everythingrated/actions/runs/34134896067
-        ageDays: 11
-        freshnessDays: 9
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
 deployment:
   kind: worker
   deployed: true

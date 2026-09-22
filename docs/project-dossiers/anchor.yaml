@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: anchor
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-22
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,27 +23,27 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 035887da5a426c99c2c54759f30deeebf25f9f1528be599a68d2634f4d51ff05
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: anchor
       revision: 9b6bbb014a1551176df338fffdc7e91a28c428ce
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
-      observedHomepage: https://anchor.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: dirty
         trackedChangeCount: 7
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: anchor
       revision: 9b6bbb014a1551176df338fffdc7e91a28c428ce
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T13:18:07.430Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://anchor.significanthobbies.com.
 ownerVoice:
   whyVerbatim: The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
   fullReviewVerbatim: |-
@@ -90,7 +92,7 @@ identity:
   family: significanthobbies
   category: utility
   audience: public
-  personalUse: null
+  personalUse: true
   moneyOrPersonalBrand: false
   unmetNeed: false
   kind: product
@@ -135,7 +137,7 @@ repository:
   checkout: anchor
   observedRevision: 9b6bbb014a1551176df338fffdc7e91a28c428ce
   githubRepository: Significant-Hobbies/anchor
-  githubHomepageUrl: https://anchor.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/anchor
@@ -150,57 +152,18 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-19T13:18:07.430Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/anchor
-    defaultBranch: main
-    defaultBranchSha: ff7e8ae99128bffc151299c6175585f58e26c303
-    homepage: https://anchor.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: Anchor native review
       file: .github/workflows/native-review.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34470263891
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 077f8564ee3e85631f1807c365b03e9d283c41db
-          createdAt: 2026-09-10T11:14:39Z
-          updatedAt: 2026-09-10T11:35:09Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34470263891
-        ageDays: 9
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
   kind: pages
   deployed: true

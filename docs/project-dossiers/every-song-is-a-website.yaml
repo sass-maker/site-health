@@ -1,0 +1,181 @@
+schemaVersion: 1
+projectId: every-song-is-a-website
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-22
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: unavailable
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      infrastructureUpdatedAt: 2026-09-22
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=every-song-is-a-website].ownerNarrative
+      sourceHeading: Every Song Is a Website
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-22
+      reviewSha256: 0684700280462b17979c8bbe3e8884e572dd6f7aabe3c5477dec3735cef24be6
+      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-22
+      state: unavailable
+      checkout: every-song-is-a-website
+      revision: null
+      githubRepository: null
+      expectedHomepage: https://music.significanthobbies.com
+      observedHomepage: null
+      worktree: null
+    retainedGitHistory:
+      observedAt: 2026-09-22
+      state: unavailable
+      checkout: every-song-is-a-website
+      revision: null
+      githubRepository: null
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-22
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
+      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/every-song-is-a-website remote get-url origin"
+    githubActions:
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://music.significanthobbies.com.
+    - The owning checkout was unavailable during repository observation.
+ownerVoice:
+  whyVerbatim: "build this out mate — every song is a website: each song gets its own visual world, assembled from curated themes, polished artifacts, and light animation. This is a visual experiment, not a music-streaming app or universal website generator."
+  fullReviewVerbatim: |-
+    build this out mate — every song is a website: each song gets its own visual world, assembled from curated themes, polished artifacts, and light animation. This is a visual experiment, not a music-streaming app or universal website generator.
+
+    We add more songs and embed the player here. Just pick some famous old songs, some new songs, whatever the most famous ones are. If we can show lyrics, that would be amazing. And a search bar at the error entry point. Add 100 songs at least, do not keep them super distinct unless we have some super easy way. Song quality should be very high and host it on music.significanthobbies.com.
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Give each famous song its own curated interactive visual world — a playful gallery, not a streaming product.
+  currentState: Live at music.significanthobbies.com as a static Workers-assets deploy; 111 songs across three themes with YouTube and Genius embeds.
+  nextDecision: Maintain the catalog and worlds; add themes or songs only on explicit request.
+identity:
+  name: Every Song Is a Website
+  publicName: Every Song Is a Website
+  aliases: []
+  family: every-song-is-a-website
+  category: experimental
+  audience: null
+  personalUse: null
+  moneyOrPersonalBrand: null
+  unmetNeed: null
+  kind: experiment
+  priority: P3
+  tier: breadth
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: true
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: true
+product:
+  description: A playful static site where each of 111 famous songs gets its own interactive visual world — desktop, picnic, or kinetic poster — with embedded video and licensed lyrics.
+  publicMakerNote: "Built as a visual experiment: a composition system of themes, artifacts, and behaviours where each song becomes a tiny interactive world."
+  purposeContract:
+    purpose: Every Song Is a Website gives each song a curated visual world — a shareable URL with embedded video, licensed lyrics, and playful interactions.
+    audience: Anyone who loves music and the web.
+    outcome: Browse 111 songs as interactive themed worlds.
+    mechanism: Static registry + theme skins (desktop, picnic, kinetic) + seeded layouts; YouTube and Genius embeds supply media and lyrics.
+    proof: Live at music.significanthobbies.com with verified official video embeds and Genius lyric cards on all 111 songs.
+    nextAction: Browse the gallery or jump to a song.
+  form: Static website
+  platforms:
+    - Web
+  prominentTools:
+    - HTML
+    - CSS
+    - JavaScript
+    - Cloudflare Workers
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: every-song-is-a-website
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
+  visibility: local
+  url: null
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - music.significanthobbies.com
+  primaryUrl: https://music.significanthobbies.com
+  domainProbePaths: {}
+  targets:
+    - id: site
+      kind: worker
+      name: every-song-is-a-website
+      sourcePath: every-song-is-a-website
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: every-song-is-a-website
+        method: wrangler-direct
+        state: live
+    resources:
+      - provider: cloudflare
+        kind: custom-domain
+        name: music.significanthobbies.com
+        state: active
+        scope: project
+        operationalOwner: every-song-is-a-website
+        attributionReason: "Canonical project owner: every-song-is-a-website"
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: experiment
+  ready: true
+  verifiedAt: null
+  reason: null
+  changelogUrl: null
+  roadmapUrl: null
+  geoIdentity: null
+notes:
+  catalog: null
+  infrastructure: Static-assets Worker (wrangler deploy, no script entry) serving the song gallery; custom domain music.significanthobbies.com attached at deploy.

@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: sarthakagrawal-personal
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-22
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,27 +23,27 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 654979ba95b70df5ef8213f6ad7d44f7f2e991cfed86a79eae6da66b809a941d
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/portfolio
       revision: ad29f0483af937c0d2561d4f7ba74a4493ad84ac
       githubRepository: sarthakagrawal927/portfolio
       expectedHomepage: https://sarthakagrawal.dev
-      observedHomepage: https://sarthakagrawal.dev
+      observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/portfolio
       revision: ad29f0483af937c0d2561d4f7ba74a4493ad84ac
@@ -56,13 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T13:18:07.430Z
-      staleAfterDays: 30
-      healthy: 1
-      stale: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        ignored: 2
-  unknowns: []
+        unclassified: 2
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://sarthakagrawal.dev.
 ownerVoice:
   whyVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
   fullReviewVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
@@ -124,7 +125,7 @@ repository:
   checkout: ../fleet-archive/portfolio
   observedRevision: ad29f0483af937c0d2561d4f7ba74a4493ad84ac
   githubRepository: sarthakagrawal927/portfolio
-  githubHomepageUrl: https://sarthakagrawal.dev
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/portfolio
@@ -174,21 +175,12 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-19T13:18:07.430Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
-    stale: 1
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/portfolio
-    defaultBranch: main
-    defaultBranchSha: ad29f0483af937c0d2561d4f7ba74a4493ad84ac
-    homepage: https://sarthakagrawal.dev
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: Portfolio CI / Deploy
       file: .github/workflows/deploy.yml
@@ -197,93 +189,12 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35384780556
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: ad29f0483af937c0d2561d4f7ba74a4493ad84ac
-          createdAt: 2026-09-18T19:14:05Z
-          updatedAt: 2026-09-18T19:14:40Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/35384780556
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35384780556
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: ad29f0483af937c0d2561d4f7ba74a4493ad84ac
-          createdAt: 2026-09-18T19:14:05Z
-          updatedAt: 2026-09-18T19:14:40Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/35384780556
-        ageDays: 0
-      attention: ignored
     - name: Build résumé PDF
       file: .github/workflows/resume.yml
       triggers:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stale
-        reason: latest run is 120 days old
-        apiState: active
-        lastRun:
-          id: 26280785969
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: dd90b65bf3b37f2e7b225d90784b70edf11619a9
-          createdAt: 2026-05-22T09:48:57Z
-          updatedAt: 2026-05-22T09:50:23Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969
-        ageDays: 120
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision ad29f04
-        lastRun:
-          id: 26280785969
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: dd90b65bf3b37f2e7b225d90784b70edf11619a9
-          createdAt: 2026-05-22T09:48:57Z
-          updatedAt: 2026-05-22T09:50:23Z
-          url: https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969
-      attention: ignored
 deployment:
   kind: pages
   deployed: true

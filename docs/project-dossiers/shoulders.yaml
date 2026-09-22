@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: shoulders
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-22
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
-      infrastructureUpdatedAt: 2026-09-14
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      infrastructureUpdatedAt: 2026-09-20
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=shoulders].ownerNarrative
@@ -24,15 +24,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-14
       reviewSha256: e3a97ff166bf6d5304c4e0f43aba0876daaa2c63461414cd4b1ebe34b9f3d379
-      documentSha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
+      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/shoulders
       revision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
@@ -44,7 +44,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/shoulders
       revision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
@@ -58,12 +58,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-19T13:18:07.430Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: I lost interest in this product. Move this to archived as paused.
   fullReviewVerbatim: I lost interest in this product. Move this to archived as paused.
@@ -85,25 +86,25 @@ identity:
   unmetNeed: null
   kind: experiment
   priority: P4
-  tier: archived
-  attention: paused
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
     status: inactive
-    resumeCondition: Resume only when the owner explicitly requests it.
+    resumeCondition: null
     shareable: false
   operationalStatus: local-only
   authenticationModel: local-only
   inRegistry: false
 product:
-  description: An editorial exploration of software foundations. Paused local prototype.
-  publicMakerNote: I paused this local explainer after losing interest; the preserved prototype remains a dated exploration of software foundations.
+  description: An editorial exploration of software foundations. Cancelled local prototype.
+  publicMakerNote: I cancelled this local explainer after losing interest; the preserved prototype remains a dated exploration of software foundations.
   purposeContract:
     purpose: Shoulders helps curious software users and builders understand familiar products through their documented foundations.
     audience: Curious software users and builders.
     outcome: Understand a foundation and what the product creators added.
     mechanism: Curated interactive dependency trees with source evidence and independent-use guidance.
-    proof: Local six-product prototype with source-linked research; publication review pending.
-    nextAction: Paused; resume only at the owner’s request.
+    proof: Local six-product prototype with source-linked research; cancelled before publication review.
+    nextAction: Cancelled by the owner.
   form: Static technical explainer
   platforms:
     - Web
@@ -122,7 +123,7 @@ repository:
   githubRepository: sarthakagrawal927/shoulders
   githubHomepageUrl: null
   worktree: *a1
-  visibility: private
+  visibility: public
   url: https://github.com/sarthakagrawal927/shoulders
   aliases: []
   sourceOverride: null
@@ -147,20 +148,12 @@ repository:
       - test
       - test:e2e
 githubActions:
-  observedAt: 2026-09-19T13:18:07.430Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/shoulders
-    defaultBranch: main
-    defaultBranchSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
-    homepage: null
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: Validate static site
       file: .github/workflows/ci.yml
@@ -168,47 +161,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35378929655
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
-          createdAt: 2026-09-18T18:13:37Z
-          updatedAt: 2026-09-18T18:15:31Z
-          url: https://github.com/sarthakagrawal927/shoulders/actions/runs/35378929655
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35378929655
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
-          createdAt: 2026-09-18T18:13:37Z
-          updatedAt: 2026-09-18T18:15:31Z
-          url: https://github.com/sarthakagrawal927/shoulders/actions/runs/35378929655
-        ageDays: 0
-      attention: clear
 deployment:
   kind: none
   deployed: false
@@ -232,5 +184,5 @@ sharing:
   roadmapUrl: https://github.com/sarthakagrawal927/shoulders/issues
   geoIdentity: null
 notes:
-  catalog: Paused by owner; local prototype and uncommitted work preserved in fleet-archive. GitHub repository is empty.
-  infrastructure: Local prototype only; no hosting or provider resources provisioned in the Shoulders build. Paused and archived by owner.
+  catalog: Cancelled by owner on 2026-09-20 (previously paused 2026-09-14); local prototype and uncommitted work preserved in fleet-archive. GitHub repository is empty, public, and archived.
+  infrastructure: Local prototype only; no hosting or provider resources provisioned in the Shoulders build. Cancelled by owner on 2026-09-20.

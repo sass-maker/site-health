@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: mashup
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-22
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d256f1446e7e64c710616cccbbedcc7e2076d527f3841d225288a9079de89e85
+      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
       infrastructureUpdatedAt: 2026-08-28
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,27 +23,27 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 96011b1c86bf4fa32e690ccc3de01e1da2b1c7b420ed871018579129c56ff8cf
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/mashup
       revision: b75e14f506197600dbb722ba318853e356826f3d
       githubRepository: sass-maker/mashup
       expectedHomepage: https://mashup.highsignal.app
-      observedHomepage: https://mashup.highsignal.app
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-22
       state: available
       checkout: ../fleet-archive/mashup
       revision: b75e14f506197600dbb722ba318853e356826f3d
@@ -55,12 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T13:18:07.430Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        ignored: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://mashup.highsignal.app.
 ownerVoice:
   whyVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
   fullReviewVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
@@ -121,7 +123,7 @@ repository:
   checkout: ../fleet-archive/mashup
   observedRevision: b75e14f506197600dbb722ba318853e356826f3d
   githubRepository: sass-maker/mashup
-  githubHomepageUrl: https://mashup.highsignal.app
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/mashup
@@ -154,20 +156,12 @@ repository:
       - test
       - test:coverage
 githubActions:
-  observedAt: 2026-09-19T13:18:07.430Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sass-maker/mashup
-    defaultBranch: main
-    defaultBranchSha: b75e14f506197600dbb722ba318853e356826f3d
-    homepage: https://mashup.highsignal.app
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -176,47 +170,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34129122957
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b75e14f506197600dbb722ba318853e356826f3d
-          createdAt: 2026-09-07T13:44:54Z
-          updatedAt: 2026-09-07T13:46:55Z
-          url: https://github.com/sass-maker/mashup/actions/runs/34129122957
-        ageDays: 11
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34129122957
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b75e14f506197600dbb722ba318853e356826f3d
-          createdAt: 2026-09-07T13:44:54Z
-          updatedAt: 2026-09-07T13:46:55Z
-          url: https://github.com/sass-maker/mashup/actions/runs/34129122957
-        ageDays: 11
-      attention: ignored
 deployment:
   kind: pages
   deployed: true
