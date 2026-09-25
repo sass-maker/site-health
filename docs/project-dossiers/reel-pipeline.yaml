@@ -3,7 +3,7 @@ projectId: reel-pipeline
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-08-20
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,15 +23,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 61071b399acddcfc99b2252b8bc1601ec98e9d8b591f609e0f0c542cb94ae91e
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/reel-pipeline
       revision: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/reel-pipeline
       revision: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -211,7 +211,7 @@ repository:
       - watch:render:once
       - worker:dry-run
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -219,7 +219,7 @@ githubActions:
   remote:
     repository: sass-maker/reel-pipeline
     defaultBranch: main
-    defaultBranchSha: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
+    defaultBranchSha: bea72b334e36a6c6294b45bf41563e879606a9ad
     homepage: null
     query: verified
     disposition:
@@ -245,16 +245,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34124384488
+          id: 35635032105
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
-          createdAt: 2026-09-07T12:53:58Z
-          updatedAt: 2026-09-07T12:55:14Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384488
-        ageDays: 11
+          headSha: bea72b334e36a6c6294b45bf41563e879606a9ad
+          createdAt: 2026-09-21T17:55:08Z
+          updatedAt: 2026-09-21T17:56:25Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/35635032105
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -263,16 +263,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34124384488
+          id: 35635032105
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4027d5f3ed8a8473e087cfccca93fc9fbaa9e8f9
-          createdAt: 2026-09-07T12:53:58Z
-          updatedAt: 2026-09-07T12:55:14Z
-          url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384488
-        ageDays: 11
+          headSha: bea72b334e36a6c6294b45bf41563e879606a9ad
+          createdAt: 2026-09-21T17:55:08Z
+          updatedAt: 2026-09-21T17:56:25Z
+          url: https://github.com/sass-maker/reel-pipeline/actions/runs/35635032105
+        ageDays: 3
       attention: ignored
     - name: Deploy artifacts worker
       file: .github/workflows/deploy.yml
@@ -300,7 +300,7 @@ githubActions:
           createdAt: 2026-09-01T06:12:50Z
           updatedAt: 2026-09-01T06:13:13Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/33476639197
-        ageDays: 17
+        ageDays: 23
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -337,14 +337,14 @@ githubActions:
           createdAt: 2026-09-07T12:53:57Z
           updatedAt: 2026-09-07T12:54:09Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384388
-        ageDays: 11
+        ageDays: 17
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision bea72b3
         lastRun:
           id: 34124384388
           status: completed
@@ -355,7 +355,6 @@ githubActions:
           createdAt: 2026-09-07T12:53:57Z
           updatedAt: 2026-09-07T12:54:09Z
           url: https://github.com/sass-maker/reel-pipeline/actions/runs/34124384388
-        ageDays: 11
       attention: ignored
 deployment:
   kind: worker

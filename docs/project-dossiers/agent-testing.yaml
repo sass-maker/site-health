@@ -1,0 +1,250 @@
+schemaVersion: 1
+projectId: agent-testing
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-25
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-20
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=agent-testing].ownerNarrative
+      sourceHeading: Browser Agent Testing
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-20
+      reviewSha256: 716a47374fe4e6e2eacab74e5e06fad025d095c8254bc4d9691d1bb6edbb99a0
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-25
+      state: available
+      checkout: agent-testing
+      revision: 0942a20eb8dbbf3b7acf25705b8e65d22afa9561
+      githubRepository: sarthakagrawal927/agent-testing
+      expectedHomepage: https://browser-agents.sarthakagrawal.dev/
+      observedHomepage: https://browser-agents.sarthakagrawal.dev
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-25
+      state: available
+      checkout: agent-testing
+      revision: 0942a20eb8dbbf3b7acf25705b8e65d22afa9561
+      githubRepository: sarthakagrawal927/agent-testing
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-20
+      catalogLatestCommitAt: 2026-09-20
+      catalogDrift: []
+      reason: null
+    githubActions:
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://browser-agents.sarthakagrawal.dev/.
+ownerVoice:
+  whyVerbatim: "Completed in PR #17 and deployed from main at 0942a20eb8dbbf3b7acf25705b8e65d22afa9561. Cloudflare version: 988338c4-693d-4170-9e57-34aca72b479f. Live verification confirmed 26 rendered journey rows, 118/129 verified completions, seven additional probes, expected 200 routes and the supplied 404 route at both desktop and mobile widths."
+  fullReviewVerbatim: "Completed in PR #17 and deployed from main at 0942a20eb8dbbf3b7acf25705b8e65d22afa9561. Cloudflare version: 988338c4-693d-4170-9e57-34aca72b479f. Live verification confirmed 26 rendered journey rows, 118/129 verified completions, seven additional probes, expected 200 routes and the supplied 404 route at both desktop and mobile widths."
+  relatedHistoricalReviews: []
+decision:
+  classification: Inactive / completed experiment
+  whySummary: Compare browser and native UI automation by verified feedback time, cost, reliability, and defect detection.
+  currentState: Completed public benchmark and evidence map with no active framework or catalogue-expansion roadmap.
+  nextDecision: Keep the public evidence map and reproducibility artifacts; replay a documented arm only when a concrete product decision requires it.
+identity:
+  name: Browser Agent Testing
+  publicName: Browser Agent Testing
+  aliases: []
+  family: agent-testing
+  category: experimental
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: true
+  kind: experiment
+  priority: P4
+  tier: parked
+  attention: ignored
+  lifecycle:
+    status: inactive
+    resumeCondition: null
+    shareable: true
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: A completed local web and iOS experiment comparing browser-agent strategies with independent verification.
+  publicMakerNote: I ran Browser Agent Testing to compare automation by verified feedback time, not by how quickly a driver can finish clicks.
+  purposeContract:
+    purpose: Browser Agent Testing compares local web and native UI automation with reproducible, product-owned verification.
+    audience: Coding agents and maintainers comparing local browser and native UI testing tools.
+    outcome: Choose faster and cheaper test strategies without silently losing functional or visual defect detection.
+    mechanism: Bounded manifests and receipts run saved or adaptive workflows, then independent product verifiers check UI, persistence, process and visual outcomes.
+    proof: The completed experiment publishes a sourced 79-tool catalogue, 26 measured journey arms with 118 verified completions across 129 attempts, seven additional probes, ten retained experiment records, exact observed pins and a live agent-first guide. The measured evidence retains Playwright and Maestro as baselines.
+    nextAction: Explore the finished experiment or clone the public repository; replay a documented arm only when a concrete product change justifies it.
+  form: Completed benchmark and static guide
+  platforms:
+    - Web
+    - iOS
+    - CLI
+  prominentTools:
+    - Node.js
+    - Cloudflare Workers
+    - Playwright
+    - Maestro
+  retainedGitHistory:
+    firstCommitAt: 2026-09-20
+    latestCommitAt: 2026-09-20
+    retainedCommitCount: 12
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: agent-testing
+  observedRevision: 0942a20eb8dbbf3b7acf25705b8e65d22afa9561
+  githubRepository: sarthakagrawal927/agent-testing
+  githubHomepageUrl: https://browser-agents.sarthakagrawal.dev
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/agent-testing
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: npm
+        evidence:
+          - adapters/vaultwealth/runtime/tools/package-lock.json
+          - package-lock.json
+    rootPackageScripts:
+      - check
+      - deploy
+      - site:dev
+      - site:dry-run
+      - site:render
+      - syntax
+      - test
+      - validate:vaultwealth
+githubActions:
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/agent-testing
+    defaultBranch: main
+    defaultBranchSha: 67d318cf1ae0eb575cf0ae38f4a90f9a4ffd90d9
+    homepage: https://browser-agents.sarthakagrawal.dev
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35752641015
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 67d318cf1ae0eb575cf0ae38f4a90f9a4ffd90d9
+          createdAt: 2026-09-22T16:13:11Z
+          updatedAt: 2026-09-22T16:13:27Z
+          url: https://github.com/sarthakagrawal927/agent-testing/actions/runs/35752641015
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35752641015
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 67d318cf1ae0eb575cf0ae38f4a90f9a4ffd90d9
+          createdAt: 2026-09-22T16:13:11Z
+          updatedAt: 2026-09-22T16:13:27Z
+          url: https://github.com/sarthakagrawal927/agent-testing/actions/runs/35752641015
+        ageDays: 2
+      attention: clear
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - browser-agents.sarthakagrawal.dev
+  primaryUrl: https://browser-agents.sarthakagrawal.dev/
+  domainProbePaths: {}
+  targets:
+    - id: guide
+      kind: worker
+      name: map-of-agent-testing
+      sourcePath: site
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: map-of-agent-testing
+        method: wrangler-direct
+        state: live
+        versionId: 988338c4-693d-4170-9e57-34aca72b479f
+        notes: Static-assets-only completed Browser Agent Testing experiment at browser-agents.sarthakagrawal.dev with the workers.dev fallback retained, deployed from merged main commit 0942a20eb8dbbf3b7acf25705b8e65d22afa9561 and tagged with that full SHA. Root, tools, experiments, JSON and llms.txt routes return HTTP 200; unknown routes return the supplied 404 page. The live 26-arm matrix, 118/129 verified-attempt total and all 26 rendered rows were verified at desktop and mobile widths on 2026-09-20.
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: past
+  maturity: experiment
+  ready: true
+  verifiedAt: 2026-09-20
+  reason: The completed Browser Agent Testing experiment and reusable source repository are public. Its 79-tool catalogue, 26-arm quantitative journey matrix, seven additional probes, ten experiment records, exact observed version pins, agent JSON surfaces, security headers and live routes were verified on 2026-09-20.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/agent-testing/issues
+  geoIdentity: null
+notes:
+  catalog: Owner marked Browser Agent Testing a completed experiment on 2026-09-20. It compares saved baselines and agent-driven web/iOS candidates against independent product verifiers without claiming a winner before qualification. Keep the live read-only evidence map and public reproducibility artifacts; there is no active framework or catalogue-expansion roadmap.
+  infrastructure: Public read-only guide for the public reusable benchmark runner. Cloudflare manages the custom-domain DNS record and TLS certificate. No bindings, persistent data, production credentials or model API calls.

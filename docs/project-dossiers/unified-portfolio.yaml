@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: unified-portfolio
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
+    githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,47 +24,44 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
-      documentSha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: unified-portfolio
       revision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
       githubRepository: sarthakagrawal927/unified-portfolio
       expectedHomepage: https://money.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://money.significanthobbies.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: unified-portfolio
       revision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
       githubRepository: sarthakagrawal927/unified-portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: null
-      catalogLatestCommitAt: null
-      catalogDrift:
-        - firstCommitAt
-        - latestCommitAt
+      catalogFirstCommitAt: 2026-09-19
+      catalogLatestCommitAt: 2026-09-19
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
         clear: 1
-  unknowns:
-    - GitHub repository homepage does not match the canonical deployed URL https://money.significanthobbies.com.
+  unknowns: []
 ownerVoice:
   whyVerbatim: build the prod in prd
   fullReviewVerbatim: |-
@@ -126,9 +123,9 @@ repository:
   checkout: unified-portfolio
   observedRevision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
   githubRepository: sarthakagrawal927/unified-portfolio
-  githubHomepageUrl: null
+  githubHomepageUrl: https://money.significanthobbies.com
   worktree: *a1
-  visibility: private
+  visibility: public
   url: https://github.com/sarthakagrawal927/unified-portfolio
   aliases: []
   sourceOverride: null
@@ -167,7 +164,7 @@ repository:
       - start:vinext
       - test
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -175,8 +172,8 @@ githubActions:
   remote:
     repository: sarthakagrawal927/unified-portfolio
     defaultBranch: main
-    defaultBranchSha: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
-    homepage: null
+    defaultBranchSha: 99106d833058dd9171b61ec77d654db2572dca4c
+    homepage: https://money.significanthobbies.com
     query: verified
     disposition:
       disposition: active
@@ -200,16 +197,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35422220683
+          id: 35820037957
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
-          createdAt: 2026-09-19T04:47:06Z
-          updatedAt: 2026-09-19T04:47:57Z
-          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35422220683
-        ageDays: 0
+          headSha: 99106d833058dd9171b61ec77d654db2572dca4c
+          createdAt: 2026-09-23T04:51:35Z
+          updatedAt: 2026-09-23T04:52:08Z
+          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35820037957
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -218,16 +215,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35422220683
+          id: 35820037957
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
-          createdAt: 2026-09-19T04:47:06Z
-          updatedAt: 2026-09-19T04:47:57Z
-          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35422220683
-        ageDays: 0
+          headSha: 99106d833058dd9171b61ec77d654db2572dca4c
+          createdAt: 2026-09-23T04:51:35Z
+          updatedAt: 2026-09-23T04:52:08Z
+          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35820037957
+        ageDays: 2
       attention: clear
 deployment:
   kind: worker

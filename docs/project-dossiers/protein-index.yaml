@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: protein-index
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
+    githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,48 +23,46 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 1102b3d930cd4c2c4de3e14fdc1333023a6d890c0711da0c25225996a678555b
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/protein-index-resilience
-      revision: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+      revision: 25adccd1c615eecdd23e7425c920678bf58c9953
       githubRepository: sarthakagrawal927/protein-index-resilience
       expectedHomepage: https://protein.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://protein.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/protein-index-resilience
-      revision: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+      revision: 25adccd1c615eecdd23e7425c920678bf58c9953
       githubRepository: sarthakagrawal927/protein-index-resilience
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-15
-      catalogLatestCommitAt: 2026-09-07
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
-      healthy: 5
-      failing: 2
+      failing: 3
+      healthy: 4
       manual-or-reusable-never-run: 8
       attention: &a2
         ignored: 15
-  unknowns:
-    - GitHub repository homepage does not match the canonical deployed URL https://protein.significanthobbies.com.
+  unknowns: []
 ownerVoice:
   whyVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
   fullReviewVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
@@ -116,15 +114,15 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-07-15
-    latestCommitAt: 2026-09-19
-    retainedCommitCount: 234
+    latestCommitAt: 2026-09-22
+    retainedCommitCount: 240
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/protein-index-resilience
-  observedRevision: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+  observedRevision: 25adccd1c615eecdd23e7425c920678bf58c9953
   githubRepository: sarthakagrawal927/protein-index-resilience
-  githubHomepageUrl: null
+  githubHomepageUrl: https://protein.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/protein-index-resilience
@@ -197,18 +195,18 @@ repository:
       - test:worker
       - typecheck
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
-    healthy: 5
-    failing: 2
+    failing: 3
+    healthy: 4
     manual-or-reusable-never-run: 8
   attention: *a2
   remote:
     repository: sarthakagrawal927/protein-index-resilience
     defaultBranch: main
-    defaultBranchSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
-    homepage: null
+    defaultBranchSha: 25adccd1c615eecdd23e7425c920678bf58c9953
+    homepage: https://protein.significanthobbies.com
     query: verified
     disposition:
       disposition: ignored
@@ -228,38 +226,38 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 35384780366
+          id: 35689148463
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
-          createdAt: 2026-09-18T19:14:05Z
-          updatedAt: 2026-09-18T19:14:50Z
-          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35384780366
-        ageDays: 0
+          headSha: 25adccd1c615eecdd23e7425c920678bf58c9953
+          createdAt: 2026-09-22T05:02:24Z
+          updatedAt: 2026-09-22T05:02:43Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35689148463
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: failing
+        reason: current main push concluded failure
         lastRun:
-          id: 35384780366
+          id: 35689148463
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
-          createdAt: 2026-09-18T19:14:05Z
-          updatedAt: 2026-09-18T19:14:50Z
-          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35384780366
-        ageDays: 0
+          headSha: 25adccd1c615eecdd23e7425c920678bf58c9953
+          createdAt: 2026-09-22T05:02:24Z
+          updatedAt: 2026-09-22T05:02:43Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35689148463
+        ageDays: 3
       attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
@@ -288,14 +286,14 @@ githubActions:
           createdAt: 2026-09-07T13:48:11Z
           updatedAt: 2026-09-07T13:48:22Z
           url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34129434622
-        ageDays: 11
+        ageDays: 17
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 07e1822
+        reason: no push run at current main revision 25adccd
         lastRun:
           id: 34129434622
           status: completed
@@ -325,16 +323,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34095791706
+          id: 35576276857
           status: completed
           conclusion: success
           event: workflow_run
           branch: main
-          headSha: 122c7a2331d1fe28b4af249604d69d9b7f2b0c54
-          createdAt: 2026-09-07T07:30:21Z
-          updatedAt: 2026-09-07T07:31:09Z
-          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34095791706
-        ageDays: 11
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:07:42Z
+          updatedAt: 2026-09-21T08:08:12Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576276857
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -362,16 +360,16 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 34095791720
+          id: 35576277132
           status: completed
           conclusion: failure
           event: workflow_run
           branch: main
-          headSha: 122c7a2331d1fe28b4af249604d69d9b7f2b0c54
-          createdAt: 2026-09-07T07:30:21Z
-          updatedAt: 2026-09-07T13:16:12Z
-          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34095791720
-        ageDays: 11
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:07:42Z
+          updatedAt: 2026-09-21T13:53:25Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576277132
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -399,16 +397,16 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 34095791790
+          id: 35576276802
           status: completed
           conclusion: failure
           event: workflow_run
           branch: main
-          headSha: 122c7a2331d1fe28b4af249604d69d9b7f2b0c54
-          createdAt: 2026-09-07T07:30:21Z
-          updatedAt: 2026-09-07T13:16:12Z
-          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34095791790
-        ageDays: 11
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:07:42Z
+          updatedAt: 2026-09-21T13:53:30Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576276802
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -437,30 +435,30 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34100480961
+          id: 35581350014
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 122c7a2331d1fe28b4af249604d69d9b7f2b0c54
-          createdAt: 2026-09-07T08:25:10Z
-          updatedAt: 2026-09-07T08:32:58Z
-          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34100480961
-        ageDays: 11
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T09:05:44Z
+          updatedAt: 2026-09-21T09:13:32Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35581350014
+        ageDays: 3
       schedule:
-        health: missed
-        reason: last scheduled run is 11 days old; expected within 9 day(s)
+        health: healthy
+        reason: latest scheduled run concluded success
         lastRun:
-          id: 34100480961
+          id: 35581350014
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 122c7a2331d1fe28b4af249604d69d9b7f2b0c54
-          createdAt: 2026-09-07T08:25:10Z
-          updatedAt: 2026-09-07T08:32:58Z
-          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34100480961
-        ageDays: 11
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T09:05:44Z
+          updatedAt: 2026-09-21T09:13:32Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35581350014
+        ageDays: 3
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -702,30 +700,30 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34095227541
+          id: 35575692322
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 122c7a2331d1fe28b4af249604d69d9b7f2b0c54
-          createdAt: 2026-09-07T07:23:26Z
-          updatedAt: 2026-09-07T07:30:19Z
-          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34095227541
-        ageDays: 11
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:00:46Z
+          updatedAt: 2026-09-21T08:07:40Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35575692322
+        ageDays: 3
       schedule:
-        health: missed
-        reason: last scheduled run is 11 days old; expected within 9 day(s)
+        health: healthy
+        reason: latest scheduled run concluded success
         lastRun:
-          id: 34095227541
+          id: 35575692322
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 122c7a2331d1fe28b4af249604d69d9b7f2b0c54
-          createdAt: 2026-09-07T07:23:26Z
-          updatedAt: 2026-09-07T07:30:19Z
-          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34095227541
-        ageDays: 11
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:00:46Z
+          updatedAt: 2026-09-21T08:07:40Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35575692322
+        ageDays: 3
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable

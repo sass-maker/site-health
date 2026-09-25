@@ -3,7 +3,7 @@ projectId: starboard
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: b9b251d5c25ba601d3489767fa1d9f3c9731313c194de98f746061074fc77c26
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: starboard
-      revision: 2e942c7d3d96eeeea5ed4b67453d88125906bb9b
+      revision: 46408dfe6c3bac06a51676cf1992a7c8f94d2be7
       githubRepository: Codevetter/starboard
       expectedHomepage: https://starboard.codevetter.com
       observedHomepage: https://starboard.codevetter.com
@@ -43,20 +43,19 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: starboard
-      revision: 2e942c7d3d96eeeea5ed4b67453d88125906bb9b
+      revision: 46408dfe6c3bac06a51676cf1992a7c8f94d2be7
       githubRepository: Codevetter/starboard
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-22
-      catalogLatestCommitAt: 2026-09-07
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 4
       stale: 3
@@ -119,13 +118,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-22
-    latestCommitAt: 2026-09-18
-    retainedCommitCount: 411
+    latestCommitAt: 2026-09-22
+    retainedCommitCount: 418
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: starboard
-  observedRevision: 2e942c7d3d96eeeea5ed4b67453d88125906bb9b
+  observedRevision: 46408dfe6c3bac06a51676cf1992a7c8f94d2be7
   githubRepository: Codevetter/starboard
   githubHomepageUrl: https://starboard.codevetter.com
   worktree: *a1
@@ -203,7 +202,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -214,7 +213,7 @@ githubActions:
   remote:
     repository: Codevetter/starboard
     defaultBranch: main
-    defaultBranchSha: 2e942c7d3d96eeeea5ed4b67453d88125906bb9b
+    defaultBranchSha: 86fd12a38fbb77cbf6a4af6b43cf0b14036bef98
     homepage: https://starboard.codevetter.com
     query: verified
     disposition:
@@ -239,16 +238,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35341765029
+          id: 35820337290
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2e942c7d3d96eeeea5ed4b67453d88125906bb9b
-          createdAt: 2026-09-18T11:52:19Z
-          updatedAt: 2026-09-18T11:55:12Z
-          url: https://github.com/Codevetter/starboard/actions/runs/35341765029
-        ageDays: 0
+          headSha: 86fd12a38fbb77cbf6a4af6b43cf0b14036bef98
+          createdAt: 2026-09-23T04:55:58Z
+          updatedAt: 2026-09-23T04:58:53Z
+          url: https://github.com/Codevetter/starboard/actions/runs/35820337290
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -257,16 +256,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35341765029
+          id: 35820337290
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2e942c7d3d96eeeea5ed4b67453d88125906bb9b
-          createdAt: 2026-09-18T11:52:19Z
-          updatedAt: 2026-09-18T11:55:12Z
-          url: https://github.com/Codevetter/starboard/actions/runs/35341765029
-        ageDays: 0
+          headSha: 86fd12a38fbb77cbf6a4af6b43cf0b14036bef98
+          createdAt: 2026-09-23T04:55:58Z
+          updatedAt: 2026-09-23T04:58:53Z
+          url: https://github.com/Codevetter/starboard/actions/runs/35820337290
+        ageDays: 2
       attention: clear
     - name: Cloudflare operator smoke
       file: .github/workflows/cloudflare-operator-smoke.yml
@@ -282,7 +281,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 48 days old
+        reason: latest run is 54 days old
         apiState: active
         lastRun:
           id: 30721106035
@@ -294,7 +293,7 @@ githubActions:
           createdAt: 2026-08-01T22:22:08Z
           updatedAt: 2026-08-01T22:22:48Z
           url: https://github.com/Codevetter/starboard/actions/runs/30721106035
-        ageDays: 48
+        ageDays: 54
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -321,16 +320,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35343038193
+          id: 35519596755
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 2e942c7d3d96eeeea5ed4b67453d88125906bb9b
-          createdAt: 2026-09-18T12:07:40Z
-          updatedAt: 2026-09-18T12:09:34Z
-          url: https://github.com/Codevetter/starboard/actions/runs/35343038193
-        ageDays: 0
+          headSha: 8b47fc78e01fb64bb2bc89558679d139c664d05a
+          createdAt: 2026-09-20T15:26:46Z
+          updatedAt: 2026-09-20T15:28:41Z
+          url: https://github.com/Codevetter/starboard/actions/runs/35519596755
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -368,14 +367,14 @@ githubActions:
           createdAt: 2026-09-07T10:50:53Z
           updatedAt: 2026-09-07T10:51:02Z
           url: https://github.com/Codevetter/starboard/actions/runs/34113562425
-        ageDays: 11
+        ageDays: 17
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 2e942c7
+        reason: no push run at current main revision 86fd12a
         lastRun:
           id: 34113562425
           status: completed
@@ -401,7 +400,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 48 days old
+        reason: latest run is 54 days old
         apiState: active
         lastRun:
           id: 30721198381
@@ -413,7 +412,7 @@ githubActions:
           createdAt: 2026-08-01T22:24:44Z
           updatedAt: 2026-08-01T22:25:14Z
           url: https://github.com/Codevetter/starboard/actions/runs/30721198381
-        ageDays: 48
+        ageDays: 54
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -437,7 +436,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 40 days old
+        reason: latest run is 46 days old
         apiState: active
         lastRun:
           id: 31315689133
@@ -449,7 +448,7 @@ githubActions:
           createdAt: 2026-08-09T13:23:34Z
           updatedAt: 2026-08-09T13:23:48Z
           url: https://github.com/Codevetter/starboard/actions/runs/31315689133
-        ageDays: 40
+        ageDays: 46
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -478,30 +477,30 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 34747606857
+          id: 35500231461
           status: completed
           conclusion: failure
           event: schedule
           branch: main
-          headSha: 14037985f7abc90a3b11073e1541f416bf3f7812
-          createdAt: 2026-09-13T08:24:33Z
-          updatedAt: 2026-09-13T08:24:50Z
-          url: https://github.com/Codevetter/starboard/actions/runs/34747606857
-        ageDays: 5
+          headSha: 546da172cdb884aa60c98afea472d8f4267d4294
+          createdAt: 2026-09-20T08:41:05Z
+          updatedAt: 2026-09-20T08:41:29Z
+          url: https://github.com/Codevetter/starboard/actions/runs/35500231461
+        ageDays: 4
       schedule:
         health: failing
         reason: latest scheduled run concluded failure
         lastRun:
-          id: 34747606857
+          id: 35500231461
           status: completed
           conclusion: failure
           event: schedule
           branch: main
-          headSha: 14037985f7abc90a3b11073e1541f416bf3f7812
-          createdAt: 2026-09-13T08:24:33Z
-          updatedAt: 2026-09-13T08:24:50Z
-          url: https://github.com/Codevetter/starboard/actions/runs/34747606857
-        ageDays: 5
+          headSha: 546da172cdb884aa60c98afea472d8f4267d4294
+          createdAt: 2026-09-20T08:41:05Z
+          updatedAt: 2026-09-20T08:41:29Z
+          url: https://github.com/Codevetter/starboard/actions/runs/35500231461
+        ageDays: 4
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
@@ -558,16 +557,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34804175524
+          id: 35559045110
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 14037985f7abc90a3b11073e1541f416bf3f7812
-          createdAt: 2026-09-14T03:54:31Z
-          updatedAt: 2026-09-14T03:55:29Z
-          url: https://github.com/Codevetter/starboard/actions/runs/34804175524
-        ageDays: 5
+          headSha: 8b47fc78e01fb64bb2bc89558679d139c664d05a
+          createdAt: 2026-09-21T03:53:31Z
+          updatedAt: 2026-09-21T03:54:59Z
+          url: https://github.com/Codevetter/starboard/actions/runs/35559045110
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

@@ -3,7 +3,7 @@ projectId: psi-swarm
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,15 +23,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 55b49e5ecd9836910ae1bac58c819379f6b3c865701ff418910a9f559f54edd7
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/psi-swarm
       revision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/psi-swarm
       revision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
@@ -51,12 +51,11 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-03
-      catalogLatestCommitAt: 2026-09-07
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-10
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 3
       stale: 1
@@ -163,7 +162,7 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -207,7 +206,7 @@ githubActions:
           createdAt: 2026-09-09T22:50:45Z
           updatedAt: 2026-09-09T22:51:35Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414192148
-        ageDays: 9
+        ageDays: 15
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -225,7 +224,7 @@ githubActions:
           createdAt: 2026-09-09T22:50:45Z
           updatedAt: 2026-09-09T22:51:35Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414192148
-        ageDays: 9
+        ageDays: 15
       attention: ignored
     - name: Deploy psi-swarm-web to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -253,7 +252,7 @@ githubActions:
           createdAt: 2026-09-09T22:56:24Z
           updatedAt: 2026-09-09T22:57:00Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414625397
-        ageDays: 9
+        ageDays: 15
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -289,7 +288,7 @@ githubActions:
           createdAt: 2026-08-25T23:17:14Z
           updatedAt: 2026-08-25T23:21:05Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/32910082428
-        ageDays: 24
+        ageDays: 30
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -312,7 +311,7 @@ githubActions:
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: stale
-        reason: latest run is 107 days old
+        reason: latest run is 113 days old
         apiState: active
         lastRun:
           id: 26895965998
@@ -324,7 +323,7 @@ githubActions:
           createdAt: 2026-06-03T15:44:14Z
           updatedAt: 2026-06-03T15:45:21Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/26895965998
-        ageDays: 107
+        ageDays: 113
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

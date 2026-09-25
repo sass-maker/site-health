@@ -1,0 +1,284 @@
+schemaVersion: 1
+projectId: browserdaddy
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-25
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-25
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=browserdaddy].ownerNarrative
+      sourceHeading: BrowserDaddy
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-19
+      reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-25
+      state: available
+      checkout: browserdaddy
+      revision: 7821b9a868fe0543205ce7528f769acf7e995ae3
+      githubRepository: sarthakagrawal927/browserdaddy
+      expectedHomepage: https://browser.daddyrad.com/
+      observedHomepage: https://browser.daddyrad.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 6
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-25
+      state: available
+      checkout: browserdaddy
+      revision: 7821b9a868fe0543205ce7528f769acf7e995ae3
+      githubRepository: sarthakagrawal927/browserdaddy
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-19
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
+      reason: null
+    githubActions:
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://browser.daddyrad.com/.
+ownerVoice:
+  whyVerbatim: deploy both of them properly
+  fullReviewVerbatim: |-
+    deploy both of them properly
+
+    browserdaddy.significanthobbies, performancedaddy.sh
+
+    And then ensure SEO/GEO/indexing is all well sorted
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Build a local-first Mac archive of browsing history and attention across browsers.
+  currentState: Public landing is live; installed 0.3.1 build 4 is notarized and matches the live update feed. Its GitHub release is private and the landing has no first-install download.
+  nextDecision: Continue native privacy qualification and decide when to expose a supported install path.
+identity:
+  name: BrowserDaddy
+  publicName: BrowserDaddy
+  aliases: []
+  family: browserdaddy
+  category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: true
+  kind: experiment
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: true
+  operationalStatus: live
+  authenticationModel: local-only
+  inRegistry: true
+product:
+  description: A local-first Mac browsing intelligence app for a unified history archive and real attention tracking.
+  publicMakerNote: I am building a local-first Mac browsing intelligence app that turns browser history and attention into an inspectable archive.
+  purposeContract:
+    purpose: BrowserDaddy helps people understand their browsing history and attention locally across browsers.
+    audience: Mac users who want a unified, inspectable record of browsing and attention.
+    outcome: Review browsing history and attention without sending the archive to a hosted service.
+    mechanism: A native local Mac app extracts browser archives, watches focus and classifies topics only after explicit opt-in.
+    proof: Native 0.3.1 build4 is signed, notarized and installed locally; the public Sparkle feed matches it. The GitHub release is private and the public landing does not link a first-install DMG.
+    nextAction: Read the public landing; an existing installation can use the live update feed. First-install distribution remains private.
+  form: macOS app
+  platforms:
+    - macOS
+    - Web
+  prominentTools:
+    - SwiftUI
+    - SQLite
+    - Astro
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-09-19
+    latestCommitAt: 2026-09-22
+    retainedCommitCount: 43
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: browserdaddy
+  observedRevision: 7821b9a868fe0543205ce7528f769acf7e995ae3
+  githubRepository: sarthakagrawal927/browserdaddy
+  githubHomepageUrl: https://browser.daddyrad.com
+  worktree: *a1
+  visibility: public
+  url: null
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - site/wrangler.jsonc
+      - name: npm
+        evidence:
+          - site/package-lock.json
+      - name: Swift Package Manager
+        evidence:
+          - Package.swift
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/browserdaddy
+    defaultBranch: main
+    defaultBranchSha: 7821b9a868fe0543205ce7528f769acf7e995ae3
+    homepage: https://browser.daddyrad.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35736137459
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 7821b9a868fe0543205ce7528f769acf7e995ae3
+          createdAt: 2026-09-22T13:50:12Z
+          updatedAt: 2026-09-22T13:52:34Z
+          url: https://github.com/sarthakagrawal927/browserdaddy/actions/runs/35736137459
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35736137459
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 7821b9a868fe0543205ce7528f769acf7e995ae3
+          createdAt: 2026-09-22T13:50:12Z
+          updatedAt: 2026-09-22T13:52:34Z
+          url: https://github.com/sarthakagrawal927/browserdaddy/actions/runs/35736137459
+        ageDays: 2
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - browser.daddyrad.com
+    - browserdaddy.significanthobbies.com
+  primaryUrl: https://browser.daddyrad.com/
+  domainProbePaths: {}
+  targets:
+    - id: landing
+      kind: pages
+      name: browserdaddy-landing
+      sourcePath: ios-landings
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: browserdaddy-landing
+        method: cloudflare-pages-api
+        state: live
+        verification:
+          observedAt: 2026-09-25
+          sourcePath: ios-landings
+          deploymentId: 9107675b
+          sourceState: dirty-working-tree
+          evidencePath: null
+      - provider: cloudflare
+        kind: worker
+        name: browserdaddy-updates
+        method: wrangler-direct
+        state: live
+        versionId: 5a721b14-ed54-49f3-8508-16f8c59b2b10
+        attributionReason: "Owns browser.daddyrad.com end to end: /updates/* from bundled assets, other paths proxied to browserdaddy-landing.pages.dev; 308-redirects all of browserdaddy.significanthobbies.com."
+    resources:
+      - provider: cloudflare
+        kind: custom-domain
+        name: browser.daddyrad.com
+        state: active
+        attributionReason: Worker custom domain on browserdaddy-updates; canonical host since 2026-09-25.
+        scope: project
+        operationalOwner: browserdaddy
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: preview
+  ready: true
+  verifiedAt: 2026-09-25
+  reason: Public landing returned HTTP 200 and browser.daddyrad.com/download serves the notarized 0.3.1 build4 DMG matching the live Sparkle feed. Private-window filtering remains not release-qualified and is disclosed on the site.
+  changelogUrl: null
+  roadmapUrl: null
+  geoIdentity:
+    id: browserdaddy
+    name: BrowserDaddy
+    aliases: []
+    description: A local-first Mac browsing intelligence app for a unified history archive and real attention tracking.
+    origin: https://browserdaddy.significanthobbies.com
+    source:
+      state: internal
+      path: browserdaddy
+    docs:
+      state: landing-only
+      url: https://browserdaddy.significanthobbies.com
+    officialProfiles: []
+    availability:
+      primary: internal-only
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: Pages landing HTTPS and public DNS verified on 2026-09-20 after owner-approved CNAME creation. Native 0.1.0 build 2 is a Developer ID signed, notarized universal candidate, installed locally and retained in the public browserdaddy repository prerelease. Consent v2 covers optional classifier.dev requests; requests are not anonymous. Real private-window and permission-flow acceptance remain. No public download is enabled.
+  infrastructure: "2026-09-25 domain move: canonical host is browser.daddyrad.com, a custom domain on the browserdaddy-updates Worker which serves /updates/* and proxies the ios-landings Pages site. All of browserdaddy.significanthobbies.com 308s to the new host including the appcast feed; Sparkle feed URL now points at the new host."

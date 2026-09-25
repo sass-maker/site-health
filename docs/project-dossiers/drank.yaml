@@ -3,7 +3,7 @@ projectId: drank
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,15 +23,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: f2d2d7296870638728646e18422442d870c65ec7514b07bb9c0b3ca3e7bae039
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/drank
       revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/drank
       revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
@@ -55,9 +55,9 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
-      healthy: 2
+      failing: 2
       attention: &a2
         ignored: 2
   unknowns: []
@@ -172,15 +172,15 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
-    healthy: 2
+    failing: 2
   attention: *a2
   remote:
     repository: sarthakagrawal927/drank
     defaultBranch: main
-    defaultBranchSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
+    defaultBranchSha: e46d5b9784afd35b446f9108c8904d9bb05d8f07
     homepage: https://domains.sassmaker.com
     query: verified
     disposition:
@@ -202,38 +202,38 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 34198440414
+          id: 35635043327
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
-          createdAt: 2026-09-08T07:15:30Z
-          updatedAt: 2026-09-08T07:16:22Z
-          url: https://github.com/sarthakagrawal927/drank/actions/runs/34198440414
-        ageDays: 10
+          headSha: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+          createdAt: 2026-09-21T17:55:14Z
+          updatedAt: 2026-09-21T17:56:23Z
+          url: https://github.com/sarthakagrawal927/drank/actions/runs/35635043327
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: failing
+        reason: current main push concluded failure
         lastRun:
-          id: 34198440414
+          id: 35635043327
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
-          createdAt: 2026-09-08T07:15:30Z
-          updatedAt: 2026-09-08T07:16:22Z
-          url: https://github.com/sarthakagrawal927/drank/actions/runs/34198440414
-        ageDays: 10
+          headSha: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+          createdAt: 2026-09-21T17:55:14Z
+          updatedAt: 2026-09-21T17:56:23Z
+          url: https://github.com/sarthakagrawal927/drank/actions/runs/35635043327
+        ageDays: 3
       attention: ignored
     - name: Update Global DR History
       file: .github/workflows/update-global-dr.yml
@@ -250,35 +250,34 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 34104568403
+          id: 35583549806
           status: completed
-          conclusion: success
+          conclusion: failure
           event: schedule
           branch: main
-          headSha: 73dd19ad2d51e812026016780018e5b7c487a066
-          createdAt: 2026-09-07T09:10:56Z
-          updatedAt: 2026-09-07T09:11:56Z
-          url: https://github.com/sarthakagrawal927/drank/actions/runs/34104568403
-        ageDays: 11
+          headSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
+          createdAt: 2026-09-21T09:29:07Z
+          updatedAt: 2026-09-21T09:29:47Z
+          url: https://github.com/sarthakagrawal927/drank/actions/runs/35583549806
+        ageDays: 3
       schedule:
-        health: missed
-        reason: last scheduled run is 11 days old; expected within 9 day(s)
+        health: failing
+        reason: latest scheduled run concluded failure
         lastRun:
-          id: 34104568403
+          id: 35583549806
           status: completed
-          conclusion: success
+          conclusion: failure
           event: schedule
           branch: main
-          headSha: 73dd19ad2d51e812026016780018e5b7c487a066
-          createdAt: 2026-09-07T09:10:56Z
-          updatedAt: 2026-09-07T09:11:56Z
-          url: https://github.com/sarthakagrawal927/drank/actions/runs/34104568403
-        ageDays: 11
-        freshnessDays: 9
+          headSha: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
+          createdAt: 2026-09-21T09:29:07Z
+          updatedAt: 2026-09-21T09:29:47Z
+          url: https://github.com/sarthakagrawal927/drank/actions/runs/35583549806
+        ageDays: 3
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger

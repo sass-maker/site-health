@@ -1,0 +1,284 @@
+schemaVersion: 1
+projectId: performancedaddy
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-25
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-25
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=performancedaddy].ownerNarrative
+      sourceHeading: PerformanceDaddy
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-19
+      reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-25
+      state: available
+      checkout: performancedaddy
+      revision: 1a50ed08b037e05e3d5219b8b88cecb1b78a186b
+      githubRepository: sarthakagrawal927/performancedaddy
+      expectedHomepage: https://performance.daddyrad.com/
+      observedHomepage: https://performance.daddyrad.com
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 7
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-25
+      state: available
+      checkout: performancedaddy
+      revision: 1a50ed08b037e05e3d5219b8b88cecb1b78a186b
+      githubRepository: sarthakagrawal927/performancedaddy
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-20
+      catalogLatestCommitAt: 2026-09-23
+      catalogDrift: []
+      reason: null
+    githubActions:
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      healthy: 1
+      attention: &a2
+        clear: 1
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://performance.daddyrad.com/.
+ownerVoice:
+  whyVerbatim: deploy both of them properly
+  fullReviewVerbatim: |-
+    deploy both of them properly
+
+    browserdaddy.significanthobbies, performancedaddy.sh
+
+    And then ensure SEO/GEO/indexing is all well sorted
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Investigate local Mac performance through visible processes, ports, resource measurements, and reviewed actions.
+  currentState: Public landing is live; the installed notarized 0.2.3 build 3 matches the public GitHub release and live update feed.
+  nextDecision: Use measured evidence before acting on a diagnosis; keep the landing and native release claims distinct.
+identity:
+  name: PerformanceDaddy
+  publicName: PerformanceDaddy
+  aliases: []
+  family: performancedaddy
+  category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: true
+  kind: experiment
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: true
+  operationalStatus: live
+  authenticationModel: local-only
+  inRegistry: true
+product:
+  description: A local Mac performance investigator for background apps, helpers and developer workloads, with measured evidence and reviewed actions.
+  publicMakerNote: I am building a local Mac performance investigator that makes process, port and slowdown evidence easier to review.
+  purposeContract:
+    purpose: PerformanceDaddy helps developers inspect local processes, ports and measured slowdown signals before taking action.
+    audience: Developers running local servers, coding agents and other moving parts on a Mac.
+    outcome: Find the process or port evidence behind a slowdown and choose the next check deliberately.
+    mechanism: A native local Mac app records bounded CPU, memory, thermal, process and socket observations with reviewed stop controls.
+    proof: The public 0.2.3 build3 native release is signed and notarized; the installed app matches its live Sparkle feed. This does not prove a particular slowdown diagnosis.
+    nextAction: Read the public landing and use the current GitHub release for a Mac install; review measured evidence before acting on a diagnosis.
+  form: macOS app
+  platforms:
+    - macOS
+    - Web
+  prominentTools:
+    - SwiftUI
+    - AppKit
+    - Astro
+    - Cloudflare Pages
+  retainedGitHistory:
+    firstCommitAt: 2026-09-20
+    latestCommitAt: 2026-09-23
+    retainedCommitCount: 20
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: performancedaddy
+  observedRevision: 1a50ed08b037e05e3d5219b8b88cecb1b78a186b
+  githubRepository: sarthakagrawal927/performancedaddy
+  githubHomepageUrl: https://performance.daddyrad.com
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/performancedaddy
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - site/wrangler.jsonc
+      - name: npm
+        evidence:
+          - site/package-lock.json
+      - name: Swift Package Manager
+        evidence:
+          - Package.swift
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/performancedaddy
+    defaultBranch: main
+    defaultBranchSha: 1a50ed08b037e05e3d5219b8b88cecb1b78a186b
+    homepage: https://performance.daddyrad.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35881068632
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 1a50ed08b037e05e3d5219b8b88cecb1b78a186b
+          createdAt: 2026-09-23T15:22:27Z
+          updatedAt: 2026-09-23T15:25:09Z
+          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/35881068632
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35881068632
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 1a50ed08b037e05e3d5219b8b88cecb1b78a186b
+          createdAt: 2026-09-23T15:22:27Z
+          updatedAt: 2026-09-23T15:25:09Z
+          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/35881068632
+        ageDays: 1
+      attention: clear
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - performance.daddyrad.com
+    - performancedaddy.significanthobbies.com
+  primaryUrl: https://performance.daddyrad.com/
+  domainProbePaths: {}
+  targets:
+    - id: landing
+      kind: pages
+      name: performancedaddy-landing
+      sourcePath: ios-landings
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: performancedaddy-landing
+        method: cloudflare-pages-api
+        state: live
+        verification:
+          observedAt: 2026-09-25
+          sourcePath: ios-landings
+          deploymentId: 245a6bb8
+          sourceState: dirty-working-tree
+          evidencePath: null
+      - provider: cloudflare
+        kind: worker
+        name: performancedaddy-updates
+        method: wrangler-direct
+        state: live
+        versionId: 958208ef-a5f1-4342-9270-482a2f07f002
+        attributionReason: "Owns performance.daddyrad.com end to end: /updates/* from bundled assets, other paths proxied to performancedaddy-landing.pages.dev; 308-redirects all of performancedaddy.significanthobbies.com."
+    resources:
+      - provider: cloudflare
+        kind: custom-domain
+        name: performance.daddyrad.com
+        state: active
+        attributionReason: Worker custom domain on performancedaddy-updates; canonical host since 2026-09-25. Pages custom-domain attach was removed because wrangler OAuth lacks DNS write for the zone.
+        scope: project
+        operationalOwner: performancedaddy
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: preview
+  ready: true
+  verifiedAt: 2026-09-25
+  reason: Public landing returned HTTP 200. The installed notarized 0.2.3 build3 app matches the public GitHub release and live Sparkle feed; performance.daddyrad.com/download serves the current feed DMG.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/performancedaddy/issues
+  geoIdentity:
+    id: performancedaddy
+    name: PerformanceDaddy
+    aliases: []
+    description: A local Mac performance investigator for background apps, helpers and developer workloads, with measured evidence and reviewed actions.
+    origin: https://performancedaddy.significanthobbies.com
+    source:
+      state: internal
+      path: performancedaddy
+    docs:
+      state: landing-only
+      url: https://performancedaddy.significanthobbies.com
+    officialProfiles: []
+    availability:
+      primary: internal-only
+      appStore: not-applicable
+    pricing:
+      state: not-declared
+notes:
+  catalog: Pages landing HTTPS and public DNS verified on 2026-09-20 after owner-approved CNAME creation. Native app remains private/local with no public download.
+  infrastructure: "2026-09-25 domain move: canonical host is performance.daddyrad.com, a custom domain on the performancedaddy-updates Worker which serves /updates/* and proxies the ios-landings Pages site. All of performancedaddy.significanthobbies.com 308s to the new host including the appcast feed; Sparkle feed URL now points at the new host."

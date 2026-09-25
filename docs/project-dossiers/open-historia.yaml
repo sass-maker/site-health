@@ -3,7 +3,7 @@ projectId: open-historia
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,15 +23,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: be4f60bec0e9467fe167c5f742e76d78a7c4aa5aa2124021e2518e9a84526118
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/open-historia
       revision: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/open-historia
       revision: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
@@ -51,12 +51,11 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-08
-      catalogLatestCommitAt: 2026-09-09
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-19
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -182,7 +181,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -191,7 +190,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/open-historia
     defaultBranch: main
-    defaultBranchSha: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
+    defaultBranchSha: 1613326985fd35f29f330d231ed5475dc1eab389
     homepage: https://historia.aliveville.com
     query: verified
     disposition:
@@ -216,16 +215,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35385682185
+          id: 35635217631
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
-          createdAt: 2026-09-18T19:23:41Z
-          updatedAt: 2026-09-18T19:28:48Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35385682185
-        ageDays: 0
+          headSha: 1613326985fd35f29f330d231ed5475dc1eab389
+          createdAt: 2026-09-21T17:56:53Z
+          updatedAt: 2026-09-21T18:02:41Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35635217631
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -234,16 +233,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35385682185
+          id: 35635217631
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
-          createdAt: 2026-09-18T19:23:41Z
-          updatedAt: 2026-09-18T19:28:48Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35385682185
-        ageDays: 0
+          headSha: 1613326985fd35f29f330d231ed5475dc1eab389
+          createdAt: 2026-09-21T17:56:53Z
+          updatedAt: 2026-09-21T18:02:41Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35635217631
+        ageDays: 3
       attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
@@ -271,7 +270,7 @@ githubActions:
           createdAt: 2026-09-06T06:06:39Z
           updatedAt: 2026-09-06T06:07:03Z
           url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34015652329
-        ageDays: 12
+        ageDays: 18
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -300,30 +299,30 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34861275519
+          id: 35618564190
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 6b7fa8f883f261291a5c32a47516f06b18668da0
-          createdAt: 2026-09-14T15:18:17Z
-          updatedAt: 2026-09-14T15:18:58Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34861275519
-        ageDays: 4
+          headSha: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
+          createdAt: 2026-09-21T15:23:06Z
+          updatedAt: 2026-09-21T15:23:46Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35618564190
+        ageDays: 3
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 34861275519
+          id: 35618564190
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 6b7fa8f883f261291a5c32a47516f06b18668da0
-          createdAt: 2026-09-14T15:18:17Z
-          updatedAt: 2026-09-14T15:18:58Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34861275519
-        ageDays: 4
+          headSha: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
+          createdAt: 2026-09-21T15:23:06Z
+          updatedAt: 2026-09-21T15:23:46Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35618564190
+        ageDays: 3
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -346,16 +345,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34814005362
+          id: 35569060709
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 6b7fa8f883f261291a5c32a47516f06b18668da0
-          createdAt: 2026-09-14T06:34:02Z
-          updatedAt: 2026-09-14T06:34:54Z
-          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34814005362
-        ageDays: 4
+          headSha: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
+          createdAt: 2026-09-21T06:34:19Z
+          updatedAt: 2026-09-21T06:35:13Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35569060709
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

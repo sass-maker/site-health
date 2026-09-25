@@ -3,7 +3,7 @@ projectId: knowledge-base
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: d98a957f3fbb826c0e849256b217a66fdd9bd7e3c42ae73c5c5819ba17c43197
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: knowledge-base
-      revision: de2a7faaba67a6ba595db5a2122b1212a0eab6cc
+      revision: df9a5839459a9b2a49e8bf68a667d99b74561803
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
@@ -43,20 +43,19 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: knowledge-base
-      revision: de2a7faaba67a6ba595db5a2122b1212a0eab6cc
+      revision: df9a5839459a9b2a49e8bf68a667d99b74561803
       githubRepository: sass-maker/knowledge-base
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-27
-      catalogLatestCommitAt: 2026-09-09
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-19
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -79,7 +78,7 @@ identity:
   family: knowledge-base
   category: utility
   audience: internal
-  personalUse: null
+  personalUse: true
   moneyOrPersonalBrand: false
   unmetNeed: false
   kind: platform
@@ -114,13 +113,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-05-27
-    latestCommitAt: 2026-09-18
-    retainedCommitCount: 229
+    latestCommitAt: 2026-09-19
+    retainedCommitCount: 231
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: de2a7faaba67a6ba595db5a2122b1212a0eab6cc
+  observedRevision: df9a5839459a9b2a49e8bf68a667d99b74561803
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -173,7 +172,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -181,7 +180,7 @@ githubActions:
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: cf4ae0a3ff7d3a6ebb92807bf715323ab457e46c
+    defaultBranchSha: 01c1e7fd99821d29a2cc9b5e68ab727dfcc24f3a
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -206,16 +205,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35421425213
+          id: 35820033846
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cf4ae0a3ff7d3a6ebb92807bf715323ab457e46c
-          createdAt: 2026-09-19T04:29:32Z
-          updatedAt: 2026-09-19T04:30:44Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/35421425213
-        ageDays: 0
+          headSha: 01c1e7fd99821d29a2cc9b5e68ab727dfcc24f3a
+          createdAt: 2026-09-23T04:51:31Z
+          updatedAt: 2026-09-23T04:52:29Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/35820033846
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -224,16 +223,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35421425213
+          id: 35820033846
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: cf4ae0a3ff7d3a6ebb92807bf715323ab457e46c
-          createdAt: 2026-09-19T04:29:32Z
-          updatedAt: 2026-09-19T04:30:44Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/35421425213
-        ageDays: 0
+          headSha: 01c1e7fd99821d29a2cc9b5e68ab727dfcc24f3a
+          createdAt: 2026-09-23T04:51:31Z
+          updatedAt: 2026-09-23T04:52:29Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/35820033846
+        ageDays: 2
       attention: clear
     - name: docs
       file: .github/workflows/docs.yml
@@ -262,14 +261,14 @@ githubActions:
           createdAt: 2026-09-09T08:48:38Z
           updatedAt: 2026-09-09T08:48:47Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170937
-        ageDays: 9
+        ageDays: 15
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision cf4ae0a
+        reason: no push run at current main revision 01c1e7f
         lastRun:
           id: 34331170937
           status: completed
@@ -299,16 +298,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35421352099
+          id: 35757064781
           status: completed
           conclusion: success
           event: pull_request
-          branch: parity-knowledge-base
-          headSha: 7b27916ce9539e4c8fea611edbb06757707bd238
-          createdAt: 2026-09-19T04:27:53Z
-          updatedAt: 2026-09-19T04:28:05Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/35421352099
-        ageDays: 0
+          branch: codex/app-health-endpoints
+          headSha: 1e9eff67951471ddd10dedd669bc8eaac29558e4
+          createdAt: 2026-09-22T16:53:16Z
+          updatedAt: 2026-09-22T16:53:40Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/35757064781
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

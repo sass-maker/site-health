@@ -3,7 +3,7 @@ projectId: site-health
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,52 +11,51 @@ verification:
     repositorySnapshot: passed
     githubHomepage: not-applicable
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
-      infrastructureUpdatedAt: 2026-08-22
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-19
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Site Health
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 898ad3494adf0f2eac9def552e57e351278a79ed8b7c20ed339f2d2d1f76bd3e
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: site-health
-      revision: 819a934b3daf0dd38515146bafb71332158cba72
+      revision: 5d061e8a46899afcff1dd9ff3c886d7981d53dc0
       githubRepository: sass-maker/site-health
       expectedHomepage: null
       observedHomepage: https://sassmaker.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 66
+        trackedChangeCount: 96
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: site-health
-      revision: 819a934b3daf0dd38515146bafb71332158cba72
+      revision: 5d061e8a46899afcff1dd9ff3c886d7981d53dc0
       githubRepository: sass-maker/site-health
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-02
-      catalogLatestCommitAt: 2026-09-09
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -124,13 +123,13 @@ product:
     - Node.js
   retainedGitHistory:
     firstCommitAt: 2026-05-02
-    latestCommitAt: 2026-09-19
-    retainedCommitCount: 1133
+    latestCommitAt: 2026-09-22
+    retainedCommitCount: 1138
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: site-health
-  observedRevision: 819a934b3daf0dd38515146bafb71332158cba72
+  observedRevision: 5d061e8a46899afcff1dd9ff3c886d7981d53dc0
   githubRepository: sass-maker/site-health
   githubHomepageUrl: https://sassmaker.com
   worktree: *a1
@@ -144,6 +143,9 @@ repository:
       - name: Astro
         evidence:
           - apps/web/astro.config.mjs
+      - name: Cloudflare Wrangler
+        evidence:
+          - apps/backend/indexnow-worker/wrangler.jsonc
       - name: pnpm
         evidence:
           - apps/backend/packages/ai-visibility/pnpm-lock.yaml
@@ -167,13 +169,15 @@ repository:
       - docs:projects:refresh-local
       - docs:purpose-contracts
       - docs:purpose-contracts:check
+      - indexing
+      - indexing:schedule
       - prepare:ci-catalog
       - test
       - test:ai
       - test:backend
       - test:backend:ci
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -181,7 +185,7 @@ githubActions:
   remote:
     repository: sass-maker/site-health
     defaultBranch: main
-    defaultBranchSha: 819a934b3daf0dd38515146bafb71332158cba72
+    defaultBranchSha: 28fce0089739fa3dc3c6b2c79bd24b5fb1c91fab
     homepage: https://sassmaker.com
     query: verified
     disposition:
@@ -207,16 +211,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35421430237
+          id: 35635007391
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 819a934b3daf0dd38515146bafb71332158cba72
-          createdAt: 2026-09-19T04:29:39Z
-          updatedAt: 2026-09-19T04:30:07Z
-          url: https://github.com/sass-maker/site-health/actions/runs/35421430237
-        ageDays: 0
+          headSha: 28fce0089739fa3dc3c6b2c79bd24b5fb1c91fab
+          createdAt: 2026-09-21T17:54:54Z
+          updatedAt: 2026-09-21T17:55:21Z
+          url: https://github.com/sass-maker/site-health/actions/runs/35635007391
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -225,16 +229,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35421430237
+          id: 35635007391
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 819a934b3daf0dd38515146bafb71332158cba72
-          createdAt: 2026-09-19T04:29:39Z
-          updatedAt: 2026-09-19T04:30:07Z
-          url: https://github.com/sass-maker/site-health/actions/runs/35421430237
-        ageDays: 0
+          headSha: 28fce0089739fa3dc3c6b2c79bd24b5fb1c91fab
+          createdAt: 2026-09-21T17:54:54Z
+          updatedAt: 2026-09-21T17:55:21Z
+          url: https://github.com/sass-maker/site-health/actions/runs/35635007391
+        ageDays: 3
       attention: clear
 deployment:
   kind: none
@@ -244,8 +248,22 @@ deployment:
   domainProbePaths: {}
   targets: []
   cloudflare:
-    deployments: []
-    resources: []
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: fleet-indexnow-key
+        method: wrangler-direct
+        state: live
+        versionId: 85f9521e-75d5-40ee-8b9f-47f3bacd2c4a
+        attributionReason: "Shared operational steward owned by Site Health search discovery: serves the fleet IndexNow key on /bdeaa89dd1f1f7869584f50121c6e7da.txt across 20 eligible product domains via path-exact routes that outrank product custom domains. Source: site-health/apps/backend/indexnow-worker."
+    resources:
+      - provider: cloudflare
+        kind: worker-routes
+        name: fleet-indexnow-key path routes
+        state: active
+        attributionReason: 20 path-exact routes (/{key}.txt) across zones significanthobbies.com, sassmaker.com, codevetter.com, heypace.app, posttrainllm.com, highsignal.app and karte.cc; verified live on all 20 domains 2026-09-19.
+        scope: project
+        operationalOwner: site-health
   otherProviders:
     deployments: []
     resources: []
@@ -260,4 +278,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: Private local-only Site Health product. SaaS Maker owns Fleet reusable tooling; Feedback and ChatGPT Connections remain independently owned sibling repositories. Performance collection uses installed Node 24.20.0 through mise to match PSI Swarm native SQLite.
-  infrastructure: Site Health is intentionally local-only on 127.0.0.1. Its shared-tunnel route, Cloudflare DNS record, and Access application were retired on 2026-08-22; the shared tunnel and unrelated routes remain untouched.
+  infrastructure: Site Health is local-only on 127.0.0.1 except fleet-indexnow-key, a shared operational steward Worker added 2026-09-19 to serve the IndexNow key fleet-wide; feeds scripts/indexnow-submit.mjs and the Search Console discovery cycle.

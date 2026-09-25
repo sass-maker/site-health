@@ -3,7 +3,7 @@ projectId: veg-protein-food
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,15 +23,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 7dda5477b82011c7a1d5e9bcc520b4cce257b273fbed2e0d621b5dd31ebcd379
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/veg-protein-food
       revision: 665bff53538953ac329d6b2322cab9d95163022f
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/veg-protein-food
       revision: 665bff53538953ac329d6b2322cab9d95163022f
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -145,7 +145,7 @@ repository:
       - preview
       - test
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -153,7 +153,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/veg-protein-food
     defaultBranch: main
-    defaultBranchSha: 665bff53538953ac329d6b2322cab9d95163022f
+    defaultBranchSha: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
     homepage: https://veg-protein-food.significanthobbies.com
     query: verified
     disposition:
@@ -178,16 +178,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34002269438
+          id: 35635191482
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 665bff53538953ac329d6b2322cab9d95163022f
-          createdAt: 2026-09-06T00:48:53Z
-          updatedAt: 2026-09-06T00:49:08Z
-          url: https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/34002269438
-        ageDays: 13
+          headSha: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
+          createdAt: 2026-09-21T17:56:37Z
+          updatedAt: 2026-09-21T17:56:52Z
+          url: https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/35635191482
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -196,16 +196,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34002269438
+          id: 35635191482
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 665bff53538953ac329d6b2322cab9d95163022f
-          createdAt: 2026-09-06T00:48:53Z
-          updatedAt: 2026-09-06T00:49:08Z
-          url: https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/34002269438
-        ageDays: 13
+          headSha: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
+          createdAt: 2026-09-21T17:56:37Z
+          updatedAt: 2026-09-21T17:56:52Z
+          url: https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/35635191482
+        ageDays: 3
       attention: ignored
 deployment:
   kind: pages

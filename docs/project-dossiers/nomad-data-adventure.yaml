@@ -3,7 +3,7 @@ projectId: nomad-data-adventure
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,18 +23,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-07
       reviewSha256: 6f8d1cd0b0cddf38d6be96eaf8f6438fd527525f9fcc15fa22a8cb9e9490c49c
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/nomad-data-adventure
-      revision: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
+      revision: 96be812778ecc3edca2c95fb826d47481e6d2e95
       githubRepository: sarthakagrawal927/nomad-data-adventure
       expectedHomepage: https://nomad.significanthobbies.com/
       observedHomepage: https://nomad.significanthobbies.com/
@@ -43,21 +43,19 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/nomad-data-adventure
-      revision: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
+      revision: 96be812778ecc3edca2c95fb826d47481e6d2e95
       githubRepository: sarthakagrawal927/nomad-data-adventure
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: null
-      catalogLatestCommitAt: null
-      catalogDrift:
-        - firstCommitAt
-        - latestCommitAt
+      catalogFirstCommitAt: 2026-09-12
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 1
       cancelled: 1
@@ -114,13 +112,13 @@ product:
     - CSS
   retainedGitHistory:
     firstCommitAt: 2026-09-12
-    latestCommitAt: 2026-09-13
-    retainedCommitCount: 8
+    latestCommitAt: 2026-09-22
+    retainedCommitCount: 10
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/nomad-data-adventure
-  observedRevision: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
+  observedRevision: 96be812778ecc3edca2c95fb826d47481e6d2e95
   githubRepository: sarthakagrawal927/nomad-data-adventure
   githubHomepageUrl: https://nomad.significanthobbies.com/
   worktree: *a1
@@ -141,7 +139,7 @@ repository:
       - dev
       - test
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -150,7 +148,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/nomad-data-adventure
     defaultBranch: main
-    defaultBranchSha: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
+    defaultBranchSha: 96be812778ecc3edca2c95fb826d47481e6d2e95
     homepage: https://nomad.significanthobbies.com/
     query: verified
     disposition:
@@ -175,16 +173,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34769764408
+          id: 35684245296
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
-          createdAt: 2026-09-13T16:50:05Z
-          updatedAt: 2026-09-13T16:50:18Z
-          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34769764408
-        ageDays: 5
+          headSha: 96be812778ecc3edca2c95fb826d47481e6d2e95
+          createdAt: 2026-09-22T03:44:11Z
+          updatedAt: 2026-09-22T03:44:24Z
+          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/35684245296
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -193,16 +191,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 34769764408
+          id: 35684245296
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: b2f68b78963b01f07b358f6bd9e2a8d306f0c14d
-          createdAt: 2026-09-13T16:50:05Z
-          updatedAt: 2026-09-13T16:50:18Z
-          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34769764408
-        ageDays: 5
+          headSha: 96be812778ecc3edca2c95fb826d47481e6d2e95
+          createdAt: 2026-09-22T03:44:11Z
+          updatedAt: 2026-09-22T03:44:24Z
+          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/35684245296
+        ageDays: 3
       attention: clear
     - name: pages-build-deployment
       file: dynamic/pages/pages-build-deployment
@@ -229,7 +227,7 @@ githubActions:
           createdAt: 2026-09-13T16:26:32Z
           updatedAt: 2026-09-13T16:26:59Z
           url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34768583692
-        ageDays: 5
+        ageDays: 11
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

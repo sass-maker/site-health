@@ -1,67 +1,67 @@
 schemaVersion: 1
 projectId: storagedaddy
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: mismatch
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
-      infrastructureUpdatedAt: 2026-09-13
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: StorageDaddy
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 717d82e30e6e65db941463289348752623c834efe4b1e542c113467d78b83b04
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: storagedaddy
-      revision: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
+      revision: d71be6dbbfbb6e819e803b3b723a6d360f64749a
       githubRepository: sarthakagrawal927/storagedaddy
-      expectedHomepage: https://storagedaddy.significanthobbies.com/
-      observedHomepage: https://storagedaddy.significanthobbies.com/
+      expectedHomepage: https://storage.daddyrad.com/
+      observedHomepage: https://storage.daddyrad.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 1
+        trackedChangeCount: 41
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: storagedaddy
-      revision: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
+      revision: d71be6dbbfbb6e819e803b3b723a6d360f64749a
       githubRepository: sarthakagrawal927/storagedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-13
-      catalogLatestCommitAt: 2026-09-13
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-20
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
         clear: 1
-  unknowns: []
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://storage.daddyrad.com/.
 ownerVoice:
   whyVerbatim: Working native Mac app
   fullReviewVerbatim: |-
@@ -78,9 +78,9 @@ ownerVoice:
   relatedHistoricalReviews: []
 decision:
   classification: Active
-  whySummary: Build a pretty, efficient native Mac storage analyzer.
-  currentState: Working native Mac app; private local prototype with no public distribution.
-  nextDecision: Measure correctness and runtime efficiency before expanding scope.
+  whySummary: Build a native Mac storage analyzer with reviewed cleanup.
+  currentState: Public signed update feed advertises 0.1.2 build 80, matching the installed notarized app; earlier native qualification is bounded to its recorded builds.
+  nextDecision: Continue measuring scan correctness and runtime efficiency before expanding scope.
 identity:
   name: storagedaddy
   publicName: storagedaddy
@@ -110,8 +110,8 @@ product:
     audience: Developers whose Mac builds, dependencies, caches and AI session histories consume storage.
     outcome: Find large storage consumers and review what to archive or move to Trash.
     mechanism: A local SwiftUI and AppKit scanner provides visual exploration, developer insights, reviewed cache cleanup and compact AI conversation exports. Sparkle provides signed macOS update checks.
-    proof: MIT-licensed source, signed and notarized macOS 14+ Apple-silicon beta, tested scanner and archive cleanup, and a publicly downloaded DMG with matching checksum.
-    nextAction: Download during free early access at storagedaddy.significanthobbies.com, scan a folder, and review what to archive or move to Trash.
+    proof: The public signed feed advertises macOS 0.1.2 build80, matching the locally installed notarized app; earlier scanner and reviewed-cleanup qualification remains bounded to its recorded release.
+    nextAction: Download during free early access at storage.daddyrad.com, scan a folder, and review what to archive or move to Trash.
   form: macOS app
   platforms:
     - macOS
@@ -121,17 +121,18 @@ product:
     - Rust
     - Cloudflare Workers
     - Sparkle
+    - Astro
   retainedGitHistory:
     firstCommitAt: 2026-09-13
-    latestCommitAt: 2026-09-19
-    retainedCommitCount: 22
+    latestCommitAt: 2026-09-20
+    retainedCommitCount: 29
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: storagedaddy
-  observedRevision: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
+  observedRevision: d71be6dbbfbb6e819e803b3b723a6d360f64749a
   githubRepository: sarthakagrawal927/storagedaddy
-  githubHomepageUrl: https://storagedaddy.significanthobbies.com/
+  githubHomepageUrl: https://storage.daddyrad.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/storagedaddy
@@ -154,7 +155,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -162,8 +163,8 @@ githubActions:
   remote:
     repository: sarthakagrawal927/storagedaddy
     defaultBranch: main
-    defaultBranchSha: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
-    homepage: https://storagedaddy.significanthobbies.com/
+    defaultBranchSha: d71be6dbbfbb6e819e803b3b723a6d360f64749a
+    homepage: https://storage.daddyrad.com
     query: verified
     disposition:
       disposition: active
@@ -187,16 +188,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35422398778
+          id: 35526707776
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
-          createdAt: 2026-09-19T04:51:13Z
-          updatedAt: 2026-09-19T04:54:34Z
-          url: https://github.com/sarthakagrawal927/storagedaddy/actions/runs/35422398778
-        ageDays: 0
+          headSha: d71be6dbbfbb6e819e803b3b723a6d360f64749a
+          createdAt: 2026-09-20T17:42:14Z
+          updatedAt: 2026-09-20T17:45:01Z
+          url: https://github.com/sarthakagrawal927/storagedaddy/actions/runs/35526707776
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -205,23 +206,24 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35422398778
+          id: 35526707776
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 352ce589e116bfee2831a0a2f54a2cf3c2db2a5b
-          createdAt: 2026-09-19T04:51:13Z
-          updatedAt: 2026-09-19T04:54:34Z
-          url: https://github.com/sarthakagrawal927/storagedaddy/actions/runs/35422398778
-        ageDays: 0
+          headSha: d71be6dbbfbb6e819e803b3b723a6d360f64749a
+          createdAt: 2026-09-20T17:42:14Z
+          updatedAt: 2026-09-20T17:45:01Z
+          url: https://github.com/sarthakagrawal927/storagedaddy/actions/runs/35526707776
+        ageDays: 4
       attention: clear
 deployment:
   kind: worker
   deployed: true
   domains:
+    - storage.daddyrad.com
     - storagedaddy.significanthobbies.com
-  primaryUrl: https://storagedaddy.significanthobbies.com/
+  primaryUrl: https://storage.daddyrad.com/
   domainProbePaths: {}
   targets: []
   cloudflare:
@@ -231,7 +233,7 @@ deployment:
         name: storagedaddy
         method: wrangler-direct
         state: live
-        versionId: ec40ae08-b6a5-44cb-a520-ef55e6417a8f
+        versionId: 2ed35fed-c94f-4464-b3f4-1e8214d57132
         attributionReason: Dedicated StorageDaddy custom subdomain with legacy prefix redirects; Significant Hobbies owns the shared apex application.
     resources:
       - provider: cloudflare
@@ -248,6 +250,13 @@ deployment:
         attributionReason: Owner-requested canonical StorageDaddy public site; attached to the storagedaddy Worker.
         scope: project
         operationalOwner: storagedaddy
+      - provider: cloudflare
+        kind: custom-domain
+        name: storage.daddyrad.com
+        state: active
+        attributionReason: Canonical StorageDaddy host since the 2026-09-25 daddy-domain move; storagedaddy.significanthobbies.com now 308s here.
+        scope: project
+        operationalOwner: storagedaddy
   otherProviders:
     deployments: []
     resources: []
@@ -255,11 +264,11 @@ sharing:
   publicListing: maintained
   maturity: beta
   ready: true
-  verifiedAt: 2026-09-13
-  reason: storagedaddy 0.1.2 build75 is public, signed, notarized and stapled. Adds folder symlink visibility in Inspector and Cleanup. All 145 Swift tests, 2 packaging tests and 14 site tests pass. Exact DMG native scan verified; installed build71 updated to75 through Sparkle and relaunched. Public download, update checksum and Ed25519 signature match.
+  verifiedAt: 2026-09-25
+  reason: The public signed update feed advertises 0.1.2 build80 and /Applications contains matching build80. The installed app is accepted as Notarized Developer ID. Earlier build75 release and native-test receipts remain historical; this audit did not repeat the full build80 workflow.
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/storagedaddy/issues
   geoIdentity: null
 notes:
-  catalog: Build75 released 2026-09-13 with folder symlink visibility. MIT source pushed through 2a308d7. Public download and native Sparkle71-to75 update verified. Existing black/mint landing, Fleet footer, SEO, open-source links and live traffic report retained.
-  infrastructure: Build75 release deployed 2026-09-13 from source2a308d7. Worker ec40ae08-b6a5-44cb-a520-ef55e6417a8f. 14 site checks pass. DMG and signed update feed verified publicly; installed app updated71-to75. Existing website preserved.
+  catalog: Build75 released 2026-09-13 with folder symlink visibility. MIT source pushed through 2a308d7. Public download and native Sparkle71-to75 update verified. Existing black/mint landing, Fleet footer, SEO, open-source links and live traffic report retained. On 2026-09-19, a StorageDaddy landing was added locally to ios-landings alongside PerformanceDaddy, using the existing factory with desktop captures. No deployment or routing cutover; the existing Worker still owns download and update endpoints.
+  infrastructure: "2026-09-25 domain move: canonical host is storage.daddyrad.com (Worker 2ed35fed); storagedaddy.significanthobbies.com and significanthobbies.com/storagedaddy* 308 to it, preserving /download and /updates/*. Public assets, feed enclosure and Sparkle feed URL now reference storage.daddyrad.com."

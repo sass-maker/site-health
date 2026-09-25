@@ -3,7 +3,7 @@ projectId: anchor
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-19
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8c71e545d94631bfef933e4d10a127b2796fb007607f99103f1fdd47aacbedee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -23,15 +23,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-08-22
       reviewSha256: 035887da5a426c99c2c54759f30deeebf25f9f1528be599a68d2634f4d51ff05
-      documentSha256: 3f859c6ddd386f39716ce3bab470020d5cb3e5d9ddd965bfb04ccd832f8c4207
+      documentSha256: d46707b15299ddf5e3950d7b68471e558def6e6b1e26c61bad6bd90866ce7748
       restoredFromCommit: 4964ce35daee38aa91ea9648ba09012e9ee9a5da
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 3ecb04cece71aea8b4d3de78d172694699e9680ee293393eb4c16235ecc0afa3
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: anchor
       revision: 9b6bbb014a1551176df338fffdc7e91a28c428ce
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 7
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-19
+      observedAt: 2026-09-25
       state: available
       checkout: anchor
       revision: 9b6bbb014a1551176df338fffdc7e91a28c428ce
@@ -51,12 +51,11 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-16
-      catalogLatestCommitAt: 2026-09-09
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-18
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-19T04:58:48.301Z
+      observedAt: 2026-09-25T05:11:42.181Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -81,8 +80,8 @@ ownerVoice:
 decision:
   classification: Active
   whySummary: Plan a realistic day, follow it with a focus timer, and explain why the lived day differed.
-  currentState: Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; the owner simplified the daily loop to direct habit tracking, editable/copyable days, project-linked entries and pause recovery. Native builds are under daily-use qualification; account continuity, the distraction-note privacy contract, and production CloudKit compatibility remain release gates. Current installation receipts belong in the canonical catalog.
-  nextDecision: Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change.
+  currentState: Public Mac build 20 is notarized; local build 25 is installed for dogfooding but Gatekeeper rejects it as unnotarized. Account continuity and production CloudKit compatibility remain release gates.
+  nextDecision: Dogfood the complete schedule → focus → interruption → review loop; qualify a newer public build separately.
 identity:
   name: Anchor
   publicName: Anchor
@@ -90,7 +89,7 @@ identity:
   family: significanthobbies
   category: utility
   audience: public
-  personalUse: null
+  personalUse: true
   moneyOrPersonalBrand: false
   unmetNeed: false
   kind: product
@@ -112,7 +111,7 @@ product:
     audience: A person moving between Mac, iPhone, and Apple Watch who wants a deliberate day rather than another task list.
     outcome: Make more realistic plans, recover from interruptions, and protect activities that genuinely matter without moralizing imperfect adherence.
     mechanism: Native apps combine schedule blocks, recurring routines, wall-clock focus sessions, interruption evidence, and an end-of-day divergence review.
-    proof: The maintained successor to Indulge and Habits has signed native builds and an integrated schedule → focus → interruption → review loop under dogfooding.
+    proof: Public notarized Mac build 20 remains available; local build 25 has passed a bounded personal workflow but Gatekeeper rejects it as unnotarized, so it is not a public update.
     nextAction: Use Anchor through a real day and review the divergence evidence; let repeated lived patterns decide the next change.
   form: Apple app
   platforms:
@@ -150,7 +149,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-19T04:58:48.301Z
+  observedAt: 2026-09-25T05:11:42.181Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -158,7 +157,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: ff7e8ae99128bffc151299c6175585f58e26c303
+    defaultBranchSha: fef2d5a3955cde1b4e5ca12092f312e080e832e5
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -182,16 +181,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34470263891
+          id: 35770160659
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 077f8564ee3e85631f1807c365b03e9d283c41db
-          createdAt: 2026-09-10T11:14:39Z
-          updatedAt: 2026-09-10T11:35:09Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/34470263891
-        ageDays: 8
+          headSha: fef2d5a3955cde1b4e5ca12092f312e080e832e5
+          createdAt: 2026-09-22T18:53:17Z
+          updatedAt: 2026-09-22T19:18:09Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/35770160659
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
