@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: starboard
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
-    retainedGitHistory: catalog-drift
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,22 +28,22 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: starboard
       revision: 46408dfe6c3bac06a51676cf1992a7c8f94d2be7
       githubRepository: Codevetter/starboard
       expectedHomepage: https://starboard.codevetter.com
-      observedHomepage: null
+      observedHomepage: https://starboard.codevetter.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 9
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: starboard
       revision: 46408dfe6c3bac06a51676cf1992a7c8f94d2be7
@@ -51,19 +51,19 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-22
-      catalogLatestCommitAt: 2026-09-07
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 7
+      observedAt: 2026-09-25T20:28:32.894Z
+      staleAfterDays: 30
+      healthy: 6
+      stale: 2
+      disabled: 1
       attention: &a2
-        unclassified: 7
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://starboard.codevetter.com.
+        clear: 8
+        reconcile: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: GitHub stars were not working for me due to the volume so I decided to build my own UI. I am still adding some interesting features to it for better exploring but otherwise it is more or less done.
   fullReviewVerbatim: GitHub stars were not working for me due to the volume so I decided to build my own UI. I am still adding some interesting features to it for better exploring but otherwise it is more or less done.
@@ -123,7 +123,7 @@ repository:
   checkout: starboard
   observedRevision: 46408dfe6c3bac06a51676cf1992a7c8f94d2be7
   githubRepository: Codevetter/starboard
-  githubHomepageUrl: null
+  githubHomepageUrl: https://starboard.codevetter.com
   worktree: *a1
   visibility: public
   url: https://github.com/Codevetter/starboard
@@ -199,12 +199,22 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T20:28:32.894Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 7
+    healthy: 6
+    stale: 2
+    disabled: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: Codevetter/starboard
+    defaultBranch: main
+    defaultBranchSha: e1481494ed1521b2c3cf49b3706450627b89df34
+    homepage: https://starboard.codevetter.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -212,16 +222,119 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36176698519
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e1481494ed1521b2c3cf49b3706450627b89df34
+          createdAt: 2026-09-25T18:57:35Z
+          updatedAt: 2026-09-25T19:00:18Z
+          url: https://github.com/Codevetter/starboard/actions/runs/36176698519
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 36176698519
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e1481494ed1521b2c3cf49b3706450627b89df34
+          createdAt: 2026-09-25T18:57:35Z
+          updatedAt: 2026-09-25T19:00:18Z
+          url: https://github.com/Codevetter/starboard/actions/runs/36176698519
+        ageDays: 0
+      attention: clear
     - name: Cloudflare operator smoke
       file: .github/workflows/cloudflare-operator-smoke.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36128003657
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 86fd12a38fbb77cbf6a4af6b43cf0b14036bef98
+          createdAt: 2026-09-25T11:11:05Z
+          updatedAt: 2026-09-25T11:11:30Z
+          url: https://github.com/Codevetter/starboard/actions/runs/36128003657
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36177155669
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: e1481494ed1521b2c3cf49b3706450627b89df34
+          createdAt: 2026-09-25T19:01:56Z
+          updatedAt: 2026-09-25T19:04:00Z
+          url: https://github.com/Codevetter/starboard/actions/runs/36177155669
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -229,16 +342,119 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36176698268
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e1481494ed1521b2c3cf49b3706450627b89df34
+          createdAt: 2026-09-25T18:57:34Z
+          updatedAt: 2026-09-25T18:57:43Z
+          url: https://github.com/Codevetter/starboard/actions/runs/36176698268
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 36176698268
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e1481494ed1521b2c3cf49b3706450627b89df34
+          createdAt: 2026-09-25T18:57:34Z
+          updatedAt: 2026-09-25T18:57:43Z
+          url: https://github.com/Codevetter/starboard/actions/runs/36176698268
+        ageDays: 0
+      attention: clear
     - name: Embed pending repos
       file: .github/workflows/embed-pending.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: stale
+        reason: latest run is 54 days old
+        apiState: active
+        lastRun:
+          id: 30721198381
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: cd5ffbd4d81a874389bfdabf4a63a75343b6ed54
+          createdAt: 2026-08-01T22:24:44Z
+          updatedAt: 2026-08-01T22:25:14Z
+          url: https://github.com/Codevetter/starboard/actions/runs/30721198381
+        ageDays: 54
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Purge Starboard Cache
       file: .github/workflows/purge-cache.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: stale
+        reason: latest run is 47 days old
+        apiState: active
+        lastRun:
+          id: 31315689133
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 39786d7eb5d537813b761503896bd05845e1d26e
+          createdAt: 2026-08-09T13:23:34Z
+          updatedAt: 2026-08-09T13:23:48Z
+          url: https://github.com/Codevetter/starboard/actions/runs/31315689133
+        ageDays: 47
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Seed popular repos
       file: .github/workflows/seed-popular.yml
       triggers:
@@ -246,6 +462,127 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 17 3 * * 0
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36128059293
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 86fd12a38fbb77cbf6a4af6b43cf0b14036bef98
+          createdAt: 2026-09-25T11:11:44Z
+          updatedAt: 2026-09-25T11:41:22Z
+          url: https://github.com/Codevetter/starboard/actions/runs/36128059293
+        ageDays: 0
+      schedule:
+        health: recovered-manually
+        reason: a newer manual run succeeded after the failed scheduled run
+        lastRun:
+          id: 35500231461
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: 546da172cdb884aa60c98afea472d8f4267d4294
+          createdAt: 2026-09-20T08:41:05Z
+          updatedAt: 2026-09-20T08:41:29Z
+          url: https://github.com/Codevetter/starboard/actions/runs/35500231461
+        recoveryRun:
+          id: 36128059293
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 86fd12a38fbb77cbf6a4af6b43cf0b14036bef98
+          createdAt: 2026-09-25T11:11:44Z
+          updatedAt: 2026-09-25T11:41:22Z
+          url: https://github.com/Codevetter/starboard/actions/runs/36128059293
+        ageDays: 5
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: TEMP verify alert path
+      file: .github/workflows/tmp-verify-alert.yml
+      triggers: []
+      schedules: []
+      inventory:
+        source: remote-only
+        local: false
+        remote: true
+      ownerDisposition:
+        status: needs-reconciliation
+        reason: workflow exists in GitHub but not in the local working tree
+      live:
+        health: disabled
+        reason: GitHub workflow state is disabled_manually
+        apiState: disabled_manually
+        lastRun:
+          id: 31887458085
+          status: completed
+          conclusion: failure
+          event: push
+          branch: verify/alert-path
+          headSha: f01a2735749977143dc79dea35eec632f8afb309
+          createdAt: 2026-08-15T13:31:55Z
+          updatedAt: 2026-08-15T13:32:06Z
+          url: https://github.com/Codevetter/starboard/actions/runs/31887458085
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: reconcile
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35559045110
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: 8b47fc78e01fb64bb2bc89558679d139c664d05a
+          createdAt: 2026-09-21T03:53:31Z
+          updatedAt: 2026-09-21T03:54:59Z
+          url: https://github.com/Codevetter/starboard/actions/runs/35559045110
+        ageDays: 4
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: worker
   deployed: true

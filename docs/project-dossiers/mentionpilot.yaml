@@ -1,0 +1,402 @@
+schemaVersion: 1
+projectId: mentionpilot
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-25
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+    retainedGitHistory: catalog-drift
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      infrastructureUpdatedAt: 2026-09-25
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=mentionpilot].ownerNarrative
+      sourceHeading: MentionPilot
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-25
+      reviewSha256: ae3ff03bb973a0027691fdad911c271ef2c6c2488b735c10088a42895f991b6d
+      documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-25
+      state: available
+      checkout: mentionpilot
+      revision: 46e98376b0eebe85c978dd850f5c2757010e6444
+      githubRepository: sarthakagrawal927/mentionpilot
+      expectedHomepage: null
+      observedHomepage: https://mentionpilot.pages.dev
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-25
+      state: available
+      checkout: mentionpilot
+      revision: 46e98376b0eebe85c978dd850f5c2757010e6444
+      githubRepository: sarthakagrawal927/mentionpilot
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-03-18
+      catalogLatestCommitAt: 2026-09-19
+      catalogDrift:
+        - latestCommitAt
+      reason: null
+    githubActions:
+      observedAt: 2026-09-25T20:28:32.894Z
+      staleAfterDays: 30
+      healthy: 1
+      failing: 2
+      attention: &a2
+        clear: 1
+        action-required: 2
+  unknowns: []
+ownerVoice:
+  whyVerbatim: MentiopnPilot is brought back from dead to ensure we have a tooling to check how well people know about across AI, reddit etc
+  fullReviewVerbatim: MentiopnPilot is brought back from dead to ensure we have a tooling to check how well people know about across AI, reddit etc
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Check brand awareness and perception across AI answers and supported community sources.
+  currentState: Owner reactivated it; API health returned HTTP 200 on 2026-09-25, but the repository-listed Pages web hostname did not resolve, so the public user journey is unverified.
+  nextDecision: Verify the web route and a real evidence-to-action journey before sharing it.
+identity:
+  name: MentionPilot
+  publicName: MentionPilot
+  aliases: []
+  family: mentionpilot
+  category: utility
+  audience: public
+  personalUse: null
+  moneyOrPersonalBrand: true
+  unmetNeed: null
+  kind: product
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: false
+  operationalStatus: live
+  authenticationModel: public-persistent
+  inRegistry: false
+product:
+  description: Evidence-first visibility research across AI answers and selected community signals.
+  publicMakerNote: MentiopnPilot is brought back from dead to ensure we have a tooling to check how well people know about across AI, reddit etc
+  purposeContract:
+    purpose: Show how configured AI assistants and supported community sources describe a brand.
+    audience: Founders and marketing teams checking brand awareness and perception.
+    outcome: Inspect original evidence, identify source or positioning gaps, and decide a useful follow-up.
+    mechanism: A web workspace retains prompts, responses, citations, provider status, timestamps, and bounded social signals.
+    proof: The API health endpoint returned HTTP 200 on 2026-09-25; the listed web hostname did not resolve, so a current public user journey is unverified.
+    nextAction: Verify the web route and a real evidence-to-action journey before marking the product shareable.
+  form: Web intelligence workspace
+  platforms:
+    - Web
+    - API
+  prominentTools:
+    - Next.js
+    - Cloudflare Workers
+    - D1
+    - Drizzle
+    - Better Auth
+  retainedGitHistory:
+    firstCommitAt: 2026-03-18
+    latestCommitAt: 2026-09-26
+    retainedCommitCount: 63
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: mentionpilot
+  observedRevision: 46e98376b0eebe85c978dd850f5c2757010e6444
+  githubRepository: sarthakagrawal927/mentionpilot
+  githubHomepageUrl: https://mentionpilot.pages.dev
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/mentionpilot
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: pnpm@10.28.0
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - apps/web/wrangler.toml
+          - workers/api/wrangler.toml
+          - workers/domain-proxy/wrangler.toml
+      - name: ESLint
+        evidence:
+          - eslint.config.js
+      - name: Next.js
+        evidence:
+          - apps/web/next.config.ts
+      - name: Playwright
+        evidence:
+          - apps/web/playwright.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - workers/api/vitest.config.ts
+    rootPackageScripts:
+      - build
+      - dev
+      - dev:api
+      - dev:web
+      - lint
+      - prepare
+      - test
+      - typecheck
+githubActions:
+  observedAt: 2026-09-25T20:28:32.894Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+    failing: 2
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/mentionpilot
+    defaultBranch: main
+    defaultBranchSha: 46e98376b0eebe85c978dd850f5c2757010e6444
+    homepage: https://mentionpilot.pages.dev
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36176958849
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 46e98376b0eebe85c978dd850f5c2757010e6444
+          createdAt: 2026-09-25T19:00:07Z
+          updatedAt: 2026-09-25T19:01:04Z
+          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958849
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 36176958849
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 46e98376b0eebe85c978dd850f5c2757010e6444
+          createdAt: 2026-09-25T19:00:07Z
+          updatedAt: 2026-09-25T19:01:04Z
+          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958849
+        ageDays: 0
+      attention: clear
+    - name: Deploy Mentionpilot Web
+      file: .github/workflows/deploy-web.yml
+      triggers:
+        - pull_request
+        - pull_request_target
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 36176958729
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 46e98376b0eebe85c978dd850f5c2757010e6444
+          createdAt: 2026-09-25T19:00:07Z
+          updatedAt: 2026-09-25T19:01:44Z
+          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958729
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: failing
+        reason: current main push concluded failure
+        lastRun:
+          id: 36176958729
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 46e98376b0eebe85c978dd850f5c2757010e6444
+          createdAt: 2026-09-25T19:00:07Z
+          updatedAt: 2026-09-25T19:01:44Z
+          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958729
+        ageDays: 0
+      attention: action-required
+    - name: Deploy Mentionpilot API Worker
+      file: .github/workflows/deploy-worker.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 34808237654
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 8d7dce26d3a5336206ecdff2349d247068b18e85
+          createdAt: 2026-09-14T05:03:34Z
+          updatedAt: 2026-09-14T05:03:59Z
+          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/34808237654
+        ageDays: 11
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 46e9837
+        lastRun:
+          id: 34808237654
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 8d7dce26d3a5336206ecdff2349d247068b18e85
+          createdAt: 2026-09-14T05:03:34Z
+          updatedAt: 2026-09-14T05:03:59Z
+          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/34808237654
+      attention: action-required
+deployment:
+  kind: worker+pages
+  deployed: true
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets:
+    - id: domain
+      kind: pages
+      name: mentionpilot-domain
+      sourcePath: mentionpilot/workers/domain-proxy
+    - id: api
+      kind: worker
+      name: mentionpilot-api
+      sourcePath: mentionpilot/workers/api
+    - id: web
+      kind: worker
+      name: mentionpilot-web
+      sourcePath: mentionpilot/apps/web
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: mentionpilot-domain
+        state: live-observed
+        consumerRepository: sarthakagrawal927/mentionpilot
+        scope: shared-fleet-account
+        attributionReason: Canonical MentionPilot project owns this resource; its repository identifies the matching Cloudflare runtime or D1 binding. Provider inventory was last observed on 2026-09-14.
+        verification:
+          observedAt: 2026-09-14
+          evidence: Authenticated Cloudflare Pages inventory / Workers dashboard; local mentionpilot AGENTS.md identifies frontend and API.
+          currentAccess: Repository-listed mentionpilot-web.pages.dev did not resolve on 2026-09-25; provider deployment was not rechecked.
+      - provider: cloudflare
+        kind: worker
+        name: mentionpilot-api
+        state: live-observed
+        consumerRepository: sarthakagrawal927/mentionpilot
+        scope: shared-fleet-account
+        attributionReason: Canonical MentionPilot project owns this resource; its repository identifies the matching Cloudflare runtime or D1 binding. Provider inventory was last observed on 2026-09-14.
+        verification:
+          observedAt: 2026-09-25
+          evidence: Existing Cloudflare inventory plus direct HTTP 200 from the repository-listed API health route.
+      - provider: cloudflare
+        kind: worker
+        name: mentionpilot-web
+        state: live-observed
+        consumerRepository: sarthakagrawal927/mentionpilot
+        scope: shared-fleet-account
+        attributionReason: Canonical MentionPilot project owns this resource; its repository identifies the matching Cloudflare runtime or D1 binding. Provider inventory was last observed on 2026-09-14.
+        verification:
+          observedAt: 2026-09-14
+          evidence: Authenticated Cloudflare Pages inventory / Workers dashboard; local mentionpilot AGENTS.md identifies frontend and API.
+          currentAccess: Repository-listed mentionpilot-web.pages.dev did not resolve on 2026-09-25; provider deployment was not rechecked.
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: mentionpilot-db
+        id: 58f25b8f-ebe2-4117-8afc-ede08ec37430
+        state: live-observed
+        consumerRepository: sarthakagrawal927/mentionpilot
+        scope: shared-fleet-account
+        attributionReason: Canonical MentionPilot project owns this resource; its repository identifies the matching Cloudflare runtime or D1 binding. Provider inventory was last observed on 2026-09-14.
+        operationalOwner: mentionpilot
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: in-progress
+  ready: false
+  verifiedAt: 2026-09-25
+  reason: Owner reactivated the product. The API health endpoint returned HTTP 200, while the repository-listed Pages web URL did not resolve in this check. Public product usability and ownership of similarly named external domains remain unverified.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/mentionpilot/issues
+  geoIdentity: null
+notes:
+  catalog: Owner reactivated MentionPilot to inspect awareness across AI and community sources.
+  infrastructure: Owner reactivated MentionPilot. The API health route returned HTTP 200 on 2026-09-25. The listed Pages web hostname did not resolve; web availability and any similarly named external domains remain unverified.

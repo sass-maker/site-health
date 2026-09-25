@@ -3,20 +3,20 @@ projectId: performancedaddy
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
-      infrastructureUpdatedAt: 2026-09-21
+      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=performancedaddy].ownerNarrative
@@ -24,48 +24,47 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
-      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: performancedaddy
-      revision: 6c5b1c68d914d084ecdd226ac30cd94e4bf169d0
+      revision: 0b91a0a9d15d10a2dd6659683c99bb263f255fad
       githubRepository: sarthakagrawal927/performancedaddy
-      expectedHomepage: https://performancedaddy.significanthobbies.com/
-      observedHomepage: null
+      expectedHomepage: https://performance.daddyrad.com/
+      observedHomepage: https://performance.daddyrad.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 4
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: performancedaddy
-      revision: 6c5b1c68d914d084ecdd226ac30cd94e4bf169d0
+      revision: 0b91a0a9d15d10a2dd6659683c99bb263f255fad
       githubRepository: sarthakagrawal927/performancedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: null
-      catalogLatestCommitAt: null
+      catalogFirstCommitAt: 2026-09-20
+      catalogLatestCommitAt: 2026-09-23
       catalogDrift:
-        - firstCommitAt
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T20:28:32.894Z
+      staleAfterDays: 30
+      healthy: 2
       attention: &a2
-        unclassified: 1
+        clear: 1
+        reconcile: 1
   unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://performancedaddy.significanthobbies.com/.
+    - GitHub repository homepage does not match the canonical deployed URL https://performance.daddyrad.com/.
 ownerVoice:
   whyVerbatim: deploy both of them properly
   fullReviewVerbatim: |-
@@ -78,8 +77,8 @@ ownerVoice:
 decision:
   classification: Active
   whySummary: Investigate local Mac performance through visible processes, ports, resource measurements, and reviewed actions.
-  currentState: Editorial landing live at performancedaddy.significanthobbies.com; native app remains a local preview without a public download.
-  nextDecision: Follow indexing outcomes after accepted sitemap/IndexNow submission; qualify native distribution separately.
+  currentState: Public 0.2.3 build 8, first-install download, GitHub release, and signed Sparkle feed are live; an earlier isolated build 3-to-5 update and native journey passed.
+  nextDecision: Use measured evidence before acting on a diagnosis; keep the landing and native release claims distinct.
 identity:
   name: PerformanceDaddy
   publicName: PerformanceDaddy
@@ -109,8 +108,8 @@ product:
     audience: Developers running local servers, coding agents and other moving parts on a Mac.
     outcome: Find the process or port evidence behind a slowdown and choose the next check deliberately.
     mechanism: A native local Mac app records bounded CPU, memory, thermal, process and socket observations with reviewed stop controls.
-    proof: Private native macOS repository and local preview surface; no public download or guaranteed root-cause diagnosis is claimed.
-    nextAction: Read the public PerformanceDaddy landing and release status; no native download is available.
+    proof: The public signed Sparkle feed and download serve notarized 0.2.3 build8 with matching DMG bytes. An isolated build3-to-5 Sparkle update and native journey were observed; build8 has not been installed for a new journey.
+    nextAction: Read the public landing and use the current GitHub release for a Mac install; review measured evidence before acting on a diagnosis.
   form: macOS app
   platforms:
     - macOS
@@ -119,18 +118,19 @@ product:
     - SwiftUI
     - AppKit
     - Astro
-    - Cloudflare Pages
+    - Cloudflare Workers
+    - Sparkle
   retainedGitHistory:
     firstCommitAt: 2026-09-20
-    latestCommitAt: 2026-09-20
-    retainedCommitCount: 15
+    latestCommitAt: 2026-09-25
+    retainedCommitCount: 21
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: performancedaddy
-  observedRevision: 6c5b1c68d914d084ecdd226ac30cd94e4bf169d0
+  observedRevision: 0b91a0a9d15d10a2dd6659683c99bb263f255fad
   githubRepository: sarthakagrawal927/performancedaddy
-  githubHomepageUrl: null
+  githubHomepageUrl: https://performance.daddyrad.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/performancedaddy
@@ -150,12 +150,20 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T20:28:32.894Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 2
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/performancedaddy
+    defaultBranch: main
+    defaultBranchSha: 6cb4fc2eecb4f747884c493e694b505e94baff5e
+    homepage: https://performance.daddyrad.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -163,18 +171,100 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36185753814
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 6cb4fc2eecb4f747884c493e694b505e94baff5e
+          createdAt: 2026-09-25T20:26:15Z
+          updatedAt: 2026-09-25T20:28:55Z
+          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36185753814
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 36185753814
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 6cb4fc2eecb4f747884c493e694b505e94baff5e
+          createdAt: 2026-09-25T20:26:15Z
+          updatedAt: 2026-09-25T20:28:55Z
+          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36185753814
+        ageDays: 0
+      attention: clear
+    - name: Protected manual release
+      file: .github/workflows/release.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: remote-only
+        local: false
+        remote: true
+      ownerDisposition:
+        status: needs-reconciliation
+        reason: workflow exists in GitHub but not in the local working tree
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36183263765
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 0c541aa03249c746615875f2af0d3f4379ee422b
+          createdAt: 2026-09-25T20:01:55Z
+          updatedAt: 2026-09-25T20:10:14Z
+          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36183263765
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: reconcile
 deployment:
-  kind: pages
+  kind: worker
   deployed: true
   domains:
+    - performance.daddyrad.com
     - performancedaddy.significanthobbies.com
-  primaryUrl: https://performancedaddy.significanthobbies.com/
+  primaryUrl: https://performance.daddyrad.com/
   domainProbePaths: {}
   targets:
     - id: landing
       kind: pages
       name: performancedaddy-landing
       sourcePath: ios-landings
+    - id: updates
+      kind: worker
+      name: performancedaddy-updates
+      sourcePath: performancedaddy
   cloudflare:
     deployments:
       - provider: cloudflare
@@ -183,12 +273,26 @@ deployment:
         method: cloudflare-pages-api
         state: live
         verification:
-          observedAt: 2026-09-20
+          observedAt: 2026-09-25
           sourcePath: ios-landings
-          deploymentId: 53cd718c
+          deploymentId: 245a6bb8
           sourceState: dirty-working-tree
-          evidencePath: ios-landings/artifacts/daddy-deployment-2026-09-20.md
-    resources: []
+          evidencePath: null
+      - provider: cloudflare
+        kind: worker
+        name: performancedaddy-updates
+        method: wrangler-direct
+        state: live
+        versionId: 7ec1b94b-dff3-4578-a20d-5ede93e41d30
+        attributionReason: "Owns performance.daddyrad.com end to end: /updates/* from bundled assets, other paths proxied to performancedaddy-landing.pages.dev; 308-redirects all of performancedaddy.significanthobbies.com."
+    resources:
+      - provider: cloudflare
+        kind: custom-domain
+        name: performance.daddyrad.com
+        state: active
+        attributionReason: Worker custom domain on performancedaddy-updates; canonical host since 2026-09-25. Pages custom-domain attach was removed because wrangler OAuth lacks DNS write for the zone.
+        scope: project
+        operationalOwner: performancedaddy
   otherProviders:
     deployments: []
     resources: []
@@ -196,8 +300,8 @@ sharing:
   publicListing: maintained
   maturity: preview
   ready: true
-  verifiedAt: 2026-09-20
-  reason: "Public landing only: approved Editorial design, HTTPS 200, truthful development status, no native download. BrowserDaddy uses app artwork only. Native release remains separate."
+  verifiedAt: 2026-09-26
+  reason: Public 0.2.3 build8 download returned 7,466,879 bytes with SHA-256 97f91011f7c1791090e4a35459df20168ca00b091db975a602039f878a1907fb, matching the Developer ID signed, Apple notarized, stapled DMG from protected manual run 36183263765. The live Sparkle feed and update enclosure matched the qualified signed artifacts. An isolated build3-to-5 Sparkle update and native journey were observed; build8 has not been installed for a new journey.
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/performancedaddy/issues
   geoIdentity:
@@ -205,19 +309,19 @@ sharing:
     name: PerformanceDaddy
     aliases: []
     description: A local Mac performance investigator for background apps, helpers and developer workloads, with measured evidence and reviewed actions.
-    origin: https://performancedaddy.significanthobbies.com
+    origin: https://performance.daddyrad.com
     source:
-      state: internal
+      state: public
       path: performancedaddy
     docs:
       state: landing-only
-      url: https://performancedaddy.significanthobbies.com
+      url: https://performance.daddyrad.com
     officialProfiles: []
     availability:
-      primary: internal-only
+      primary: direct-download
       appStore: not-applicable
     pricing:
       state: not-declared
 notes:
-  catalog: Pages landing HTTPS and public DNS verified on 2026-09-20 after owner-approved CNAME creation. Native app remains private/local with no public download.
-  infrastructure: Owner-approved proxied CNAME performancedaddy.significanthobbies.com -> performancedaddy-landing.pages.dev created through Cloudflare dashboard. Public DNS resolves; valid TLS, HTTPS 200 and no noindex header verified 2026-09-20. Local negative DNS cache may lag. Native release is not claimed.
+  catalog: "2026-09-25 release: public 0.2.3 build4 at https://performance.daddyrad.com/download with qualified DMG SHA-256 17ef4ae4fa9e1b890382e97ab0b34e04a55eb0c4f2671c5c15660b9f1972915e. Sparkle feed and update enclosure verified; installed update and native journey remain open."
+  infrastructure: "2026-09-25: 0.2.3 build4 public at https://performance.daddyrad.com/download; qualified DMG SHA-256 17ef4ae4fa9e1b890382e97ab0b34e04a55eb0c4f2671c5c15660b9f1972915e. Live signed Sparkle feed and enclosure match."

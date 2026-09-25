@@ -1,5 +1,5 @@
 schemaVersion: 1
-projectId: scale
+projectId: war-chest
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
@@ -16,14 +16,14 @@ verification:
     catalog:
       path: apps/backend/config/projects.json
       sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-20
+      infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
-      sourceField: projects[id=scale].ownerNarrative
-      sourceHeading: Scale
+      sourceField: projects[id=war-chest].ownerNarrative
+      sourceHeading: War Chest
       sourceKind: verbatim-owner-message
-      capturedAt: 2026-09-20
-      reviewSha256: c19de664b1d979a9186baaadb154bf20dcb32107104f811de0cf99b125c75976
+      capturedAt: 2026-09-25
+      reviewSha256: 04b33167c82a9b23f28393d269ff865ed02940d455369c517c1e7ff2eee76c27
       documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       restoredFromCommit: null
       restoredBlob: null
@@ -34,7 +34,7 @@ verification:
     repository:
       observedAt: 2026-09-25
       state: unavailable
-      checkout: null
+      checkout: war-chest
       revision: null
       githubRepository: null
       expectedHomepage: null
@@ -43,15 +43,15 @@ verification:
     retainedGitHistory:
       observedAt: 2026-09-25
       state: unavailable
-      checkout: null
+      checkout: war-chest
       revision: null
       githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: 2026-09-11
-      catalogLatestCommitAt: 2026-09-11
+      catalogFirstCommitAt: null
+      catalogLatestCommitAt: null
       catalogDrift: []
-      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
+      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet/war-chest rev-parse HEAD"
     githubActions:
       observedAt: 2026-09-25T20:28:32.894Z
       staleAfterDays: 30
@@ -59,52 +59,51 @@ verification:
   unknowns:
     - The owning checkout was unavailable during repository observation.
 ownerVoice:
-  whyVerbatim: Original standalone Scale prototype; maintained game now lives in SWE Interview Prep.
-  fullReviewVerbatim: Original standalone Scale prototype; maintained game now lives in SWE Interview Prep.
+  whyVerbatim: War chest is an experimental war game
+  fullReviewVerbatim: War chest is an experimental war game
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
-  whySummary: Teach systems-engineering capacity and architecture trade-offs through a small idle game.
-  currentState: The standalone prototype is archived; the maintained game lives inside SWE Interview Prep.
-  nextDecision: Preserve the original experiment and direct future play or maintenance to the SWE Interview Prep implementation.
+  classification: Active
+  whySummary: Explore an experimental tactical war game.
+  currentState: Unsigned local Mac game and practice apps; the repository has no commits or published release.
+  nextDecision: Play the practice route and decide whether the prototype merits further work.
 identity:
-  name: Scale
-  publicName: Scale
+  name: War Chest
+  publicName: War Chest
   aliases: []
-  family: significanthobbies
+  family: war-chest
   category: experimental
-  audience: public
-  personalUse: false
-  moneyOrPersonalBrand: false
-  unmetNeed: false
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: null
+  unmetNeed: null
   kind: experiment
-  priority: P4
-  tier: out-of-fleet
-  attention: ignored
+  tier: secondary
+  attention: my-work
   lifecycle:
-    status: inactive
+    status: active
     resumeCondition: null
     shareable: false
   operationalStatus: local-only
   authenticationModel: local-only
   inRegistry: false
 product:
-  description: The original standalone Scale idle-game prototype, superseded by the game inside SWE Interview Prep.
-  publicMakerNote: This was the standalone prototype; the maintained game now lives inside SWE Interview Prep.
+  description: An experimental local tactical war game.
+  publicMakerNote: War chest is an experimental war game
   purposeContract:
-    purpose: Scale taught systems-engineering trade-offs through an idle game about growing a fictional company.
-    audience: Engineers learning capacity planning and architecture trade-offs.
-    outcome: Diagnose capacity pressure, compare fixes in Sandbox, and ship engineering changes.
-    mechanism: A simulated request path with selectable components, workloads, and alternative solutions.
-    proof: Single-commit prototype preserved on GitHub; the maintained implementation is verified inside SWE Interview Prep.
-    nextAction: Play the maintained game inside SWE Interview Prep.
-  form: Idle game prototype
+    purpose: Explore a playable tactical war game with a persistent company and spatial equipment choices.
+    audience: The owner testing a local game experiment.
+    outcome: Judge whether the battles, progression, and war-chest choices are enjoyable in real play.
+    mechanism: Godot desktop apps provide an isolated practice campaign and a persistent local campaign.
+    proof: Local unsigned Mac app bundles and headless checks exist; native acceptance and a committed release are not complete.
+    nextAction: Play the local practice app and decide whether the prototype earns further work.
+  form: Local macOS game
   platforms:
-    - Web
+    - macOS
     - Local
   prominentTools:
-    - Vite
-    - TypeScript
+    - Godot
+    - GDScript
   retainedGitHistory:
     firstCommitAt: null
     latestCommitAt: null
@@ -112,13 +111,13 @@ product:
     historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: null
+  checkout: war-chest
   observedRevision: null
   githubRepository: null
   githubHomepageUrl: null
   worktree: null
-  visibility: public
-  url: https://github.com/sarthakagrawal927/scale
+  visibility: private
+  url: https://github.com/sarthakagrawal927/war-chest
   aliases: []
   sourceOverride: null
   tooling:
@@ -157,11 +156,11 @@ sharing:
   publicListing: hidden
   maturity: experiment
   ready: false
-  verifiedAt: null
-  reason: null
+  verifiedAt: 2026-09-25
+  reason: Unsigned local War Chest and Practice War Chest apps exist in the checkout. The repository has no commits and no published release; native play acceptance remains open.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/scale/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/war-chest/issues
   geoIdentity: null
 notes:
-  catalog: Original standalone Scale prototype; the maintained game lives in SWE Interview Prep (learn.significanthobbies.com/play/scale). Owner made the repository public and archived it on 2026-09-20. No local checkout retained.
-  infrastructure: Local prototype only; no hosting or provider resources. Superseded by the Scale game inside SWE Interview Prep; GitHub repository public and archived 2026-09-20.
+  catalog: Owner registered the experimental local war game on 2026-09-25.
+  infrastructure: Unsigned local game apps; no production resources claimed.

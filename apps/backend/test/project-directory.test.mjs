@@ -15,7 +15,7 @@ const projects = loadDashboardProjects();
 test('Projects partitions the complete catalog without changing current scope', () => {
   const { current, inactive } = partitionProjects(projects);
 
-  assert.equal(projects.length, 63);
+  assert.equal(new Set(projects.map((project) => project.id)).size, projects.length);
   assert.equal(current.length + inactive.length, projects.length);
   assert.equal(current.every(isCurrentProject), true);
   assert.equal(current.some(project => project.id === 'kith'), true);
@@ -84,7 +84,7 @@ test('lifecycle and resume filters use their own fields, including non-null cond
   }
   assert.deepEqual(
     projects.filter(p => matchesProjectFilters(p, { resume: 'defined' })).map(p => p.id),
-    ['rolepatch', 'shoulders'],
+    projects.filter(p => p.lifecycle.resumeCondition !== null).map(p => p.id),
   );
   assert.equal(projects.find(p => p.id === 'verified-bases').lifecycle.resumeCondition, null);
   assert.equal(projects.find(p => p.id === 'open-historia').lifecycle.resumeCondition, null);

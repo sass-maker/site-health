@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: india-standards
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,22 +28,22 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/india-standards
       revision: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
       githubRepository: sarthakagrawal927/india-standards
       expectedHomepage: https://india-standards.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://india-standards.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/india-standards
       revision: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
@@ -55,14 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T20:28:32.894Z
+      staleAfterDays: 30
+      failing: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://india-standards.significanthobbies.com.
+        ignored: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: "India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now."
   fullReviewVerbatim: "India Standards: this is also a very interesting product. The purpose of building this was that I wanted to see how well a person is doing in India. Basically just see overall coverage by using the official data. I think if I, in the future, unlock more data quality, I would want to expand on this. Otherwise it's on hold for now."
@@ -122,7 +120,7 @@ repository:
   checkout: ../fleet-archive/india-standards
   observedRevision: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
   githubRepository: sarthakagrawal927/india-standards
-  githubHomepageUrl: null
+  githubHomepageUrl: https://india-standards.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/india-standards
@@ -171,12 +169,20 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T20:28:32.894Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    failing: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/india-standards
+    defaultBranch: main
+    defaultBranchSha: 7fb50463e442af803d48008d3be9f5cd302f35d6
+    homepage: https://india-standards.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -185,6 +191,47 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 35635107633
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 7fb50463e442af803d48008d3be9f5cd302f35d6
+          createdAt: 2026-09-21T17:55:50Z
+          updatedAt: 2026-09-21T17:56:25Z
+          url: https://github.com/sarthakagrawal927/india-standards/actions/runs/35635107633
+        ageDays: 4
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: failing
+        reason: current main push concluded failure
+        lastRun:
+          id: 35635107633
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 7fb50463e442af803d48008d3be9f5cd302f35d6
+          createdAt: 2026-09-21T17:55:50Z
+          updatedAt: 2026-09-21T17:56:25Z
+          url: https://github.com/sarthakagrawal927/india-standards/actions/runs/35635107633
+        ageDays: 4
+      attention: ignored
 deployment:
   kind: worker
   deployed: true

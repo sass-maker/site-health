@@ -1,0 +1,365 @@
+schemaVersion: 1
+projectId: fleet-social
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-25
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: verified
+    retainedGitHistory: catalog-drift
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      infrastructureUpdatedAt: 2026-09-26
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=fleet-social].ownerNarrative
+      sourceHeading: Fleet Social
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-25
+      reviewSha256: d9cfaa7d8539f1413c7bfef3efce3831182597e49eef799506ba0aa27709ce17
+      documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-25
+      state: available
+      checkout: fleet-social
+      revision: 873f03279ec57f5aec567b0f0cf8ff858a2d59b4
+      githubRepository: sass-maker/fleet-social
+      expectedHomepage: https://fleet-social.sarthakagrawal927.workers.dev
+      observedHomepage: null
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 36
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-25
+      state: available
+      checkout: fleet-social
+      revision: 873f03279ec57f5aec567b0f0cf8ff858a2d59b4
+      githubRepository: sass-maker/fleet-social
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-25
+      catalogLatestCommitAt: 2026-09-25
+      catalogDrift:
+        - firstCommitAt
+        - latestCommitAt
+      reason: null
+    githubActions:
+      observedAt: 2026-09-25T20:28:32.894Z
+      staleAfterDays: 30
+      healthy: 1
+      never-run: 1
+      attention: &a2
+        clear: 1
+        missing-data: 1
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://fleet-social.sarthakagrawal927.workers.dev.
+ownerVoice:
+  whyVerbatim: i would prefer to build on top of cogsend since its CF first, but would take the good part of others
+  fullReviewVerbatim: |-
+    i would prefer to build on top of cogsend since its CF first, but would take the good part of others
+
+    Fleet internal first
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Give Fleet projects one private place to draft, review, schedule, and account for social posts.
+  currentState: The isolated CogSend-based Worker, D1, and R2 are live; login and health pass, while owner 2FA enrollment and provider publication remain pending.
+  nextDecision: Enroll 2FA, verify draft intake and scheduler, then run one approved provider canary before adding YouTube publishing.
+identity:
+  name: Fleet Social
+  publicName: null
+  aliases: []
+  family: fleet-social
+  category: utility
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
+  kind: product
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: false
+  operationalStatus: live
+  authenticationModel: private-authenticated
+  inRegistry: false
+product:
+  description: Private social draft review, scheduling, and delivery tracking for Fleet projects.
+  publicMakerNote: I wanted one reviewable social publishing place for Fleet projects.
+  purposeContract:
+    purpose: Fleet Social is a private social publishing hub for Fleet projects.
+    audience: The Fleet owner and internal product feeds.
+    outcome: Prepare, approve, schedule, and account for project posts from one place.
+    mechanism: Project-attributed drafts pass through owner review before per-account publishing and receipt tracking.
+    proof: The private CogSend-based Worker is live with isolated D1 and R2; Cloudflare Access, GitHub, and Google sign-in, project-attributed draft save, health, scheduler heartbeat, and YouTube connection entry passed. No channel connection or live provider publication has been verified.
+    nextAction: Authorize the YouTube channel, enroll owner 2FA, verify machine draft intake, and run one approved private video canary.
+  form: Private web app
+  platforms:
+    - Web
+    - API
+  prominentTools:
+    - SvelteKit
+    - Cloudflare Workers
+    - D1
+    - R2
+  retainedGitHistory:
+    firstCommitAt: 2026-09-22
+    latestCommitAt: 2026-09-26
+    retainedCommitCount: 52
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: fleet-social
+  observedRevision: 873f03279ec57f5aec567b0f0cf8ff858a2d59b4
+  githubRepository: sass-maker/fleet-social
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: private
+  url: https://github.com/sass-maker/fleet-social
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: ESLint
+        evidence:
+          - eslint.config.js
+      - name: npm
+        evidence:
+          - package-lock.json
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: Vite
+        evidence:
+          - vite.config.ts
+    rootPackageScripts:
+      - admin:reset
+      - build
+      - check
+      - check:watch
+      - db:migrate:local
+      - db:migrate:remote
+      - db:seed:local
+      - deploy
+      - deploy:release
+      - dev
+      - doctor
+      - format
+      - lint
+      - prepare
+      - preview
+      - secrets:put
+      - setup
+      - test
+      - test:e2e
+      - test:e2e:totp
+      - test:unit
+githubActions:
+  observedAt: 2026-09-25T20:28:32.894Z
+  staleAfterDays: 30
+  summary:
+    healthy: 1
+    never-run: 1
+  attention: *a2
+  remote:
+    repository: sass-maker/fleet-social
+    defaultBranch: main
+    defaultBranchSha: 01ac9bed052f55d47bac084a4d6d71fd292dc743
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36176905586
+          status: completed
+          conclusion: success
+          event: pull_request
+          branch: feat/fleet-social-internal
+          headSha: 873f03279ec57f5aec567b0f0cf8ff858a2d59b4
+          createdAt: 2026-09-25T18:59:36Z
+          updatedAt: 2026-09-25T19:03:36Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/36176905586
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 36173297350
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 01ac9bed052f55d47bac084a4d6d71fd292dc743
+          createdAt: 2026-09-25T18:25:10Z
+          updatedAt: 2026-09-25T18:29:25Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/36173297350
+        ageDays: 0
+      attention: clear
+    - name: Scheduler tick
+      file: .github/workflows/scheduler-tick.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - "*/5 * * * *"
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: never-run
+        reason: no workflow run was returned by GitHub
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: never-run
+        reason: no scheduled run was returned by GitHub
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: missing-data
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - fleet-social.sarthakagrawal927.workers.dev
+  primaryUrl: https://fleet-social.sarthakagrawal927.workers.dev
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: fleet-social
+        method: wrangler-direct
+        state: live
+        versionId: 64a5f6c2-5374-4975-a189-c61dfcf3d4f8
+        url: https://fleet-social.sarthakagrawal927.workers.dev
+        verification:
+          observedAt: 2026-09-26
+          trafficPercent: 100
+          sourceState: feature-branch-with-local-uncommitted-auth-and-youtube-changes
+          sourceCommit: 873f03279ec57f5aec567b0f0cf8ff858a2d59b4
+          checks:
+            - HTTPS root and private API redirect unauthenticated visitors to Cloudflare Access
+            - Cloudflare Access login reaches the seeded admin dashboard; /api/health returns HTTP 200
+            - Project-attributed canary draft saved in D1 with needs_review state
+            - Signed media route reaches the Worker and rejects unsigned requests
+            - One-minute cron trigger has a successful D1 heartbeat; live provider canary pending
+            - GitHub and Google sign-in reached the owner dashboard through Cloudflare Access
+            - YouTube account connection option visible in authenticated production UI; channel grant pending
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: fleet-social
+        state: active
+        notes: database_id 173b5309-a7a6-4729-b39c-0f183fd4aa75; isolated Fleet Social account, project drafts, approvals, and delivery ledger.
+        scope: project
+        operationalOwner: fleet-social
+        attributionReason: "Canonical project owner: fleet-social"
+      - provider: cloudflare
+        kind: r2
+        name: fleet-social-media
+        state: active
+        notes: Isolated Fleet Social media bucket.
+        scope: project
+        operationalOwner: fleet-social
+        attributionReason: "Canonical project owner: fleet-social"
+      - provider: cloudflare
+        kind: access-application
+        name: Fleet Social private app
+        state: active
+        notes: Access application ffc3e056-c66c-49c6-b8cc-3e58f9b1447b protects the Worker hostname with the existing owner-only policy.
+        scope: project
+        operationalOwner: fleet-social
+        attributionReason: "Canonical project owner: fleet-social"
+      - provider: cloudflare
+        kind: access-application
+        name: Fleet Social public utility routes
+        state: active
+        notes: Access application 578831ae-10a9-458b-8b49-36a1e0b11685 bypasses only /api/health and /api/media/public/*; the media endpoint still requires a short-lived HMAC signature.
+        scope: project
+        operationalOwner: fleet-social
+        attributionReason: "Canonical project owner: fleet-social"
+      - provider: cloudflare
+        kind: access-policy
+        name: Fleet Social public health and signed media
+        state: active
+        notes: Reusable bypass policy c5b35e55-cc21-494a-969c-433dc1885c8d is attached only to the Fleet Social public utility routes application.
+        scope: project
+        operationalOwner: fleet-social
+        attributionReason: "Canonical project owner: fleet-social"
+  otherProviders:
+    deployments: []
+    resources:
+      - provider: google-cloud
+        kind: project
+        name: fleet-social-auth
+        state: active
+        notes: Dedicated Google Cloud project for Fleet Social Google sign-in and separate YouTube upload OAuth client. YouTube Data API v3 enabled; YouTube consent scopes and owner channel grant remain pending.
+        scope: project
+        operationalOwner: fleet-social
+        attributionReason: "Canonical project owner: fleet-social"
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-09-26
+  reason: Private internal Worker deployed; Cloudflare Access, GitHub, and Google sign-in, project-attributed draft save, scheduler heartbeat, and live YouTube connection entry verified on 2026-09-26. Channel authorization, machine intake, and live provider canary remain unverified.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sass-maker/fleet-social/issues
+  geoIdentity: null
+notes:
+  catalog: New Fleet internal social publishing hub based on CogSend. Separate from the paused Reel Pipeline and its fleet-postiz tunnel.
+  infrastructure: Private CogSend-based Fleet instance. Cloudflare Access, GitHub, and Google sign-in are verified. YouTube publishing code is deployed from local uncommitted changes; YouTube scope approval, channel grant, machine draft intake, and live provider publication are pending.

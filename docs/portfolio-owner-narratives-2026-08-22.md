@@ -1118,3 +1118,18 @@ make it very pretty
 
 I personally don’t love the design of Disc Buddy so I want you to rethink how we can design it.
 ```
+
+
+## Meme Lab
+
+```text
+I'm not going to read this out. What I want is, as soon as someone does a comment, we get a meme. That is it. I don't care about the implementation details. I want it live for me to play around with it. Once it's live I want to expand on the next things.
+
+Once we are at 3,000 we will want to do it at 30,000 as well because, while I don't think there are enough memes, the next set is movie dialogues (which would be far more
+
+set it up at memes.significanthobbies.com
+
+and get started for 3000
+
+and add much better examples
+```
