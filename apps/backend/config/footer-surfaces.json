@@ -53,7 +53,7 @@
   {"id": "verified-bases", "kind": "visual", "state": "required", "files": ["fleet-archive/verified-bases/web/src/layouts/BaseLayout.astro"]},
   {"id": "anchor", "kind": "visual", "state": "required", "files": ["ios-landings/src/layouts/SiteLayout.astro"]},
   {"id": "ios-landings", "kind": "factory", "state": "required", "files": ["ios-landings/src/layouts/SiteLayout.astro"]},
-  {"id": "meme-lab", "kind": "visual", "state": "required", "files": ["meme-lab/public/index.html", "meme-lab/public/review.html"]},
+  {"id": "meme-lab", "kind": "visual", "state": "required", "files": ["meme-lab/worker/public/index.html", "meme-lab/worker/public/collection.html", "meme-lab/worker/public/how-it-works.html", "meme-lab/public/index.html", "meme-lab/public/review.html"]},
   {"id": "agent-testing", "kind": "visual", "state": "required", "files": ["agent-testing/site/index.html", "agent-testing/site/experiments.html", "agent-testing/site/tools.html", "agent-testing/site/404.html"]},
   {"id": "nutrition-formula-engine", "kind": "visual", "state": "required", "files": ["nutrition-formula-engine/public/index.html", "nutrition-formula-engine/public/case-studies/index.html", "nutrition-formula-engine/public/recent-formulas/index.html"]},
   {"id": "nomad-data-adventure", "kind": "visual", "state": "required", "files": ["fleet-archive/nomad-data-adventure/index.html"]},
