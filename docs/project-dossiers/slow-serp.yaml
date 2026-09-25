@@ -3,7 +3,7 @@ projectId: slow-serp
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,15 +24,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: c4d0128a194fd6145af541880b8ed010fb4485aed8d8ca1c424984c612658da9
-      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: slow-serp
       revision: 5855206f5d66be8145dafe1bab394e6fa8d6f48e
@@ -44,7 +44,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: slow-serp
       revision: 5855206f5d66be8145dafe1bab394e6fa8d6f48e
@@ -56,8 +56,8 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
+      observedAt: 2026-09-25T20:28:32.894Z
+      staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
 ownerVoice:
@@ -143,11 +143,19 @@ repository:
       - start
       - test
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T20:28:32.894Z
+  staleAfterDays: 30
   summary: {}
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/slow-serp
+    defaultBranch: main
+    defaultBranchSha: 3eff6b51b653616c55ec244ea8631760d04553c5
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows: []
 deployment:
   kind: none

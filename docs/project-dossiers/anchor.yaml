@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: anchor
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
-    retainedGitHistory: catalog-drift
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,22 +28,22 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: anchor
       revision: 9b6bbb014a1551176df338fffdc7e91a28c428ce
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://anchor.significanthobbies.com
       worktree: &a1
         state: dirty
         trackedChangeCount: 7
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: anchor
       revision: 9b6bbb014a1551176df338fffdc7e91a28c428ce
@@ -51,19 +51,16 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-16
-      catalogLatestCommitAt: 2026-09-09
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-18
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T20:28:32.894Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://anchor.significanthobbies.com.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: The purpose of anchor was that I was not focusing on one task at a time and when I did focus on one task at a time, I often got distracted by some things. It can be a doorbell. It can be someone calling me. It can be some Slack message. Anything so I wanted to be conscious of those choices.
   fullReviewVerbatim: |-
@@ -83,8 +80,8 @@ ownerVoice:
 decision:
   classification: Active
   whySummary: Plan a realistic day, follow it with a focus timer, and explain why the lived day differed.
-  currentState: Now the sole maintained successor to Indulge/Habits, including its visual pattern onboarding and non-moralizing replacement framing; the owner simplified the daily loop to direct habit tracking, editable/copyable days, project-linked entries and pause recovery. Native builds are under daily-use qualification; account continuity, the distraction-note privacy contract, and production CloudKit compatibility remain release gates. Current installation receipts belong in the canonical catalog.
-  nextDecision: Dogfood the complete schedule → focus → interruption → review loop; use real divergence evidence to decide the next change.
+  currentState: Public Mac build 20 is notarized; local build 25 is installed for dogfooding but Gatekeeper rejects it as unnotarized. Account continuity and production CloudKit compatibility remain release gates.
+  nextDecision: Dogfood the complete schedule → focus → interruption → review loop; qualify a newer public build separately.
 identity:
   name: Anchor
   publicName: Anchor
@@ -114,7 +111,7 @@ product:
     audience: A person moving between Mac, iPhone, and Apple Watch who wants a deliberate day rather than another task list.
     outcome: Make more realistic plans, recover from interruptions, and protect activities that genuinely matter without moralizing imperfect adherence.
     mechanism: Native apps combine schedule blocks, recurring routines, wall-clock focus sessions, interruption evidence, and an end-of-day divergence review.
-    proof: The maintained successor to Indulge and Habits has signed native builds and an integrated schedule → focus → interruption → review loop under dogfooding.
+    proof: Public notarized Mac build 20 remains available; local build 25 has passed a bounded personal workflow but Gatekeeper rejects it as unnotarized, so it is not a public update.
     nextAction: Use Anchor through a real day and review the divergence evidence; let repeated lived patterns decide the next change.
   form: Apple app
   platforms:
@@ -137,7 +134,7 @@ repository:
   checkout: anchor
   observedRevision: 9b6bbb014a1551176df338fffdc7e91a28c428ce
   githubRepository: Significant-Hobbies/anchor
-  githubHomepageUrl: null
+  githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/anchor
@@ -152,18 +149,57 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T20:28:32.894Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/anchor
+    defaultBranch: main
+    defaultBranchSha: fef2d5a3955cde1b4e5ca12092f312e080e832e5
+    homepage: https://anchor.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: Anchor native review
       file: .github/workflows/native-review.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35770160659
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: fef2d5a3955cde1b4e5ca12092f312e080e832e5
+          createdAt: 2026-09-22T18:53:17Z
+          updatedAt: 2026-09-22T19:18:09Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/35770160659
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: pages
   deployed: true

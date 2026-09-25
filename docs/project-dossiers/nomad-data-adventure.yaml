@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: nomad-data-adventure
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,43 +28,41 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/nomad-data-adventure
-      revision: 96be812778ecc3edca2c95fb826d47481e6d2e95
+      revision: f756e5802ee0f1622273e162d90465944742bda0
       githubRepository: sarthakagrawal927/nomad-data-adventure
       expectedHomepage: https://nomad.significanthobbies.com/
-      observedHomepage: null
+      observedHomepage: https://nomad.significanthobbies.com/
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/nomad-data-adventure
-      revision: 96be812778ecc3edca2c95fb826d47481e6d2e95
+      revision: f756e5802ee0f1622273e162d90465944742bda0
       githubRepository: sarthakagrawal927/nomad-data-adventure
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: null
-      catalogLatestCommitAt: null
+      catalogFirstCommitAt: 2026-09-12
+      catalogLatestCommitAt: 2026-09-22
       catalogDrift:
-        - firstCommitAt
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T20:28:32.894Z
+      staleAfterDays: 30
+      healthy: 1
+      cancelled: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://nomad.significanthobbies.com/.
+        ignored: 2
+  unknowns: []
 ownerVoice:
   whyVerbatim: keep as active for now, ensure to cleanup after yourself
   fullReviewVerbatim: keep as active for now, ensure to cleanup after yourself
@@ -115,15 +113,15 @@ product:
     - CSS
   retainedGitHistory:
     firstCommitAt: 2026-09-12
-    latestCommitAt: 2026-09-22
-    retainedCommitCount: 10
+    latestCommitAt: 2026-09-26
+    retainedCommitCount: 12
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/nomad-data-adventure
-  observedRevision: 96be812778ecc3edca2c95fb826d47481e6d2e95
+  observedRevision: f756e5802ee0f1622273e162d90465944742bda0
   githubRepository: sarthakagrawal927/nomad-data-adventure
-  githubHomepageUrl: null
+  githubHomepageUrl: https://nomad.significanthobbies.com/
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/nomad-data-adventure
@@ -142,12 +140,21 @@ repository:
       - dev
       - test
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T20:28:32.894Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
+    cancelled: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/nomad-data-adventure
+    defaultBranch: main
+    defaultBranchSha: f756e5802ee0f1622273e162d90465944742bda0
+    homepage: https://nomad.significanthobbies.com/
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Lifecycle reconciliation (2026-09-19): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: Static product checks
       file: .github/workflows/ci.yml
@@ -155,6 +162,82 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Lifecycle reconciliation (2026-09-19): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36176968854
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f756e5802ee0f1622273e162d90465944742bda0
+          createdAt: 2026-09-25T19:00:12Z
+          updatedAt: 2026-09-25T19:00:23Z
+          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/36176968854
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 36176968854
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f756e5802ee0f1622273e162d90465944742bda0
+          createdAt: 2026-09-25T19:00:12Z
+          updatedAt: 2026-09-25T19:00:23Z
+          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/36176968854
+        ageDays: 0
+      attention: ignored
+    - name: pages-build-deployment
+      file: dynamic/pages/pages-build-deployment
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Lifecycle reconciliation (2026-09-19): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: cancelled
+        reason: latest run was cancelled
+        apiState: active
+        lastRun:
+          id: 34768583692
+          status: completed
+          conclusion: cancelled
+          event: dynamic
+          branch: main
+          headSha: 37c6a678c0f10a3a54b01b649b892ce9ba25d63d
+          createdAt: 2026-09-13T16:26:32Z
+          updatedAt: 2026-09-13T16:26:59Z
+          url: https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34768583692
+        ageDays: 12
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
 deployment:
   kind: pages
   deployed: true

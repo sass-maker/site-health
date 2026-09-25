@@ -62,7 +62,8 @@ test('rejects incomplete roots, duplicate active kinds, and broken history links
   );
 
   const brokenHistory = structuredClone(contract);
-  brokenHistory.roots[1].queries.at(-1).supersededBy = 'missing-query';
+  const historicalRoot = brokenHistory.roots.find((root) => root.queries.some((query) => query.status === 'historical'));
+  historicalRoot.queries.find((query) => query.status === 'historical').supersededBy = 'missing-query';
   assert.throws(
     () => validateRootSearchQueryContract(brokenHistory, brands, projects),
     /requires an active replacement/,

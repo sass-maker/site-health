@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: unified-portfolio
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
-    retainedGitHistory: catalog-drift
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,48 +24,44 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
-      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: unified-portfolio
       revision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
       githubRepository: sarthakagrawal927/unified-portfolio
       expectedHomepage: https://money.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://money.significanthobbies.com
       worktree: &a1
         state: dirty
         trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: unified-portfolio
       revision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
       githubRepository: sarthakagrawal927/unified-portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: null
-      catalogLatestCommitAt: null
-      catalogDrift:
-        - firstCommitAt
-        - latestCommitAt
+      catalogFirstCommitAt: 2026-09-19
+      catalogLatestCommitAt: 2026-09-19
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T20:28:32.894Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://money.significanthobbies.com.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: build the prod in prd
   fullReviewVerbatim: |-
@@ -127,7 +123,7 @@ repository:
   checkout: unified-portfolio
   observedRevision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
   githubRepository: sarthakagrawal927/unified-portfolio
-  githubHomepageUrl: null
+  githubHomepageUrl: https://money.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/unified-portfolio
@@ -168,12 +164,20 @@ repository:
       - start:vinext
       - test
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T20:28:32.894Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/unified-portfolio
+    defaultBranch: main
+    defaultBranchSha: 99106d833058dd9171b61ec77d654db2572dca4c
+    homepage: https://money.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -181,6 +185,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35820037957
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 99106d833058dd9171b61ec77d654db2572dca4c
+          createdAt: 2026-09-23T04:51:35Z
+          updatedAt: 2026-09-23T04:52:08Z
+          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35820037957
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35820037957
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 99106d833058dd9171b61ec77d654db2572dca4c
+          createdAt: 2026-09-23T04:51:35Z
+          updatedAt: 2026-09-23T04:52:08Z
+          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35820037957
+        ageDays: 2
+      attention: clear
 deployment:
   kind: worker
   deployed: true

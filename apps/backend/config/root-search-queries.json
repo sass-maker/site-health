@@ -17,6 +17,17 @@
       ]
     },
     {
+      "rootDomain": "daddyrad.com",
+      "projectId": "daddyrad",
+      "collision": { "state": "clear", "note": "The coined compound name is distinctive; the daddy-series apps carry the same stem as subdomains." },
+      "queries": [
+        { "id": "daddyrad-brand", "kind": "brand", "text": "DaddyRad mac apps", "status": "active" },
+        { "id": "daddyrad-exact-domain", "kind": "exact-domain", "text": "daddyrad.com", "status": "active" },
+        { "id": "daddyrad-category", "kind": "category", "text": "native macOS utility apps suite", "status": "active" },
+        { "id": "daddyrad-problem", "kind": "problem", "text": "mac utilities for storage cleanup performance and browsing", "status": "active" }
+      ]
+    },
+    {
       "rootDomain": "heypace.app",
       "projectId": "pace",
       "collision": { "state": "ambiguous", "note": "HeyPace and Pace collide with unrelated brands, so the active brand query includes the product category." },
