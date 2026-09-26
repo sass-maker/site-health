@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: codevetter
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
-    retainedGitHistory: catalog-drift
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,42 +28,40 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: codevetter
-      revision: 917f1d4c9c391104d374567853b9cd390e18acd5
+      revision: fdb01241872f82e15242822c2b8de7fcd74a3864
       githubRepository: Codevetter/codevetter
       expectedHomepage: https://codevetter.com
-      observedHomepage: null
+      observedHomepage: https://codevetter.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 51
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: codevetter
-      revision: 917f1d4c9c391104d374567853b9cd390e18acd5
+      revision: fdb01241872f82e15242822c2b8de7fcd74a3864
       githubRepository: Codevetter/codevetter
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2025-11-30
-      catalogLatestCommitAt: 2026-09-09
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-23
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 10
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      healthy: 13
       attention: &a2
-        unclassified: 10
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://codevetter.com.
+        missing-data: 1
+        clear: 12
+  unknowns: []
 ownerVoice:
   whyVerbatim: "Ah this is a big one. I think this is the flagship product right now. I started off with trying to build a better AI agent reviewer because I realised that AI code review is the next big thing and I wanted to keep it local first instead of paying for others' people. Currently while it has some good developed features, it is far from done. I will keep iterating on it for what's next on this product: more iterations, more improvement, make it one of the better products in the market."
   fullReviewVerbatim: "Ah this is a big one. I think this is the flagship product right now. I started off with trying to build a better AI agent reviewer because I realised that AI code review is the next big thing and I wanted to keep it local first instead of paying for others' people. Currently while it has some good developed features, it is far from done. I will keep iterating on it for what's next on this product: more iterations, more improvement, make it one of the better products in the market."
@@ -102,8 +100,8 @@ product:
     audience: Developers and teams shipping code produced with AI agents.
     outcome: Higher confidence that an agent completed the requested change correctly and safely.
     mechanism: Local-first review combines repository context, executable checks, targeted evaluation, and inspectable verification receipts.
-    proof: Published macOS 1.13.9 is signed and notarized. Its CLI has verified real Codex review, passing and failing executable checks, and persisted receipts on a bounded Node fixture.
-    nextAction: Try the developer preview on a small local repository. Use the documented manual update path; in-app updating and other review providers remain unqualified.
+    proof: Published macOS 1.14.3 is signed and notarized; its DMG hash and local installation were verified. An earlier bounded CLI fixture demonstrated real Codex review, pass/fail checks and persisted receipts.
+    nextAction: Try the current Mac release on a small local repository. Use the documented manual update path until in-app installation is qualified.
   form: Desktop app
   platforms:
     - macOS
@@ -114,15 +112,15 @@ product:
     - SQLite
   retainedGitHistory:
     firstCommitAt: 2025-11-30
-    latestCommitAt: 2026-09-22
-    retainedCommitCount: 1394
+    latestCommitAt: 2026-09-23
+    retainedCommitCount: 1415
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: codevetter
-  observedRevision: 917f1d4c9c391104d374567853b9cd390e18acd5
+  observedRevision: fdb01241872f82e15242822c2b8de7fcd74a3864
   githubRepository: Codevetter/codevetter
-  githubHomepageUrl: null
+  githubHomepageUrl: https://codevetter.com
   worktree: *a1
   visibility: public
   url: https://github.com/Codevetter/codevetter
@@ -136,6 +134,7 @@ repository:
           - apps/landing-page-astro/astro.config.mjs
       - name: Biome
         evidence:
+          - benchmarks/repo-unpacks/biome.json
           - biome.json
       - name: Cloudflare Wrangler
         evidence:
@@ -181,7 +180,6 @@ repository:
       - core:build
       - core:clippy
       - core:fmt
-      - core:prepare-ccusage
       - core:prepare-cli
       - core:prepare-collectors
       - core:prepare-mcp
@@ -283,12 +281,20 @@ repository:
       - version:check
       - version:sync
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 10
+    healthy: 13
   attention: *a2
-  remote: null
+  remote:
+    repository: Codevetter/codevetter
+    defaultBranch: main
+    defaultBranchSha: fa754d8988f439606bd94fe033fb404338322ba3
+    homepage: https://codevetter.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: Auto-publish release
       file: .github/workflows/auto-release.yml
@@ -296,6 +302,46 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35773984281
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 3dbfc1619defe7eda38bedf7823f7fa4f3d2351f
+          createdAt: 2026-09-22T19:28:10Z
+          updatedAt: 2026-09-22T19:47:51Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35773984281
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision fa754d8
+        lastRun:
+          id: 35773984281
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 3dbfc1619defe7eda38bedf7823f7fa4f3d2351f
+          createdAt: 2026-09-22T19:28:10Z
+          updatedAt: 2026-09-22T19:47:51Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35773984281
+      attention: missing-data
     - name: CI
       file: .github/workflows/ci.yml
       triggers:
@@ -303,29 +349,204 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35822154512
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:22:40Z
+          updatedAt: 2026-09-23T05:48:48Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35822154512
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35822154512
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:22:40Z
+          updatedAt: 2026-09-23T05:48:48Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35822154512
+        ageDays: 1
+      attention: clear
     - name: Deploy Landing Page
       file: .github/workflows/deploy-landing.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35824031555
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:49:44Z
+          updatedAt: 2026-09-23T05:51:00Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35824031555
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35822154063
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:22:40Z
+          updatedAt: 2026-09-23T05:22:56Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35822154063
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35822154063
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:22:40Z
+          updatedAt: 2026-09-23T05:22:56Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35822154063
+        ageDays: 1
+      attention: clear
     - name: Native macOS production-candidate qualification
       file: .github/workflows/native-production-qualification.yml
       triggers:
         - workflow_call
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34979237866
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: release/1.14.1-workbench-coherence
+          headSha: 964f459cb68bfad21c3332fe5557a7f115b7a170
+          createdAt: 2026-09-15T14:05:01Z
+          updatedAt: 2026-09-15T14:22:09Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/34979237866
+        ageDays: 9
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Native macOS qualification
       file: .github/workflows/native-qualification.yml
       triggers:
         - workflow_call
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35438817792
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: fix/usage-render-cost
+          headSha: 6179d8175e39cd19a3e5069d16d580eb64cd5278
+          createdAt: 2026-09-19T10:58:10Z
+          updatedAt: 2026-09-19T11:21:45Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35438817792
+        ageDays: 5
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: OSV Offline Scan
       file: .github/workflows/osv-offline.yml
       triggers:
@@ -333,12 +554,84 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35822154018
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:22:40Z
+          updatedAt: 2026-09-23T05:23:25Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35822154018
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35822154018
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:22:40Z
+          updatedAt: 2026-09-23T05:23:25Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35822154018
+        ageDays: 1
+      attention: clear
     - name: Release Native macOS App
       file: .github/workflows/release.yml
       triggers:
         - release
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35774013483
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 3dbfc1619defe7eda38bedf7823f7fa4f3d2351f
+          createdAt: 2026-09-22T19:28:26Z
+          updatedAt: 2026-09-22T19:47:42Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35774013483
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Repository Security
       file: .github/workflows/repository-security.yml
       triggers:
@@ -346,6 +639,47 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35822154207
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:22:40Z
+          updatedAt: 2026-09-23T05:23:12Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35822154207
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35822154207
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:22:40Z
+          updatedAt: 2026-09-23T05:23:12Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35822154207
+        ageDays: 1
+      attention: clear
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
       triggers:
@@ -353,6 +687,153 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 9 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35619082846
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 714594718583a43ddc779a25b0a8a51d1c87b5cd
+          createdAt: 2026-09-21T15:27:39Z
+          updatedAt: 2026-09-21T15:28:02Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35619082846
+        ageDays: 3
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 35619082846
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 714594718583a43ddc779a25b0a8a51d1c87b5cd
+          createdAt: 2026-09-21T15:27:39Z
+          updatedAt: 2026-09-21T15:28:02Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35619082846
+        ageDays: 3
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35522412603
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: 714594718583a43ddc779a25b0a8a51d1c87b5cd
+          createdAt: 2026-09-20T16:20:38Z
+          updatedAt: 2026-09-20T16:22:01Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35522412603
+        ageDays: 4
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Dependency Graph
+      file: dynamic/dependabot/update-graph
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 33330376112
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: ce6e62f070f3dfab38d1e9464743b0e9ab2af1fc
+          createdAt: 2026-08-30T19:15:49Z
+          updatedAt: 2026-08-30T19:16:21Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/33330376112
+        ageDays: 25
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: CodeQL
+      file: dynamic/github-code-scanning/codeql
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35822152897
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: fa754d8988f439606bd94fe033fb404338322ba3
+          createdAt: 2026-09-23T05:22:39Z
+          updatedAt: 2026-09-23T05:40:58Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/35822152897
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: worker+pages
   deployed: true
@@ -410,8 +891,8 @@ sharing:
   publicListing: maintained
   maturity: experiment
   ready: true
-  verifiedAt: 2026-09-11
-  reason: "Published1.13.9 remains a qualified developer preview. Installed1.12.0 independently passed real Codex review, Node correctness pass/fail on a synthetic regression, source-bound receipt persistence and read-only MCP response. Overall check correctly retained no_confidence for missing performance evidence; no performance or foreground UI acceptance is claimed. Owner database and existing MCP processes were untouched. Installed upgrade is optional maintenance under the release runbook. Receipt: docs/qualification/codevetter-installed-core-2026-09-11.json."
+  verifiedAt: 2026-09-25
+  reason: Published 1.14.3 DMG matched GitHub SHA-256, passed strict signature and Gatekeeper notarization checks, and was installed and launched from /Applications. The previous 1.12.0 native-preview bundle was preserved separately. The earlier bounded CLI review receipt remains historical; current full native workflow and in-app Sparkle installation were not exercised in this audit.
   changelogUrl: https://codevetter.com/changelog
   roadmapUrl: https://github.com/Codevetter/codevetter/issues
   geoIdentity:

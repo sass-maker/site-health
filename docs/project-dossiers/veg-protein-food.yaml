@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: veg-protein-food
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,22 +28,22 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/veg-protein-food
       revision: 665bff53538953ac329d6b2322cab9d95163022f
       githubRepository: sarthakagrawal927/veg-protein-food
       expectedHomepage: https://veg-protein-food.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://veg-protein-food.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/veg-protein-food
       revision: 665bff53538953ac329d6b2322cab9d95163022f
@@ -55,14 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://veg-protein-food.significanthobbies.com.
+        ignored: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: "Recipe Dashboard: It's just a product which has some higher protein recipes with Indian ingredients. I thought it would be more but I was not happy with the overall result and currently my food is optimised. I am not looking to expand into cooking so it will be on hold for now."
   fullReviewVerbatim: "Recipe Dashboard: It's just a product which has some higher protein recipes with Indian ingredients. I thought it would be more but I was not happy with the overall result and currently my food is optimised. I am not looking to expand into cooking so it will be on hold for now."
@@ -119,7 +117,7 @@ repository:
   checkout: ../fleet-archive/veg-protein-food
   observedRevision: 665bff53538953ac329d6b2322cab9d95163022f
   githubRepository: sarthakagrawal927/veg-protein-food
-  githubHomepageUrl: null
+  githubHomepageUrl: https://veg-protein-food.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/veg-protein-food
@@ -147,12 +145,20 @@ repository:
       - preview
       - test
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/veg-protein-food
+    defaultBranch: main
+    defaultBranchSha: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
+    homepage: https://veg-protein-food.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -160,6 +166,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35635191482
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
+          createdAt: 2026-09-21T17:56:37Z
+          updatedAt: 2026-09-21T17:56:52Z
+          url: https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/35635191482
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35635191482
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
+          createdAt: 2026-09-21T17:56:37Z
+          updatedAt: 2026-09-21T17:56:52Z
+          url: https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/35635191482
+        ageDays: 3
+      attention: ignored
 deployment:
   kind: pages
   deployed: true

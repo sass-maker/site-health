@@ -81,6 +81,18 @@ export function selectSearchConsoleProperty(domain, properties) {
   };
 }
 
+export async function listSearchConsoleProperties({
+  accessToken,
+  quotaProject,
+  fetchImpl = fetch,
+  requestImpl = googleRequest,
+}) {
+  if (requestImpl === googleRequest && !accessToken) throw new Error('Search Console access token is required');
+  if (requestImpl === googleRequest && !quotaProject) throw new Error('Search Console quota project is required');
+  const siteList = await requestImpl('/sites', { accessToken, quotaProject, fetchImpl });
+  return siteList.siteEntry ?? [];
+}
+
 export function searchConsoleProviderUrl(siteUrl) {
   const property = String(siteUrl ?? '').trim();
   if (!property) return null;

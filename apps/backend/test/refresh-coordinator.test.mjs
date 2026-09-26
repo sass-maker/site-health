@@ -13,6 +13,7 @@ const projection = {
     domains: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
     performance: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
     search: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
+    github: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
     aiAwareness: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
   },
 };
@@ -39,11 +40,13 @@ test('forced prefill starts every free portfolio collector and records paid AI a
       { family: 'drank', scope: 'portfolio' },
       { family: 'psi', scope: 'portfolio' },
       { family: 'search', scope: 'portfolio' },
+      { family: 'github', scope: 'portfolio' },
     ]);
     assert.deepEqual(results.map((item) => [item.family, item.action]), [
       ['drank', 'refresh'],
       ['psi', 'refresh'],
       ['search', 'refresh'],
+      ['github', 'refresh'],
       ['ai', 'unavailable'],
     ]);
     assert.equal(readRefreshReceipt(store, 'ai').failure.code, 'AI_RECURRING_APPROVAL_REQUIRED');

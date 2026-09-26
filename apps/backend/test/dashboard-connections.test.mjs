@@ -23,7 +23,7 @@ test('Dashboard projection contains only project and measurement-outcome data', 
   // family has to be added here deliberately and anything else still fails the boundary.
   assert.deepEqual(
     Object.keys(result.outcomes).sort(),
-    ['aiAwareness', 'aiCoverage', 'domains', 'geoAwareness', 'performance', 'search', 'seoAudit'],
+    ['aiAwareness', 'aiCoverage', 'domains', 'geoAwareness', 'github', 'performance', 'search', 'seoAudit'],
   );
   assert.equal('skills' in result, false);
   assert.equal('workflows' in result, false);

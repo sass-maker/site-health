@@ -1,0 +1,203 @@
+schemaVersion: 1
+projectId: daddyrad
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-25
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-25
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=daddyrad].ownerNarrative
+      sourceHeading: DaddyRad
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-25
+      reviewSha256: 35c87491e8a1d4934b08cadcbd79aa9d1d19064c2f1aedeadd52cdd189cf1b1b
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-25
+      state: available
+      checkout: daddyrad
+      revision: null
+      githubRepository: null
+      expectedHomepage: https://daddyrad.com/
+      observedHomepage: null
+      worktree: &a1
+        state: uncommitted
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-25
+      state: available
+      checkout: daddyrad
+      revision: null
+      githubRepository: null
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-25
+      catalogLatestCommitAt: 2026-09-25
+      catalogDrift: []
+      reason: The checkout exists, but its current branch has no commits.
+    githubActions:
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      attention: &a2 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://daddyrad.com/.
+    - The owning checkout exists but has no committed revision; its local files are not Git-backed evidence.
+ownerVoice:
+  whyVerbatim: ok daddyrad is mine now
+  fullReviewVerbatim: |-
+    ok daddyrad is mine now
+
+    Set it for landing page for all 4 apps instead of significant hobbies
+
+    everything moves to 
+    .daddyrad.com instead
+
+     .significanthobbies retains or reditects, i rpefer redirect
+
+    also we can remove daddy from subdomain for daddyrad, since it already as daddy
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Give the daddy series its own umbrella domain instead of Significant Hobbies subdomains.
+  currentState: Live at daddyrad.com via a small Worker; performance/browser/storage subdomains are canonical and the retired significanthobbies hostnames 308 over, including update feeds.
+  nextDecision: Keep it as the series home; add per-app depth only when a daddy app needs more than its own subdomain.
+identity:
+  name: DaddyRad
+  publicName: DaddyRad
+  aliases: []
+  family: daddyrad
+  category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: false
+  unmetNeed: false
+  kind: platform
+  priority: P3
+  tier: active
+  attention: toolbox
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: true
+  operationalStatus: live
+  authenticationModel: none
+  inRegistry: true
+product:
+  description: Umbrella landing for the daddy series of native Mac utilities.
+  publicMakerNote: I moved the daddy series onto its own domain so the apps read as one family.
+  purposeContract:
+    purpose: DaddyRad is the umbrella home for the daddy series of native macOS utilities.
+    audience: Mac users and developers discovering the daddy-series apps.
+    outcome: One domain introduces all four apps and routes to each product's site.
+    mechanism: A small Cloudflare Worker serves a static landing on the apex and redirects www and context subdomains.
+    proof: HTTPS 200 at daddyrad.com with 301s from www and context.daddyrad.com verified 2026-09-25.
+    nextAction: Visit daddyrad.com and pick an app.
+  form: website
+  platforms:
+    - Web
+  prominentTools:
+    - Cloudflare Workers
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: daddyrad
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: private
+  url: null
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
+  summary: {}
+  attention: *a2
+  remote:
+    repository: null
+    defaultBranch: null
+    defaultBranchSha: null
+    homepage: null
+    query: unverifiable
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows: []
+deployment:
+  kind: worker
+  deployed: true
+  domains:
+    - daddyrad.com
+    - www.daddyrad.com
+    - context.daddyrad.com
+  primaryUrl: https://daddyrad.com/
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: worker
+        name: daddyrad
+        method: wrangler-direct
+        state: live
+        versionId: c535bcdd-b6ac-4b9e-9937-f59c9f5198d8
+        attributionReason: Owner-registered daddy-series umbrella domain; Worker serves the landing on the apex and redirects www to it.
+    resources:
+      - provider: cloudflare
+        kind: custom-domain
+        name: daddyrad.com
+        state: active
+        attributionReason: Registered via Cloudflare Registrar 2026-09-25; umbrella landing apex.
+        scope: project
+        operationalOwner: daddyrad
+      - provider: cloudflare
+        kind: custom-domain
+        name: www.daddyrad.com
+        state: active
+        attributionReason: 301 redirect to the apex.
+        scope: project
+        operationalOwner: daddyrad
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: beta
+  ready: true
+  verifiedAt: 2026-09-25
+  reason: Umbrella landing for the daddy series live at daddyrad.com via the daddyrad Worker; www and context.daddyrad.com custom domains redirect to the apex. Verified HTTPS 200 and 301s post-deploy.
+  changelogUrl: null
+  roadmapUrl: null
+  geoIdentity: null
+notes:
+  catalog: "Registered daddyrad.com through Cloudflare Registrar on 2026-09-25 and moved the daddy series off *.significanthobbies.com: performance.daddyrad.com, browser.daddyrad.com and storage.daddyrad.com are canonical, context.daddyrad.com redirects to the apex until ContextDaddy ships a public site, and the retired significanthobbies hostnames 308 to the new hosts including /updates/* appcast paths."
+  infrastructure: Domain registered and site deployed 2026-09-25; replaces significanthobbies.com subdomains as the daddy-series home. context.daddyrad.com moved to the contextdaddy-site Worker later the same day when ContextDaddy shipped its public beta.

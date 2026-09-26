@@ -3,19 +3,19 @@ projectId: agent-testing
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-20
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,27 +24,27 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: 716a47374fe4e6e2eacab74e5e06fad025d095c8254bc4d9691d1bb6edbb99a0
-      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: agent-testing
       revision: 0942a20eb8dbbf3b7acf25705b8e65d22afa9561
       githubRepository: sarthakagrawal927/agent-testing
       expectedHomepage: https://browser-agents.sarthakagrawal.dev/
-      observedHomepage: null
+      observedHomepage: https://browser-agents.sarthakagrawal.dev
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: agent-testing
       revision: 0942a20eb8dbbf3b7acf25705b8e65d22afa9561
@@ -56,13 +56,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
+        clear: 1
   unknowns:
-    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://browser-agents.sarthakagrawal.dev/.
 ownerVoice:
   whyVerbatim: "Completed in PR #17 and deployed from main at 0942a20eb8dbbf3b7acf25705b8e65d22afa9561. Cloudflare version: 988338c4-693d-4170-9e57-34aca72b479f. Live verification confirmed 26 rendered journey rows, 118/129 verified completions, seven additional probes, expected 200 routes and the supplied 404 route at both desktop and mobile widths."
@@ -124,7 +123,7 @@ repository:
   checkout: agent-testing
   observedRevision: 0942a20eb8dbbf3b7acf25705b8e65d22afa9561
   githubRepository: sarthakagrawal927/agent-testing
-  githubHomepageUrl: null
+  githubHomepageUrl: https://browser-agents.sarthakagrawal.dev
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/agent-testing
@@ -150,12 +149,20 @@ repository:
       - test
       - validate:vaultwealth
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/agent-testing
+    defaultBranch: main
+    defaultBranchSha: 67d318cf1ae0eb575cf0ae38f4a90f9a4ffd90d9
+    homepage: https://browser-agents.sarthakagrawal.dev
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -163,6 +170,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35752641015
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 67d318cf1ae0eb575cf0ae38f4a90f9a4ffd90d9
+          createdAt: 2026-09-22T16:13:11Z
+          updatedAt: 2026-09-22T16:13:27Z
+          url: https://github.com/sarthakagrawal927/agent-testing/actions/runs/35752641015
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35752641015
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 67d318cf1ae0eb575cf0ae38f4a90f9a4ffd90d9
+          createdAt: 2026-09-22T16:13:11Z
+          updatedAt: 2026-09-22T16:13:27Z
+          url: https://github.com/sarthakagrawal927/agent-testing/actions/runs/35752641015
+        ageDays: 2
+      attention: clear
 deployment:
   kind: worker
   deployed: true

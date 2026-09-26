@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: shoulders
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: unverified
-    retainedGitHistory: catalog-drift
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-20
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,15 +24,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-14
       reviewSha256: e3a97ff166bf6d5304c4e0f43aba0876daaa2c63461414cd4b1ebe34b9f3d379
-      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/shoulders
       revision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
@@ -44,27 +44,24 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/shoulders
       revision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
       githubRepository: sarthakagrawal927/shoulders
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: null
-      catalogLatestCommitAt: null
-      catalogDrift:
-        - firstCommitAt
-        - latestCommitAt
+      catalogFirstCommitAt: 2026-09-18
+      catalogLatestCommitAt: 2026-09-18
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: I lost interest in this product. Move this to archived as paused.
   fullReviewVerbatim: I lost interest in this product. Move this to archived as paused.
@@ -148,12 +145,20 @@ repository:
       - test
       - test:e2e
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/shoulders
+    defaultBranch: main
+    defaultBranchSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: Validate static site
       file: .github/workflows/ci.yml
@@ -161,6 +166,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35378929655
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
+          createdAt: 2026-09-18T18:13:37Z
+          updatedAt: 2026-09-18T18:15:31Z
+          url: https://github.com/sarthakagrawal927/shoulders/actions/runs/35378929655
+        ageDays: 6
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35378929655
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
+          createdAt: 2026-09-18T18:13:37Z
+          updatedAt: 2026-09-18T18:15:31Z
+          url: https://github.com/sarthakagrawal927/shoulders/actions/runs/35378929655
+        ageDays: 6
+      attention: clear
 deployment:
   kind: none
   deployed: false

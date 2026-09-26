@@ -212,3 +212,76 @@ test('ignores malformed records already present in the private ledger', (context
 
   assert.deepEqual(readVisibilityOutcomes({ path }), []);
 });
+
+function githubObservation(overrides = {}) {
+  return {
+    id: 'github-pace-2026-09-21',
+    projectId: 'pace',
+    family: 'github',
+    provider: 'github-api',
+    providerUrl: 'https://github.com/HeyPace/pace',
+    scope: 'repo:HeyPace/pace',
+    observedAt: '2026-09-21T12:00:00.000Z',
+    period: {
+      start: '2026-09-08T00:00:00.000Z',
+      end: '2026-09-21T12:00:00.000Z',
+    },
+    metrics: [
+      { label: 'GitHub stars', value: 12 },
+      { label: 'GitHub traffic views (14d)', value: 340 },
+      { label: 'GitHub clones (14d)', value: 55 },
+    ],
+    breakdowns: [
+      {
+        id: 'referrers',
+        label: 'Top referrers (14d)',
+        unit: 'views',
+        values: [
+          { label: 'github.com', value: 120 },
+          { label: 'news.ycombinator.com', value: 80 },
+        ],
+      },
+    ],
+    ...overrides,
+  };
+}
+
+test('records GitHub repository outcomes with referrer breakdowns', (context) => {
+  const directory = mkdtempSync(join(tmpdir(), 'fleet-visibility-outcomes-'));
+  context.after(() => rmSync(directory, { recursive: true, force: true }));
+  const path = join(directory, 'ledger.jsonl');
+  const options = { path, allowedProjectIds: new Set(['pace']) };
+
+  const receipt = appendVisibilityOutcomeBundle(bundle([githubObservation()]), options);
+  assert.equal(receipt.recorded, 1);
+  const [observation] = readVisibilityOutcomes({ path });
+  assert.equal(observation.family, 'github');
+  assert.equal(observation.providerUrl, 'https://github.com/HeyPace/pace');
+  assert.deepEqual(observation.metrics[0], {
+    label: 'GitHub stars',
+    value: 12,
+    unit: 'count',
+    direction: 'higher-is-better',
+  });
+  assert.deepEqual(observation.breakdowns[0].values[1], { label: 'news.ycombinator.com', value: 80 });
+  assert.equal('searchTerms' in observation, false);
+  assert.equal('dailySeries' in observation, false);
+});
+
+test('rejects GitHub metrics outside the family contract', () => {
+  assert.throws(
+    () => appendVisibilityOutcomeBundle(bundle([githubObservation({
+      metrics: [{ label: 'GitHub sponsors', value: 3 }],
+    })]), { allowedProjectIds: new Set(['pace']) }),
+    /is not supported for github-api/,
+  );
+});
+
+test('rejects GitHub observations reported by a different provider', () => {
+  assert.throws(
+    () => appendVisibilityOutcomeBundle(bundle([githubObservation({
+      provider: 'google-search-console',
+    })]), { allowedProjectIds: new Set(['pace']) }),
+    /requires one of: github-api/,
+  );
+});

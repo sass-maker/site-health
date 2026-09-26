@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: protein-index
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
-    retainedGitHistory: catalog-drift
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,22 +28,22 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/protein-index-resilience
       revision: 25adccd1c615eecdd23e7425c920678bf58c9953
       githubRepository: sarthakagrawal927/protein-index-resilience
       expectedHomepage: https://protein.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://protein.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ../fleet-archive/protein-index-resilience
       revision: 25adccd1c615eecdd23e7425c920678bf58c9953
@@ -51,19 +51,18 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-15
-      catalogLatestCommitAt: 2026-09-07
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 15
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      failing: 3
+      healthy: 4
+      manual-or-reusable-never-run: 8
       attention: &a2
-        unclassified: 15
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://protein.significanthobbies.com.
+        ignored: 15
+  unknowns: []
 ownerVoice:
   whyVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
   fullReviewVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
@@ -123,7 +122,7 @@ repository:
   checkout: ../fleet-archive/protein-index-resilience
   observedRevision: 25adccd1c615eecdd23e7425c920678bf58c9953
   githubRepository: sarthakagrawal927/protein-index-resilience
-  githubHomepageUrl: null
+  githubHomepageUrl: https://protein.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/protein-index-resilience
@@ -196,12 +195,22 @@ repository:
       - test:worker
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 15
+    failing: 3
+    healthy: 4
+    manual-or-reusable-never-run: 8
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/protein-index-resilience
+    defaultBranch: main
+    defaultBranchSha: 25adccd1c615eecdd23e7425c920678bf58c9953
+    homepage: https://protein.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -209,30 +218,204 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 35689148463
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 25adccd1c615eecdd23e7425c920678bf58c9953
+          createdAt: 2026-09-22T05:02:24Z
+          updatedAt: 2026-09-22T05:02:43Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35689148463
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: failing
+        reason: current main push concluded failure
+        lastRun:
+          id: 35689148463
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 25adccd1c615eecdd23e7425c920678bf58c9953
+          createdAt: 2026-09-22T05:02:24Z
+          updatedAt: 2026-09-22T05:02:43Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35689148463
+        ageDays: 3
+      attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 34129434622
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 76e1bb28165b6ed7b11f9ce51aeb1144fb4836a2
+          createdAt: 2026-09-07T13:48:11Z
+          updatedAt: 2026-09-07T13:48:22Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34129434622
+        ageDays: 17
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 25adccd
+        lastRun:
+          id: 34129434622
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 76e1bb28165b6ed7b11f9ce51aeb1144fb4836a2
+          createdAt: 2026-09-07T13:48:11Z
+          updatedAt: 2026-09-07T13:48:22Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34129434622
+      attention: ignored
     - name: Enrich Open Food Facts evidence
       file: .github/workflows/enrich-open-food-facts.yml
       triggers:
         - workflow_dispatch
         - workflow_run
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35576276857
+          status: completed
+          conclusion: success
+          event: workflow_run
+          branch: main
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:07:42Z
+          updatedAt: 2026-09-21T08:08:12Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576276857
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Extract ingredient label evidence
       file: .github/workflows/extract-robotoff-ingredients.yml
       triggers:
         - workflow_dispatch
         - workflow_run
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 35576277132
+          status: completed
+          conclusion: failure
+          event: workflow_run
+          branch: main
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:07:42Z
+          updatedAt: 2026-09-21T13:53:25Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576277132
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Extract label evidence with Robotoff
       file: .github/workflows/extract-robotoff.yml
       triggers:
         - workflow_dispatch
         - workflow_run
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 35576276802
+          status: completed
+          conclusion: failure
+          event: workflow_run
+          branch: main
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:07:42Z
+          updatedAt: 2026-09-21T13:53:30Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576276802
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Official brand discovery
       file: .github/workflows/official-brand-discovery.yml
       triggers:
@@ -240,46 +423,264 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 19 3 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35581350014
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T09:05:44Z
+          updatedAt: 2026-09-21T09:13:32Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35581350014
+        ageDays: 3
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 35581350014
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T09:05:44Z
+          updatedAt: 2026-09-21T09:13:32Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35581350014
+        ageDays: 3
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Publish verified evidence manually
       file: .github/workflows/publish-automatic-evidence.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Publish reviewed catalog
       file: .github/workflows/publish-catalog.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Publish reviewed evidence enrichment
       file: .github/workflows/publish-enrichment.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Publish guarded reviewed label evidence
       file: .github/workflows/publish-guarded-reviewed-labels.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Publish machine-verified evidence
       file: .github/workflows/publish-machine-evidence.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Publish official brand discoveries
       file: .github/workflows/publish-official-brand-discoveries.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Publish reviewed evidence
       file: .github/workflows/publish-reviewed-evidence.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Publish reviewed label candidates
       file: .github/workflows/publish-robotoff-candidates.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
     - name: Source sync
       file: .github/workflows/source-sync.yml
       triggers:
@@ -287,6 +688,48 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 23 2 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35575692322
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:00:46Z
+          updatedAt: 2026-09-21T08:07:40Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35575692322
+        ageDays: 3
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 35575692322
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 07e1822f1d7c4c7b61f0a636ed162cda9a6dd12c
+          createdAt: 2026-09-21T08:00:46Z
+          updatedAt: 2026-09-21T08:07:40Z
+          url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35575692322
+        ageDays: 3
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
 deployment:
   kind: worker
   deployed: true

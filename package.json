@@ -8,6 +8,8 @@
     "dashboard": "node scripts/start-owner.mjs",
     "backend": "node apps/backend/scripts/server.mjs serve",
     "clarity": "node apps/backend/scripts/clarity-collect.mjs",
+    "indexing": "node apps/backend/scripts/indexing-requests.mjs",
+    "indexing:schedule": "node scripts/indexing-schedule.mjs",
     "clarity:refresh": "node apps/backend/scripts/clarity-collect.mjs fetch-all --days 3",
     "clarity:table": "node apps/backend/scripts/clarity-collect.mjs status-all --format markdown",
     "clarity:schedule": "node scripts/clarity-schedule.mjs",

@@ -240,9 +240,20 @@ export function scanFleetRepositories(projects, { fleetRoot, observedAt }) {
         .split('\0')
         .filter(Boolean)
         .filter((file) => existsSync(resolve(repositoryPath, file)));
-      const revision = execFileSync('git', ['-C', repositoryPath, 'rev-parse', 'HEAD'], {
-        encoding: 'utf8',
-      }).trim();
+      let revision;
+      try {
+        revision = execFileSync('git', ['-C', repositoryPath, 'rev-parse', '--verify', 'HEAD'], {
+          encoding: 'utf8',
+          stdio: ['ignore', 'pipe', 'ignore'],
+        }).trim();
+      } catch {
+        // An unborn branch still has a real checkout, but no revision to attribute evidence to.
+        execFileSync('git', ['-C', repositoryPath, 'symbolic-ref', '--quiet', 'HEAD'], {
+          encoding: 'utf8',
+          stdio: ['ignore', 'pipe', 'ignore'],
+        });
+        revision = null;
+      }
       const worktreeLines = execFileSync(
         'git',
         ['-C', repositoryPath, 'status', '--porcelain=v1', '--untracked-files=no'],
@@ -254,22 +265,28 @@ export function scanFleetRepositories(projects, { fleetRoot, observedAt }) {
         .filter((line) => line.slice(0, 2).includes('D'))
         .map((line) => line.slice(3).trim())
         .filter((file) => WORKFLOW_PATH.test(file));
-      const remoteUrl = execFileSync(
-        'git',
-        ['-C', repositoryPath, 'remote', 'get-url', 'origin'],
-        { encoding: 'utf8' },
-      ).trim();
+      let remoteUrl = null;
+      try {
+        remoteUrl = execFileSync('git', ['-C', repositoryPath, 'remote', 'get-url', 'origin'], {
+          encoding: 'utf8',
+          stdio: ['ignore', 'pipe', 'ignore'],
+        }).trim();
+      } catch (error) {
+        if (revision !== null) throw error;
+      }
       observations[project.id] = observeTrackedRepository({
         projectId: project.id,
         sourcePath,
         revision,
-        repositorySlug: githubRepositorySlug(remoteUrl),
+        repositorySlug: remoteUrl ? githubRepositorySlug(remoteUrl) : null,
         worktree: {
-          state: worktreeLines.length > 0 ? 'dirty' : 'clean',
+          state: revision === null ? 'uncommitted' : worktreeLines.length > 0 ? 'dirty' : 'clean',
           trackedChangeCount: worktreeLines.length,
           deletedWorkflowFiles,
         },
-        history: observeGitHistory(repositoryPath),
+        history: revision === null
+          ? unobservedGitHistory('The checkout exists, but its current branch has no commits.')
+          : observeGitHistory(repositoryPath),
         trackedFiles,
         readText: (file) => readFileSync(resolve(repositoryPath, file), 'utf8'),
       });

@@ -476,6 +476,10 @@ function createHistoryFixtures() {
     `file://${completePath}`,
     join(fleetRoot, 'shallow-app'),
   ]);
+  const uncommittedPath = join(fleetRoot, 'uncommitted-app');
+  mkdirSync(uncommittedPath, { recursive: true });
+  git(uncommittedPath, ['init', '-b', 'main']);
+  writeFileSync(join(uncommittedPath, 'README.md'), 'Local work without a commit.\n');
   return { fleetRoot, cleanup: () => rmSync(fleetRoot, { recursive: true, force: true }) };
 }
 
@@ -486,6 +490,7 @@ test('retained Git history separates complete, shallow, and missing repositories
       [
         { id: 'complete', repo: 'complete-app' },
         { id: 'shallow', repo: 'shallow-app' },
+        { id: 'uncommitted', repo: 'uncommitted-app' },
         { id: 'missing', repo: 'missing-app' },
       ],
       { fleetRoot, observedAt: '2026-03-20' },
@@ -509,6 +514,12 @@ test('retained Git history separates complete, shallow, and missing repositories
     assert.equal(shallow.firstCommitAt, '2026-03-15');
     assert.equal(shallow.latestCommitAt, '2026-03-15');
     assert.match(shallow.reason, /Shallow checkout/);
+
+    const uncommitted = snapshot.projects.uncommitted;
+    assert.equal(uncommitted.source.state, 'available');
+    assert.equal(uncommitted.source.revision, null);
+    assert.equal(uncommitted.source.worktree.state, 'uncommitted');
+    assert.match(uncommitted.history.reason, /no commits/);
 
     assert.equal(snapshot.projects.missing.source.state, 'unavailable');
     assert.deepEqual(snapshot.projects.missing.history, {

@@ -6,6 +6,7 @@ const SOURCES = Object.freeze([
   { family: 'drank', outcome: 'domains', auto: () => true },
   { family: 'psi', outcome: 'performance', auto: () => true },
   { family: 'search', outcome: 'search', auto: () => true },
+  { family: 'github', outcome: 'github', auto: () => true },
   { family: 'ai', outcome: 'aiAwareness', auto: () => false },
 ]);
 

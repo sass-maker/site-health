@@ -17,6 +17,7 @@ export const EVIDENCE_POLICIES = Object.freeze({
   drank: { maximumAgeMs: 7 * DAY_MS, cadence: 'weekly', provenance: 'provider' },
   psi: { maximumAgeMs: 7 * DAY_MS, cadence: 'explicit', provenance: 'provider' },
   search: { maximumAgeMs: DAY_MS, cadence: 'daily', provenance: 'provider' },
+  github: { maximumAgeMs: DAY_MS, cadence: 'daily', provenance: 'provider' },
   // seo-audit and geo-observatory both probe public surfaces on a weekly cadence rather than
   // reading a provider API, so their provenance is the probe, not a vendor of record.
   seo: { maximumAgeMs: 7 * DAY_MS, cadence: 'weekly', provenance: 'public-probe' },

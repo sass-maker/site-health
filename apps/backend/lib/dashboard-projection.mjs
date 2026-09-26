@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 import { validateRootBrandContract } from './root-brand-contract.mjs';
 import { validateRootSearchQueryContract } from './root-search-query-contract.mjs';
 import { defaultVisibilityOutcomePath, readVisibilityOutcomes } from './visibility-outcome-store.mjs';
-import { searchConsoleProjects, visibilityProjects } from './visibility-projects.mjs';
+import { githubProjects, githubRepositorySlug, githubRepositoryUrl, searchConsoleProjects, visibilityProjects } from './visibility-projects.mjs';
 import { domainStrengthRoots, registrableDomain } from './dashboard-backend/domain-scope.mjs';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -257,6 +257,54 @@ function searchProjection(catalog, configRoot, home) {
   }).sort((left, right) => left.name.localeCompare(right.name));
 }
 
+function githubProjection(catalog, home) {
+  const observations = readVisibilityOutcomes({ path: defaultVisibilityOutcomePath({ home }) })
+    .filter((item) => item.family === 'github');
+  const byProject = new Map();
+  for (const observation of observations) {
+    const rows = byProject.get(observation.projectId) ?? [];
+    rows.push(observation);
+    byProject.set(observation.projectId, rows);
+  }
+  return githubProjects(catalog).map((project) => {
+    const history = (byProject.get(project.id) ?? [])
+      .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt));
+    const latest = history.at(-1) ?? null;
+    const metric = (label) => {
+      const aggregate = latest?.metrics.find((candidate) => candidate.label === label);
+      const series = history.flatMap((observation) => {
+        const point = observation.metrics.find((candidate) => candidate.label === label);
+        return Number.isFinite(Number(point?.value))
+          ? [{ observedAt: observation.observedAt, value: Number(point.value) }]
+          : [];
+      });
+      return signal(label, aggregate?.value, latest?.observedAt, series.slice(-60));
+    };
+    return {
+      projectId: project.id,
+      name: project.name ?? project.id,
+      domain: normalizedDomain(project.domains?.[0]),
+      repository: githubRepositorySlug(project),
+      repositoryUrl: githubRepositoryUrl(project),
+      status: latest ? 'observed' : 'not-measured',
+      observedAt: latest?.observedAt ?? null,
+      scope: latest?.scope ?? null,
+      provider: latest?.provider ?? null,
+      provenance: latest?.provenance ?? 'provider',
+      period: latest?.period ?? null,
+      stars: metric('GitHub stars'),
+      forks: metric('GitHub forks'),
+      watchers: metric('GitHub watchers'),
+      openIssues: metric('GitHub open issues'),
+      views: metric('GitHub traffic views (14d)'),
+      visitors: metric('GitHub traffic visitors (14d)'),
+      clones: metric('GitHub clones (14d)'),
+      cloneUniques: metric('GitHub clone uniques (14d)'),
+      referrers: latest?.breakdowns?.find((breakdown) => breakdown.id === 'referrers')?.values ?? [],
+    };
+  }).sort((left, right) => left.name.localeCompare(right.name));
+}
+
 function aiProjection(catalog, aiVisibilityProjects) {
   const projects = new Map((catalog.projects ?? []).map((project) => [project.id, project]));
   const rows = aiVisibilityProjects
@@ -478,6 +526,7 @@ export function buildDashboardProjection({
       domains: drankProjection(workspaceRoot, catalog, now),
       performance: performanceProjection(publicProjects, home),
       search: searchProjection(catalog, configRoot, home),
+      github: githubProjection(catalog, home),
       seoAudit: seoAuditProjection(catalog, dataRoot),
       geoAwareness: geoProjection(catalog, configRoot, dataRoot),
       aiAwareness: ai.rows,

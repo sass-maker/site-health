@@ -1,0 +1,28 @@
+---
+import DashboardLayout from "../components/DashboardLayout.astro";
+---
+
+<DashboardLayout
+  title="GitHub"
+  description="Are people finding and starring our repositories?"
+  active="github"
+  view="github"
+>
+  <div slot="meta" class="page-head__meta">
+    <button type="button" class="secondary-action" data-portfolio-refresh="github">Update</button>
+    <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="github"></span>
+    <strong class="search-reporting-period" data-github-period>Reading reporting period</strong>
+    <span class="snapshot-time" data-outcome-time>Reading GitHub evidence</span>
+  </div>
+  <section class="owner-section owner-section--directory" aria-label="GitHub stars and traffic by repository">
+    <div class="section-head">
+      <div>
+        <h2 id="github-visibility-title">Repository visibility</h2>
+        <p>Stars and forks are point-in-time totals; views, visitors, and clones are GitHub's own trailing 14-day counts. A repo GitHub cannot read reports no counts at all.</p>
+        <p class="measurement-boundary-note" data-dashboard-coverage="github">Reading repository coverage</p>
+      </div>
+      <span class="count" data-dashboard-count="github">—</span>
+    </div>
+    <div class="loading-state" data-dashboard-slot="github">Building GitHub ledger…</div>
+  </section>
+</DashboardLayout>

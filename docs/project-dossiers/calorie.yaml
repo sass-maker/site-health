@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: calorie
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
-    retainedGitHistory: catalog-drift
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
-      infrastructureUpdatedAt: 2026-09-09
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Calorie
@@ -28,22 +28,22 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: calorie
       revision: d3f3d407fa03aeb08a689b9a3f2503cf701962d7
       githubRepository: Significant-Hobbies/calorie
       expectedHomepage: https://calorie.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://calorie.significanthobbies.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 35
+        trackedChangeCount: 36
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: calorie
       revision: d3f3d407fa03aeb08a689b9a3f2503cf701962d7
@@ -51,19 +51,16 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-25
-      catalogLatestCommitAt: 2026-09-09
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://calorie.significanthobbies.com.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: |-
     I was trying to lose weight so I built this. It's just a simple calorie tracker in which you can input your food, you can input your log time, and it will tell you:
@@ -133,7 +130,7 @@ repository:
   checkout: calorie
   observedRevision: d3f3d407fa03aeb08a689b9a3f2503cf701962d7
   githubRepository: Significant-Hobbies/calorie
-  githubHomepageUrl: null
+  githubHomepageUrl: https://calorie.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/calorie
@@ -184,12 +181,20 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/calorie
+    defaultBranch: main
+    defaultBranchSha: d9a4796a6961e978d1cdeb283a647b54be9ace10
+    homepage: https://calorie.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -197,6 +202,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35770371811
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d9a4796a6961e978d1cdeb283a647b54be9ace10
+          createdAt: 2026-09-22T18:55:10Z
+          updatedAt: 2026-09-22T19:06:42Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/35770371811
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 35770371811
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d9a4796a6961e978d1cdeb283a647b54be9ace10
+          createdAt: 2026-09-22T18:55:10Z
+          updatedAt: 2026-09-22T19:06:42Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/35770371811
+        ageDays: 2
+      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -227,7 +273,14 @@ deployment:
         name: Calorie by Significant Hobbies
         method: manual-xcode
         state: internal-testflight-ready
-    resources: []
+    resources:
+      - provider: apple
+        kind: icloud-container
+        name: iCloud.com.significanthobbies.calorie
+        state: active
+        scope: project
+        operationalOwner: calorie
+        attributionReason: "Canonical project owner: calorie"
 sharing:
   publicListing: maintained
   maturity: maintained
@@ -257,4 +310,4 @@ sharing:
       state: not-declared
 notes:
   catalog: Native-first food journal with optional private cloud sync. Signed version1.0.0/build14 from15c6aa1e050fdb123778cd8ab71ce4e0dae20d12 installed on the available owner iPhone after exact hosted CI passed82 native tests and Release. No app launch, sync, reset or uninstall occurred. Physical use, signed-in isolation/sync and public distribution remain unverified. See issue88 and docs/qualification/2026-09-09/owner-install.md.
-  infrastructure: Fresh read-only provider audit verifies Worker e21daa8e-a4a9-42a5-948e-86840d61b5d8, source d0b71cd56e195bdff23b787b035d378b39af5072 at 100%. No runtime src/landing/public/schema/config diff exists from that revision to checked main90a23b5; later changes concern native/docs/development dependencies. At that provider audit, installed native build14 was6ecaf4f; the later September9 install-only update is15c6aa1, recorded separately in sharing readiness. Public beta page is internal-only, not a public install offer. No launch, sync, deployment or provider write occurred in this audit; issue88 comment5598061379 records the next gate.
+  infrastructure: Fresh read-only provider audit verifies Worker e21daa8e-a4a9-42a5-948e-86840d61b5d8, source d0b71cd56e195bdff23b787b035d378b39af5072 at 100%. No runtime src/landing/public/schema/config diff exists from that revision to checked main90a23b5; later changes concern native/docs/development dependencies. At that provider audit, installed native build14 was6ecaf4f; the later September9 install-only update is15c6aa1, recorded separately in sharing readiness. Public beta page is internal-only, not a public install offer. No launch, sync, deployment or provider write occurred in this audit; issue88 comment5598061379 records the next gate. On 2026-09-23 Apple Developer registered iCloud.com.significanthobbies.calorie and enabled iCloud with CloudKit support on explicit App ID com.significanthobbies.calorie. App Store provisioning profile Calorie App Store 2026-09-23 (9945HUWM6R, expires 2027-08-12) was generated but its download was blocked locally; build 14 archive and release remain unverified.

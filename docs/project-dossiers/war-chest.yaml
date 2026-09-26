@@ -1,0 +1,170 @@
+schemaVersion: 1
+projectId: war-chest
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-25
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-25
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=war-chest].ownerNarrative
+      sourceHeading: War Chest
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-25
+      reviewSha256: 04b33167c82a9b23f28393d269ff865ed02940d455369c517c1e7ff2eee76c27
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-25
+      state: available
+      checkout: war-chest
+      revision: null
+      githubRepository: sarthakagrawal927/war-chest
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: uncommitted
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-25
+      state: available
+      checkout: war-chest
+      revision: null
+      githubRepository: sarthakagrawal927/war-chest
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: null
+      catalogLatestCommitAt: null
+      catalogDrift: []
+      reason: The checkout exists, but its current branch has no commits.
+    githubActions:
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      attention: &a2 {}
+  unknowns:
+    - The owning checkout exists but has no committed revision; its local files are not Git-backed evidence.
+ownerVoice:
+  whyVerbatim: War chest is an experimental war game
+  fullReviewVerbatim: War chest is an experimental war game
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Explore an experimental tactical war game.
+  currentState: Unsigned local Mac game and practice apps; the repository has no commits or published release.
+  nextDecision: Play the practice route and decide whether the prototype merits further work.
+identity:
+  name: War Chest
+  publicName: War Chest
+  aliases: []
+  family: war-chest
+  category: experimental
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: null
+  unmetNeed: null
+  kind: experiment
+  tier: secondary
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: false
+  operationalStatus: local-only
+  authenticationModel: local-only
+  inRegistry: false
+product:
+  description: An experimental local tactical war game.
+  publicMakerNote: War chest is an experimental war game
+  purposeContract:
+    purpose: Explore a playable tactical war game with a persistent company and spatial equipment choices.
+    audience: The owner testing a local game experiment.
+    outcome: Judge whether the battles, progression, and war-chest choices are enjoyable in real play.
+    mechanism: Godot desktop apps provide an isolated practice campaign and a persistent local campaign.
+    proof: Local unsigned Mac app bundles and headless checks exist; native acceptance and a committed release are not complete.
+    nextAction: Play the local practice app and decide whether the prototype earns further work.
+  form: Local macOS game
+  platforms:
+    - macOS
+    - Local
+  prominentTools:
+    - Godot
+    - GDScript
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: war-chest
+  observedRevision: null
+  githubRepository: sarthakagrawal927/war-chest
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: private
+  url: https://github.com/sarthakagrawal927/war-chest
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
+  summary: {}
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/war-chest
+    defaultBranch: null
+    defaultBranchSha: null
+    homepage: null
+    query: unverifiable
+    reason: "Command failed: gh api repos/sarthakagrawal927/war-chest/commits/main"
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows: []
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: experiment
+  ready: false
+  verifiedAt: 2026-09-25
+  reason: Unsigned local War Chest and Practice War Chest apps exist in the checkout. The repository has no commits and no published release; native play acceptance remains open.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/war-chest/issues
+  geoIdentity: null
+notes:
+  catalog: Owner registered the experimental local war game on 2026-09-25.
+  infrastructure: Unsigned local game apps; no production resources claimed.

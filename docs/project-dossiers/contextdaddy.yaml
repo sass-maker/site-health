@@ -1,0 +1,242 @@
+schemaVersion: 1
+projectId: contextdaddy
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-09-25
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: mismatch
+    githubActionsLiveState: partial
+    retainedGitHistory: passed
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-25
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=contextdaddy].ownerNarrative
+      sourceHeading: ContextDaddy
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-09-25
+      reviewSha256: bafe2dc9dfd353e716620483f1608fe37a7cfbcc9fe8a8e26090ea24468695a1
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-09-25
+      state: available
+      checkout: contextdaddy
+      revision: a40d4d477017875add673ce6dc3108a3286d33ff
+      githubRepository: sarthakagrawal927/contextdaddy
+      expectedHomepage: https://context.daddyrad.com/
+      observedHomepage: null
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 116
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-09-25
+      state: available
+      checkout: contextdaddy
+      revision: a40d4d477017875add673ce6dc3108a3286d33ff
+      githubRepository: sarthakagrawal927/contextdaddy
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-13
+      catalogLatestCommitAt: 2026-09-23
+      catalogDrift: []
+      reason: null
+    githubActions:
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      unverifiable: 1
+      attention: &a2
+        action-required: 1
+  unknowns:
+    - 1 workflow(s) could not be verified through GitHub.
+    - GitHub repository homepage does not match the canonical deployed URL https://context.daddyrad.com/.
+ownerVoice:
+  whyVerbatim: ContextDaddy is supposed to handle all things AI agents locally (context, skills, usage, otel etc) to help debug/speed up
+  fullReviewVerbatim: ContextDaddy is supposed to handle all things AI agents locally (context, skills, usage, otel etc) to help debug/speed up
+  relatedHistoricalReviews: []
+decision:
+  classification: Active
+  whySummary: Inspect local coding-agent context, skills, usage, and available telemetry to debug and speed up work.
+  currentState: Private macOS development app in the Fleet checkout; no signed public release or completed native acceptance.
+  nextDecision: Qualify the local workflow before considering distribution.
+identity:
+  name: ContextDaddy
+  publicName: ContextDaddy
+  aliases: []
+  family: contextdaddy
+  category: utility
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: null
+  unmetNeed: null
+  kind: product
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: true
+  operationalStatus: live
+  authenticationModel: local-only
+  inRegistry: true
+product:
+  description: "A read-only native Mac app for coding-agent context: per-runtime skill access, project context inventory, local usage history and verified OpenTelemetry signals."
+  publicMakerNote: ContextDaddy is supposed to handle all things AI agents locally (context, skills, usage, otel etc) to help debug/speed up
+  purposeContract:
+    purpose: Help developers inspect coding-agent context, skill exposure, usage, and available local telemetry.
+    audience: Developers using multiple coding agents on a Mac.
+    outcome: Find actionable context and usage problems with evidence and explicit measurement limits.
+    mechanism: A native read-only Mac app combines bounded skill discovery, offline usage history, and local OpenTelemetry views.
+    proof: The public 0.1.0 build1 DMG is Developer ID signed, notarized and stapled; /download on context.daddyrad.com serves the exact receipt checksum. Discovery evidence still does not prove live prompt use.
+    nextAction: Read the public landing and install the signed 0.1.0 beta; new builds are manual downloads until an updater ships.
+  form: macOS app
+  platforms:
+    - macOS
+    - Web
+  prominentTools:
+    - SwiftUI
+    - Astro
+    - Cloudflare Pages
+    - Cloudflare Workers
+  retainedGitHistory:
+    firstCommitAt: 2026-09-13
+    latestCommitAt: 2026-09-23
+    retainedCommitCount: 31
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: contextdaddy
+  observedRevision: a40d4d477017875add673ce6dc3108a3286d33ff
+  githubRepository: sarthakagrawal927/contextdaddy
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: private
+  url: https://github.com/sarthakagrawal927/contextdaddy
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - site/wrangler.jsonc
+      - name: npm
+        evidence:
+          - site/package-lock.json
+      - name: Rust Cargo
+        evidence:
+          - Vendor/MemoryPack/Cargo.toml
+      - name: Swift Package Manager
+        evidence:
+          - Package.swift
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
+  summary:
+    unverifiable: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/contextdaddy
+    defaultBranch: null
+    defaultBranchSha: null
+    homepage: null
+    query: unverifiable
+    reason: "Command failed: gh api repos/sarthakagrawal927/contextdaddy/commits/main"
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows:
+    - name: ContextDaddy CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: false
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      attention: action-required
+      live:
+        health: unverifiable
+        reason: "Command failed: gh api repos/sarthakagrawal927/contextdaddy/commits/main"
+        apiState: null
+        lastRun: null
+        ageDays: null
+deployment:
+  kind: pages
+  deployed: true
+  domains:
+    - context.daddyrad.com
+  primaryUrl: https://context.daddyrad.com/
+  domainProbePaths: {}
+  targets:
+    - id: landing
+      kind: pages
+      name: contextdaddy-landing
+      sourcePath: ios-landings
+    - id: site
+      kind: worker
+      name: contextdaddy-site
+      sourcePath: contextdaddy
+  cloudflare:
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: contextdaddy-landing
+        method: cloudflare-pages-api
+        state: live
+        verification:
+          observedAt: 2026-09-25
+          sourcePath: ios-landings
+          deploymentId: 6fd7438e
+          sourceState: dirty-working-tree
+          evidencePath: null
+      - provider: cloudflare
+        kind: worker
+        name: contextdaddy-site
+        method: wrangler-direct
+        state: live
+        versionId: 808230c5-1483-45e3-ac94-1f3b92b5bcb9
+        attributionReason: "Owns context.daddyrad.com end to end: /download serves the bundled signed+notarized DMG, other paths proxied to contextdaddy-landing.pages.dev."
+    resources:
+      - provider: cloudflare
+        kind: custom-domain
+        name: context.daddyrad.com
+        state: active
+        attributionReason: Worker custom domain on contextdaddy-site; moved off the daddyrad Worker when ContextDaddy shipped its public site on 2026-09-25.
+        scope: project
+        operationalOwner: contextdaddy
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: maintained
+  maturity: beta
+  ready: true
+  verifiedAt: 2026-09-25
+  reason: Public landing returned HTTP 200 at context.daddyrad.com and /download serves the signed, notarized and stapled 0.1.0 build1 DMG whose SHA-256 matches the release receipt. The repository stays private and 0.1.0 ships no automatic updater.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/contextdaddy/issues
+  geoIdentity: null
+notes:
+  catalog: Owner registered the local agent-context and usage tool on 2026-09-25.
+  infrastructure: "2026-09-25 first public beta: signed, notarized, stapled ContextDaddy-0.1.0-arm64.dmg served at /download. The app has no Sparkle updater yet, so no appcast exists. GitHub repository remains private and empty; release artifacts live in the worker site assets."

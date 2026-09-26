@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: saas-maker
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
-    retainedGitHistory: catalog-drift
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
-      infrastructureUpdatedAt: 2026-09-20
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
+      infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SaaS Maker
@@ -28,42 +28,41 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: saas-maker
-      revision: d3ba6e40612ae71696d3f7eadcb1079fb4b52d08
+      revision: f72f461cd925b8585994b2499179fee46deb40bc
       githubRepository: sass-maker/saas-maker
       expectedHomepage: https://sassmaker.com
-      observedHomepage: null
+      observedHomepage: https://sassmaker.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 18
+        trackedChangeCount: 33
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: saas-maker
-      revision: d3ba6e40612ae71696d3f7eadcb1079fb4b52d08
+      revision: f72f461cd925b8585994b2499179fee46deb40bc
       githubRepository: sass-maker/saas-maker
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-26
-      catalogLatestCommitAt: 2026-09-09
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-22
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 10
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      healthy: 7
+      manual-or-reusable-never-run: 4
       attention: &a2
-        unclassified: 10
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://sassmaker.com.
+        missing-data: 3
+        clear: 8
+  unknowns: []
 ownerVoice:
   whyVerbatim: SaaSmaker started off as a plate workspace. It kind of has an on-and-off relationship but currently its purpose is to harbour the feedback package and I think two other packages. This is a project in which I have to dig deep soon.
   fullReviewVerbatim: |-
@@ -119,15 +118,15 @@ product:
     - IssuePages
   retainedGitHistory:
     firstCommitAt: 2026-02-26
-    latestCommitAt: 2026-09-19
-    retainedCommitCount: 1349
+    latestCommitAt: 2026-09-22
+    retainedCommitCount: 1350
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: saas-maker
-  observedRevision: d3ba6e40612ae71696d3f7eadcb1079fb4b52d08
+  observedRevision: f72f461cd925b8585994b2499179fee46deb40bc
   githubRepository: sass-maker/saas-maker
-  githubHomepageUrl: null
+  githubHomepageUrl: https://sassmaker.com
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/saas-maker
@@ -201,12 +200,21 @@ repository:
       - tooling:footers
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 10
+    healthy: 7
+    manual-or-reusable-never-run: 4
   attention: *a2
-  remote: null
+  remote:
+    repository: sass-maker/saas-maker
+    defaultBranch: main
+    defaultBranchSha: 8a4a458f52292f01dd82d080e50f3b5b35056ad5
+    homepage: https://sassmaker.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -215,27 +223,173 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35819961312
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 405bb4e799f64317524447d6ece460b09d39ad39
+          createdAt: 2026-09-23T04:50:25Z
+          updatedAt: 2026-09-23T04:52:15Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35819961312
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 8a4a458
+        lastRun:
+          id: 35819961312
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 405bb4e799f64317524447d6ece460b09d39ad39
+          createdAt: 2026-09-23T04:50:25Z
+          updatedAt: 2026-09-23T04:52:15Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35819961312
+      attention: missing-data
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35490016983
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d8fa76fda8256ae88acd5a9ab6aab7f372aac6c0
+          createdAt: 2026-09-20T04:47:18Z
+          updatedAt: 2026-09-20T04:47:25Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35490016983
+        ageDays: 5
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 8a4a458
+        lastRun:
+          id: 35490016983
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: d8fa76fda8256ae88acd5a9ab6aab7f372aac6c0
+          createdAt: 2026-09-20T04:47:18Z
+          updatedAt: 2026-09-20T04:47:25Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35490016983
+      attention: missing-data
     - name: Drank CI
       file: .github/workflows/drank-ci.yml
       triggers:
         - workflow_call
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: PSI Swarm CI
       file: .github/workflows/psi-swarm-ci.yml
       triggers:
         - workflow_call
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Site Health CI
       file: .github/workflows/site-health-ci.yml
       triggers:
         - workflow_call
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Tooling CI
       file: .github/workflows/tooling-ci.yml
       triggers:
@@ -243,6 +397,46 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35819961277
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 405bb4e799f64317524447d6ece460b09d39ad39
+          createdAt: 2026-09-23T04:50:25Z
+          updatedAt: 2026-09-23T04:51:06Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35819961277
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 8a4a458
+        lastRun:
+          id: 35819961277
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 405bb4e799f64317524447d6ece460b09d39ad39
+          createdAt: 2026-09-23T04:50:25Z
+          updatedAt: 2026-09-23T04:51:06Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35819961277
+      attention: missing-data
     - name: Public Performance Sweep
       file: .github/workflows/tooling-performance-sweep.yml
       triggers:
@@ -250,6 +444,48 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 9 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35618604659
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 88cb2c6a90ea7ef267f3a14537fca1bd0359ef8a
+          createdAt: 2026-09-21T15:23:27Z
+          updatedAt: 2026-09-21T15:23:44Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35618604659
+        ageDays: 3
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 35618604659
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 88cb2c6a90ea7ef267f3a14537fca1bd0359ef8a
+          createdAt: 2026-09-21T15:23:27Z
+          updatedAt: 2026-09-21T15:23:44Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35618604659
+        ageDays: 3
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Public Surface Audit
       file: .github/workflows/tooling-surface-audit.yml
       triggers:
@@ -257,11 +493,75 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 37 6 * * 3
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35857890425
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 405bb4e799f64317524447d6ece460b09d39ad39
+          createdAt: 2026-09-23T12:01:02Z
+          updatedAt: 2026-09-23T12:01:15Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35857890425
+        ageDays: 1
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 35857890425
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 405bb4e799f64317524447d6ece460b09d39ad39
+          createdAt: 2026-09-23T12:01:02Z
+          updatedAt: 2026-09-23T12:01:15Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35857890425
+        ageDays: 1
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Verify Local
       file: .github/workflows/verify-local.yml
       triggers:
         - workflow_call
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
       triggers:
@@ -269,6 +569,83 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 9 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35618611912
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 88cb2c6a90ea7ef267f3a14537fca1bd0359ef8a
+          createdAt: 2026-09-21T15:23:31Z
+          updatedAt: 2026-09-21T15:24:49Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35618611912
+        ageDays: 3
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 35618611912
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 88cb2c6a90ea7ef267f3a14537fca1bd0359ef8a
+          createdAt: 2026-09-21T15:23:31Z
+          updatedAt: 2026-09-21T15:24:49Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35618611912
+        ageDays: 3
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 35665014304
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: f069b992fc7ea098e0ea3b4deb8518766514d47b
+          createdAt: 2026-09-21T22:54:16Z
+          updatedAt: 2026-09-21T22:55:03Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/35665014304
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: worker+pages
   deployed: true
@@ -314,36 +691,6 @@ deployment:
         name: saasmaker-dashboard
         method: open-next-wrangler
         state: live
-      - provider: cloudflare
-        kind: pages
-        name: mentionpilot-domain
-        state: live-observed
-        consumerRepository: sarthakagrawal927/mentionpilot
-        scope: shared-fleet-account
-        attributionReason: SaaS Maker Tooling is the explicit shared Fleet inventory steward pending canonical product registration. Runtime consumer is the separately owned sarthakagrawal927/mentionpilot repository; this is not a SaaS Maker application dependency.
-        verification:
-          observedAt: 2026-09-14
-          evidence: Authenticated Cloudflare Pages inventory / Workers dashboard; local mentionpilot AGENTS.md identifies frontend and API.
-      - provider: cloudflare
-        kind: worker
-        name: mentionpilot-api
-        state: live-observed
-        consumerRepository: sarthakagrawal927/mentionpilot
-        scope: shared-fleet-account
-        attributionReason: SaaS Maker Tooling is the explicit shared Fleet inventory steward pending canonical product registration. Runtime consumer is the separately owned sarthakagrawal927/mentionpilot repository; this is not a SaaS Maker application dependency.
-        verification:
-          observedAt: 2026-09-14
-          evidence: Authenticated Cloudflare Pages inventory / Workers dashboard; local mentionpilot AGENTS.md identifies frontend and API.
-      - provider: cloudflare
-        kind: worker
-        name: mentionpilot-web
-        state: live-observed
-        consumerRepository: sarthakagrawal927/mentionpilot
-        scope: shared-fleet-account
-        attributionReason: SaaS Maker Tooling is the explicit shared Fleet inventory steward pending canonical product registration. Runtime consumer is the separately owned sarthakagrawal927/mentionpilot repository; this is not a SaaS Maker application dependency.
-        verification:
-          observedAt: 2026-09-14
-          evidence: Authenticated Cloudflare Pages inventory / Workers dashboard; local mentionpilot AGENTS.md identifies frontend and API.
     resources:
       - provider: cloudflare
         kind: zone
@@ -468,15 +815,6 @@ deployment:
           verifiedAt: 2026-09-10
           httpStatus: 200
           checks: Standalone CI, lint, Next build and OpenNext Worker bundle passed. Six deploy gates passed. Live server renders the Clash Royale Meta heading with HTTP 200. GitHub homepage corrected to the Worker URL.
-        operationalOwner: saas-maker
-      - provider: cloudflare
-        kind: d1
-        name: mentionpilot-db
-        id: 58f25b8f-ebe2-4117-8afc-ede08ec37430
-        state: live-observed
-        consumerRepository: sarthakagrawal927/mentionpilot
-        scope: shared-fleet-account
-        attributionReason: SaaS Maker Tooling is the explicit shared Fleet inventory steward pending canonical product registration. Runtime consumer is the separately owned sarthakagrawal927/mentionpilot repository; this is not a SaaS Maker application dependency.
         operationalOwner: saas-maker
   otherProviders:
     deployments: []

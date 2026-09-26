@@ -5,17 +5,17 @@ import "../styles/dashboard.css";
 interface Props {
   title: string;
   description: string;
-  active: "domains" | "search" | "ai-awareness" | "performance" | "projects";
+  active: "domains" | "search" | "github" | "ai-awareness" | "performance" | "projects";
   eyebrow?: string;
-  view?: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "project";
+  view?: "domains" | "search" | "github" | "ai-awareness" | "performance" | "projects" | "project";
   projectId?: string;
   showProjectScope?: boolean;
   loadDashboardEvidence?: boolean;
 }
 
 const { title, description, active, eyebrow = "Site Health evidence", view, projectId, showProjectScope = true, loadDashboardEvidence = true } = Astro.props;
-const filterable = showProjectScope && !["project", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
-const directoryView = ["domains", "search", "ai-awareness", "performance", "projects"].includes(view ?? "");
+const filterable = showProjectScope && !["project", "domains", "search", "github", "ai-awareness", "performance"].includes(view ?? "");
+const directoryView = ["domains", "search", "github", "ai-awareness", "performance", "projects"].includes(view ?? "");
 ---
 
 <!doctype html>

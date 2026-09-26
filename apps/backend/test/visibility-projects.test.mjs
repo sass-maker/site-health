@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  githubProjects,
+  githubRepositorySlug,
   isVisibilityProject,
   searchConsoleProjects,
   visibilityProjects,
@@ -100,4 +102,25 @@ test('Search Console targets reject unknown ownership and conflicting public sco
     ])),
     /conflicts with the public metric target/,
   );
+});
+
+test('githubProjects selects every public repository regardless of listing state', () => {
+  const catalog = {
+    projects: [
+      project({ id: 'maintained', repositoryVisibility: 'public', public: { listing: 'maintained', repositoryUrl: 'https://github.com/Example/maintained' } }),
+      project({ id: 'hidden', repositoryVisibility: 'public', repositoryUrl: 'https://github.com/Example/hidden', public: { listing: 'hidden' } }),
+      project({ id: 'private', repositoryVisibility: 'private', repositoryUrl: 'https://github.com/Example/private' }),
+      project({ id: 'no-repo', repositoryVisibility: 'public' }),
+      project({ id: 'not-github', repositoryVisibility: 'public', repositoryUrl: 'https://gitlab.com/Example/x' }),
+    ],
+  };
+  assert.deepEqual(githubProjects(catalog).map((entry) => entry.id), ['maintained', 'hidden']);
+});
+
+test('githubRepositorySlug reads top-level and public-listing URLs', () => {
+  assert.equal(githubRepositorySlug({ repositoryUrl: 'https://github.com/Owner/repo' }), 'Owner/repo');
+  assert.equal(githubRepositorySlug({ public: { repositoryUrl: 'https://github.com/Owner/repo.git' } }), 'Owner/repo');
+  assert.equal(githubRepositorySlug({ repositoryUrl: 'https://github.com/Owner' }), null);
+  assert.equal(githubRepositorySlug({ repositoryUrl: 'not a url' }), null);
+  assert.equal(githubRepositorySlug({}), null);
 });

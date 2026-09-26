@@ -14,11 +14,13 @@ const FAMILIES = new Set([
   'psi',
   'drank',
   'search',
+  'github',
   'ai',
 ]);
 
 const PORTFOLIO_ONLY_FAMILIES = Object.freeze({
   search: 'Google Search',
+  github: 'GitHub',
 });
 const MAX_CAPTURE_CHARACTERS = 12_000;
 
@@ -150,6 +152,15 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
         resolve(repositoryRoot, 'apps/backend/scripts/search-console-collect.mjs'),
       ],
       label: 'Portfolio Search Console evidence',
+    };
+  }
+  if (family === 'github') {
+    return {
+      command: process.execPath,
+      args: [
+        resolve(repositoryRoot, 'apps/backend/scripts/github-metrics-collect.mjs'),
+      ],
+      label: 'Portfolio GitHub visibility',
     };
   }
   fail('METRIC_SCOPE_INVALID', 'Unsupported portfolio metric family');

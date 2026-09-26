@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: ph-catalog
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-22
+  generatedAt: 2026-09-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      sha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       infrastructureUpdatedAt: 2026-09-19
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,15 +24,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: 653d1bfeb2bf543031f5323d9237c1a59c9330bf616437ce905f2fa0e19d871a
-      documentSha256: fdcf61597206b529618c6517cf8cc978c64414f89d0926147ff70494a177c5ee
+      documentSha256: 3f94ac4f48f766630b0eb62e34bf9753a59c033cdb3b45da14d6c1bb056e573b
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 300cbcad701b1852a14ef37468f842576bcae89697c34e34873f75aa2fbae4de
+      sha256: ee30bfd01e3859ba2f59bb876a58bad37ac3ff001fa8ff0ee933bba6b64fc65a
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ph-catalog
       revision: f57cdbac9f69fa8faf042399cf9707795e9c20d0
@@ -44,7 +44,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-22
+      observedAt: 2026-09-25
       state: available
       checkout: ph-catalog
       revision: f57cdbac9f69fa8faf042399cf9707795e9c20d0
@@ -56,13 +56,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-25T05:11:42.181Z
+      staleAfterDays: 30
+      running: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: i also want to keep ph_catalog as separate project and merge it inside sassmaker ig
   fullReviewVerbatim: |-
@@ -142,12 +141,20 @@ repository:
           - uv.lock
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-25T05:11:42.181Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    running: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/ph-catalog
+    defaultBranch: main
+    defaultBranchSha: ea052e2024ccf006b634cdee9a3e2c0333483d2f
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: Daily Product Hunt refresh
       file: .github/workflows/daily.yml
@@ -156,6 +163,47 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 47 21 * * *
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: running
+        reason: latest run is queued
+        apiState: active
+        lastRun:
+          id: 36075453344
+          status: queued
+          conclusion: null
+          event: schedule
+          branch: main
+          headSha: ea052e2024ccf006b634cdee9a3e2c0333483d2f
+          createdAt: 2026-09-25T00:00:01Z
+          updatedAt: 2026-09-25T00:00:01Z
+          url: https://github.com/sarthakagrawal927/ph-catalog/actions/runs/36075453344
+        ageDays: 0
+      schedule:
+        health: running
+        reason: latest scheduled run is queued
+        lastRun:
+          id: 36075453344
+          status: queued
+          conclusion: null
+          event: schedule
+          branch: main
+          headSha: ea052e2024ccf006b634cdee9a3e2c0333483d2f
+          createdAt: 2026-09-25T00:00:01Z
+          updatedAt: 2026-09-25T00:00:01Z
+          url: https://github.com/sarthakagrawal927/ph-catalog/actions/runs/36075453344
+        ageDays: 0
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: none
   deployed: false

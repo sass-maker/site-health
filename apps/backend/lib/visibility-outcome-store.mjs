@@ -26,6 +26,22 @@ const FAMILY_CONTRACTS = {
       },
     },
   },
+  // GitHub repository counts are point-in-time totals; the traffic metrics are the
+  // provider's own trailing 14-day aggregates, and the label says so because the
+  // period window on the observation already covers that span.
+  github: {
+    provider: 'github-api',
+    metrics: {
+      'GitHub stars': { unit: 'count', direction: 'higher-is-better' },
+      'GitHub forks': { unit: 'count', direction: 'higher-is-better' },
+      'GitHub watchers': { unit: 'count', direction: 'higher-is-better' },
+      'GitHub open issues': { unit: 'count', direction: 'higher-is-better' },
+      'GitHub traffic views (14d)': { unit: 'views', direction: 'higher-is-better' },
+      'GitHub traffic visitors (14d)': { unit: 'visitors', direction: 'higher-is-better' },
+      'GitHub clones (14d)': { unit: 'clones', direction: 'higher-is-better' },
+      'GitHub clone uniques (14d)': { unit: 'cloners', direction: 'higher-is-better' },
+    },
+  },
 };
 
 function allowedProviders(contract) {

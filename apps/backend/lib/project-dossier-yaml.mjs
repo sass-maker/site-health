@@ -274,6 +274,8 @@ export function buildProjectDossier({
 
   if (operation.source.state !== 'available') {
     unknowns.push('The owning checkout was unavailable during repository observation.');
+  } else if (operation.source.revision === null) {
+    unknowns.push('The owning checkout exists but has no committed revision; its local files are not Git-backed evidence.');
   }
   const verificationStatus = unknowns.length > 0 ? 'partial' : 'verified';
   const cloudflareDeployments = infrastructure.deployments.filter(

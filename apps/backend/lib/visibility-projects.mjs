@@ -21,6 +21,33 @@ export function visibilityProjects(catalog) {
   return (catalog?.projects ?? []).filter(isVisibilityProject);
 }
 
+export function githubRepositoryUrl(project) {
+  const url = project?.repositoryUrl ?? project?.public?.repositoryUrl;
+  return typeof url === 'string' && url.trim() ? url.trim() : null;
+}
+
+export function githubRepositorySlug(project) {
+  const url = githubRepositoryUrl(project);
+  if (!url) return null;
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname !== 'github.com') return null;
+    const segments = parsed.pathname.split('/').filter(Boolean);
+    if (segments.length < 2) return null;
+    return `${segments[0]}/${segments[1].replace(/\.git$/, '')}`;
+  } catch {
+    return null;
+  }
+}
+
+// Public repositories are growth surfaces even when the product itself is not a
+// maintained listing: a hidden or past listing still accrues stars and traffic.
+export function githubProjects(catalog) {
+  return (catalog?.projects ?? []).filter(
+    (project) => project?.repositoryVisibility === 'public' && githubRepositorySlug(project),
+  );
+}
+
 function normalizedDomain(value) {
   return String(value ?? '').trim().toLowerCase().replace(/^www\./, '');
 }

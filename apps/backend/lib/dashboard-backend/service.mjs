@@ -83,6 +83,7 @@ const OUTCOME_SOURCES = Object.freeze({
   domains: 'drank',
   performance: 'psi',
   search: 'search',
+  github: 'github',
   'seo-audit': 'seo',
   'geo-awareness': 'geo',
   'ai-awareness': 'ai',
@@ -149,6 +150,19 @@ function outcomeProjection(projection, family, { receipt = null, now } = {}) {
       clicks: boundedSignal(row.clicks, { includeSeries: true }),
       ctr: boundedSignal(row.ctr, { includeSeries: true }),
       averagePosition: boundedSignal(row.averagePosition, { includeSeries: true }),
+    }));
+  } else if (family === 'github') {
+    rows = (outcomes.github ?? []).map((row) => ({
+      ...row,
+      stars: boundedSignal(row.stars, { includeSeries: true }),
+      forks: boundedSignal(row.forks, { includeSeries: true }),
+      watchers: boundedSignal(row.watchers),
+      openIssues: boundedSignal(row.openIssues),
+      views: boundedSignal(row.views, { includeSeries: true }),
+      visitors: boundedSignal(row.visitors),
+      clones: boundedSignal(row.clones, { includeSeries: true }),
+      cloneUniques: boundedSignal(row.cloneUniques),
+      referrers: (row.referrers ?? []).slice(0, 10),
     }));
   } else if (family === 'seo-audit') {
     rows = (outcomes.seoAudit ?? []).map((row) => ({
@@ -314,7 +328,7 @@ export function createDashboardHandler({
     }
     if (url.pathname === '/v1/spend') return json(response, 200, readSpendSnapshot(store));
     const outcomeMatch = url.pathname.match(
-      /^\/v1\/outcomes\/(domains|search|seo-audit|geo-awareness|ai-awareness|performance)$/,
+      /^\/v1\/outcomes\/(domains|search|github|seo-audit|geo-awareness|ai-awareness|performance)$/,
     );
     if (outcomeMatch) {
       const family = outcomeMatch[1];

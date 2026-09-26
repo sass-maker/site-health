@@ -268,18 +268,23 @@ function metricGrid(items: Array<{ label: string; value: string; detail?: string
     ])));
 }
 
-function searchTrend(signal?: JsonRecord | null) {
+function metricTrend(signal: JsonRecord | null | undefined, {
+  title,
+  unit,
+  empty,
+  ariaLabel,
+}: { title: string; unit: string; empty: string; ariaLabel: (values: number[], count: number) => string }) {
   const series = (signal?.series ?? [])
     .filter((point: JsonRecord) => Number.isFinite(Number(point?.value)) && Number.isFinite(Date.parse(point?.observedAt)))
     .slice(-30);
   const figure = element("figure", { class: "search-trend" }, [
     element("div", { class: "search-trend__head" }, [
-      element("strong", {}, ["Daily impressions"]),
-      element("span", {}, [`${series.length} Google days`]),
+      element("strong", {}, [title]),
+      element("span", {}, [`${series.length} ${unit}`]),
     ]),
   ]);
   if (series.length < 2) {
-    figure.append(element("div", { class: "search-trend__empty" }, ["Daily graph pending the next Google collection; aggregate snapshots are not graphed as traffic."]));
+    figure.append(element("div", { class: "search-trend__empty" }, [empty]));
     return figure;
   }
 
@@ -299,7 +304,7 @@ function searchTrend(signal?: JsonRecord | null) {
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
   svg.setAttribute("preserveAspectRatio", "none");
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", `Search impressions changed from ${values[0]} to ${values.at(-1)} across ${series.length} collected snapshots.`);
+  svg.setAttribute("aria-label", ariaLabel(values, series.length));
   const baseline = document.createElementNS(SVG_NAMESPACE, "line");
   baseline.setAttribute("x1", String(padding));
   baseline.setAttribute("x2", String(width - padding));
@@ -319,6 +324,15 @@ function searchTrend(signal?: JsonRecord | null) {
     ]),
   );
   return figure;
+}
+
+function searchTrend(signal?: JsonRecord | null) {
+  return metricTrend(signal, {
+    title: "Daily impressions",
+    unit: "Google days",
+    empty: "Daily graph pending the next Google collection; aggregate snapshots are not graphed as traffic.",
+    ariaLabel: (values, count) => `Search impressions changed from ${values[0]} to ${values.at(-1)} across ${count} collected snapshots.`,
+  });
 }
 
 function searchResult(row: JsonRecord) {
@@ -446,6 +460,68 @@ function seoAuditResult(row: JsonRecord) {
     seoCheckList("Failed", row.failedChecks ?? []),
     seoCheckList("Warned", row.warningChecks ?? []),
   ]);
+}
+
+function githubReferrers(row: JsonRecord) {
+  const referrers = (row.referrers ?? []).filter((item: JsonRecord) => Number.isFinite(Number(item?.value)));
+  if (!referrers.length) return null;
+  return element("p", { class: "outcome-panel__note" }, [
+    `Top referrers (14d): ${referrers.map((item: JsonRecord) => `${item.label} ${Number(item.value).toLocaleString("en")}`).join(" · ")}`,
+  ]);
+}
+
+function githubResult(row: JsonRecord) {
+  const repositoryUrl = typeof row.repositoryUrl === "string" && row.repositoryUrl.startsWith("https://github.com/")
+    ? row.repositoryUrl
+    : null;
+  const measured = row.status === "observed";
+  return element("article", { class: "search-result" }, [
+    element("header", { class: "search-result__head" }, [
+      element("div", {}, [
+        element("span", {}, [row.repository ?? row.scope ?? "GitHub repository"]),
+        element("h2", {}, [row.name ?? row.projectId]),
+        element("small", {}, [measured ? `Traffic window: ${reportingPeriod(row.period)}` : "No GitHub collection has reached this repository yet"]),
+      ]),
+      state(row.status),
+    ]),
+    element("div", { class: "search-result__body" }, [
+      metricGrid([
+        { label: "Stars", value: value(row.stars) },
+        { label: "Forks", value: value(row.forks) },
+        { label: "Views (14d)", value: value(row.views) },
+        { label: "Visitors (14d)", value: value(row.visitors) },
+        { label: "Clones (14d)", value: value(row.clones) },
+        { label: "Open issues", value: value(row.openIssues) },
+      ]),
+      metricTrend(row.stars, {
+        title: "Stars",
+        unit: "snapshots",
+        empty: measured
+          ? "Trend builds as daily collections accumulate; this is the first snapshot."
+          : "No snapshots collected yet.",
+        ariaLabel: (values, count) => `Stars changed from ${values[0]} to ${values.at(-1)} across ${count} snapshots.`,
+      }),
+      githubReferrers(row),
+    ]),
+    element("footer", {}, [
+      element("span", {}, [`Collected ${formatted(row.observedAt)}`]),
+      repositoryUrl
+        ? element("a", { href: repositoryUrl, target: "_blank", rel: "noreferrer" }, ["Open repository ↗"])
+        : element("span", { class: "unavailable" }, ["Repository link unavailable"]),
+    ]),
+  ]);
+}
+
+async function renderGitHub() {
+  const payload = await api("/v1/outcomes/github");
+  const period = payload.rows.find((row: JsonRecord) => row.period)?.period;
+  const periodTarget = document.querySelector<HTMLElement>("[data-github-period]");
+  if (periodTarget) periodTarget.textContent = period ? `GitHub traffic window: ${reportingPeriod(period)}` : "No GitHub evidence yet";
+  replace("github", payload.rows.length
+    ? element("div", { class: "search-results" }, payload.rows.map(githubResult))
+    : empty("No GitHub evidence"));
+  updateCoverage("github", payload, ["not-measured"]);
+  updateOutcomeTime(payload);
 }
 
 function outcomeRows(rows: JsonRecord[], renderMetrics: (row: JsonRecord) => Node) {
@@ -1033,7 +1109,7 @@ async function runRefreshPlans(
   plans: Array<{ family: string; projectId?: string; scope: "project" | "portfolio" }>,
   status: HTMLElement | null,
 ) {
-  const labels: Record<string, string> = { drank: "DRANK", psi: "Performance", search: "Search", ai: "AI awareness" };
+  const labels: Record<string, string> = { drank: "DRANK", psi: "Performance", search: "Search", github: "GitHub", ai: "AI awareness" };
   const progress = new Map(plans.map((plan) => [plan.family, "queued"]));
   const announce = () => {
     if (status) status.textContent = plans
@@ -1156,6 +1232,7 @@ function bindPortfolioRefresh() {
         const view = document.body.dataset.dashboardView;
         if (view === "domains") await renderDomains();
         if (view === "search") await renderSearch();
+        if (view === "github") await renderGitHub();
         if (view === "performance") await renderPerformance();
       } catch (error) {
         if (status) status.textContent = error instanceof Error ? error.message : "Unavailable";
@@ -1176,6 +1253,7 @@ async function start() {
     if (view === "project") await renderProject();
     if (view === "domains") await renderDomains();
     if (view === "search") await renderSearch();
+    if (view === "github") await renderGitHub();
     if (view === "ai-awareness") await renderAiAwareness();
     if (view === "performance") await renderPerformance();
     connection?.classList.remove("offline");
@@ -1194,6 +1272,7 @@ async function start() {
       project: "project-detail",
       domains: "domains",
       search: "search",
+      github: "github",
       "ai-awareness": "ai-awareness",
       performance: "performance",
     };
