@@ -3,7 +3,7 @@ projectId: ai-game
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-10
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: AliveVille
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/aliveville
       revision: 3d5add55beeab3960ee781f239d1eb566afc17d7
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/aliveville
       revision: 3d5add55beeab3960ee781f239d1eb566afc17d7
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -187,7 +187,7 @@ repository:
       - typecheck
       - verify:readiness
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -275,7 +275,7 @@ githubActions:
           createdAt: 2026-09-06T06:06:15Z
           updatedAt: 2026-09-06T06:07:02Z
           url: https://github.com/sarthakagrawal927/aliveville/actions/runs/34015634206
-        ageDays: 19
+        ageDays: 20
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -333,7 +333,7 @@ githubActions:
         ageDays: 4
       attention: ignored
 deployment:
-  kind: worker+pages
+  kind: pages
   deployed: true
   domains:
     - aliveville.com
@@ -344,10 +344,6 @@ deployment:
       kind: pages
       name: aliveville
       sourcePath: ../fleet-archive/aliveville/astro-landing
-    - id: app
-      kind: worker
-      name: aliveville
-      sourcePath: ../fleet-archive/aliveville
   cloudflare:
     deployments:
       - provider: cloudflare
@@ -359,7 +355,8 @@ deployment:
         kind: worker
         name: aliveville
         method: wrangler-direct
-        state: live-retained
+        state: deleted
+        attributionReason: Owner authorized cleanup 2026-09-26 via Fleet spend audit; deleted with Wrangler. Game Worker removed; its GameSessionDO state is orphaned with the worker. The Pages landing remains live-retained.
     resources:
       - provider: cloudflare
         kind: zone
@@ -389,4 +386,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: "Aliveville world-sim; parked but live (user: leave)"
-  infrastructure: The Pages project serves the marketing root; the Worker serves aliveville.com/game* and owns the per-session GameSessionDO runtime.
+  infrastructure: "The Pages project serves the marketing root; the Worker serves aliveville.com/game* and owns the per-session GameSessionDO runtime. 2026-09-26: the aliveville Worker (aliveville.com/game* and GameSessionDO) was deleted with owner approval; only the Pages landing remains."

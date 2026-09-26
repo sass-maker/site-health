@@ -3,7 +3,7 @@ projectId: slow-serp
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: not-applicable
     githubActionsLiveState: not-applicable
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: c4d0128a194fd6145af541880b8ed010fb4485aed8d8ca1c424984c612658da9
-      documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      documentSha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,10 +32,10 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: slow-serp
-      revision: 5855206f5d66be8145dafe1bab394e6fa8d6f48e
+      revision: 3eff6b51b653616c55ec244ea8631760d04553c5
       githubRepository: sarthakagrawal927/slow-serp
       expectedHomepage: null
       observedHomepage: null
@@ -44,19 +44,20 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: slow-serp
-      revision: 5855206f5d66be8145dafe1bab394e6fa8d6f48e
+      revision: 3eff6b51b653616c55ec244ea8631760d04553c5
       githubRepository: sarthakagrawal927/slow-serp
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-10
       catalogLatestCommitAt: 2026-09-10
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
@@ -110,13 +111,13 @@ product:
     - Playwright
   retainedGitHistory:
     firstCommitAt: 2026-09-10
-    latestCommitAt: 2026-09-10
-    retainedCommitCount: 3
+    latestCommitAt: 2026-09-21
+    retainedCommitCount: 4
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: slow-serp
-  observedRevision: 5855206f5d66be8145dafe1bab394e6fa8d6f48e
+  observedRevision: 3eff6b51b653616c55ec244ea8631760d04553c5
   githubRepository: sarthakagrawal927/slow-serp
   githubHomepageUrl: null
   worktree: *a1
@@ -143,7 +144,7 @@ repository:
       - start
       - test
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary: {}
   attention: *a2

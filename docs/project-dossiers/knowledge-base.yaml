@@ -3,7 +3,7 @@ projectId: knowledge-base
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,12 +11,12 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-10
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Knowledge Base
@@ -31,10 +31,10 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: knowledge-base
-      revision: df9a5839459a9b2a49e8bf68a667d99b74561803
+      revision: 01c1e7fd99821d29a2cc9b5e68ab727dfcc24f3a
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
@@ -43,19 +43,20 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: knowledge-base
-      revision: df9a5839459a9b2a49e8bf68a667d99b74561803
+      revision: 01c1e7fd99821d29a2cc9b5e68ab727dfcc24f3a
       githubRepository: sass-maker/knowledge-base
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-05-27
       catalogLatestCommitAt: 2026-09-19
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -113,13 +114,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-05-27
-    latestCommitAt: 2026-09-19
-    retainedCommitCount: 231
+    latestCommitAt: 2026-09-23
+    retainedCommitCount: 238
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: df9a5839459a9b2a49e8bf68a667d99b74561803
+  observedRevision: 01c1e7fd99821d29a2cc9b5e68ab727dfcc24f3a
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -172,7 +173,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -214,7 +215,7 @@ githubActions:
           createdAt: 2026-09-23T04:51:31Z
           updatedAt: 2026-09-23T04:52:29Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/35820033846
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -232,7 +233,7 @@ githubActions:
           createdAt: 2026-09-23T04:51:31Z
           updatedAt: 2026-09-23T04:52:29Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/35820033846
-        ageDays: 2
+        ageDays: 3
       attention: clear
     - name: docs
       file: .github/workflows/docs.yml
@@ -261,7 +262,7 @@ githubActions:
           createdAt: 2026-09-09T08:48:38Z
           updatedAt: 2026-09-09T08:48:47Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170937
-        ageDays: 16
+        ageDays: 17
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -307,7 +308,7 @@ githubActions:
           createdAt: 2026-09-22T16:53:16Z
           updatedAt: 2026-09-22T16:53:40Z
           url: https://github.com/sass-maker/knowledge-base/actions/runs/35757064781
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -351,7 +352,8 @@ deployment:
         kind: worker
         name: knowledgebase-app
         method: open-next-wrangler
-        state: live-retained-legacy-app
+        state: deleted
+        attributionReason: Owner authorized cleanup 2026-09-26 via Fleet spend audit; deleted with Wrangler. Retained-legacy OpenNext worker removed; Pages project of the same name still serves search.sassmaker.com.
       - provider: cloudflare
         kind: worker
         name: knowledgebase
@@ -417,24 +419,24 @@ deployment:
       - provider: cloudflare
         kind: vectorize
         name: rag-bge-768
-        state: retained-unreferenced
+        state: deleted
+        attributionReason: Owner authorized cleanup 2026-09-26 via Fleet spend audit; deleted with Wrangler. Unreferenced experiment index removed; bound indexes remain rag-gemini-1536 and rag-embedding-384/768/1024.
         scope: project
         operationalOwner: knowledge-base
-        attributionReason: "Canonical project owner: knowledge-base"
       - provider: cloudflare
         kind: vectorize
         name: rag-bge-small-384
-        state: retained-unreferenced
+        state: deleted
+        attributionReason: Owner authorized cleanup 2026-09-26 via Fleet spend audit; deleted with Wrangler. Unreferenced experiment index removed; bound indexes remain rag-gemini-1536 and rag-embedding-384/768/1024.
         scope: project
         operationalOwner: knowledge-base
-        attributionReason: "Canonical project owner: knowledge-base"
       - provider: cloudflare
         kind: vectorize
         name: rag-voyage-1024
-        state: retained-unreferenced
+        state: deleted
+        attributionReason: Owner authorized cleanup 2026-09-26 via Fleet spend audit; deleted with Wrangler. Unreferenced experiment index removed; bound indexes remain rag-gemini-1536 and rag-embedding-384/768/1024.
         scope: project
         operationalOwner: knowledge-base
-        attributionReason: "Canonical project owner: knowledge-base"
       - provider: cloudflare
         kind: analytics-engine
         name: knowledgebase_rag_events
@@ -496,4 +498,4 @@ sharing:
       state: not-declared
 notes:
   catalog: "'Private Agent Search' — public landing at knowledgebase.sassmaker.com, app/search surface at search.sassmaker.com, plus fleet shared RAG service (Vectorize/D1/R2). Pages deployment is Git-connected to sass-maker/knowledge-base."
-  infrastructure: The knowledgebase-app Worker is the retained legacy OpenNext app deployment; the current app surface is the Cloudflare Pages project with the same name. On 2026-08-30 the RAG Worker moved all indexed corpora to Workers AI embeddings, removed its Free AI gateway binding and direct-provider runtime configuration, and retained the old 1536-dimensional Vectorize index only as unreferenced rollback data.
+  infrastructure: "The knowledgebase-app Worker is the retained legacy OpenNext app deployment; the current app surface is the Cloudflare Pages project with the same name. On 2026-08-30 the RAG Worker moved all indexed corpora to Workers AI embeddings, removed its Free AI gateway binding and direct-provider runtime configuration, and retained the old 1536-dimensional Vectorize index only as unreferenced rollback data. 2026-09-26: the retained legacy knowledgebase-app Worker and the unreferenced rag-bge-768, rag-bge-small-384, and rag-voyage-1024 Vectorize indexes were deleted with owner approval."

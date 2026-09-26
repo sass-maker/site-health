@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-09-25",
-  "historyObservedAt": "2026-09-25",
+  "observedAt": "2026-09-26",
+  "historyObservedAt": "2026-09-26",
   "observationSemantics": "Read-only snapshot of tracked workflow and toolchain files in the Fleet workspace. It reads workflow names, triggers, cron expressions, tracked-worktree state, root package script keys, package-manager declarations, and the commit dates and commit count retained by the checked-out HEAD only; environment files, credential-bearing configuration, secrets, command values, commit messages, and commit authorship are not retained.",
   "projects": {
     "codevetter": {
       "source": {
         "state": "available",
         "path": "codevetter",
-        "revision": "07bd106ba71b4f5edf0159a3230a3cb600690142",
+        "revision": "01bb19be4119b3d04b0f8bf9e9858413e287afbb",
         "repositorySlug": "Codevetter/codevetter",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 2,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2025-11-30",
         "latestCommitAt": "2026-09-26",
-        "retainedCommitCount": 1433,
+        "retainedCommitCount": 1446,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -205,15 +205,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36180661493,
+              "id": 36228616744,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
-              "branch": "main",
-              "headSha": "01bb19be4119b3d04b0f8bf9e9858413e287afbb",
-              "createdAt": "2026-09-25T19:35:55Z",
-              "updatedAt": "2026-09-25T19:36:20Z",
-              "url": "https://github.com/Codevetter/codevetter/actions/runs/36180661493"
+              "branch": "release/v1.14.2",
+              "headSha": "d7aae2979ea2a4d2a378a0575b9b24e379e3dfe2",
+              "createdAt": "2026-09-26T08:03:02Z",
+              "updatedAt": "2026-09-26T08:03:16Z",
+              "url": "https://github.com/Codevetter/codevetter/actions/runs/36228616744"
             },
             "ageDays": 0
           },
@@ -318,7 +318,7 @@
               "updatedAt": "2026-09-19T11:21:45Z",
               "url": "https://github.com/Codevetter/codevetter/actions/runs/35438817792"
             },
-            "ageDays": 6
+            "ageDays": 7
           },
           "schedule": {
             "health": "not-applicable",
@@ -527,7 +527,7 @@
               "updatedAt": "2026-09-21T15:28:02Z",
               "url": "https://github.com/Codevetter/codevetter/actions/runs/35619082846"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "healthy",
@@ -543,7 +543,7 @@
               "updatedAt": "2026-09-21T15:28:02Z",
               "url": "https://github.com/Codevetter/codevetter/actions/runs/35619082846"
             },
-            "ageDays": 4,
+            "ageDays": 5,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -882,8 +882,8 @@
         "revision": "f1a335c17a44b4f162c0a38be7e61e17d9e9ee67",
         "repositorySlug": "HeyPace/pace",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 2,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
@@ -918,15 +918,15 @@
             "reason": "latest run concluded failure",
             "apiState": "active",
             "lastRun": {
-              "id": 36177374492,
+              "id": 36228750918,
               "status": "completed",
               "conclusion": "failure",
-              "event": "pull_request",
-              "branch": "chore/footer-ask-ai-loader",
+              "event": "push",
+              "branch": "main",
               "headSha": "f1a335c17a44b4f162c0a38be7e61e17d9e9ee67",
-              "createdAt": "2026-09-25T19:04:02Z",
-              "updatedAt": "2026-09-25T19:09:07Z",
-              "url": "https://github.com/HeyPace/pace/actions/runs/36177374492"
+              "createdAt": "2026-09-26T08:05:42Z",
+              "updatedAt": "2026-09-26T08:08:44Z",
+              "url": "https://github.com/HeyPace/pace/actions/runs/36228750918"
             },
             "ageDays": 0
           },
@@ -936,20 +936,20 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
+            "health": "failing",
+            "reason": "current main push concluded failure",
             "lastRun": {
-              "id": 35820067491,
+              "id": 36228750918,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "failure",
               "event": "push",
               "branch": "main",
-              "headSha": "c56507e8cd3f3a9bdb414bbfd53ae10eb32b0e6b",
-              "createdAt": "2026-09-23T04:52:01Z",
-              "updatedAt": "2026-09-23T04:56:50Z",
-              "url": "https://github.com/HeyPace/pace/actions/runs/35820067491"
+              "headSha": "f1a335c17a44b4f162c0a38be7e61e17d9e9ee67",
+              "createdAt": "2026-09-26T08:05:42Z",
+              "updatedAt": "2026-09-26T08:08:44Z",
+              "url": "https://github.com/HeyPace/pace/actions/runs/36228750918"
             },
-            "ageDays": 2
+            "ageDays": 0
           },
           "attention": "action-required"
         },
@@ -984,7 +984,7 @@
               "updatedAt": "2026-09-23T05:06:24Z",
               "url": "https://github.com/HeyPace/pace/actions/runs/35820969912"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "schedule": {
             "health": "not-applicable",
@@ -1021,15 +1021,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36177374489,
+              "id": 36228750932,
               "status": "completed",
               "conclusion": "success",
-              "event": "pull_request",
-              "branch": "chore/footer-ask-ai-loader",
+              "event": "push",
+              "branch": "main",
               "headSha": "f1a335c17a44b4f162c0a38be7e61e17d9e9ee67",
-              "createdAt": "2026-09-25T19:04:02Z",
-              "updatedAt": "2026-09-25T19:04:49Z",
-              "url": "https://github.com/HeyPace/pace/actions/runs/36177374489"
+              "createdAt": "2026-09-26T08:05:42Z",
+              "updatedAt": "2026-09-26T08:06:09Z",
+              "url": "https://github.com/HeyPace/pace/actions/runs/36228750932"
             },
             "ageDays": 0
           },
@@ -1042,17 +1042,17 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 35820067488,
+              "id": 36228750932,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "c56507e8cd3f3a9bdb414bbfd53ae10eb32b0e6b",
-              "createdAt": "2026-09-23T04:52:01Z",
-              "updatedAt": "2026-09-23T04:52:44Z",
-              "url": "https://github.com/HeyPace/pace/actions/runs/35820067488"
+              "headSha": "f1a335c17a44b4f162c0a38be7e61e17d9e9ee67",
+              "createdAt": "2026-09-26T08:05:42Z",
+              "updatedAt": "2026-09-26T08:06:09Z",
+              "url": "https://github.com/HeyPace/pace/actions/runs/36228750932"
             },
-            "ageDays": 2
+            "ageDays": 0
           },
           "attention": "clear"
         }
@@ -1099,7 +1099,7 @@
       "githubActionsMeta": {
         "repository": "HeyPace/pace",
         "defaultBranch": "main",
-        "defaultBranchSha": "c56507e8cd3f3a9bdb414bbfd53ae10eb32b0e6b",
+        "defaultBranchSha": "f1a335c17a44b4f162c0a38be7e61e17d9e9ee67",
         "homepage": "https://heypace.app",
         "query": "verified",
         "disposition": {
@@ -1112,7 +1112,7 @@
       "source": {
         "state": "available",
         "path": "posttrainllm",
-        "revision": "9bdcfe170a6fb32baf2733b14d973c05d646092e",
+        "revision": "ce14d91f0db03bcf03d4fed9cfdbe5c15f6aac28",
         "repositorySlug": "PostTrainLLM/posttrainllm",
         "worktree": {
           "state": "clean",
@@ -1123,7 +1123,7 @@
       "history": {
         "firstCommitAt": "2026-05-21",
         "latestCommitAt": "2026-09-26",
-        "retainedCommitCount": 930,
+        "retainedCommitCount": 932,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1151,15 +1151,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36183580563,
+              "id": 36219232544,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "9bdcfe170a6fb32baf2733b14d973c05d646092e",
-              "createdAt": "2026-09-25T20:04:56Z",
-              "updatedAt": "2026-09-25T20:17:02Z",
-              "url": "https://github.com/PostTrainLLM/posttrainllm/actions/runs/36183580563"
+              "headSha": "ce14d91f0db03bcf03d4fed9cfdbe5c15f6aac28",
+              "createdAt": "2026-09-26T04:54:49Z",
+              "updatedAt": "2026-09-26T05:08:29Z",
+              "url": "https://github.com/PostTrainLLM/posttrainllm/actions/runs/36219232544"
             },
             "ageDays": 0
           },
@@ -1172,15 +1172,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36183580563,
+              "id": 36219232544,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "9bdcfe170a6fb32baf2733b14d973c05d646092e",
-              "createdAt": "2026-09-25T20:04:56Z",
-              "updatedAt": "2026-09-25T20:17:02Z",
-              "url": "https://github.com/PostTrainLLM/posttrainllm/actions/runs/36183580563"
+              "headSha": "ce14d91f0db03bcf03d4fed9cfdbe5c15f6aac28",
+              "createdAt": "2026-09-26T04:54:49Z",
+              "updatedAt": "2026-09-26T05:08:29Z",
+              "url": "https://github.com/PostTrainLLM/posttrainllm/actions/runs/36219232544"
             },
             "ageDays": 0
           },
@@ -1207,15 +1207,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36158538199,
+              "id": 36219334553,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "ba70e60040281359907aadb08928c8d0529de726",
-              "createdAt": "2026-09-25T16:05:42Z",
-              "updatedAt": "2026-09-25T16:07:15Z",
-              "url": "https://github.com/PostTrainLLM/posttrainllm/actions/runs/36158538199"
+              "headSha": "ce14d91f0db03bcf03d4fed9cfdbe5c15f6aac28",
+              "createdAt": "2026-09-26T04:56:56Z",
+              "updatedAt": "2026-09-26T04:58:16Z",
+              "url": "https://github.com/PostTrainLLM/posttrainllm/actions/runs/36219334553"
             },
             "ageDays": 0
           },
@@ -1294,7 +1294,7 @@
       "githubActionsMeta": {
         "repository": "PostTrainLLM/posttrainllm",
         "defaultBranch": "main",
-        "defaultBranchSha": "9bdcfe170a6fb32baf2733b14d973c05d646092e",
+        "defaultBranchSha": "ce14d91f0db03bcf03d4fed9cfdbe5c15f6aac28",
         "homepage": "https://posttrainllm.com",
         "query": "verified",
         "disposition": {
@@ -1307,18 +1307,18 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "d8af5d32fa90e524a4e5f477c7bf8cf55bfe4268",
+        "revision": "9a875da75f97edfd5c75205be845ec6a07bc0562",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 99,
+          "trackedChangeCount": 76,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-26",
-        "retainedCommitCount": 1146,
+        "retainedCommitCount": 1148,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1346,15 +1346,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36179874113,
+              "id": 36186354878,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "d8af5d32fa90e524a4e5f477c7bf8cf55bfe4268",
-              "createdAt": "2026-09-25T19:28:17Z",
-              "updatedAt": "2026-09-25T19:28:44Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/36179874113"
+              "headSha": "9a875da75f97edfd5c75205be845ec6a07bc0562",
+              "createdAt": "2026-09-25T20:32:11Z",
+              "updatedAt": "2026-09-25T20:32:50Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/36186354878"
             },
             "ageDays": 0
           },
@@ -1367,15 +1367,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36179874113,
+              "id": 36186354878,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "d8af5d32fa90e524a4e5f477c7bf8cf55bfe4268",
-              "createdAt": "2026-09-25T19:28:17Z",
-              "updatedAt": "2026-09-25T19:28:44Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/36179874113"
+              "headSha": "9a875da75f97edfd5c75205be845ec6a07bc0562",
+              "createdAt": "2026-09-25T20:32:11Z",
+              "updatedAt": "2026-09-25T20:32:50Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/36186354878"
             },
             "ageDays": 0
           },
@@ -1423,8 +1423,6 @@
         "docs:projects:refresh-local",
         "docs:purpose-contracts",
         "docs:purpose-contracts:check",
-        "indexing",
-        "indexing:schedule",
         "prepare:ci-catalog",
         "test",
         "test:ai",
@@ -1435,7 +1433,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/site-health",
         "defaultBranch": "main",
-        "defaultBranchSha": "d8af5d32fa90e524a4e5f477c7bf8cf55bfe4268",
+        "defaultBranchSha": "9a875da75f97edfd5c75205be845ec6a07bc0562",
         "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -1448,18 +1446,18 @@
       "source": {
         "state": "available",
         "path": "live",
-        "revision": "919afc49107a4a998cd42c760383c2fff65c3892",
+        "revision": "89f9e465815e08fa55f5a0c86d939a15aec78957",
         "repositorySlug": "Significant-Hobbies/live",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 3,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-09-22",
-        "retainedCommitCount": 583,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 586,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1486,15 +1484,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36177176735,
+              "id": 36228724794,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "0293e456b4e67df43ba435b151b79c0f57da1fcb",
-              "createdAt": "2026-09-25T19:02:08Z",
-              "updatedAt": "2026-09-25T19:08:19Z",
-              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36177176735"
+              "headSha": "89f9e465815e08fa55f5a0c86d939a15aec78957",
+              "createdAt": "2026-09-26T08:05:12Z",
+              "updatedAt": "2026-09-26T08:11:36Z",
+              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36228724794"
             },
             "ageDays": 0
           },
@@ -1507,15 +1505,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36177176735,
+              "id": 36228724794,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "0293e456b4e67df43ba435b151b79c0f57da1fcb",
-              "createdAt": "2026-09-25T19:02:08Z",
-              "updatedAt": "2026-09-25T19:08:19Z",
-              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36177176735"
+              "headSha": "89f9e465815e08fa55f5a0c86d939a15aec78957",
+              "createdAt": "2026-09-26T08:05:12Z",
+              "updatedAt": "2026-09-26T08:11:36Z",
+              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36228724794"
             },
             "ageDays": 0
           },
@@ -1598,7 +1596,7 @@
               "updatedAt": "2026-09-20T15:35:45Z",
               "url": "https://github.com/Significant-Hobbies/live/actions/runs/35520068160"
             },
-            "ageDays": 5
+            "ageDays": 6
           },
           "schedule": {
             "health": "not-applicable",
@@ -1607,7 +1605,7 @@
           },
           "currentDefaultBranch": {
             "health": "missing",
-            "reason": "no push run at current main revision 0293e45",
+            "reason": "no push run at current main revision 89f9e46",
             "lastRun": {
               "id": 35520068160,
               "status": "completed",
@@ -1644,15 +1642,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36177176760,
+              "id": 36228724740,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "0293e456b4e67df43ba435b151b79c0f57da1fcb",
-              "createdAt": "2026-09-25T19:02:08Z",
-              "updatedAt": "2026-09-25T19:03:44Z",
-              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36177176760"
+              "headSha": "89f9e465815e08fa55f5a0c86d939a15aec78957",
+              "createdAt": "2026-09-26T08:05:12Z",
+              "updatedAt": "2026-09-26T08:06:51Z",
+              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36228724740"
             },
             "ageDays": 0
           },
@@ -1665,15 +1663,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36177176760,
+              "id": 36228724740,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "0293e456b4e67df43ba435b151b79c0f57da1fcb",
-              "createdAt": "2026-09-25T19:02:08Z",
-              "updatedAt": "2026-09-25T19:03:44Z",
-              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36177176760"
+              "headSha": "89f9e465815e08fa55f5a0c86d939a15aec78957",
+              "createdAt": "2026-09-26T08:05:12Z",
+              "updatedAt": "2026-09-26T08:06:51Z",
+              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36228724740"
             },
             "ageDays": 0
           },
@@ -1703,15 +1701,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36162694086,
+              "id": 36253687172,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "b505860d7efd7ff0dd9b6f77bd4228e8a1f0a257",
-              "createdAt": "2026-09-25T16:44:42Z",
-              "updatedAt": "2026-09-25T16:44:58Z",
-              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36162694086"
+              "headSha": "89f9e465815e08fa55f5a0c86d939a15aec78957",
+              "createdAt": "2026-09-26T15:56:39Z",
+              "updatedAt": "2026-09-26T15:56:54Z",
+              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36253687172"
             },
             "ageDays": 0
           },
@@ -1719,15 +1717,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 36162694086,
+              "id": 36253687172,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "b505860d7efd7ff0dd9b6f77bd4228e8a1f0a257",
-              "createdAt": "2026-09-25T16:44:42Z",
-              "updatedAt": "2026-09-25T16:44:58Z",
-              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36162694086"
+              "headSha": "89f9e465815e08fa55f5a0c86d939a15aec78957",
+              "createdAt": "2026-09-26T15:56:39Z",
+              "updatedAt": "2026-09-26T15:56:54Z",
+              "url": "https://github.com/Significant-Hobbies/live/actions/runs/36253687172"
             },
             "ageDays": 0,
             "freshnessDays": 1
@@ -1768,7 +1766,7 @@
               "updatedAt": "2026-09-21T13:36:25Z",
               "url": "https://github.com/Significant-Hobbies/live/actions/runs/35606571056"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -1880,7 +1878,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/live",
         "defaultBranch": "main",
-        "defaultBranchSha": "0293e456b4e67df43ba435b151b79c0f57da1fcb",
+        "defaultBranchSha": "89f9e465815e08fa55f5a0c86d939a15aec78957",
         "homepage": "https://live.significanthobbies.com",
         "query": "verified",
         "disposition": {
@@ -1991,15 +1989,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36115385935,
+              "id": 36230456211,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "e72e38c235c64da39dc2f0fbb3767502fbb6c680",
-              "createdAt": "2026-09-25T08:53:32Z",
-              "updatedAt": "2026-09-25T08:53:56Z",
-              "url": "https://github.com/sass-maker/chatgpt-connections/actions/runs/36115385935"
+              "headSha": "34da3d468f82b95232123bfcac398f07d1a53cfc",
+              "createdAt": "2026-09-26T08:39:59Z",
+              "updatedAt": "2026-09-26T08:40:26Z",
+              "url": "https://github.com/sass-maker/chatgpt-connections/actions/runs/36230456211"
             },
             "ageDays": 0
           },
@@ -2007,15 +2005,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 36115385935,
+              "id": 36230456211,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "e72e38c235c64da39dc2f0fbb3767502fbb6c680",
-              "createdAt": "2026-09-25T08:53:32Z",
-              "updatedAt": "2026-09-25T08:53:56Z",
-              "url": "https://github.com/sass-maker/chatgpt-connections/actions/runs/36115385935"
+              "headSha": "34da3d468f82b95232123bfcac398f07d1a53cfc",
+              "createdAt": "2026-09-26T08:39:59Z",
+              "updatedAt": "2026-09-26T08:40:26Z",
+              "url": "https://github.com/sass-maker/chatgpt-connections/actions/runs/36230456211"
             },
             "ageDays": 0,
             "freshnessDays": 2
@@ -2080,18 +2078,18 @@
       "source": {
         "state": "available",
         "path": "saas-maker",
-        "revision": "803851e7fd857621a694b3393af5c483c0be8b3d",
+        "revision": "b5e3b857a6239fd434742138e9150fe8b578ff4e",
         "repositorySlug": "sass-maker/saas-maker",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 9,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-02-26",
         "latestCommitAt": "2026-09-26",
-        "retainedCommitCount": 1396,
+        "retainedCommitCount": 1401,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2115,19 +2113,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "running",
+            "reason": "latest run is in_progress",
             "apiState": "active",
             "lastRun": {
-              "id": 36185762471,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "6346f12bc04b8769e4720bbf34e06399ee0bcf44",
-              "createdAt": "2026-09-25T20:26:20Z",
-              "updatedAt": "2026-09-25T20:28:06Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/36185762471"
+              "id": 36258910861,
+              "status": "in_progress",
+              "conclusion": null,
+              "event": "pull_request",
+              "branch": "devin/public-catalog-expansion",
+              "headSha": "b5e3b857a6239fd434742138e9150fe8b578ff4e",
+              "createdAt": "2026-09-26T17:24:25Z",
+              "updatedAt": "2026-09-26T17:24:29Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/36258910861"
             },
             "ageDays": 0
           },
@@ -2211,15 +2209,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36168013235,
+              "id": 36258910865,
               "status": "completed",
               "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "d9719008d99440be3a048c3d1cef4730a35a8569",
-              "createdAt": "2026-09-25T17:34:49Z",
-              "updatedAt": "2026-09-25T17:34:59Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/36168013235"
+              "event": "pull_request",
+              "branch": "devin/public-catalog-expansion",
+              "headSha": "b5e3b857a6239fd434742138e9150fe8b578ff4e",
+              "createdAt": "2026-09-26T17:24:25Z",
+              "updatedAt": "2026-09-26T17:24:36Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/36258910865"
             },
             "ageDays": 0
           },
@@ -2369,19 +2367,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "failing",
+            "reason": "latest run concluded failure",
             "apiState": "active",
             "lastRun": {
-              "id": 36185762473,
+              "id": 36258910863,
               "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "6346f12bc04b8769e4720bbf34e06399ee0bcf44",
-              "createdAt": "2026-09-25T20:26:20Z",
-              "updatedAt": "2026-09-25T20:26:46Z",
-              "url": "https://github.com/sass-maker/saas-maker/actions/runs/36185762473"
+              "conclusion": "failure",
+              "event": "pull_request",
+              "branch": "devin/public-catalog-expansion",
+              "headSha": "b5e3b857a6239fd434742138e9150fe8b578ff4e",
+              "createdAt": "2026-09-26T17:24:25Z",
+              "updatedAt": "2026-09-26T17:24:50Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/36258910863"
             },
             "ageDays": 0
           },
@@ -2406,7 +2404,7 @@
             },
             "ageDays": 0
           },
-          "attention": "clear"
+          "attention": "action-required"
         },
         {
           "name": "Public Performance Sweep",
@@ -2442,7 +2440,7 @@
               "updatedAt": "2026-09-21T15:23:44Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/35618604659"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "healthy",
@@ -2458,7 +2456,7 @@
               "updatedAt": "2026-09-21T15:23:44Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/35618604659"
             },
-            "ageDays": 4,
+            "ageDays": 5,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -2502,7 +2500,7 @@
               "updatedAt": "2026-09-23T12:01:15Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/35857890425"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "schedule": {
             "health": "healthy",
@@ -2518,7 +2516,7 @@
               "updatedAt": "2026-09-23T12:01:15Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/35857890425"
             },
-            "ageDays": 2,
+            "ageDays": 3,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -2597,7 +2595,7 @@
               "updatedAt": "2026-09-21T15:24:49Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/35618611912"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "healthy",
@@ -2613,7 +2611,7 @@
               "updatedAt": "2026-09-21T15:24:49Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/35618611912"
             },
-            "ageDays": 4,
+            "ageDays": 5,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -2652,7 +2650,7 @@
               "updatedAt": "2026-09-21T22:55:03Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/35665014304"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "schedule": {
             "health": "not-applicable",
@@ -2991,7 +2989,7 @@
               "updatedAt": "2026-09-01T06:13:13Z",
               "url": "https://github.com/sass-maker/reel-pipeline/actions/runs/33476639197"
             },
-            "ageDays": 24
+            "ageDays": 25
           },
           "schedule": {
             "health": "not-applicable",
@@ -3037,7 +3035,7 @@
               "updatedAt": "2026-09-07T12:54:09Z",
               "url": "https://github.com/sass-maker/reel-pipeline/actions/runs/34124384388"
             },
-            "ageDays": 18
+            "ageDays": 19
           },
           "schedule": {
             "health": "not-applicable",
@@ -3184,18 +3182,18 @@
       "source": {
         "state": "available",
         "path": "fleet-social",
-        "revision": "873f03279ec57f5aec567b0f0cf8ff858a2d59b4",
+        "revision": "01ac9bed052f55d47bac084a4d6d71fd292dc743",
         "repositorySlug": "sass-maker/fleet-social",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 36,
+          "trackedChangeCount": 1,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-09-22",
-        "latestCommitAt": "2026-09-26",
-        "retainedCommitCount": 52,
+        "latestCommitAt": "2026-09-25",
+        "retainedCommitCount": 48,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -3223,15 +3221,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36176905586,
+              "id": 36228635861,
               "status": "completed",
               "conclusion": "success",
               "event": "pull_request",
               "branch": "feat/fleet-social-internal",
-              "headSha": "873f03279ec57f5aec567b0f0cf8ff858a2d59b4",
-              "createdAt": "2026-09-25T18:59:36Z",
-              "updatedAt": "2026-09-25T19:03:36Z",
-              "url": "https://github.com/sass-maker/fleet-social/actions/runs/36176905586"
+              "headSha": "e4d6a8207aae9d4b230e06fe1dd90421c9ee09ad",
+              "createdAt": "2026-09-26T08:03:25Z",
+              "updatedAt": "2026-09-26T08:07:45Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/36228635861"
             },
             "ageDays": 0
           },
@@ -3278,23 +3276,45 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "never-run",
-            "reason": "no workflow run was returned by GitHub",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
-            "lastRun": null,
-            "ageDays": null
+            "lastRun": {
+              "id": 36246624837,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "schedule",
+              "branch": "main",
+              "headSha": "01ac9bed052f55d47bac084a4d6d71fd292dc743",
+              "createdAt": "2026-09-26T13:52:45Z",
+              "updatedAt": "2026-09-26T13:52:51Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/36246624837"
+            },
+            "ageDays": 0
           },
           "schedule": {
-            "health": "never-run",
-            "reason": "no scheduled run was returned by GitHub",
-            "lastRun": null
+            "health": "healthy",
+            "reason": "latest scheduled run concluded success",
+            "lastRun": {
+              "id": 36246624837,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "schedule",
+              "branch": "main",
+              "headSha": "01ac9bed052f55d47bac084a4d6d71fd292dc743",
+              "createdAt": "2026-09-26T13:52:45Z",
+              "updatedAt": "2026-09-26T13:52:51Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/36246624837"
+            },
+            "ageDays": 0,
+            "freshnessDays": 1
           },
           "currentDefaultBranch": {
             "health": "not-applicable",
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "missing-data"
+          "attention": "clear"
         }
       ],
       "toolingSignals": [
@@ -3406,7 +3426,7 @@
           },
           "live": {
             "health": "stuck",
-            "reason": "latest run has remained queued for 36 day(s)",
+            "reason": "latest run has remained queued for 37 day(s)",
             "apiState": "active",
             "lastRun": {
               "id": 32396632476,
@@ -3419,7 +3439,7 @@
               "updatedAt": "2026-08-20T17:15:48Z",
               "url": "https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/32396632476"
             },
-            "ageDays": 36
+            "ageDays": 37
           },
           "schedule": {
             "health": "not-applicable",
@@ -3601,7 +3621,7 @@
               "updatedAt": "2026-09-21T09:29:47Z",
               "url": "https://github.com/sarthakagrawal927/drank/actions/runs/35583549806"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "failing",
@@ -3617,7 +3637,7 @@
               "updatedAt": "2026-09-21T09:29:47Z",
               "url": "https://github.com/sarthakagrawal927/drank/actions/runs/35583549806"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "currentDefaultBranch": {
             "health": "not-applicable",
@@ -3806,7 +3826,7 @@
               "updatedAt": "2026-09-05T11:05:19Z",
               "url": "https://github.com/Significant-Hobbies/email-manager/actions/runs/33962356232"
             },
-            "ageDays": 20
+            "ageDays": 21
           },
           "schedule": {
             "health": "not-applicable",
@@ -3849,7 +3869,7 @@
               "updatedAt": "2026-09-21T05:09:27Z",
               "url": "https://github.com/Significant-Hobbies/email-manager/actions/runs/35563483815"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -3963,7 +3983,7 @@
       "source": {
         "state": "available",
         "path": "../fleet-archive/chatgpt-memory-insights",
-        "revision": "33b43ee6e744705648665c7dda65bf19d9ea46fb",
+        "revision": "48b2efd2b7752c93dc2a9a9002926285d9265c58",
         "repositorySlug": "Significant-Hobbies/chatgpt-memory-insights",
         "worktree": {
           "state": "clean",
@@ -3973,8 +3993,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-28",
-        "latestCommitAt": "2026-09-19",
-        "retainedCommitCount": 70,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 72,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4001,17 +4021,17 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 35635054033,
+              "id": 36248022935,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "3428cd723c3fb4d24957682b8fb20d8f38cfb92a",
-              "createdAt": "2026-09-21T17:55:20Z",
-              "updatedAt": "2026-09-21T17:56:50Z",
-              "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/35635054033"
+              "headSha": "48b2efd2b7752c93dc2a9a9002926285d9265c58",
+              "createdAt": "2026-09-26T14:17:48Z",
+              "updatedAt": "2026-09-26T14:18:55Z",
+              "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/36248022935"
             },
-            "ageDays": 4
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -4022,17 +4042,17 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 35635054033,
+              "id": 36248022935,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "3428cd723c3fb4d24957682b8fb20d8f38cfb92a",
-              "createdAt": "2026-09-21T17:55:20Z",
-              "updatedAt": "2026-09-21T17:56:50Z",
-              "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/35635054033"
+              "headSha": "48b2efd2b7752c93dc2a9a9002926285d9265c58",
+              "createdAt": "2026-09-26T14:17:48Z",
+              "updatedAt": "2026-09-26T14:18:55Z",
+              "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/36248022935"
             },
-            "ageDays": 4
+            "ageDays": 0
           },
           "attention": "ignored"
         },
@@ -4068,7 +4088,7 @@
               "updatedAt": "2026-08-31T10:27:17Z",
               "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/33382333378"
             },
-            "ageDays": 25
+            "ageDays": 26
           },
           "schedule": {
             "health": "not-applicable",
@@ -4149,7 +4169,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/chatgpt-memory-insights",
         "defaultBranch": "main",
-        "defaultBranchSha": "3428cd723c3fb4d24957682b8fb20d8f38cfb92a",
+        "defaultBranchSha": "48b2efd2b7752c93dc2a9a9002926285d9265c58",
         "homepage": "https://chatgpt.significanthobbies.com",
         "query": "verified",
         "disposition": {
@@ -4165,8 +4185,8 @@
         "revision": "a180611fda39633a0e46d67a68040e2a969313ea",
         "repositorySlug": "sass-maker/free-ai",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 1,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
@@ -4212,7 +4232,7 @@
               "updatedAt": "2026-09-25T13:53:44Z",
               "url": "https://github.com/sass-maker/free-ai/actions/runs/36143844352"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "failing",
@@ -4228,7 +4248,7 @@
               "updatedAt": "2026-09-20T13:22:41Z",
               "url": "https://github.com/sass-maker/free-ai/actions/runs/35513306790"
             },
-            "ageDays": 5
+            "ageDays": 6
           },
           "currentDefaultBranch": {
             "health": "not-applicable",
@@ -4269,7 +4289,7 @@
               "updatedAt": "2026-09-25T14:28:49Z",
               "url": "https://github.com/sass-maker/free-ai/actions/runs/36147658653"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "not-applicable",
@@ -4290,7 +4310,7 @@
               "updatedAt": "2026-09-25T14:28:49Z",
               "url": "https://github.com/sass-maker/free-ai/actions/runs/36147658653"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "attention": "action-required"
         },
@@ -4325,7 +4345,7 @@
               "updatedAt": "2026-09-25T13:59:31Z",
               "url": "https://github.com/sass-maker/free-ai/actions/runs/36144353099"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "not-applicable",
@@ -4371,7 +4391,7 @@
               "updatedAt": "2026-09-25T14:28:59Z",
               "url": "https://github.com/sass-maker/free-ai/actions/runs/36147658569"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "not-applicable",
@@ -4392,7 +4412,7 @@
               "updatedAt": "2026-09-25T14:28:59Z",
               "url": "https://github.com/sass-maker/free-ai/actions/runs/36147658569"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "attention": "clear"
         }
@@ -4558,7 +4578,7 @@
               "updatedAt": "2026-09-09T22:51:35Z",
               "url": "https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414192148"
             },
-            "ageDays": 15
+            "ageDays": 16
           },
           "schedule": {
             "health": "not-applicable",
@@ -4579,7 +4599,7 @@
               "updatedAt": "2026-09-09T22:51:35Z",
               "url": "https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414192148"
             },
-            "ageDays": 15
+            "ageDays": 16
           },
           "attention": "ignored"
         },
@@ -4614,7 +4634,7 @@
               "updatedAt": "2026-09-09T22:57:00Z",
               "url": "https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414625397"
             },
-            "ageDays": 15
+            "ageDays": 16
           },
           "schedule": {
             "health": "not-applicable",
@@ -4645,8 +4665,8 @@
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "stale",
+            "reason": "latest run is 31 days old",
             "apiState": "active",
             "lastRun": {
               "id": 32910082428,
@@ -4659,7 +4679,7 @@
               "updatedAt": "2026-08-25T23:21:05Z",
               "url": "https://github.com/sarthakagrawal927/psi-swarm/actions/runs/32910082428"
             },
-            "ageDays": 30
+            "ageDays": 31
           },
           "schedule": {
             "health": "not-applicable",
@@ -4689,7 +4709,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 114 days old",
+            "reason": "latest run is 115 days old",
             "apiState": "active",
             "lastRun": {
               "id": 26895965998,
@@ -4702,7 +4722,7 @@
               "updatedAt": "2026-06-03T15:45:21Z",
               "url": "https://github.com/sarthakagrawal927/psi-swarm/actions/runs/26895965998"
             },
-            "ageDays": 114
+            "ageDays": 115
           },
           "schedule": {
             "health": "not-applicable",
@@ -4778,18 +4798,18 @@
       "source": {
         "state": "available",
         "path": "high-signal",
-        "revision": "d584242e065689d0c63b569df6dd2c4eee9cef36",
+        "revision": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
         "repositorySlug": "High-Signal-App/high-signal",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 1,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-04-25",
-        "latestCommitAt": "2026-09-22",
-        "retainedCommitCount": 1024,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 1033,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4812,7 +4832,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 90 days old",
+            "reason": "latest run is 91 days old",
             "apiState": "active",
             "lastRun": {
               "id": 28280675345,
@@ -4825,7 +4845,7 @@
               "updatedAt": "2026-06-27T06:13:58Z",
               "url": "https://github.com/High-Signal-App/high-signal/actions/runs/28280675345"
             },
-            "ageDays": 90
+            "ageDays": 91
           },
           "schedule": {
             "health": "not-applicable",
@@ -4916,7 +4936,7 @@
           },
           "currentDefaultBranch": {
             "health": "missing",
-            "reason": "no push run at current main revision 9f26597",
+            "reason": "no push run at current main revision cf0bff4",
             "lastRun": {
               "id": 35772184127,
               "status": "completed",
@@ -4955,15 +4975,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36146154223,
+              "id": 36245159170,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T14:14:30Z",
-              "updatedAt": "2026-09-25T14:15:54Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36146154223"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T13:26:17Z",
+              "updatedAt": "2026-09-26T13:27:11Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36245159170"
             },
             "ageDays": 0
           },
@@ -4971,15 +4991,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 36146154223,
+              "id": 36245159170,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T14:14:30Z",
-              "updatedAt": "2026-09-25T14:15:54Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36146154223"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T13:26:17Z",
+              "updatedAt": "2026-09-26T13:27:11Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36245159170"
             },
             "ageDays": 0,
             "freshnessDays": 2
@@ -5012,15 +5032,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36183107150,
+              "id": 36257459454,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "9f26597a1fd7f3aa50bf5ec485185c7b3c2395b3",
-              "createdAt": "2026-09-25T20:00:27Z",
-              "updatedAt": "2026-09-25T20:04:47Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36183107150"
+              "headSha": "cf0bff4715a0bf2eb1a16955279ea4ec6e9b2b71",
+              "createdAt": "2026-09-26T17:00:14Z",
+              "updatedAt": "2026-09-26T17:04:22Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36257459454"
             },
             "ageDays": 0
           },
@@ -5060,15 +5080,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36075260918,
+              "id": 36203137118,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "b54b333b8702fe22f5b64b347995731b3b5c9f4d",
-              "createdAt": "2026-09-24T23:57:26Z",
-              "updatedAt": "2026-09-25T00:05:25Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36075260918"
+              "headSha": "9f26597a1fd7f3aa50bf5ec485185c7b3c2395b3",
+              "createdAt": "2026-09-25T23:59:50Z",
+              "updatedAt": "2026-09-26T00:07:20Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36203137118"
             },
             "ageDays": 0
           },
@@ -5076,15 +5096,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 36075260918,
+              "id": 36203137118,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "b54b333b8702fe22f5b64b347995731b3b5c9f4d",
-              "createdAt": "2026-09-24T23:57:26Z",
-              "updatedAt": "2026-09-25T00:05:25Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36075260918"
+              "headSha": "9f26597a1fd7f3aa50bf5ec485185c7b3c2395b3",
+              "createdAt": "2026-09-25T23:59:50Z",
+              "updatedAt": "2026-09-26T00:07:20Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36203137118"
             },
             "ageDays": 0,
             "freshnessDays": 9
@@ -5117,15 +5137,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36086572634,
+              "id": 36211913581,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T02:30:57Z",
-              "updatedAt": "2026-09-25T03:01:28Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36086572634"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T02:30:32Z",
+              "updatedAt": "2026-09-26T02:51:20Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36211913581"
             },
             "ageDays": 0
           },
@@ -5165,15 +5185,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36158157599,
+              "id": 36251279299,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "9f26597a1fd7f3aa50bf5ec485185c7b3c2395b3",
-              "createdAt": "2026-09-25T16:02:18Z",
-              "updatedAt": "2026-09-25T16:06:59Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36158157599"
+              "headSha": "cf0bff4715a0bf2eb1a16955279ea4ec6e9b2b71",
+              "createdAt": "2026-09-26T15:15:09Z",
+              "updatedAt": "2026-09-26T15:19:46Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36251279299"
             },
             "ageDays": 0
           },
@@ -5181,15 +5201,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 36158157599,
+              "id": 36251279299,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "9f26597a1fd7f3aa50bf5ec485185c7b3c2395b3",
-              "createdAt": "2026-09-25T16:02:18Z",
-              "updatedAt": "2026-09-25T16:06:59Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36158157599"
+              "headSha": "cf0bff4715a0bf2eb1a16955279ea4ec6e9b2b71",
+              "createdAt": "2026-09-26T15:15:09Z",
+              "updatedAt": "2026-09-26T15:19:46Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36251279299"
             },
             "ageDays": 0,
             "freshnessDays": 1
@@ -5222,15 +5242,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36183111934,
+              "id": 36257461860,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "9f26597a1fd7f3aa50bf5ec485185c7b3c2395b3",
-              "createdAt": "2026-09-25T20:00:29Z",
-              "updatedAt": "2026-09-25T20:03:13Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36183111934"
+              "headSha": "cf0bff4715a0bf2eb1a16955279ea4ec6e9b2b71",
+              "createdAt": "2026-09-26T17:00:16Z",
+              "updatedAt": "2026-09-26T17:01:22Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36257461860"
             },
             "ageDays": 0
           },
@@ -5267,15 +5287,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36090667509,
+              "id": 36214997567,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T03:30:57Z",
-              "updatedAt": "2026-09-25T03:32:03Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36090667509"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T03:30:16Z",
+              "updatedAt": "2026-09-26T03:32:05Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36214997567"
             },
             "ageDays": 0
           },
@@ -5312,15 +5332,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36076882782,
+              "id": 36204268454,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T00:17:53Z",
-              "updatedAt": "2026-09-25T00:51:17Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36076882782"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T00:17:06Z",
+              "updatedAt": "2026-09-26T00:46:40Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36204268454"
             },
             "ageDays": 0
           },
@@ -5360,15 +5380,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36078440952,
+              "id": 36205893585,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T00:38:09Z",
-              "updatedAt": "2026-09-25T00:39:11Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36078440952"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T00:43:34Z",
+              "updatedAt": "2026-09-26T00:44:09Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36205893585"
             },
             "ageDays": 0
           },
@@ -5376,15 +5396,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 36078440952,
+              "id": 36205893585,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T00:38:09Z",
-              "updatedAt": "2026-09-25T00:39:11Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36078440952"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T00:43:34Z",
+              "updatedAt": "2026-09-26T00:44:09Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36205893585"
             },
             "ageDays": 0,
             "freshnessDays": 2
@@ -5422,15 +5442,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36099963176,
+              "id": 36221943792,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T05:46:22Z",
-              "updatedAt": "2026-09-25T05:47:00Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36099963176"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T05:49:41Z",
+              "updatedAt": "2026-09-26T05:50:21Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36221943792"
             },
             "ageDays": 0
           },
@@ -5438,15 +5458,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 36099963176,
+              "id": 36221943792,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T05:46:22Z",
-              "updatedAt": "2026-09-25T05:47:00Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36099963176"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T05:49:41Z",
+              "updatedAt": "2026-09-26T05:50:21Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36221943792"
             },
             "ageDays": 0,
             "freshnessDays": 2
@@ -5479,15 +5499,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36092699142,
+              "id": 36216511051,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "866c664e94fdb0d50e362010db50d3ad2303d301",
-              "createdAt": "2026-09-25T04:01:00Z",
-              "updatedAt": "2026-09-25T04:01:30Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36092699142"
+              "headSha": "b86c8ddec41d93ef90ab124e55830e0b3ecef048",
+              "createdAt": "2026-09-26T04:00:13Z",
+              "updatedAt": "2026-09-26T04:01:20Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36216511051"
             },
             "ageDays": 0
           },
@@ -5625,7 +5645,7 @@
               "updatedAt": "2026-09-22T05:26:50Z",
               "url": "https://github.com/High-Signal-App/high-signal/actions/runs/35690685888"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "schedule": {
             "health": "not-applicable",
@@ -5634,7 +5654,7 @@
           },
           "currentDefaultBranch": {
             "health": "missing",
-            "reason": "no push run at current main revision 9f26597",
+            "reason": "no push run at current main revision cf0bff4",
             "lastRun": {
               "id": 35690685888,
               "status": "completed",
@@ -5718,7 +5738,7 @@
               "updatedAt": "2026-09-21T15:39:16Z",
               "url": "https://github.com/High-Signal-App/high-signal/actions/runs/35620160743"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "healthy",
@@ -5734,7 +5754,7 @@
               "updatedAt": "2026-09-21T15:39:16Z",
               "url": "https://github.com/High-Signal-App/high-signal/actions/runs/35620160743"
             },
-            "ageDays": 4,
+            "ageDays": 5,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -5896,7 +5916,7 @@
       "githubActionsMeta": {
         "repository": "High-Signal-App/high-signal",
         "defaultBranch": "main",
-        "defaultBranchSha": "9f26597a1fd7f3aa50bf5ec485185c7b3c2395b3",
+        "defaultBranchSha": "cf0bff4715a0bf2eb1a16955279ea4ec6e9b2b71",
         "homepage": "https://highsignal.app",
         "query": "verified",
         "disposition": {
@@ -5958,7 +5978,7 @@
               "updatedAt": "2026-09-22T05:58:18Z",
               "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/35692772675"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "schedule": {
             "health": "not-applicable",
@@ -5979,7 +5999,7 @@
               "updatedAt": "2026-09-22T05:58:18Z",
               "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/35692772675"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "attention": "ignored"
         },
@@ -6008,15 +6028,15 @@
             "reason": "latest run was cancelled",
             "apiState": "active",
             "lastRun": {
-              "id": 36128081738,
+              "id": 36237016656,
               "status": "completed",
               "conclusion": "cancelled",
               "event": "schedule",
               "branch": "main",
               "headSha": "59bd5014ba98d7881bf6e124b5c92d5008e38837",
-              "createdAt": "2026-09-25T11:11:59Z",
-              "updatedAt": "2026-09-25T13:12:30Z",
-              "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/36128081738"
+              "createdAt": "2026-09-26T10:50:55Z",
+              "updatedAt": "2026-09-26T12:51:16Z",
+              "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/36237016656"
             },
             "ageDays": 0
           },
@@ -6024,15 +6044,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded cancelled",
             "lastRun": {
-              "id": 36128081738,
+              "id": 36237016656,
               "status": "completed",
               "conclusion": "cancelled",
               "event": "schedule",
               "branch": "main",
               "headSha": "59bd5014ba98d7881bf6e124b5c92d5008e38837",
-              "createdAt": "2026-09-25T11:11:59Z",
-              "updatedAt": "2026-09-25T13:12:30Z",
-              "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/36128081738"
+              "createdAt": "2026-09-26T10:50:55Z",
+              "updatedAt": "2026-09-26T12:51:16Z",
+              "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/36237016656"
             },
             "ageDays": 0,
             "freshnessDays": 2
@@ -6075,7 +6095,7 @@
               "updatedAt": "2026-09-22T05:58:29Z",
               "url": "https://github.com/Significant-Hobbies/on-record/actions/runs/35692773452"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "schedule": {
             "health": "not-applicable",
@@ -6192,8 +6212,8 @@
         "revision": "65e20e96cb9149baf1d7254b738027079541e4ea",
         "repositorySlug": "sarthakagrawal927/issue-pages",
         "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
+          "state": "dirty",
+          "trackedChangeCount": 1,
           "deletedWorkflowFiles": []
         }
       },
@@ -6433,7 +6453,7 @@
               "updatedAt": "2026-09-07T13:12:10Z",
               "url": "https://github.com/sarthakagrawal927/everythingrated/actions/runs/34125905065"
             },
-            "ageDays": 18
+            "ageDays": 19
           },
           "schedule": {
             "health": "not-applicable",
@@ -6539,7 +6559,7 @@
               "updatedAt": "2026-09-21T15:29:52Z",
               "url": "https://github.com/sarthakagrawal927/everythingrated/actions/runs/35619189001"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "healthy",
@@ -6555,7 +6575,7 @@
               "updatedAt": "2026-09-21T15:29:52Z",
               "url": "https://github.com/sarthakagrawal927/everythingrated/actions/runs/35619189001"
             },
-            "ageDays": 4,
+            "ageDays": 5,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -6765,7 +6785,7 @@
               "updatedAt": "2026-09-10T16:10:03Z",
               "url": "https://github.com/High-Signal-App/research-papers/actions/runs/34500247191"
             },
-            "ageDays": 15
+            "ageDays": 16
           },
           "schedule": {
             "health": "not-applicable",
@@ -6812,7 +6832,7 @@
               "updatedAt": "2026-09-10T11:35:21Z",
               "url": "https://github.com/High-Signal-App/research-papers/actions/runs/34472070128"
             },
-            "ageDays": 15
+            "ageDays": 16
           },
           "schedule": {
             "health": "not-applicable",
@@ -6918,191 +6938,31 @@
       }
     },
     "materia": {
+      "projectId": "materia",
       "source": {
-        "state": "available",
-        "path": "../fleet-archive/materia",
-        "revision": "aa0cef3ca98734b587c3b3de1d5a74a85b641c2a",
-        "repositorySlug": "Significant-Hobbies/materia",
-        "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
-          "deletedWorkflowFiles": []
-        }
+        "state": "unavailable",
+        "path": null,
+        "revision": null,
+        "repositorySlug": null,
+        "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-06-21",
-        "latestCommitAt": "2026-09-06",
-        "retainedCommitCount": 57,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
-      "githubActions": [
-        {
-          "name": "CI",
-          "file": ".github/workflows/ci.yml",
-          "triggers": [
-            "pull_request",
-            "push"
-          ],
-          "schedules": [],
-          "inventory": {
-            "source": "tracked",
-            "local": true,
-            "remote": true
-          },
-          "ownerDisposition": {
-            "status": "ignored",
-            "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-          },
-          "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
-            "apiState": "active",
-            "lastRun": {
-              "id": 35635095446,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "161378cad8018d4906fdb141eadf313ce5b61aac",
-              "createdAt": "2026-09-21T17:55:42Z",
-              "updatedAt": "2026-09-21T17:56:35Z",
-              "url": "https://github.com/Significant-Hobbies/materia/actions/runs/35635095446"
-            },
-            "ageDays": 4
-          },
-          "schedule": {
-            "health": "not-applicable",
-            "reason": "workflow has no schedule trigger",
-            "lastRun": null
-          },
-          "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
-            "lastRun": {
-              "id": 35635095446,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "161378cad8018d4906fdb141eadf313ce5b61aac",
-              "createdAt": "2026-09-21T17:55:42Z",
-              "updatedAt": "2026-09-21T17:56:35Z",
-              "url": "https://github.com/Significant-Hobbies/materia/actions/runs/35635095446"
-            },
-            "ageDays": 4
-          },
-          "attention": "ignored"
-        },
-        {
-          "name": "Deploy materia to Cloudflare Pages",
-          "file": ".github/workflows/deploy.yml",
-          "triggers": [
-            "workflow_dispatch"
-          ],
-          "schedules": [],
-          "inventory": {
-            "source": "tracked",
-            "local": true,
-            "remote": true
-          },
-          "ownerDisposition": {
-            "status": "ignored",
-            "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-          },
-          "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
-            "apiState": "active",
-            "lastRun": {
-              "id": 34015641731,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "workflow_dispatch",
-              "branch": "main",
-              "headSha": "aa0cef3ca98734b587c3b3de1d5a74a85b641c2a",
-              "createdAt": "2026-09-06T06:06:26Z",
-              "updatedAt": "2026-09-06T06:07:32Z",
-              "url": "https://github.com/Significant-Hobbies/materia/actions/runs/34015641731"
-            },
-            "ageDays": 19
-          },
-          "schedule": {
-            "health": "not-applicable",
-            "reason": "workflow has no schedule trigger",
-            "lastRun": null
-          },
-          "currentDefaultBranch": {
-            "health": "not-applicable",
-            "reason": "workflow has no push trigger",
-            "lastRun": null
-          },
-          "attention": "ignored"
-        }
-      ],
-      "toolingSignals": [
-        {
-          "name": "Astro",
-          "evidence": [
-            "astro.config.mjs"
-          ]
-        },
-        {
-          "name": "Biome",
-          "evidence": [
-            "biome.json"
-          ]
-        },
-        {
-          "name": "Cloudflare Wrangler",
-          "evidence": [
-            "wrangler.jsonc"
-          ]
-        },
-        {
-          "name": "npm",
-          "evidence": [
-            "package-lock.json"
-          ]
-        },
-        {
-          "name": "pnpm",
-          "evidence": [
-            "pnpm-lock.yaml"
-          ]
-        },
-        {
-          "name": "Vitest",
-          "evidence": [
-            "vitest.config.ts"
-          ]
-        }
-      ],
+      "githubActions": [],
+      "toolingSignals": [],
       "packageManager": null,
-      "rootPackageScripts": [
-        "astro",
-        "build",
-        "check",
-        "checks",
-        "deploy",
-        "dev",
-        "docs:check",
-        "format",
-        "knip",
-        "knip:strict",
-        "lint",
-        "preview",
-        "start",
-        "test",
-        "test:coverage"
-      ],
-      "projectId": "materia",
+      "rootPackageScripts": [],
       "githubActionsMeta": {
-        "repository": "Significant-Hobbies/materia",
-        "defaultBranch": "main",
-        "defaultBranchSha": "161378cad8018d4906fdb141eadf313ce5b61aac",
-        "homepage": "https://materia.significanthobbies.com",
-        "query": "verified",
+        "repository": null,
+        "defaultBranch": null,
+        "defaultBranchSha": null,
+        "homepage": null,
+        "query": "unverifiable",
         "disposition": {
           "disposition": "ignored",
           "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
@@ -7113,7 +6973,7 @@
       "source": {
         "state": "available",
         "path": "knowledge-base",
-        "revision": "df9a5839459a9b2a49e8bf68a667d99b74561803",
+        "revision": "01c1e7fd99821d29a2cc9b5e68ab727dfcc24f3a",
         "repositorySlug": "sass-maker/knowledge-base",
         "worktree": {
           "state": "clean",
@@ -7123,8 +6983,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-27",
-        "latestCommitAt": "2026-09-19",
-        "retainedCommitCount": 231,
+        "latestCommitAt": "2026-09-23",
+        "retainedCommitCount": 238,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7161,7 +7021,7 @@
               "updatedAt": "2026-09-23T04:52:29Z",
               "url": "https://github.com/sass-maker/knowledge-base/actions/runs/35820033846"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "schedule": {
             "health": "not-applicable",
@@ -7182,7 +7042,7 @@
               "updatedAt": "2026-09-23T04:52:29Z",
               "url": "https://github.com/sass-maker/knowledge-base/actions/runs/35820033846"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "attention": "clear"
         },
@@ -7218,7 +7078,7 @@
               "updatedAt": "2026-09-09T08:48:47Z",
               "url": "https://github.com/sass-maker/knowledge-base/actions/runs/34331170937"
             },
-            "ageDays": 16
+            "ageDays": 17
           },
           "schedule": {
             "health": "not-applicable",
@@ -7274,7 +7134,7 @@
               "updatedAt": "2026-09-22T16:53:40Z",
               "url": "https://github.com/sass-maker/knowledge-base/actions/runs/35757064781"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "schedule": {
             "health": "not-applicable",
@@ -7372,7 +7232,7 @@
       "source": {
         "state": "available",
         "path": "significanthobbies",
-        "revision": "227204868649ced6a3c37f0b0a3e51105b21f14f",
+        "revision": "9459f33a2ec00ad897eff7499b9818ec096ca632",
         "repositorySlug": "Significant-Hobbies/significanthobbies",
         "worktree": {
           "state": "clean",
@@ -7382,8 +7242,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-09-22",
-        "retainedCommitCount": 563,
+        "latestCommitAt": "2026-09-23",
+        "retainedCommitCount": 565,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7420,7 +7280,7 @@
               "updatedAt": "2026-09-23T04:53:03Z",
               "url": "https://github.com/Significant-Hobbies/significanthobbies/actions/runs/35820072136"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "schedule": {
             "health": "not-applicable",
@@ -7441,7 +7301,7 @@
               "updatedAt": "2026-09-23T04:53:03Z",
               "url": "https://github.com/Significant-Hobbies/significanthobbies/actions/runs/35820072136"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "attention": "clear"
         },
@@ -7461,7 +7321,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 39 days old",
+            "reason": "latest run is 40 days old",
             "apiState": "active",
             "lastRun": {
               "id": 32031376545,
@@ -7474,7 +7334,7 @@
               "updatedAt": "2026-08-17T12:45:28Z",
               "url": "https://github.com/Significant-Hobbies/significanthobbies/actions/runs/32031376545"
             },
-            "ageDays": 39
+            "ageDays": 40
           },
           "schedule": {
             "health": "not-applicable",
@@ -7686,18 +7546,18 @@
       "source": {
         "state": "available",
         "path": "anime-list",
-        "revision": "fb75617686c5367f8e6108b8915bc64f68738be8",
+        "revision": "0f22acfbb1c784b4420ba40e1d7c8a8d15af29d2",
         "repositorySlug": "Significant-Hobbies/anime-list",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 2,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2025-02-16",
-        "latestCommitAt": "2026-09-22",
-        "retainedCommitCount": 423,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 424,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7725,17 +7585,17 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 35820063673,
+              "id": 36228429140,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "4927a4fdb04fbd3df750c471baaa8e4a1c79df7d",
-              "createdAt": "2026-09-23T04:51:58Z",
-              "updatedAt": "2026-09-23T04:53:44Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/35820063673"
+              "headSha": "0f22acfbb1c784b4420ba40e1d7c8a8d15af29d2",
+              "createdAt": "2026-09-26T07:59:27Z",
+              "updatedAt": "2026-09-26T08:01:22Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/36228429140"
             },
-            "ageDays": 2
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -7746,17 +7606,17 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 35820063673,
+              "id": 36228429140,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "4927a4fdb04fbd3df750c471baaa8e4a1c79df7d",
-              "createdAt": "2026-09-23T04:51:58Z",
-              "updatedAt": "2026-09-23T04:53:44Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/35820063673"
+              "headSha": "0f22acfbb1c784b4420ba40e1d7c8a8d15af29d2",
+              "createdAt": "2026-09-26T07:59:27Z",
+              "updatedAt": "2026-09-26T08:01:22Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/36228429140"
             },
-            "ageDays": 2
+            "ageDays": 0
           },
           "attention": "clear"
         },
@@ -7791,7 +7651,7 @@
               "updatedAt": "2026-09-20T15:42:18Z",
               "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/35520373399"
             },
-            "ageDays": 5
+            "ageDays": 6
           },
           "schedule": {
             "health": "not-applicable",
@@ -7828,17 +7688,17 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34194878258,
+              "id": 36228429147,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "595ec661d4edcdf9b87da20a750de13ba1ddd3fe",
-              "createdAt": "2026-09-08T06:29:26Z",
-              "updatedAt": "2026-09-08T06:29:37Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34194878258"
+              "headSha": "0f22acfbb1c784b4420ba40e1d7c8a8d15af29d2",
+              "createdAt": "2026-09-26T07:59:27Z",
+              "updatedAt": "2026-09-26T07:59:40Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/36228429147"
             },
-            "ageDays": 17
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -7846,21 +7706,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "missing",
-            "reason": "no push run at current main revision 4927a4f",
+            "health": "healthy",
+            "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34194878258,
+              "id": 36228429147,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "595ec661d4edcdf9b87da20a750de13ba1ddd3fe",
-              "createdAt": "2026-09-08T06:29:26Z",
-              "updatedAt": "2026-09-08T06:29:37Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/34194878258"
-            }
+              "headSha": "0f22acfbb1c784b4420ba40e1d7c8a8d15af29d2",
+              "createdAt": "2026-09-26T07:59:27Z",
+              "updatedAt": "2026-09-26T07:59:40Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/36228429147"
+            },
+            "ageDays": 0
           },
-          "attention": "missing-data"
+          "attention": "clear"
         },
         {
           "name": "Quarterly Anime Sync",
@@ -7896,7 +7757,7 @@
               "updatedAt": "2026-09-02T15:10:21Z",
               "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/33641528148"
             },
-            "ageDays": 23
+            "ageDays": 24
           },
           "schedule": {
             "health": "failing",
@@ -7912,7 +7773,7 @@
               "updatedAt": "2026-07-01T04:37:27Z",
               "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/28493405418"
             },
-            "ageDays": 86
+            "ageDays": 87
           },
           "currentDefaultBranch": {
             "health": "not-applicable",
@@ -7955,7 +7816,7 @@
               "updatedAt": "2026-09-02T15:55:53Z",
               "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/33648892733"
             },
-            "ageDays": 23
+            "ageDays": 24
           },
           "schedule": {
             "health": "healthy",
@@ -7971,7 +7832,7 @@
               "updatedAt": "2026-07-01T05:17:44Z",
               "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/28495233930"
             },
-            "ageDays": 86,
+            "ageDays": 87,
             "freshnessDays": 100
           },
           "currentDefaultBranch": {
@@ -8005,15 +7866,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36089432839,
+              "id": 36214299192,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
               "headSha": "4927a4fdb04fbd3df750c471baaa8e4a1c79df7d",
-              "createdAt": "2026-09-25T03:12:46Z",
-              "updatedAt": "2026-09-25T03:15:59Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/36089432839"
+              "createdAt": "2026-09-26T03:16:32Z",
+              "updatedAt": "2026-09-26T03:19:58Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/36214299192"
             },
             "ageDays": 0
           },
@@ -8021,15 +7882,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 36089432839,
+              "id": 36214299192,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
               "headSha": "4927a4fdb04fbd3df750c471baaa8e4a1c79df7d",
-              "createdAt": "2026-09-25T03:12:46Z",
-              "updatedAt": "2026-09-25T03:15:59Z",
-              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/36089432839"
+              "createdAt": "2026-09-26T03:16:32Z",
+              "updatedAt": "2026-09-26T03:19:58Z",
+              "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/36214299192"
             },
             "ageDays": 0,
             "freshnessDays": 2
@@ -8057,7 +7918,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 130 days old",
+            "reason": "latest run is 131 days old",
             "apiState": "active",
             "lastRun": {
               "id": 26038689795,
@@ -8070,7 +7931,7 @@
               "updatedAt": "2026-05-18T14:09:18Z",
               "url": "https://github.com/Significant-Hobbies/anime-list/actions/runs/26038689795"
             },
-            "ageDays": 130
+            "ageDays": 131
           },
           "schedule": {
             "health": "not-applicable",
@@ -8181,7 +8042,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/anime-list",
         "defaultBranch": "main",
-        "defaultBranchSha": "4927a4fdb04fbd3df750c471baaa8e4a1c79df7d",
+        "defaultBranchSha": "0f22acfbb1c784b4420ba40e1d7c8a8d15af29d2",
         "homepage": "https://anime.significanthobbies.com",
         "query": "verified",
         "disposition": {
@@ -8299,7 +8160,7 @@
               "updatedAt": "2026-09-06T06:06:53Z",
               "url": "https://github.com/sarthakagrawal927/chess/actions/runs/34015639226"
             },
-            "ageDays": 19
+            "ageDays": 20
           },
           "schedule": {
             "health": "not-applicable",
@@ -8331,8 +8192,8 @@
             "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "stale",
+            "reason": "latest run is 31 days old",
             "apiState": "active",
             "lastRun": {
               "id": 32900296311,
@@ -8345,7 +8206,7 @@
               "updatedAt": "2026-08-25T21:18:37Z",
               "url": "https://github.com/sarthakagrawal927/chess/actions/runs/32900296311"
             },
-            "ageDays": 30
+            "ageDays": 31
           },
           "schedule": {
             "health": "not-applicable",
@@ -8398,7 +8259,7 @@
               "updatedAt": "2026-09-21T03:24:15Z",
               "url": "https://github.com/sarthakagrawal927/chess/actions/runs/35557347726"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -8529,7 +8390,7 @@
               "updatedAt": "2026-09-15T10:57:49Z",
               "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34960517706"
             },
-            "ageDays": 10
+            "ageDays": 11
           },
           "schedule": {
             "health": "not-applicable",
@@ -8575,7 +8436,7 @@
               "updatedAt": "2026-09-07T13:17:03Z",
               "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34126457401"
             },
-            "ageDays": 18
+            "ageDays": 19
           },
           "schedule": {
             "health": "not-applicable",
@@ -8596,7 +8457,7 @@
               "updatedAt": "2026-09-07T13:17:03Z",
               "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34126457401"
             },
-            "ageDays": 18
+            "ageDays": 19
           },
           "attention": "ignored"
         },
@@ -8632,7 +8493,7 @@
               "updatedAt": "2026-09-07T13:03:44Z",
               "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34125220328"
             },
-            "ageDays": 18
+            "ageDays": 19
           },
           "schedule": {
             "health": "not-applicable",
@@ -8679,7 +8540,7 @@
               "updatedAt": "2026-09-07T13:16:27Z",
               "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34126457263"
             },
-            "ageDays": 18
+            "ageDays": 19
           },
           "schedule": {
             "health": "not-applicable",
@@ -8700,7 +8561,7 @@
               "updatedAt": "2026-09-07T13:16:27Z",
               "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34126457263"
             },
-            "ageDays": 18
+            "ageDays": 19
           },
           "attention": "ignored"
         },
@@ -8738,7 +8599,7 @@
               "updatedAt": "2026-09-15T10:55:16Z",
               "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34960469581"
             },
-            "ageDays": 10
+            "ageDays": 11
           },
           "schedule": {
             "health": "healthy",
@@ -8754,7 +8615,7 @@
               "updatedAt": "2026-09-15T10:55:16Z",
               "url": "https://github.com/Significant-Hobbies/looptv/actions/runs/34960469581"
             },
-            "ageDays": 10,
+            "ageDays": 11,
             "freshnessDays": 20
           },
           "currentDefaultBranch": {
@@ -9059,7 +8920,7 @@
               "updatedAt": "2026-05-08T16:52:04Z",
               "url": "https://github.com/Significant-Hobbies/reader/actions/runs/25568063470"
             },
-            "ageDays": 140
+            "ageDays": 141
           },
           "schedule": {
             "health": "not-applicable",
@@ -9102,7 +8963,7 @@
               "updatedAt": "2026-09-21T17:04:37Z",
               "url": "https://github.com/Significant-Hobbies/reader/actions/runs/35629551426"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -9231,18 +9092,18 @@
       "source": {
         "state": "available",
         "path": "swe-interview-prep",
-        "revision": "7224d76b953f6f88ca5ab8f9a68d912d813f132e",
+        "revision": "fcac458443b62fc4bac0c6e365f8450b088c9119",
         "repositorySlug": "Significant-Hobbies/swe-interview-prep",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 2,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-09-20",
-        "retainedCommitCount": 455,
+        "latestCommitAt": "2026-09-23",
+        "retainedCommitCount": 459,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9279,7 +9140,7 @@
               "updatedAt": "2026-09-23T04:54:42Z",
               "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35820097834"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "schedule": {
             "health": "not-applicable",
@@ -9300,7 +9161,7 @@
               "updatedAt": "2026-09-23T04:54:42Z",
               "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35820097834"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "attention": "clear"
         },
@@ -9335,7 +9196,7 @@
               "updatedAt": "2026-09-23T05:07:14Z",
               "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35821023837"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "schedule": {
             "health": "not-applicable",
@@ -9440,7 +9301,7 @@
               "updatedAt": "2026-09-21T11:12:11Z",
               "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35592600998"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "healthy",
@@ -9456,7 +9317,7 @@
               "updatedAt": "2026-09-21T11:12:11Z",
               "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35592600998"
             },
-            "ageDays": 4,
+            "ageDays": 5,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -9495,7 +9356,7 @@
               "updatedAt": "2026-09-21T08:56:53Z",
               "url": "https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35580431154"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -9623,18 +9484,18 @@
       "source": {
         "state": "available",
         "path": "calorie",
-        "revision": "d3f3d407fa03aeb08a689b9a3f2503cf701962d7",
+        "revision": "d9a4796a6961e978d1cdeb283a647b54be9ace10",
         "repositorySlug": "Significant-Hobbies/calorie",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 36,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-09-22",
-        "retainedCommitCount": 136,
+        "latestCommitAt": "2026-09-23",
+        "retainedCommitCount": 150,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9774,18 +9635,18 @@
       "source": {
         "state": "available",
         "path": "setline",
-        "revision": "0bbd9577b33af1565eeb1e43558e8dc8ad8872c7",
+        "revision": "ccc3815df4640e72a77e41b707364c9d2157bdfb",
         "repositorySlug": "Significant-Hobbies/setline",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 2,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-07-27",
-        "latestCommitAt": "2026-09-22",
-        "retainedCommitCount": 130,
+        "latestCommitAt": "2026-09-23",
+        "retainedCommitCount": 131,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9946,18 +9807,18 @@
       "source": {
         "state": "available",
         "path": "kith",
-        "revision": "344895435aa6f6360cc0fc11f46f23a76682ec78",
+        "revision": "8b85d555839f125237f3e00af79c49c2da775280",
         "repositorySlug": "Significant-Hobbies/kith",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 3,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-08-16",
-        "latestCommitAt": "2026-09-19",
-        "retainedCommitCount": 58,
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 61,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10050,8 +9911,8 @@
         "revision": "cb43f2bc962b2f706986ccc4ecf627cb9ae58f5d",
         "repositorySlug": "Significant-Hobbies/ios-landings",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 3,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
@@ -10095,7 +9956,7 @@
               "updatedAt": "2026-09-25T06:13:33Z",
               "url": "https://github.com/Significant-Hobbies/ios-landings/actions/runs/36101866847"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "not-applicable",
@@ -10116,7 +9977,7 @@
               "updatedAt": "2026-09-25T06:13:33Z",
               "url": "https://github.com/Significant-Hobbies/ios-landings/actions/runs/36101866847"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "attention": "action-required"
         }
@@ -10187,7 +10048,7 @@
         "repositorySlug": "Significant-Hobbies/rolepatch",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 1,
+          "trackedChangeCount": 2,
           "deletedWorkflowFiles": []
         }
       },
@@ -10288,7 +10149,7 @@
               "updatedAt": "2026-09-10T16:05:17Z",
               "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/34499553562"
             },
-            "ageDays": 15
+            "ageDays": 16
           },
           "schedule": {
             "health": "not-applicable",
@@ -10388,7 +10249,7 @@
               "updatedAt": "2026-09-21T23:36:11Z",
               "url": "https://github.com/Significant-Hobbies/rolepatch/actions/runs/35668234653"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "schedule": {
             "health": "not-applicable",
@@ -10501,18 +10362,18 @@
       "source": {
         "state": "available",
         "path": "karte",
-        "revision": "10ab85cae2718518f4ee25dfa3828005400f75b1",
+        "revision": "3fa6d8e9b28a0ab44c61be3215d7ac4330b21838",
         "repositorySlug": "Significant-Hobbies/karte",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 2,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-03-05",
-        "latestCommitAt": "2026-09-22",
-        "retainedCommitCount": 528,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 536,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10539,15 +10400,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36176755323,
+              "id": 36228690150,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "5ebf997f0f345aa0f0b06cd8b8ccc018c1b54a00",
-              "createdAt": "2026-09-25T18:58:08Z",
-              "updatedAt": "2026-09-25T19:00:40Z",
-              "url": "https://github.com/Significant-Hobbies/karte/actions/runs/36176755323"
+              "headSha": "3fa6d8e9b28a0ab44c61be3215d7ac4330b21838",
+              "createdAt": "2026-09-26T08:04:30Z",
+              "updatedAt": "2026-09-26T08:07:13Z",
+              "url": "https://github.com/Significant-Hobbies/karte/actions/runs/36228690150"
             },
             "ageDays": 0
           },
@@ -10560,15 +10421,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36176755323,
+              "id": 36228690150,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "5ebf997f0f345aa0f0b06cd8b8ccc018c1b54a00",
-              "createdAt": "2026-09-25T18:58:08Z",
-              "updatedAt": "2026-09-25T19:00:40Z",
-              "url": "https://github.com/Significant-Hobbies/karte/actions/runs/36176755323"
+              "headSha": "3fa6d8e9b28a0ab44c61be3215d7ac4330b21838",
+              "createdAt": "2026-09-26T08:04:30Z",
+              "updatedAt": "2026-09-26T08:07:13Z",
+              "url": "https://github.com/Significant-Hobbies/karte/actions/runs/36228690150"
             },
             "ageDays": 0
           },
@@ -10651,7 +10512,7 @@
               "updatedAt": "2026-09-07T14:00:58Z",
               "url": "https://github.com/Significant-Hobbies/karte/actions/runs/34130582349"
             },
-            "ageDays": 18
+            "ageDays": 19
           },
           "schedule": {
             "health": "not-applicable",
@@ -10660,7 +10521,7 @@
           },
           "currentDefaultBranch": {
             "health": "missing",
-            "reason": "no push run at current main revision 5ebf997",
+            "reason": "no push run at current main revision 3fa6d8e",
             "lastRun": {
               "id": 34130582349,
               "status": "completed",
@@ -10704,7 +10565,7 @@
               "updatedAt": "2026-09-21T22:55:03Z",
               "url": "https://github.com/Significant-Hobbies/karte/actions/runs/35665012744"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "schedule": {
             "health": "not-applicable",
@@ -10813,7 +10674,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/karte",
         "defaultBranch": "main",
-        "defaultBranchSha": "5ebf997f0f345aa0f0b06cd8b8ccc018c1b54a00",
+        "defaultBranchSha": "3fa6d8e9b28a0ab44c61be3215d7ac4330b21838",
         "homepage": "https://karte.cc",
         "query": "verified",
         "disposition": {
@@ -10826,18 +10687,18 @@
       "source": {
         "state": "available",
         "path": "starboard",
-        "revision": "46408dfe6c3bac06a51676cf1992a7c8f94d2be7",
+        "revision": "e1481494ed1521b2c3cf49b3706450627b89df34",
         "repositorySlug": "Codevetter/starboard",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 9,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-09-22",
-        "retainedCommitCount": 418,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 426,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10930,7 +10791,7 @@
               "updatedAt": "2026-09-25T11:11:30Z",
               "url": "https://github.com/Codevetter/starboard/actions/runs/36128003657"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "not-applicable",
@@ -11065,7 +10926,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 54 days old",
+            "reason": "latest run is 55 days old",
             "apiState": "active",
             "lastRun": {
               "id": 30721198381,
@@ -11078,7 +10939,7 @@
               "updatedAt": "2026-08-01T22:25:14Z",
               "url": "https://github.com/Codevetter/starboard/actions/runs/30721198381"
             },
-            "ageDays": 54
+            "ageDays": 55
           },
           "schedule": {
             "health": "not-applicable",
@@ -11110,7 +10971,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 47 days old",
+            "reason": "latest run is 48 days old",
             "apiState": "active",
             "lastRun": {
               "id": 31315689133,
@@ -11123,7 +10984,7 @@
               "updatedAt": "2026-08-09T13:23:48Z",
               "url": "https://github.com/Codevetter/starboard/actions/runs/31315689133"
             },
-            "ageDays": 47
+            "ageDays": 48
           },
           "schedule": {
             "health": "not-applicable",
@@ -11171,7 +11032,7 @@
               "updatedAt": "2026-09-25T11:41:22Z",
               "url": "https://github.com/Codevetter/starboard/actions/runs/36128059293"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "recovered-manually",
@@ -11198,7 +11059,7 @@
               "updatedAt": "2026-09-25T11:41:22Z",
               "url": "https://github.com/Codevetter/starboard/actions/runs/36128059293"
             },
-            "ageDays": 5
+            "ageDays": 6
           },
           "currentDefaultBranch": {
             "health": "not-applicable",
@@ -11279,7 +11140,7 @@
               "updatedAt": "2026-09-21T03:54:59Z",
               "url": "https://github.com/Codevetter/starboard/actions/runs/35559045110"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -11506,7 +11367,7 @@
               "updatedAt": "2026-09-06T06:07:02Z",
               "url": "https://github.com/sarthakagrawal927/aliveville/actions/runs/34015634206"
             },
-            "ageDays": 19
+            "ageDays": 20
           },
           "schedule": {
             "health": "not-applicable",
@@ -11720,7 +11581,7 @@
               "updatedAt": "2026-09-22T05:02:43Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35689148463"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "schedule": {
             "health": "not-applicable",
@@ -11741,7 +11602,7 @@
               "updatedAt": "2026-09-22T05:02:43Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35689148463"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "attention": "ignored"
         },
@@ -11777,7 +11638,7 @@
               "updatedAt": "2026-09-07T13:48:22Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/34129434622"
             },
-            "ageDays": 18
+            "ageDays": 19
           },
           "schedule": {
             "health": "not-applicable",
@@ -11833,7 +11694,7 @@
               "updatedAt": "2026-09-21T08:08:12Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576276857"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -11879,7 +11740,7 @@
               "updatedAt": "2026-09-21T13:53:25Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576277132"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -11925,7 +11786,7 @@
               "updatedAt": "2026-09-21T13:53:30Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576276802"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -11973,7 +11834,7 @@
               "updatedAt": "2026-09-21T09:13:32Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35581350014"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "healthy",
@@ -11989,7 +11850,7 @@
               "updatedAt": "2026-09-21T09:13:32Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35581350014"
             },
-            "ageDays": 4,
+            "ageDays": 5,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -12313,7 +12174,7 @@
               "updatedAt": "2026-09-21T08:07:40Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35575692322"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "healthy",
@@ -12329,7 +12190,7 @@
               "updatedAt": "2026-09-21T08:07:40Z",
               "url": "https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35575692322"
             },
-            "ageDays": 4,
+            "ageDays": 5,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -12432,121 +12293,31 @@
       }
     },
     "veg-protein-food": {
+      "projectId": "veg-protein-food",
       "source": {
-        "state": "available",
-        "path": "../fleet-archive/veg-protein-food",
-        "revision": "665bff53538953ac329d6b2322cab9d95163022f",
-        "repositorySlug": "sarthakagrawal927/veg-protein-food",
-        "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
-          "deletedWorkflowFiles": []
-        }
+        "state": "unavailable",
+        "path": null,
+        "revision": null,
+        "repositorySlug": null,
+        "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-08-15",
-        "latestCommitAt": "2026-09-06",
-        "retainedCommitCount": 11,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
-      "githubActions": [
-        {
-          "name": "CI",
-          "file": ".github/workflows/ci.yml",
-          "triggers": [
-            "pull_request",
-            "push"
-          ],
-          "schedules": [],
-          "inventory": {
-            "source": "tracked",
-            "local": true,
-            "remote": true
-          },
-          "ownerDisposition": {
-            "status": "ignored",
-            "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-          },
-          "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
-            "apiState": "active",
-            "lastRun": {
-              "id": 35635191482,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "98014fc5ea4dabe94547f67f6d8d905f4014f0fd",
-              "createdAt": "2026-09-21T17:56:37Z",
-              "updatedAt": "2026-09-21T17:56:52Z",
-              "url": "https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/35635191482"
-            },
-            "ageDays": 4
-          },
-          "schedule": {
-            "health": "not-applicable",
-            "reason": "workflow has no schedule trigger",
-            "lastRun": null
-          },
-          "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
-            "lastRun": {
-              "id": 35635191482,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "98014fc5ea4dabe94547f67f6d8d905f4014f0fd",
-              "createdAt": "2026-09-21T17:56:37Z",
-              "updatedAt": "2026-09-21T17:56:52Z",
-              "url": "https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/35635191482"
-            },
-            "ageDays": 4
-          },
-          "attention": "ignored"
-        }
-      ],
-      "toolingSignals": [
-        {
-          "name": "Astro",
-          "evidence": [
-            "astro.config.mjs"
-          ]
-        },
-        {
-          "name": "Cloudflare Wrangler",
-          "evidence": [
-            "wrangler.jsonc"
-          ]
-        },
-        {
-          "name": "npm",
-          "evidence": [
-            "package-lock.json"
-          ]
-        }
-      ],
+      "githubActions": [],
+      "toolingSignals": [],
       "packageManager": null,
-      "rootPackageScripts": [
-        "build",
-        "check",
-        "data:fetch",
-        "data:rebuild",
-        "deploy",
-        "dev",
-        "preview",
-        "test"
-      ],
-      "projectId": "veg-protein-food",
+      "rootPackageScripts": [],
       "githubActionsMeta": {
-        "repository": "sarthakagrawal927/veg-protein-food",
-        "defaultBranch": "main",
-        "defaultBranchSha": "98014fc5ea4dabe94547f67f6d8d905f4014f0fd",
-        "homepage": "https://veg-protein-food.significanthobbies.com",
-        "query": "verified",
+        "repository": null,
+        "defaultBranch": null,
+        "defaultBranchSha": null,
+        "homepage": null,
+        "query": "unverifiable",
         "disposition": {
           "disposition": "ignored",
           "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
@@ -12557,18 +12328,18 @@
       "source": {
         "state": "available",
         "path": "app-health",
-        "revision": "4c15ce187224176e7cd894a25d646cfd63949903",
+        "revision": "db05da1829a808708c342c7612d2fb7da3826bd1",
         "repositorySlug": "sass-maker/app-health",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 2,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-07-20",
-        "latestCommitAt": "2026-09-26",
-        "retainedCommitCount": 154,
+        "latestCommitAt": "2026-09-23",
+        "retainedCommitCount": 166,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12605,7 +12376,7 @@
               "updatedAt": "2026-09-23T10:06:41Z",
               "url": "https://github.com/sass-maker/app-health/actions/runs/35846376299"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "schedule": {
             "health": "not-applicable",
@@ -12626,7 +12397,7 @@
               "updatedAt": "2026-09-23T10:06:41Z",
               "url": "https://github.com/sass-maker/app-health/actions/runs/35846376299"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "attention": "clear"
         }
@@ -12668,6 +12439,7 @@
         {
           "name": "Swift Package Manager",
           "evidence": [
+            "Package.swift",
             "packages/swift/Package.swift"
           ]
         },
@@ -12710,6 +12482,7 @@
         "verify:js-runtimes",
         "verify:local-sdk",
         "verify:public-viewer",
+        "verify:swift-packages",
         "verify:swift-runtime"
       ],
       "projectId": "app-health",
@@ -13103,7 +12876,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 90 days old",
+            "reason": "latest run is 91 days old",
             "apiState": "active",
             "lastRun": {
               "id": 28280282798,
@@ -13116,7 +12889,7 @@
               "updatedAt": "2026-06-27T05:46:43Z",
               "url": "https://github.com/sarthakagrawal927/truehire/actions/runs/28280282798"
             },
-            "ageDays": 90
+            "ageDays": 91
           },
           "schedule": {
             "health": "not-applicable",
@@ -13161,7 +12934,7 @@
               "updatedAt": "2026-09-09T23:04:49Z",
               "url": "https://github.com/sarthakagrawal927/truehire/actions/runs/34415233603"
             },
-            "ageDays": 15
+            "ageDays": 16
           },
           "schedule": {
             "health": "not-applicable",
@@ -13264,12 +13037,12 @@
     "open-historia": {
       "source": {
         "state": "available",
-        "path": "../fleet-archive/open-historia",
+        "path": "fleet-archive/open-historia",
         "revision": "0195ec004bd339b8d7ad4b6cfca776d87af2c557",
         "repositorySlug": "sarthakagrawal927/open-historia",
         "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
+          "state": "dirty",
+          "trackedChangeCount": 1,
           "deletedWorkflowFiles": []
         }
       },
@@ -13369,7 +13142,7 @@
               "updatedAt": "2026-09-06T06:07:03Z",
               "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/34015652329"
             },
-            "ageDays": 19
+            "ageDays": 20
           },
           "schedule": {
             "health": "not-applicable",
@@ -13417,7 +13190,7 @@
               "updatedAt": "2026-09-21T15:23:46Z",
               "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/35618564190"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "healthy",
@@ -13433,7 +13206,7 @@
               "updatedAt": "2026-09-21T15:23:46Z",
               "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/35618564190"
             },
-            "ageDays": 4,
+            "ageDays": 5,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -13472,7 +13245,7 @@
               "updatedAt": "2026-09-21T06:35:13Z",
               "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/35569060709"
             },
-            "ageDays": 4
+            "ageDays": 5
           },
           "schedule": {
             "health": "not-applicable",
@@ -13586,7 +13359,7 @@
       "source": {
         "state": "available",
         "path": "ph-catalog",
-        "revision": "f57cdbac9f69fa8faf042399cf9707795e9c20d0",
+        "revision": "ea052e2024ccf006b634cdee9a3e2c0333483d2f",
         "repositorySlug": "sarthakagrawal927/ph-catalog",
         "worktree": {
           "state": "clean",
@@ -13596,8 +13369,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-31",
-        "latestCommitAt": "2026-09-12",
-        "retainedCommitCount": 13,
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 14,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13626,15 +13399,15 @@
             "reason": "latest run is queued",
             "apiState": "active",
             "lastRun": {
-              "id": 36075453344,
+              "id": 36203719431,
               "status": "queued",
               "conclusion": null,
               "event": "schedule",
               "branch": "main",
               "headSha": "ea052e2024ccf006b634cdee9a3e2c0333483d2f",
-              "createdAt": "2026-09-25T00:00:01Z",
-              "updatedAt": "2026-09-25T00:00:01Z",
-              "url": "https://github.com/sarthakagrawal927/ph-catalog/actions/runs/36075453344"
+              "createdAt": "2026-09-26T00:08:40Z",
+              "updatedAt": "2026-09-26T00:08:40Z",
+              "url": "https://github.com/sarthakagrawal927/ph-catalog/actions/runs/36203719431"
             },
             "ageDays": 0
           },
@@ -13642,15 +13415,15 @@
             "health": "running",
             "reason": "latest scheduled run is queued",
             "lastRun": {
-              "id": 36075453344,
+              "id": 36203719431,
               "status": "queued",
               "conclusion": null,
               "event": "schedule",
               "branch": "main",
               "headSha": "ea052e2024ccf006b634cdee9a3e2c0333483d2f",
-              "createdAt": "2026-09-25T00:00:01Z",
-              "updatedAt": "2026-09-25T00:00:01Z",
-              "url": "https://github.com/sarthakagrawal927/ph-catalog/actions/runs/36075453344"
+              "createdAt": "2026-09-26T00:08:40Z",
+              "updatedAt": "2026-09-26T00:08:40Z",
+              "url": "https://github.com/sarthakagrawal927/ph-catalog/actions/runs/36203719431"
             },
             "ageDays": 0
           },
@@ -14030,7 +13803,7 @@
               "updatedAt": "2026-09-06T06:07:06Z",
               "url": "https://github.com/sarthakagrawal927/web-playables/actions/runs/34015647092"
             },
-            "ageDays": 19
+            "ageDays": 20
           },
           "schedule": {
             "health": "not-applicable",
@@ -14108,8 +13881,8 @@
         "revision": "1dbce9b699fc1deb468c56d692b80e72a454814a",
         "repositorySlug": "Significant-Hobbies/what-it-takes-to-win",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 2,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
@@ -14153,7 +13926,7 @@
               "updatedAt": "2026-09-22T03:48:28Z",
               "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/35684329168"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "schedule": {
             "health": "not-applicable",
@@ -14174,7 +13947,7 @@
               "updatedAt": "2026-09-22T03:48:28Z",
               "url": "https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/35684329168"
             },
-            "ageDays": 3
+            "ageDays": 4
           },
           "attention": "clear"
         }
@@ -14346,7 +14119,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 126 days old",
+            "reason": "latest run is 127 days old",
             "apiState": "active",
             "lastRun": {
               "id": 26280785969,
@@ -14359,7 +14132,7 @@
               "updatedAt": "2026-05-22T09:50:23Z",
               "url": "https://github.com/sarthakagrawal927/portfolio/actions/runs/26280785969"
             },
-            "ageDays": 126
+            "ageDays": 127
           },
           "schedule": {
             "health": "not-applicable",
@@ -14457,177 +14230,31 @@
       }
     },
     "agent-office": {
+      "projectId": "agent-office",
       "source": {
-        "state": "available",
-        "path": "../fleet-archive/agent-office",
-        "revision": "9f6a80eca40884b867f865e686810e3fa91f9d42",
-        "repositorySlug": "sass-maker/agent-office",
-        "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
-          "deletedWorkflowFiles": []
-        }
+        "state": "unavailable",
+        "path": null,
+        "revision": null,
+        "repositorySlug": null,
+        "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-09-18",
-        "retainedCommitCount": 68,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
-      "githubActions": [
-        {
-          "name": "Native Quality",
-          "file": ".github/workflows/native-quality.yml",
-          "triggers": [
-            "pull_request",
-            "push"
-          ],
-          "schedules": [],
-          "inventory": {
-            "source": "tracked",
-            "local": true,
-            "remote": true
-          },
-          "ownerDisposition": {
-            "status": "ignored",
-            "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-          },
-          "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
-            "apiState": "active",
-            "lastRun": {
-              "id": 35635260160,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "79fef9611496ad29ac05e5d65d51cd8055bfa532",
-              "createdAt": "2026-09-21T17:57:16Z",
-              "updatedAt": "2026-09-21T18:01:17Z",
-              "url": "https://github.com/sass-maker/agent-office/actions/runs/35635260160"
-            },
-            "ageDays": 4
-          },
-          "schedule": {
-            "health": "not-applicable",
-            "reason": "workflow has no schedule trigger",
-            "lastRun": null
-          },
-          "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
-            "lastRun": {
-              "id": 35635260160,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "79fef9611496ad29ac05e5d65d51cd8055bfa532",
-              "createdAt": "2026-09-21T17:57:16Z",
-              "updatedAt": "2026-09-21T18:01:17Z",
-              "url": "https://github.com/sass-maker/agent-office/actions/runs/35635260160"
-            },
-            "ageDays": 4
-          },
-          "attention": "ignored"
-        },
-        {
-          "name": "Site Check",
-          "file": ".github/workflows/site-check.yml",
-          "triggers": [
-            "pull_request",
-            "push"
-          ],
-          "schedules": [],
-          "inventory": {
-            "source": "tracked",
-            "local": true,
-            "remote": true
-          },
-          "ownerDisposition": {
-            "status": "ignored",
-            "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-          },
-          "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
-            "apiState": "active",
-            "lastRun": {
-              "id": 35635260141,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "79fef9611496ad29ac05e5d65d51cd8055bfa532",
-              "createdAt": "2026-09-21T17:57:16Z",
-              "updatedAt": "2026-09-21T17:57:42Z",
-              "url": "https://github.com/sass-maker/agent-office/actions/runs/35635260141"
-            },
-            "ageDays": 4
-          },
-          "schedule": {
-            "health": "not-applicable",
-            "reason": "workflow has no schedule trigger",
-            "lastRun": null
-          },
-          "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
-            "lastRun": {
-              "id": 35635260141,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "79fef9611496ad29ac05e5d65d51cd8055bfa532",
-              "createdAt": "2026-09-21T17:57:16Z",
-              "updatedAt": "2026-09-21T17:57:42Z",
-              "url": "https://github.com/sass-maker/agent-office/actions/runs/35635260141"
-            },
-            "ageDays": 4
-          },
-          "attention": "ignored"
-        }
-      ],
-      "toolingSignals": [
-        {
-          "name": "Cloudflare Wrangler",
-          "evidence": [
-            "wrangler.jsonc"
-          ]
-        },
-        {
-          "name": "Swift Package Manager",
-          "evidence": [
-            "Package.swift"
-          ]
-        }
-      ],
+      "githubActions": [],
+      "toolingSignals": [],
       "packageManager": null,
-      "rootPackageScripts": [
-        "deploy",
-        "format:check",
-        "lint",
-        "quality",
-        "quality:complexity",
-        "quality:dependencies",
-        "quality:duplication",
-        "quality:hygiene",
-        "quality:suppressions",
-        "quality:unused",
-        "test",
-        "test:coverage",
-        "typecheck"
-      ],
-      "projectId": "agent-office",
+      "rootPackageScripts": [],
       "githubActionsMeta": {
-        "repository": "sass-maker/agent-office",
-        "defaultBranch": "main",
-        "defaultBranchSha": "79fef9611496ad29ac05e5d65d51cd8055bfa532",
-        "homepage": "https://office-os.sassmaker.com",
-        "query": "verified",
+        "repository": null,
+        "defaultBranch": null,
+        "defaultBranchSha": null,
+        "homepage": null,
+        "query": "unverifiable",
         "disposition": {
           "disposition": "ignored",
           "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
@@ -14635,184 +14262,31 @@
       }
     },
     "local-ai-video-studio": {
+      "projectId": "local-ai-video-studio",
       "source": {
-        "state": "available",
-        "path": "../fleet-archive/local-ai-video-studio",
-        "revision": "09bb60bab35d5cf3fe9197da1254bbe88f3a9aaf",
-        "repositorySlug": "sass-maker/local-ai-video-studio",
-        "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
-          "deletedWorkflowFiles": []
-        }
+        "state": "unavailable",
+        "path": null,
+        "revision": null,
+        "repositorySlug": null,
+        "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-08-09",
-        "latestCommitAt": "2026-09-18",
-        "retainedCommitCount": 33,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
-      "githubActions": [
-        {
-          "name": "Native Quality",
-          "file": ".github/workflows/native-quality.yml",
-          "triggers": [
-            "pull_request",
-            "push"
-          ],
-          "schedules": [],
-          "inventory": {
-            "source": "tracked",
-            "local": true,
-            "remote": true
-          },
-          "ownerDisposition": {
-            "status": "ignored",
-            "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-          },
-          "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
-            "apiState": "active",
-            "lastRun": {
-              "id": 35635265337,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "681559e31a6358768e65defa8ad043febf83deaf",
-              "createdAt": "2026-09-21T17:57:19Z",
-              "updatedAt": "2026-09-21T17:59:39Z",
-              "url": "https://github.com/sass-maker/local-ai-video-studio/actions/runs/35635265337"
-            },
-            "ageDays": 4
-          },
-          "schedule": {
-            "health": "not-applicable",
-            "reason": "workflow has no schedule trigger",
-            "lastRun": null
-          },
-          "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
-            "lastRun": {
-              "id": 35635265337,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "681559e31a6358768e65defa8ad043febf83deaf",
-              "createdAt": "2026-09-21T17:57:19Z",
-              "updatedAt": "2026-09-21T17:59:39Z",
-              "url": "https://github.com/sass-maker/local-ai-video-studio/actions/runs/35635265337"
-            },
-            "ageDays": 4
-          },
-          "attention": "ignored"
-        },
-        {
-          "name": "Site Check",
-          "file": ".github/workflows/site-check.yml",
-          "triggers": [
-            "pull_request",
-            "push"
-          ],
-          "schedules": [],
-          "inventory": {
-            "source": "tracked",
-            "local": true,
-            "remote": true
-          },
-          "ownerDisposition": {
-            "status": "ignored",
-            "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-          },
-          "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
-            "apiState": "active",
-            "lastRun": {
-              "id": 35635265171,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "681559e31a6358768e65defa8ad043febf83deaf",
-              "createdAt": "2026-09-21T17:57:19Z",
-              "updatedAt": "2026-09-21T17:57:30Z",
-              "url": "https://github.com/sass-maker/local-ai-video-studio/actions/runs/35635265171"
-            },
-            "ageDays": 4
-          },
-          "schedule": {
-            "health": "not-applicable",
-            "reason": "workflow has no schedule trigger",
-            "lastRun": null
-          },
-          "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
-            "lastRun": {
-              "id": 35635265171,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "681559e31a6358768e65defa8ad043febf83deaf",
-              "createdAt": "2026-09-21T17:57:19Z",
-              "updatedAt": "2026-09-21T17:57:30Z",
-              "url": "https://github.com/sass-maker/local-ai-video-studio/actions/runs/35635265171"
-            },
-            "ageDays": 4
-          },
-          "attention": "ignored"
-        }
-      ],
-      "toolingSignals": [
-        {
-          "name": "Cloudflare Wrangler",
-          "evidence": [
-            "wrangler.jsonc"
-          ]
-        },
-        {
-          "name": "Swift Package Manager",
-          "evidence": [
-            "Package.swift"
-          ]
-        }
-      ],
+      "githubActions": [],
+      "toolingSignals": [],
       "packageManager": null,
-      "rootPackageScripts": [
-        "build",
-        "check",
-        "deploy",
-        "format:check",
-        "knip",
-        "lint",
-        "quality",
-        "quality:build",
-        "quality:complexity",
-        "quality:coverage",
-        "quality:dependencies",
-        "quality:duplication",
-        "quality:format",
-        "quality:hygiene",
-        "quality:site",
-        "quality:suppressions",
-        "quality:unused",
-        "test",
-        "test:coverage",
-        "typecheck"
-      ],
-      "projectId": "local-ai-video-studio",
+      "rootPackageScripts": [],
       "githubActionsMeta": {
-        "repository": "sass-maker/local-ai-video-studio",
-        "defaultBranch": "main",
-        "defaultBranchSha": "681559e31a6358768e65defa8ad043febf83deaf",
-        "homepage": "https://local-ai-video-studio.sassmaker.com",
-        "query": "verified",
+        "repository": null,
+        "defaultBranch": null,
+        "defaultBranchSha": null,
+        "homepage": null,
+        "query": "unverifiable",
         "disposition": {
           "disposition": "ignored",
           "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
@@ -15178,7 +14652,7 @@
           },
           "live": {
             "health": "stale",
-            "reason": "latest run is 84 days old",
+            "reason": "latest run is 85 days old",
             "apiState": "active",
             "lastRun": {
               "id": 28654888874,
@@ -15191,7 +14665,7 @@
               "updatedAt": "2026-07-03T10:33:51Z",
               "url": "https://github.com/sarthakagrawal927/verified-bases/actions/runs/28654888874"
             },
-            "ageDays": 84
+            "ageDays": 85
           },
           "schedule": {
             "health": "not-applicable",
@@ -15260,18 +14734,18 @@
       "source": {
         "state": "available",
         "path": "anchor",
-        "revision": "9b6bbb014a1551176df338fffdc7e91a28c428ce",
+        "revision": "ebbef0ae752e52086728acf92c1474e698c21f30",
         "repositorySlug": "Significant-Hobbies/anchor",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 7,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-08-16",
-        "latestCommitAt": "2026-09-18",
-        "retainedCommitCount": 116,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 147,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15293,21 +14767,21 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "failing",
+            "reason": "latest run concluded failure",
             "apiState": "active",
             "lastRun": {
-              "id": 35770160659,
+              "id": 36256423165,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "failure",
               "event": "workflow_dispatch",
-              "branch": "main",
-              "headSha": "fef2d5a3955cde1b4e5ca12092f312e080e832e5",
-              "createdAt": "2026-09-22T18:53:17Z",
-              "updatedAt": "2026-09-22T19:18:09Z",
-              "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/35770160659"
+              "branch": "today-timetable-logger",
+              "headSha": "dc7775296cb2abed1e32c4f632dc30aa8ec7fd49",
+              "createdAt": "2026-09-26T16:42:35Z",
+              "updatedAt": "2026-09-26T17:05:42Z",
+              "url": "https://github.com/Significant-Hobbies/anchor/actions/runs/36256423165"
             },
-            "ageDays": 3
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -15319,7 +14793,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "clear"
+          "attention": "review-history"
         }
       ],
       "toolingSignals": [
@@ -15451,7 +14925,7 @@
               "updatedAt": "2026-09-13T16:26:59Z",
               "url": "https://github.com/sarthakagrawal927/nomad-data-adventure/actions/runs/34768583692"
             },
-            "ageDays": 12
+            "ageDays": 13
           },
           "schedule": {
             "health": "not-applicable",
@@ -15499,18 +14973,18 @@
       "source": {
         "state": "available",
         "path": "storagedaddy",
-        "revision": "691d4d4f2a38316a4367bd9acfbaf6f7e42d2fee",
+        "revision": "0df4cd999933281cd1b7f44c2bd73acf3e74f989",
         "repositorySlug": "sarthakagrawal927/storagedaddy",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 23,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-09-13",
-        "latestCommitAt": "2026-09-25",
-        "retainedCommitCount": 37,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 58,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15580,13 +15054,13 @@
           ],
           "schedules": [],
           "inventory": {
-            "source": "remote-only",
-            "local": false,
+            "source": "tracked",
+            "local": true,
             "remote": true
           },
           "ownerDisposition": {
-            "status": "needs-reconciliation",
-            "reason": "workflow exists in GitHub but not in the local working tree"
+            "status": "active",
+            "reason": "tracked workflow"
           },
           "live": {
             "health": "healthy",
@@ -15615,7 +15089,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "reconcile"
+          "attention": "clear"
         }
       ],
       "toolingSignals": [
@@ -15663,18 +15137,18 @@
       "source": {
         "state": "available",
         "path": "browserdaddy",
-        "revision": "e472a2040988457579ff61dece66f09e3c2a982e",
+        "revision": "dcd51a57314ffcd5172759e1f970394eea3bf6bf",
         "repositorySlug": "sarthakagrawal927/browserdaddy",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 3,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-09-19",
-        "latestCommitAt": "2026-09-25",
-        "retainedCommitCount": 46,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 84,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15701,15 +15175,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36184417500,
+              "id": 36245386647,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "b93dd886e5c3363c503f42bf65b3ba326b20dcd1",
-              "createdAt": "2026-09-25T20:13:05Z",
-              "updatedAt": "2026-09-25T20:15:16Z",
-              "url": "https://github.com/sarthakagrawal927/browserdaddy/actions/runs/36184417500"
+              "headSha": "dcd51a57314ffcd5172759e1f970394eea3bf6bf",
+              "createdAt": "2026-09-26T13:30:18Z",
+              "updatedAt": "2026-09-26T13:33:38Z",
+              "url": "https://github.com/sarthakagrawal927/browserdaddy/actions/runs/36245386647"
             },
             "ageDays": 0
           },
@@ -15722,15 +15196,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36184417500,
+              "id": 36245386647,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "b93dd886e5c3363c503f42bf65b3ba326b20dcd1",
-              "createdAt": "2026-09-25T20:13:05Z",
-              "updatedAt": "2026-09-25T20:15:16Z",
-              "url": "https://github.com/sarthakagrawal927/browserdaddy/actions/runs/36184417500"
+              "headSha": "dcd51a57314ffcd5172759e1f970394eea3bf6bf",
+              "createdAt": "2026-09-26T13:30:18Z",
+              "updatedAt": "2026-09-26T13:33:38Z",
+              "url": "https://github.com/sarthakagrawal927/browserdaddy/actions/runs/36245386647"
             },
             "ageDays": 0
           },
@@ -15744,28 +15218,28 @@
           ],
           "schedules": [],
           "inventory": {
-            "source": "remote-only",
-            "local": false,
+            "source": "tracked",
+            "local": true,
             "remote": true
           },
           "ownerDisposition": {
-            "status": "needs-reconciliation",
-            "reason": "workflow exists in GitHub but not in the local working tree"
+            "status": "active",
+            "reason": "tracked workflow"
           },
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36183142078,
+              "id": 36244668955,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "9a1768666072ee87d261b777e5fcf055117cbc6d",
-              "createdAt": "2026-09-25T20:00:44Z",
-              "updatedAt": "2026-09-25T20:07:09Z",
-              "url": "https://github.com/sarthakagrawal927/browserdaddy/actions/runs/36183142078"
+              "headSha": "1aac8e3b09e77e7783fd0575ba34b64eaa37c641",
+              "createdAt": "2026-09-26T13:17:24Z",
+              "updatedAt": "2026-09-26T13:24:25Z",
+              "url": "https://github.com/sarthakagrawal927/browserdaddy/actions/runs/36244668955"
             },
             "ageDays": 0
           },
@@ -15779,7 +15253,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "reconcile"
+          "attention": "clear"
         }
       ],
       "toolingSignals": [
@@ -15800,6 +15274,12 @@
           "evidence": [
             "Package.swift"
           ]
+        },
+        {
+          "name": "Xcode",
+          "evidence": [
+            "SafariTabsExtension/SafariTabsExtension.xcodeproj/project.pbxproj"
+          ]
         }
       ],
       "packageManager": null,
@@ -15808,7 +15288,7 @@
       "githubActionsMeta": {
         "repository": "sarthakagrawal927/browserdaddy",
         "defaultBranch": "main",
-        "defaultBranchSha": "b93dd886e5c3363c503f42bf65b3ba326b20dcd1",
+        "defaultBranchSha": "dcd51a57314ffcd5172759e1f970394eea3bf6bf",
         "homepage": "https://browser.daddyrad.com",
         "query": "verified",
         "disposition": {
@@ -15821,18 +15301,18 @@
       "source": {
         "state": "available",
         "path": "performancedaddy",
-        "revision": "0b91a0a9d15d10a2dd6659683c99bb263f255fad",
+        "revision": "a24fa5f596f460c4b2adeb8d82b94673684fbd19",
         "repositorySlug": "sarthakagrawal927/performancedaddy",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 4,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-09-20",
-        "latestCommitAt": "2026-09-25",
-        "retainedCommitCount": 21,
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 48,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15859,15 +15339,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36185753814,
+              "id": 36254718131,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6cb4fc2eecb4f747884c493e694b505e94baff5e",
-              "createdAt": "2026-09-25T20:26:15Z",
-              "updatedAt": "2026-09-25T20:28:55Z",
-              "url": "https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36185753814"
+              "headSha": "8a9735c6eaab7f7c068983bb4a1d213dac44fe12",
+              "createdAt": "2026-09-26T16:14:02Z",
+              "updatedAt": "2026-09-26T16:17:09Z",
+              "url": "https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36254718131"
             },
             "ageDays": 0
           },
@@ -15877,22 +15357,21 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
+            "health": "missing",
+            "reason": "no push run at current main revision a24fa5f",
             "lastRun": {
-              "id": 36185753814,
+              "id": 36254718131,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "6cb4fc2eecb4f747884c493e694b505e94baff5e",
-              "createdAt": "2026-09-25T20:26:15Z",
-              "updatedAt": "2026-09-25T20:28:55Z",
-              "url": "https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36185753814"
-            },
-            "ageDays": 0
+              "headSha": "8a9735c6eaab7f7c068983bb4a1d213dac44fe12",
+              "createdAt": "2026-09-26T16:14:02Z",
+              "updatedAt": "2026-09-26T16:17:09Z",
+              "url": "https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36254718131"
+            }
           },
-          "attention": "clear"
+          "attention": "missing-data"
         },
         {
           "name": "Protected manual release",
@@ -15902,28 +15381,28 @@
           ],
           "schedules": [],
           "inventory": {
-            "source": "remote-only",
-            "local": false,
+            "source": "tracked",
+            "local": true,
             "remote": true
           },
           "ownerDisposition": {
-            "status": "needs-reconciliation",
-            "reason": "workflow exists in GitHub but not in the local working tree"
+            "status": "active",
+            "reason": "tracked workflow"
           },
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36183263765,
+              "id": 36254939507,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "0c541aa03249c746615875f2af0d3f4379ee422b",
-              "createdAt": "2026-09-25T20:01:55Z",
-              "updatedAt": "2026-09-25T20:10:14Z",
-              "url": "https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36183263765"
+              "headSha": "8a9735c6eaab7f7c068983bb4a1d213dac44fe12",
+              "createdAt": "2026-09-26T16:17:45Z",
+              "updatedAt": "2026-09-26T16:24:56Z",
+              "url": "https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36254939507"
             },
             "ageDays": 0
           },
@@ -15937,7 +15416,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "reconcile"
+          "attention": "clear"
         }
       ],
       "toolingSignals": [
@@ -15966,7 +15445,7 @@
       "githubActionsMeta": {
         "repository": "sarthakagrawal927/performancedaddy",
         "defaultBranch": "main",
-        "defaultBranchSha": "6cb4fc2eecb4f747884c493e694b505e94baff5e",
+        "defaultBranchSha": "a24fa5f596f460c4b2adeb8d82b94673684fbd19",
         "homepage": "https://performance.daddyrad.com",
         "query": "verified",
         "disposition": {
@@ -15979,7 +15458,7 @@
       "source": {
         "state": "available",
         "path": "slow-serp",
-        "revision": "5855206f5d66be8145dafe1bab394e6fa8d6f48e",
+        "revision": "3eff6b51b653616c55ec244ea8631760d04553c5",
         "repositorySlug": "sarthakagrawal927/slow-serp",
         "worktree": {
           "state": "clean",
@@ -15989,8 +15468,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-10",
-        "latestCommitAt": "2026-09-10",
-        "retainedCommitCount": 3,
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 4,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -16034,7 +15513,7 @@
       "source": {
         "state": "available",
         "path": "unified-portfolio",
-        "revision": "083f9e2bab76ecc601aeb542cc65267a0c65b0e8",
+        "revision": "99106d833058dd9171b61ec77d654db2572dca4c",
         "repositorySlug": "sarthakagrawal927/unified-portfolio",
         "worktree": {
           "state": "dirty",
@@ -16044,8 +15523,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-19",
-        "latestCommitAt": "2026-09-19",
-        "retainedCommitCount": 2,
+        "latestCommitAt": "2026-09-23",
+        "retainedCommitCount": 5,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -16080,9 +15559,9 @@
               "headSha": "99106d833058dd9171b61ec77d654db2572dca4c",
               "createdAt": "2026-09-23T04:51:35Z",
               "updatedAt": "2026-09-23T04:52:08Z",
-              "url": "https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35820037957"
+              "url": "https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/35820037957"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "schedule": {
             "health": "not-applicable",
@@ -16101,9 +15580,9 @@
               "headSha": "99106d833058dd9171b61ec77d654db2572dca4c",
               "createdAt": "2026-09-23T04:51:35Z",
               "updatedAt": "2026-09-23T04:52:08Z",
-              "url": "https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35820037957"
+              "url": "https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/35820037957"
             },
-            "ageDays": 2
+            "ageDays": 3
           },
           "attention": "clear"
         }
@@ -16300,7 +15779,7 @@
         "repositorySlug": "sarthakagrawal927/meme-lab",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 20,
+          "trackedChangeCount": 1,
           "deletedWorkflowFiles": []
         }
       },
@@ -16329,17 +15808,12 @@
       ],
       "packageManager": null,
       "rootPackageScripts": [
-        "acquire:dialogue-cornell",
-        "acquire:dialogue-pilot",
         "acquire:reaction-gifs",
         "acquire:stage-1000",
         "acquire:stage-300",
         "acquire:stage-3000",
         "acquire:stage-3000-nga",
-        "audit:reaction-gifs:5000",
         "audit:stage-3000",
-        "build:dialogue-data",
-        "build:dialogue-eval",
         "build:expansion",
         "build:public",
         "build:public-catalogue",
@@ -16352,9 +15826,6 @@
         "deploy:public",
         "dev:public",
         "eval:canonical-gaps",
-        "eval:dialogue-memorability",
-        "eval:dialogue-memorability-classifier",
-        "eval:dialogue-quality",
         "eval:fit-score",
         "eval:fit-score:build",
         "eval:fit-score:finalists",
@@ -16381,12 +15852,10 @@
         "experiment:stage-3000-safety",
         "experiment:summarize",
         "fingerprint:stage-3000",
-        "link:dialogue-sources",
         "metadata:reaction-gifs",
         "metadata:reaction-gifs:merge",
         "metadata:stage-3000",
         "metadata:stage-3000:merge",
-        "score:dialogue-pilot",
         "select:stage-3000",
         "signals:stage-3000",
         "start",
@@ -16563,7 +16032,7 @@
         "repositorySlug": "sarthakagrawal927/nutrition-formula-engine",
         "worktree": {
           "state": "dirty",
-          "trackedChangeCount": 1,
+          "trackedChangeCount": 2,
           "deletedWorkflowFiles": []
         }
       },
@@ -16627,32 +16096,42 @@
       }
     },
     "every-song-is-a-website": {
-      "projectId": "every-song-is-a-website",
       "source": {
-        "state": "unavailable",
+        "state": "available",
         "path": "every-song-is-a-website",
-        "revision": null,
-        "repositorySlug": null,
-        "worktree": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/every-song-is-a-website remote get-url origin"
+        "revision": "dec7a248205338ca60603da050351bb77283d285",
+        "repositorySlug": "Significant-Hobbies/every-song-is-a-website",
+        "worktree": {
+          "state": "dirty",
+          "trackedChangeCount": 2,
+          "deletedWorkflowFiles": []
+        }
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/every-song-is-a-website remote get-url origin"
+        "firstCommitAt": "2026-09-22",
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 14,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
-      "toolingSignals": [],
+      "toolingSignals": [
+        {
+          "name": "Cloudflare Wrangler",
+          "evidence": [
+            "wrangler.jsonc"
+          ]
+        }
+      ],
       "packageManager": null,
       "rootPackageScripts": [],
+      "projectId": "every-song-is-a-website",
       "githubActionsMeta": {
-        "repository": null,
-        "defaultBranch": null,
-        "defaultBranchSha": null,
+        "repository": "Significant-Hobbies/every-song-is-a-website",
+        "defaultBranch": "main",
+        "defaultBranchSha": "dec7a248205338ca60603da050351bb77283d285",
         "homepage": null,
-        "query": "unverifiable",
+        "query": "verified",
         "disposition": {
           "disposition": "active",
           "reason": "tracked project"
@@ -16663,18 +16142,18 @@
       "source": {
         "state": "available",
         "path": "contextdaddy",
-        "revision": "aed7796a04d8a52113ef119d6f5de9bf475ad695",
+        "revision": "20671bf31dc7e615fd43b961b31a60a1c2b0bb81",
         "repositorySlug": "sarthakagrawal927/contextdaddy",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 23,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
-        "firstCommitAt": "2026-09-13",
-        "latestCommitAt": "2026-09-25",
-        "retainedCommitCount": 32,
+        "firstCommitAt": "2026-09-23",
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 19,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -16697,19 +16176,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "running",
+            "reason": "latest run is in_progress",
             "apiState": "active",
             "lastRun": {
-              "id": 36183203499,
-              "status": "completed",
-              "conclusion": "success",
+              "id": 36258923576,
+              "status": "in_progress",
+              "conclusion": null,
               "event": "push",
               "branch": "main",
-              "headSha": "108f33636cb7e9a6fc87f3e5423805f9484c5b04",
-              "createdAt": "2026-09-25T20:01:21Z",
-              "updatedAt": "2026-09-25T20:05:40Z",
-              "url": "https://github.com/sarthakagrawal927/contextdaddy/actions/runs/36183203499"
+              "headSha": "20671bf31dc7e615fd43b961b31a60a1c2b0bb81",
+              "createdAt": "2026-09-26T17:24:40Z",
+              "updatedAt": "2026-09-26T17:24:50Z",
+              "url": "https://github.com/sarthakagrawal927/contextdaddy/actions/runs/36258923576"
             },
             "ageDays": 0
           },
@@ -16719,21 +16198,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "missing",
-            "reason": "no push run at current main revision 10898ca",
+            "health": "running",
+            "reason": "current main push is in_progress",
             "lastRun": {
-              "id": 36183203499,
-              "status": "completed",
-              "conclusion": "success",
+              "id": 36258923576,
+              "status": "in_progress",
+              "conclusion": null,
               "event": "push",
               "branch": "main",
-              "headSha": "108f33636cb7e9a6fc87f3e5423805f9484c5b04",
-              "createdAt": "2026-09-25T20:01:21Z",
-              "updatedAt": "2026-09-25T20:05:40Z",
-              "url": "https://github.com/sarthakagrawal927/contextdaddy/actions/runs/36183203499"
-            }
+              "headSha": "20671bf31dc7e615fd43b961b31a60a1c2b0bb81",
+              "createdAt": "2026-09-26T17:24:40Z",
+              "updatedAt": "2026-09-26T17:24:50Z",
+              "url": "https://github.com/sarthakagrawal927/contextdaddy/actions/runs/36258923576"
+            },
+            "ageDays": 0
           },
-          "attention": "missing-data"
+          "attention": "clear"
         },
         {
           "name": "Protected manual release",
@@ -16743,28 +16223,28 @@
           ],
           "schedules": [],
           "inventory": {
-            "source": "remote-only",
-            "local": false,
+            "source": "tracked",
+            "local": true,
             "remote": true
           },
           "ownerDisposition": {
-            "status": "needs-reconciliation",
-            "reason": "workflow exists in GitHub but not in the local working tree"
+            "status": "active",
+            "reason": "tracked workflow"
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "running",
+            "reason": "latest run is in_progress",
             "apiState": "active",
             "lastRun": {
-              "id": 36183267447,
-              "status": "completed",
-              "conclusion": "success",
+              "id": 36258944680,
+              "status": "in_progress",
+              "conclusion": null,
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "108f33636cb7e9a6fc87f3e5423805f9484c5b04",
-              "createdAt": "2026-09-25T20:01:58Z",
-              "updatedAt": "2026-09-25T20:08:32Z",
-              "url": "https://github.com/sarthakagrawal927/contextdaddy/actions/runs/36183267447"
+              "headSha": "20671bf31dc7e615fd43b961b31a60a1c2b0bb81",
+              "createdAt": "2026-09-26T17:25:02Z",
+              "updatedAt": "2026-09-26T17:25:29Z",
+              "url": "https://github.com/sarthakagrawal927/contextdaddy/actions/runs/36258944680"
             },
             "ageDays": 0
           },
@@ -16778,7 +16258,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "reconcile"
+          "attention": "clear"
         }
       ],
       "toolingSignals": [
@@ -16795,12 +16275,6 @@
           ]
         },
         {
-          "name": "Rust Cargo",
-          "evidence": [
-            "Vendor/MemoryPack/Cargo.toml"
-          ]
-        },
-        {
           "name": "Swift Package Manager",
           "evidence": [
             "Package.swift"
@@ -16813,7 +16287,7 @@
       "githubActionsMeta": {
         "repository": "sarthakagrawal927/contextdaddy",
         "defaultBranch": "main",
-        "defaultBranchSha": "10898ca02289cd39463a8000082db8da93e809ae",
+        "defaultBranchSha": "20671bf31dc7e615fd43b961b31a60a1c2b0bb81",
         "homepage": null,
         "query": "verified",
         "disposition": {
@@ -16823,32 +16297,35 @@
       }
     },
     "war-chest": {
-      "projectId": "war-chest",
       "source": {
-        "state": "unavailable",
+        "state": "available",
         "path": "war-chest",
-        "revision": null,
-        "repositorySlug": null,
-        "worktree": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/war-chest rev-parse HEAD"
+        "revision": "92f61bfc2e1bfc9b5a9cc46beb27a4484c50a046",
+        "repositorySlug": "sarthakagrawal927/war-chest",
+        "worktree": {
+          "state": "clean",
+          "trackedChangeCount": 0,
+          "deletedWorkflowFiles": []
+        }
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet/war-chest rev-parse HEAD"
+        "firstCommitAt": "2026-09-26",
+        "latestCommitAt": "2026-09-26",
+        "retainedCommitCount": 1,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
       "packageManager": null,
       "rootPackageScripts": [],
+      "projectId": "war-chest",
       "githubActionsMeta": {
-        "repository": null,
-        "defaultBranch": null,
-        "defaultBranchSha": null,
+        "repository": "sarthakagrawal927/war-chest",
+        "defaultBranch": "main",
+        "defaultBranchSha": "92f61bfc2e1bfc9b5a9cc46beb27a4484c50a046",
         "homepage": null,
-        "query": "unverifiable",
+        "query": "verified",
         "disposition": {
           "disposition": "active",
           "reason": "tracked project"
@@ -16859,18 +16336,18 @@
       "source": {
         "state": "available",
         "path": "mentionpilot",
-        "revision": "46e98376b0eebe85c978dd850f5c2757010e6444",
+        "revision": "d70bac5f077e18beff229480319c04d885e5465a",
         "repositorySlug": "sarthakagrawal927/mentionpilot",
         "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
+          "state": "dirty",
+          "trackedChangeCount": 3,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-03-18",
         "latestCommitAt": "2026-09-26",
-        "retainedCommitCount": 63,
+        "retainedCommitCount": 65,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -16897,15 +16374,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36176958849,
+              "id": 36253276505,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "46e98376b0eebe85c978dd850f5c2757010e6444",
-              "createdAt": "2026-09-25T19:00:07Z",
-              "updatedAt": "2026-09-25T19:01:04Z",
-              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958849"
+              "headSha": "d70bac5f077e18beff229480319c04d885e5465a",
+              "createdAt": "2026-09-26T15:49:29Z",
+              "updatedAt": "2026-09-26T15:50:35Z",
+              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276505"
             },
             "ageDays": 0
           },
@@ -16918,15 +16395,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36176958849,
+              "id": 36253276505,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "46e98376b0eebe85c978dd850f5c2757010e6444",
-              "createdAt": "2026-09-25T19:00:07Z",
-              "updatedAt": "2026-09-25T19:01:04Z",
-              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958849"
+              "headSha": "d70bac5f077e18beff229480319c04d885e5465a",
+              "createdAt": "2026-09-26T15:49:29Z",
+              "updatedAt": "2026-09-26T15:50:35Z",
+              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276505"
             },
             "ageDays": 0
           },
@@ -16936,8 +16413,6 @@
           "name": "Deploy Mentionpilot Web",
           "file": ".github/workflows/deploy-web.yml",
           "triggers": [
-            "pull_request",
-            "pull_request_target",
             "push",
             "workflow_dispatch"
           ],
@@ -16952,19 +16427,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "failing",
-            "reason": "latest run concluded failure",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36176958729,
+              "id": 36253276680,
               "status": "completed",
-              "conclusion": "failure",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "46e98376b0eebe85c978dd850f5c2757010e6444",
-              "createdAt": "2026-09-25T19:00:07Z",
-              "updatedAt": "2026-09-25T19:01:44Z",
-              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958729"
+              "headSha": "d70bac5f077e18beff229480319c04d885e5465a",
+              "createdAt": "2026-09-26T15:49:29Z",
+              "updatedAt": "2026-09-26T15:52:49Z",
+              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276680"
             },
             "ageDays": 0
           },
@@ -16974,22 +16449,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "failing",
-            "reason": "current main push concluded failure",
+            "health": "healthy",
+            "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36176958729,
+              "id": 36253276680,
               "status": "completed",
-              "conclusion": "failure",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "46e98376b0eebe85c978dd850f5c2757010e6444",
-              "createdAt": "2026-09-25T19:00:07Z",
-              "updatedAt": "2026-09-25T19:01:44Z",
-              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958729"
+              "headSha": "d70bac5f077e18beff229480319c04d885e5465a",
+              "createdAt": "2026-09-26T15:49:29Z",
+              "updatedAt": "2026-09-26T15:52:49Z",
+              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276680"
             },
             "ageDays": 0
           },
-          "attention": "action-required"
+          "attention": "clear"
         },
         {
           "name": "Deploy Mentionpilot API Worker",
@@ -17010,21 +16485,21 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "failing",
-            "reason": "latest run concluded failure",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 34808237654,
+              "id": 36253276575,
               "status": "completed",
-              "conclusion": "failure",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "8d7dce26d3a5336206ecdff2349d247068b18e85",
-              "createdAt": "2026-09-14T05:03:34Z",
-              "updatedAt": "2026-09-14T05:03:59Z",
-              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/34808237654"
+              "headSha": "d70bac5f077e18beff229480319c04d885e5465a",
+              "createdAt": "2026-09-26T15:49:29Z",
+              "updatedAt": "2026-09-26T15:51:58Z",
+              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276575"
             },
-            "ageDays": 11
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -17032,21 +16507,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "missing",
-            "reason": "no push run at current main revision 46e9837",
+            "health": "healthy",
+            "reason": "current main push concluded success",
             "lastRun": {
-              "id": 34808237654,
+              "id": 36253276575,
               "status": "completed",
-              "conclusion": "failure",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "8d7dce26d3a5336206ecdff2349d247068b18e85",
-              "createdAt": "2026-09-14T05:03:34Z",
-              "updatedAt": "2026-09-14T05:03:59Z",
-              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/34808237654"
-            }
+              "headSha": "d70bac5f077e18beff229480319c04d885e5465a",
+              "createdAt": "2026-09-26T15:49:29Z",
+              "updatedAt": "2026-09-26T15:51:58Z",
+              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276575"
+            },
+            "ageDays": 0
           },
-          "attention": "action-required"
+          "attention": "clear"
         }
       ],
       "toolingSignals": [
@@ -17104,7 +16580,7 @@
       "githubActionsMeta": {
         "repository": "sarthakagrawal927/mentionpilot",
         "defaultBranch": "main",
-        "defaultBranchSha": "46e98376b0eebe85c978dd850f5c2757010e6444",
+        "defaultBranchSha": "d70bac5f077e18beff229480319c04d885e5465a",
         "homepage": "https://mentionpilot.pages.dev",
         "query": "verified",
         "disposition": {
@@ -17117,18 +16593,18 @@
       "source": {
         "state": "available",
         "path": "daddyrad",
-        "revision": "2f581fd92a4cd255791ec12c0df7f0de54b0c4bb",
+        "revision": "5a905421e36fd9ff5e761fbfe86e9447bd7fe512",
         "repositorySlug": "sarthakagrawal927/daddyrad",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 1,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-09-25",
         "latestCommitAt": "2026-09-26",
-        "retainedCommitCount": 9,
+        "retainedCommitCount": 13,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -17163,7 +16639,7 @@
       }
     }
   },
-  "githubObservedAt": "2026-09-25T20:28:32.894Z",
+  "githubObservedAt": "2026-09-26T17:25:40.453Z",
   "githubStaleAfterDays": 30,
   "githubPolicySchemaVersion": 1
 }

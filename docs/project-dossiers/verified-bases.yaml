@@ -3,7 +3,7 @@ projectId: verified-bases
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-10
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Verified Bases
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/verified-bases
       revision: c2c389e20b51e1fda144ff5250fe47274ba272d4
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/verified-bases
       revision: c2c389e20b51e1fda144ff5250fe47274ba272d4
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
@@ -89,7 +89,7 @@ identity:
     status: inactive
     resumeCondition: null
     shareable: false
-  operationalStatus: retained-resources
+  operationalStatus: undeployed
   authenticationModel: public-persistent
   inRegistry: false
 product:
@@ -146,7 +146,7 @@ repository:
     rootPackageScripts:
       - deploy
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -223,7 +223,7 @@ githubActions:
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: stale
-        reason: latest run is 84 days old
+        reason: latest run is 85 days old
         apiState: active
         lastRun:
           id: 28654888874
@@ -235,7 +235,7 @@ githubActions:
           createdAt: 2026-07-03T10:32:56Z
           updatedAt: 2026-07-03T10:33:51Z
           url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/28654888874
-        ageDays: 84
+        ageDays: 85
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -247,7 +247,7 @@ githubActions:
       attention: ignored
 deployment:
   kind: worker
-  deployed: true
+  deployed: false
   domains: []
   primaryUrl: null
   domainProbePaths: {}
@@ -258,29 +258,30 @@ deployment:
         kind: worker
         name: verified-bases-api
         method: legacy-worker
-        state: live-retained-unrouted
+        state: deleted
+        attributionReason: Owner ordered deletion 2026-09-26 via Fleet spend audit (personal-profile cleanup rule).
     resources:
       - provider: cloudflare
         kind: d1
         name: verified-bases-db
-        state: retained-unowned-runtime
+        state: deleted
+        attributionReason: Owner ordered deletion 2026-09-26 via Fleet spend audit (personal-profile cleanup rule). D1 exported to .fleet-local/deleted-backups/verified-bases-db-2026-09-26.sql before deletion.
         scope: project
         operationalOwner: verified-bases
-        attributionReason: "Canonical project owner: verified-bases"
       - provider: cloudflare
         kind: r2
         name: verified-bases-delivery
-        state: retained-unowned-runtime
+        state: deleted
+        attributionReason: Owner ordered deletion 2026-09-26 via Fleet spend audit (personal-profile cleanup rule).
         scope: project
         operationalOwner: verified-bases
-        attributionReason: "Canonical project owner: verified-bases"
       - provider: cloudflare
         kind: kv
         name: RATELIMIT
-        state: active-bound
+        state: deleted
+        attributionReason: Owner ordered deletion 2026-09-26 via Fleet spend audit (personal-profile cleanup rule).
         scope: project
         operationalOwner: verified-bases
-        attributionReason: "Canonical project owner: verified-bases"
   otherProviders:
     deployments: []
     resources: []
@@ -295,4 +296,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: Historical product identity with a retained public checkout. The verified-bases-api Worker plus D1 and R2 resources still exist, but no live public route was found in the 2026-08-23 inventory.
-  infrastructure: null
+  infrastructure: " 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/."

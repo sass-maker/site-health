@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: veg-protein-food
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    repositorySnapshot: unavailable
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-10
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Recipe Dashboard
@@ -31,36 +31,33 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
-      state: available
-      checkout: ../fleet-archive/veg-protein-food
-      revision: 665bff53538953ac329d6b2322cab9d95163022f
-      githubRepository: sarthakagrawal927/veg-protein-food
+      observedAt: 2026-09-26
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
       expectedHomepage: https://veg-protein-food.significanthobbies.com
-      observedHomepage: https://veg-protein-food.significanthobbies.com
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      observedHomepage: null
+      worktree: null
     retainedGitHistory:
-      observedAt: 2026-09-25
-      state: available
-      checkout: ../fleet-archive/veg-protein-food
-      revision: 665bff53538953ac329d6b2322cab9d95163022f
-      githubRepository: sarthakagrawal927/veg-protein-food
+      observedAt: 2026-09-26
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-15
       catalogLatestCommitAt: 2026-09-06
       catalogDrift: []
-      reason: null
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
-      healthy: 1
-      attention: &a2
-        ignored: 1
-  unknowns: []
+      attention: &a1 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://veg-protein-food.significanthobbies.com.
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: "Recipe Dashboard: It's just a product which has some higher protein recipes with Indian ingredients. I thought it would be more but I was not happy with the overall result and currently my food is optimised. I am not looking to expand into cooking so it will be on hold for now."
   fullReviewVerbatim: "Recipe Dashboard: It's just a product which has some higher protein recipes with Indian ingredients. I thought it would be more but I was not happy with the overall result and currently my food is optimised. I am not looking to expand into cooking so it will be on hold for now."
@@ -88,7 +85,7 @@ identity:
     status: inactive
     resumeCondition: null
     shareable: false
-  operationalStatus: live
+  operationalStatus: undeployed
   authenticationModel: public-persistent
   inRegistry: false
 product:
@@ -108,108 +105,43 @@ product:
     - Astro
     - Cloudflare Pages
   retainedGitHistory:
-    firstCommitAt: 2026-08-15
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 11
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: ../fleet-archive/veg-protein-food
-  observedRevision: 665bff53538953ac329d6b2322cab9d95163022f
-  githubRepository: sarthakagrawal927/veg-protein-food
-  githubHomepageUrl: https://veg-protein-food.significanthobbies.com
-  worktree: *a1
+  checkout: null
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
   visibility: public
   url: https://github.com/sarthakagrawal927/veg-protein-food
   aliases: []
   sourceOverride: null
   tooling:
     declaredPackageManager: null
-    detectedSignals:
-      - name: Astro
-        evidence:
-          - astro.config.mjs
-      - name: Cloudflare Wrangler
-        evidence:
-          - wrangler.jsonc
-      - name: npm
-        evidence:
-          - package-lock.json
-    rootPackageScripts:
-      - build
-      - check
-      - data:fetch
-      - data:rebuild
-      - deploy
-      - dev
-      - preview
-      - test
+    detectedSignals: []
+    rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
-  summary:
-    healthy: 1
-  attention: *a2
+  summary: {}
+  attention: *a1
   remote:
-    repository: sarthakagrawal927/veg-protein-food
-    defaultBranch: main
-    defaultBranchSha: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
-    homepage: https://veg-protein-food.significanthobbies.com
-    query: verified
+    repository: null
+    defaultBranch: null
+    defaultBranchSha: null
+    homepage: null
+    query: unverifiable
     disposition:
       disposition: ignored
       reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows:
-    - name: CI
-      file: .github/workflows/ci.yml
-      triggers:
-        - pull_request
-        - push
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35635191482
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
-          createdAt: 2026-09-21T17:56:37Z
-          updatedAt: 2026-09-21T17:56:52Z
-          url: https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/35635191482
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35635191482
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
-          createdAt: 2026-09-21T17:56:37Z
-          updatedAt: 2026-09-21T17:56:52Z
-          url: https://github.com/sarthakagrawal927/veg-protein-food/actions/runs/35635191482
-        ageDays: 4
-      attention: ignored
+  workflows: []
 deployment:
   kind: pages
-  deployed: true
+  deployed: false
   domains:
     - veg-protein-food.significanthobbies.com
   primaryUrl: https://veg-protein-food.significanthobbies.com
@@ -221,7 +153,8 @@ deployment:
         kind: pages
         name: veg-protein-food
         method: wrangler-direct
-        state: live
+        state: deleted
+        attributionReason: Owner ordered archival 2026-09-26; Pages custom domain detached and project deleted.
     resources: []
   otherProviders:
     deployments: []
@@ -237,4 +170,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: Casual source-linked vegetarian recipe experiment. The public site deploys from clean main by direct Wrangler upload and is intentionally absent from the maintained portfolio listing.
-  infrastructure: null
+  infrastructure: " 2026-09-26: Archived; Pages project and domain deleted. 2026-09-26: Repo moved to personal GitHub (sarthakagrawal927); local checkout deleted (was clean, fully pushed)."

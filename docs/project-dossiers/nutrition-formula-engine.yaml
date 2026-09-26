@@ -3,7 +3,7 @@ projectId: nutrition-formula-engine
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-21
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=nutrition-formula-engine].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: a8abb04e76cd5e6f7f3feb386d4b30d465d06fe8d6fea2f253e0bf26ad29d651
-      documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      documentSha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,7 +32,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: nutrition-formula-engine
       revision: f1a2cd04bdaba32f5c6a3ad30140f02d49ac74cb
@@ -41,10 +41,10 @@ verification:
       observedHomepage: https://formula.significanthobbies.com/
       worktree: &a1
         state: dirty
-        trackedChangeCount: 1
+        trackedChangeCount: 2
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: nutrition-formula-engine
       revision: f1a2cd04bdaba32f5c6a3ad30140f02d49ac74cb
@@ -57,7 +57,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
@@ -126,7 +126,7 @@ repository:
   githubHomepageUrl: https://formula.significanthobbies.com/
   worktree: *a1
   visibility: private
-  url: https://github.com/sarthakagrawal927/nutrition-formula-engine
+  url: https://github.com/Significant-Hobbies/nutrition-formula-engine
   aliases: []
   sourceOverride: null
   tooling:
@@ -152,7 +152,7 @@ repository:
       - check
       - test
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary: {}
   attention: *a2
@@ -210,15 +210,16 @@ deployment:
             - D1 migration preserved two formulas, two active ingredient profiles, and all formula versions in the shared public scope
             - canonical and Open Graph URLs use formula.significanthobbies.com
             - active Worker version is tagged with the exact origin/main SHA
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
     resources:
       - provider: cloudflare
         kind: d1
         name: nutrition-formula-engine
-        state: active
+        state: live
         notes: database_id f26fe712-fb44-4626-a1d8-6a9095512b0e; stores one intentionally public formula history and reusable ingredient library shared by every device.
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         scope: project
         operationalOwner: nutrition-formula-engine
-        attributionReason: "Canonical project owner: nutrition-formula-engine"
   otherProviders:
     deployments: []
     resources: []
@@ -229,8 +230,8 @@ sharing:
   verifiedAt: 2026-09-21
   reason: The canonical Cloudflare Custom Domain, root, Recent formulas, case-study and health routes, valid calculation, public D1 formula list and history, reusable-ingredient persistence, TLS, DNS, and current 100% SHA-tagged Worker deployment were verified. The separate case-study page shows 26 products and all 55 supported published ingredient and nutrient comparisons. Thirty-eight browser/data tests, 84 engine/API tests, the frozen 66-case benchmark, Ruff, production build, design review, and Cloudflare dry-run passed. Results remain theoretical and are not laboratory validation, regulatory classification, or government approval.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/nutrition-formula-engine/issues
+  roadmapUrl: https://github.com/Significant-Hobbies/nutrition-formula-engine/issues
   geoIdentity: null
 notes:
   catalog: Browser-first formula ingestion and theoretical composition prototype for food, nutraceutical, and medicinal product workflows. Supplier specifications, lot CoAs, finished-product assays, and regulatory formatting remain separate requirements.
-  infrastructure: Public browser-first formulation workspace with Static Assets, a Python calculation API, and a migrated D1 database. Cloudflare owns the formula.significanthobbies.com Custom Domain DNS record and TLS certificate. Workers Logs and Traces are enabled. Application-generated logs exclude raw formula and OCR contents; browser sessions can export privacy-safe audit metadata and hashes. Explicit saves store reviewed formulas, immutable reports, decisions, and reusable ingredient profiles in one intentionally public data set shared by every device; IndexedDB is a visibly labelled fallback. The active Worker is tagged to the clean pushed origin/main source commit.
+  infrastructure: "Public browser-first formulation workspace with Static Assets, a Python calculation API, and a migrated D1 database. Cloudflare owns the formula.significanthobbies.com Custom Domain DNS record and TLS certificate. Workers Logs and Traces are enabled. Application-generated logs exclude raw formula and OCR contents; browser sessions can export privacy-safe audit metadata and hashes. Explicit saves store reviewed formulas, immutable reports, decisions, and reusable ingredient profiles in one intentionally public data set shared by every device; IndexedDB is a visibly labelled fallback. The active Worker is tagged to the clean pushed origin/main source commit. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features."

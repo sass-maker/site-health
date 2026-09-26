@@ -3,7 +3,7 @@ projectId: open-historia
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-09
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Open Historia
@@ -31,21 +31,21 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
-      checkout: ../fleet-archive/open-historia
+      checkout: fleet-archive/open-historia
       revision: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
       githubRepository: sarthakagrawal927/open-historia
       expectedHomepage: https://historia.aliveville.com
       observedHomepage: https://historia.aliveville.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
-      checkout: ../fleet-archive/open-historia
+      checkout: fleet-archive/open-historia
       revision: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
       githubRepository: sarthakagrawal927/open-historia
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -117,7 +117,7 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: ../fleet-archive/open-historia
+  checkout: fleet-archive/open-historia
   observedRevision: 0195ec004bd339b8d7ad4b6cfca776d87af2c557
   githubRepository: sarthakagrawal927/open-historia
   githubHomepageUrl: https://historia.aliveville.com
@@ -181,7 +181,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -270,7 +270,7 @@ githubActions:
           createdAt: 2026-09-06T06:06:39Z
           updatedAt: 2026-09-06T06:07:03Z
           url: https://github.com/sarthakagrawal927/open-historia/actions/runs/34015652329
-        ageDays: 19
+        ageDays: 20
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -308,7 +308,7 @@ githubActions:
           createdAt: 2026-09-21T15:23:06Z
           updatedAt: 2026-09-21T15:23:46Z
           url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35618564190
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -322,7 +322,7 @@ githubActions:
           createdAt: 2026-09-21T15:23:06Z
           updatedAt: 2026-09-21T15:23:46Z
           url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35618564190
-        ageDays: 4
+        ageDays: 5
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -354,7 +354,7 @@ githubActions:
           createdAt: 2026-09-21T06:34:19Z
           updatedAt: 2026-09-21T06:35:13Z
           url: https://github.com/sarthakagrawal927/open-historia/actions/runs/35569060709
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -378,15 +378,16 @@ deployment:
         kind: worker
         name: open-historia
         method: wrangler-direct
-        state: live-retained
+        state: live
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
     resources:
       - provider: cloudflare
         kind: d1
         name: open-historia
-        state: retained
+        state: live
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         scope: project
         operationalOwner: open-historia
-        attributionReason: "Canonical project owner: open-historia"
       - provider: cloudflare
         kind: workers-ai
         name: AI
@@ -408,4 +409,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: "September 8: a79b6e2598cdf965e3cee0fc7e23ca32cf4f0021 deployed at 100% as d420bcf2-f9e9-46af-9703-c1aa78b38731 after exact CI 34238119844. Responsive campaign panels, local terminal scrolling, empty timeline reopening and valid map zoom expression repaired. Both browser projects passed in CI. Live 390px guest turn returned HTTP 200 in 4117ms; map, controls, narrative, relation and timeline save verified. Remains held/unqualified for historical coherence and authenticated cloud journeys."
-  infrastructure: "September9 release receipt: runtime9445110fc7857238eadff2de27804deca754f380 is deployed at100% as Worker e529a943-f06e-4529-9323-dd3a384d5fc7, deployment21a0e2d9-30a1-4636-a6f5-c884b501a960. Six-size layout, public asset parity and guest Save/reload passed. Final tests/docs-only source6b7fa8f passed clean CI34327732410. Prior runtime e4a26fe5-9d2f-46fd-83e6-228d1e8c7a75 remains the rollback. Campaign coherence and authenticated save qualification remain open."
+  infrastructure: "September9 release receipt: runtime9445110fc7857238eadff2de27804deca754f380 is deployed at100% as Worker e529a943-f06e-4529-9323-dd3a384d5fc7, deployment21a0e2d9-30a1-4636-a6f5-c884b501a960. Six-size layout, public asset parity and guest Save/reload passed. Final tests/docs-only source6b7fa8f passed clean CI34327732410. Prior runtime e4a26fe5-9d2f-46fd-83e6-228d1e8c7a75 remains the rollback. Campaign coherence and authenticated save qualification remain open. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features."

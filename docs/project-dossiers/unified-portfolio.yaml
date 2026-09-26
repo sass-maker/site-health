@@ -3,7 +3,7 @@ projectId: unified-portfolio
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,12 +11,12 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-13
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=unified-portfolio].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
-      documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      documentSha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,10 +32,10 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: unified-portfolio
-      revision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
+      revision: 99106d833058dd9171b61ec77d654db2572dca4c
       githubRepository: sarthakagrawal927/unified-portfolio
       expectedHomepage: https://money.significanthobbies.com
       observedHomepage: https://money.significanthobbies.com
@@ -44,19 +44,20 @@ verification:
         trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: unified-portfolio
-      revision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
+      revision: 99106d833058dd9171b61ec77d654db2572dca4c
       githubRepository: sarthakagrawal927/unified-portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-19
       catalogLatestCommitAt: 2026-09-19
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -115,18 +116,18 @@ product:
     - MCP
   retainedGitHistory:
     firstCommitAt: 2026-09-19
-    latestCommitAt: 2026-09-19
-    retainedCommitCount: 2
+    latestCommitAt: 2026-09-23
+    retainedCommitCount: 5
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: unified-portfolio
-  observedRevision: 083f9e2bab76ecc601aeb542cc65267a0c65b0e8
+  observedRevision: 99106d833058dd9171b61ec77d654db2572dca4c
   githubRepository: sarthakagrawal927/unified-portfolio
   githubHomepageUrl: https://money.significanthobbies.com
   worktree: *a1
   visibility: public
-  url: https://github.com/sarthakagrawal927/unified-portfolio
+  url: https://github.com/Significant-Hobbies/unified-portfolio
   aliases: []
   sourceOverride: null
   tooling:
@@ -164,7 +165,7 @@ repository:
       - start:vinext
       - test
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -205,8 +206,8 @@ githubActions:
           headSha: 99106d833058dd9171b61ec77d654db2572dca4c
           createdAt: 2026-09-23T04:51:35Z
           updatedAt: 2026-09-23T04:52:08Z
-          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35820037957
-        ageDays: 2
+          url: https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/35820037957
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -223,8 +224,8 @@ githubActions:
           headSha: 99106d833058dd9171b61ec77d654db2572dca4c
           createdAt: 2026-09-23T04:51:35Z
           updatedAt: 2026-09-23T04:52:08Z
-          url: https://github.com/sarthakagrawal927/unified-portfolio/actions/runs/35820037957
-        ageDays: 2
+          url: https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/35820037957
+        ageDays: 3
       attention: clear
 deployment:
   kind: worker
@@ -246,15 +247,16 @@ deployment:
         name: unified-portfolio
         method: wrangler-direct
         state: live
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
     resources:
       - provider: cloudflare
         kind: d1
         name: unified-portfolio
         id: bd1a2b65-7ab1-4ded-93f4-bfb2c3ca127f
-        state: active
+        state: live
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         scope: project
         operationalOwner: unified-portfolio
-        attributionReason: "Canonical project owner: unified-portfolio"
   otherProviders:
     deployments: []
     resources: []
@@ -265,8 +267,8 @@ sharing:
   verifiedAt: 2026-09-13
   reason: Zerodha hosted MCP login, 23 real holdings, INR available cash and separate refresh without reauthentication verified in production. No developer app needed. INDmoney retains 13 USD holdings and explicitly estimated USD wallet cash. Owner labels and separate INR/USD totals verified; 2/3 accounts current. Angel One and external ChatGPT MCP acceptance remain pending.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/unified-portfolio/issues
+  roadmapUrl: https://github.com/Significant-Hobbies/unified-portfolio/issues
   geoIdentity: null
 notes:
   catalog: Owner supplied Unified Portfolio PRD. Read-only investment observability with five screens and a canonical backend exposed through MCP. No trading or money movement.
-  infrastructure: INDmoney US_STOCK_WALLET discovered in authenticated networth_snapshot. Dashboard and MCP now include a clearly marked USD estimate, converted using provider-implied FX only when the stock valuations match across responses. Native USD wallet balance is not supplied by the checked response. Live refresh and cash-inclusive overview verified. 33 tests pass. Source uncommitted.
+  infrastructure: "INDmoney US_STOCK_WALLET discovered in authenticated networth_snapshot. Dashboard and MCP now include a clearly marked USD estimate, converted using provider-implied FX only when the stock valuations match across responses. Native USD wallet balance is not supplied by the checked response. Live refresh and cash-inclusive overview verified. 33 tests pass. Source uncommitted. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features."

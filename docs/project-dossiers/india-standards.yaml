@@ -3,7 +3,7 @@ projectId: india-standards
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: India Standards
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/india-standards
       revision: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/india-standards
       revision: b0ee1b991adbb4708cdd2ebaf88b84d010c8aadd
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       failing: 1
       attention: &a2
@@ -88,7 +88,7 @@ identity:
     status: inactive
     resumeCondition: null
     shareable: false
-  operationalStatus: live
+  operationalStatus: undeployed
   authenticationModel: public-persistent
   inRegistry: false
 product:
@@ -169,7 +169,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -234,7 +234,7 @@ githubActions:
       attention: ignored
 deployment:
   kind: worker
-  deployed: true
+  deployed: false
   domains:
     - india-standards.significanthobbies.com
     - india-numbers.significanthobbies.com
@@ -247,7 +247,8 @@ deployment:
         kind: worker
         name: india-numbers
         method: wrangler-direct
-        state: live
+        state: deleted
+        attributionReason: Owner ordered deletion 2026-09-26 via Fleet spend audit (personal-profile cleanup rule).
     resources:
       - provider: cloudflare
         kind: turnstile
@@ -288,4 +289,4 @@ sharing:
       state: not-declared
 notes:
   catalog: Public Significant Hobbies repository. india-standards.significanthobbies.com is canonical; india-numbers.significanthobbies.com remains a compatibility alias.
-  infrastructure: null
+  infrastructure: " 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/."

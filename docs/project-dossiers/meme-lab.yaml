@@ -3,7 +3,7 @@ projectId: meme-lab
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-22
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Meme Lab
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: meme-lab
       revision: e462f358e50a49d6fbc0c9978546a62929639264
@@ -40,10 +40,10 @@ verification:
       observedHomepage: https://memes.significanthobbies.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 20
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: meme-lab
       revision: e462f358e50a49d6fbc0c9978546a62929639264
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       attention: &a2 {}
   unknowns: []
@@ -132,7 +132,7 @@ repository:
   githubHomepageUrl: https://memes.significanthobbies.com
   worktree: *a1
   visibility: public
-  url: https://github.com/sarthakagrawal927/meme-lab
+  url: https://github.com/Significant-Hobbies/meme-lab
   aliases: []
   sourceOverride: null
   tooling:
@@ -146,17 +146,12 @@ repository:
         evidence:
           - package-lock.json
     rootPackageScripts:
-      - acquire:dialogue-cornell
-      - acquire:dialogue-pilot
       - acquire:reaction-gifs
       - acquire:stage-1000
       - acquire:stage-300
       - acquire:stage-3000
       - acquire:stage-3000-nga
-      - audit:reaction-gifs:5000
       - audit:stage-3000
-      - build:dialogue-data
-      - build:dialogue-eval
       - build:expansion
       - build:public
       - build:public-catalogue
@@ -169,9 +164,6 @@ repository:
       - deploy:public
       - dev:public
       - eval:canonical-gaps
-      - eval:dialogue-memorability
-      - eval:dialogue-memorability-classifier
-      - eval:dialogue-quality
       - eval:fit-score
       - eval:fit-score:build
       - eval:fit-score:finalists
@@ -198,19 +190,17 @@ repository:
       - experiment:stage-3000-safety
       - experiment:summarize
       - fingerprint:stage-3000
-      - link:dialogue-sources
       - metadata:reaction-gifs
       - metadata:reaction-gifs:merge
       - metadata:stage-3000
       - metadata:stage-3000:merge
-      - score:dialogue-pilot
       - select:stage-3000
       - signals:stage-3000
       - start
       - test
       - types:worker
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary: {}
   attention: *a2
@@ -241,6 +231,7 @@ deployment:
         state: live
         versionId: fa5fa091-6db6-42cb-a644-ebac8c721ff6
         notes: Crawlable meme detail pages, a 3,003-URL sitemap, robots policy, larger ranked alternatives, and a live IndexNow key deployed from main commit a86faa861d54e13c1065b98c2094a0776bff7ebf at 100% traffic on 2026-09-22. The custom domain and workers.dev route return HTTP 200; health reports 3,000 records. IndexNow accepted all 31 sitemap batches with zero failures, and Google Search Console accepted the sitemap. Static assets use run_worker_first on /api/*; daily cron 15 3 * * *; observability enabled.
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
       - provider: cloudflare
         kind: worker
         name: meme-lab-catalogue-tool-stage-3000
@@ -248,6 +239,7 @@ deployment:
         state: live
         versionId: 6147e95e-192b-4a7f-a093-2df0537ae5bc
         notes: Stage-3,000 indexing and retrieval tool version fb041df2-b20d-49ca-b21a-3f23cc21e435 deployed from main commit 8a33c3b9a7b2c092e7156036e281c6ec1a5329ce at 100% traffic on 2026-09-21; it seeded the production 6,000-vector index in six bounded ranges.
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
     resources:
       - provider: cloudflare
         kind: workers-ai
@@ -259,35 +251,35 @@ deployment:
       - provider: cloudflare
         kind: vectorize
         name: meme-lab-catalogue
-        state: active
+        state: deleted
         notes: Historical 768-dim cosine index retained from the initial catalogue stage.
+        attributionReason: Owner authorized cleanup 2026-09-26 via Fleet spend audit; deleted with Wrangler. Historical staging index removed; production remains meme-lab-catalogue-stage-3000.
         scope: project
         operationalOwner: meme-lab
-        attributionReason: "Canonical project owner: meme-lab"
       - provider: cloudflare
         kind: vectorize
         name: meme-lab-catalogue-stage-1000
-        state: active
+        state: deleted
         notes: Historical 1,000-record evaluation index retained for comparison.
+        attributionReason: Owner authorized cleanup 2026-09-26 via Fleet spend audit; deleted with Wrangler. Historical staging index removed; production remains meme-lab-catalogue-stage-3000.
         scope: project
         operationalOwner: meme-lab
-        attributionReason: "Canonical project owner: meme-lab"
       - provider: cloudflare
         kind: vectorize
         name: meme-lab-catalogue-stage-3000
-        state: active
+        state: live
         notes: Production 768-dim cosine index with 6,000 meaning and example vectors for the corrected 3,000-record catalogue; metadata indexes cover view, control, and core.
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         scope: project
         operationalOwner: meme-lab
-        attributionReason: "Canonical project owner: meme-lab"
       - provider: cloudflare
         kind: d1
         name: meme-lab-feedback
-        state: active
+        state: live
         notes: database_id 5d85d86c-6383-4409-be18-d3ac05042d69, production; retains playground feedback for 30 days.
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         scope: project
         operationalOwner: meme-lab
-        attributionReason: "Canonical project owner: meme-lab"
   otherProviders:
     deployments: []
     resources: []
@@ -298,8 +290,8 @@ sharing:
   verifiedAt: 2026-09-22
   reason: Corrected 3,000-reference meme-selection playground verified on 2026-09-22. The live catalogue contains 1,805 static memes and 1,195 usage-backed reaction GIFs with no National Gallery artwork or inert editing canvases. The Worker returns one primary result plus four scored backups, exposes searchable pagination and a technical explainer, and retains one-tap feedback for 30 days. Worker version fa5fa091-6db6-42cb-a644-ebac8c721ff6 is live at 100% traffic from main commit a86faa861d54e13c1065b98c2094a0776bff7ebf. Health reports 3,000 catalogue records, the live sitemap exposes 3,003 canonical URLs, IndexNow accepted all 31 batches, and Google Search Console accepted the sitemap.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/meme-lab/issues
+  roadmapUrl: https://github.com/Significant-Hobbies/meme-lab/issues
   geoIdentity: null
 notes:
   catalog: Owner requested catalog addition and public release on 2026-09-20; repository made public the same day. The checkout moved into the Fleet workspace at meme-lab on 2026-09-22. The corrected 3,000-reference playground released on 2026-09-21 with 1,805 static memes, 1,195 usage-backed reaction GIFs, five ranked options, Jev, Vectorize, D1 feedback, and a daily cron. All 1,189 National Gallery artwork fillers plus six inert editing canvases were removed. Metadata and the 100-case evaluation remain assistant-authored pending owner feedback.
-  infrastructure: The production Worker and stage-3,000 catalogue tool are both deployed and tagged to main commit 8a33c3b9a7b2c092e7156036e281c6ec1a5329ce. Historical base and stage-1,000 Vectorize indexes remain attributed to Meme Lab.
+  infrastructure: "The production Worker and stage-3,000 catalogue tool are both deployed and tagged to main commit 8a33c3b9a7b2c092e7156036e281c6ec1a5329ce. Historical base and stage-1,000 Vectorize indexes remain attributed to Meme Lab. 2026-09-26: the historical base and stage-1,000 Vectorize indexes were deleted with owner approval; stage-3,000 remains the only index. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features."

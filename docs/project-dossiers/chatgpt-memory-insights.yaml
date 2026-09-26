@@ -3,7 +3,7 @@ projectId: chatgpt-memory-insights
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/chatgpt-memory-insights
-      revision: 33b43ee6e744705648665c7dda65bf19d9ea46fb
+      revision: 48b2efd2b7752c93dc2a9a9002926285d9265c58
       githubRepository: Significant-Hobbies/chatgpt-memory-insights
       expectedHomepage: https://chatgpt.significanthobbies.com
       observedHomepage: https://chatgpt.significanthobbies.com
@@ -43,19 +43,20 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/chatgpt-memory-insights
-      revision: 33b43ee6e744705648665c7dda65bf19d9ea46fb
+      revision: 48b2efd2b7752c93dc2a9a9002926285d9265c58
       githubRepository: Significant-Hobbies/chatgpt-memory-insights
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-28
       catalogLatestCommitAt: 2026-09-19
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -113,13 +114,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-28
-    latestCommitAt: 2026-09-19
-    retainedCommitCount: 70
+    latestCommitAt: 2026-09-26
+    retainedCommitCount: 72
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/chatgpt-memory-insights
-  observedRevision: 33b43ee6e744705648665c7dda65bf19d9ea46fb
+  observedRevision: 48b2efd2b7752c93dc2a9a9002926285d9265c58
   githubRepository: Significant-Hobbies/chatgpt-memory-insights
   githubHomepageUrl: https://chatgpt.significanthobbies.com
   worktree: *a1
@@ -171,7 +172,7 @@ repository:
       - test:import
       - typecheck
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -179,7 +180,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/chatgpt-memory-insights
     defaultBranch: main
-    defaultBranchSha: 3428cd723c3fb4d24957682b8fb20d8f38cfb92a
+    defaultBranchSha: 48b2efd2b7752c93dc2a9a9002926285d9265c58
     homepage: https://chatgpt.significanthobbies.com
     query: verified
     disposition:
@@ -204,16 +205,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35635054033
+          id: 36248022935
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3428cd723c3fb4d24957682b8fb20d8f38cfb92a
-          createdAt: 2026-09-21T17:55:20Z
-          updatedAt: 2026-09-21T17:56:50Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/35635054033
-        ageDays: 4
+          headSha: 48b2efd2b7752c93dc2a9a9002926285d9265c58
+          createdAt: 2026-09-26T14:17:48Z
+          updatedAt: 2026-09-26T14:18:55Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/36248022935
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -222,16 +223,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35635054033
+          id: 36248022935
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3428cd723c3fb4d24957682b8fb20d8f38cfb92a
-          createdAt: 2026-09-21T17:55:20Z
-          updatedAt: 2026-09-21T17:56:50Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/35635054033
-        ageDays: 4
+          headSha: 48b2efd2b7752c93dc2a9a9002926285d9265c58
+          createdAt: 2026-09-26T14:17:48Z
+          updatedAt: 2026-09-26T14:18:55Z
+          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/36248022935
+        ageDays: 0
       attention: ignored
     - name: memory-pack release
       file: .github/workflows/packer-release.yml
@@ -260,7 +261,7 @@ githubActions:
           createdAt: 2026-08-31T10:25:24Z
           updatedAt: 2026-08-31T10:27:17Z
           url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/33382333378
-        ageDays: 25
+        ageDays: 26
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

@@ -3,7 +3,7 @@ projectId: swe-interview-prep
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,12 +11,12 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-08
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SWE Interview Prep
@@ -31,31 +31,32 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: swe-interview-prep
-      revision: 7224d76b953f6f88ca5ab8f9a68d912d813f132e
+      revision: fcac458443b62fc4bac0c6e365f8450b088c9119
       githubRepository: Significant-Hobbies/swe-interview-prep
       expectedHomepage: https://learn.significanthobbies.com
       observedHomepage: https://learn.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: swe-interview-prep
-      revision: 7224d76b953f6f88ca5ab8f9a68d912d813f132e
+      revision: fcac458443b62fc4bac0c6e365f8450b088c9119
       githubRepository: Significant-Hobbies/swe-interview-prep
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-08
       catalogLatestCommitAt: 2026-09-20
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 5
       attention: &a2
@@ -112,13 +113,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-02-08
-    latestCommitAt: 2026-09-20
-    retainedCommitCount: 455
+    latestCommitAt: 2026-09-23
+    retainedCommitCount: 459
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: swe-interview-prep
-  observedRevision: 7224d76b953f6f88ca5ab8f9a68d912d813f132e
+  observedRevision: fcac458443b62fc4bac0c6e365f8450b088c9119
   githubRepository: Significant-Hobbies/swe-interview-prep
   githubHomepageUrl: https://learn.significanthobbies.com
   worktree: *a1
@@ -204,7 +205,7 @@ repository:
       - verify:citations
       - verify:sources
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -246,7 +247,7 @@ githubActions:
           createdAt: 2026-09-23T04:52:28Z
           updatedAt: 2026-09-23T04:54:42Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35820097834
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -264,7 +265,7 @@ githubActions:
           createdAt: 2026-09-23T04:52:28Z
           updatedAt: 2026-09-23T04:54:42Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35820097834
-        ageDays: 2
+        ageDays: 3
       attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -292,7 +293,7 @@ githubActions:
           createdAt: 2026-09-23T05:06:12Z
           updatedAt: 2026-09-23T05:07:14Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35821023837
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -377,7 +378,7 @@ githubActions:
           createdAt: 2026-09-21T11:09:56Z
           updatedAt: 2026-09-21T11:12:11Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35592600998
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -391,7 +392,7 @@ githubActions:
           createdAt: 2026-09-21T11:09:56Z
           updatedAt: 2026-09-21T11:12:11Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35592600998
-        ageDays: 4
+        ageDays: 5
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -423,7 +424,7 @@ githubActions:
           createdAt: 2026-09-21T08:55:27Z
           updatedAt: 2026-09-21T08:56:53Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35580431154
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -453,6 +454,12 @@ deployment:
           deploymentId: d47298d6-3506-4565-86ac-9a0a1973ad03
           sourceCommit: b11f6c766251486d5621b0681b131de619cf9367
           evidencePath: docs/qualification/swe-interview-prep-2026-09-08/guest-release.json
+      - provider: cloudflare
+        kind: worker
+        name: swe-interview-prep-wars
+        method: wrangler-direct
+        state: live-observed
+        attributionReason: Observed in account inventory 2026-09-26; consumes the swe-interview-prep-war-jobs queue (fetch + queue handlers). Wars subsystem of swe-interview-prep; was previously unattributed.
     resources:
       - provider: cloudflare
         kind: d1

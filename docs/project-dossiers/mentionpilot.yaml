@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: mentionpilot
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: not-applicable
+    githubHomepage: mismatch
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-25
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=mentionpilot].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: ae3ff03bb973a0027691fdad911c271ef2c6c2488b735c10088a42895f991b6d
-      documentSha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      documentSha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,22 +32,22 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: mentionpilot
-      revision: 46e98376b0eebe85c978dd850f5c2757010e6444
+      revision: d70bac5f077e18beff229480319c04d885e5465a
       githubRepository: sarthakagrawal927/mentionpilot
-      expectedHomepage: null
+      expectedHomepage: https://mention.highsignal.app
       observedHomepage: https://mentionpilot.pages.dev
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 3
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: mentionpilot
-      revision: 46e98376b0eebe85c978dd850f5c2757010e6444
+      revision: d70bac5f077e18beff229480319c04d885e5465a
       githubRepository: sarthakagrawal927/mentionpilot
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -57,14 +57,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
-      healthy: 1
-      failing: 2
+      healthy: 3
       attention: &a2
-        clear: 1
-        action-required: 2
-  unknowns: []
+        clear: 3
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://mention.highsignal.app.
 ownerVoice:
   whyVerbatim: MentiopnPilot is brought back from dead to ensure we have a tooling to check how well people know about across AI, reddit etc
   fullReviewVerbatim: MentiopnPilot is brought back from dead to ensure we have a tooling to check how well people know about across AI, reddit etc
@@ -117,17 +116,17 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-03-18
     latestCommitAt: 2026-09-26
-    retainedCommitCount: 63
+    retainedCommitCount: 65
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: mentionpilot
-  observedRevision: 46e98376b0eebe85c978dd850f5c2757010e6444
+  observedRevision: d70bac5f077e18beff229480319c04d885e5465a
   githubRepository: sarthakagrawal927/mentionpilot
   githubHomepageUrl: https://mentionpilot.pages.dev
   worktree: *a1
   visibility: public
-  url: https://github.com/sarthakagrawal927/mentionpilot
+  url: https://github.com/High-Signal-App/mentionpilot
   aliases: []
   sourceOverride: null
   tooling:
@@ -163,16 +162,15 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
-    healthy: 1
-    failing: 2
+    healthy: 3
   attention: *a2
   remote:
     repository: sarthakagrawal927/mentionpilot
     defaultBranch: main
-    defaultBranchSha: 46e98376b0eebe85c978dd850f5c2757010e6444
+    defaultBranchSha: d70bac5f077e18beff229480319c04d885e5465a
     homepage: https://mentionpilot.pages.dev
     query: verified
     disposition:
@@ -197,15 +195,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36176958849
+          id: 36253276505
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 46e98376b0eebe85c978dd850f5c2757010e6444
-          createdAt: 2026-09-25T19:00:07Z
-          updatedAt: 2026-09-25T19:01:04Z
-          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958849
+          headSha: d70bac5f077e18beff229480319c04d885e5465a
+          createdAt: 2026-09-26T15:49:29Z
+          updatedAt: 2026-09-26T15:50:35Z
+          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276505
         ageDays: 0
       schedule:
         health: not-applicable
@@ -215,22 +213,20 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36176958849
+          id: 36253276505
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 46e98376b0eebe85c978dd850f5c2757010e6444
-          createdAt: 2026-09-25T19:00:07Z
-          updatedAt: 2026-09-25T19:01:04Z
-          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958849
+          headSha: d70bac5f077e18beff229480319c04d885e5465a
+          createdAt: 2026-09-26T15:49:29Z
+          updatedAt: 2026-09-26T15:50:35Z
+          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276505
         ageDays: 0
       attention: clear
     - name: Deploy Mentionpilot Web
       file: .github/workflows/deploy-web.yml
       triggers:
-        - pull_request
-        - pull_request_target
         - push
         - workflow_dispatch
       schedules: []
@@ -242,39 +238,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36176958729
+          id: 36253276680
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 46e98376b0eebe85c978dd850f5c2757010e6444
-          createdAt: 2026-09-25T19:00:07Z
-          updatedAt: 2026-09-25T19:01:44Z
-          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958729
+          headSha: d70bac5f077e18beff229480319c04d885e5465a
+          createdAt: 2026-09-26T15:49:29Z
+          updatedAt: 2026-09-26T15:52:49Z
+          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276680
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 36176958729
+          id: 36253276680
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 46e98376b0eebe85c978dd850f5c2757010e6444
-          createdAt: 2026-09-25T19:00:07Z
-          updatedAt: 2026-09-25T19:01:44Z
-          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/36176958729
+          headSha: d70bac5f077e18beff229480319c04d885e5465a
+          createdAt: 2026-09-26T15:49:29Z
+          updatedAt: 2026-09-26T15:52:49Z
+          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276680
         ageDays: 0
-      attention: action-required
+      attention: clear
     - name: Deploy Mentionpilot API Worker
       file: .github/workflows/deploy-worker.yml
       triggers:
@@ -290,43 +286,45 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34808237654
+          id: 36253276575
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 8d7dce26d3a5336206ecdff2349d247068b18e85
-          createdAt: 2026-09-14T05:03:34Z
-          updatedAt: 2026-09-14T05:03:59Z
-          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/34808237654
-        ageDays: 11
+          headSha: d70bac5f077e18beff229480319c04d885e5465a
+          createdAt: 2026-09-26T15:49:29Z
+          updatedAt: 2026-09-26T15:51:58Z
+          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276575
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 46e9837
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 34808237654
+          id: 36253276575
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 8d7dce26d3a5336206ecdff2349d247068b18e85
-          createdAt: 2026-09-14T05:03:34Z
-          updatedAt: 2026-09-14T05:03:59Z
-          url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/34808237654
-      attention: action-required
+          headSha: d70bac5f077e18beff229480319c04d885e5465a
+          createdAt: 2026-09-26T15:49:29Z
+          updatedAt: 2026-09-26T15:51:58Z
+          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36253276575
+        ageDays: 0
+      attention: clear
 deployment:
   kind: worker+pages
   deployed: true
-  domains: []
-  primaryUrl: null
+  domains:
+    - mention.highsignal.app
+  primaryUrl: https://mention.highsignal.app
   domainProbePaths: {}
   targets:
     - id: domain
@@ -357,20 +355,20 @@ deployment:
       - provider: cloudflare
         kind: worker
         name: mentionpilot-api
-        state: live-observed
+        state: live
         consumerRepository: sarthakagrawal927/mentionpilot
         scope: shared-fleet-account
-        attributionReason: Canonical MentionPilot project owns this resource; its repository identifies the matching Cloudflare runtime or D1 binding. Provider inventory was last observed on 2026-09-14.
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         verification:
           observedAt: 2026-09-25
           evidence: Existing Cloudflare inventory plus direct HTTP 200 from the repository-listed API health route.
       - provider: cloudflare
         kind: worker
         name: mentionpilot-web
-        state: live-observed
+        state: live
         consumerRepository: sarthakagrawal927/mentionpilot
         scope: shared-fleet-account
-        attributionReason: Canonical MentionPilot project owns this resource; its repository identifies the matching Cloudflare runtime or D1 binding. Provider inventory was last observed on 2026-09-14.
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         verification:
           observedAt: 2026-09-14
           evidence: Authenticated Cloudflare Pages inventory / Workers dashboard; local mentionpilot AGENTS.md identifies frontend and API.
@@ -380,10 +378,10 @@ deployment:
         kind: d1
         name: mentionpilot-db
         id: 58f25b8f-ebe2-4117-8afc-ede08ec37430
-        state: live-observed
+        state: live
         consumerRepository: sarthakagrawal927/mentionpilot
         scope: shared-fleet-account
-        attributionReason: Canonical MentionPilot project owns this resource; its repository identifies the matching Cloudflare runtime or D1 binding. Provider inventory was last observed on 2026-09-14.
+        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         operationalOwner: mentionpilot
   otherProviders:
     deployments: []
@@ -395,8 +393,8 @@ sharing:
   verifiedAt: 2026-09-25
   reason: Owner reactivated the product. The API health endpoint returned HTTP 200, while the repository-listed Pages web URL did not resolve in this check. Public product usability and ownership of similarly named external domains remain unverified.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/mentionpilot/issues
+  roadmapUrl: https://github.com/High-Signal-App/mentionpilot/issues
   geoIdentity: null
 notes:
   catalog: Owner reactivated MentionPilot to inspect awareness across AI and community sources.
-  infrastructure: Owner reactivated MentionPilot. The API health route returned HTTP 200 on 2026-09-25. The listed Pages web hostname did not resolve; web availability and any similarly named external domains remain unverified.
+  infrastructure: "Owner reactivated MentionPilot. The API health route returned HTTP 200 on 2026-09-25. The listed Pages web hostname did not resolve; web availability and any similarly named external domains remain unverified. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features."

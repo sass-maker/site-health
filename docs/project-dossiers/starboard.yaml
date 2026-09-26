@@ -3,7 +3,7 @@ projectId: starboard
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,31 +31,32 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: starboard
-      revision: 46408dfe6c3bac06a51676cf1992a7c8f94d2be7
+      revision: e1481494ed1521b2c3cf49b3706450627b89df34
       githubRepository: Codevetter/starboard
       expectedHomepage: https://starboard.codevetter.com
       observedHomepage: https://starboard.codevetter.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 9
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: starboard
-      revision: 46408dfe6c3bac06a51676cf1992a7c8f94d2be7
+      revision: e1481494ed1521b2c3cf49b3706450627b89df34
       githubRepository: Codevetter/starboard
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-22
       catalogLatestCommitAt: 2026-09-22
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 6
       stale: 2
@@ -115,13 +116,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-22
-    latestCommitAt: 2026-09-22
-    retainedCommitCount: 418
+    latestCommitAt: 2026-09-26
+    retainedCommitCount: 426
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: starboard
-  observedRevision: 46408dfe6c3bac06a51676cf1992a7c8f94d2be7
+  observedRevision: e1481494ed1521b2c3cf49b3706450627b89df34
   githubRepository: Codevetter/starboard
   githubHomepageUrl: https://starboard.codevetter.com
   worktree: *a1
@@ -199,7 +200,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 6
@@ -289,7 +290,7 @@ githubActions:
           createdAt: 2026-09-25T11:11:05Z
           updatedAt: 2026-09-25T11:11:30Z
           url: https://github.com/Codevetter/starboard/actions/runs/36128003657
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -397,7 +398,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 54 days old
+        reason: latest run is 55 days old
         apiState: active
         lastRun:
           id: 30721198381
@@ -409,7 +410,7 @@ githubActions:
           createdAt: 2026-08-01T22:24:44Z
           updatedAt: 2026-08-01T22:25:14Z
           url: https://github.com/Codevetter/starboard/actions/runs/30721198381
-        ageDays: 54
+        ageDays: 55
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -433,7 +434,7 @@ githubActions:
         reason: tracked workflow
       live:
         health: stale
-        reason: latest run is 47 days old
+        reason: latest run is 48 days old
         apiState: active
         lastRun:
           id: 31315689133
@@ -445,7 +446,7 @@ githubActions:
           createdAt: 2026-08-09T13:23:34Z
           updatedAt: 2026-08-09T13:23:48Z
           url: https://github.com/Codevetter/starboard/actions/runs/31315689133
-        ageDays: 47
+        ageDays: 48
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -483,7 +484,7 @@ githubActions:
           createdAt: 2026-09-25T11:11:44Z
           updatedAt: 2026-09-25T11:41:22Z
           url: https://github.com/Codevetter/starboard/actions/runs/36128059293
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: recovered-manually
         reason: a newer manual run succeeded after the failed scheduled run
@@ -507,7 +508,7 @@ githubActions:
           createdAt: 2026-09-25T11:11:44Z
           updatedAt: 2026-09-25T11:41:22Z
           url: https://github.com/Codevetter/starboard/actions/runs/36128059293
-        ageDays: 5
+        ageDays: 6
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
@@ -573,7 +574,7 @@ githubActions:
           createdAt: 2026-09-21T03:53:31Z
           updatedAt: 2026-09-21T03:54:59Z
           url: https://github.com/Codevetter/starboard/actions/runs/35559045110
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -627,6 +628,13 @@ deployment:
         scope: project
         operationalOwner: starboard
         attributionReason: "Canonical project owner: starboard"
+      - provider: cloudflare
+        kind: r2
+        name: starboard-inc-cache
+        state: live
+        attributionReason: OpenNext incremental-cache bucket auto-managed by the starboard Worker deployment (live R2 inventory 2026-09-26). Platform-owned resource of starboard; do not delete while the worker serves traffic.
+        scope: project
+        operationalOwner: starboard
   otherProviders:
     deployments: []
     resources: []

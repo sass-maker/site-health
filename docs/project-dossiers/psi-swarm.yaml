@@ -3,7 +3,7 @@ projectId: psi-swarm
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-10
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: PSI Swarm
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/psi-swarm
       revision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/psi-swarm
       revision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
@@ -55,10 +55,10 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
-      healthy: 3
-      stale: 1
+      healthy: 2
+      stale: 2
       attention: &a2
         ignored: 4
   unknowns: []
@@ -89,7 +89,7 @@ identity:
     status: inactive
     resumeCondition: null
     shareable: false
-  operationalStatus: live
+  operationalStatus: undeployed
   authenticationModel: public-persistent
   inRegistry: false
 product:
@@ -162,11 +162,11 @@ repository:
       - setup
       - web
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
-    healthy: 3
-    stale: 1
+    healthy: 2
+    stale: 2
   attention: *a2
   remote:
     repository: sarthakagrawal927/psi-swarm
@@ -206,7 +206,7 @@ githubActions:
           createdAt: 2026-09-09T22:50:45Z
           updatedAt: 2026-09-09T22:51:35Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414192148
-        ageDays: 15
+        ageDays: 16
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -224,7 +224,7 @@ githubActions:
           createdAt: 2026-09-09T22:50:45Z
           updatedAt: 2026-09-09T22:51:35Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414192148
-        ageDays: 15
+        ageDays: 16
       attention: ignored
     - name: Deploy psi-swarm-web to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -252,7 +252,7 @@ githubActions:
           createdAt: 2026-09-09T22:56:24Z
           updatedAt: 2026-09-09T22:57:00Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414625397
-        ageDays: 15
+        ageDays: 16
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -275,8 +275,8 @@ githubActions:
         status: ignored
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: stale
+        reason: latest run is 31 days old
         apiState: active
         lastRun:
           id: 32910082428
@@ -288,7 +288,7 @@ githubActions:
           createdAt: 2026-08-25T23:17:14Z
           updatedAt: 2026-08-25T23:21:05Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/32910082428
-        ageDays: 30
+        ageDays: 31
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -311,7 +311,7 @@ githubActions:
         reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
       live:
         health: stale
-        reason: latest run is 114 days old
+        reason: latest run is 115 days old
         apiState: active
         lastRun:
           id: 26895965998
@@ -323,7 +323,7 @@ githubActions:
           createdAt: 2026-06-03T15:44:14Z
           updatedAt: 2026-06-03T15:45:21Z
           url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/26895965998
-        ageDays: 114
+        ageDays: 115
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -335,7 +335,7 @@ githubActions:
       attention: ignored
 deployment:
   kind: pages
-  deployed: true
+  deployed: false
   domains:
     - performance.sassmaker.com
   primaryUrl: https://performance.sassmaker.com
@@ -347,7 +347,7 @@ deployment:
         kind: pages
         name: psi-swarm-web
         method: wrangler-direct
-        state: live
+        state: deleted
         verification:
           observedAt: 2026-09-09T23:02:39.600569+00:00
           deploymentId: 652bd3d2-cddf-4541-809f-8a0c36749ed6
@@ -389,4 +389,4 @@ sharing:
       state: not-applicable
 notes:
   catalog: Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.
-  infrastructure: null
+  infrastructure: " 2026-09-26: Custom domain performance.sassmaker.com detached via API, then Pages project psi-swarm-web deleted."

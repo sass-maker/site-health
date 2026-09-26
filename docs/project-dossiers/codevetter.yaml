@@ -3,7 +3,7 @@ projectId: codevetter
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,22 +31,22 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: codevetter
-      revision: 07bd106ba71b4f5edf0159a3230a3cb600690142
+      revision: 01bb19be4119b3d04b0f8bf9e9858413e287afbb
       githubRepository: Codevetter/codevetter
       expectedHomepage: https://codevetter.com
       observedHomepage: https://codevetter.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: codevetter
-      revision: 07bd106ba71b4f5edf0159a3230a3cb600690142
+      revision: 01bb19be4119b3d04b0f8bf9e9858413e287afbb
       githubRepository: Codevetter/codevetter
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 13
       attention: &a2
@@ -114,12 +114,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2025-11-30
     latestCommitAt: 2026-09-26
-    retainedCommitCount: 1433
+    retainedCommitCount: 1446
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: codevetter
-  observedRevision: 07bd106ba71b4f5edf0159a3230a3cb600690142
+  observedRevision: 01bb19be4119b3d04b0f8bf9e9858413e287afbb
   githubRepository: Codevetter/codevetter
   githubHomepageUrl: https://codevetter.com
   worktree: *a1
@@ -282,7 +282,7 @@ repository:
       - version:check
       - version:sync
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 13
@@ -445,15 +445,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36180661493
+          id: 36228616744
           status: completed
           conclusion: success
           event: push
-          branch: main
-          headSha: 01bb19be4119b3d04b0f8bf9e9858413e287afbb
-          createdAt: 2026-09-25T19:35:55Z
-          updatedAt: 2026-09-25T19:36:20Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/36180661493
+          branch: release/v1.14.2
+          headSha: d7aae2979ea2a4d2a378a0575b9b24e379e3dfe2
+          createdAt: 2026-09-26T08:03:02Z
+          updatedAt: 2026-09-26T08:03:16Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/36228616744
         ageDays: 0
       schedule:
         health: not-applicable
@@ -538,7 +538,7 @@ githubActions:
           createdAt: 2026-09-19T10:58:10Z
           updatedAt: 2026-09-19T11:21:45Z
           url: https://github.com/Codevetter/codevetter/actions/runs/35438817792
-        ageDays: 6
+        ageDays: 7
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -708,7 +708,7 @@ githubActions:
           createdAt: 2026-09-21T15:27:39Z
           updatedAt: 2026-09-21T15:28:02Z
           url: https://github.com/Codevetter/codevetter/actions/runs/35619082846
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -722,7 +722,7 @@ githubActions:
           createdAt: 2026-09-21T15:27:39Z
           updatedAt: 2026-09-21T15:28:02Z
           url: https://github.com/Codevetter/codevetter/actions/runs/35619082846
-        ageDays: 4
+        ageDays: 5
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable

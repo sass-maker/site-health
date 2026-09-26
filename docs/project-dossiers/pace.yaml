@@ -3,7 +3,7 @@ projectId: pace
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: pace
       revision: f1a335c17a44b4f162c0a38be7e61e17d9e9ee67
@@ -39,11 +39,11 @@ verification:
       expectedHomepage: https://heypace.app
       observedHomepage: https://heypace.app
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: pace
       revision: f1a335c17a44b4f162c0a38be7e61e17d9e9ee67
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       failing: 1
       healthy: 2
@@ -158,7 +158,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -167,7 +167,7 @@ githubActions:
   remote:
     repository: HeyPace/pace
     defaultBranch: main
-    defaultBranchSha: c56507e8cd3f3a9bdb414bbfd53ae10eb32b0e6b
+    defaultBranchSha: f1a335c17a44b4f162c0a38be7e61e17d9e9ee67
     homepage: https://heypace.app
     query: verified
     disposition:
@@ -193,34 +193,34 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 36177374492
+          id: 36228750918
           status: completed
           conclusion: failure
-          event: pull_request
-          branch: chore/footer-ask-ai-loader
+          event: push
+          branch: main
           headSha: f1a335c17a44b4f162c0a38be7e61e17d9e9ee67
-          createdAt: 2026-09-25T19:04:02Z
-          updatedAt: 2026-09-25T19:09:07Z
-          url: https://github.com/HeyPace/pace/actions/runs/36177374492
+          createdAt: 2026-09-26T08:05:42Z
+          updatedAt: 2026-09-26T08:08:44Z
+          url: https://github.com/HeyPace/pace/actions/runs/36228750918
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: failing
+        reason: current main push concluded failure
         lastRun:
-          id: 35820067491
+          id: 36228750918
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: c56507e8cd3f3a9bdb414bbfd53ae10eb32b0e6b
-          createdAt: 2026-09-23T04:52:01Z
-          updatedAt: 2026-09-23T04:56:50Z
-          url: https://github.com/HeyPace/pace/actions/runs/35820067491
-        ageDays: 2
+          headSha: f1a335c17a44b4f162c0a38be7e61e17d9e9ee67
+          createdAt: 2026-09-26T08:05:42Z
+          updatedAt: 2026-09-26T08:08:44Z
+          url: https://github.com/HeyPace/pace/actions/runs/36228750918
+        ageDays: 0
       attention: action-required
     - name: Deploy pace to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -248,7 +248,7 @@ githubActions:
           createdAt: 2026-09-23T05:05:24Z
           updatedAt: 2026-09-23T05:06:24Z
           url: https://github.com/HeyPace/pace/actions/runs/35820969912
-        ageDays: 2
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -277,15 +277,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36177374489
+          id: 36228750932
           status: completed
           conclusion: success
-          event: pull_request
-          branch: chore/footer-ask-ai-loader
+          event: push
+          branch: main
           headSha: f1a335c17a44b4f162c0a38be7e61e17d9e9ee67
-          createdAt: 2026-09-25T19:04:02Z
-          updatedAt: 2026-09-25T19:04:49Z
-          url: https://github.com/HeyPace/pace/actions/runs/36177374489
+          createdAt: 2026-09-26T08:05:42Z
+          updatedAt: 2026-09-26T08:06:09Z
+          url: https://github.com/HeyPace/pace/actions/runs/36228750932
         ageDays: 0
       schedule:
         health: not-applicable
@@ -295,16 +295,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35820067488
+          id: 36228750932
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: c56507e8cd3f3a9bdb414bbfd53ae10eb32b0e6b
-          createdAt: 2026-09-23T04:52:01Z
-          updatedAt: 2026-09-23T04:52:44Z
-          url: https://github.com/HeyPace/pace/actions/runs/35820067488
-        ageDays: 2
+          headSha: f1a335c17a44b4f162c0a38be7e61e17d9e9ee67
+          createdAt: 2026-09-26T08:05:42Z
+          updatedAt: 2026-09-26T08:06:09Z
+          url: https://github.com/HeyPace/pace/actions/runs/36228750932
+        ageDays: 0
       attention: clear
 deployment:
   kind: pages

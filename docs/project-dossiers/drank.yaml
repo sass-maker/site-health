@@ -3,7 +3,7 @@ projectId: drank
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-08-30
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Drank
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/drank
       revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/drank
       revision: 7d7a2aab78e068d9dd8c8fd1ebcef098e09d0afc
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       failing: 2
       attention: &a2
@@ -92,7 +92,7 @@ identity:
     status: inactive
     resumeCondition: null
     shareable: false
-  operationalStatus: live
+  operationalStatus: undeployed
   authenticationModel: public-persistent
   inRegistry: false
 product:
@@ -172,7 +172,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     failing: 2
@@ -263,7 +263,7 @@ githubActions:
           createdAt: 2026-09-21T09:29:07Z
           updatedAt: 2026-09-21T09:29:47Z
           url: https://github.com/sarthakagrawal927/drank/actions/runs/35583549806
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: failing
         reason: latest scheduled run concluded failure
@@ -277,7 +277,7 @@ githubActions:
           createdAt: 2026-09-21T09:29:07Z
           updatedAt: 2026-09-21T09:29:47Z
           url: https://github.com/sarthakagrawal927/drank/actions/runs/35583549806
-        ageDays: 4
+        ageDays: 5
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
@@ -285,7 +285,7 @@ githubActions:
       attention: ignored
 deployment:
   kind: pages
-  deployed: true
+  deployed: false
   domains:
     - domains.sassmaker.com
   primaryUrl: https://domains.sassmaker.com
@@ -297,7 +297,7 @@ deployment:
         kind: pages
         name: drank
         method: wrangler-direct
-        state: live
+        state: deleted
     resources:
       - provider: cloudflare
         kind: workers-ai
@@ -347,4 +347,4 @@ sharing:
       state: not-applicable
 notes:
   catalog: Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.
-  infrastructure: null
+  infrastructure: " 2026-09-26: Custom domain domains.sassmaker.com detached via API, then Pages project deleted. Turnstile widget remains account-level."

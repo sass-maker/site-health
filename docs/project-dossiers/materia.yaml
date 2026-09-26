@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: materia
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    repositorySnapshot: unavailable
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Materia
@@ -31,36 +31,33 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
-      state: available
-      checkout: ../fleet-archive/materia
-      revision: aa0cef3ca98734b587c3b3de1d5a74a85b641c2a
-      githubRepository: Significant-Hobbies/materia
+      observedAt: 2026-09-26
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
       expectedHomepage: https://materia.significanthobbies.com
-      observedHomepage: https://materia.significanthobbies.com
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      observedHomepage: null
+      worktree: null
     retainedGitHistory:
-      observedAt: 2026-09-25
-      state: available
-      checkout: ../fleet-archive/materia
-      revision: aa0cef3ca98734b587c3b3de1d5a74a85b641c2a
-      githubRepository: Significant-Hobbies/materia
+      observedAt: 2026-09-26
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-21
       catalogLatestCommitAt: 2026-09-06
       catalogDrift: []
-      reason: null
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
-      healthy: 2
-      attention: &a2
-        ignored: 2
-  unknowns: []
+      attention: &a1 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://materia.significanthobbies.com.
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: Materia is also kind of an over-ambitious project. I wanted to have an encyclopaedia-like product in which you can come to visit, click on any body parts you have issues with, go deep into it, and see what all herbs and medicines are there to treat it. This is a product I will very actively pursue in the future but for now I don't have time or focus for
   fullReviewVerbatim: Materia is also kind of an over-ambitious project. I wanted to have an encyclopaedia-like product in which you can come to visit, click on any body parts you have issues with, go deep into it, and see what all herbs and medicines are there to treat it. This is a product I will very actively pursue in the future but for now I don't have time or focus for
@@ -88,7 +85,7 @@ identity:
     status: inactive
     resumeCondition: null
     shareable: true
-  operationalStatus: live
+  operationalStatus: undeployed
   authenticationModel: public-persistent
   inRegistry: true
 product:
@@ -110,160 +107,43 @@ product:
     - Three.js
     - Cloudflare Pages
   retainedGitHistory:
-    firstCommitAt: 2026-06-21
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 57
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: ../fleet-archive/materia
-  observedRevision: aa0cef3ca98734b587c3b3de1d5a74a85b641c2a
-  githubRepository: Significant-Hobbies/materia
-  githubHomepageUrl: https://materia.significanthobbies.com
-  worktree: *a1
+  checkout: null
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
   visibility: public
-  url: https://github.com/Significant-Hobbies/materia
+  url: https://github.com/sarthakagrawal927/materia
   aliases: []
   sourceOverride: ../fleet-archive/materia
   tooling:
     declaredPackageManager: null
-    detectedSignals:
-      - name: Astro
-        evidence:
-          - astro.config.mjs
-      - name: Biome
-        evidence:
-          - biome.json
-      - name: Cloudflare Wrangler
-        evidence:
-          - wrangler.jsonc
-      - name: npm
-        evidence:
-          - package-lock.json
-      - name: pnpm
-        evidence:
-          - pnpm-lock.yaml
-      - name: Vitest
-        evidence:
-          - vitest.config.ts
-    rootPackageScripts:
-      - astro
-      - build
-      - check
-      - checks
-      - deploy
-      - dev
-      - docs:check
-      - format
-      - knip
-      - knip:strict
-      - lint
-      - preview
-      - start
-      - test
-      - test:coverage
+    detectedSignals: []
+    rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
-  summary:
-    healthy: 2
-  attention: *a2
+  summary: {}
+  attention: *a1
   remote:
-    repository: Significant-Hobbies/materia
-    defaultBranch: main
-    defaultBranchSha: 161378cad8018d4906fdb141eadf313ce5b61aac
-    homepage: https://materia.significanthobbies.com
-    query: verified
+    repository: null
+    defaultBranch: null
+    defaultBranchSha: null
+    homepage: null
+    query: unverifiable
     disposition:
       disposition: ignored
       reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows:
-    - name: CI
-      file: .github/workflows/ci.yml
-      triggers:
-        - pull_request
-        - push
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35635095446
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 161378cad8018d4906fdb141eadf313ce5b61aac
-          createdAt: 2026-09-21T17:55:42Z
-          updatedAt: 2026-09-21T17:56:35Z
-          url: https://github.com/Significant-Hobbies/materia/actions/runs/35635095446
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35635095446
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 161378cad8018d4906fdb141eadf313ce5b61aac
-          createdAt: 2026-09-21T17:55:42Z
-          updatedAt: 2026-09-21T17:56:35Z
-          url: https://github.com/Significant-Hobbies/materia/actions/runs/35635095446
-        ageDays: 4
-      attention: ignored
-    - name: Deploy materia to Cloudflare Pages
-      file: .github/workflows/deploy.yml
-      triggers:
-        - workflow_dispatch
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34015641731
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: aa0cef3ca98734b587c3b3de1d5a74a85b641c2a
-          createdAt: 2026-09-06T06:06:26Z
-          updatedAt: 2026-09-06T06:07:32Z
-          url: https://github.com/Significant-Hobbies/materia/actions/runs/34015641731
-        ageDays: 19
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
+  workflows: []
 deployment:
   kind: pages
-  deployed: true
+  deployed: false
   domains:
     - materia.significanthobbies.com
   primaryUrl: https://materia.significanthobbies.com
@@ -275,7 +155,8 @@ deployment:
         kind: pages
         name: materia
         method: wrangler-direct
-        state: live-retained
+        state: deleted
+        attributionReason: Owner ordered archival 2026-09-26; Pages custom domain detached and project deleted.
     resources: []
   otherProviders:
     deployments: []
@@ -287,8 +168,8 @@ sharing:
   verifiedAt: 2026-09-07
   reason: One representative path; not clinical validation or personalized treatment qualification.
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/materia/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/materia/issues
   geoIdentity: null
 notes:
   catalog: own bet; hosted on SH domain
-  infrastructure: null
+  infrastructure: " 2026-09-26: Archived; Pages project and domain deleted. 2026-09-26: Repo moved to personal GitHub (sarthakagrawal927); local checkout deleted (was clean, fully pushed)."

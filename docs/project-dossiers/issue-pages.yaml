@@ -3,7 +3,7 @@ projectId: issue-pages
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-25
+  generatedAt: 2026-09-26
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ed80c66c144fd78b2111a51c7ebe817ef43203be489009cb41112631867b6df1
-      infrastructureUpdatedAt: 2026-09-10
+      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: IssuePages
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/issue-pages
       revision: 65e20e96cb9149baf1d7254b738027079541e4ea
@@ -39,11 +39,11 @@ verification:
       expectedHomepage: https://issues.sarthakagrawal.dev
       observedHomepage: https://issues.sarthakagrawal.dev
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-25
+      observedAt: 2026-09-26
       state: available
       checkout: ../fleet-archive/issue-pages
       revision: 65e20e96cb9149baf1d7254b738027079541e4ea
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-25T20:28:32.894Z
+      observedAt: 2026-09-26T17:25:40.453Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -167,7 +167,7 @@ repository:
       - types
       - types:check
 githubActions:
-  observedAt: 2026-09-25T20:28:32.894Z
+  observedAt: 2026-09-26T17:25:40.453Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -248,6 +248,8 @@ deployment:
         name: issue-pages-production
         method: wrangler-direct
         state: live
+        attributionReason: Restored 2026-09-26 at owner request; redeployed from fleet-archive/issue-pages with all cron triggers removed. Worker secrets (GITHUB_*, ADMIN_REVIEW_SECRET) were dropped by the earlier deletion and are not re-set — GitHub-backed features and moderation are degraded until secrets are re-added.
+        versionId: 7ae1e6b2-fdb9-4531-8b1f-bd65478f9367
     resources:
       - provider: cloudflare
         kind: d1
@@ -277,4 +279,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: Owner-only production pilot at issues.sarthakagrawal.dev, with the workers.dev hostname retained as provider fallback. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.
-  infrastructure: null
+  infrastructure: " 2026-09-26: issue-pages-production Worker deleted with owner approval; D1 retained, custom domain unrouted. Restored same day without cron after owner reversal; secrets need re-adding for GitHub features."
