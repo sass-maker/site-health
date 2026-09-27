@@ -3,7 +3,7 @@ projectId: swe-interview-prep
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-26
+  generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-26
+      observedAt: 2026-09-27
       state: available
       checkout: swe-interview-prep
       revision: fcac458443b62fc4bac0c6e365f8450b088c9119
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-26
+      observedAt: 2026-09-27
       state: available
       checkout: swe-interview-prep
       revision: fcac458443b62fc4bac0c6e365f8450b088c9119
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-26T17:25:40.453Z
+      observedAt: 2026-09-27T08:10:21.691Z
       staleAfterDays: 30
       healthy: 5
       attention: &a2
@@ -205,7 +205,7 @@ repository:
       - verify:citations
       - verify:sources
 githubActions:
-  observedAt: 2026-09-26T17:25:40.453Z
+  observedAt: 2026-09-27T08:10:21.691Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -247,7 +247,7 @@ githubActions:
           createdAt: 2026-09-23T04:52:28Z
           updatedAt: 2026-09-23T04:54:42Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35820097834
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -265,7 +265,7 @@ githubActions:
           createdAt: 2026-09-23T04:52:28Z
           updatedAt: 2026-09-23T04:54:42Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35820097834
-        ageDays: 3
+        ageDays: 4
       attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
@@ -293,7 +293,7 @@ githubActions:
           createdAt: 2026-09-23T05:06:12Z
           updatedAt: 2026-09-23T05:07:14Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35821023837
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -331,7 +331,7 @@ githubActions:
           createdAt: 2026-09-19T18:19:44Z
           updatedAt: 2026-09-19T18:19:54Z
           url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35460835976
-        ageDays: 6
+        ageDays: 7
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

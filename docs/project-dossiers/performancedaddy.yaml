@@ -3,7 +3,7 @@ projectId: performancedaddy
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-26
+  generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
-      documentSha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,22 +32,22 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-26
+      observedAt: 2026-09-27
       state: available
       checkout: performancedaddy
-      revision: a24fa5f596f460c4b2adeb8d82b94673684fbd19
+      revision: 64092ced1d061bd29bf87a99a215dcf7909ba5ed
       githubRepository: sarthakagrawal927/performancedaddy
       expectedHomepage: https://performance.daddyrad.com/
       observedHomepage: https://performance.daddyrad.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 12
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-26
+      observedAt: 2026-09-27
       state: available
       checkout: performancedaddy
-      revision: a24fa5f596f460c4b2adeb8d82b94673684fbd19
+      revision: 64092ced1d061bd29bf87a99a215dcf7909ba5ed
       githubRepository: sarthakagrawal927/performancedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -57,12 +57,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-26T17:25:40.453Z
+      observedAt: 2026-09-27T08:10:21.691Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
-        missing-data: 1
-        clear: 1
+        clear: 2
   unknowns:
     - GitHub repository homepage does not match the canonical deployed URL https://performance.daddyrad.com/.
 ownerVoice:
@@ -122,13 +121,13 @@ product:
     - Sparkle
   retainedGitHistory:
     firstCommitAt: 2026-09-20
-    latestCommitAt: 2026-09-26
-    retainedCommitCount: 48
+    latestCommitAt: 2026-09-27
+    retainedCommitCount: 51
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: performancedaddy
-  observedRevision: a24fa5f596f460c4b2adeb8d82b94673684fbd19
+  observedRevision: 64092ced1d061bd29bf87a99a215dcf7909ba5ed
   githubRepository: sarthakagrawal927/performancedaddy
   githubHomepageUrl: https://performance.daddyrad.com
   worktree: *a1
@@ -150,7 +149,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-26T17:25:40.453Z
+  observedAt: 2026-09-27T08:10:21.691Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -158,7 +157,7 @@ githubActions:
   remote:
     repository: sarthakagrawal927/performancedaddy
     defaultBranch: main
-    defaultBranchSha: a24fa5f596f460c4b2adeb8d82b94673684fbd19
+    defaultBranchSha: 64092ced1d061bd29bf87a99a215dcf7909ba5ed
     homepage: https://performance.daddyrad.com
     query: verified
     disposition:
@@ -183,34 +182,35 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36254718131
+          id: 36264479442
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8a9735c6eaab7f7c068983bb4a1d213dac44fe12
-          createdAt: 2026-09-26T16:14:02Z
-          updatedAt: 2026-09-26T16:17:09Z
-          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36254718131
+          headSha: 64092ced1d061bd29bf87a99a215dcf7909ba5ed
+          createdAt: 2026-09-26T18:59:40Z
+          updatedAt: 2026-09-26T19:02:30Z
+          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36264479442
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision a24fa5f
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 36254718131
+          id: 36264479442
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8a9735c6eaab7f7c068983bb4a1d213dac44fe12
-          createdAt: 2026-09-26T16:14:02Z
-          updatedAt: 2026-09-26T16:17:09Z
-          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36254718131
-      attention: missing-data
+          headSha: 64092ced1d061bd29bf87a99a215dcf7909ba5ed
+          createdAt: 2026-09-26T18:59:40Z
+          updatedAt: 2026-09-26T19:02:30Z
+          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36264479442
+        ageDays: 0
+      attention: clear
     - name: Protected manual release
       file: .github/workflows/release.yml
       triggers:
@@ -228,15 +228,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36254939507
+          id: 36263871519
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 8a9735c6eaab7f7c068983bb4a1d213dac44fe12
-          createdAt: 2026-09-26T16:17:45Z
-          updatedAt: 2026-09-26T16:24:56Z
-          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36254939507
+          headSha: cdecb4c476eebf2f6475d631b71d114381742fb3
+          createdAt: 2026-09-26T18:48:57Z
+          updatedAt: 2026-09-26T18:55:25Z
+          url: https://github.com/sarthakagrawal927/performancedaddy/actions/runs/36263871519
         ageDays: 0
       schedule:
         health: not-applicable

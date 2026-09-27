@@ -3,7 +3,7 @@ projectId: protein-index
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-26
+  generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,7 +31,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-26
+      observedAt: 2026-09-27
       state: available
       checkout: ../fleet-archive/protein-index-resilience
       revision: 25adccd1c615eecdd23e7425c920678bf58c9953
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-26
+      observedAt: 2026-09-27
       state: available
       checkout: ../fleet-archive/protein-index-resilience
       revision: 25adccd1c615eecdd23e7425c920678bf58c9953
@@ -55,7 +55,7 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-26T17:25:40.453Z
+      observedAt: 2026-09-27T08:10:21.691Z
       staleAfterDays: 30
       failing: 3
       healthy: 4
@@ -195,7 +195,7 @@ repository:
       - test:worker
       - typecheck
 githubActions:
-  observedAt: 2026-09-26T17:25:40.453Z
+  observedAt: 2026-09-27T08:10:21.691Z
   staleAfterDays: 30
   summary:
     failing: 3
@@ -239,7 +239,7 @@ githubActions:
           createdAt: 2026-09-22T05:02:24Z
           updatedAt: 2026-09-22T05:02:43Z
           url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35689148463
-        ageDays: 4
+        ageDays: 5
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -257,7 +257,7 @@ githubActions:
           createdAt: 2026-09-22T05:02:24Z
           updatedAt: 2026-09-22T05:02:43Z
           url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35689148463
-        ageDays: 4
+        ageDays: 5
       attention: ignored
     - name: Docs
       file: .github/workflows/docs.yml
@@ -332,7 +332,7 @@ githubActions:
           createdAt: 2026-09-21T08:07:42Z
           updatedAt: 2026-09-21T08:08:12Z
           url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576276857
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -369,7 +369,7 @@ githubActions:
           createdAt: 2026-09-21T08:07:42Z
           updatedAt: 2026-09-21T13:53:25Z
           url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576277132
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -406,7 +406,7 @@ githubActions:
           createdAt: 2026-09-21T08:07:42Z
           updatedAt: 2026-09-21T13:53:30Z
           url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35576276802
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -709,7 +709,7 @@ githubActions:
           createdAt: 2026-09-21T08:00:46Z
           updatedAt: 2026-09-21T08:07:40Z
           url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35575692322
-        ageDays: 5
+        ageDays: 6
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -723,7 +723,7 @@ githubActions:
           createdAt: 2026-09-21T08:00:46Z
           updatedAt: 2026-09-21T08:07:40Z
           url: https://github.com/sarthakagrawal927/protein-index-resilience/actions/runs/35575692322
-        ageDays: 5
+        ageDays: 6
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable

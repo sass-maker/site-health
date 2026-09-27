@@ -3,7 +3,7 @@ projectId: unified-portfolio
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-26
+  generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
-      documentSha256: a3cb27651f7b2036f038ffdb59d6abdbb15fbd6fa6f738152bf1ae8d218b2959
+      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,23 +32,23 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-26
+      observedAt: 2026-09-27
       state: available
       checkout: unified-portfolio
-      revision: 99106d833058dd9171b61ec77d654db2572dca4c
-      githubRepository: sarthakagrawal927/unified-portfolio
+      revision: 1560d2672d1ebf39f83899102f40ae38428d4191
+      githubRepository: Significant-Hobbies/unified-portfolio
       expectedHomepage: https://money.significanthobbies.com
       observedHomepage: https://money.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-26
+      observedAt: 2026-09-27
       state: available
       checkout: unified-portfolio
-      revision: 99106d833058dd9171b61ec77d654db2572dca4c
-      githubRepository: sarthakagrawal927/unified-portfolio
+      revision: 1560d2672d1ebf39f83899102f40ae38428d4191
+      githubRepository: Significant-Hobbies/unified-portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-19
@@ -57,7 +57,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-26T17:25:40.453Z
+      observedAt: 2026-09-27T08:10:21.691Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -116,14 +116,14 @@ product:
     - MCP
   retainedGitHistory:
     firstCommitAt: 2026-09-19
-    latestCommitAt: 2026-09-23
-    retainedCommitCount: 5
+    latestCommitAt: 2026-09-26
+    retainedCommitCount: 6
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: unified-portfolio
-  observedRevision: 99106d833058dd9171b61ec77d654db2572dca4c
-  githubRepository: sarthakagrawal927/unified-portfolio
+  observedRevision: 1560d2672d1ebf39f83899102f40ae38428d4191
+  githubRepository: Significant-Hobbies/unified-portfolio
   githubHomepageUrl: https://money.significanthobbies.com
   worktree: *a1
   visibility: public
@@ -165,15 +165,15 @@ repository:
       - start:vinext
       - test
 githubActions:
-  observedAt: 2026-09-26T17:25:40.453Z
+  observedAt: 2026-09-27T08:10:21.691Z
   staleAfterDays: 30
   summary:
     healthy: 1
   attention: *a2
   remote:
-    repository: sarthakagrawal927/unified-portfolio
+    repository: Significant-Hobbies/unified-portfolio
     defaultBranch: main
-    defaultBranchSha: 99106d833058dd9171b61ec77d654db2572dca4c
+    defaultBranchSha: 1560d2672d1ebf39f83899102f40ae38428d4191
     homepage: https://money.significanthobbies.com
     query: verified
     disposition:
@@ -198,16 +198,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35820037957
+          id: 36259287704
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 99106d833058dd9171b61ec77d654db2572dca4c
-          createdAt: 2026-09-23T04:51:35Z
-          updatedAt: 2026-09-23T04:52:08Z
-          url: https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/35820037957
-        ageDays: 3
+          headSha: 1560d2672d1ebf39f83899102f40ae38428d4191
+          createdAt: 2026-09-26T17:30:46Z
+          updatedAt: 2026-09-26T17:31:15Z
+          url: https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/36259287704
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -216,16 +216,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35820037957
+          id: 36259287704
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 99106d833058dd9171b61ec77d654db2572dca4c
-          createdAt: 2026-09-23T04:51:35Z
-          updatedAt: 2026-09-23T04:52:08Z
-          url: https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/35820037957
-        ageDays: 3
+          headSha: 1560d2672d1ebf39f83899102f40ae38428d4191
+          createdAt: 2026-09-26T17:30:46Z
+          updatedAt: 2026-09-26T17:31:15Z
+          url: https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/36259287704
+        ageDays: 0
       attention: clear
 deployment:
   kind: worker
