@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: psi-swarm
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    repositorySnapshot: unavailable
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: PSI Swarm
@@ -32,36 +32,32 @@ verification:
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/psi-swarm
-      revision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
-      githubRepository: sarthakagrawal927/psi-swarm
+      revision: null
+      githubRepository: null
       expectedHomepage: https://performance.sassmaker.com
-      observedHomepage: https://performance.sassmaker.com
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      observedHomepage: null
+      worktree: null
     retainedGitHistory:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/psi-swarm
-      revision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
-      githubRepository: sarthakagrawal927/psi-swarm
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-03
       catalogLatestCommitAt: 2026-09-10
       catalogDrift: []
-      reason: null
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 2
-      stale: 2
-      attention: &a2
-        ignored: 4
-  unknowns: []
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://performance.sassmaker.com.
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
   fullReviewVerbatim: Size Swarm is essentially a tool using Google's APIs, basically the Lighthouse API. Its purpose is to detect the performance we get in our products. It's kind of like a skill or whatever you can call it and it's a CLI tool and is also part of the Sight Health Tooling. I don't see myself further improving this product.
@@ -112,229 +108,34 @@ product:
     - SQLite
     - Astro
   retainedGitHistory:
-    firstCommitAt: 2026-06-03
-    latestCommitAt: 2026-09-10
-    retainedCommitCount: 81
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/psi-swarm
-  observedRevision: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
-  githubRepository: sarthakagrawal927/psi-swarm
-  githubHomepageUrl: https://performance.sassmaker.com
-  worktree: *a1
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
   visibility: public
   url: https://github.com/sarthakagrawal927/psi-swarm
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: pnpm@10.33.2
-    detectedSignals:
-      - name: Astro
-        evidence:
-          - web/astro.config.mjs
-      - name: Biome
-        evidence:
-          - biome.json
-      - name: pnpm
-        evidence:
-          - pnpm-lock.yaml
-    rootPackageScripts:
-      - build:cli
-      - build:web
-      - cli
-      - deploy
-      - dev:cli
-      - docs:check
-      - format:check
-      - install:skill
-      - quality
-      - quality:complexity
-      - quality:cycles
-      - quality:dependencies
-      - quality:duplication
-      - quality:lint
-      - quality:suppressions
-      - quality:unused
-      - release:verify
-      - run
-      - serve
-      - setup
-      - web
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
-  summary:
-    healthy: 2
-    stale: 2
-  attention: *a2
-  remote:
-    repository: sarthakagrawal927/psi-swarm
-    defaultBranch: main
-    defaultBranchSha: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
-    homepage: https://performance.sassmaker.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows:
-    - name: PSI Swarm CI
-      file: .github/workflows/ci.yml
-      triggers:
-        - pull_request
-        - push
-        - workflow_dispatch
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34414192148
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
-          createdAt: 2026-09-09T22:50:45Z
-          updatedAt: 2026-09-09T22:51:35Z
-          url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414192148
-        ageDays: 17
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 34414192148
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
-          createdAt: 2026-09-09T22:50:45Z
-          updatedAt: 2026-09-09T22:51:35Z
-          url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414192148
-        ageDays: 17
-      attention: ignored
-    - name: Deploy psi-swarm-web to Cloudflare Pages
-      file: .github/workflows/deploy.yml
-      triggers:
-        - workflow_dispatch
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 34414625397
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: af4ea1b4fcf22e39310ead8ec1d1f19c531bac33
-          createdAt: 2026-09-09T22:56:24Z
-          updatedAt: 2026-09-09T22:57:00Z
-          url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/34414625397
-        ageDays: 17
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
-    - name: Release PSI Swarm CLI
-      file: .github/workflows/release-cli.yml
-      triggers:
-        - push
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stale
-        reason: latest run is 32 days old
-        apiState: active
-        lastRun:
-          id: 32910082428
-          status: completed
-          conclusion: success
-          event: push
-          branch: v0.4.2
-          headSha: 5cf4c85231d3460efb807614f88c4e6a54641b87
-          createdAt: 2026-08-25T23:17:14Z
-          updatedAt: 2026-08-25T23:21:05Z
-          url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/32910082428
-        ageDays: 32
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run was returned for main
-        lastRun: null
-      attention: ignored
-    - name: pages-build-deployment
-      file: dynamic/pages/pages-build-deployment
-      triggers: []
-      schedules: []
-      inventory:
-        source: github-generated
-        local: false
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stale
-        reason: latest run is 115 days old
-        apiState: active
-        lastRun:
-          id: 26895965998
-          status: completed
-          conclusion: success
-          event: dynamic
-          branch: gh-pages
-          headSha: d9ea021fb81430761cd2287eb38adc67974826ae
-          createdAt: 2026-06-03T15:44:14Z
-          updatedAt: 2026-06-03T15:45:21Z
-          url: https://github.com/sarthakagrawal927/psi-swarm/actions/runs/26895965998
-        ageDays: 115
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
 deployment:
-  kind: pages
+  kind: none
   deployed: false
   domains:
     - performance.sassmaker.com
@@ -389,4 +190,4 @@ sharing:
       state: not-applicable
 notes:
   catalog: Canonical source restored to the standalone Sass Maker repository on 2026-08-20; existing deployment retained without release.
-  infrastructure: " 2026-09-26: Custom domain performance.sassmaker.com detached via API, then Pages project psi-swarm-web deleted."
+  infrastructure: " 2026-09-26: Custom domain performance.sassmaker.com detached via API, then Pages project psi-swarm-web deleted. 2026-09-27: Cloudflare DNS CNAME performance.sassmaker.com deleted from its authoritative zone."

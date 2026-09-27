@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-20
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: 716a47374fe4e6e2eacab74e5e06fad025d095c8254bc4d9691d1bb6edbb99a0
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -36,9 +36,9 @@ verification:
       state: available
       checkout: agent-testing
       revision: 08a11bb5ccbba655a46d2b91e9a15f6a13b1cfc0
-      githubRepository: sarthakagrawal927/agent-testing
+      githubRepository: Significant-Hobbies/agent-testing
       expectedHomepage: https://browser-agents.sarthakagrawal.dev/
-      observedHomepage: https://browser-agents.sarthakagrawal.dev
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -48,7 +48,7 @@ verification:
       state: available
       checkout: agent-testing
       revision: 08a11bb5ccbba655a46d2b91e9a15f6a13b1cfc0
-      githubRepository: sarthakagrawal927/agent-testing
+      githubRepository: Significant-Hobbies/agent-testing
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-20
@@ -57,12 +57,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      failing: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        action-required: 1
+        unclassified: 1
   unknowns:
+    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://browser-agents.sarthakagrawal.dev/.
 ownerVoice:
   whyVerbatim: "Completed in PR #17 and deployed from main at 0942a20eb8dbbf3b7acf25705b8e65d22afa9561. Cloudflare version: 988338c4-693d-4170-9e57-34aca72b479f. Live verification confirmed 26 rendered journey rows, 118/129 verified completions, seven additional probes, expected 200 routes and the supplied 404 route at both desktop and mobile widths."
@@ -85,10 +86,10 @@ identity:
   unmetNeed: true
   kind: experiment
   priority: P4
-  tier: parked
+  tier: secondary
   attention: ignored
   lifecycle:
-    status: inactive
+    status: active
     resumeCondition: null
     shareable: true
   operationalStatus: live
@@ -123,8 +124,8 @@ product:
 repository:
   checkout: agent-testing
   observedRevision: 08a11bb5ccbba655a46d2b91e9a15f6a13b1cfc0
-  githubRepository: sarthakagrawal927/agent-testing
-  githubHomepageUrl: https://browser-agents.sarthakagrawal.dev
+  githubRepository: Significant-Hobbies/agent-testing
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/agent-testing
@@ -150,20 +151,12 @@ repository:
       - test
       - validate:vaultwealth
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    failing: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/agent-testing
-    defaultBranch: main
-    defaultBranchSha: 08a11bb5ccbba655a46d2b91e9a15f6a13b1cfc0
-    homepage: https://browser-agents.sarthakagrawal.dev
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -171,47 +164,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: failing
-        reason: latest run concluded failure
-        apiState: active
-        lastRun:
-          id: 36259249756
-          status: completed
-          conclusion: failure
-          event: push
-          branch: main
-          headSha: 08a11bb5ccbba655a46d2b91e9a15f6a13b1cfc0
-          createdAt: 2026-09-26T17:30:12Z
-          updatedAt: 2026-09-26T17:30:28Z
-          url: https://github.com/sarthakagrawal927/agent-testing/actions/runs/36259249756
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
-        lastRun:
-          id: 36259249756
-          status: completed
-          conclusion: failure
-          event: push
-          branch: main
-          headSha: 08a11bb5ccbba655a46d2b91e9a15f6a13b1cfc0
-          createdAt: 2026-09-26T17:30:12Z
-          updatedAt: 2026-09-26T17:30:28Z
-          url: https://github.com/sarthakagrawal927/agent-testing/actions/runs/36259249756
-        ageDays: 0
-      attention: action-required
 deployment:
   kind: worker
   deployed: true
@@ -238,12 +190,12 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: past
+  publicListing: maintained
   maturity: experiment
   ready: true
   verifiedAt: 2026-09-20
   reason: The completed Browser Agent Testing experiment and reusable source repository are public. Its 79-tool catalogue, 26-arm quantitative journey matrix, seven additional probes, ten experiment records, exact observed version pins, agent JSON surfaces, security headers and live routes were verified on 2026-09-20.
-  changelogUrl: null
+  changelogUrl: https://browser-agents.sarthakagrawal.dev/changelog
   roadmapUrl: https://github.com/sarthakagrawal927/agent-testing/issues
   geoIdentity: null
 notes:

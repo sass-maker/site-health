@@ -30,6 +30,30 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
   const familyNames = new Map(
     registry.projects.map((project) => [project.id, displayName(project)]),
   );
+  const standaloneRepositories = (registry.repositoryReview?.repositories ?? [])
+    .filter((row) => !row.projectId)
+    .map((row) => ({
+      id: `repo:${row.currentRepository}`,
+      name: row.currentRepository.split('/').at(-1),
+      identityKind: 'repository',
+      description: row.reason ?? 'Retained repository identity; not a catalog project.',
+      family: null,
+      familyName: null,
+      lifecycle: {
+        status: 'inactive',
+        shareable: row.lifecycle?.shareable ?? false,
+        resumeCondition: null,
+      },
+      priority: null,
+      status: 'inactive',
+      repositoryUrl: row.githubVerification?.url ?? `https://github.com/${row.currentRepository}`,
+      domains: [],
+      websiteUrl: null,
+      changelogUrl: null,
+      repository: row.currentRepository,
+      futureForm: row.futureForm ?? null,
+      checkoutState: row.localCheckout?.state ?? null,
+    }));
   return registry.projects
     .filter((project) => project.status !== 'orphan')
     .map((project) => {
@@ -67,5 +91,6 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         changelogUrl: domain ? `https://${domain}/changelog` : null,
         deployKind: project.deployKind,
       };
-    });
+    })
+    .concat(standaloneRepositories);
 }

@@ -7,30 +7,34 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "pace": {
     "url": "https://heypace.app/",
-    "pass": 15,
+    "pass": 14,
     "fail": 0,
-    "warn": 0,
+    "warn": 1,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "posttrainllm": {
     "url": "https://posttrainllm.com/",
-    "pass": 15,
+    "pass": 14,
     "fail": 0,
-    "warn": 0,
+    "warn": 1,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "live": {
     "url": "https://live.significanthobbies.com/",
@@ -40,8 +44,28 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "chatgpt-connections": {
+    "url": "https://reader-mcp.significanthobbies.com/",
+    "pass": 8,
+    "fail": 6,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [
+      "canonical",
+      "og:title",
+      "og:description",
+      "og:image",
+      "twitter:card",
+      "json-ld"
+    ],
+    "warningChecks": [
+      "word-count"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "saas-maker": {
     "url": "https://sassmaker.com/",
@@ -51,8 +75,69 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "gitstat": {
+    "url": "https://git.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "fleet-social": {
+    "url": "https://fleet-social.sarthakagrawal927.workers.dev/",
+    "pass": 6,
+    "fail": 8,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [
+      "meta-description",
+      "canonical",
+      "og:title",
+      "og:description",
+      "og:image",
+      "twitter:card",
+      "json-ld",
+      "img-alt"
+    ],
+    "warningChecks": [
+      "h2"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "email-manager": {
+    "url": "https://mail.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "chatgpt-memory-insights": {
+    "url": "https://chatgpt.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "free-ai": {
     "url": "https://ai-gateway.sassmaker.com/",
@@ -62,8 +147,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "high-signal": {
     "url": "https://highsignal.app/",
@@ -73,8 +158,43 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "on-record": {
+    "url": "https://podcasts.highsignal.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "issue-pages": {
+    "url": "https://issues.sarthakagrawal.dev/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "word-count"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "research-papers": {
+    "url": "https://papers.highsignal.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "knowledge-base": {
     "url": "https://knowledgebase.sassmaker.com/",
@@ -84,8 +204,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "significanthobbies": {
     "url": "https://significanthobbies.com/",
@@ -95,8 +215,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "anime-list": {
     "url": "https://anime.significanthobbies.com/",
@@ -108,8 +228,30 @@
     "warningChecks": [
       "word-count"
     ],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "looptv": {
+    "url": "https://tv.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "reader": {
+    "url": "https://read.significanthobbies.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "swe-interview-prep": {
     "url": "https://learn.significanthobbies.com/",
@@ -119,8 +261,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "calorie": {
     "url": "https://calorie.significanthobbies.com/",
@@ -130,8 +272,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "setline": {
     "url": "https://setline.significanthobbies.com/",
@@ -141,8 +283,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "kith": {
     "url": "https://kith.significanthobbies.com/",
@@ -152,8 +294,21 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "rolepatch": {
+    "url": "https://rolepatch.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "karte": {
     "url": "https://karte.cc/",
@@ -163,8 +318,8 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "starboard": {
     "url": "https://starboard.codevetter.com/",
@@ -174,8 +329,21 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "ai-game": {
+    "url": "https://aliveville.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "app-health": {
     "url": "https://health.sassmaker.com/",
@@ -185,19 +353,100 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
-  "what-it-takes-to-win": {
-    "url": "https://paths.significanthobbies.com/",
+  "mashup": {
+    "url": "https://mashup.highsignal.app/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "motion": {
+    "url": "https://motion.significanthobbies.com/",
     "pass": 15,
     "fail": 0,
     "warn": 0,
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "open-historia": {
+    "url": "https://historia.aliveville.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "web-playables": {
+    "url": "https://idle.aliveville.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "what-it-takes-to-win": {
+    "url": "https://paths.significanthobbies.com/",
+    "pass": 14,
+    "fail": 0,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "sarthakagrawal-personal": {
+    "url": "https://sarthakagrawal.dev/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "field-track": {
+    "url": "https://field-track.sassmaker.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "reddit-insights": {
+    "url": "https://reddit-insights.highsignal.app/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "anchor": {
     "url": "https://anchor.significanthobbies.com/",
@@ -207,29 +456,188 @@
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "nomad-data-adventure": {
+    "url": "https://nomad.significanthobbies.com/",
+    "pass": 13,
+    "fail": 2,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [
+      "og:image",
+      "json-ld"
+    ],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
   "storagedaddy": {
-    "url": "https://storagedaddy.significanthobbies.com/",
-    "pass": 15,
+    "url": "https://storage.daddyrad.com/",
+    "pass": 14,
     "fail": 0,
-    "warn": 0,
+    "warn": 1,
     "reachable": true,
     "failedChecks": [],
-    "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "warningChecks": [
+      "json-ld"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   },
-  "launchdesk": {
-    "url": "https://sassmaker.com/",
+  "browserdaddy": {
+    "url": "https://browser.daddyrad.com/",
     "pass": 15,
     "fail": 0,
     "warn": 0,
     "reachable": true,
     "failedChecks": [],
     "warningChecks": [],
-    "date": "2026-09-19",
-    "auditedAt": "2026-09-19T04:14:32.705Z"
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "performancedaddy": {
+    "url": "https://performance.daddyrad.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "unified-portfolio": {
+    "url": "https://money.significanthobbies.com/",
+    "pass": 7,
+    "fail": 6,
+    "warn": 2,
+    "reachable": true,
+    "failedChecks": [
+      "canonical",
+      "og:title",
+      "og:description",
+      "og:image",
+      "twitter:card",
+      "json-ld"
+    ],
+    "warningChecks": [
+      "meta-description",
+      "word-count"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "meme-lab": {
+    "url": "https://memes.significanthobbies.com/",
+    "pass": 11,
+    "fail": 2,
+    "warn": 2,
+    "reachable": true,
+    "failedChecks": [
+      "og:image",
+      "twitter:card"
+    ],
+    "warningChecks": [
+      "json-ld",
+      "word-count"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "agent-testing": {
+    "url": "https://browser-agents.sarthakagrawal.dev/",
+    "pass": 10,
+    "fail": 5,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [
+      "og:title",
+      "og:description",
+      "og:image",
+      "twitter:card",
+      "json-ld"
+    ],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "nutrition-formula-engine": {
+    "url": "https://formula.significanthobbies.com/",
+    "pass": 12,
+    "fail": 3,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [
+      "og:image",
+      "twitter:card",
+      "json-ld"
+    ],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "every-song-is-a-website": {
+    "url": "https://music.significanthobbies.com/",
+    "pass": 9,
+    "fail": 5,
+    "warn": 1,
+    "reachable": true,
+    "failedChecks": [
+      "og:title",
+      "og:description",
+      "og:image",
+      "twitter:card",
+      "json-ld"
+    ],
+    "warningChecks": [
+      "h2"
+    ],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "contextdaddy": {
+    "url": "https://context.daddyrad.com/",
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "mentionpilot": {
+    "url": "https://mention.highsignal.app/",
+    "pass": 10,
+    "fail": 5,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [
+      "og:title",
+      "og:description",
+      "og:image",
+      "twitter:card",
+      "json-ld"
+    ],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
+  },
+  "daddyrad": {
+    "url": "https://daddyrad.com/",
+    "pass": 12,
+    "fail": 3,
+    "warn": 0,
+    "reachable": true,
+    "failedChecks": [
+      "og:image",
+      "twitter:card",
+      "json-ld"
+    ],
+    "warningChecks": [],
+    "date": "2026-09-27",
+    "auditedAt": "2026-09-27T09:49:48.128Z"
   }
 }

@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: 35c87491e8a1d4934b08cadcbd79aa9d1d19064c2f1aedeadd52cdd189cf1b1b
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -36,7 +36,7 @@ verification:
       state: available
       checkout: daddyrad
       revision: 5957c7c17fcd6f65e00568bc576e327e7ad2e107
-      githubRepository: sarthakagrawal927/daddyrad
+      githubRepository: Significant-Hobbies/daddyrad
       expectedHomepage: https://daddyrad.com/
       observedHomepage: null
       worktree: &a1
@@ -48,7 +48,7 @@ verification:
       state: available
       checkout: daddyrad
       revision: 5957c7c17fcd6f65e00568bc576e327e7ad2e107
-      githubRepository: sarthakagrawal927/daddyrad
+      githubRepository: Significant-Hobbies/daddyrad
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-25
@@ -57,12 +57,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
+        unclassified: 1
   unknowns:
+    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://daddyrad.com/.
 ownerVoice:
   whyVerbatim: ok daddyrad is mine now
@@ -128,11 +129,11 @@ product:
 repository:
   checkout: daddyrad
   observedRevision: 5957c7c17fcd6f65e00568bc576e327e7ad2e107
-  githubRepository: sarthakagrawal927/daddyrad
+  githubRepository: Significant-Hobbies/daddyrad
   githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/sarthakagrawal927/daddyrad
+  url: https://github.com/Significant-Hobbies/daddyrad
   aliases: []
   sourceOverride: null
   tooling:
@@ -146,20 +147,12 @@ repository:
           - site/package-lock.json
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/daddyrad
-    defaultBranch: main
-    defaultBranchSha: 5957c7c17fcd6f65e00568bc576e327e7ad2e107
-    homepage: null
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -168,47 +161,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36270427649
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 5957c7c17fcd6f65e00568bc576e327e7ad2e107
-          createdAt: 2026-09-26T20:42:07Z
-          updatedAt: 2026-09-26T20:42:24Z
-          url: https://github.com/sarthakagrawal927/daddyrad/actions/runs/36270427649
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 36270427649
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 5957c7c17fcd6f65e00568bc576e327e7ad2e107
-          createdAt: 2026-09-26T20:42:07Z
-          updatedAt: 2026-09-26T20:42:24Z
-          url: https://github.com/sarthakagrawal927/daddyrad/actions/runs/36270427649
-        ageDays: 0
-      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -252,7 +204,7 @@ sharing:
   verifiedAt: 2026-09-25
   reason: Umbrella landing returned HTTPS 200 at daddyrad.com and www redirects to the apex; each of the four app subdomains now serves its own public site and download.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/daddyrad/issues
+  roadmapUrl: https://github.com/Significant-Hobbies/daddyrad/issues
   geoIdentity: null
 notes:
   catalog: DaddyRad is the public umbrella for four native Mac apps. Its Worker serves daddyrad.com and redirects www; each app owns its public subdomain, download, and update path.

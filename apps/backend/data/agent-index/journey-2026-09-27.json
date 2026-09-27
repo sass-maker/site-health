@@ -1,0 +1,1270 @@
+[
+ {
+  "id": "codevetter",
+  "name": "CodeVetter",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "partial",
+   "2-repo-miss": [
+    "tests"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "2-repo",
+  "tier": "focus",
+  "priority": "P1"
+ },
+ {
+  "id": "pace",
+  "name": "HeyPace",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "5-seo",
+  "tier": "focus",
+  "priority": "P4"
+ },
+ {
+  "id": "posttrainllm",
+  "name": "PostTrainLLM",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "5-seo",
+  "tier": "focus",
+  "priority": "P1"
+ },
+ {
+  "id": "live",
+  "name": "Live",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "chatgpt-connections",
+  "name": "ChatGPT Connections",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "fail",
+   "6-geo-tier": "C 18%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "5-seo",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "saas-maker",
+  "name": "SaaS Maker",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "partial",
+   "6-geo-tier": "A 92%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "6-geo",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "gitstat",
+  "name": "GitStat",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "partial",
+   "2-repo-miss": [
+    "tests"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "pass",
+   "6-geo-tier": "S 91%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "2-repo",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "fleet-social",
+  "name": "Fleet Social",
+  "public": null,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "partial",
+   "2-repo-miss": [
+    "project_status"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "na",
+   "7-analytics": "na",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "na"
+  },
+  "stage": "2-repo",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "email-manager",
+  "name": "Kinetic",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "5-seo",
+  "tier": "active",
+  "priority": "P4"
+ },
+ {
+  "id": "chatgpt-memory-insights",
+  "name": "Memory Map",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "partial",
+   "6-geo-tier": "A 92%",
+   "7-analytics": "warn",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "5-seo",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "free-ai",
+  "name": "Free AI",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "7-analytics",
+  "tier": "active",
+  "priority": "P4"
+ },
+ {
+  "id": "high-signal",
+  "name": "High Signal",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "on-record",
+  "name": "High Signal Podcasts",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "warn",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "partial"
+  },
+  "stage": "7-analytics",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "issue-pages",
+  "name": "IssuePages",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "partial",
+   "6-geo-tier": "A 82%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "partial"
+  },
+  "stage": "5-seo",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "research-papers",
+  "name": "Research Papers",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "partial",
+   "6-geo-tier": "A 83%",
+   "7-analytics": "warn",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "partial"
+  },
+  "stage": "6-geo",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "knowledge-base",
+  "name": "Knowledge Base",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "partial",
+   "2-repo-miss": [
+    "tests"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "2-repo",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "significanthobbies",
+  "name": "Significant Hobbies",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "anime-list",
+  "name": "Anime List",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "5-seo",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "looptv",
+  "name": "LoopTV",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "7-analytics",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "reader",
+  "name": "Reader",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "warn",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "7-analytics",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "swe-interview-prep",
+  "name": "SWE Interview Prep",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "calorie",
+  "name": "Calorie",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "setline",
+  "name": "Setline",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "kith",
+  "name": "Kith",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "partial",
+   "2-repo-miss": [
+    "tests"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "2-repo",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "rolepatch",
+  "name": "RolePatch",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "warn",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "5-seo",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "karte",
+  "name": "Karte",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "starboard",
+  "name": "Starboard",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "ai-game",
+  "name": "AliveVille",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "partial",
+   "6-geo-tier": "A 75%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "5-seo",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "app-health",
+  "name": "App Health",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "mashup",
+  "name": "Mashup",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "pass",
+   "6-geo-tier": "S 91%",
+   "7-analytics": "warn",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "partial"
+  },
+  "stage": "5-seo",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "motion",
+  "name": "Motion",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "warn",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "7-analytics",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "open-historia",
+  "name": "Open Historia",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "partial",
+   "6-geo-tier": "A 83%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "6-geo",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "web-playables",
+  "name": "Web Playables",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "partial",
+   "6-geo-tier": "A 82%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "partial"
+  },
+  "stage": "6-geo",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "what-it-takes-to-win",
+  "name": "Paths",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "5-seo",
+  "tier": "active",
+  "priority": "P4"
+ },
+ {
+  "id": "sarthakagrawal-personal",
+  "name": "Sarthak Agrawal",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "7-analytics",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "field-track",
+  "name": "Field Track",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "warn",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "7-analytics",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "reddit-insights",
+  "name": "Reddit Insights",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "partial",
+   "2-repo-miss": [
+    "project_status"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "partial"
+  },
+  "stage": "2-repo",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "anchor",
+  "name": "Anchor",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "nomad-data-adventure",
+  "name": "Nomad Data Adventure",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "partial",
+   "2-repo-miss": [
+    "project_status"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "partial",
+   "6-geo-tier": "B 36%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "2-repo",
+  "tier": "secondary",
+  "priority": "P2"
+ },
+ {
+  "id": "storagedaddy",
+  "name": "storagedaddy",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "warn",
+   "6-geo": "pass",
+   "6-geo-tier": "S 91%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "5-seo",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "browserdaddy",
+  "name": "BrowserDaddy",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "performancedaddy",
+  "name": "PerformanceDaddy",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 100%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "pass"
+  },
+  "stage": "8-evidence",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "unified-portfolio",
+  "name": "Unified Portfolio",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "fail",
+   "6-geo-tier": "C 9%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "5-seo",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "meme-lab",
+  "name": "Meme Lab",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "partial",
+   "6-geo-tier": "A 45%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "5-seo",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "agent-testing",
+  "name": "Browser Agent Testing",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "partial",
+   "6-geo-tier": "A 55%",
+   "7-analytics": "fail",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "partial"
+  },
+  "stage": "5-seo",
+  "tier": "secondary",
+  "priority": "P4"
+ },
+ {
+  "id": "nutrition-formula-engine",
+  "name": "Formula Composition Engine",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "pass",
+   "2-repo-miss": [],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "partial",
+   "6-geo-tier": "A 55%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "5-seo",
+  "tier": "active",
+  "priority": "P2"
+ },
+ {
+  "id": "every-song-is-a-website",
+  "name": "Every Song Is a Website",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "fail",
+   "2-repo-miss": [
+    "project_status",
+    "readme",
+    "tests"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "partial",
+   "6-geo-tier": "A 55%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "partial"
+  },
+  "stage": "2-repo",
+  "tier": "breadth",
+  "priority": "P3"
+ },
+ {
+  "id": "contextdaddy",
+  "name": "ContextDaddy",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "partial",
+   "2-repo-miss": [
+    "project_status"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "pass",
+   "6-geo": "pass",
+   "6-geo-tier": "S 91%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "2-repo",
+  "tier": "active",
+  "priority": null
+ },
+ {
+  "id": "mentionpilot",
+  "name": "MentionPilot",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "partial",
+   "2-repo-miss": [
+    "project_status"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "partial",
+   "6-geo-tier": "A 55%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "2-repo",
+  "tier": "active",
+  "priority": null
+ },
+ {
+  "id": "daddyrad",
+  "name": "DaddyRad",
+  "public": true,
+  "stages": {
+   "1-catalog": "pass",
+   "2-repo": "fail",
+   "2-repo-miss": [
+    "project_status",
+    "readme",
+    "tests"
+   ],
+   "3-deploy": "pass",
+   "4-domain": "pass",
+   "5-seo": "fail",
+   "6-geo": "partial",
+   "6-geo-tier": "A 55%",
+   "7-analytics": "pass",
+   "8-evidence": "partial",
+   "8-evidence-miss": [
+    "PSI",
+    "GSC",
+    "DRANK"
+   ],
+   "9-launch": "none"
+  },
+  "stage": "2-repo",
+  "tier": "active",
+  "priority": "P3"
+ }
+]

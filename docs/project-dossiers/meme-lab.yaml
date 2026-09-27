@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: meme-lab
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -37,10 +37,10 @@ verification:
       revision: 67f47ff808b1efcb2d0fb66268773fe68ea3046d
       githubRepository: Significant-Hobbies/meme-lab
       expectedHomepage: https://memes.significanthobbies.com
-      observedHomepage: https://memes.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 9
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-27
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://memes.significanthobbies.com.
 ownerVoice:
   whyVerbatim: I'm not going to read this out. What I want is, as soon as someone does a comment, we get a meme. That is it. I don't care about the implementation details. I want it live for me to play around with it. Once it's live I want to expand on the next things.
   fullReviewVerbatim: |-
@@ -86,7 +88,7 @@ identity:
   aliases: []
   family: meme-lab
   category: experimental
-  audience: internal
+  audience: public
   personalUse: true
   moneyOrPersonalBrand: false
   unmetNeed: false
@@ -131,7 +133,7 @@ repository:
   checkout: meme-lab
   observedRevision: 67f47ff808b1efcb2d0fb66268773fe68ea3046d
   githubRepository: Significant-Hobbies/meme-lab
-  githubHomepageUrl: https://memes.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/meme-lab
@@ -202,20 +204,12 @@ repository:
       - test
       - types:worker
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/meme-lab
-    defaultBranch: main
-    defaultBranchSha: 67f47ff808b1efcb2d0fb66268773fe68ea3046d
-    homepage: https://memes.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -224,47 +218,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36264955035
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 67f47ff808b1efcb2d0fb66268773fe68ea3046d
-          createdAt: 2026-09-26T19:07:39Z
-          updatedAt: 2026-09-26T19:08:04Z
-          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/36264955035
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 36264955035
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 67f47ff808b1efcb2d0fb66268773fe68ea3046d
-          createdAt: 2026-09-26T19:07:39Z
-          updatedAt: 2026-09-26T19:08:04Z
-          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/36264955035
-        ageDays: 0
-      attention: clear
 deployment:
   kind: worker
   deployed: true

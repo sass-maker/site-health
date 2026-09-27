@@ -54,7 +54,8 @@ test('root brand contract rejects missing roots and duplicate aliases', () => {
   );
 
   const duplicate = structuredClone(contract);
-  duplicate.brands[0].alternateNames.push('CodeVetter');
+  const codevetterRoot = duplicate.brands.find((brand) => brand.canonicalName === 'CodeVetter');
+  codevetterRoot.alternateNames.push('CodeVetter');
   assert.throws(
     () => validateRootBrandContract(duplicate, loadDashboardProjects()),
     /duplicate brand name/,

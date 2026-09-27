@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: truehire
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    repositorySnapshot: unavailable
+    githubHomepage: mismatch
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -32,37 +32,32 @@ verification:
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/truehire
-      revision: 7d5b53281da26803e3f690cb2e0866adacb730fa
-      githubRepository: sarthakagrawal927/truehire
+      revision: null
+      githubRepository: null
       expectedHomepage: https://truehire.rolepatch.com
-      observedHomepage: https://truehire.rolepatch.com
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      observedHomepage: null
+      worktree: null
     retainedGitHistory:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/truehire
-      revision: 7d5b53281da26803e3f690cb2e0866adacb730fa
-      githubRepository: sarthakagrawal927/truehire
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-04-24
       catalogLatestCommitAt: 2026-09-12
       catalogDrift: []
-      reason: null
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
-      stale: 1
-      failing: 1
-      attention: &a2
-        ignored: 3
-  unknowns: []
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://truehire.rolepatch.com.
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: True hire is more like a concept application but it again needs trust in the economy and some chicken-and-egg problem to have recommendations or something so I delayed it for the future.
   fullReviewVerbatim: True hire is more like a concept application but it again needs trust in the economy and some chicken-and-egg problem to have recommendations or something so I delayed it for the future.
@@ -112,208 +107,34 @@ product:
     - TypeScript
     - Cloudflare
   retainedGitHistory:
-    firstCommitAt: 2026-04-24
-    latestCommitAt: 2026-09-12
-    retainedCommitCount: 185
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/truehire
-  observedRevision: 7d5b53281da26803e3f690cb2e0866adacb730fa
-  githubRepository: sarthakagrawal927/truehire
-  githubHomepageUrl: https://truehire.rolepatch.com
-  worktree: *a1
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
   visibility: public
   url: https://github.com/sarthakagrawal927/truehire
   aliases: []
   sourceOverride: ../fleet-archive/truehire
   tooling:
-    declaredPackageManager: pnpm@10.33.2
-    detectedSignals:
-      - name: Astro
-        evidence:
-          - apps/web/landing-astro/astro.config.mjs
-      - name: Biome
-        evidence:
-          - biome.json
-      - name: Cloudflare Wrangler
-        evidence:
-          - apps/web/wrangler.jsonc
-      - name: Drizzle
-        evidence:
-          - packages/db/drizzle.config.ts
-      - name: Next.js
-        evidence:
-          - apps/web/next.config.ts
-      - name: Playwright
-        evidence:
-          - apps/web/playwright.config.ts
-      - name: pnpm
-        evidence:
-          - pnpm-lock.yaml
-      - name: Vitest
-        evidence:
-          - apps/web/vitest.config.ts
-          - packages/cli/vitest.config.ts
-          - packages/core/vitest.config.ts
-    rootPackageScripts:
-      - biome:lint
-      - build
-      - check
-      - db:generate
-      - db:migrate:local
-      - db:migrate:remote
-      - deploy
-      - dev
-      - format
-      - format:check
-      - lint
-      - prepare
-      - start
-      - test
-      - test:e2e
-      - test:e2e:local
-      - typecheck
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
-  summary:
-    healthy: 1
-    stale: 1
-    failing: 1
-  attention: *a2
-  remote:
-    repository: sarthakagrawal927/truehire
-    defaultBranch: main
-    defaultBranchSha: 02c233bdde6797fbb5688efbce5d6c87bbef0225
-    homepage: https://truehire.rolepatch.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows:
-    - name: CI
-      file: .github/workflows/ci.yml
-      triggers:
-        - pull_request
-        - push
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35635214777
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 02c233bdde6797fbb5688efbce5d6c87bbef0225
-          createdAt: 2026-09-21T17:56:51Z
-          updatedAt: 2026-09-21T17:58:36Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/35635214777
-        ageDays: 5
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35635214777
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 02c233bdde6797fbb5688efbce5d6c87bbef0225
-          createdAt: 2026-09-21T17:56:51Z
-          updatedAt: 2026-09-21T17:58:36Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/35635214777
-        ageDays: 5
-      attention: ignored
-    - name: Release CLI
-      file: .github/workflows/cli-release.yml
-      triggers:
-        - push
-        - workflow_dispatch
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stale
-        reason: latest run is 92 days old
-        apiState: active
-        lastRun:
-          id: 28280282798
-          status: completed
-          conclusion: success
-          event: push
-          branch: cli-v0.3.1
-          headSha: 9cf07a4dc6772e7925c98dd3494deb7123305983
-          createdAt: 2026-06-27T05:46:06Z
-          updatedAt: 2026-06-27T05:46:43Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/28280282798
-        ageDays: 92
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run was returned for main
-        lastRun: null
-      attention: ignored
-    - name: Deploy to Cloudflare Workers
-      file: .github/workflows/deploy.yml
-      triggers:
-        - workflow_dispatch
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: failing
-        reason: latest run concluded failure
-        apiState: active
-        lastRun:
-          id: 34415233603
-          status: completed
-          conclusion: failure
-          event: workflow_dispatch
-          branch: main
-          headSha: 150d48822ad1197862fd67df56c7831a7b3374ef
-          createdAt: 2026-09-09T23:04:12Z
-          updatedAt: 2026-09-09T23:04:49Z
-          url: https://github.com/sarthakagrawal927/truehire/actions/runs/34415233603
-        ageDays: 17
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
 deployment:
-  kind: worker
+  kind: none
   deployed: false
   domains:
     - truehire.rolepatch.com

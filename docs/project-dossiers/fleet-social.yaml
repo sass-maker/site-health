@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: d9cfaa7d8539f1413c7bfef3efce3831182597e49eef799506ba0aa27709ce17
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -58,12 +58,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 2
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        clear: 2
+        unclassified: 2
   unknowns:
+    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://fleet-social.sarthakagrawal927.workers.dev.
 ownerVoice:
   whyVerbatim: i would prefer to build on top of cogsend since its CF first, but would take the good part of others
@@ -174,20 +175,12 @@ repository:
       - test:e2e:totp
       - test:unit
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 2
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sass-maker/fleet-social
-    defaultBranch: main
-    defaultBranchSha: c75afa9c5e2e98a91a0b8b1e7706c9b7d14494bc
-    homepage: null
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -196,47 +189,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36264960437
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c75afa9c5e2e98a91a0b8b1e7706c9b7d14494bc
-          createdAt: 2026-09-26T19:07:44Z
-          updatedAt: 2026-09-26T19:11:09Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/36264960437
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 36264960437
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c75afa9c5e2e98a91a0b8b1e7706c9b7d14494bc
-          createdAt: 2026-09-26T19:07:44Z
-          updatedAt: 2026-09-26T19:11:09Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/36264960437
-        ageDays: 0
-      attention: clear
     - name: Scheduler tick
       file: .github/workflows/scheduler-tick.yml
       triggers:
@@ -244,48 +196,6 @@ githubActions:
         - workflow_dispatch
       schedules:
         - "*/5 * * * *"
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36298571355
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: c75afa9c5e2e98a91a0b8b1e7706c9b7d14494bc
-          createdAt: 2026-09-27T05:55:00Z
-          updatedAt: 2026-09-27T05:55:07Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/36298571355
-        ageDays: 0
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 36298571355
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: c75afa9c5e2e98a91a0b8b1e7706c9b7d14494bc
-          createdAt: 2026-09-27T05:55:00Z
-          updatedAt: 2026-09-27T05:55:07Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/36298571355
-        ageDays: 0
-        freshnessDays: 1
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
   kind: worker
   deployed: true

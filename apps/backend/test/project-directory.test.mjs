@@ -35,8 +35,14 @@ test('shared project search finds retained identities without reclassifying them
   const inactiveMatches = inactive.filter((project) => matchesProjectFilters({ ...project, health: 'inactive' }, criteria));
 
   assert.deepEqual(currentMatches, []);
-  assert.deepEqual(inactiveMatches.map((project) => project.id), ['protein-index', 'veg-protein-food']);
-  assert.deepEqual(inactiveMatches.map(inactiveProjectState), ['outside-fleet', 'outside-fleet']);
+  assert.deepEqual(
+    inactiveMatches.map((project) => project.id),
+    ['protein-index', 'veg-protein-food', 'repo:sarthakagrawal927/protein-index'],
+  );
+  assert.deepEqual(
+    inactiveMatches.map(inactiveProjectState),
+    ['outside-fleet', 'outside-fleet', 'inactive'],
+  );
 });
 
 test('current evidence filters exclude inactive identities explicitly', () => {

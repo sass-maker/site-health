@@ -3,97 +3,419 @@
   "cadence": "weekly",
   "roots": [
     {
+      "rootDomain": "aliveville.com",
+      "projectId": "ai-game",
+      "collision": {
+        "state": "ambiguous",
+        "note": "AliveVille shares its name with unrelated town and game names; exact-domain queries disambiguate the product."
+      },
+      "queries": [
+        {
+          "id": "ai-game-brand",
+          "kind": "brand",
+          "text": "AliveVille",
+          "status": "active"
+        },
+        {
+          "id": "ai-game-exact-domain",
+          "kind": "exact-domain",
+          "text": "aliveville.com",
+          "status": "active"
+        },
+        {
+          "id": "ai-game-category",
+          "kind": "category",
+          "text": "persistent AI world simulation online",
+          "status": "active"
+        },
+        {
+          "id": "ai-game-problem",
+          "kind": "problem",
+          "text": "AI generated world that keeps evolving between visits",
+          "status": "active"
+        }
+      ]
+    },
+    {
       "rootDomain": "codevetter.com",
       "projectId": "codevetter",
-      "collision": { "state": "clear", "note": "The coined compound name identifies the product without a known dominant collision." },
+      "collision": {
+        "state": "clear",
+        "note": "The coined compound name identifies the product without a known dominant collision."
+      },
       "queries": [
-        { "id": "codevetter-brand", "kind": "brand", "text": "CodeVetter", "status": "active" },
-        { "id": "codevetter-exact-domain", "kind": "exact-domain", "text": "codevetter.com", "status": "active" },
-        { "id": "codevetter-oss-category", "kind": "category", "text": "open source agent verification CLI", "status": "active" },
-        { "id": "codevetter-evidence", "kind": "problem", "text": "verify AI generated code execution evidence", "status": "active" },
-        { "id": "codevetter-category-2", "kind": "category", "text": "AI code review for agent generated code", "status": "historical", "supersededBy": "codevetter-oss-category" },
-        { "id": "codevetter-problem", "kind": "problem", "text": "find bugs in AI generated code before merge", "status": "historical", "supersededBy": "codevetter-evidence" },
-        { "id": "codevetter-category", "kind": "category", "text": "AI code review benchmark agent-written bugs", "status": "historical", "supersededBy": "codevetter-oss-category" }
+        {
+          "id": "codevetter-brand",
+          "kind": "brand",
+          "text": "CodeVetter",
+          "status": "active"
+        },
+        {
+          "id": "codevetter-exact-domain",
+          "kind": "exact-domain",
+          "text": "codevetter.com",
+          "status": "active"
+        },
+        {
+          "id": "codevetter-oss-category",
+          "kind": "category",
+          "text": "open source agent verification CLI",
+          "status": "active"
+        },
+        {
+          "id": "codevetter-evidence",
+          "kind": "problem",
+          "text": "verify AI generated code execution evidence",
+          "status": "active"
+        },
+        {
+          "id": "codevetter-category-2",
+          "kind": "category",
+          "text": "AI code review for agent generated code",
+          "status": "historical",
+          "supersededBy": "codevetter-oss-category"
+        },
+        {
+          "id": "codevetter-problem",
+          "kind": "problem",
+          "text": "find bugs in AI generated code before merge",
+          "status": "historical",
+          "supersededBy": "codevetter-evidence"
+        },
+        {
+          "id": "codevetter-category",
+          "kind": "category",
+          "text": "AI code review benchmark agent-written bugs",
+          "status": "historical",
+          "supersededBy": "codevetter-oss-category"
+        }
       ]
     },
     {
       "rootDomain": "daddyrad.com",
       "projectId": "daddyrad",
-      "collision": { "state": "clear", "note": "The coined compound name is distinctive; the daddy-series apps carry the same stem as subdomains." },
+      "collision": {
+        "state": "clear",
+        "note": "The coined compound name is distinctive; the daddy-series apps carry the same stem as subdomains."
+      },
       "queries": [
-        { "id": "daddyrad-brand", "kind": "brand", "text": "DaddyRad mac apps", "status": "active" },
-        { "id": "daddyrad-exact-domain", "kind": "exact-domain", "text": "daddyrad.com", "status": "active" },
-        { "id": "daddyrad-category", "kind": "category", "text": "native macOS utility apps suite", "status": "active" },
-        { "id": "daddyrad-problem", "kind": "problem", "text": "mac utilities for storage cleanup performance and browsing", "status": "active" }
+        {
+          "id": "daddyrad-brand",
+          "kind": "brand",
+          "text": "DaddyRad mac apps",
+          "status": "active"
+        },
+        {
+          "id": "daddyrad-exact-domain",
+          "kind": "exact-domain",
+          "text": "daddyrad.com",
+          "status": "active"
+        },
+        {
+          "id": "daddyrad-category",
+          "kind": "category",
+          "text": "native macOS utility apps suite",
+          "status": "active"
+        },
+        {
+          "id": "daddyrad-problem",
+          "kind": "problem",
+          "text": "mac utilities for storage cleanup performance and browsing",
+          "status": "active"
+        }
       ]
     },
     {
       "rootDomain": "heypace.app",
       "projectId": "pace",
-      "collision": { "state": "ambiguous", "note": "HeyPace and Pace collide with unrelated brands, so the active brand query includes the product category." },
+      "collision": {
+        "state": "ambiguous",
+        "note": "HeyPace and Pace collide with unrelated brands, so the active brand query includes the product category."
+      },
       "queries": [
-        { "id": "pace-brand-2", "kind": "brand", "text": "HeyPace AI assistant", "status": "active" },
-        { "id": "pace-brand-exact", "kind": "exact-domain", "text": "heypace.app", "status": "active" },
-        { "id": "pace-category-2", "kind": "category", "text": "macOS AI agent that sees your screen and runs tasks", "status": "active" },
-        { "id": "pace-problem", "kind": "problem", "text": "private screen aware AI assistant for Mac", "status": "active" },
-        { "id": "pace-brand", "kind": "brand", "text": "heypace", "status": "historical", "supersededBy": "pace-brand-2" },
-        { "id": "pace-category", "kind": "category", "text": "Mac voice agent reads your screen", "status": "historical", "supersededBy": "pace-category-2" }
+        {
+          "id": "pace-brand-2",
+          "kind": "brand",
+          "text": "HeyPace AI assistant",
+          "status": "active"
+        },
+        {
+          "id": "pace-brand-exact",
+          "kind": "exact-domain",
+          "text": "heypace.app",
+          "status": "active"
+        },
+        {
+          "id": "pace-category-2",
+          "kind": "category",
+          "text": "macOS AI agent that sees your screen and runs tasks",
+          "status": "active"
+        },
+        {
+          "id": "pace-problem",
+          "kind": "problem",
+          "text": "private screen aware AI assistant for Mac",
+          "status": "active"
+        },
+        {
+          "id": "pace-brand",
+          "kind": "brand",
+          "text": "heypace",
+          "status": "historical",
+          "supersededBy": "pace-brand-2"
+        },
+        {
+          "id": "pace-category",
+          "kind": "category",
+          "text": "Mac voice agent reads your screen",
+          "status": "historical",
+          "supersededBy": "pace-category-2"
+        }
       ]
     },
     {
       "rootDomain": "highsignal.app",
       "projectId": "high-signal",
-      "collision": { "state": "ambiguous", "note": "High Signal is a common phrase used by unrelated media and analytics products." },
+      "collision": {
+        "state": "ambiguous",
+        "note": "High Signal is a common phrase used by unrelated media and analytics products."
+      },
       "queries": [
-        { "id": "highsignal-brand-2", "kind": "brand", "text": "High Signal technology finance brief", "status": "active" },
-        { "id": "highsignal-brand", "kind": "exact-domain", "text": "highsignal.app", "status": "active" },
-        { "id": "highsignal-category-2", "kind": "category", "text": "daily tech finance brief with public accuracy track record", "status": "active" },
-        { "id": "highsignal-problem", "kind": "problem", "text": "evidence backed daily technology and markets intelligence", "status": "active" },
-        { "id": "highsignal-category", "kind": "category", "text": "daily brief with prediction hit rates", "status": "historical", "supersededBy": "highsignal-category-2" }
+        {
+          "id": "highsignal-brand-2",
+          "kind": "brand",
+          "text": "High Signal technology finance brief",
+          "status": "active"
+        },
+        {
+          "id": "highsignal-brand",
+          "kind": "exact-domain",
+          "text": "highsignal.app",
+          "status": "active"
+        },
+        {
+          "id": "highsignal-category-2",
+          "kind": "category",
+          "text": "daily tech finance brief with public accuracy track record",
+          "status": "active"
+        },
+        {
+          "id": "highsignal-problem",
+          "kind": "problem",
+          "text": "evidence backed daily technology and markets intelligence",
+          "status": "active"
+        },
+        {
+          "id": "highsignal-category",
+          "kind": "category",
+          "text": "daily brief with prediction hit rates",
+          "status": "historical",
+          "supersededBy": "highsignal-category-2"
+        }
       ]
     },
     {
       "rootDomain": "karte.cc",
       "projectId": "karte",
-      "collision": { "state": "ambiguous", "note": "Karte is a common German word and the name of unrelated software companies." },
+      "collision": {
+        "state": "ambiguous",
+        "note": "Karte is a common German word and the name of unrelated software companies."
+      },
       "queries": [
-        { "id": "karte-brand-2", "kind": "brand", "text": "Karte AI profile", "status": "active" },
-        { "id": "karte-brand", "kind": "exact-domain", "text": "karte.cc", "status": "active" },
-        { "id": "karte-category", "kind": "category", "text": "AI link-in-bio conversational profile", "status": "active" },
-        { "id": "karte-problem", "kind": "problem", "text": "create a profile people and AI agents can ask questions", "status": "active" }
+        {
+          "id": "karte-brand-2",
+          "kind": "brand",
+          "text": "Karte AI profile",
+          "status": "active"
+        },
+        {
+          "id": "karte-brand",
+          "kind": "exact-domain",
+          "text": "karte.cc",
+          "status": "active"
+        },
+        {
+          "id": "karte-category",
+          "kind": "category",
+          "text": "AI link-in-bio conversational profile",
+          "status": "active"
+        },
+        {
+          "id": "karte-problem",
+          "kind": "problem",
+          "text": "create a profile people and AI agents can ask questions",
+          "status": "active"
+        }
       ]
     },
     {
       "rootDomain": "posttrainllm.com",
       "projectId": "posttrainllm",
-      "collision": { "state": "clear", "note": "The coined name directly describes the product and has no known dominant collision." },
+      "collision": {
+        "state": "clear",
+        "note": "The coined name directly describes the product and has no known dominant collision."
+      },
       "queries": [
-        { "id": "posttrainllm-brand", "kind": "brand", "text": "posttrainllm", "status": "active" },
-        { "id": "posttrainllm-exact-domain", "kind": "exact-domain", "text": "posttrainllm.com", "status": "active" },
-        { "id": "posttrainllm-category", "kind": "category", "text": "fine-tune LLM specialists on Mac Apple Silicon", "status": "active" },
-        { "id": "posttrainllm-problem", "kind": "problem", "text": "train and evaluate a small language model locally on Mac", "status": "active" }
+        {
+          "id": "posttrainllm-brand",
+          "kind": "brand",
+          "text": "posttrainllm",
+          "status": "active"
+        },
+        {
+          "id": "posttrainllm-exact-domain",
+          "kind": "exact-domain",
+          "text": "posttrainllm.com",
+          "status": "active"
+        },
+        {
+          "id": "posttrainllm-category",
+          "kind": "category",
+          "text": "fine-tune LLM specialists on Mac Apple Silicon",
+          "status": "active"
+        },
+        {
+          "id": "posttrainllm-problem",
+          "kind": "problem",
+          "text": "train and evaluate a small language model locally on Mac",
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "rootDomain": "rolepatch.com",
+      "projectId": "rolepatch",
+      "collision": {
+        "state": "ambiguous",
+        "note": "RolePatch collides with generic resume and job-role phrasing; the exact domain and coined name carry the product identity."
+      },
+      "queries": [
+        {
+          "id": "rolepatch-brand",
+          "kind": "brand",
+          "text": "RolePatch",
+          "status": "active"
+        },
+        {
+          "id": "rolepatch-exact-domain",
+          "kind": "exact-domain",
+          "text": "rolepatch.com",
+          "status": "active"
+        },
+        {
+          "id": "rolepatch-category",
+          "kind": "category",
+          "text": "resume tailoring with reviewable diff",
+          "status": "active"
+        },
+        {
+          "id": "rolepatch-problem",
+          "kind": "problem",
+          "text": "tailor a resume to a job description in the browser without uploads",
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "rootDomain": "sarthakagrawal.dev",
+      "projectId": "sarthakagrawal-personal",
+      "collision": {
+        "state": "clear",
+        "note": "The personal name and .dev domain identify the individual portfolio without a known dominant collision."
+      },
+      "queries": [
+        {
+          "id": "sarthakagrawal-personal-brand",
+          "kind": "brand",
+          "text": "Sarthak Agrawal",
+          "status": "active"
+        },
+        {
+          "id": "sarthakagrawal-personal-exact-domain",
+          "kind": "exact-domain",
+          "text": "sarthakagrawal.dev",
+          "status": "active"
+        },
+        {
+          "id": "sarthakagrawal-personal-category",
+          "kind": "category",
+          "text": "Sarthak Agrawal engineering case studies",
+          "status": "active"
+        },
+        {
+          "id": "sarthakagrawal-personal-problem",
+          "kind": "problem",
+          "text": "personal portfolio of engineering projects and technical writing",
+          "status": "active"
+        }
       ]
     },
     {
       "rootDomain": "sassmaker.com",
       "projectId": "saas-maker",
-      "collision": { "state": "ambiguous", "note": "SaaS maker is a generic category phrase, so the brand query includes software studio context." },
+      "collision": {
+        "state": "ambiguous",
+        "note": "SaaS maker is a generic category phrase, so the brand query includes software studio context."
+      },
       "queries": [
-        { "id": "fleet-workspace-brand-2", "kind": "brand", "text": "SaaS Maker software studio", "status": "active" },
-        { "id": "fleet-workspace-brand", "kind": "exact-domain", "text": "sassmaker.com", "status": "active" },
-        { "id": "fleet-workspace-category", "kind": "category", "text": "public software studio portfolio changelogs roadmaps source links", "status": "active" },
-        { "id": "fleet-workspace-problem", "kind": "problem", "text": "discover focused open source AI software products", "status": "active" }
+        {
+          "id": "fleet-workspace-brand-2",
+          "kind": "brand",
+          "text": "SaaS Maker software studio",
+          "status": "active"
+        },
+        {
+          "id": "fleet-workspace-brand",
+          "kind": "exact-domain",
+          "text": "sassmaker.com",
+          "status": "active"
+        },
+        {
+          "id": "fleet-workspace-category",
+          "kind": "category",
+          "text": "public software studio portfolio changelogs roadmaps source links",
+          "status": "active"
+        },
+        {
+          "id": "fleet-workspace-problem",
+          "kind": "problem",
+          "text": "discover focused open source AI software products",
+          "status": "active"
+        }
       ]
     },
     {
       "rootDomain": "significanthobbies.com",
       "projectId": "significanthobbies",
-      "collision": { "state": "clear", "note": "The two-word brand is distinctive enough for direct measurement with its planner qualifier." },
+      "collision": {
+        "state": "clear",
+        "note": "The two-word brand is distinctive enough for direct measurement with its planner qualifier."
+      },
       "queries": [
-        { "id": "sighobbies-brand", "kind": "brand", "text": "Significant Hobbies planner", "status": "active" },
-        { "id": "sighobbies-exact-domain", "kind": "exact-domain", "text": "significanthobbies.com", "status": "active" },
-        { "id": "sighobbies-category", "kind": "category", "text": "meaningful hobby discovery planner", "status": "active" },
-        { "id": "sighobbies-problem", "kind": "problem", "text": "find meaningful hobbies and plan side quests", "status": "active" }
+        {
+          "id": "sighobbies-brand",
+          "kind": "brand",
+          "text": "Significant Hobbies planner",
+          "status": "active"
+        },
+        {
+          "id": "sighobbies-exact-domain",
+          "kind": "exact-domain",
+          "text": "significanthobbies.com",
+          "status": "active"
+        },
+        {
+          "id": "sighobbies-category",
+          "kind": "category",
+          "text": "meaningful hobby discovery planner",
+          "status": "active"
+        },
+        {
+          "id": "sighobbies-problem",
+          "kind": "problem",
+          "text": "find meaningful hobbies and plan side quests",
+          "status": "active"
+        }
       ]
     }
   ]

@@ -304,8 +304,8 @@ test('current product scope stays smaller than the complete retained inventory',
 
   assert.equal(new Set(catalog.projects.map((project) => project.id)).size, catalog.projects.length);
   assert.equal(current.length < catalog.projects.length, true);
-  assert.equal(current.some((project) => project.id === 'ph-catalog'), true);
-  assert.equal(current.some((project) => project.id === 'nomad-data-adventure'), false);
+  assert.equal(current.some((project) => project.id === 'materia'), false);
+  assert.equal(current.some((project) => project.id === 'nomad-data-adventure'), true);
   for (const id of ['chess', 'journal']) {
     const project = catalog.projects.find((project) => project.id === id);
     assert.equal(project.inRegistry, false);

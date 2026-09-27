@@ -9,7 +9,7 @@ const policies = JSON.parse(
 );
 
 for (const [projectId, expectedDisposition, expectedAttention] of [
-  ['nomad-data-adventure', 'ignored', 'ignored'],
+  ['nomad-data-adventure', 'active', 'action-required'],
   ['shoulders', 'ignored', 'ignored'],
   ['active-control', 'active', 'action-required'],
 ]) {

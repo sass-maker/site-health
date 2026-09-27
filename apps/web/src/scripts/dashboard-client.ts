@@ -571,15 +571,17 @@ async function renderProjects() {
       }, [
         element("div", { class: "project-directory__identity" }, [
           element("div", { class: "project-directory__kicker" }, [
-            element("span", {}, [project.priority ?? "Unranked"]),
-            state(inactiveProjectState(project)),
+            element("span", {}, [project.identityKind === "repository" ? "Repository" : project.priority ?? "Unranked"]),
+            state(project.identityKind === "repository" ? project.futureForm ?? "retained" : inactiveProjectState(project)),
             element("span", {}, [projectSharingLabel(project)]),
           ]),
           element("h3", {}, [project.name]),
           element("p", {}, [project.description ?? "Historical Fleet identity retained in the canonical catalog."]),
-          element("small", { class: "project-directory__domain" }, [project.domains?.[0] ?? "No public domain"]),
+          element("small", { class: "project-directory__domain" }, [project.identityKind === "repository" ? project.repository : project.domains?.[0] ?? "No public domain"]),
         ]),
-        element("a", { class: "project-row-action", href: projectHref(project.id), "aria-label": `View retained identity ${project.name}` }, ["View"]),
+        project.identityKind === "repository"
+          ? element("a", { class: "project-row-action", href: project.repositoryUrl, rel: "noreferrer", "aria-label": `Open ${project.name} on GitHub` }, ["GitHub"])
+          : element("a", { class: "project-row-action", href: projectHref(project.id), "aria-label": `View retained identity ${project.name}` }, ["View"]),
       ]))),
   ]);
   const directory = element("div", { class: "project-directory-groups" }, [currentSection, inactiveDetails]);

@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: swe-interview-prep
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -37,7 +37,7 @@ verification:
       revision: fcac458443b62fc4bac0c6e365f8450b088c9119
       githubRepository: Significant-Hobbies/swe-interview-prep
       expectedHomepage: https://learn.significanthobbies.com
-      observedHomepage: https://learn.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,13 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 5
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 4
       attention: &a2
-        clear: 4
-        missing-data: 1
-  unknowns: []
+        unclassified: 4
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://learn.significanthobbies.com.
 ownerVoice:
   whyVerbatim: SWE Interview Prep. This project's purpose was to give me a platform for learning by doing a lot of techniques (permodoro, Feynman's, and others). I have added a lot more roadmaps and it is doing a lot more now. This is still a work in progress and working.
   fullReviewVerbatim: SWE Interview Prep. This project's purpose was to give me a platform for learning by doing a lot of techniques (permodoro, Feynman's, and others). I have added a lot more roadmaps and it is doing a lot more now. This is still a work in progress and working.
@@ -121,7 +122,7 @@ repository:
   checkout: swe-interview-prep
   observedRevision: fcac458443b62fc4bac0c6e365f8450b088c9119
   githubRepository: Significant-Hobbies/swe-interview-prep
-  githubHomepageUrl: https://learn.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/swe-interview-prep
@@ -205,20 +206,12 @@ repository:
       - verify:citations
       - verify:sources
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 5
+    unverifiable: 4
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/swe-interview-prep
-    defaultBranch: main
-    defaultBranchSha: fcac458443b62fc4bac0c6e365f8450b088c9119
-    homepage: https://learn.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -226,83 +219,11 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35820097834
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: fcac458443b62fc4bac0c6e365f8450b088c9119
-          createdAt: 2026-09-23T04:52:28Z
-          updatedAt: 2026-09-23T04:54:42Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35820097834
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35820097834
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: fcac458443b62fc4bac0c6e365f8450b088c9119
-          createdAt: 2026-09-23T04:52:28Z
-          updatedAt: 2026-09-23T04:54:42Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35820097834
-        ageDays: 4
-      attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35821023837
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: fcac458443b62fc4bac0c6e365f8450b088c9119
-          createdAt: 2026-09-23T05:06:12Z
-          updatedAt: 2026-09-23T05:07:14Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35821023837
-        ageDays: 4
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:
@@ -310,46 +231,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35460835976
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 9bf2a1ad834494194f3e75897263489f2821d860
-          createdAt: 2026-09-19T18:19:44Z
-          updatedAt: 2026-09-19T18:19:54Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35460835976
-        ageDays: 7
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision fcac458
-        lastRun:
-          id: 35460835976
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 9bf2a1ad834494194f3e75897263489f2821d860
-          createdAt: 2026-09-19T18:19:44Z
-          updatedAt: 2026-09-19T18:19:54Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35460835976
-      attention: missing-data
     - name: Refresh Library
       file: .github/workflows/fetch-library.yml
       triggers:
@@ -357,85 +238,8 @@ githubActions:
         - workflow_dispatch
       schedules:
         - 0 6 * * 1
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35592600998
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 0bb74cf69c64d0d4f017e67d3b89b376a91b8dd5
-          createdAt: 2026-09-21T11:09:56Z
-          updatedAt: 2026-09-21T11:12:11Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35592600998
-        ageDays: 5
-      schedule:
-        health: healthy
-        reason: latest scheduled run concluded success
-        lastRun:
-          id: 35592600998
-          status: completed
-          conclusion: success
-          event: schedule
-          branch: main
-          headSha: 0bb74cf69c64d0d4f017e67d3b89b376a91b8dd5
-          createdAt: 2026-09-21T11:09:56Z
-          updatedAt: 2026-09-21T11:12:11Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35592600998
-        ageDays: 5
-        freshnessDays: 9
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
-    - name: Dependabot Updates
-      file: dynamic/dependabot/dependabot-updates
-      triggers: []
-      schedules: []
-      inventory:
-        source: github-generated
-        local: false
-        remote: true
-      ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35580431154
-          status: completed
-          conclusion: success
-          event: dynamic
-          branch: main
-          headSha: 0bb74cf69c64d0d4f017e67d3b89b376a91b8dd5
-          createdAt: 2026-09-21T08:55:27Z
-          updatedAt: 2026-09-21T08:56:53Z
-          url: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/35580431154
-        ageDays: 5
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
-  kind: pages
+  kind: worker+pages
   deployed: true
   domains:
     - learn.significanthobbies.com

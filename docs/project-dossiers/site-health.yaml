@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: site-health
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-19
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-27
       state: available
       checkout: site-health
-      revision: 706bbc3138c3568b376c8a353828b46f2363aee1
+      revision: e3a188806140645b0b86a212b521a7c528d27d4d
       githubRepository: sass-maker/site-health
       expectedHomepage: null
-      observedHomepage: https://sassmaker.com
+      observedHomepage: null
       worktree: &a1
         state: dirty
-        trackedChangeCount: 74
+        trackedChangeCount: 94
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-27
       state: available
       checkout: site-health
-      revision: 706bbc3138c3568b376c8a353828b46f2363aee1
+      revision: e3a188806140645b0b86a212b521a7c528d27d4d
       githubRepository: sass-maker/site-health
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,12 +56,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
 ownerVoice:
   whyVerbatim: |-
     Scythe Health is essentially a local-only dashboard which has 5 main things:
@@ -124,15 +125,15 @@ product:
     - Node.js
   retainedGitHistory:
     firstCommitAt: 2026-05-02
-    latestCommitAt: 2026-09-26
-    retainedCommitCount: 1149
+    latestCommitAt: 2026-09-27
+    retainedCommitCount: 1150
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: site-health
-  observedRevision: 706bbc3138c3568b376c8a353828b46f2363aee1
+  observedRevision: e3a188806140645b0b86a212b521a7c528d27d4d
   githubRepository: sass-maker/site-health
-  githubHomepageUrl: https://sassmaker.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/site-health
@@ -176,20 +177,12 @@ repository:
       - test:backend
       - test:backend:ci
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sass-maker/site-health
-    defaultBranch: main
-    defaultBranchSha: 706bbc3138c3568b376c8a353828b46f2363aee1
-    homepage: https://sassmaker.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: Site Health CI
       file: .github/workflows/site-health-ci.yml
@@ -198,47 +191,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36259360982
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 706bbc3138c3568b376c8a353828b46f2363aee1
-          createdAt: 2026-09-26T17:31:59Z
-          updatedAt: 2026-09-26T17:32:32Z
-          url: https://github.com/sass-maker/site-health/actions/runs/36259360982
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 36259360982
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 706bbc3138c3568b376c8a353828b46f2363aee1
-          createdAt: 2026-09-26T17:31:59Z
-          updatedAt: 2026-09-26T17:32:32Z
-          url: https://github.com/sass-maker/site-health/actions/runs/36259360982
-        ageDays: 0
-      attention: clear
 deployment:
   kind: none
   deployed: false

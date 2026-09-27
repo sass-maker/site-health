@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Local AI Video Studio
@@ -52,8 +52,8 @@ verification:
       catalogDrift: []
       reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a1 {}
   unknowns:
     - GitHub repository homepage does not match the canonical deployed URL https://local-ai-video-studio.sassmaker.com.
@@ -128,22 +128,14 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a1
-  remote:
-    repository: null
-    defaultBranch: null
-    defaultBranchSha: null
-    homepage: null
-    query: unverifiable
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows: []
 deployment:
-  kind: pages
+  kind: none
   deployed: false
   domains:
     - local-ai-video-studio.sassmaker.com
@@ -201,4 +193,4 @@ sharing:
       state: not-applicable
 notes:
   catalog: The repository-owned informational site is live from clean main on Cloudflare Pages. Direct Mac distribution remains closed until an owner-approved support contact and a Developer ID signed, notarized, stapled, Gatekeeper-accepted DMG with matching checksum are available.
-  infrastructure: " Repository icon release 9bff06ee628a36d39c06617c6519d4c24699c11e verified on existing local-ai-video-studio deployment 2daf4099-0fff-4d98-a1e2-ca5ec11cafaf. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px. 2026-09-26: Archived; Pages project and domain deleted. Local macOS app entries unchanged. 2026-09-26: Repo moved to personal GitHub (sarthakagrawal927); local checkout deleted (was clean, fully pushed)."
+  infrastructure: " Repository icon release 9bff06ee628a36d39c06617c6519d4c24699c11e verified on existing local-ai-video-studio deployment 2daf4099-0fff-4d98-a1e2-ca5ec11cafaf. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px. 2026-09-26: Archived; Pages project and domain deleted. Local macOS app entries unchanged. 2026-09-26: Repo moved to personal GitHub (sarthakagrawal927); local checkout deleted (was clean, fully pushed). 2026-09-27: Cloudflare DNS CNAME local-ai-video-studio.sassmaker.com deleted from its authoritative zone."

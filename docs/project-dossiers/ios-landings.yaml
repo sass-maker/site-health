@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: ios-landings
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: not-applicable
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
-      infrastructureUpdatedAt: 2026-08-23
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: iOS Landings
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-27
       state: available
       checkout: ios-landings
-      revision: 0f0d09bcf4b485f280dc328f362f141439bf6021
+      revision: eb9bb11ed0f6fe97fc71851e8e31a53fc04f9808
       githubRepository: Significant-Hobbies/ios-landings
-      expectedHomepage: null
+      expectedHomepage: https://apps.significanthobbies.com
       observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-27
       state: available
       checkout: ios-landings
-      revision: 0f0d09bcf4b485f280dc328f362f141439bf6021
+      revision: eb9bb11ed0f6fe97fc71851e8e31a53fc04f9808
       githubRepository: Significant-Hobbies/ios-landings
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      failing: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        action-required: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://apps.significanthobbies.com.
 ownerVoice:
   whyVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
   fullReviewVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
@@ -89,9 +91,9 @@ identity:
     status: active
     resumeCondition: null
     shareable: true
-  operationalStatus: local-only
+  operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: false
+  inRegistry: true
 product:
   description: Shared Astro factory for native-app landing sites and per-product Markdown journals. Editorial layouts, StorageDaddy and PerformanceDaddy pages are prepared locally, not deployed.
   publicMakerNote: I built one reusable landing-page engine so each native Significant Hobbies app does not need to reinvent its public home.
@@ -106,12 +108,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-08-17
     latestCommitAt: 2026-09-27
-    retainedCommitCount: 62
+    retainedCommitCount: 65
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ios-landings
-  observedRevision: 0f0d09bcf4b485f280dc328f362f141439bf6021
+  observedRevision: eb9bb11ed0f6fe97fc71851e8e31a53fc04f9808
   githubRepository: Significant-Hobbies/ios-landings
   githubHomepageUrl: null
   worktree: *a1
@@ -155,20 +157,12 @@ repository:
       - dev:setline
       - preview
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    failing: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/ios-landings
-    defaultBranch: main
-    defaultBranchSha: 0f0d09bcf4b485f280dc328f362f141439bf6021
-    homepage: null
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -176,56 +170,24 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: failing
-        reason: latest run concluded failure
-        apiState: active
-        lastRun:
-          id: 36271111278
-          status: completed
-          conclusion: failure
-          event: push
-          branch: main
-          headSha: 0f0d09bcf4b485f280dc328f362f141439bf6021
-          createdAt: 2026-09-26T20:54:18Z
-          updatedAt: 2026-09-26T20:54:51Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/36271111278
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
-        lastRun:
-          id: 36271111278
-          status: completed
-          conclusion: failure
-          event: push
-          branch: main
-          headSha: 0f0d09bcf4b485f280dc328f362f141439bf6021
-          createdAt: 2026-09-26T20:54:18Z
-          updatedAt: 2026-09-26T20:54:51Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/36271111278
-        ageDays: 0
-      attention: action-required
 deployment:
-  kind: none
-  deployed: false
-  domains: []
-  primaryUrl: null
+  kind: pages
+  deployed: true
+  domains:
+    - apps.significanthobbies.com
+  primaryUrl: https://apps.significanthobbies.com
   domainProbePaths: {}
   targets: []
   cloudflare:
-    deployments: []
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: ios-landings
+        method: direct-upload
+        state: live
+        verification:
+          observedAt: 2026-09-27
+          evidencePath: null
     resources: []
   otherProviders:
     deployments: []
@@ -241,4 +203,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: Builds the Journal, Kith, Setline, Motion, Anchor, and compatibility Indulge/Habits landing trees. Journal's native source lives in its independent repository; Habits and Indulge now point to Anchor without removing their domains. Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker. On 2026-09-08, source c768b01 added explicit eight-product CI and an existing-only content deployment option. All checks and six deploy gates passed; only Kith was published (b31f1441-d684-40d3-8371-836e6a2bf3bb).
-  infrastructure: Publicly readable shared landing factory; deployments are attributed to product rows. Anchor, Kith, Setline and Motion now expose verified public repository icons from source b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330. Journal native source is retained in the owner personal archive.
+  infrastructure: Static factory index page (site/index.html) deployed to Pages ios-landings at apps.significanthobbies.com on 2026-09-27; product deployments remain attributed to product rows. Publicly readable shared landing factory; deployments are attributed to product rows. Anchor, Kith, Setline and Motion now expose verified public repository icons from source b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330. Journal native source is retained in the owner personal archive.

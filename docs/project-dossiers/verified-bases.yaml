@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: verified-bases
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
+    repositorySnapshot: unavailable
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -32,36 +32,31 @@ verification:
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/verified-bases
-      revision: c2c389e20b51e1fda144ff5250fe47274ba272d4
-      githubRepository: sarthakagrawal927/verified-bases
+      revision: null
+      githubRepository: null
       expectedHomepage: null
       observedHomepage: null
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      worktree: null
     retainedGitHistory:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/verified-bases
-      revision: c2c389e20b51e1fda144ff5250fe47274ba272d4
-      githubRepository: sarthakagrawal927/verified-bases
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-16
       catalogLatestCommitAt: 2026-09-08
       catalogDrift: []
-      reason: null
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
-      stale: 1
-      attention: &a2
-        ignored: 2
-  unknowns: []
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
   fullReviewVerbatim: VerifiedBases was also more of a concept application. I was thinking since I am building so many iOS applications or Mac applications, might as well sell their codebase for very cheap, kind of like selling templates. I'm not sure about its ROI so I kind of put it on pause but I might pick it up again or just make something that supersedes this.
@@ -109,144 +104,34 @@ product:
     - Markdown
     - Git
   retainedGitHistory:
-    firstCommitAt: 2026-06-16
-    latestCommitAt: 2026-09-08
-    retainedCommitCount: 22
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/verified-bases
-  observedRevision: c2c389e20b51e1fda144ff5250fe47274ba272d4
-  githubRepository: sarthakagrawal927/verified-bases
+  observedRevision: null
+  githubRepository: null
   githubHomepageUrl: null
-  worktree: *a1
+  worktree: null
   visibility: public
   url: https://github.com/sarthakagrawal927/verified-bases
   aliases: []
   sourceOverride: null
   tooling:
     declaredPackageManager: null
-    detectedSignals:
-      - name: Astro
-        evidence:
-          - web/astro.config.mjs
-      - name: Cloudflare Wrangler
-        evidence:
-          - api/wrangler.jsonc
-          - web/wrangler.jsonc
-      - name: Go modules
-        evidence:
-          - api/go.mod
-      - name: npm
-        evidence:
-          - web/package-lock.json
-      - name: pnpm
-        evidence:
-          - web/pnpm-lock.yaml
-    rootPackageScripts:
-      - deploy
+    detectedSignals: []
+    rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
-  summary:
-    healthy: 1
-    stale: 1
-  attention: *a2
-  remote:
-    repository: sarthakagrawal927/verified-bases
-    defaultBranch: main
-    defaultBranchSha: 3eebe1352f14d0414df1bb9d19945fc16babd0a8
-    homepage: null
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows:
-    - name: ci
-      file: .github/workflows/ci.yml
-      triggers:
-        - pull_request
-        - push
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35635279313
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 3eebe1352f14d0414df1bb9d19945fc16babd0a8
-          createdAt: 2026-09-21T17:57:28Z
-          updatedAt: 2026-09-21T17:58:01Z
-          url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/35635279313
-        ageDays: 5
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35635279313
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 3eebe1352f14d0414df1bb9d19945fc16babd0a8
-          createdAt: 2026-09-21T17:57:28Z
-          updatedAt: 2026-09-21T17:58:01Z
-          url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/35635279313
-        ageDays: 5
-      attention: ignored
-    - name: Deploy API Worker
-      file: .github/workflows/deploy-api.yml
-      triggers:
-        - workflow_dispatch
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stale
-        reason: latest run is 85 days old
-        apiState: active
-        lastRun:
-          id: 28654888874
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 2a83e566dc100fb0f7a79b94ac0ecb7de1a6c5d6
-          createdAt: 2026-07-03T10:32:56Z
-          updatedAt: 2026-07-03T10:33:51Z
-          url: https://github.com/sarthakagrawal927/verified-bases/actions/runs/28654888874
-        ageDays: 85
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: ignored
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
 deployment:
-  kind: worker
+  kind: none
   deployed: false
   domains: []
   primaryUrl: null

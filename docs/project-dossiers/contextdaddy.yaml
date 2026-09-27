@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: bafe2dc9dfd353e716620483f1608fe37a7cfbcc9fe8a8e26090ea24468695a1
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -35,35 +35,36 @@ verification:
       observedAt: 2026-09-27
       state: available
       checkout: contextdaddy
-      revision: 140709ec07d16fe226f44274235ea099e50da35f
-      githubRepository: sarthakagrawal927/contextdaddy
+      revision: 2179defd1890527c16ee617de4c303f6722b33f7
+      githubRepository: Significant-Hobbies/contextdaddy
       expectedHomepage: https://context.daddyrad.com/
       observedHomepage: null
       worktree: &a1
         state: dirty
-        trackedChangeCount: 11
+        trackedChangeCount: 22
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-27
       state: available
       checkout: contextdaddy
-      revision: 140709ec07d16fe226f44274235ea099e50da35f
-      githubRepository: sarthakagrawal927/contextdaddy
+      revision: 2179defd1890527c16ee617de4c303f6722b33f7
+      githubRepository: Significant-Hobbies/contextdaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-13
       catalogLatestCommitAt: 2026-09-26
       catalogDrift:
         - firstCommitAt
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 2
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        missing-data: 1
-        clear: 1
+        unclassified: 2
   unknowns:
+    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://context.daddyrad.com/.
 ownerVoice:
   whyVerbatim: ContextDaddy is supposed to handle all things AI agents locally (context, skills, usage, otel etc) to help debug/speed up
@@ -114,18 +115,18 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-09-23
-    latestCommitAt: 2026-09-26
-    retainedCommitCount: 21
+    latestCommitAt: 2026-09-27
+    retainedCommitCount: 23
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: contextdaddy
-  observedRevision: 140709ec07d16fe226f44274235ea099e50da35f
-  githubRepository: sarthakagrawal927/contextdaddy
+  observedRevision: 2179defd1890527c16ee617de4c303f6722b33f7
+  githubRepository: Significant-Hobbies/contextdaddy
   githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/sarthakagrawal927/contextdaddy
+  url: https://github.com/Significant-Hobbies/contextdaddy
   aliases: []
   sourceOverride: null
   tooling:
@@ -142,20 +143,12 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 2
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/contextdaddy
-    defaultBranch: main
-    defaultBranchSha: 140709ec07d16fe226f44274235ea099e50da35f
-    homepage: null
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: ContextDaddy CI
       file: .github/workflows/ci.yml
@@ -163,82 +156,11 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36259188324
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b04f3c423341a8ec421933835569c3019c3355ba
-          createdAt: 2026-09-26T17:29:10Z
-          updatedAt: 2026-09-26T17:32:17Z
-          url: https://github.com/sarthakagrawal927/contextdaddy/actions/runs/36259188324
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 140709e
-        lastRun:
-          id: 36259188324
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: b04f3c423341a8ec421933835569c3019c3355ba
-          createdAt: 2026-09-26T17:29:10Z
-          updatedAt: 2026-09-26T17:32:17Z
-          url: https://github.com/sarthakagrawal927/contextdaddy/actions/runs/36259188324
-      attention: missing-data
     - name: Protected manual release
       file: .github/workflows/release.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36259190197
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: b04f3c423341a8ec421933835569c3019c3355ba
-          createdAt: 2026-09-26T17:29:12Z
-          updatedAt: 2026-09-26T17:34:23Z
-          url: https://github.com/sarthakagrawal927/contextdaddy/actions/runs/36259190197
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -293,7 +215,7 @@ sharing:
   verifiedAt: 2026-09-26
   reason: Public 0.2.1 build 10 verified at https://context.daddyrad.com/download and GitHub release v0.2.1-10. SHA-256 e43afdb396041f0abb6bdbcad718eb74c09745612574124adb49088331e36940 matches the Developer ID signed, Apple notarized DMG from protected release run 36259190197, source b04f3c423341a8ec421933835569c3019c3355ba. Installed to /Applications/ContextDaddy.app and launched; Gatekeeper accepted the notarized app. Guided Skills onboarding, bounded scrolling including legacy scrollbars, and Devin in unified Local History. Manual updates only. Installed Skills library populated; rescan and guided selection passed. Discovery retains explicit entry/depth coverage limits.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/contextdaddy/issues
+  roadmapUrl: https://github.com/Significant-Hobbies/contextdaddy/issues
   geoIdentity: null
 notes:
   catalog: Public 0.2.1 build 10 verified at https://context.daddyrad.com/download and GitHub release v0.2.1-10. SHA-256 e43afdb396041f0abb6bdbcad718eb74c09745612574124adb49088331e36940 matches the Developer ID signed, Apple notarized DMG from protected release run 36259190197, source b04f3c423341a8ec421933835569c3019c3355ba. Installed to /Applications/ContextDaddy.app and launched; Gatekeeper accepted the notarized app. Guided Skills onboarding, bounded scrolling including legacy scrollbars, and Devin in unified Local History. Manual updates only. Installed Skills library populated; rescan and guided selection passed. Discovery retains explicit entry/depth coverage limits.

@@ -12,6 +12,12 @@ This repository contains one product: Site Health and its backend.
   `../saas-maker/catalog/projects.json`; `apps/backend/config/projects.json`
   must remain a symlink to SaaS Maker's generated `catalog/generated/operations.json`.
   This is a read-only compatibility output, never an editable classification source.
+  The same generated-output rule covers the policy manifests `catalog:sync` emits
+  here — `footer-surfaces`, `geo-observatory`, `project-actions-policy`,
+  `ai-visibility`, `psi-portfolio-targets`, `root-brands`, `root-search-queries`,
+  `search-console`, `indexnow`, and `capabilities`: edit them only through
+  `projects[].systems` or top-level `systems` in the catalog.
+  (`project-operations.json` stays generated observation state, not catalog policy.)
   Run `pnpm --dir ../saas-maker catalog:sync` before refreshing derived views.
 - Edit classification only in that SaaS Maker source. Historical reviews,
   generated dossiers and generated repository tables are not classification inputs.

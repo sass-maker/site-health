@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: war-chest
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: not-applicable
+    githubHomepage: mismatch
     githubActionsLiveState: not-applicable
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
-      infrastructureUpdatedAt: 2026-09-25
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=war-chest].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: 04b33167c82a9b23f28393d269ff865ed02940d455369c517c1e7ff2eee76c27
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -36,8 +36,8 @@ verification:
       state: available
       checkout: war-chest
       revision: 92f61bfc2e1bfc9b5a9cc46beb27a4484c50a046
-      githubRepository: sarthakagrawal927/war-chest
-      expectedHomepage: null
+      githubRepository: Significant-Hobbies/war-chest
+      expectedHomepage: https://warchest.significanthobbies.com
       observedHomepage: null
       worktree: &a1
         state: clean
@@ -48,7 +48,7 @@ verification:
       state: available
       checkout: war-chest
       revision: 92f61bfc2e1bfc9b5a9cc46beb27a4484c50a046
-      githubRepository: sarthakagrawal927/war-chest
+      githubRepository: Significant-Hobbies/war-chest
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: null
@@ -58,10 +58,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a2 {}
-  unknowns: []
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://warchest.significanthobbies.com.
 ownerVoice:
   whyVerbatim: War chest is an experimental war game
   fullReviewVerbatim: War chest is an experimental war game
@@ -88,9 +89,9 @@ identity:
     status: active
     resumeCondition: null
     shareable: false
-  operationalStatus: local-only
+  operationalStatus: live
   authenticationModel: local-only
-  inRegistry: false
+  inRegistry: true
 product:
   description: An experimental local tactical war game.
   publicMakerNote: War chest is an experimental war game
@@ -117,11 +118,11 @@ product:
 repository:
   checkout: war-chest
   observedRevision: 92f61bfc2e1bfc9b5a9cc46beb27a4484c50a046
-  githubRepository: sarthakagrawal927/war-chest
+  githubRepository: Significant-Hobbies/war-chest
   githubHomepageUrl: null
   worktree: *a1
   visibility: private
-  url: https://github.com/sarthakagrawal927/war-chest
+  url: https://github.com/Significant-Hobbies/war-chest
   aliases: []
   sourceOverride: null
   tooling:
@@ -129,29 +130,30 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/war-chest
-    defaultBranch: main
-    defaultBranchSha: 92f61bfc2e1bfc9b5a9cc46beb27a4484c50a046
-    homepage: null
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows: []
 deployment:
-  kind: none
-  deployed: false
-  domains: []
-  primaryUrl: null
+  kind: pages
+  deployed: true
+  domains:
+    - warchest.significanthobbies.com
+  primaryUrl: https://warchest.significanthobbies.com
   domainProbePaths: {}
   targets: []
   cloudflare:
-    deployments: []
+    deployments:
+      - provider: cloudflare
+        kind: pages
+        name: war-chest
+        method: direct-upload
+        state: live
+        verification:
+          observedAt: 2026-09-27
+          evidencePath: null
     resources: []
   otherProviders:
     deployments: []
@@ -163,8 +165,8 @@ sharing:
   verifiedAt: 2026-09-25
   reason: Unsigned local War Chest and Practice War Chest apps exist in the checkout. The repository has no commits and no published release; native play acceptance remains open.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/war-chest/issues
+  roadmapUrl: https://github.com/Significant-Hobbies/war-chest/issues
   geoIdentity: null
 notes:
   catalog: Owner registered the experimental local war game on 2026-09-25.
-  infrastructure: Unsigned local game apps; no production resources claimed.
+  infrastructure: Static teaser page (site/index.html + existing artifacts art) deployed to Pages war-chest at warchest.significanthobbies.com on 2026-09-27. Unsigned local game apps; no production resources claimed.

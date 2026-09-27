@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Materia
@@ -52,8 +52,8 @@ verification:
       catalogDrift: []
       reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       attention: &a1 {}
   unknowns:
     - GitHub repository homepage does not match the canonical deployed URL https://materia.significanthobbies.com.
@@ -127,22 +127,14 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
   attention: *a1
-  remote:
-    repository: null
-    defaultBranch: null
-    defaultBranchSha: null
-    homepage: null
-    query: unverifiable
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  remote: null
   workflows: []
 deployment:
-  kind: pages
+  kind: none
   deployed: false
   domains:
     - materia.significanthobbies.com
@@ -162,7 +154,7 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: past
+  publicListing: hidden
   maturity: experiment
   ready: true
   verifiedAt: 2026-09-07
@@ -172,4 +164,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: own bet; hosted on SH domain
-  infrastructure: " 2026-09-26: Archived; Pages project and domain deleted. 2026-09-26: Repo moved to personal GitHub (sarthakagrawal927); local checkout deleted (was clean, fully pushed)."
+  infrastructure: " 2026-09-26: Archived; Pages project and domain deleted. 2026-09-26: Repo moved to personal GitHub (sarthakagrawal927); local checkout deleted (was clean, fully pushed). 2026-09-27: Cloudflare DNS CNAME materia.significanthobbies.com deleted from its authoritative zone."

@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: app-health
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-14
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -37,7 +37,7 @@ verification:
       revision: db05da1829a808708c342c7612d2fb7da3826bd1
       githubRepository: sass-maker/app-health
       expectedHomepage: https://health.sassmaker.com
-      observedHomepage: https://health.sassmaker.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -56,12 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://health.sassmaker.com.
 ownerVoice:
   whyVerbatim: |-
     I started App Health because in my production server, where I work, we had:
@@ -135,7 +137,7 @@ repository:
   checkout: app-health
   observedRevision: db05da1829a808708c342c7612d2fb7da3826bd1
   githubRepository: sass-maker/app-health
-  githubHomepageUrl: https://health.sassmaker.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/app-health
@@ -203,20 +205,12 @@ repository:
       - verify:swift-packages
       - verify:swift-runtime
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: sass-maker/app-health
-    defaultBranch: main
-    defaultBranchSha: db05da1829a808708c342c7612d2fb7da3826bd1
-    homepage: https://health.sassmaker.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -224,47 +218,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35846376299
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: db05da1829a808708c342c7612d2fb7da3826bd1
-          createdAt: 2026-09-23T10:01:39Z
-          updatedAt: 2026-09-23T10:06:41Z
-          url: https://github.com/sass-maker/app-health/actions/runs/35846376299
-        ageDays: 3
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35846376299
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: db05da1829a808708c342c7612d2fb7da3826bd1
-          createdAt: 2026-09-23T10:01:39Z
-          updatedAt: 2026-09-23T10:06:41Z
-          url: https://github.com/sass-maker/app-health/actions/runs/35846376299
-        ageDays: 3
-      attention: clear
 deployment:
   kind: worker
   deployed: true

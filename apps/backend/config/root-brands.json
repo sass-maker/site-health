@@ -2,44 +2,87 @@
   "version": 1,
   "brands": [
     {
+      "rootDomain": "aliveville.com",
+      "canonicalName": "AliveVille",
+      "alternateNames": [
+        "aliveville.com"
+      ]
+    },
+    {
       "rootDomain": "codevetter.com",
       "canonicalName": "CodeVetter",
-      "alternateNames": ["Code Vetter", "codevetter.com"]
+      "alternateNames": [
+        "Code Vetter",
+        "codevetter.com"
+      ]
     },
     {
       "rootDomain": "daddyrad.com",
       "canonicalName": "DaddyRad",
-      "alternateNames": ["daddyrad.com"]
+      "alternateNames": [
+        "daddyrad.com"
+      ]
     },
     {
       "rootDomain": "heypace.app",
       "canonicalName": "Pace",
-      "alternateNames": ["HeyPace", "heypace.app"]
+      "alternateNames": [
+        "HeyPace",
+        "heypace.app"
+      ]
     },
     {
       "rootDomain": "highsignal.app",
       "canonicalName": "High Signal",
-      "alternateNames": ["HighSignal", "highsignal.app"]
+      "alternateNames": [
+        "HighSignal",
+        "highsignal.app"
+      ]
     },
     {
       "rootDomain": "karte.cc",
       "canonicalName": "Karte",
-      "alternateNames": ["Karte.cc"]
+      "alternateNames": [
+        "Karte.cc"
+      ]
     },
     {
       "rootDomain": "posttrainllm.com",
       "canonicalName": "PostTrainLLM",
-      "alternateNames": ["Post Train LLM", "posttrainllm.com"]
+      "alternateNames": [
+        "Post Train LLM",
+        "posttrainllm.com"
+      ]
+    },
+    {
+      "rootDomain": "rolepatch.com",
+      "canonicalName": "RolePatch",
+      "alternateNames": [
+        "rolepatch.com"
+      ]
+    },
+    {
+      "rootDomain": "sarthakagrawal.dev",
+      "canonicalName": "Sarthak Agrawal",
+      "alternateNames": [
+        "sarthakagrawal.dev"
+      ]
     },
     {
       "rootDomain": "sassmaker.com",
       "canonicalName": "SaaS Maker",
-      "alternateNames": ["SassMaker", "sassmaker.com"]
+      "alternateNames": [
+        "SassMaker",
+        "sassmaker.com"
+      ]
     },
     {
       "rootDomain": "significanthobbies.com",
       "canonicalName": "Significant Hobbies",
-      "alternateNames": ["SignificantHobbies", "significanthobbies.com"]
+      "alternateNames": [
+        "SignificantHobbies",
+        "significanthobbies.com"
+      ]
     }
   ]
 }

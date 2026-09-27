@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-22
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-22
       reviewSha256: 0684700280462b17979c8bbe3e8884e572dd6f7aabe3c5477dec3735cef24be6
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -57,12 +57,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
+        unclassified: 1
   unknowns:
+    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://music.significanthobbies.com.
 ownerVoice:
   whyVerbatim: "build this out mate — every song is a website: each song gets its own visual world, assembled from curated themes, polished artifacts, and light animation. This is a visual experiment, not a music-streaming app or universal website generator."
@@ -82,7 +83,7 @@ identity:
   aliases: []
   family: every-song-is-a-website
   category: experimental
-  audience: null
+  audience: public
   personalUse: null
   moneyOrPersonalBrand: null
   unmetNeed: null
@@ -127,8 +128,8 @@ repository:
   githubRepository: Significant-Hobbies/every-song-is-a-website
   githubHomepageUrl: null
   worktree: *a1
-  visibility: local
-  url: null
+  visibility: public
+  url: https://github.com/Significant-Hobbies/every-song-is-a-website
   aliases: []
   sourceOverride: null
   tooling:
@@ -139,20 +140,12 @@ repository:
           - wrangler.jsonc
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/every-song-is-a-website
-    defaultBranch: main
-    defaultBranchSha: f0f7018344c4bffabfda342bcf5674bdaf22905d
-    homepage: null
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -161,47 +154,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36264959989
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: f0f7018344c4bffabfda342bcf5674bdaf22905d
-          createdAt: 2026-09-26T19:07:43Z
-          updatedAt: 2026-09-26T19:07:54Z
-          url: https://github.com/Significant-Hobbies/every-song-is-a-website/actions/runs/36264959989
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 36264959989
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: f0f7018344c4bffabfda342bcf5674bdaf22905d
-          createdAt: 2026-09-26T19:07:43Z
-          updatedAt: 2026-09-26T19:07:54Z
-          url: https://github.com/Significant-Hobbies/every-song-is-a-website/actions/runs/36264959989
-        ageDays: 0
-      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -239,7 +191,7 @@ sharing:
   verifiedAt: null
   reason: null
   changelogUrl: null
-  roadmapUrl: null
+  roadmapUrl: https://github.com/Significant-Hobbies/every-song-is-a-website/issues
   geoIdentity: null
 notes:
   catalog: null

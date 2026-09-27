@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: mobile-dev-cockpit
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
+    repositorySnapshot: unavailable
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -32,35 +32,31 @@ verification:
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/mobile-dev-cockpit
-      revision: b2c188804af738f4b534c6a3e7909f1a028accde
-      githubRepository: sarthakagrawal927/mobile-dev-cockpit
+      revision: null
+      githubRepository: null
       expectedHomepage: null
       observedHomepage: null
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      worktree: null
     retainedGitHistory:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/mobile-dev-cockpit
-      revision: b2c188804af738f4b534c6a3e7909f1a028accde
-      githubRepository: sarthakagrawal927/mobile-dev-cockpit
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-13
       catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
-      reason: null
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      stuck: 1
-      attention: &a2
-        ignored: 1
-  unknowns: []
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: Mobile dev cockpit is kind of in beta and also stopped for now. The purpose for this was for it to act as the mobile version of elf's HQ but since elf's HQ never fanned out I doubt mobile cockpit will ever. Its also purpose was to view the website on mobile but I have decided to go for building the apps instead so this will probably be stopped forever.
   fullReviewVerbatim: Mobile dev cockpit is kind of in beta and also stopped for now. The purpose for this was for it to act as the mobile version of elf's HQ but since elf's HQ never fanned out I doubt mobile cockpit will ever. Its also purpose was to view the website on mobile but I have decided to go for building the apps instead so this will probably be stopped forever.
@@ -109,109 +105,32 @@ product:
     - React Native
     - TypeScript
   retainedGitHistory:
-    firstCommitAt: 2026-07-13
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 35
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/mobile-dev-cockpit
-  observedRevision: b2c188804af738f4b534c6a3e7909f1a028accde
-  githubRepository: sarthakagrawal927/mobile-dev-cockpit
+  observedRevision: null
+  githubRepository: null
   githubHomepageUrl: null
-  worktree: *a1
+  worktree: null
   visibility: public
   url: https://github.com/sarthakagrawal927/mobile-dev-cockpit
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: pnpm@10.33.2
-    detectedSignals:
-      - name: ESLint
-        evidence:
-          - apps/mobile/eslint.config.js
-      - name: pnpm
-        evidence:
-          - pnpm-lock.yaml
-    rootPackageScripts:
-      - bridge
-      - build:bridge
-      - check
-      - discover
-      - format:check
-      - knip
-      - knip:strict
-      - lint
-      - mobile
-      - mobile:export
-      - mobile:export:ios
-      - mobile:web
-      - postinstall
-      - test
-      - typecheck
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
-  summary:
-    stuck: 1
-  attention: *a2
-  remote:
-    repository: sarthakagrawal927/mobile-dev-cockpit
-    defaultBranch: main
-    defaultBranchSha: cac5594d2f921eafaf2dcd91de66f3a8b38cc673
-    homepage: null
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows:
-    - name: CI
-      file: .github/workflows/ci.yml
-      triggers:
-        - pull_request
-        - push
-        - workflow_dispatch
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: stuck
-        reason: latest run has remained queued for 37 day(s)
-        apiState: active
-        lastRun:
-          id: 32396632476
-          status: queued
-          conclusion: null
-          event: workflow_dispatch
-          branch: main
-          headSha: c7ea69a1e6268285bc32c9d31953daa4afccc7aa
-          createdAt: 2026-08-20T17:15:48Z
-          updatedAt: 2026-08-20T17:15:48Z
-          url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/32396632476
-        ageDays: 37
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision cac5594
-        lastRun:
-          id: 30117645410
-          status: completed
-          conclusion: cancelled
-          event: push
-          branch: main
-          headSha: cdebe82f243744ea972278cc3a2c48f41a5ac58c
-          createdAt: 2026-07-24T18:37:21Z
-          updatedAt: 2026-07-24T18:38:55Z
-          url: https://github.com/sarthakagrawal927/mobile-dev-cockpit/actions/runs/30117645410
-      attention: ignored
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
 deployment:
   kind: none
   deployed: false

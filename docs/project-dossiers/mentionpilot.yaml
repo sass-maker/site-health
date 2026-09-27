@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: ae3ff03bb973a0027691fdad911c271ef2c6c2488b735c10088a42895f991b6d
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -38,7 +38,7 @@ verification:
       revision: c76e1b4968463e07c9a329fb616d4ced5bbf45be
       githubRepository: High-Signal-App/mentionpilot
       expectedHomepage: https://mention.highsignal.app
-      observedHomepage: https://mentionpilot.pages.dev
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -57,13 +57,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 3
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 3
       attention: &a2
-        clear: 2
-        missing-data: 1
+        unclassified: 3
   unknowns:
+    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://mention.highsignal.app.
 ownerVoice:
   whyVerbatim: MentiopnPilot is brought back from dead to ensure we have a tooling to check how well people know about across AI, reddit etc
@@ -124,7 +124,7 @@ repository:
   checkout: mentionpilot
   observedRevision: c76e1b4968463e07c9a329fb616d4ced5bbf45be
   githubRepository: High-Signal-App/mentionpilot
-  githubHomepageUrl: https://mentionpilot.pages.dev
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/High-Signal-App/mentionpilot
@@ -163,20 +163,12 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 3
+    unverifiable: 3
   attention: *a2
-  remote:
-    repository: High-Signal-App/mentionpilot
-    defaultBranch: main
-    defaultBranchSha: c76e1b4968463e07c9a329fb616d4ced5bbf45be
-    homepage: https://mentionpilot.pages.dev
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -184,94 +176,12 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36270444174
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c76e1b4968463e07c9a329fb616d4ced5bbf45be
-          createdAt: 2026-09-26T20:42:23Z
-          updatedAt: 2026-09-26T20:43:18Z
-          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36270444174
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 36270444174
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c76e1b4968463e07c9a329fb616d4ced5bbf45be
-          createdAt: 2026-09-26T20:42:23Z
-          updatedAt: 2026-09-26T20:43:18Z
-          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36270444174
-        ageDays: 0
-      attention: clear
     - name: Deploy Mentionpilot Web
       file: .github/workflows/deploy-web.yml
       triggers:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36270444259
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c76e1b4968463e07c9a329fb616d4ced5bbf45be
-          createdAt: 2026-09-26T20:42:23Z
-          updatedAt: 2026-09-26T20:43:58Z
-          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36270444259
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 36270444259
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c76e1b4968463e07c9a329fb616d4ced5bbf45be
-          createdAt: 2026-09-26T20:42:23Z
-          updatedAt: 2026-09-26T20:43:58Z
-          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36270444259
-        ageDays: 0
-      attention: clear
     - name: Deploy Mentionpilot API Worker
       file: .github/workflows/deploy-worker.yml
       triggers:
@@ -279,46 +189,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36264963571
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: d09790e25a01af59dfb564057be5a400725ebbc7
-          createdAt: 2026-09-26T19:07:47Z
-          updatedAt: 2026-09-26T19:08:19Z
-          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36264963571
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision c76e1b4
-        lastRun:
-          id: 36264963571
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: d09790e25a01af59dfb564057be5a400725ebbc7
-          createdAt: 2026-09-26T19:07:47Z
-          updatedAt: 2026-09-26T19:08:19Z
-          url: https://github.com/High-Signal-App/mentionpilot/actions/runs/36264963571
-      attention: missing-data
 deployment:
   kind: worker+pages
   deployed: true

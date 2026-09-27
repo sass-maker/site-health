@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: nutrition-formula-engine
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: a8abb04e76cd5e6f7f3feb386d4b30d465d06fe8d6fea2f253e0bf26ad29d651
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -38,7 +38,7 @@ verification:
       revision: 662f72880c5da5d3099a62c2151674120f32216f
       githubRepository: Significant-Hobbies/nutrition-formula-engine
       expectedHomepage: https://formula.significanthobbies.com/
-      observedHomepage: https://formula.significanthobbies.com/
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -57,12 +57,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://formula.significanthobbies.com/.
 ownerVoice:
   whyVerbatim: Okay can you release it and ensure you test it out so I can share it with people?
   fullReviewVerbatim: |-
@@ -125,7 +127,7 @@ repository:
   checkout: nutrition-formula-engine
   observedRevision: 662f72880c5da5d3099a62c2151674120f32216f
   githubRepository: Significant-Hobbies/nutrition-formula-engine
-  githubHomepageUrl: https://formula.significanthobbies.com/
+  githubHomepageUrl: null
   worktree: *a1
   visibility: private
   url: https://github.com/Significant-Hobbies/nutrition-formula-engine
@@ -155,20 +157,12 @@ repository:
       - deploy
       - test
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/nutrition-formula-engine
-    defaultBranch: main
-    defaultBranchSha: 662f72880c5da5d3099a62c2151674120f32216f
-    homepage: https://formula.significanthobbies.com/
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -177,47 +171,6 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36264962179
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 662f72880c5da5d3099a62c2151674120f32216f
-          createdAt: 2026-09-26T19:07:45Z
-          updatedAt: 2026-09-26T19:08:01Z
-          url: https://github.com/Significant-Hobbies/nutrition-formula-engine/actions/runs/36264962179
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 36264962179
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 662f72880c5da5d3099a62c2151674120f32216f
-          createdAt: 2026-09-26T19:07:45Z
-          updatedAt: 2026-09-26T19:08:01Z
-          url: https://github.com/Significant-Hobbies/nutrition-formula-engine/actions/runs/36264962179
-        ageDays: 0
-      attention: clear
 deployment:
   kind: worker
   deployed: true

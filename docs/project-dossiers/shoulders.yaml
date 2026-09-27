@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: shoulders
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
+    repositorySnapshot: unavailable
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-20
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-14
       reviewSha256: e3a97ff166bf6d5304c4e0f43aba0876daaa2c63461414cd4b1ebe34b9f3d379
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -33,35 +33,31 @@ verification:
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/shoulders
-      revision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
-      githubRepository: sarthakagrawal927/shoulders
+      revision: null
+      githubRepository: null
       expectedHomepage: null
       observedHomepage: null
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      worktree: null
     retainedGitHistory:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/shoulders
-      revision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
-      githubRepository: sarthakagrawal927/shoulders
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-18
       catalogLatestCommitAt: 2026-09-18
       catalogDrift: []
-      reason: null
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
-      attention: &a2
-        ignored: 1
-  unknowns: []
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: I lost interest in this product. Move this to archived as paused.
   fullReviewVerbatim: I lost interest in this product. Move this to archived as paused.
@@ -109,104 +105,32 @@ product:
     - Astro
     - TypeScript
   retainedGitHistory:
-    firstCommitAt: 2026-09-18
-    latestCommitAt: 2026-09-18
-    retainedCommitCount: 1
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/shoulders
-  observedRevision: 72c0b06d540803c7748a2b3bc272f4c1827f3823
-  githubRepository: sarthakagrawal927/shoulders
+  observedRevision: null
+  githubRepository: null
   githubHomepageUrl: null
-  worktree: *a1
+  worktree: null
   visibility: public
   url: https://github.com/sarthakagrawal927/shoulders
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: pnpm@10.33.2
-    detectedSignals:
-      - name: Astro
-        evidence:
-          - astro.config.mjs
-      - name: Playwright
-        evidence:
-          - playwright.config.ts
-      - name: pnpm
-        evidence:
-          - pnpm-lock.yaml
-    rootPackageScripts:
-      - build
-      - build:release
-      - check
-      - dev
-      - preview
-      - test
-      - test:e2e
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
-  summary:
-    healthy: 1
-  attention: *a2
-  remote:
-    repository: sarthakagrawal927/shoulders
-    defaultBranch: main
-    defaultBranchSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
-    homepage: null
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Lifecycle reconciliation (2026-09-19): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows:
-    - name: Validate static site
-      file: .github/workflows/ci.yml
-      triggers:
-        - pull_request
-        - push
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Lifecycle reconciliation (2026-09-19): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35378929655
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
-          createdAt: 2026-09-18T18:13:37Z
-          updatedAt: 2026-09-18T18:15:31Z
-          url: https://github.com/sarthakagrawal927/shoulders/actions/runs/35378929655
-        ageDays: 8
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35378929655
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 72c0b06d540803c7748a2b3bc272f4c1827f3823
-          createdAt: 2026-09-18T18:13:37Z
-          updatedAt: 2026-09-18T18:15:31Z
-          url: https://github.com/sarthakagrawal927/shoulders/actions/runs/35378929655
-        ageDays: 8
-      attention: ignored
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
 deployment:
   kind: none
   deployed: false

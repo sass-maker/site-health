@@ -1,0 +1,5598 @@
+{
+  "generatedAt": "2026-09-27T12:34:29.212Z",
+  "results": [
+    {
+      "name": "CodeVetter",
+      "origin": "https://codevetter.com",
+      "id": "codevetter",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "5388B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "871 surfaces, name=CodeVetter"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (4645B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap-index.xml (3 sitemap files, 933 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "250/250 checked routes agent-readable (100%) · 933 public routes · deterministic sample",
+          "data": {
+            "readable": 250,
+            "checked": 250,
+            "total": 933,
+            "coveragePercent": 100,
+            "sampled": true,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "871/871 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 871,
+            "configured": 871,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, Organization, App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"CodeVetter\"",
+          "data": {
+            "canonicalId": "codevetter",
+            "canonicalName": "CodeVetter",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "CodeVetter",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "CodeVetter",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "CodeVetter",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "HeyPace",
+      "origin": "https://heypace.app",
+      "id": "pace",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2071B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "34 surfaces, name=HeyPace"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (1894B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 34 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "34/34 checked routes agent-readable (100%) · 34 public routes",
+          "data": {
+            "readable": 34,
+            "checked": 34,
+            "total": 34,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "34/34 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 34,
+            "configured": 34,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"HeyPace\"",
+          "data": {
+            "canonicalId": "pace",
+            "canonicalName": "HeyPace",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "HeyPace",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "HeyPace",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "HeyPace",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "PostTrainLLM",
+      "origin": "https://posttrainllm.com",
+      "id": "posttrainllm",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "3798B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "533 surfaces, name=PostTrainLLM"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (161030B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 533 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "250/250 checked routes agent-readable (100%) · 533 public routes · deterministic sample",
+          "data": {
+            "readable": 250,
+            "checked": 250,
+            "total": 533,
+            "coveragePercent": 100,
+            "sampled": true,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "533/533 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 533,
+            "configured": 533,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"PostTrainLLM\"",
+          "data": {
+            "canonicalId": "posttrainllm",
+            "canonicalName": "PostTrainLLM",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "PostTrainLLM",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "PostTrainLLM",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "PostTrainLLM",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Live",
+      "origin": "https://live.significanthobbies.com",
+      "id": "live",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1268B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "2 surfaces, name=Live"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (15800B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 701 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "250/250 checked routes agent-readable (100%) · 701 public routes · deterministic sample",
+          "data": {
+            "readable": 250,
+            "checked": 250,
+            "total": 701,
+            "coveragePercent": 100,
+            "sampled": true,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "2/2 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 2,
+            "configured": 2,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Live\"",
+          "data": {
+            "canonicalId": "live",
+            "canonicalName": "Live",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Live",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Live",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Live",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "ChatGPT Connections",
+      "origin": "https://reader-mcp.significanthobbies.com",
+      "id": "chatgpt-connections",
+      "tier": "C",
+      "score": 18,
+      "checks": {
+        "llms_txt": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "not_spa_fake": {
+          "status": "fail",
+          "detail": "llms status 404"
+        },
+        "api_ai": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "fail",
+          "detail": "negotiation returned HTML"
+        },
+        "robots": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "no parseable robots.txt — nothing blocked"
+        },
+        "sitemap": {
+          "status": "fail",
+          "detail": "https://reader-mcp.significanthobbies.com/sitemap.xml: HTTP 404; https://reader-mcp.significanthobbies.com/sitemap-index.xml: HTTP 404"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "no public sitemap routes available for Markdown coverage",
+          "data": {
+            "readable": 0,
+            "checked": 0,
+            "total": 0,
+            "coveragePercent": 0,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/0 catalog surfaces valid (empty surfaces array)",
+          "data": {
+            "valid": 0,
+            "configured": 0,
+            "integrityPercent": 0,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "skip",
+          "detail": "no JSON-LD blocks found (bonus, not required)"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 2,
+      "fail": 8
+    },
+    {
+      "name": "SaaS Maker",
+      "origin": "https://sassmaker.com",
+      "id": "saas-maker",
+      "tier": "A",
+      "score": 92,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "12734B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "73 surfaces, name=SaaS Maker"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (24187B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1193 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "16/250 checked routes agent-readable (6.4%) · 1193 public routes · deterministic sample",
+          "data": {
+            "readable": 16,
+            "checked": 250,
+            "total": 1193,
+            "coveragePercent": 6.4,
+            "sampled": true,
+            "failures": [
+              {
+                "path": "/launchdesk/360quadrants.com",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/acidtools.com",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/affiliate.watch",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/aiagentstore.ai",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/ai-bot.cn",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/aifordevelopers.org",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/library.phygital.plus",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/airespo.com",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/aitoollist.org",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/aitools.neilpatel.com",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/aitoolslist.io",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/aitoolssme.com",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/ai-hunter.io",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/aidirectory.org",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/ainave.com",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/aitoolnet.com",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/aixcollection.com",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/allinai.tools",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/alternative.me",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/launchdesk/androidauthority.com",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "73/73 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 73,
+            "configured": 73,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"SaaS Maker\"",
+          "data": {
+            "canonicalId": "saas-maker",
+            "canonicalName": "SaaS Maker",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "SaaS Maker",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "SaaS Maker",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "SaaS Maker",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 11,
+      "fail": 1
+    },
+    {
+      "name": "GitStat",
+      "origin": "https://git.significanthobbies.com",
+      "id": "gitstat",
+      "tier": "S",
+      "score": 91,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1449B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "1 surfaces, name=GitStat"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "1/1 checked routes agent-readable (100%) · 1 public routes",
+          "data": {
+            "readable": 1,
+            "checked": 1,
+            "total": 1,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "1/1 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 1,
+            "configured": 1,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (200, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 10,
+      "fail": 0
+    },
+    {
+      "name": "Kinetic",
+      "origin": "https://mail.significanthobbies.com",
+      "id": "email-manager",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1145B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "3 surfaces, name=Kinetic"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (1161B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 3 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "3/3 checked routes agent-readable (100%) · 3 public routes",
+          "data": {
+            "readable": 3,
+            "checked": 3,
+            "total": 3,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "3/3 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 3,
+            "configured": 3,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Kinetic\"",
+          "data": {
+            "canonicalId": "email-manager",
+            "canonicalName": "Kinetic",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Kinetic",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Kinetic",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Kinetic",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "6/6 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 6,
+            "matched": 6,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Memory Map",
+      "origin": "https://chatgpt.significanthobbies.com",
+      "id": "chatgpt-memory-insights",
+      "tier": "A",
+      "score": 92,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1559B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "5 surfaces, name=Memory Map"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2065B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 5 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "5/5 checked routes agent-readable (100%) · 5 public routes",
+          "data": {
+            "readable": 5,
+            "checked": 5,
+            "total": 5,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "3/5 catalog surfaces valid (60%)",
+          "data": {
+            "valid": 3,
+            "configured": 5,
+            "integrityPercent": 60,
+            "failures": [
+              {
+                "id": "agent-guidance",
+                "reason": "missing url or md"
+              },
+              {
+                "id": "commercial-state",
+                "reason": "missing url or md"
+              }
+            ]
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Memory Map\"",
+          "data": {
+            "canonicalId": "chatgpt-memory-insights",
+            "canonicalName": "Memory Map",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Memory Map",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Memory Map",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Memory Map",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "8/8 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 8,
+            "matched": 8,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (200, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 11,
+      "fail": 1
+    },
+    {
+      "name": "Free AI",
+      "origin": "https://ai-gateway.sassmaker.com",
+      "id": "free-ai",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1121B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "19 surfaces, name=Free AI"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (1095B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 19 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "19/19 checked routes agent-readable (100%) · 19 public routes",
+          "data": {
+            "readable": 19,
+            "checked": 19,
+            "total": 19,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "19/19 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 19,
+            "configured": 19,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Free AI\"",
+          "data": {
+            "canonicalId": "free-ai",
+            "canonicalName": "Free AI",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Free AI",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Free AI",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Free AI",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "High Signal",
+      "origin": "https://highsignal.app",
+      "id": "high-signal",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1830B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "39 surfaces, name=High Signal"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2131B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 377 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "250/250 checked routes agent-readable (100%) · 377 public routes · deterministic sample",
+          "data": {
+            "readable": 250,
+            "checked": 250,
+            "total": 377,
+            "coveragePercent": 100,
+            "sampled": true,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "39/39 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 39,
+            "configured": 39,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"High Signal\"",
+          "data": {
+            "canonicalId": "high-signal",
+            "canonicalName": "High Signal",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "High Signal",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "High Signal",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "High Signal",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "High Signal Podcasts",
+      "origin": "https://podcasts.highsignal.app",
+      "id": "on-record",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2073B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "9 surfaces, name=High Signal Podcasts"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2646B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "answer-engine bots allowed (training-only blocked: CCBot)"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 11 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "11/11 checked routes agent-readable (100%) · 11 public routes",
+          "data": {
+            "readable": 11,
+            "checked": 11,
+            "total": 11,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "9/9 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 9,
+            "configured": 9,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"High Signal Podcasts\"",
+          "data": {
+            "canonicalId": "on-record",
+            "canonicalName": "High Signal Podcasts",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "High Signal Podcasts",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "High Signal Podcasts",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "High Signal Podcasts",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "IssuePages",
+      "origin": "https://issues.sarthakagrawal.dev",
+      "id": "issue-pages",
+      "tier": "A",
+      "score": 82,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "951B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "1 surfaces, name=IssuePages"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 7 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "1/7 checked routes agent-readable (14.3%) · 7 public routes",
+          "data": {
+            "readable": 1,
+            "checked": 7,
+            "total": 7,
+            "coveragePercent": 14.3,
+            "sampled": false,
+            "failures": [
+              {
+                "path": "/pages/newest",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/pages/updated",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/embed",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/articles/4/a-live-edited-field-note-from-the-issue-to-page-pilot",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/articles/9/complete-the-universal-reader-performance-pass",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/articles/8/harden-cold-universal-reader-availability-beyond-github-s-shared-quota",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "1/1 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 1,
+            "configured": 1,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "10/10 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 10,
+            "matched": 10,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 9,
+      "fail": 1
+    },
+    {
+      "name": "Research Papers",
+      "origin": "https://papers.highsignal.app",
+      "id": "research-papers",
+      "tier": "A",
+      "score": 83,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1135B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "5 surfaces, name=researchPapers"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (1595B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 205 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "205/205 checked routes agent-readable (100%) · 205 public routes",
+          "data": {
+            "readable": 205,
+            "checked": 205,
+            "total": 205,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "5/5 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 5,
+            "configured": 5,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "fail",
+          "detail": "canonical \"Research Papers\" · /api/ai=\"researchPapers\" (retired-alias)",
+          "data": {
+            "canonicalId": "research-papers",
+            "canonicalName": "Research Papers",
+            "worst": "retired-alias",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Research Papers",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "researchPapers",
+                "class": "retired-alias"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Research Papers",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "fail",
+          "detail": "1/13 routes disagree between HEAD and GET: /api/ai HEAD 404 vs GET 200",
+          "data": {
+            "checked": 13,
+            "matched": 12,
+            "mismatches": [
+              {
+                "route": "/api/ai",
+                "get": 200,
+                "head": 404
+              }
+            ]
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 10,
+      "fail": 2
+    },
+    {
+      "name": "Knowledge Base",
+      "origin": "https://knowledgebase.sassmaker.com",
+      "id": "knowledge-base",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1126B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "1 surfaces, name=Knowledge Base"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2162B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "1/1 checked routes agent-readable (100%) · 1 public routes",
+          "data": {
+            "readable": 1,
+            "checked": 1,
+            "total": 1,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "1/1 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 1,
+            "configured": 1,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Knowledge Base\"",
+          "data": {
+            "canonicalId": "knowledge-base",
+            "canonicalName": "Knowledge Base",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Knowledge Base",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Knowledge Base",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Knowledge Base",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Significant Hobbies",
+      "origin": "https://significanthobbies.com",
+      "id": "significanthobbies",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2136B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "1 surfaces, name=Significant Hobbies"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (3504B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "1/1 checked routes agent-readable (100%) · 1 public routes",
+          "data": {
+            "readable": 1,
+            "checked": 1,
+            "total": 1,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "1/1 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 1,
+            "configured": 1,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Significant Hobbies\"",
+          "data": {
+            "canonicalId": "significanthobbies",
+            "canonicalName": "Significant Hobbies",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Significant Hobbies",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Significant Hobbies",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Significant Hobbies",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Anime List",
+      "origin": "https://anime.significanthobbies.com",
+      "id": "anime-list",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2294B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "13 surfaces, name=Anime List"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2813B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (5 sitemap files, 7607 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "250/250 checked routes agent-readable (100%) · 7607 public routes · deterministic sample",
+          "data": {
+            "readable": 250,
+            "checked": 250,
+            "total": 7607,
+            "coveragePercent": 100,
+            "sampled": true,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "13/13 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 13,
+            "configured": 13,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Anime List\"",
+          "data": {
+            "canonicalId": "anime-list",
+            "canonicalName": "Anime List",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Anime List",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Anime List",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Anime List",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "LoopTV",
+      "origin": "https://tv.significanthobbies.com",
+      "id": "looptv",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1672B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "30 surfaces, name=LoopTV"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (992B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 30 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "30/30 checked routes agent-readable (100%) · 30 public routes",
+          "data": {
+            "readable": 30,
+            "checked": 30,
+            "total": 30,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "30/30 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 30,
+            "configured": 30,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, Organization, App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"LoopTV\"",
+          "data": {
+            "canonicalId": "looptv",
+            "canonicalName": "LoopTV",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "LoopTV",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "LoopTV",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "LoopTV",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Reader",
+      "origin": "https://read.significanthobbies.com",
+      "id": "reader",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2423B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "3 surfaces, name=Reader"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (3989B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 3 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "3/3 checked routes agent-readable (100%) · 3 public routes",
+          "data": {
+            "readable": 3,
+            "checked": 3,
+            "total": 3,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "3/3 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 3,
+            "configured": 3,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "pass",
+          "detail": "present (S+)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Reader\"",
+          "data": {
+            "canonicalId": "reader",
+            "canonicalName": "Reader",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Reader",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Reader",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Reader",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "6/6 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 6,
+            "matched": 6,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "SWE Interview Prep",
+      "origin": "https://learn.significanthobbies.com",
+      "id": "swe-interview-prep",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2288B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "5 surfaces, name=SWE Interview Prep"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (23330B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 323 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "250/250 checked routes agent-readable (100%) · 323 public routes · deterministic sample",
+          "data": {
+            "readable": 250,
+            "checked": 250,
+            "total": 323,
+            "coveragePercent": 100,
+            "sampled": true,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "5/5 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 5,
+            "configured": 5,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "pass",
+          "detail": "present (S+)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"SWE Interview Prep\"",
+          "data": {
+            "canonicalId": "swe-interview-prep",
+            "canonicalName": "SWE Interview Prep",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "SWE Interview Prep",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "SWE Interview Prep",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "SWE Interview Prep",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Calorie",
+      "origin": "https://calorie.significanthobbies.com",
+      "id": "calorie",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2396B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "7 surfaces, name=Calorie"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (1329B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 14 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "14/14 checked routes agent-readable (100%) · 14 public routes",
+          "data": {
+            "readable": 14,
+            "checked": 14,
+            "total": 14,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "7/7 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 7,
+            "configured": 7,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "pass",
+          "detail": "present (S+)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Calorie\"",
+          "data": {
+            "canonicalId": "calorie",
+            "canonicalName": "Calorie",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Calorie",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Calorie",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Calorie",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Setline",
+      "origin": "https://setline.significanthobbies.com",
+      "id": "setline",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2462B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "20 surfaces, name=Setline"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 20 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "20/20 checked routes agent-readable (100%) · 20 public routes",
+          "data": {
+            "readable": 20,
+            "checked": 20,
+            "total": 20,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "20/20 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 20,
+            "configured": 20,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Setline\"",
+          "data": {
+            "canonicalId": "setline",
+            "canonicalName": "Setline",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Setline",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Setline",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Setline",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 11,
+      "fail": 0
+    },
+    {
+      "name": "Kith",
+      "origin": "https://kith.significanthobbies.com",
+      "id": "kith",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2712B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "21 surfaces, name=Kith"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 21 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "21/21 checked routes agent-readable (100%) · 21 public routes",
+          "data": {
+            "readable": 21,
+            "checked": 21,
+            "total": 21,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "21/21 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 21,
+            "configured": 21,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Kith\"",
+          "data": {
+            "canonicalId": "kith",
+            "canonicalName": "Kith",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Kith",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Kith",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Kith",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 11,
+      "fail": 0
+    },
+    {
+      "name": "RolePatch",
+      "origin": "https://rolepatch.com",
+      "id": "rolepatch",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1353B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "21 surfaces, name=RolePatch"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2268B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 24 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "24/24 checked routes agent-readable (100%) · 24 public routes",
+          "data": {
+            "readable": 24,
+            "checked": 24,
+            "total": 24,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "21/21 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 21,
+            "configured": 21,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"RolePatch\"",
+          "data": {
+            "canonicalId": "rolepatch",
+            "canonicalName": "RolePatch",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "RolePatch",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "RolePatch",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "RolePatch",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "12/12 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 12,
+            "matched": 12,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Karte",
+      "origin": "https://karte.cc",
+      "id": "karte",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1925B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "9 surfaces, name=Karte"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2541B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 46 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "46/46 checked routes agent-readable (100%) · 46 public routes",
+          "data": {
+            "readable": 46,
+            "checked": 46,
+            "total": 46,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "9/9 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 9,
+            "configured": 9,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "pass",
+          "detail": "present (S+)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Karte\"",
+          "data": {
+            "canonicalId": "karte",
+            "canonicalName": "Karte",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Karte",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Karte",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Karte",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Starboard",
+      "origin": "https://starboard.codevetter.com",
+      "id": "starboard",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1748B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "7 surfaces, name=Starboard"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2001B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 23 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "23/23 checked routes agent-readable (100%) · 23 public routes",
+          "data": {
+            "readable": 23,
+            "checked": 23,
+            "total": 23,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "7/7 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 7,
+            "configured": 7,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Starboard\"",
+          "data": {
+            "canonicalId": "starboard",
+            "canonicalName": "Starboard",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Starboard",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Starboard",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Starboard",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "AliveVille",
+      "origin": "https://aliveville.com",
+      "id": "ai-game",
+      "tier": "A",
+      "score": 75,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1769B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "5 surfaces, name=Aliveville"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2708B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap-index.xml (2 sitemap files, 5 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "4/5 checked routes agent-readable (80%) · 5 public routes",
+          "data": {
+            "readable": 4,
+            "checked": 5,
+            "total": 5,
+            "coveragePercent": 80,
+            "sampled": false,
+            "failures": [
+              {
+                "path": "/game/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "4/5 catalog surfaces valid (80%)",
+          "data": {
+            "valid": 4,
+            "configured": 5,
+            "integrityPercent": 80,
+            "failures": [
+              {
+                "id": "game",
+                "reason": "md target returned HTML"
+              }
+            ]
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "App/WebSite, 4/4 valid"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "8/8 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 8,
+            "matched": 8,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (200, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 9,
+      "fail": 2
+    },
+    {
+      "name": "App Health",
+      "origin": "https://health.sassmaker.com",
+      "id": "app-health",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1203B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "2 surfaces, name=App Health"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2813B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 2 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "2/2 checked routes agent-readable (100%) · 2 public routes",
+          "data": {
+            "readable": 2,
+            "checked": 2,
+            "total": 2,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "2/2 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 2,
+            "configured": 2,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "fleet-marked, @graph, App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"App Health\"",
+          "data": {
+            "canonicalId": "app-health",
+            "canonicalName": "App Health",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "App Health",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "App Health",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "App Health",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "5/5 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 5,
+            "matched": 5,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Mashup",
+      "origin": "https://mashup.highsignal.app",
+      "id": "mashup",
+      "tier": "S",
+      "score": 91,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1875B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "1 surfaces, name=Mashup"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "1/1 checked routes agent-readable (100%) · 1 public routes",
+          "data": {
+            "readable": 1,
+            "checked": 1,
+            "total": 1,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "1/1 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 1,
+            "configured": 1,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 10,
+      "fail": 0
+    },
+    {
+      "name": "Motion",
+      "origin": "https://motion.significanthobbies.com",
+      "id": "motion",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2291B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "6 surfaces, name=Motion"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 6 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "6/6 checked routes agent-readable (100%) · 6 public routes",
+          "data": {
+            "readable": 6,
+            "checked": 6,
+            "total": 6,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "6/6 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 6,
+            "configured": 6,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Motion\"",
+          "data": {
+            "canonicalId": "motion",
+            "canonicalName": "Motion",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Motion",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Motion",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Motion",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "9/9 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 9,
+            "matched": 9,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 11,
+      "fail": 0
+    },
+    {
+      "name": "Open Historia",
+      "origin": "https://historia.aliveville.com",
+      "id": "open-historia",
+      "tier": "A",
+      "score": 83,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "1021B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "4 surfaces, name=Open Historia"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (2603B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 4 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "4/4 checked routes agent-readable (100%) · 4 public routes",
+          "data": {
+            "readable": 4,
+            "checked": 4,
+            "total": 4,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "4/4 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 4,
+            "configured": 4,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "1/1 valid"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "fail",
+          "detail": "1/7 routes disagree between HEAD and GET: /api/ai HEAD 404 vs GET 200",
+          "data": {
+            "checked": 7,
+            "matched": 6,
+            "mismatches": [
+              {
+                "route": "/api/ai",
+                "get": 200,
+                "head": 404
+              }
+            ]
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 10,
+      "fail": 1
+    },
+    {
+      "name": "Web Playables",
+      "origin": "https://idle.aliveville.com",
+      "id": "web-playables",
+      "tier": "A",
+      "score": 82,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "797B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "2 surfaces, name=Idle — browser games"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 2 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "2/2 checked routes agent-readable (100%) · 2 public routes",
+          "data": {
+            "readable": 2,
+            "checked": 2,
+            "total": 2,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/2 catalog surfaces valid (0%)",
+          "data": {
+            "valid": 0,
+            "configured": 2,
+            "integrityPercent": 0,
+            "failures": [
+              {
+                "id": "home",
+                "reason": "missing url or md"
+              },
+              {
+                "id": "idle-startup",
+                "reason": "missing url or md"
+              }
+            ]
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "1/1 valid"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "5/5 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 5,
+            "matched": 5,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (200, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 9,
+      "fail": 1
+    },
+    {
+      "name": "Paths",
+      "origin": "https://paths.significanthobbies.com",
+      "id": "what-it-takes-to-win",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2851B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "10 surfaces, name=Paths"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (3972B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 6196 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "250/250 checked routes agent-readable (100%) · 6196 public routes · deterministic sample",
+          "data": {
+            "readable": 250,
+            "checked": 250,
+            "total": 6196,
+            "coveragePercent": 100,
+            "sampled": true,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "10/10 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 10,
+            "configured": 10,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Paths\"",
+          "data": {
+            "canonicalId": "what-it-takes-to-win",
+            "canonicalName": "Paths",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Paths",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Paths",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Paths",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Sarthak Agrawal",
+      "origin": "https://sarthakagrawal.dev",
+      "id": "sarthakagrawal-personal",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "8381B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "13 surfaces, name=Sarthak Agrawal"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (42813B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap-index.xml (2 sitemap files, 13 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "13/13 checked routes agent-readable (100%) · 13 public routes",
+          "data": {
+            "readable": 13,
+            "checked": 13,
+            "total": 13,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "13/13 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 13,
+            "configured": 13,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Sarthak Agrawal\"",
+          "data": {
+            "canonicalId": "sarthakagrawal-personal",
+            "canonicalName": "Sarthak Agrawal",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Sarthak Agrawal",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Sarthak Agrawal",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Sarthak Agrawal",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Field Track",
+      "origin": "https://field-track.sassmaker.com",
+      "id": "field-track",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "956B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "1 surfaces, name=Field Track"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (1156B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "1/1 checked routes agent-readable (100%) · 1 public routes",
+          "data": {
+            "readable": 1,
+            "checked": 1,
+            "total": 1,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "1/1 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 1,
+            "configured": 1,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Field Track\"",
+          "data": {
+            "canonicalId": "field-track",
+            "canonicalName": "Field Track",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Field Track",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Field Track",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Field Track",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Reddit Insights",
+      "origin": "https://reddit-insights.highsignal.app",
+      "id": "reddit-insights",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "247B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "1 surfaces, name=Reddit Insights"
+        },
+        "llms_full": {
+          "status": "pass",
+          "detail": "advertised llms-full resolves (7805B)"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 93 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "93/93 checked routes agent-readable (100%) · 93 public routes",
+          "data": {
+            "readable": 93,
+            "checked": 93,
+            "total": 93,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "1/1 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 1,
+            "configured": 1,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Reddit Insights\"",
+          "data": {
+            "canonicalId": "reddit-insights",
+            "canonicalName": "Reddit Insights",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Reddit Insights",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Reddit Insights",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Reddit Insights",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "14/14 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 14,
+            "matched": 14,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 12,
+      "fail": 0
+    },
+    {
+      "name": "Anchor",
+      "origin": "https://anchor.significanthobbies.com",
+      "id": "anchor",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2090B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "21 surfaces, name=Anchor"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 21 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "21/21 checked routes agent-readable (100%) · 21 public routes",
+          "data": {
+            "readable": 21,
+            "checked": 21,
+            "total": 21,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "21/21 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 21,
+            "configured": 21,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"Anchor\"",
+          "data": {
+            "canonicalId": "anchor",
+            "canonicalName": "Anchor",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "Anchor",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "Anchor",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "Anchor",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 11,
+      "fail": 0
+    },
+    {
+      "name": "Nomad Data Adventure",
+      "origin": "https://nomad.significanthobbies.com",
+      "id": "nomad-data-adventure",
+      "tier": "B",
+      "score": 36,
+      "checks": {
+        "llms_txt": {
+          "status": "fail",
+          "detail": "HTML shell (SPA catch-all)"
+        },
+        "not_spa_fake": {
+          "status": "fail",
+          "detail": "SPA/HTML shell returned for /llms.txt"
+        },
+        "api_ai": {
+          "status": "fail",
+          "detail": "HTML shell instead of JSON"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "fail",
+          "detail": "negotiation returned HTML"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "0/1 checked routes agent-readable (0%) · 1 public routes",
+          "data": {
+            "readable": 0,
+            "checked": 1,
+            "total": 1,
+            "coveragePercent": 0,
+            "sampled": false,
+            "failures": [
+              {
+                "path": "/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/0 catalog surfaces valid (empty surfaces array)",
+          "data": {
+            "valid": 0,
+            "configured": 0,
+            "integrityPercent": 0,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "skip",
+          "detail": "no JSON-LD blocks found (bonus, not required)"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (200, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 4,
+      "fail": 6
+    },
+    {
+      "name": "storagedaddy",
+      "origin": "https://storage.daddyrad.com",
+      "id": "storagedaddy",
+      "tier": "S",
+      "score": 91,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "611B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "1 surfaces, name=storagedaddy"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "/index.md present"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "1/1 checked routes agent-readable (100%) · 1 public routes",
+          "data": {
+            "readable": 1,
+            "checked": 1,
+            "total": 1,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "1/1 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 1,
+            "configured": 1,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "App/WebSite, 2/2 valid"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 10,
+      "fail": 0
+    },
+    {
+      "name": "BrowserDaddy",
+      "origin": "https://browser.daddyrad.com",
+      "id": "browserdaddy",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2189B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "6 surfaces, name=BrowserDaddy"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 6 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "6/6 checked routes agent-readable (100%) · 6 public routes",
+          "data": {
+            "readable": 6,
+            "checked": 6,
+            "total": 6,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "6/6 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 6,
+            "configured": 6,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"BrowserDaddy\"",
+          "data": {
+            "canonicalId": "browserdaddy",
+            "canonicalName": "BrowserDaddy",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "BrowserDaddy",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "BrowserDaddy",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "BrowserDaddy",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "9/9 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 9,
+            "matched": 9,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 11,
+      "fail": 0
+    },
+    {
+      "name": "PerformanceDaddy",
+      "origin": "https://performance.daddyrad.com",
+      "id": "performancedaddy",
+      "tier": "S",
+      "score": 100,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2363B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "8 surfaces, name=PerformanceDaddy"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 8 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "8/8 checked routes agent-readable (100%) · 8 public routes",
+          "data": {
+            "readable": 8,
+            "checked": 8,
+            "total": 8,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "8/8 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 8,
+            "configured": 8,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "pass",
+          "detail": "3 channel(s) declare \"PerformanceDaddy\"",
+          "data": {
+            "canonicalId": "performancedaddy",
+            "canonicalName": "PerformanceDaddy",
+            "worst": "ok",
+            "identityConflict": false,
+            "channels": [
+              {
+                "channel": "llms.txt",
+                "value": "PerformanceDaddy",
+                "class": "ok"
+              },
+              {
+                "channel": "/api/ai",
+                "value": "PerformanceDaddy",
+                "class": "ok"
+              },
+              {
+                "channel": "json-ld",
+                "value": "PerformanceDaddy",
+                "class": "ok"
+              }
+            ]
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "11/11 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 11,
+            "matched": 11,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 11,
+      "fail": 0
+    },
+    {
+      "name": "Unified Portfolio",
+      "origin": "https://money.significanthobbies.com",
+      "id": "unified-portfolio",
+      "tier": "C",
+      "score": 9,
+      "checks": {
+        "llms_txt": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "not_spa_fake": {
+          "status": "fail",
+          "detail": "llms status 404"
+        },
+        "api_ai": {
+          "status": "fail",
+          "detail": "HTTP 405"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "fail",
+          "detail": "negotiation returned HTML"
+        },
+        "robots": {
+          "status": "fail",
+          "detail": "no Sitemap: line"
+        },
+        "ai_access": {
+          "status": "fail",
+          "detail": "robots disallows GPTBot, ClaudeBot, OAI-SearchBot, PerplexityBot (also: Google-Extended, CCBot, ChatGPT-User, Claude-Web) — likely Cloudflare \"block AI bots\" zone setting"
+        },
+        "sitemap": {
+          "status": "fail",
+          "detail": "https://money.significanthobbies.com/sitemap.xml: HTTP 404; https://money.significanthobbies.com/sitemap-index.xml: HTTP 404"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "no public sitemap routes available for Markdown coverage",
+          "data": {
+            "readable": 0,
+            "checked": 0,
+            "total": 0,
+            "coveragePercent": 0,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/0 catalog surfaces valid (empty surfaces array)",
+          "data": {
+            "valid": 0,
+            "configured": 0,
+            "integrityPercent": 0,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "skip",
+          "detail": "no JSON-LD blocks found (bonus, not required)"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 1,
+      "fail": 9
+    },
+    {
+      "name": "Meme Lab",
+      "origin": "https://memes.significanthobbies.com",
+      "id": "meme-lab",
+      "tier": "A",
+      "score": 45,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "554B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "fail",
+          "detail": "negotiation returned HTML"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 3003 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "0/250 checked routes agent-readable (0%) · 3003 public routes · deterministic sample",
+          "data": {
+            "readable": 0,
+            "checked": 250,
+            "total": 3003,
+            "coveragePercent": 0,
+            "sampled": true,
+            "failures": [
+              {
+                "path": "/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/charlie-conspiracy",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/center-for-ants",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/drake-preference",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/is-this-a-pigeon",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/undertaker-behind",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/they-are-the-same-picture",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/y-u-no",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/good-guy-greg",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/road-split",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/think-mark-think",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/284929871-they-dont-know",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/216523697-all-my-homies-hate",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/im-the-captain-now",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/153695877-the-office-congratulations",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/268054898-sure-grandma-lets-get-you-to-bed",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/80996545-math-ladyconfused-lady",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/441502473-my-body-is-machine",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/141033994-incoming-call",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/memes/but-that-s-none-of-my-business",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/0 catalog surfaces valid (empty surfaces array)",
+          "data": {
+            "valid": 0,
+            "configured": 0,
+            "integrityPercent": 0,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "fail",
+          "detail": "10/13 routes disagree between HEAD and GET: /robots.txt HEAD 404 vs GET 200, /memes/171218846-oprah-you-get-a-car HEAD 404 vs GET 200, /memes/234867543-undertaker-teleports-behind-aj-styles HEAD 404 vs GET 200, /memes/280563912-it-never-was HEAD 404 vs GET 200, /memes/so-god-made-a-farmer HEAD 404 vs GET 200, +5 more",
+          "data": {
+            "checked": 13,
+            "matched": 3,
+            "mismatches": [
+              {
+                "route": "/robots.txt",
+                "get": 200,
+                "head": 404
+              },
+              {
+                "route": "/memes/171218846-oprah-you-get-a-car",
+                "get": 200,
+                "head": 404
+              },
+              {
+                "route": "/memes/234867543-undertaker-teleports-behind-aj-styles",
+                "get": 200,
+                "head": 404
+              },
+              {
+                "route": "/memes/280563912-it-never-was",
+                "get": 200,
+                "head": 404
+              },
+              {
+                "route": "/memes/so-god-made-a-farmer",
+                "get": 200,
+                "head": 404
+              },
+              {
+                "route": "/memes/drowning",
+                "get": 200,
+                "head": 404
+              },
+              {
+                "route": "/memes/gif-9rhnjscgslnehpltnz",
+                "get": 200,
+                "head": 404
+              },
+              {
+                "route": "/memes/gif-j1s363sbqfselywz68",
+                "get": 200,
+                "head": 404
+              },
+              {
+                "route": "/memes/gif-dpb9nbjny7jf1pd0yt2",
+                "get": 200,
+                "head": 404
+              },
+              {
+                "route": "/memes/gif-ifxlk48cnyddi",
+                "get": 200,
+                "head": 404
+              }
+            ]
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 5,
+      "fail": 5
+    },
+    {
+      "name": "Browser Agent Testing",
+      "origin": "https://browser-agents.sarthakagrawal.dev",
+      "id": "agent-testing",
+      "tier": "A",
+      "score": 55,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "4474B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "fail",
+          "detail": "negotiation returned HTML"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 3 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "0/3 checked routes agent-readable (0%) · 3 public routes",
+          "data": {
+            "readable": 0,
+            "checked": 3,
+            "total": 3,
+            "coveragePercent": 0,
+            "sampled": false,
+            "failures": [
+              {
+                "path": "/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/tools.html",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/experiments.html",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/0 catalog surfaces valid (empty surfaces array)",
+          "data": {
+            "valid": 0,
+            "configured": 0,
+            "integrityPercent": 0,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "skip",
+          "detail": "no JSON-LD blocks found (bonus, not required)"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "6/6 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 6,
+            "matched": 6,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 6,
+      "fail": 4
+    },
+    {
+      "name": "Formula Composition Engine",
+      "origin": "https://formula.significanthobbies.com",
+      "id": "nutrition-formula-engine",
+      "tier": "A",
+      "score": 55,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "538B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "fail",
+          "detail": "negotiation returned HTML"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 2 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "0/2 checked routes agent-readable (0%) · 2 public routes",
+          "data": {
+            "readable": 0,
+            "checked": 2,
+            "total": 2,
+            "coveragePercent": 0,
+            "sampled": false,
+            "failures": [
+              {
+                "path": "/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/case-studies/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/0 catalog surfaces valid (empty surfaces array)",
+          "data": {
+            "valid": 0,
+            "configured": 0,
+            "integrityPercent": 0,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "skip",
+          "detail": "no JSON-LD blocks found (bonus, not required)"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "5/5 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 5,
+            "matched": 5,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 6,
+      "fail": 4
+    },
+    {
+      "name": "Every Song Is a Website",
+      "origin": "https://music.significanthobbies.com",
+      "id": "every-song-is-a-website",
+      "tier": "A",
+      "score": 55,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "818B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "fail",
+          "detail": "negotiation returned HTML"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 144 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "0/144 checked routes agent-readable (0%) · 144 public routes",
+          "data": {
+            "readable": 0,
+            "checked": 144,
+            "total": 144,
+            "coveragePercent": 0,
+            "sampled": false,
+            "failures": [
+              {
+                "path": "/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/360/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/7-rings/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/africa/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/all-i-am/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/all-star/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/apple/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/baby-one-more-time/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/bad-guy/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/bad-romance/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/banana-pancakes/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/barbie-girl/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/best-day-of-my-life/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/better-together/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/billie-jean/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/birds-of-a-feather/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/blinding-lights/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/bloom/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/blue-da-ba-dee/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              },
+              {
+                "path": "/blue-monday/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/0 catalog surfaces valid (empty surfaces array)",
+          "data": {
+            "valid": 0,
+            "configured": 0,
+            "integrityPercent": 0,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "skip",
+          "detail": "no JSON-LD blocks found (bonus, not required)"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "13/13 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 13,
+            "matched": 13,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 6,
+      "fail": 4
+    },
+    {
+      "name": "ContextDaddy",
+      "origin": "https://context.daddyrad.com",
+      "id": "contextdaddy",
+      "tier": "S",
+      "score": 91,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "2131B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "pass",
+          "detail": "6 surfaces, name=ContextDaddy"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "pass",
+          "detail": "Accept: text/markdown negotiation"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 6 public routes)"
+        },
+        "route_markdown": {
+          "status": "pass",
+          "detail": "6/6 checked routes agent-readable (100%) · 6 public routes",
+          "data": {
+            "readable": 6,
+            "checked": 6,
+            "total": 6,
+            "coveragePercent": 100,
+            "sampled": false,
+            "failures": []
+          }
+        },
+        "catalog_integrity": {
+          "status": "pass",
+          "detail": "6/6 catalog surfaces valid (100%)",
+          "data": {
+            "valid": 6,
+            "configured": 6,
+            "integrityPercent": 100,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "pass",
+          "detail": "@graph, Organization, App/WebSite, 1/1 valid"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "9/9 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 9,
+            "matched": 9,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "pass",
+          "detail": "key file live"
+        }
+      },
+      "pass": 10,
+      "fail": 0
+    },
+    {
+      "name": "MentionPilot",
+      "origin": "https://mention.highsignal.app",
+      "id": "mentionpilot",
+      "tier": "A",
+      "score": 55,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "310B text/plain; charset=utf-8"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "fail",
+          "detail": "negotiation returned HTML"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "0/1 checked routes agent-readable (0%) · 1 public routes",
+          "data": {
+            "readable": 0,
+            "checked": 1,
+            "total": 1,
+            "coveragePercent": 0,
+            "sampled": false,
+            "failures": [
+              {
+                "path": "/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/0 catalog surfaces valid (empty surfaces array)",
+          "data": {
+            "valid": 0,
+            "configured": 0,
+            "integrityPercent": 0,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "skip",
+          "detail": "no JSON-LD blocks found (bonus, not required)"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404, HTML shell) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 6,
+      "fail": 4
+    },
+    {
+      "name": "DaddyRad",
+      "origin": "https://daddyrad.com",
+      "id": "daddyrad",
+      "tier": "A",
+      "score": 55,
+      "checks": {
+        "llms_txt": {
+          "status": "pass",
+          "detail": "537B text/plain"
+        },
+        "not_spa_fake": {
+          "status": "pass",
+          "detail": "not an HTML shell"
+        },
+        "api_ai": {
+          "status": "fail",
+          "detail": "HTTP 404"
+        },
+        "llms_full": {
+          "status": "skip",
+          "detail": "llmsFull not advertised"
+        },
+        "homepage_md": {
+          "status": "fail",
+          "detail": "negotiation returned HTML"
+        },
+        "robots": {
+          "status": "pass",
+          "detail": "has User-agent + Sitemap"
+        },
+        "ai_access": {
+          "status": "pass",
+          "detail": "AI crawlers allowed"
+        },
+        "sitemap": {
+          "status": "pass",
+          "detail": "/sitemap.xml (1 sitemap files, 1 public routes)"
+        },
+        "route_markdown": {
+          "status": "fail",
+          "detail": "0/1 checked routes agent-readable (0%) · 1 public routes",
+          "data": {
+            "readable": 0,
+            "checked": 1,
+            "total": 1,
+            "coveragePercent": 0,
+            "sampled": false,
+            "failures": [
+              {
+                "path": "/",
+                "reason": "negotiation returned HTML and no Markdown alternate resolved"
+              }
+            ]
+          }
+        },
+        "catalog_integrity": {
+          "status": "fail",
+          "detail": "0/0 catalog surfaces valid (empty surfaces array)",
+          "data": {
+            "valid": 0,
+            "configured": 0,
+            "integrityPercent": 0,
+            "failures": []
+          }
+        },
+        "skill_md": {
+          "status": "skip",
+          "detail": "absent (ok for non-agent-native)"
+        },
+        "jsonld": {
+          "status": "skip",
+          "detail": "no JSON-LD blocks found (bonus, not required)"
+        },
+        "name_agreement": {
+          "status": "skip",
+          "detail": "no canonical identity record for this origin",
+          "data": {
+            "channels": []
+          }
+        },
+        "head_parity": {
+          "status": "pass",
+          "detail": "4/4 probed routes answer HEAD as they answer GET",
+          "data": {
+            "checked": 4,
+            "matched": 4,
+            "mismatches": []
+          }
+        },
+        "indexnow_key": {
+          "status": "skip",
+          "detail": "key file not live (404) — IndexNow submits for this host will fail"
+        }
+      },
+      "pass": 6,
+      "fail": 4
+    }
+  ]
+}

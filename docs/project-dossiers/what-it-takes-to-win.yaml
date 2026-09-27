@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: what-it-takes-to-win
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
+    githubHomepage: mismatch
+    githubActionsLiveState: unverified
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -37,7 +37,7 @@ verification:
       revision: 1dbce9b699fc1deb468c56d692b80e72a454814a
       githubRepository: Significant-Hobbies/what-it-takes-to-win
       expectedHomepage: https://paths.significanthobbies.com
-      observedHomepage: https://paths.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -55,12 +55,14 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage does not match the canonical deployed URL https://paths.significanthobbies.com.
 ownerVoice:
   whyVerbatim: The purpose for this project was to research what are the advantages held by people who are successful and also to help my habit of comparison to die down. I think I will invest a lot more time in this to study people.
   fullReviewVerbatim: The purpose for this project was to research what are the advantages held by people who are successful and also to help my habit of comparison to die down. I think I will invest a lot more time in this to study people.
@@ -120,7 +122,7 @@ repository:
   checkout: what-it-takes-to-win
   observedRevision: 1dbce9b699fc1deb468c56d692b80e72a454814a
   githubRepository: Significant-Hobbies/what-it-takes-to-win
-  githubHomepageUrl: https://paths.significanthobbies.com
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/what-it-takes-to-win
@@ -171,20 +173,12 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/what-it-takes-to-win
-    defaultBranch: main
-    defaultBranchSha: 1dbce9b699fc1deb468c56d692b80e72a454814a
-    homepage: https://paths.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -192,47 +186,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35684329168
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 1dbce9b699fc1deb468c56d692b80e72a454814a
-          createdAt: 2026-09-22T03:45:31Z
-          updatedAt: 2026-09-22T03:48:28Z
-          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/35684329168
-        ageDays: 5
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35684329168
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 1dbce9b699fc1deb468c56d692b80e72a454814a
-          createdAt: 2026-09-22T03:45:31Z
-          updatedAt: 2026-09-22T03:48:28Z
-          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/35684329168
-        ageDays: 5
-      attention: clear
 deployment:
   kind: pages
   deployed: true

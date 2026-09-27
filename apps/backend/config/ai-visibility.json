@@ -10,6 +10,106 @@
       "requiresApprovedCanary": true
     }
   },
+  "baselinePanel": {
+    "id": "baseline-panel-v1",
+    "frozenOn": "2026-09-05",
+    "issue": "SAR-2",
+    "promptCount": 46,
+    "surfaces": [
+      "codevetter",
+      "posttrainllm",
+      "saas-maker",
+      "on-record",
+      "significanthobbies",
+      "what-it-takes-to-win",
+      "high-signal"
+    ],
+    "contract": "Fixed prompt set for month-over-month AI answer visibility. Prompts are append-only; rewording an existing id invalidates the trend.",
+    "amendments": [
+      {
+        "on": "2026-09-05",
+        "issue": "SAR-18",
+        "change": "Appended high-signal as the seventh tracked surface (6 prompts, 40 -> 46).",
+        "why": "High Signal was promoted to a priority surface. The panel had not been executed yet when this was appended (SAR-11 is blocked on fixture-only execution), so no month-over-month trend existed to invalidate. Adding the surface now costs nothing; adding it after the first real run would have cost a baseline."
+      },
+      {
+        "on": "2026-09-05",
+        "issue": "SAR-2",
+        "change": "Froze the five-engine set (chatgpt, claude, perplexity, gemini, copilot) and raised runBudget.maxCalls on the seven panel surfaces to expandedPrompts x 5.",
+        "why": "Route A (operator-captured observations) was selected. maxCalls was sized for exactly one provider per surface, so prepareProviderObservationRuns would have thrown 'requires N calls, exceeding maxCalls' on all seven surfaces the moment a five-engine capture was ingested. No live call is made on this path; the guard bounds ingest volume, not spend."
+      },
+      {
+        "on": "2026-09-05",
+        "issue": "SAR-11",
+        "change": "Appended manual-claude-websearch as a sixth engine column and raised runBudget.maxCalls on the seven panel surfaces to expandedPrompts x 6.",
+        "why": "Baseline run 1 was executed and written to the ledger under the column id manual-claude-websearch, which the five-engine freeze did not declare. That column is agent-session grounded retrieval, not the claude.ai web UI, so relabelling it 'claude' would silently mix two retrieval backends into one trend line. Declaring it as its own column is the honest reconciliation; the budget follows the engine count so a full six-column sweep does not throw."
+      }
+    ],
+    "engines": [
+      {
+        "id": "chatgpt",
+        "label": "ChatGPT",
+        "surface": "chat.openai.com web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "claude",
+        "label": "Claude",
+        "surface": "claude.ai web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "perplexity",
+        "label": "Perplexity",
+        "surface": "perplexity.ai web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "gemini",
+        "label": "Google Gemini",
+        "surface": "gemini.google.com web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "copilot",
+        "label": "Microsoft Copilot",
+        "surface": "copilot.microsoft.com web UI",
+        "capture": "operator-web-ui",
+        "grounded": true
+      },
+      {
+        "id": "manual-claude-websearch",
+        "label": "Claude (agent session, grounded web search)",
+        "surface": "agent-session grounded retrieval",
+        "capture": "agent-session",
+        "grounded": true,
+        "note": "Distinct from the 'claude' column: a different retrieval backend reached without a browser session, so it carries no account personalization. This is the column baseline run 1 was captured on."
+      }
+    ],
+    "engineContract": "Engines are frozen alongside the prompts. Month-over-month AI-answer visibility is only comparable if the same prompt set runs against the same engine set. Adding or dropping an engine is an amendment, and the trend restarts for the affected engine only. A rate is only comparable to another rate captured on the same engine column; never average across columns or read a single-column rate as a panel-wide number.",
+    "baselineRuns": [
+      {
+        "runIdPrefix": "sar-11-baseline-2026-09-05",
+        "on": "2026-09-05",
+        "issue": "SAR-11",
+        "engines": [
+          "manual-claude-websearch"
+        ],
+        "engineCoverage": "1 of 6 declared columns",
+        "units": 74,
+        "cited": 8,
+        "citationRate": 0.108,
+        "mentionRate": 0.23,
+        "recommendationRate": 0,
+        "observedCostUsd": 0,
+        "note": "First real execution of the frozen panel. 10.8% is the manual-claude-websearch column only, not a six-engine panel figure. The five operator-web-ui columns are uncaptured; their trend starts at their own first run."
+      }
+    ]
+  },
   "projects": [
     {
       "slug": "pace",
@@ -2512,106 +2612,933 @@
       "name": "Reddit Insights",
       "domain": "https://reddit-insights.highsignal.app",
       "attention": "foundry"
-    }
-  ],
-  "baselinePanel": {
-    "id": "baseline-panel-v1",
-    "frozenOn": "2026-09-05",
-    "issue": "SAR-2",
-    "promptCount": 46,
-    "surfaces": [
-      "codevetter",
-      "posttrainllm",
-      "saas-maker",
-      "on-record",
-      "significanthobbies",
-      "what-it-takes-to-win",
-      "high-signal"
-    ],
-    "contract": "Fixed prompt set for month-over-month AI answer visibility. Prompts are append-only; rewording an existing id invalidates the trend.",
-    "amendments": [
-      {
-        "on": "2026-09-05",
-        "issue": "SAR-18",
-        "change": "Appended high-signal as the seventh tracked surface (6 prompts, 40 -> 46).",
-        "why": "High Signal was promoted to a priority surface. The panel had not been executed yet when this was appended (SAR-11 is blocked on fixture-only execution), so no month-over-month trend existed to invalidate. Adding the surface now costs nothing; adding it after the first real run would have cost a baseline."
-      },
-      {
-        "on": "2026-09-05",
-        "issue": "SAR-2",
-        "change": "Froze the five-engine set (chatgpt, claude, perplexity, gemini, copilot) and raised runBudget.maxCalls on the seven panel surfaces to expandedPrompts x 5.",
-        "why": "Route A (operator-captured observations) was selected. maxCalls was sized for exactly one provider per surface, so prepareProviderObservationRuns would have thrown 'requires N calls, exceeding maxCalls' on all seven surfaces the moment a five-engine capture was ingested. No live call is made on this path; the guard bounds ingest volume, not spend."
-      },
-      {
-        "on": "2026-09-05",
-        "issue": "SAR-11",
-        "change": "Appended manual-claude-websearch as a sixth engine column and raised runBudget.maxCalls on the seven panel surfaces to expandedPrompts x 6.",
-        "why": "Baseline run 1 was executed and written to the ledger under the column id manual-claude-websearch, which the five-engine freeze did not declare. That column is agent-session grounded retrieval, not the claude.ai web UI, so relabelling it 'claude' would silently mix two retrieval backends into one trend line. Declaring it as its own column is the honest reconciliation; the budget follows the engine count so a full six-column sweep does not throw."
-      }
-    ],
-    "engines": [
-      {
-        "id": "chatgpt",
-        "label": "ChatGPT",
-        "surface": "chat.openai.com web UI",
-        "capture": "operator-web-ui",
-        "grounded": true
-      },
-      {
-        "id": "claude",
-        "label": "Claude",
-        "surface": "claude.ai web UI",
-        "capture": "operator-web-ui",
-        "grounded": true
-      },
-      {
-        "id": "perplexity",
-        "label": "Perplexity",
-        "surface": "perplexity.ai web UI",
-        "capture": "operator-web-ui",
-        "grounded": true
-      },
-      {
-        "id": "gemini",
-        "label": "Google Gemini",
-        "surface": "gemini.google.com web UI",
-        "capture": "operator-web-ui",
-        "grounded": true
-      },
-      {
-        "id": "copilot",
-        "label": "Microsoft Copilot",
-        "surface": "copilot.microsoft.com web UI",
-        "capture": "operator-web-ui",
-        "grounded": true
-      },
-      {
-        "id": "manual-claude-websearch",
-        "label": "Claude (agent session, grounded web search)",
-        "surface": "agent-session grounded retrieval",
-        "capture": "agent-session",
-        "grounded": true,
-        "note": "Distinct from the 'claude' column: a different retrieval backend reached without a browser session, so it carries no account personalization. This is the column baseline run 1 was captured on."
-      }
-    ],
-    "engineContract": "Engines are frozen alongside the prompts. Month-over-month AI-answer visibility is only comparable if the same prompt set runs against the same engine set. Adding or dropping an engine is an amendment, and the trend restarts for the affected engine only. A rate is only comparable to another rate captured on the same engine column; never average across columns or read a single-column rate as a panel-wide number.",
-    "baselineRuns": [
-      {
-        "runIdPrefix": "sar-11-baseline-2026-09-05",
-        "on": "2026-09-05",
-        "issue": "SAR-11",
-        "engines": [
-          "manual-claude-websearch"
+    },
+    {
+      "slug": "gitstat",
+      "name": "GitStat",
+      "domain": "https://git.significanthobbies.com",
+      "aliases": [],
+      "competitors": [
+        {
+          "name": "GitHub Insights",
+          "url": "https://github.com/features"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What tools analyze GitHub repository activity and code churn?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare GitHub analytics tools on contribution and AI-involvement signal."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "a developer analyzing a repository"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
         ],
-        "engineCoverage": "1 of 6 declared columns",
-        "units": 74,
-        "cited": 8,
-        "citationRate": 0.108,
-        "mentionRate": 0.23,
-        "recommendationRate": 0,
-        "observedCostUsd": 0,
-        "note": "First real execution of the frozen panel. 10.8% is the manual-claude-websearch column only, not a six-engine panel figure. The five operator-web-ui columns are uncaptured; their trend starts at their own first run."
-      }
-    ]
-  }
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "issue-pages",
+      "name": "IssuePages",
+      "domain": "https://issues.sarthakagrawal.dev",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What tools render GitHub issues as readable articles?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare GitHub issue readers for focus and presentation."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "someone reading long GitHub issues"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "ios-landings",
+      "name": "Significant Hobbies App Landings",
+      "domain": "https://apps.significanthobbies.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "Where can I find the Significant Hobbies app landing pages?"
+            },
+            {
+              "id": "comparison",
+              "text": "Which apps does the Significant Hobbies family include?"
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "someone browsing the Significant Hobbies apps"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "ai-game",
+      "name": "AliveVille",
+      "domain": "https://aliveville.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What persistent AI world simulations run live online?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare multi-agent AI world experiments you can watch."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "someone curious about agent simulations"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "mashup",
+      "name": "Mashup",
+      "domain": "https://mashup.highsignal.app",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What browser tools demo local media editing pipelines?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare local media-editing demos with inspectable receipts."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "someone evaluating local media pipelines"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "open-historia",
+      "name": "Open Historia",
+      "domain": "https://historia.aliveville.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What interactive historical storytelling tools exist?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare AI world-simulation and history storytelling tools."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "a history enthusiast"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "ph-catalog",
+      "name": "PH Catalog",
+      "domain": "https://ph.significanthobbies.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What tools catalogue and analyze Product Hunt launches?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare local-first Product Hunt analytics experiments."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "researcher",
+          "label": "a researcher studying launch data"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "web-playables",
+      "name": "Web Playables",
+      "domain": "https://idle.aliveville.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What small browser-playable game experiments exist?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare tiny browser game experiments."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "someone looking for quick browser games"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "nomad-data-adventure",
+      "name": "Nomad Atlas",
+      "domain": "https://nomad.significanthobbies.com",
+      "aliases": [],
+      "competitors": [
+        {
+          "name": "Nomad List",
+          "url": "https://nomads.com"
+        },
+        {
+          "name": "Teleport",
+          "url": "https://teleport.org"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What tools compare cities on living cost and lifestyle data?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare digital-nomad city data tools on coverage and downloadable sources."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "a nomad comparing cities"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "storagedaddy",
+      "name": "StorageDaddy",
+      "domain": "https://storage.daddyrad.com",
+      "aliases": [],
+      "competitors": [
+        {
+          "name": "DaisyDisk",
+          "url": "https://daisydiskapp.com"
+        },
+        {
+          "name": "GrandPerspective",
+          "url": "https://grandperspectiv.sourceforge.net"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What Mac apps analyze developer caches and disk usage?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare Mac storage analyzers for developer caches and reviewed cleanup."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "a Mac user short on disk space"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "browserdaddy",
+      "name": "BrowserDaddy",
+      "domain": "https://browser.daddyrad.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What local-first tools archive browsing history on Mac?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare private unified browsing-history tools for Mac."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "someone wanting a private browsing archive"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "performancedaddy",
+      "name": "PerformanceDaddy",
+      "domain": "https://performance.daddyrad.com",
+      "aliases": [],
+      "competitors": [
+        {
+          "name": "iStat Menus",
+          "url": "https://bjango.com/mac/istatmenus/"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What Mac apps investigate background performance hogs?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare Mac performance investigators for background apps and dev workloads."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "a Mac user hunting slowdowns"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "meme-lab",
+      "name": "Meme Lab",
+      "domain": "https://memes.significanthobbies.com",
+      "aliases": [],
+      "competitors": [
+        {
+          "name": "GIPHY",
+          "url": "https://giphy.com"
+        },
+        {
+          "name": "Tenor",
+          "url": "https://tenor.com"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What tools rank reaction memes against a pasted comment?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare reaction-meme pickers by embedding quality, catalogue size, and free public access."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "someone looking for the right reaction meme"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "nutrition-formula-engine",
+      "name": "Formula Composition Engine",
+      "domain": "https://formula.significanthobbies.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What tools compute theoretical composition from batch formulas?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare formula composition calculators for traceable reports."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "a formulator checking batch composition"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "every-song-is-a-website",
+      "name": "Every Song Is a Website",
+      "domain": "https://music.significanthobbies.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "Are there sites where each song gets its own interactive world?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare creative song-visualization web experiments."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "someone exploring creative web toys"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "contextdaddy",
+      "name": "ContextDaddy",
+      "domain": "https://context.daddyrad.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What Mac apps manage coding-agent skills and context?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare tools for managing AI coding-agent skills and telemetry."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "a developer managing agent tooling"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "war-chest",
+      "name": "War Chest",
+      "domain": "https://warchest.significanthobbies.com",
+      "aliases": [],
+      "competitors": [],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What turn-based tactics games use spatial equipment builds?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare turn-based tactics games with packing-puzzle equipment systems."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "player",
+          "label": "a tactics-game player"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "mentionpilot",
+      "name": "MentionPilot",
+      "domain": "https://mention.highsignal.app",
+      "aliases": [],
+      "competitors": [
+        {
+          "name": "Profound",
+          "url": "https://www.tryprofound.com"
+        },
+        {
+          "name": "Otterly.AI",
+          "url": "https://otterly.ai"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What tools research whether AI assistants mention a brand?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare AI-visibility research tools on evidence and community signals."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "a marketer tracking AI-answer visibility"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    },
+    {
+      "slug": "daddyrad",
+      "name": "DaddyRad",
+      "domain": "https://daddyrad.com",
+      "aliases": [
+        "Daddy Series"
+      ],
+      "competitors": [
+        {
+          "name": "CleanMyMac",
+          "url": "https://cleanmymac.com"
+        }
+      ],
+      "promptSets": [
+        {
+          "id": "buyer-discovery",
+          "prompts": [
+            {
+              "id": "category",
+              "text": "What small native Mac utilities exist for storage, browsing, and performance?"
+            },
+            {
+              "id": "comparison",
+              "text": "Compare focused free Mac utility suites for developer workflows."
+            }
+          ]
+        }
+      ],
+      "personas": [
+        {
+          "id": "visitor",
+          "label": "a Mac developer looking for focused utilities"
+        }
+      ],
+      "providerPolicy": {
+        "allowedProviderIds": [
+          "fixture-primary",
+          "fixture-secondary"
+        ],
+        "freeFirst": true,
+        "liveProvidersAllowed": false
+      },
+      "cacheWindowHours": 168,
+      "runBudget": {
+        "maxCalls": 4,
+        "maxConcurrency": 2,
+        "timeoutMs": 2000,
+        "retryAttempts": 1,
+        "maxEstimatedCostUsd": 0.05,
+        "maxResponseCharacters": 4000
+      },
+      "attention": "toolbox"
+    }
+  ]
 }

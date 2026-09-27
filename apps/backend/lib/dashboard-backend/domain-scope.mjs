@@ -9,7 +9,7 @@ const COMPOUND_PUBLIC_SUFFIXES = new Set([
 // These are shared hosting suffixes, not Fleet-owned roots. A project can
 // remain publicly eligible at a subdomain without claiming the provider root
 // in the domain-strength or root-brand metrics.
-const SHARED_HOSTING_PROVIDER_ROOTS = new Set(['github.io']);
+const SHARED_HOSTING_PROVIDER_ROOTS = new Set(['github.io', 'pages.dev', 'workers.dev']);
 
 const EXCLUDED_PUBLIC_METRIC_LIFECYCLES = new Set(['past', 'non-product']);
 

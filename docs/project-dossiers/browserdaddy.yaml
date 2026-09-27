@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: verified
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
-      documentSha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -35,10 +35,10 @@ verification:
       observedAt: 2026-09-27
       state: available
       checkout: browserdaddy
-      revision: dcd51a57314ffcd5172759e1f970394eea3bf6bf
-      githubRepository: sarthakagrawal927/browserdaddy
+      revision: 82afe09470e9ab671e197db225873919b35f5b47
+      githubRepository: Significant-Hobbies/browserdaddy
       expectedHomepage: https://browser.daddyrad.com/
-      observedHomepage: https://browser.daddyrad.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -47,8 +47,8 @@ verification:
       observedAt: 2026-09-27
       state: available
       checkout: browserdaddy
-      revision: dcd51a57314ffcd5172759e1f970394eea3bf6bf
-      githubRepository: sarthakagrawal927/browserdaddy
+      revision: 82afe09470e9ab671e197db225873919b35f5b47
+      githubRepository: Significant-Hobbies/browserdaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-19
@@ -57,12 +57,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 2
+      observedAt: null
+      staleAfterDays: null
+      unverifiable: 2
       attention: &a2
-        clear: 2
+        unclassified: 2
   unknowns:
+    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://browser.daddyrad.com/.
 ownerVoice:
   whyVerbatim: deploy both of them properly
@@ -121,18 +122,18 @@ product:
     - Sparkle
   retainedGitHistory:
     firstCommitAt: 2026-09-19
-    latestCommitAt: 2026-09-26
-    retainedCommitCount: 84
+    latestCommitAt: 2026-09-27
+    retainedCommitCount: 88
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: browserdaddy
-  observedRevision: dcd51a57314ffcd5172759e1f970394eea3bf6bf
-  githubRepository: sarthakagrawal927/browserdaddy
-  githubHomepageUrl: https://browser.daddyrad.com
+  observedRevision: 82afe09470e9ab671e197db225873919b35f5b47
+  githubRepository: Significant-Hobbies/browserdaddy
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/sarthakagrawal927/browserdaddy
+  url: https://github.com/Significant-Hobbies/browserdaddy
   aliases: []
   sourceOverride: null
   tooling:
@@ -152,20 +153,12 @@ repository:
           - SafariTabsExtension/SafariTabsExtension.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
-    healthy: 2
+    unverifiable: 2
   attention: *a2
-  remote:
-    repository: sarthakagrawal927/browserdaddy
-    defaultBranch: main
-    defaultBranchSha: dcd51a57314ffcd5172759e1f970394eea3bf6bf
-    homepage: https://browser.daddyrad.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -173,83 +166,11 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36245386647
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: dcd51a57314ffcd5172759e1f970394eea3bf6bf
-          createdAt: 2026-09-26T13:30:18Z
-          updatedAt: 2026-09-26T13:33:38Z
-          url: https://github.com/sarthakagrawal927/browserdaddy/actions/runs/36245386647
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 36245386647
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: dcd51a57314ffcd5172759e1f970394eea3bf6bf
-          createdAt: 2026-09-26T13:30:18Z
-          updatedAt: 2026-09-26T13:33:38Z
-          url: https://github.com/sarthakagrawal927/browserdaddy/actions/runs/36245386647
-        ageDays: 0
-      attention: clear
     - name: Protected manual release
       file: .github/workflows/release.yml
       triggers:
         - workflow_dispatch
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 36244668955
-          status: completed
-          conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: 1aac8e3b09e77e7783fd0575ba34b64eaa37c641
-          createdAt: 2026-09-26T13:17:24Z
-          updatedAt: 2026-09-26T13:24:25Z
-          url: https://github.com/sarthakagrawal927/browserdaddy/actions/runs/36244668955
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
-      attention: clear
 deployment:
   kind: worker
   deployed: true
@@ -305,7 +226,7 @@ sharing:
   verifiedAt: 2026-09-26
   reason: Public 0.3.1 build9 download returned 7,600,563 bytes with SHA-256 017c8eb5f92dcacdf2e5ede3ade4c3f159658739df0f2774f6b894855fad676f, matching the Developer ID signed, Apple notarized, stapled DMG from protected manual run 36183142078. The live Sparkle feed and update enclosure matched the qualified signed artifacts. An isolated build4-to-6 Sparkle update and native journey were observed; build9 has not been installed for a new journey.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/browserdaddy/issues
+  roadmapUrl: https://github.com/Significant-Hobbies/browserdaddy/issues
   geoIdentity:
     id: browserdaddy
     name: BrowserDaddy

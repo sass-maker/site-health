@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: forecast-lab
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
+    repositorySnapshot: unavailable
     githubHomepage: not-applicable
-    githubActionsLiveState: verified
-    retainedGitHistory: passed
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -32,35 +32,31 @@ verification:
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/forecast-lab
-      revision: 8b245ad7476d97812df4cba67f19473f29ac53c2
-      githubRepository: sarthakagrawal927/forecast-lab
+      revision: null
+      githubRepository: null
       expectedHomepage: null
       observedHomepage: null
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      worktree: null
     retainedGitHistory:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/forecast-lab
-      revision: 8b245ad7476d97812df4cba67f19473f29ac53c2
-      githubRepository: sarthakagrawal927/forecast-lab
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-21
       catalogLatestCommitAt: 2026-09-07
       catalogDrift: []
-      reason: null
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      healthy: 1
-      attention: &a2
-        ignored: 1
-  unknowns: []
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
   fullReviewVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
@@ -111,109 +107,32 @@ product:
     - React
     - Vite
   retainedGitHistory:
-    firstCommitAt: 2026-06-21
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 14
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/forecast-lab
-  observedRevision: 8b245ad7476d97812df4cba67f19473f29ac53c2
-  githubRepository: sarthakagrawal927/forecast-lab
+  observedRevision: null
+  githubRepository: null
   githubHomepageUrl: null
-  worktree: *a1
+  worktree: null
   visibility: public
   url: https://github.com/sarthakagrawal927/forecast-lab
   aliases: []
   sourceOverride: ../fleet-archive/forecast-lab
   tooling:
     declaredPackageManager: null
-    detectedSignals:
-      - name: Docker
-        evidence:
-          - event-forecast/docker-compose.yml
-      - name: npm
-        evidence:
-          - web/package-lock.json
-      - name: Python pyproject
-        evidence:
-          - demand-forecast/pyproject.toml
-          - recsys-lab/pyproject.toml
-      - name: Rust Cargo
-        evidence:
-          - event-forecast/Cargo.toml
-      - name: uv
-        evidence:
-          - demand-forecast/uv.lock
-          - recsys-lab/uv.lock
-      - name: Vite
-        evidence:
-          - web/vite.config.ts
-    rootPackageScripts:
-      - deploy
+    detectedSignals: []
+    rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
-  summary:
-    healthy: 1
-  attention: *a2
-  remote:
-    repository: sarthakagrawal927/forecast-lab
-    defaultBranch: main
-    defaultBranchSha: bac8aabfabe9cbcfd32431b6c040a1e91424be27
-    homepage: null
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows:
-    - name: CI
-      file: .github/workflows/ci.yml
-      triggers:
-        - pull_request
-        - push
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: ignored
-        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35635237413
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: bac8aabfabe9cbcfd32431b6c040a1e91424be27
-          createdAt: 2026-09-21T17:57:04Z
-          updatedAt: 2026-09-21T17:58:26Z
-          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/35635237413
-        ageDays: 5
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 35635237413
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: bac8aabfabe9cbcfd32431b6c040a1e91424be27
-          createdAt: 2026-09-21T17:57:04Z
-          updatedAt: 2026-09-21T17:58:26Z
-          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/35635237413
-        ageDays: 5
-      attention: ignored
+  observedAt: null
+  staleAfterDays: null
+  summary: {}
+  attention: *a1
+  remote: null
+  workflows: []
 deployment:
   kind: none
   deployed: false

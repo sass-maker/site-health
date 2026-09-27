@@ -1,22 +1,22 @@
 schemaVersion: 1
 projectId: journal
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-27
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
-    githubHomepage: passed
+    repositorySnapshot: unavailable
+    githubHomepage: mismatch
     githubActionsLiveState: not-applicable
-    retainedGitHistory: passed
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 40f5aae6279ee4c56b8954ae7c6c8d9fe634a2c06dd863bb635a9d27a4642258
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Journal
@@ -32,33 +32,32 @@ verification:
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/journal
-      revision: 81f437780292cd8d71309fcd31f03b5c1521a592
-      githubRepository: sarthakagrawal927/journal
+      revision: null
+      githubRepository: null
       expectedHomepage: https://journal.significanthobbies.com
-      observedHomepage: https://journal.significanthobbies.com
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      observedHomepage: null
+      worktree: null
     retainedGitHistory:
       observedAt: 2026-09-27
-      state: available
+      state: unavailable
       checkout: ../fleet-archive/journal
-      revision: 81f437780292cd8d71309fcd31f03b5c1521a592
-      githubRepository: sarthakagrawal927/journal
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-11
       catalogLatestCommitAt: 2026-09-06
       catalogDrift: []
-      reason: null
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-27T08:10:21.691Z
-      staleAfterDays: 30
-      attention: &a2 {}
-  unknowns: []
+      observedAt: null
+      staleAfterDays: null
+      attention: &a1 {}
+  unknowns:
+    - GitHub repository homepage does not match the canonical deployed URL https://journal.significanthobbies.com.
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: I am making a journal because I think a good journal app is very important and journaling as a habit is very important, so it fits well with our hub.
   fullReviewVerbatim: |-
@@ -112,45 +111,34 @@ product:
     - XcodeGen
     - Astro
   retainedGitHistory:
-    firstCommitAt: 2026-08-11
-    latestCommitAt: 2026-09-06
-    retainedCommitCount: 30
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/journal
-  observedRevision: 81f437780292cd8d71309fcd31f03b5c1521a592
-  githubRepository: sarthakagrawal927/journal
-  githubHomepageUrl: https://journal.significanthobbies.com
-  worktree: *a1
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
   visibility: public
   url: https://github.com/sarthakagrawal927/journal
   aliases: []
   sourceOverride: ios-landings
   tooling:
     declaredPackageManager: null
-    detectedSignals:
-      - name: Xcode
-        evidence:
-          - SignificantHobbies.xcodeproj/project.pbxproj
+    detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-27T08:10:21.691Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary: {}
-  attention: *a2
-  remote:
-    repository: sarthakagrawal927/journal
-    defaultBranch: main
-    defaultBranchSha: 0280cfa311148fc7e949763786866056803e65dd
-    homepage: https://journal.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+  attention: *a1
+  remote: null
   workflows: []
 deployment:
-  kind: pages
+  kind: none
   deployed: false
   domains:
     - journal.significanthobbies.com
@@ -172,7 +160,8 @@ deployment:
         kind: app-store-connect
         name: Journal by Significant Hobbies
         method: manual-xcode
-        state: testflight-processed
+        state: removed
+        attributionReason: "2026-09-27: Builds 2, 3, and 6 expired and app 6803644735 verified in App Store Connect Removed Apps."
     resources: []
 sharing:
   publicListing: hidden
@@ -203,4 +192,4 @@ sharing:
       state: not-declared
 notes:
   catalog: "Independent SwiftUI Journal repository extracted from Significant Hobbies with its retained Git history and bundle identifier. The landing remains generated by ios-landings; PersonalSyncKit resolves from the canonical Significant Hobbies Hub repository. Owner decision 2026-09-07: remove from Fleet; retain source, history and attributed infrastructure without promotion or new product work."
-  infrastructure: "The native source is independently owned by Significant-Hobbies/journal. Cloudflare Pages project journal serves the ios-landings-generated public surface; build 1.0.0 (3) remains internal-only in TestFlight. 2026-09-26: Archived; Pages project and domain deleted."
+  infrastructure: "The native source is independently owned by Significant-Hobbies/journal. Cloudflare Pages project journal previously served the ios-landings-generated public surface, and builds were uploaded for internal TestFlight. 2026-09-26: Archived; Pages project and domain deleted. 2026-09-27: Cloudflare DNS CNAME journal.significanthobbies.com deleted. TestFlight builds 2, 3, and 6 expired; App Store Connect app 6803644735 moved to Removed Apps."

@@ -131,7 +131,7 @@ test('the retained AI visibility baseline has product-specific fixture coverage'
   const portfolio = loadAiVisibilityPortfolio();
   assert.equal(portfolio.excluded.length, 0);
   assert.equal(portfolio.eligible.every((project) => canonicalIds.has(project.slug)), true);
-  assert.equal(portfolio.eligible.length, 36);
+  assert.equal(portfolio.eligible.length, 55);
   for (const project of portfolio.eligible) {
     // Every identity keeps its own two-prompt buyer-discovery fixture set.
     const buyerDiscovery = project.promptSets.filter((set) => set.id === 'buyer-discovery');
@@ -411,9 +411,9 @@ test('provider observation ingestion rejects incomplete provenance and unknown p
   );
 });
 
-test('provider observation all-project gate requires the exact canonical 36', () => {
+test('provider observation all-project gate requires the exact canonical 55', () => {
   const portfolio = loadAiVisibilityPortfolio();
-  assert.equal(portfolio.eligible.length, 36);
+  assert.equal(portfolio.eligible.length, 55);
   assert.throws(
     () => prepareProviderObservationRuns({
       bundle: {
@@ -424,7 +424,7 @@ test('provider observation all-project gate requires the exact canonical 36', ()
       engine,
       requireAll: true,
     }),
-    /do not cover the canonical 36/,
+    /do not cover the canonical 55/,
   );
 
   const prepared = prepareProviderObservationRuns({
@@ -436,7 +436,7 @@ test('provider observation all-project gate requires the exact canonical 36', ()
     engine,
     requireAll: true,
   });
-  assert.equal(prepared.length, 36);
+  assert.equal(prepared.length, 55);
 });
 
 test('offline observations do not enable direct live provider execution', async () => {
