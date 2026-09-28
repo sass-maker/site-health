@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 115f92637733707fb158e5f6cf07c1ece929fdaf25707617266d8ec068320603
+      sha256: 75d8a17c88724038fceb858b882b54501ea1a2e368b323c1fd19d94c5081fbf1
       infrastructureUpdatedAt: 2026-09-29
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
-      documentSha256: 115f92637733707fb158e5f6cf07c1ece929fdaf25707617266d8ec068320603
+      documentSha256: 75d8a17c88724038fceb858b882b54501ea1a2e368b323c1fd19d94c5081fbf1
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -248,6 +248,13 @@ deployment:
         method: wrangler-direct
         state: live
         attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
+        verification:
+          observedAt: 2026-09-29
+          timeZone: Asia/Kolkata
+          versionId: 2a33f36c-37ed-4daf-b52e-59cb6144394d
+          sourceCommit: 046ed63601d7c08709c993073e5cacc70ab3f778
+          trafficPercent: 100
+          state: success-production-verified
     resources:
       - provider: cloudflare
         kind: d1
