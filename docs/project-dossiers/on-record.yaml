@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 53a43428a04851d53503547385c94dc8d1b26208a6bf1a93dc79d81edda2c887
+      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,10 +56,10 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T14:00:01.921Z
+      observedAt: 2026-09-28T15:37:45.004Z
       staleAfterDays: 30
       healthy: 2
-      running: 1
+      cancelled: 1
       attention: &a2
         clear: 3
   unknowns: []
@@ -186,11 +186,11 @@ repository:
       - test:python
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T14:00:01.921Z
+  observedAt: 2026-09-28T15:37:45.004Z
   staleAfterDays: 30
   summary:
     healthy: 2
-    running: 1
+    cancelled: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/on-record
@@ -266,34 +266,35 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: cancelled
+        reason: latest run was cancelled
         apiState: active
         lastRun:
           id: 36425264541
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: cancelled
           event: schedule
           branch: main
           headSha: dd893682ed7e1c83cf3944df42b7f487cafbbdd8
           createdAt: 2026-09-28T12:57:54Z
-          updatedAt: 2026-09-28T12:57:58Z
+          updatedAt: 2026-09-28T14:58:26Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/36425264541
         ageDays: 0
       schedule:
-        health: running
-        reason: latest scheduled run is in_progress
+        health: healthy
+        reason: latest scheduled run concluded cancelled
         lastRun:
           id: 36425264541
-          status: in_progress
-          conclusion: null
+          status: completed
+          conclusion: cancelled
           event: schedule
           branch: main
           headSha: dd893682ed7e1c83cf3944df42b7f487cafbbdd8
           createdAt: 2026-09-28T12:57:54Z
-          updatedAt: 2026-09-28T12:57:58Z
+          updatedAt: 2026-09-28T14:58:26Z
           url: https://github.com/Significant-Hobbies/on-record/actions/runs/36425264541
         ageDays: 0
+        freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger

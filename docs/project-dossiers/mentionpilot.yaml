@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 53a43428a04851d53503547385c94dc8d1b26208a6bf1a93dc79d81edda2c887
+      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: ae3ff03bb973a0027691fdad911c271ef2c6c2488b735c10088a42895f991b6d
-      documentSha256: 53a43428a04851d53503547385c94dc8d1b26208a6bf1a93dc79d81edda2c887
+      documentSha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -57,7 +57,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T14:00:01.921Z
+      observedAt: 2026-09-28T15:37:45.004Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -163,7 +163,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T14:00:01.921Z
+  observedAt: 2026-09-28T15:37:45.004Z
   staleAfterDays: 30
   summary:
     healthy: 3

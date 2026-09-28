@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 53a43428a04851d53503547385c94dc8d1b26208a6bf1a93dc79d81edda2c887
+      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T14:00:01.921Z
+      observedAt: 2026-09-28T15:37:45.004Z
       staleAfterDays: 30
       healthy: 5
       cancelled: 1
@@ -210,7 +210,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T14:00:01.921Z
+  observedAt: 2026-09-28T15:37:45.004Z
   staleAfterDays: 30
   summary:
     healthy: 5
@@ -386,7 +386,7 @@ githubActions:
           createdAt: 2026-09-02T14:21:35Z
           updatedAt: 2026-09-02T15:10:21Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/33641528148
-        ageDays: 25
+        ageDays: 26
       schedule:
         health: failing
         reason: latest scheduled run concluded failure
@@ -434,7 +434,7 @@ githubActions:
           createdAt: 2026-09-02T15:29:38Z
           updatedAt: 2026-09-02T15:55:53Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/33648892733
-        ageDays: 25
+        ageDays: 26
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
@@ -517,7 +517,7 @@ githubActions:
         reason: GitHub-generated workflow
       live:
         health: stale
-        reason: latest run is 132 days old
+        reason: latest run is 133 days old
         apiState: active
         lastRun:
           id: 26038689795
@@ -529,7 +529,7 @@ githubActions:
           createdAt: 2026-05-18T14:07:24Z
           updatedAt: 2026-05-18T14:09:18Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/26038689795
-        ageDays: 132
+        ageDays: 133
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 53a43428a04851d53503547385c94dc8d1b26208a6bf1a93dc79d81edda2c887
+      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-09-28
       state: available
       checkout: posttrainllm
-      revision: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
+      revision: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
       githubRepository: PostTrainLLM/posttrainllm
       expectedHomepage: https://posttrainllm.com
       observedHomepage: https://posttrainllm.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 6
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-09-28
       state: available
       checkout: posttrainllm
-      revision: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
+      revision: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
       githubRepository: PostTrainLLM/posttrainllm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,10 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T14:00:01.921Z
+      observedAt: 2026-09-28T15:37:45.004Z
       staleAfterDays: 30
-      running: 1
-      healthy: 1
+      healthy: 2
       attention: &a2
         clear: 2
   unknowns: []
@@ -115,12 +114,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-05-21
     latestCommitAt: 2026-09-28
-    retainedCommitCount: 944
+    retainedCommitCount: 945
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: posttrainllm
-  observedRevision: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
+  observedRevision: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
   githubRepository: PostTrainLLM/posttrainllm
   githubHomepageUrl: https://posttrainllm.com
   worktree: *a1
@@ -168,16 +167,15 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T14:00:01.921Z
+  observedAt: 2026-09-28T15:37:45.004Z
   staleAfterDays: 30
   summary:
-    running: 1
-    healthy: 1
+    healthy: 2
   attention: *a2
   remote:
     repository: PostTrainLLM/posttrainllm
     defaultBranch: main
-    defaultBranchSha: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
+    defaultBranchSha: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
     homepage: https://posttrainllm.com
     query: verified
     disposition:
@@ -199,37 +197,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36431192427
-          status: in_progress
-          conclusion: null
+          id: 36433312145
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
-          createdAt: 2026-09-28T13:47:57Z
-          updatedAt: 2026-09-28T13:49:13Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36431192427
+          headSha: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
+          createdAt: 2026-09-28T14:05:13Z
+          updatedAt: 2026-09-28T14:23:41Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36433312145
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 36431192427
-          status: in_progress
-          conclusion: null
+          id: 36433312145
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
-          createdAt: 2026-09-28T13:47:57Z
-          updatedAt: 2026-09-28T13:49:13Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36431192427
+          headSha: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
+          createdAt: 2026-09-28T14:05:13Z
+          updatedAt: 2026-09-28T14:23:41Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36433312145
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Pages
@@ -249,15 +247,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36378480007
+          id: 36435764290
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: ffb934dcb45da1e53d05215cc887f98f4f736332
-          createdAt: 2026-09-28T04:37:04Z
-          updatedAt: 2026-09-28T04:38:24Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36378480007
+          headSha: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
+          createdAt: 2026-09-28T14:24:46Z
+          updatedAt: 2026-09-28T14:26:19Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36435764290
         ageDays: 0
       schedule:
         health: not-applicable
