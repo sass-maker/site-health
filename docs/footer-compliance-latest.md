@@ -3,6 +3,13 @@
 Public baseline generated: 2026-08-27. Source and live qualification updated:
 2026-09-01.
 
+Active-scope source recheck, 2026-09-28: `pnpm tooling:footers` reports
+**49/49 visual identities** and **1/1 shared factory** source-ready, with no
+blocking findings. Field Track's Ask AI loader and public-demo tracker are in
+merged PR #8; App Health's two loader URLs are explicit in its deployed landing
+source. This recheck is source evidence. The 45/45 public-origin browser result
+below remains the last recorded live visual audit.
+
 ## Required footer contract
 
 Every Fleet browser product ends with one shared footer extension beneath any
