@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:14:48.720Z
+      observedAt: 2026-09-28T17:51:33.879Z
       staleAfterDays: 30
       stale: 1
       manual-or-reusable-never-run: 2
@@ -250,7 +250,7 @@ repository:
       - typecheck
       - watchlist-impact:test
 githubActions:
-  observedAt: 2026-09-28T17:14:48.720Z
+  observedAt: 2026-09-28T17:51:33.879Z
   staleAfterDays: 30
   summary:
     stale: 1
@@ -443,15 +443,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36455062813
+          id: 36458586240
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 2a906fb4d599b3c3819469bdd152ad51dad4956b
-          createdAt: 2026-09-28T17:00:18Z
-          updatedAt: 2026-09-28T17:04:22Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/36455062813
+          headSha: 2f8575378cf7861841227b4f6d4c64bde137fb71
+          createdAt: 2026-09-28T17:30:19Z
+          updatedAt: 2026-09-28T17:34:54Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/36458586240
         ageDays: 0
       schedule:
         health: not-applicable
@@ -613,15 +613,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36455066726
+          id: 36458590352
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 2a906fb4d599b3c3819469bdd152ad51dad4956b
-          createdAt: 2026-09-28T17:00:20Z
-          updatedAt: 2026-09-28T17:04:00Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/36455066726
+          headSha: 2f8575378cf7861841227b4f6d4c64bde137fb71
+          createdAt: 2026-09-28T17:30:21Z
+          updatedAt: 2026-09-28T17:34:12Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/36458590352
         ageDays: 0
       schedule:
         health: not-applicable
@@ -1004,30 +1004,30 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35620160743
+          id: 36457185152
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: fe7bca85e0e9cad9cb8f9d1759b124c59c3cd8ce
-          createdAt: 2026-09-21T15:37:06Z
-          updatedAt: 2026-09-21T15:39:16Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35620160743
-        ageDays: 7
+          headSha: 2f8575378cf7861841227b4f6d4c64bde137fb71
+          createdAt: 2026-09-28T17:18:25Z
+          updatedAt: 2026-09-28T17:20:45Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/36457185152
+        ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 35620160743
+          id: 36457185152
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: fe7bca85e0e9cad9cb8f9d1759b124c59c3cd8ce
-          createdAt: 2026-09-21T15:37:06Z
-          updatedAt: 2026-09-21T15:39:16Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/35620160743
-        ageDays: 7
+          headSha: 2f8575378cf7861841227b4f6d4c64bde137fb71
+          createdAt: 2026-09-28T17:18:25Z
+          updatedAt: 2026-09-28T17:20:45Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/36457185152
+        ageDays: 0
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable

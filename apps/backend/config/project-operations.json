@@ -1307,18 +1307,18 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "fad403e568a8670e1699ac56397cf12b3bdcebec",
+        "revision": "1929606a467a4bb6c024b56aa18b0e0904806ef5",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 78,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-09-28",
-        "retainedCommitCount": 1157,
+        "retainedCommitCount": 1158,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1346,15 +1346,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36454927384,
+              "id": 36456962100,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "fad403e568a8670e1699ac56397cf12b3bdcebec",
-              "createdAt": "2026-09-28T16:59:08Z",
-              "updatedAt": "2026-09-28T16:59:38Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/36454927384"
+              "headSha": "1929606a467a4bb6c024b56aa18b0e0904806ef5",
+              "createdAt": "2026-09-28T17:16:27Z",
+              "updatedAt": "2026-09-28T17:17:03Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/36456962100"
             },
             "ageDays": 0
           },
@@ -1367,15 +1367,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36454927384,
+              "id": 36456962100,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "fad403e568a8670e1699ac56397cf12b3bdcebec",
-              "createdAt": "2026-09-28T16:59:08Z",
-              "updatedAt": "2026-09-28T16:59:38Z",
-              "url": "https://github.com/sass-maker/site-health/actions/runs/36454927384"
+              "headSha": "1929606a467a4bb6c024b56aa18b0e0904806ef5",
+              "createdAt": "2026-09-28T17:16:27Z",
+              "updatedAt": "2026-09-28T17:17:03Z",
+              "url": "https://github.com/sass-maker/site-health/actions/runs/36456962100"
             },
             "ageDays": 0
           },
@@ -1433,7 +1433,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/site-health",
         "defaultBranch": "main",
-        "defaultBranchSha": "fad403e568a8670e1699ac56397cf12b3bdcebec",
+        "defaultBranchSha": "1929606a467a4bb6c024b56aa18b0e0904806ef5",
         "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -2078,7 +2078,7 @@
       "source": {
         "state": "available",
         "path": "saas-maker",
-        "revision": "de39b2e6889b525cf85bda6d804350ef08f31c2a",
+        "revision": "6e61c2d2a3c0e9d295a9577963dc7417bf39e18f",
         "repositorySlug": "sass-maker/saas-maker",
         "worktree": {
           "state": "clean",
@@ -2089,7 +2089,7 @@
       "history": {
         "firstCommitAt": "2026-02-26",
         "latestCommitAt": "2026-09-28",
-        "retainedCommitCount": 1445,
+        "retainedCommitCount": 1446,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2113,18 +2113,18 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "running",
-            "reason": "latest run is in_progress",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
               "id": 36456677160,
-              "status": "in_progress",
-              "conclusion": null,
+              "status": "completed",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
               "headSha": "de39b2e6889b525cf85bda6d804350ef08f31c2a",
               "createdAt": "2026-09-28T17:14:03Z",
-              "updatedAt": "2026-09-28T17:14:07Z",
+              "updatedAt": "2026-09-28T17:16:00Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/36456677160"
             },
             "ageDays": 0
@@ -2139,13 +2139,13 @@
             "reason": "no push run at current main revision 6e61c2d",
             "lastRun": {
               "id": 36456677160,
-              "status": "in_progress",
-              "conclusion": null,
+              "status": "completed",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
               "headSha": "de39b2e6889b525cf85bda6d804350ef08f31c2a",
               "createdAt": "2026-09-28T17:14:03Z",
-              "updatedAt": "2026-09-28T17:14:07Z",
+              "updatedAt": "2026-09-28T17:16:00Z",
               "url": "https://github.com/sass-maker/saas-maker/actions/runs/36456677160"
             }
           },
@@ -4272,15 +4272,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36455062813,
+              "id": 36458586240,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "2a906fb4d599b3c3819469bdd152ad51dad4956b",
-              "createdAt": "2026-09-28T17:00:18Z",
-              "updatedAt": "2026-09-28T17:04:22Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36455062813"
+              "headSha": "2f8575378cf7861841227b4f6d4c64bde137fb71",
+              "createdAt": "2026-09-28T17:30:19Z",
+              "updatedAt": "2026-09-28T17:34:54Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36458586240"
             },
             "ageDays": 0
           },
@@ -4482,15 +4482,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36455066726,
+              "id": 36458590352,
               "status": "completed",
               "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "2a906fb4d599b3c3819469bdd152ad51dad4956b",
-              "createdAt": "2026-09-28T17:00:20Z",
-              "updatedAt": "2026-09-28T17:04:00Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36455066726"
+              "headSha": "2f8575378cf7861841227b4f6d4c64bde137fb71",
+              "createdAt": "2026-09-28T17:30:21Z",
+              "updatedAt": "2026-09-28T17:34:12Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36458590352"
             },
             "ageDays": 0
           },
@@ -4968,33 +4968,33 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 35620160743,
+              "id": 36457185152,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "fe7bca85e0e9cad9cb8f9d1759b124c59c3cd8ce",
-              "createdAt": "2026-09-21T15:37:06Z",
-              "updatedAt": "2026-09-21T15:39:16Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/35620160743"
+              "headSha": "2f8575378cf7861841227b4f6d4c64bde137fb71",
+              "createdAt": "2026-09-28T17:18:25Z",
+              "updatedAt": "2026-09-28T17:20:45Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36457185152"
             },
-            "ageDays": 7
+            "ageDays": 0
           },
           "schedule": {
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 35620160743,
+              "id": 36457185152,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
-              "headSha": "fe7bca85e0e9cad9cb8f9d1759b124c59c3cd8ce",
-              "createdAt": "2026-09-21T15:37:06Z",
-              "updatedAt": "2026-09-21T15:39:16Z",
-              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/35620160743"
+              "headSha": "2f8575378cf7861841227b4f6d4c64bde137fb71",
+              "createdAt": "2026-09-28T17:18:25Z",
+              "updatedAt": "2026-09-28T17:20:45Z",
+              "url": "https://github.com/High-Signal-App/high-signal/actions/runs/36457185152"
             },
-            "ageDays": 7,
+            "ageDays": 0,
             "freshnessDays": 9
           },
           "currentDefaultBranch": {
@@ -10155,7 +10155,7 @@
       "source": {
         "state": "available",
         "path": "app-health",
-        "revision": "12d02a7c1e02fec1a27c0474bc169167e7dc2cb6",
+        "revision": "37dd705609f0642f3fd3481045cb209b81e4382c",
         "repositorySlug": "sass-maker/app-health",
         "worktree": {
           "state": "clean",
@@ -10166,7 +10166,7 @@
       "history": {
         "firstCommitAt": "2026-07-20",
         "latestCommitAt": "2026-09-28",
-        "retainedCommitCount": 230,
+        "retainedCommitCount": 232,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10193,15 +10193,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 36452426037,
+              "id": 36460358003,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "12d02a7c1e02fec1a27c0474bc169167e7dc2cb6",
-              "createdAt": "2026-09-28T16:37:51Z",
-              "updatedAt": "2026-09-28T16:42:29Z",
-              "url": "https://github.com/sass-maker/app-health/actions/runs/36452426037"
+              "headSha": "37dd705609f0642f3fd3481045cb209b81e4382c",
+              "createdAt": "2026-09-28T17:45:14Z",
+              "updatedAt": "2026-09-28T17:50:23Z",
+              "url": "https://github.com/sass-maker/app-health/actions/runs/36460358003"
             },
             "ageDays": 0
           },
@@ -10214,15 +10214,15 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 36452426037,
+              "id": 36460358003,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "12d02a7c1e02fec1a27c0474bc169167e7dc2cb6",
-              "createdAt": "2026-09-28T16:37:51Z",
-              "updatedAt": "2026-09-28T16:42:29Z",
-              "url": "https://github.com/sass-maker/app-health/actions/runs/36452426037"
+              "headSha": "37dd705609f0642f3fd3481045cb209b81e4382c",
+              "createdAt": "2026-09-28T17:45:14Z",
+              "updatedAt": "2026-09-28T17:50:23Z",
+              "url": "https://github.com/sass-maker/app-health/actions/runs/36460358003"
             },
             "ageDays": 0
           },
@@ -10316,7 +10316,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/app-health",
         "defaultBranch": "main",
-        "defaultBranchSha": "12d02a7c1e02fec1a27c0474bc169167e7dc2cb6",
+        "defaultBranchSha": "37dd705609f0642f3fd3481045cb209b81e4382c",
         "homepage": "https://health.sassmaker.com",
         "query": "verified",
         "disposition": {
@@ -11521,21 +11521,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "missing",
-            "reason": "no push run at current main revision 2678f7b",
+            "health": "healthy",
+            "reason": "current main push concluded success",
             "lastRun": {
-              "id": 35384780556,
+              "id": 36380989652,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "ad29f0483af937c0d2561d4f7ba74a4493ad84ac",
-              "createdAt": "2026-09-18T19:14:05Z",
-              "updatedAt": "2026-09-18T19:14:40Z",
-              "url": "https://github.com/Significant-Hobbies/portfolio/actions/runs/35384780556"
-            }
+              "headSha": "2678f7b0362cd5ab0f1c5939c9b5bf46a5cdc86d",
+              "createdAt": "2026-09-28T05:13:44Z",
+              "updatedAt": "2026-09-28T05:14:16Z",
+              "url": "https://github.com/Significant-Hobbies/portfolio/actions/runs/36380989652"
+            },
+            "ageDays": 0
           },
-          "attention": "missing-data"
+          "attention": "clear"
         },
         {
           "name": "Build résumé PDF",
@@ -12858,7 +12859,7 @@
               "updatedAt": "2026-09-26T17:31:15Z",
               "url": "https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/36259287704"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "schedule": {
             "health": "not-applicable",
@@ -12879,7 +12880,7 @@
               "updatedAt": "2026-09-26T17:31:15Z",
               "url": "https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/36259287704"
             },
-            "ageDays": 1
+            "ageDays": 2
           },
           "attention": "clear"
         }
@@ -14082,7 +14083,7 @@
       }
     }
   },
-  "githubObservedAt": "2026-09-28T17:14:48.720Z",
+  "githubObservedAt": "2026-09-28T17:51:33.879Z",
   "githubStaleAfterDays": 30,
   "githubPolicySchemaVersion": 1
 }
