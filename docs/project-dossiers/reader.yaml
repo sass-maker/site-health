@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      sha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       infrastructureUpdatedAt: 2026-08-30
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T16:58:14.800Z
+      observedAt: 2026-09-28T17:14:48.720Z
       staleAfterDays: 30
       healthy: 4
       failing: 1
@@ -203,7 +203,7 @@ repository:
       - validate:env:deploy
       - validate:env:runtime
 githubActions:
-  observedAt: 2026-09-28T16:58:14.800Z
+  observedAt: 2026-09-28T17:14:48.720Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -401,16 +401,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35629551426
+          id: 36455764507
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
-          createdAt: 2026-09-21T17:03:32Z
-          updatedAt: 2026-09-21T17:04:37Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/35629551426
-        ageDays: 6
+          headSha: 8fbbf9af788e091f828225559a66b126f1d4f017
+          createdAt: 2026-09-28T17:06:18Z
+          updatedAt: 2026-09-28T17:07:10Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/36455764507
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

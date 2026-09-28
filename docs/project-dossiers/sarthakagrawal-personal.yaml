@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      sha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,13 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T16:58:14.800Z
+      observedAt: 2026-09-28T17:14:48.720Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
       attention: &a2
-        clear: 1
-        missing-data: 1
+        missing-data: 2
   unknowns: []
 ownerVoice:
   whyVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
@@ -175,7 +174,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T16:58:14.800Z
+  observedAt: 2026-09-28T17:14:48.720Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -225,20 +224,19 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 2678f7b
         lastRun:
-          id: 36380989652
+          id: 35384780556
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2678f7b0362cd5ab0f1c5939c9b5bf46a5cdc86d
-          createdAt: 2026-09-28T05:13:44Z
-          updatedAt: 2026-09-28T05:14:16Z
-          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/36380989652
-        ageDays: 0
-      attention: clear
+          headSha: ad29f0483af937c0d2561d4f7ba74a4493ad84ac
+          createdAt: 2026-09-18T19:14:05Z
+          updatedAt: 2026-09-18T19:14:40Z
+          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/35384780556
+      attention: missing-data
     - name: Build résumé PDF
       file: .github/workflows/resume.yml
       triggers:

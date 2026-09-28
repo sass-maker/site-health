@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      sha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-28
       state: available
       checkout: looptv
-      revision: 373b9ac85100b2b6007eee1e0e5bed90eb81424d
+      revision: 8002d911cae9560fd84731be62752db66ac9dd26
       githubRepository: Significant-Hobbies/looptv
       expectedHomepage: https://tv.significanthobbies.com
       observedHomepage: https://tv.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-09-28
       state: available
       checkout: looptv
-      revision: 373b9ac85100b2b6007eee1e0e5bed90eb81424d
+      revision: 8002d911cae9560fd84731be62752db66ac9dd26
       githubRepository: Significant-Hobbies/looptv
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,14 +56,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T16:58:14.800Z
+      observedAt: 2026-09-28T17:14:48.720Z
       staleAfterDays: 30
       failing: 1
       healthy: 4
       attention: &a2
         action-required: 1
-        clear: 3
-        missing-data: 1
+        clear: 4
   unknowns: []
 ownerVoice:
   whyVerbatim: Loot tv, I wanted a better experience of watching YouTube more controlled so I picked the top few video channels and decided to get their top videos in a tv5 format. This is done and I also added a much better search on this so that is also looking good. I don't see myself further improving this product and I would call it done for now.
@@ -117,12 +116,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-04-04
     latestCommitAt: 2026-09-28
-    retainedCommitCount: 267
+    retainedCommitCount: 268
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: looptv
-  observedRevision: 373b9ac85100b2b6007eee1e0e5bed90eb81424d
+  observedRevision: 8002d911cae9560fd84731be62752db66ac9dd26
   githubRepository: Significant-Hobbies/looptv
   githubHomepageUrl: https://tv.significanthobbies.com
   worktree: *a1
@@ -183,7 +182,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T16:58:14.800Z
+  observedAt: 2026-09-28T17:14:48.720Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -192,7 +191,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/looptv
     defaultBranch: main
-    defaultBranchSha: 373b9ac85100b2b6007eee1e0e5bed90eb81424d
+    defaultBranchSha: 8002d911cae9560fd84731be62752db66ac9dd26
     homepage: https://tv.significanthobbies.com
     query: verified
     disposition:
@@ -254,15 +253,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36368622386
+          id: 36455356997
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 373b9ac85100b2b6007eee1e0e5bed90eb81424d
-          createdAt: 2026-09-28T02:08:03Z
-          updatedAt: 2026-09-28T02:08:46Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/36368622386
+          headSha: 8002d911cae9560fd84731be62752db66ac9dd26
+          createdAt: 2026-09-28T17:02:47Z
+          updatedAt: 2026-09-28T17:03:31Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/36455356997
         ageDays: 0
       schedule:
         health: not-applicable
@@ -272,15 +271,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36368622386
+          id: 36455356997
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 373b9ac85100b2b6007eee1e0e5bed90eb81424d
-          createdAt: 2026-09-28T02:08:03Z
-          updatedAt: 2026-09-28T02:08:46Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/36368622386
+          headSha: 8002d911cae9560fd84731be62752db66ac9dd26
+          createdAt: 2026-09-28T17:02:47Z
+          updatedAt: 2026-09-28T17:03:31Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/36455356997
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Pages
@@ -339,34 +338,35 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34126457263
+          id: 36455357058
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 825d342646b3e2f4fa02c34d1a336001484418c5
-          createdAt: 2026-09-07T13:16:17Z
-          updatedAt: 2026-09-07T13:16:27Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/34126457263
-        ageDays: 21
+          headSha: 8002d911cae9560fd84731be62752db66ac9dd26
+          createdAt: 2026-09-28T17:02:47Z
+          updatedAt: 2026-09-28T17:02:57Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/36455357058
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 373b9ac
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 34126457263
+          id: 36455357058
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 825d342646b3e2f4fa02c34d1a336001484418c5
-          createdAt: 2026-09-07T13:16:17Z
-          updatedAt: 2026-09-07T13:16:27Z
-          url: https://github.com/Significant-Hobbies/looptv/actions/runs/34126457263
-      attention: missing-data
+          headSha: 8002d911cae9560fd84731be62752db66ac9dd26
+          createdAt: 2026-09-28T17:02:47Z
+          updatedAt: 2026-09-28T17:02:57Z
+          url: https://github.com/Significant-Hobbies/looptv/actions/runs/36455357058
+        ageDays: 0
+      attention: clear
     - name: Fetch Catalog Sources
       file: .github/workflows/fetch-catalog-sources.yml
       triggers:

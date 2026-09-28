@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      sha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T16:58:14.800Z
+      observedAt: 2026-09-28T17:14:48.720Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -133,7 +133,7 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T16:58:14.800Z
+  observedAt: 2026-09-28T17:14:48.720Z
   staleAfterDays: 30
   summary:
     healthy: 1

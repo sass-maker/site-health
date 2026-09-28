@@ -189,8 +189,41 @@ test('project public URL override preserves a canonical subpath', () => {
   });
 
   assert.equal(dossier.verification.evidence.repository.expectedHomepage, project.public.url);
+  assert.equal(dossier.verification.checks.githubHomepage, 'different');
+  assert.deepEqual(dossier.verification.unknowns, []);
   assert.equal(dossier.deployment.primaryUrl, project.public.url);
   assert.equal(dossier.sharing.changelogUrl, `${project.public.url}changelog`);
+});
+
+test('GitHub homepage absence and trailing slash are known metadata states', () => {
+  const { intents } = parsePortfolioIntents(intentMarkdown, catalog.projects);
+  const ownerSources = parseOwnerNarratives(ownerNarrativesMarkdown, catalog.projects);
+  const project = catalog.projects.find((entry) => entry.id === 'anchor');
+  const dossierFor = (homepage) =>
+    buildProjectDossier({
+      catalog,
+      operations,
+      project,
+      operation: {
+        ...operations.projects.anchor,
+        githubActionsMeta: { ...operations.projects.anchor.githubActionsMeta, homepage },
+      },
+      intent: intents.anchor,
+      ownerNarrative: ownerSources.narratives.anchor,
+      relatedNarratives: ownerSources.related.anchor,
+      sourceFingerprints: {
+        catalog: sha256(catalogSource),
+        ownerNarratives: sha256(ownerNarrativesMarkdown),
+        portfolioIntent: sha256(intentMarkdown),
+      },
+    });
+
+  const slashOnly = dossierFor('https://anchor.significanthobbies.com/');
+  assert.equal(slashOnly.verification.checks.githubHomepage, 'passed');
+  assert.deepEqual(slashOnly.verification.unknowns, []);
+  const unset = dossierFor(null);
+  assert.equal(unset.verification.checks.githubHomepage, 'unset');
+  assert.deepEqual(unset.verification.unknowns, []);
 });
 
 test('workflow health distinguishes failures, staleness, stuck runs, and expected manual absence', () => {

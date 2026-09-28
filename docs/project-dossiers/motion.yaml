@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      sha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-09-28
       state: available
       checkout: motion
-      revision: 6ac4700feea7683c86efc214470e6d9dd8bf846a
+      revision: 9e18903e0f5b6388019899a2f2160f2ef3a38b73
       githubRepository: Significant-Hobbies/motion
       expectedHomepage: https://motion.significanthobbies.com
       observedHomepage: https://motion.significanthobbies.com
@@ -46,16 +46,17 @@ verification:
       observedAt: 2026-09-28
       state: available
       checkout: motion
-      revision: 6ac4700feea7683c86efc214470e6d9dd8bf846a
+      revision: 9e18903e0f5b6388019899a2f2160f2ef3a38b73
       githubRepository: Significant-Hobbies/motion
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-18
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T16:58:14.800Z
+      observedAt: 2026-09-28T17:14:48.720Z
       staleAfterDays: 30
       failing: 1
       attention: &a2
@@ -113,13 +114,13 @@ product:
     - TypeScript
   retainedGitHistory:
     firstCommitAt: 2026-07-18
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 85
+    latestCommitAt: 2026-09-21
+    retainedCommitCount: 86
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: motion
-  observedRevision: 6ac4700feea7683c86efc214470e6d9dd8bf846a
+  observedRevision: 9e18903e0f5b6388019899a2f2160f2ef3a38b73
   githubRepository: Significant-Hobbies/motion
   githubHomepageUrl: https://motion.significanthobbies.com
   worktree: *a1
@@ -172,7 +173,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T16:58:14.800Z
+  observedAt: 2026-09-28T17:14:48.720Z
   staleAfterDays: 30
   summary:
     failing: 1

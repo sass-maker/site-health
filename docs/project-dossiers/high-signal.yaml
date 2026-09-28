@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      sha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       infrastructureUpdatedAt: 2026-09-14
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,14 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T16:58:14.800Z
+      observedAt: 2026-09-28T17:14:48.720Z
       staleAfterDays: 30
       stale: 1
       manual-or-reusable-never-run: 2
       healthy: 16
       attention: &a2
-        clear: 18
-        missing-data: 1
+        clear: 17
+        missing-data: 2
   unknowns: []
 ownerVoice:
   whyVerbatim: High-Signal is kind of started with very wide things but now I have focused it into just a data and news application. Currently it just aggregates information from a lot of sources and tries to derive signals. As of now I am not actively using it but I do see its potential. For now it's on hold and once I start using it then I will pick it up again.
@@ -250,7 +250,7 @@ repository:
       - typecheck
       - watchlist-impact:test
 githubActions:
-  observedAt: 2026-09-28T16:58:14.800Z
+  observedAt: 2026-09-28T17:14:48.720Z
   staleAfterDays: 30
   summary:
     stale: 1
@@ -260,7 +260,7 @@ githubActions:
   remote:
     repository: High-Signal-App/high-signal
     defaultBranch: main
-    defaultBranchSha: 2a906fb4d599b3c3819469bdd152ad51dad4956b
+    defaultBranchSha: 2f8575378cf7861841227b4f6d4c64bde137fb71
     homepage: https://highsignal.app
     query: verified
     disposition:
@@ -364,8 +364,8 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 2f85753
         lastRun:
           id: 36448273293
           status: completed
@@ -376,8 +376,7 @@ githubActions:
           createdAt: 2026-09-28T16:03:45Z
           updatedAt: 2026-09-28T16:06:42Z
           url: https://github.com/High-Signal-App/high-signal/actions/runs/36448273293
-        ageDays: 0
-      attention: clear
+      attention: missing-data
     - name: cron-backtest
       file: .github/workflows/cron-backtest.yml
       triggers:
@@ -397,30 +396,30 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36325654766
+          id: 36455795049
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: cf0bff4715a0bf2eb1a16955279ea4ec6e9b2b71
-          createdAt: 2026-09-27T14:22:09Z
-          updatedAt: 2026-09-27T14:22:51Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/36325654766
-        ageDays: 1
+          headSha: 2a906fb4d599b3c3819469bdd152ad51dad4956b
+          createdAt: 2026-09-28T17:06:33Z
+          updatedAt: 2026-09-28T17:07:17Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/36455795049
+        ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 36325654766
+          id: 36455795049
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: cf0bff4715a0bf2eb1a16955279ea4ec6e9b2b71
-          createdAt: 2026-09-27T14:22:09Z
-          updatedAt: 2026-09-27T14:22:51Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/36325654766
-        ageDays: 1
+          headSha: 2a906fb4d599b3c3819469bdd152ad51dad4956b
+          createdAt: 2026-09-28T17:06:33Z
+          updatedAt: 2026-09-28T17:07:17Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/36455795049
+        ageDays: 0
         freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
@@ -444,15 +443,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36451509699
+          id: 36455062813
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
           headSha: 2a906fb4d599b3c3819469bdd152ad51dad4956b
-          createdAt: 2026-09-28T16:30:20Z
-          updatedAt: 2026-09-28T16:37:58Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/36451509699
+          createdAt: 2026-09-28T17:00:18Z
+          updatedAt: 2026-09-28T17:04:22Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/36455062813
         ageDays: 0
       schedule:
         health: not-applicable
@@ -614,15 +613,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36451513877
+          id: 36455066726
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
           headSha: 2a906fb4d599b3c3819469bdd152ad51dad4956b
-          createdAt: 2026-09-28T16:30:21Z
-          updatedAt: 2026-09-28T16:32:43Z
-          url: https://github.com/High-Signal-App/high-signal/actions/runs/36451513877
+          createdAt: 2026-09-28T17:00:20Z
+          updatedAt: 2026-09-28T17:04:00Z
+          url: https://github.com/High-Signal-App/high-signal/actions/runs/36455066726
         ageDays: 0
       schedule:
         health: not-applicable
@@ -947,7 +946,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 2a906fb
+        reason: no push run at current main revision 2f85753
         lastRun:
           id: 35690685888
           status: completed

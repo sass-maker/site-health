@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: agent-testing
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-28
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
+    githubHomepage: passed
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      sha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       infrastructureUpdatedAt: 2026-09-20
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: 716a47374fe4e6e2eacab74e5e06fad025d095c8254bc4d9691d1bb6edbb99a0
-      documentSha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      documentSha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -57,13 +57,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T16:58:14.800Z
+      observedAt: 2026-09-28T17:14:48.720Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
         clear: 1
-  unknowns:
-    - GitHub repository homepage does not match the canonical deployed URL https://browser-agents.sarthakagrawal.dev/.
+  unknowns: []
 ownerVoice:
   whyVerbatim: "Completed in PR #17 and deployed from main at 0942a20eb8dbbf3b7acf25705b8e65d22afa9561. Cloudflare version: 988338c4-693d-4170-9e57-34aca72b479f. Live verification confirmed 26 rendered journey rows, 118/129 verified completions, seven additional probes, expected 200 routes and the supplied 404 route at both desktop and mobile widths."
   fullReviewVerbatim: "Completed in PR #17 and deployed from main at 0942a20eb8dbbf3b7acf25705b8e65d22afa9561. Cloudflare version: 988338c4-693d-4170-9e57-34aca72b479f. Live verification confirmed 26 rendered journey rows, 118/129 verified completions, seven additional probes, expected 200 routes and the supplied 404 route at both desktop and mobile widths."
@@ -150,7 +149,7 @@ repository:
       - test
       - validate:vaultwealth
 githubActions:
-  observedAt: 2026-09-28T16:58:14.800Z
+  observedAt: 2026-09-28T17:14:48.720Z
   staleAfterDays: 30
   summary:
     healthy: 1

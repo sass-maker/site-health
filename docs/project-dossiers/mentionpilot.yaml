@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: mentionpilot
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-09-28
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
+    githubHomepage: different
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      sha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: ae3ff03bb973a0027691fdad911c271ef2c6c2488b735c10088a42895f991b6d
-      documentSha256: 8a6b37e361017bd184017c023f48a83af306b01f771cd4274ddcff99922c1276
+      documentSha256: fc5f514c5e845c04e7f6dbf2ecccc3427edefa46f3f979c0d6325483a18ca365
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -57,14 +57,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T16:58:14.800Z
+      observedAt: 2026-09-28T17:14:48.720Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
         clear: 2
         missing-data: 1
-  unknowns:
-    - GitHub repository homepage does not match the canonical deployed URL https://mention.highsignal.app.
+  unknowns: []
 ownerVoice:
   whyVerbatim: MentiopnPilot is brought back from dead to ensure we have a tooling to check how well people know about across AI, reddit etc
   fullReviewVerbatim: MentiopnPilot is brought back from dead to ensure we have a tooling to check how well people know about across AI, reddit etc
@@ -163,7 +162,7 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T16:58:14.800Z
+  observedAt: 2026-09-28T17:14:48.720Z
   staleAfterDays: 30
   summary:
     healthy: 3

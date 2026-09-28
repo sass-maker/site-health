@@ -262,15 +262,11 @@ export function buildProjectDossier({
   const observedGithubHomepage = operation.githubActionsMeta?.homepage ?? null;
   const githubHomepageStatus = !expectedGithubHomepage
     ? 'not-applicable'
-    : observedGithubHomepage === expectedGithubHomepage
-      ? 'passed'
-      : 'mismatch';
-
-  if (githubHomepageStatus === 'mismatch') {
-    unknowns.push(
-      `GitHub repository homepage does not match the canonical deployed URL ${expectedGithubHomepage}.`,
-    );
-  }
+    : !observedGithubHomepage
+      ? 'unset'
+      : observedGithubHomepage.replace(/\/+$/, '') === expectedGithubHomepage.replace(/\/+$/, '')
+        ? 'passed'
+        : 'different';
 
   if (operation.source.state !== 'available') {
     unknowns.push('The owning checkout was unavailable during repository observation.');
