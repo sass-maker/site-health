@@ -56,15 +56,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T16:11:10.024Z
+      observedAt: 2026-09-28T16:58:14.800Z
       staleAfterDays: 30
-      healthy: 5
-      cancelled: 1
+      healthy: 6
       stale: 1
       attention: &a2
-        clear: 5
+        clear: 6
         missing-data: 1
-        action-required: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: I started anime-list to talk as just a backend service to have better filters that my anime-list was not providing. With the help of AI I was quickly able to build up content and it is something I use very frequently.
@@ -210,11 +208,10 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T16:11:10.024Z
+  observedAt: 2026-09-28T16:58:14.800Z
   staleAfterDays: 30
   summary:
-    healthy: 5
-    cancelled: 1
+    healthy: 6
     stale: 1
   attention: *a2
   remote:
@@ -373,23 +370,23 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: cancelled
-        reason: latest run was cancelled
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 33641528148
+          id: 36449325475
           status: completed
-          conclusion: cancelled
+          conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 5268d9197025ed2e455976b85eec181f2ec7a294
-          createdAt: 2026-09-02T14:21:35Z
-          updatedAt: 2026-09-02T15:10:21Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/33641528148
-        ageDays: 26
+          headSha: 7cb5a308ecf0b4b5440c3faa2282312d6bc6e9f7
+          createdAt: 2026-09-28T16:12:17Z
+          updatedAt: 2026-09-28T16:57:31Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/36449325475
+        ageDays: 0
       schedule:
-        health: failing
-        reason: latest scheduled run concluded failure
+        health: recovered-manually
+        reason: a newer manual run succeeded after the failed scheduled run
         lastRun:
           id: 28493405418
           status: completed
@@ -400,12 +397,22 @@ githubActions:
           createdAt: 2026-07-01T04:24:36Z
           updatedAt: 2026-07-01T04:37:27Z
           url: https://github.com/Significant-Hobbies/anime-list/actions/runs/28493405418
+        recoveryRun:
+          id: 36449325475
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 7cb5a308ecf0b4b5440c3faa2282312d6bc6e9f7
+          createdAt: 2026-09-28T16:12:17Z
+          updatedAt: 2026-09-28T16:57:31Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/36449325475
         ageDays: 89
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: action-required
+      attention: clear
     - name: Quarterly Manga Sync
       file: .github/workflows/quarterly-manga-sync.yml
       triggers:
