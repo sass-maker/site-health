@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
+      sha256: 53a43428a04851d53503547385c94dc8d1b26208a6bf1a93dc79d81edda2c887
       infrastructureUpdatedAt: 2026-09-20
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: c19de664b1d979a9186baaadb154bf20dcb32107104f811de0cf99b125c75976
-      documentSha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
+      documentSha256: 53a43428a04851d53503547385c94dc8d1b26208a6bf1a93dc79d81edda2c887
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -53,7 +53,7 @@ verification:
       catalogDrift: []
       reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-28T13:51:47.979Z
+      observedAt: 2026-09-28T14:00:01.921Z
       staleAfterDays: 30
       attention: &a1 {}
   unknowns:
@@ -126,7 +126,7 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T13:51:47.979Z
+  observedAt: 2026-09-28T14:00:01.921Z
   staleAfterDays: 30
   summary: {}
   attention: *a1

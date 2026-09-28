@@ -1,6 +1,6 @@
 # Fleet GitHub Actions inventory
 
-Observed through the GitHub API at `2026-09-28T13:51:47.979Z`. This is the agent-visible index for every locally tracked, GitHub-generated, and remote-only workflow. The per-project YAML files remain canonical for project context and evidence.
+Observed through the GitHub API at `2026-09-28T14:00:01.921Z`. This is the agent-visible index for every locally tracked, GitHub-generated, and remote-only workflow. The per-project YAML files remain canonical for project context and evidence.
 
 Dossier contract: [`schema.json`](./schema.json). Verification means evidence was collected and attributed; workflow health is reported separately.
 
@@ -157,7 +157,7 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [setline](./setline.yaml) | [CI](https://github.com/Significant-Hobbies/setline/actions/runs/35770374598) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-09-22) | healthy (2026-09-22) | not-applicable | active | clear |
 | [significanthobbies](./significanthobbies.yaml) | [CI](https://github.com/Significant-Hobbies/significanthobbies/actions/runs/36396911602) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-09-28) | healthy (2026-09-28) | not-applicable | active | clear |
 | [significanthobbies](./significanthobbies.yaml) | [Dependabot Updates](https://github.com/Significant-Hobbies/significanthobbies/actions/runs/32031376545) | `dynamic/dependabot/dependabot-updates` | github-generated | active | unknown | — | stale (2026-08-17) | not-applicable | not-applicable | managed | clear |
-| [site-health](./site-health.yaml) | [Site Health CI](https://github.com/sass-maker/site-health/actions/runs/36384634605) | `.github/workflows/site-health-ci.yml` | tracked | active | pull_request, push, workflow_dispatch | — | healthy (2026-09-28) | healthy (2026-09-28) | not-applicable | active | clear |
+| [site-health](./site-health.yaml) | [Site Health CI](https://github.com/sass-maker/site-health/actions/runs/36431994819) | `.github/workflows/site-health-ci.yml` | tracked | active | pull_request, push, workflow_dispatch | — | healthy (2026-09-28) | healthy (2026-09-28) | not-applicable | active | clear |
 | [starboard](./starboard.yaml) | [CI](https://github.com/Codevetter/starboard/actions/runs/36403868602) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-09-28) | healthy (2026-09-28) | not-applicable | active | clear |
 | [starboard](./starboard.yaml) | [Cloudflare operator smoke](https://github.com/Codevetter/starboard/actions/runs/36128003657) | `.github/workflows/cloudflare-operator-smoke.yml` | tracked | active | workflow_dispatch | — | healthy (2026-09-25) | not-applicable | not-applicable | active | clear |
 | [starboard](./starboard.yaml) | [Deploy to Cloudflare Workers](https://github.com/Codevetter/starboard/actions/runs/36368051432) | `.github/workflows/deploy.yml` | tracked | active | workflow_dispatch | — | healthy (2026-09-28) | not-applicable | not-applicable | active | clear |
