@@ -56,12 +56,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T15:37:45.004Z
+      observedAt: 2026-09-28T16:11:10.024Z
       staleAfterDays: 30
       healthy: 1
       stale: 1
       attention: &a2
-        missing-data: 2
+        clear: 1
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
@@ -174,7 +175,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T15:37:45.004Z
+  observedAt: 2026-09-28T16:11:10.024Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -224,19 +225,20 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 2678f7b
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 35384780556
+          id: 36380989652
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ad29f0483af937c0d2561d4f7ba74a4493ad84ac
-          createdAt: 2026-09-18T19:14:05Z
-          updatedAt: 2026-09-18T19:14:40Z
-          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/35384780556
-      attention: missing-data
+          headSha: 2678f7b0362cd5ab0f1c5939c9b5bf46a5cdc86d
+          createdAt: 2026-09-28T05:13:44Z
+          updatedAt: 2026-09-28T05:14:16Z
+          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/36380989652
+        ageDays: 0
+      attention: clear
     - name: Build résumé PDF
       file: .github/workflows/resume.yml
       triggers:

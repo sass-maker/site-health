@@ -57,7 +57,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T15:37:45.004Z
+      observedAt: 2026-09-28T16:11:10.024Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -150,7 +150,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T15:37:45.004Z
+  observedAt: 2026-09-28T16:11:10.024Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -192,7 +192,7 @@ githubActions:
           createdAt: 2026-09-27T16:06:22Z
           updatedAt: 2026-09-27T16:09:48Z
           url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/36331993788
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -237,7 +237,7 @@ githubActions:
           createdAt: 2026-09-27T16:06:34Z
           updatedAt: 2026-09-27T16:14:39Z
           url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/36332005103
-        ageDays: 0
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

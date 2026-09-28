@@ -52,7 +52,7 @@ verification:
       catalogDrift: []
       reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-28T15:37:45.004Z
+      observedAt: 2026-09-28T16:11:10.024Z
       staleAfterDays: 30
       attention: &a1 {}
   unknowns:
@@ -128,7 +128,7 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T15:37:45.004Z
+  observedAt: 2026-09-28T16:11:10.024Z
   staleAfterDays: 30
   summary: {}
   attention: *a1
