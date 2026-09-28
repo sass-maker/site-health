@@ -3,19 +3,19 @@ projectId: performancedaddy
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-27
+  generatedAt: 2026-09-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      sha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
-      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      documentSha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,22 +32,22 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: performancedaddy
-      revision: 9f328e894449d593c585236bba243bf7e812fb32
+      revision: 74db4a802309729e9884ff1fdcbcd9241ffd9668
       githubRepository: Significant-Hobbies/performancedaddy
       expectedHomepage: https://performance.daddyrad.com/
-      observedHomepage: null
+      observedHomepage: https://performance.daddyrad.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: performancedaddy
-      revision: 9f328e894449d593c585236bba243bf7e812fb32
+      revision: 74db4a802309729e9884ff1fdcbcd9241ffd9668
       githubRepository: Significant-Hobbies/performancedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -57,13 +57,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-28T13:51:47.979Z
+      staleAfterDays: 30
+      healthy: 2
       attention: &a2
-        unclassified: 2
+        missing-data: 1
+        clear: 1
   unknowns:
-    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://performance.daddyrad.com/.
 ownerVoice:
   whyVerbatim: deploy both of them properly
@@ -123,14 +123,14 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-09-20
     latestCommitAt: 2026-09-27
-    retainedCommitCount: 73
+    retainedCommitCount: 74
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: performancedaddy
-  observedRevision: 9f328e894449d593c585236bba243bf7e812fb32
+  observedRevision: 74db4a802309729e9884ff1fdcbcd9241ffd9668
   githubRepository: Significant-Hobbies/performancedaddy
-  githubHomepageUrl: null
+  githubHomepageUrl: https://performance.daddyrad.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/performancedaddy
@@ -150,12 +150,20 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-28T13:51:47.979Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    healthy: 2
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/performancedaddy
+    defaultBranch: main
+    defaultBranchSha: 74db4a802309729e9884ff1fdcbcd9241ffd9668
+    homepage: https://performance.daddyrad.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -163,11 +171,82 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36331993788
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 9f328e894449d593c585236bba243bf7e812fb32
+          createdAt: 2026-09-27T16:06:22Z
+          updatedAt: 2026-09-27T16:09:48Z
+          url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/36331993788
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 74db4a8
+        lastRun:
+          id: 36331993788
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 9f328e894449d593c585236bba243bf7e812fb32
+          createdAt: 2026-09-27T16:06:22Z
+          updatedAt: 2026-09-27T16:09:48Z
+          url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/36331993788
+      attention: missing-data
     - name: Protected manual release
       file: .github/workflows/release.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36332005103
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 9f328e894449d593c585236bba243bf7e812fb32
+          createdAt: 2026-09-27T16:06:34Z
+          updatedAt: 2026-09-27T16:14:39Z
+          url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/36332005103
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: worker
   deployed: true

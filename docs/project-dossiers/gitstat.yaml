@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: gitstat
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-27
+  generatedAt: 2026-09-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
-    retainedGitHistory: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      sha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,38 +31,37 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: gitstat
-      revision: 9bcb8d01f88d4a2618e9652d300203674f118da9
+      revision: a66b5ca28874da350840a0a416abef2bad709a34
       githubRepository: sass-maker/gitstat
       expectedHomepage: https://git.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://git.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: gitstat
-      revision: 9bcb8d01f88d4a2618e9652d300203674f118da9
+      revision: a66b5ca28874da350840a0a416abef2bad709a34
       githubRepository: sass-maker/gitstat
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-21
       catalogLatestCommitAt: 2026-09-12
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-28T13:51:47.979Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://git.significanthobbies.com.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
   fullReviewVerbatim: Gitstat is, I think, the newest addition. I just wanted to see the churn of all my work across the projects. I built this out. It takes in all the commits I have done in the past and does some analysis on them. In the future I might add something but otherwise it is more or less done for now. Not sure what I would do more.
@@ -113,15 +112,15 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-08-21
-    latestCommitAt: 2026-09-12
-    retainedCommitCount: 13
+    latestCommitAt: 2026-09-28
+    retainedCommitCount: 18
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: gitstat
-  observedRevision: 9bcb8d01f88d4a2618e9652d300203674f118da9
+  observedRevision: a66b5ca28874da350840a0a416abef2bad709a34
   githubRepository: sass-maker/gitstat
-  githubHomepageUrl: null
+  githubHomepageUrl: https://git.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/gitstat
@@ -144,12 +143,20 @@ repository:
       - lint
       - preview
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-28T13:51:47.979Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sass-maker/gitstat
+    defaultBranch: main
+    defaultBranchSha: a66b5ca28874da350840a0a416abef2bad709a34
+    homepage: https://git.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -158,6 +165,47 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36367669724
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: a66b5ca28874da350840a0a416abef2bad709a34
+          createdAt: 2026-09-28T01:53:02Z
+          updatedAt: 2026-09-28T01:53:28Z
+          url: https://github.com/sass-maker/gitstat/actions/runs/36367669724
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 36367669724
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: a66b5ca28874da350840a0a416abef2bad709a34
+          createdAt: 2026-09-28T01:53:02Z
+          updatedAt: 2026-09-28T01:53:28Z
+          url: https://github.com/sass-maker/gitstat/actions/runs/36367669724
+        ageDays: 0
+      attention: clear
 deployment:
   kind: pages
   deployed: true

@@ -423,6 +423,30 @@
         "chatgpt-memory-insights/src/pages/about.astro",
         "chatgpt-memory-insights/src/pages/changelog.astro"
       ]
+    },
+    {
+      "id": "browserdaddy",
+      "kind": "visual",
+      "state": "required",
+      "files": [
+        "ios-landings/src/layouts/SiteLayout.astro"
+      ]
+    },
+    {
+      "id": "performancedaddy",
+      "kind": "visual",
+      "state": "required",
+      "files": [
+        "ios-landings/src/layouts/SiteLayout.astro"
+      ]
+    },
+    {
+      "id": "contextdaddy",
+      "kind": "visual",
+      "state": "required",
+      "files": [
+        "ios-landings/src/layouts/SiteLayout.astro"
+      ]
     }
   ]
 }

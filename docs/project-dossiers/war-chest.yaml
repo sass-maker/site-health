@@ -3,7 +3,7 @@ projectId: war-chest
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-27
+  generatedAt: 2026-09-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      sha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: 04b33167c82a9b23f28393d269ff865ed02940d455369c517c1e7ff2eee76c27
-      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      documentSha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,10 +32,10 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: war-chest
-      revision: 92f61bfc2e1bfc9b5a9cc46beb27a4484c50a046
+      revision: e94dae4ce4e646555cbd9534ec59964c796cd7b8
       githubRepository: Significant-Hobbies/war-chest
       expectedHomepage: https://warchest.significanthobbies.com
       observedHomepage: null
@@ -44,10 +44,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: war-chest
-      revision: 92f61bfc2e1bfc9b5a9cc46beb27a4484c50a046
+      revision: e94dae4ce4e646555cbd9534ec59964c796cd7b8
       githubRepository: Significant-Hobbies/war-chest
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -58,8 +58,8 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
+      observedAt: 2026-09-28T13:51:47.979Z
+      staleAfterDays: 30
       attention: &a2 {}
   unknowns:
     - GitHub repository homepage does not match the canonical deployed URL https://warchest.significanthobbies.com.
@@ -111,13 +111,13 @@ product:
     - GDScript
   retainedGitHistory:
     firstCommitAt: 2026-09-26
-    latestCommitAt: 2026-09-26
-    retainedCommitCount: 1
+    latestCommitAt: 2026-09-28
+    retainedCommitCount: 5
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: war-chest
-  observedRevision: 92f61bfc2e1bfc9b5a9cc46beb27a4484c50a046
+  observedRevision: e94dae4ce4e646555cbd9534ec59964c796cd7b8
   githubRepository: Significant-Hobbies/war-chest
   githubHomepageUrl: null
   worktree: *a1
@@ -130,11 +130,19 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-28T13:51:47.979Z
+  staleAfterDays: 30
   summary: {}
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/war-chest
+    defaultBranch: main
+    defaultBranchSha: e94dae4ce4e646555cbd9534ec59964c796cd7b8
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows: []
 deployment:
   kind: pages

@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: posttrainllm
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-27
+  generatedAt: 2026-09-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      sha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,22 +31,22 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: posttrainllm
-      revision: ce14d91f0db03bcf03d4fed9cfdbe5c15f6aac28
+      revision: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
       githubRepository: PostTrainLLM/posttrainllm
       expectedHomepage: https://posttrainllm.com
-      observedHomepage: null
+      observedHomepage: https://posttrainllm.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: posttrainllm
-      revision: ce14d91f0db03bcf03d4fed9cfdbe5c15f6aac28
+      revision: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
       githubRepository: PostTrainLLM/posttrainllm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,14 +56,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-28T13:51:47.979Z
+      staleAfterDays: 30
+      running: 1
+      healthy: 1
       attention: &a2
-        unclassified: 2
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://posttrainllm.com.
+        clear: 2
+  unknowns: []
 ownerVoice:
   whyVerbatim: Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
   fullReviewVerbatim: Ahha! Another flagship product. It started off as a curiosity exploration that I wanted to see what all we can do on the web. Chrome had been shipping a lot of things. There were a lot of improvements in WebGL so I was like, let's try to train a model in the browser. I succeeded, built something decent, then ambition grew and I started training on my Mac, built Mac applications, tried building a lot of things. I think that this product will be ongoing as I keep finding more experiments to do. It has a lot of recipes and a lot of future plans so yeah I will be working on it. I think it's a parallel product along with CodeVetter, one of the flagships.
@@ -115,15 +114,15 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-05-21
-    latestCommitAt: 2026-09-26
-    retainedCommitCount: 932
+    latestCommitAt: 2026-09-28
+    retainedCommitCount: 944
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: posttrainllm
-  observedRevision: ce14d91f0db03bcf03d4fed9cfdbe5c15f6aac28
+  observedRevision: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
   githubRepository: PostTrainLLM/posttrainllm
-  githubHomepageUrl: null
+  githubHomepageUrl: https://posttrainllm.com
   worktree: *a1
   visibility: public
   url: https://github.com/PostTrainLLM/posttrainllm
@@ -169,12 +168,21 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-28T13:51:47.979Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    running: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: PostTrainLLM/posttrainllm
+    defaultBranch: main
+    defaultBranchSha: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
+    homepage: https://posttrainllm.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -183,11 +191,83 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: running
+        reason: latest run is in_progress
+        apiState: active
+        lastRun:
+          id: 36431192427
+          status: in_progress
+          conclusion: null
+          event: push
+          branch: main
+          headSha: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
+          createdAt: 2026-09-28T13:47:57Z
+          updatedAt: 2026-09-28T13:49:13Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36431192427
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: running
+        reason: current main push is in_progress
+        lastRun:
+          id: 36431192427
+          status: in_progress
+          conclusion: null
+          event: push
+          branch: main
+          headSha: 44f96618c9c1c900d3ba0c987cb2aa2866b423f0
+          createdAt: 2026-09-28T13:47:57Z
+          updatedAt: 2026-09-28T13:49:13Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36431192427
+        ageDays: 0
+      attention: clear
     - name: Deploy to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36378480007
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: ffb934dcb45da1e53d05215cc887f98f4f736332
+          createdAt: 2026-09-28T04:37:04Z
+          updatedAt: 2026-09-28T04:38:24Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36378480007
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: pages
   deployed: true

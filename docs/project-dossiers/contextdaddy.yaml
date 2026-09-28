@@ -3,19 +3,19 @@ projectId: contextdaddy
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-27
+  generatedAt: 2026-09-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      sha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: bafe2dc9dfd353e716620483f1608fe37a7cfbcc9fe8a8e26090ea24468695a1
-      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      documentSha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,7 +32,7 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: contextdaddy
       revision: 2179defd1890527c16ee617de4c303f6722b33f7
@@ -44,7 +44,7 @@ verification:
         trackedChangeCount: 22
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: contextdaddy
       revision: 2179defd1890527c16ee617de4c303f6722b33f7
@@ -58,13 +58,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-28T13:51:47.979Z
+      staleAfterDays: 30
+      healthy: 2
       attention: &a2
-        unclassified: 2
+        missing-data: 1
+        clear: 1
   unknowns:
-    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://context.daddyrad.com/.
 ownerVoice:
   whyVerbatim: ContextDaddy is supposed to handle all things AI agents locally (context, skills, usage, otel etc) to help debug/speed up
@@ -143,12 +143,20 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-28T13:51:47.979Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    healthy: 2
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/contextdaddy
+    defaultBranch: main
+    defaultBranchSha: 2179defd1890527c16ee617de4c303f6722b33f7
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: ContextDaddy CI
       file: .github/workflows/ci.yml
@@ -156,11 +164,82 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36321855914
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 0ec550404f9ba9cb452901f2bea9b261369a61ba
+          createdAt: 2026-09-27T13:17:03Z
+          updatedAt: 2026-09-27T13:20:48Z
+          url: https://github.com/Significant-Hobbies/contextdaddy/actions/runs/36321855914
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run at current main revision 2179def
+        lastRun:
+          id: 36321855914
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 0ec550404f9ba9cb452901f2bea9b261369a61ba
+          createdAt: 2026-09-27T13:17:03Z
+          updatedAt: 2026-09-27T13:20:48Z
+          url: https://github.com/Significant-Hobbies/contextdaddy/actions/runs/36321855914
+      attention: missing-data
     - name: Protected manual release
       file: .github/workflows/release.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36321878720
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 0ec550404f9ba9cb452901f2bea9b261369a61ba
+          createdAt: 2026-09-27T13:17:24Z
+          updatedAt: 2026-09-27T13:35:09Z
+          url: https://github.com/Significant-Hobbies/contextdaddy/actions/runs/36321878720
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: worker
   deployed: true

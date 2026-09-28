@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: mashup
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-27
+  generatedAt: 2026-09-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: mismatch
-    githubActionsLiveState: unverified
-    retainedGitHistory: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      sha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       infrastructureUpdatedAt: 2026-08-28
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,38 +31,37 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: mashup
-      revision: b75e14f506197600dbb722ba318853e356826f3d
+      revision: d4c23076ee8c4e0932acb3c9856bd15e0365d0fe
       githubRepository: sass-maker/mashup
       expectedHomepage: https://mashup.highsignal.app
-      observedHomepage: null
+      observedHomepage: https://mashup.highsignal.app
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: mashup
-      revision: b75e14f506197600dbb722ba318853e356826f3d
+      revision: d4c23076ee8c4e0932acb3c9856bd15e0365d0fe
       githubRepository: sass-maker/mashup
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-25
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 1
+      observedAt: 2026-09-28T13:51:47.979Z
+      staleAfterDays: 30
+      healthy: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - Live GitHub Actions state has not been refreshed.
-    - GitHub repository homepage does not match the canonical deployed URL https://mashup.highsignal.app.
+        clear: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
   fullReviewVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
@@ -115,15 +114,15 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-25
-    latestCommitAt: 2026-09-07
-    retainedCommitCount: 54
+    latestCommitAt: 2026-09-28
+    retainedCommitCount: 58
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: mashup
-  observedRevision: b75e14f506197600dbb722ba318853e356826f3d
+  observedRevision: d4c23076ee8c4e0932acb3c9856bd15e0365d0fe
   githubRepository: sass-maker/mashup
-  githubHomepageUrl: null
+  githubHomepageUrl: https://mashup.highsignal.app
   worktree: *a1
   visibility: public
   url: https://github.com/sass-maker/mashup
@@ -156,12 +155,20 @@ repository:
       - test
       - test:coverage
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-28T13:51:47.979Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 1
+    healthy: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sass-maker/mashup
+    defaultBranch: main
+    defaultBranchSha: 3f279c038293f2618d0144ff9eebe8672b6297c1
+    homepage: https://mashup.highsignal.app
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -170,6 +177,47 @@ githubActions:
         - push
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36364948607
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 3f279c038293f2618d0144ff9eebe8672b6297c1
+          createdAt: 2026-09-28T01:10:14Z
+          updatedAt: 2026-09-28T01:11:47Z
+          url: https://github.com/sass-maker/mashup/actions/runs/36364948607
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 36364948607
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 3f279c038293f2618d0144ff9eebe8672b6297c1
+          createdAt: 2026-09-28T01:10:14Z
+          updatedAt: 2026-09-28T01:11:47Z
+          url: https://github.com/sass-maker/mashup/actions/runs/36364948607
+        ageDays: 0
+      attention: clear
 deployment:
   kind: pages
   deployed: true

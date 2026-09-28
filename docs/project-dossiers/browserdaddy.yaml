@@ -3,19 +3,19 @@ projectId: browserdaddy
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-27
+  generatedAt: 2026-09-28
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: mismatch
-    githubActionsLiveState: unverified
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      sha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
-      documentSha256: aebba3adf60ecfab15a476862bf3415085e556f665339eb4ac3782d60b87b80c
+      documentSha256: 735a4b6295f48b2a8f37c1c51df15264e5acd812d69db098bfece334ac4b13f7
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,19 +32,19 @@ verification:
       sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: browserdaddy
       revision: 82afe09470e9ab671e197db225873919b35f5b47
       githubRepository: Significant-Hobbies/browserdaddy
       expectedHomepage: https://browser.daddyrad.com/
-      observedHomepage: null
+      observedHomepage: https://browser.daddyrad.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-27
+      observedAt: 2026-09-28
       state: available
       checkout: browserdaddy
       revision: 82afe09470e9ab671e197db225873919b35f5b47
@@ -57,13 +57,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: null
-      staleAfterDays: null
-      unverifiable: 2
+      observedAt: 2026-09-28T13:51:47.979Z
+      staleAfterDays: 30
+      healthy: 2
       attention: &a2
-        unclassified: 2
+        clear: 2
   unknowns:
-    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage does not match the canonical deployed URL https://browser.daddyrad.com/.
 ownerVoice:
   whyVerbatim: deploy both of them properly
@@ -130,7 +129,7 @@ repository:
   checkout: browserdaddy
   observedRevision: 82afe09470e9ab671e197db225873919b35f5b47
   githubRepository: Significant-Hobbies/browserdaddy
-  githubHomepageUrl: null
+  githubHomepageUrl: https://browser.daddyrad.com
   worktree: *a1
   visibility: public
   url: https://github.com/Significant-Hobbies/browserdaddy
@@ -153,12 +152,20 @@ repository:
           - SafariTabsExtension/SafariTabsExtension.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: null
-  staleAfterDays: null
+  observedAt: 2026-09-28T13:51:47.979Z
+  staleAfterDays: 30
   summary:
-    unverifiable: 2
+    healthy: 2
   attention: *a2
-  remote: null
+  remote:
+    repository: Significant-Hobbies/browserdaddy
+    defaultBranch: main
+    defaultBranchSha: 82afe09470e9ab671e197db225873919b35f5b47
+    homepage: https://browser.daddyrad.com
+    query: verified
+    disposition:
+      disposition: active
+      reason: tracked project
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -166,11 +173,83 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36322868110
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 82afe09470e9ab671e197db225873919b35f5b47
+          createdAt: 2026-09-27T13:34:30Z
+          updatedAt: 2026-09-27T13:37:53Z
+          url: https://github.com/Significant-Hobbies/browserdaddy/actions/runs/36322868110
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 36322868110
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 82afe09470e9ab671e197db225873919b35f5b47
+          createdAt: 2026-09-27T13:34:30Z
+          updatedAt: 2026-09-27T13:37:53Z
+          url: https://github.com/Significant-Hobbies/browserdaddy/actions/runs/36322868110
+        ageDays: 1
+      attention: clear
     - name: Protected manual release
       file: .github/workflows/release.yml
       triggers:
         - workflow_dispatch
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 36319870382
+          status: completed
+          conclusion: success
+          event: workflow_dispatch
+          branch: main
+          headSha: 9d3d8fb14e8f1d09163eb1d21a57117cff2fa907
+          createdAt: 2026-09-27T12:42:13Z
+          updatedAt: 2026-09-27T13:08:26Z
+          url: https://github.com/Significant-Hobbies/browserdaddy/actions/runs/36319870382
+        ageDays: 1
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: worker
   deployed: true
