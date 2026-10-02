@@ -128,7 +128,11 @@ async function runFleetCollector({
   now,
   reuseProjectIds = [],
 }) {
-  const projectsById = new Map(projects.map((project) => [project.id, project]));
+  // The dashboard also retains standalone repository-review rows. They are
+  // not canonical products and must not inflate Clarity's coverage denominator.
+  const projectsById = new Map(projects
+    .filter((project) => project.identityKind !== 'repository')
+    .map((project) => [project.id, project]));
   const reusableProjects = new Map();
   for (const projectId of reuseProjectIds) {
     const project = projectsById.get(projectId);

@@ -156,6 +156,30 @@ test('cached health classifies every identity without a token or a provider call
   );
 });
 
+test('Clarity counts products, excludes repository-review rows, and still exposes receipt drift', async () => {
+  for (const command of ['status-all', 'fetch-all']) {
+    const summary = await runClarityCollector({
+      command,
+      projects: [
+        { id: 'local-product', lifecycle: { status: 'active' } },
+        { id: 'repo:owner/archive', identityKind: 'repository', lifecycle: { status: 'inactive' } },
+      ],
+      registry: new Map([wired('drifted-receipt')]),
+      store: memoryStore(),
+      tokenResolver() { assert.fail('Exclusions must never resolve tokens'); },
+      snapshotFetcher() { assert.fail('Exclusions must never call the provider'); },
+      now: () => NOW,
+    });
+    assert.equal(summary.projects, 2);
+    assert.deepEqual(summary.results.map((row) => row.projectId).sort(), [
+      'drifted-receipt', 'local-product',
+    ]);
+    assert.equal(summary.classificationCounts.inactive, 0);
+    assert.equal(summary.classificationCounts.unwired, 1);
+    assert.equal(summary.classificationCounts.failed, 1);
+  }
+});
+
 test('provider refresh dry run continues past failures and accounts for every identity', async () => {
   const { projects, registry, store } = classFixture();
   const requested = [];

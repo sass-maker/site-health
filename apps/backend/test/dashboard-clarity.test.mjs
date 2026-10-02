@@ -311,6 +311,32 @@ test('normalizes only bounded traffic fields and labels browser identities hones
   assert.equal(JSON.stringify(snapshot).includes('clarityId'), false);
 });
 
+test('incomplete Clarity metrics remain unknown instead of becoming zero traffic', () => {
+  const metricsFor = (rows) => normalizeClarityExport([
+    { metricName: 'Traffic', information: rows },
+  ], { projectId: 'wired' }).metrics;
+  for (const missing of [undefined, null, '', '  ', false, [], {}, -1, 'not-numeric']) {
+    assert.deepEqual(metricsFor([{
+      totalSessionCount: missing,
+      totalBotSessionCount: missing,
+      distantUserCount: missing,
+      PagesPerSessionPercentage: missing,
+    }]), { sessions: null, botSessions: null, uniqueBrowsers: null, pagesPerSession: null });
+  }
+  assert.deepEqual(metricsFor([{
+    totalSessionCount: '0', totalBotSessionCount: 0, distantUserCount: 0,
+  }]), { sessions: 0, botSessions: 0, uniqueBrowsers: 0, pagesPerSession: null });
+  assert.deepEqual(metricsFor([
+    { totalSessionCount: 10, totalBotSessionCount: 2, distantUserCount: 8, PagesPerSessionPercentage: 2 },
+    { totalSessionCount: 5, totalBotSessionCount: null, distantUserCount: 4 },
+  ]), { sessions: 15, botSessions: null, uniqueBrowsers: 12, pagesPerSession: null });
+  assert.deepEqual(metricsFor([
+    { totalSessionCount: 10, totalBotSessionCount: 2, distinctUserCount: 8, pagesPerSessionPercentage: 2 },
+    { totalSessionCount: 5, totalBotSessionCount: 1, distinctUserCount: 4, pagesPerSessionPercentage: 4 },
+    { totalSessionCount: 0, totalBotSessionCount: 0, distinctUserCount: 0 },
+  ]), { sessions: 15, botSessions: 3, uniqueBrowsers: 12, pagesPerSession: 2.67 });
+});
+
 test('fetches the documented one-day export and sanitizes provider failures', async () => {
   let request;
   const snapshot = await fetchClaritySnapshot({
