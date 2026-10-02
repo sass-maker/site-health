@@ -585,7 +585,13 @@ async function renderProjects() {
       ]))),
   ]);
   const directory = element("div", { class: "project-directory-groups" }, [currentSection, inactiveDetails]);
-  directory.append(element("div", { class: "directory-filter-empty", "data-project-filter-empty": "", hidden: "" }, [
+  directory.append(element("div", {
+    class: "directory-filter-empty",
+    "data-project-filter-empty": "",
+    role: "status",
+    "aria-live": "polite",
+    hidden: "",
+  }, [
     element("strong", {}, ["No projects match these filters."]),
     element("span", {}, ["Clear the search or choose broader project filters."]),
   ]));

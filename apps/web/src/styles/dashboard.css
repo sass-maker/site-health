@@ -282,6 +282,14 @@ h1 { max-width: 780px; margin-bottom: 10px; overflow-wrap: anywhere; font-size: 
 .project dl { display: grid; gap: 12px; margin: 24px 0 0; }
 .project dl div { display: grid; grid-template-columns: 130px 1fr; gap: 12px; }
 .project-directory { border-top: 1px solid var(--line); }
+.directory-filter-empty:not([hidden]) {
+  display: grid;
+  gap: 6px;
+  padding: 22px 4px;
+  border-top: 1px solid var(--line);
+}
+.directory-filter-empty strong { color: var(--text); font-size: 15px; }
+.directory-filter-empty span { max-width: 60ch; color: var(--muted); font-size: 12px; line-height: 1.5; }
 .project-directory__row {
   min-height: 116px;
   display: grid;
