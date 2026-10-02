@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync } from 'node:fs';
+import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -350,6 +351,7 @@ test('fetches the documented one-day export and sanitizes provider failures', as
   });
   assert.equal(new URL(request.url).searchParams.get('numOfDays'), '1');
   assert.equal(request.options.headers.authorization, 'Bearer do-not-persist');
+  assert.equal(request.options.headers.connection, 'close');
   assert.equal(JSON.stringify(snapshot).includes('do-not-persist'), false);
 
   await assert.rejects(
@@ -375,6 +377,37 @@ test('fetches the documented one-day export and sanitizes provider failures', as
     (error) => error.code === 'CLARITY_PROVIDER_TIMEOUT'
       && !error.message.includes('timeout-token'),
   );
+});
+
+test('sequential exports use separate connections and never retry a closed socket', async (t) => {
+  const ports = [];
+  let requests = 0;
+  const server = createServer((request, response) => {
+    requests += 1;
+    ports.push(request.socket.remotePort);
+    assert.equal(request.headers.connection, 'close');
+    if (requests === 3) {
+      request.socket.destroy();
+      return;
+    }
+    response.setHeader('content-type', 'application/json');
+    response.end(JSON.stringify([{ metricName: 'Traffic', information: [] }]));
+  });
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  t.after(() => new Promise((resolve) => server.close(resolve)));
+  const localUrl = `http://127.0.0.1:${server.address().port}`;
+  const options = {
+    token: 'synthetic-local-token',
+    projectId: 'wired',
+    fetchImpl: (_url, init) => fetch(localUrl, init),
+  };
+  await fetchClaritySnapshot(options);
+  await fetchClaritySnapshot(options);
+  assert.notEqual(ports[0], ports[1]);
+  await assert.rejects(fetchClaritySnapshot(options), (error) =>
+    error.code === 'CLARITY_PROVIDER_UNAVAILABLE'
+      && !error.message.includes('synthetic-local-token'));
+  assert.equal(requests, 3);
 });
 
 test('collector refuses unwired projects and persists only the sanitized snapshot', async () => {

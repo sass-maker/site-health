@@ -585,7 +585,9 @@ export async function fetchClaritySnapshot({
   let response;
   try {
     response = await fetchImpl(url, {
-      headers: { accept: 'application/json', authorization: `Bearer ${token}` },
+      // Token resolution between sequential exports can outlast an idle socket.
+      // Close each connection instead of adding quota-consuming retries.
+      headers: { accept: 'application/json', authorization: `Bearer ${token}`, connection: 'close' },
       signal: controller.signal,
     });
   } catch {

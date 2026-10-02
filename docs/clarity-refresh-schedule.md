@@ -2,8 +2,9 @@
 
 How the traffic stream from
 [`clarity-traffic-baseline-latest.md`](clarity-traffic-baseline-latest.md)
-recurs. **Installed 2026-09-05** — weekly, Monday 09:40, per the board decision
-on SAR-25. This documents the tooling and the cadence it runs.
+recurs. The original installation was weekly on 2026-09-05. Use `status`
+to inspect the actual host configuration; source changes alone do not install
+a job or prove collection.
 
 All-project run modes, the six reported classes, and the bounded summary schema
 are in [`clarity-fleet-health.md`](clarity-fleet-health.md).
@@ -18,13 +19,13 @@ three days, and **the cadence decides the coverage**:
 | Cadence | Coverage | Gap |
 | --- | --- | --- |
 | Weekly | 3 of every 7 days | **4 days per week unmeasured** |
-| Every 3 days | consecutive windows abut | none |
+| Every 3 days | windows abut when runs succeed on time | offline or failed runs leave gaps |
 
 No collector change alters this. The limit is the provider's.
 
 Each run costs one Data Export call per tokened project against a per-project
-daily quota, so the cost scales with cadence, not with fleet size: 26 calls per
-run either way, ~26/week versus ~61/week.
+daily quota. Use the current eligible/tokened counts rather than the historical
+26-project baseline. Overlapping exports must not be summed as distinct traffic.
 
 ## Freshness is a separate dial
 
@@ -84,6 +85,12 @@ under `plutil -lint`. If the Mac is asleep at the scheduled moment launchd runs
 the job on wake; with `StartInterval`, multiple missed intervals coalesce into
 one run.
 
+The every-three-days source emits `RunAtLoad=true`, so login/reload does not
+restart another three-day wait. Weekly scheduling remains unchanged. Installing
+or reloading that interval job immediately spends provider quota. `status`
+reports the installed value and warns about an interval job without it. A
+loaded job is not proof of a successful provider refresh.
+
 The job runs the collector directly rather than through pnpm — one fewer binary
 that has to be on the launchd PATH — and appends to
 `~/Library/Logs/com.sarthak.clarity-refresh.log`. `status` tails that log.
@@ -94,8 +101,12 @@ The silent-failure risk for any scheduled run is token resolution:
 `resolveClarityToken` shells out to `infisical secrets get … --env dev`, so the
 job needs both the `infisical` binary on the login-shell PATH and a live CLI
 session. `preflight` checks that chain through the same `/bin/zsh -lc` login
-shell launchd will use, and reports the token probe by exit status only — no
-secret value is read into the process or written to a log.
+shell launchd will use. It requires both a successful lookup and non-empty
+output: Infisical's silent mode can exit zero for an absent key. The value stays
+in an unexported child-shell variable and is never emitted or logged. Missing
+binaries, an unwritable log directory, or an unresolved checked token cause a
+non-zero preflight exit. Synthetic tests cover empty-success, non-empty-success,
+and lookup-failure cases without real credentials.
 
 Verified 2026-09-05 on the owner's Mac:
 

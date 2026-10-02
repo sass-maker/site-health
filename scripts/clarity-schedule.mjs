@@ -44,7 +44,7 @@ const CADENCES = {
   },
   'every-3-days': {
     label: 'every-3-days',
-    coverage: `runs every 3 days — consecutive ${REFRESH_DAYS}-day windows abut, nothing goes unmeasured`,
+    coverage: `runs on load and every 3 days while active — ${REFRESH_DAYS}-day windows; offline gaps remain unmeasured`,
     schedule: () => ({
       key: 'StartInterval',
       body: [
@@ -115,7 +115,7 @@ ${definition.schedule({ hour, minute, weekday }).body}
   <key>StandardErrorPath</key>
   <string>${LOG_PATH}</string>
   <key>RunAtLoad</key>
-  <false/>
+  <${definition.label === 'every-3-days' ? 'true' : 'false'}/>
   <key>ProcessType</key>
   <string>Background</string>
 </dict>
@@ -147,6 +147,11 @@ function runStatus() {
     const calendar = /<key>StartCalendarInterval<\/key>\s*<dict>([\s\S]*?)<\/dict>/.exec(plist);
     if (interval) lines.push(`cadence    every ${Number(interval[1]) / 86_400} days (StartInterval)`);
     else if (calendar) lines.push(`cadence    ${calendar[1].replace(/\s+/g, ' ').trim()} (StartCalendarInterval)`);
+    const runAtLoad = /<key>RunAtLoad<\/key>\s*<true\s*\/>/.test(plist);
+    lines.push(`on load    ${runAtLoad ? 'yes' : 'no'}`);
+    if (interval && !runAtLoad) {
+      lines.push('warning    interval restarts at login; sessions shorter than the interval may never collect');
+    }
   }
   if (existsSync(LOG_PATH)) {
     const tail = readFileSync(LOG_PATH, 'utf8').trimEnd().split('\n').slice(-5);
@@ -155,9 +160,16 @@ function runStatus() {
   process.stdout.write(`${lines.join('\n')}\n`);
 }
 
+export function clarityTokenProbeCommand(projectId) {
+  const key = `CLARITY_API_TOKEN_${projectId.replace(/[^a-z0-9]/gi, '_').toUpperCase()}`;
+  // Infisical --silent can exit 0 with empty stdout for an absent key. Check
+  // non-empty output without emitting it, exporting it, or putting it in argv.
+  return `clarity_probe_value="$(infisical secrets get ${key} --plain --env dev --path / --silent 2>/dev/null)" && test -n "$clarity_probe_value"`;
+}
+
 // Everything the scheduled job depends on, checked through the same
 // `/bin/zsh -lc` login shell launchd will use. Token probes report an exit
-// status only — no secret value is ever read into this process or logged.
+// status only — no secret value is ever returned to this process or logged.
 function runPreflight({ checkToken }) {
   const checks = [];
   const shell = (script) => spawnSync('/bin/zsh', ['-lc', script], {
@@ -177,8 +189,7 @@ function runPreflight({ checkToken }) {
     checks.push(['log dir', `NOT WRITABLE at ${dirname(LOG_PATH)}`]);
   }
   if (checkToken) {
-    const key = `CLARITY_API_TOKEN_${checkToken.replace(/[^a-z0-9]/gi, '_').toUpperCase()}`;
-    const result = shell(`infisical secrets get ${key} --plain --env dev --path / --silent >/dev/null 2>&1`);
+    const result = shell(clarityTokenProbeCommand(checkToken));
     checks.push([`token ${checkToken}`, result.status === 0
       ? 'ok — resolvable from a login shell (value not read)'
       : 'UNRESOLVABLE from a login shell; the scheduled run would fail on this project']);
@@ -187,6 +198,9 @@ function runPreflight({ checkToken }) {
   }
   const width = Math.max(...checks.map(([name]) => name.length));
   process.stdout.write(`${checks.map(([name, note]) => `${name.padEnd(width)}  ${note}`).join('\n')}\n`);
+  if (checks.some(([, note]) => /^(MISSING|NOT WRITABLE|UNRESOLVABLE)/.test(note))) {
+    process.exitCode = 1;
+  }
 }
 
 function runInstall(options) {
@@ -246,13 +260,15 @@ Only install/uninstall change the machine, and install requires --confirm.
 `);
 }
 
-const options = parseArguments(process.argv.slice(2));
-switch (options.command) {
-  case 'status': runStatus(); break;
-  case 'preflight': runPreflight(options); break;
-  case 'print': process.stdout.write(buildPlist(options)); break;
-  case 'install': runInstall(options); break;
-  case 'uninstall': runUninstall(); break;
-  case 'help': case '--help': case '-h': runHelp(); break;
-  default: fail(`Unknown command: ${options.command}\nRun with 'help' for usage.`);
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const options = parseArguments(process.argv.slice(2));
+  switch (options.command) {
+    case 'status': runStatus(); break;
+    case 'preflight': runPreflight(options); break;
+    case 'print': process.stdout.write(buildPlist(options)); break;
+    case 'install': runInstall(options); break;
+    case 'uninstall': runUninstall(); break;
+    case 'help': case '--help': case '-h': runHelp(); break;
+    default: fail(`Unknown command: ${options.command}\nRun with 'help' for usage.`);
+  }
 }
