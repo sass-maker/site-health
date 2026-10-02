@@ -7,7 +7,7 @@ Two Paperclip routines run it. Neither has a human in the loop.
 
 | Cadence | Routine | Runbook | Scope |
 | --- | --- | --- | --- |
-| Weekly, Mon 09:00 IST | *Weekly GEO observatory run* | [reporting-loop-weekly.md](reporting-loop-weekly.md) | The 40-query root contract |
+| Weekly, Mon 09:00 IST | *Weekly GEO observatory run* | [reporting-loop-weekly.md](reporting-loop-weekly.md) | Every active query in the root contract |
 | Monthly, 1st 09:00 IST | *Monthly SEO/GEO scorecard* | [reporting-loop-monthly.md](reporting-loop-monthly.md) | Full scorecard + month-over-month report to SAR-1 |
 
 Everything below is the contract both runbooks share. Neither runbook repeats it.
@@ -33,6 +33,8 @@ a checked precondition. The preflight checks:
 - every tooling path resolves — the exact failure mode above
 - the recorder still starts, as a real child process
 - the GEO ledger's latest run, its age, and whether it covers the full root contract
+- *(monthly)* the complete active root/broad query union; a fresh root-only run
+  is incomplete monthly evidence and fails the gate
 - *(monthly)* the frozen AI-visibility panel is intact and append-only
 - *(monthly)* when the panel last ran, and against how many capture units
 - *(monthly)* every scorecard evidence stream's refresh receipt, per scope
@@ -80,12 +82,16 @@ rendering and quietly means nothing.
 | Panel | File | Frozen contract |
 | --- | --- | --- |
 | AI visibility | `apps/backend/config/ai-visibility.json` | `baseline-panel-v1` — 46 prompts × personas = 74 capture units, 7 surfaces |
-| GEO root contract | `apps/backend/config/root-search-queries.json` | 10 roots × 4 intents = 40 active queries |
-| GEO broad set | `apps/backend/config/geo-observatory.json` | 47 products, 98 active queries |
+| GEO root contract | `apps/backend/config/root-search-queries.json` | Active roots × four required intents; derive the count from the file |
+| GEO broad set | `apps/backend/config/geo-observatory.json` | Active product queries; derive the count from the file |
 
-The two GEO configs overlap by 16 queries, so the **full set is 122 active
-queries across 48 products** — not the sum. The preflight reports coverage
-against both denominators; use its numbers rather than recomputing them.
+The two GEO configs overlap, so the full set is their unique product/query
+union after applying root amendments, not the sum or raw broad-file count.
+The recorder's merge retires eight legacy broad queries through root amendments;
+the preflight applies that same merge. Use its current coverage and denominators
+rather than copying a count into a report. As of 2026-10-02 there are 44 active
+root queries, 111 active broad queries after amendments, and 142 unique active
+queries in the union.
 
 To track something new: **add** a query with a new id and keep the old one.
 Never edit in place. Amendments to the AI panel go in

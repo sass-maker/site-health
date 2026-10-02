@@ -100,10 +100,17 @@
       },
       "queries": [
         {
-          "id": "daddyrad-brand",
+          "id": "daddyrad-brand-2",
           "kind": "brand",
           "text": "DaddyRad mac apps",
           "status": "active"
+        },
+        {
+          "id": "daddyrad-brand",
+          "kind": "brand",
+          "text": "DaddyRad Mac utilities",
+          "status": "historical",
+          "supersededBy": "daddyrad-brand-2"
         },
         {
           "id": "daddyrad-exact-domain",
@@ -112,16 +119,30 @@
           "status": "active"
         },
         {
-          "id": "daddyrad-category",
+          "id": "daddyrad-category-2",
           "kind": "category",
           "text": "native macOS utility apps suite",
           "status": "active"
         },
         {
-          "id": "daddyrad-problem",
+          "id": "daddyrad-category",
+          "kind": "category",
+          "text": "native Mac utility apps for storage browsing performance",
+          "status": "historical",
+          "supersededBy": "daddyrad-category-2"
+        },
+        {
+          "id": "daddyrad-problem-2",
           "kind": "problem",
           "text": "mac utilities for storage cleanup performance and browsing",
           "status": "active"
+        },
+        {
+          "id": "daddyrad-problem",
+          "kind": "problem",
+          "text": "free focused Mac utilities for developers",
+          "status": "historical",
+          "supersededBy": "daddyrad-problem-2"
         }
       ]
     },
@@ -303,10 +324,17 @@
           "status": "active"
         },
         {
-          "id": "rolepatch-category",
+          "id": "rolepatch-category-2",
           "kind": "category",
           "text": "resume tailoring with reviewable diff",
           "status": "active"
+        },
+        {
+          "id": "rolepatch-category",
+          "kind": "category",
+          "text": "free ATS resume checker",
+          "status": "historical",
+          "supersededBy": "rolepatch-category-2"
         },
         {
           "id": "rolepatch-problem",

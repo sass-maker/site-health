@@ -67,8 +67,10 @@ function fail(code, message, statusCode = 422) {
 }
 
 function finiteNumber(value) {
+  if (!['number', 'string'].includes(typeof value)
+    || (typeof value === 'string' && value.trim() === '')) return null;
   const number = Number(value);
-  return Number.isFinite(number) ? number : null;
+  return Number.isFinite(number) && number >= 0 ? number : null;
 }
 
 function isIsoTimestamp(value) {
@@ -88,22 +90,27 @@ function trafficMetrics(raw) {
   if (!Array.isArray(rows) || rows.length === 0) {
     return { sessions: null, botSessions: null, uniqueBrowsers: null, pagesPerSession: null };
   }
-  const sessions = rows.reduce((sum, row) => sum + (finiteNumber(row?.totalSessionCount) ?? 0), 0);
-  const botSessions = rows.reduce((sum, row) => sum + (finiteNumber(row?.totalBotSessionCount) ?? 0), 0);
-  const uniqueBrowsers = rows.reduce(
-    (sum, row) => sum + (finiteNumber(row?.distinctUserCount ?? row?.distantUserCount) ?? 0),
-    0,
-  );
-  const weightedPages = rows.reduce((sum, row) => {
-    const count = finiteNumber(row?.totalSessionCount) ?? 0;
+  const sumComplete = (values) => values.every((value) => value !== null)
+    ? values.reduce((sum, value) => sum + value, 0)
+    : null;
+  const sessionCounts = rows.map((row) => finiteNumber(row?.totalSessionCount));
+  const sessions = sumComplete(sessionCounts);
+  const botSessions = sumComplete(rows.map((row) => finiteNumber(row?.totalBotSessionCount)));
+  const uniqueBrowsers = sumComplete(rows.map((row) =>
+    finiteNumber(row?.distinctUserCount ?? row?.distantUserCount)));
+  const weightedPages = sumComplete(rows.map((row, index) => {
+    const count = sessionCounts[index];
+    if (count === null) return null;
+    if (count === 0) return 0; // A zero-session row contributes no pages.
     const pages = finiteNumber(row?.PagesPerSessionPercentage ?? row?.pagesPerSessionPercentage);
-    return pages === null ? sum : sum + (pages * count);
-  }, 0);
+    return pages === null ? null : pages * count;
+  }));
   return {
     sessions,
     botSessions,
     uniqueBrowsers,
-    pagesPerSession: sessions > 0 ? Number((weightedPages / sessions).toFixed(2)) : null,
+    pagesPerSession: sessions > 0 && weightedPages !== null
+      ? Number((weightedPages / sessions).toFixed(2)) : null,
   };
 }
 

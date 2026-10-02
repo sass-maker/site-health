@@ -48,27 +48,38 @@ run scratch dir, outside Git.
 Then refresh `../docs/ai-visibility-baseline-latest.md` in place — the `-latest`
 naming is deliberate, one canonical page rather than accumulating dated files.
 
-**3. GEO — full set.** Run the broad scope over all 122 active queries
-(`geo-observatory.json` plus the root contract), classify A/B/C, and record with
-the **broad** invocation — no `--root-search` flag:
+**3. GEO — full set.** Run the broad scope over the unique active-query union
+of `geo-observatory.json` and the root contract, classify A/B/C, and record with
+the **broad** invocation — no `--root-search` flag. Derive the denominator from
+the merged configs; it is 142 unique active queries as of 2026-10-02 (root
+amendments retire eight legacy broad qids):
 
 ```bash
 node tooling/scripts/geo-observatory-record.mjs <file>
 ```
 
-The weekly root-40 run already covers 40 of these; re-probing them on the
-monthly date is correct — one observation per product/query per day, and the
-monthly date needs a complete set.
+The weekly root run already covers its portion of this union; re-probing those
+queries on the monthly date is correct — one observation per product/query per
+day, and the monthly date needs a complete set.
+
+2026-10-02 local collection: 132/142 active observations, including the complete
+44-query root contract. All ten missing queries were attempted twice but failed
+the skill's relevance gate; none were fabricated as class C. The broad run
+therefore remains incomplete. See the collection notes in
+[the generated GEO report](../apps/backend/docs/geo-observatory-latest.md#collection-coverage).
 
 **4. Authority and rankings.** Read the `drank` (domain rating) and `search`
 (Search Console) streams from the private store. **Check the preflight verdict
-for both before quoting either.** Two live caveats as of 2026-09-05:
-
-- The DR collector is under investigation for a decline (SAR-16) and has a known
-  defect — silent failure, placeholder values, per-host double counting (SAR-20).
-  Do not report a DR movement as real until SAR-20 lands.
-- Search Console evidence last succeeded 2026-08-22 and today's refresh hung in
-  `running`. Report its true age, not the run date.
+for both before quoting either.** The domain-strength collector also has a known
+data-quality defect under SAR-20, so do not report a DR movement as real until
+that lands. Search Console refreshed successfully on 2026-10-02 across 49
+products and 11 accessible properties (data window 2026-09-02 to 2026-09-29),
+while domain-strength receipts record earlier missing-collector failures. Its
+public source has now been restored at the cataloged archive path, and the
+runner and projection use that path. A new successful provider collection has
+not been verified; source restoration does not refresh historical data. These are snapshots, not permanent
+exceptions: always use the current preflight output and report the real age and
+failure.
 
 **5. Technical health.** Run the relevant `site-health` subskills — `seo-audit`
 for on-page, `psi-swarm` for Core Web Vitals, `agent-ready` for AI-crawler
@@ -91,7 +102,7 @@ Keep it short. The owner reads this and nothing else.
 **AI-citation rate: X.X%** (n/74 capture units, manual-claude-websearch)
   — vs Y.Y% last month. <one line: what moved, or "flat">
 
-**Search visibility: Z.Z% class A** (n/122 queries)
+**Search visibility: Z.Z% class A** (n/<active union count> queries)
   — vs W.W% last month. <one line>
 
 These two move independently. <Say so explicitly whenever they diverge —
