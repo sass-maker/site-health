@@ -9,14 +9,13 @@ import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 import { DashboardStore, defaultDatabasePath } from '../lib/dashboard-backend/store.mjs';
 import { PSI_NODE_VERSION } from '../lib/dashboard-backend/psi-runtime.mjs';
+import { resolveCollectorRoot } from '../lib/dashboard-backend/collector-paths.mjs';
 
 export function resolveFleetRoot(directory = import.meta.dirname) {
   return resolve(directory, '../../../..');
 }
 
 const FLEET_ROOT = resolveFleetRoot();
-const PSI_ROOT = resolve(FLEET_ROOT, 'psi-swarm');
-const PSI_CLI = resolve(PSI_ROOT, 'cli/dist/cli.js');
 const PROJECT_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export function parseTargets(args) {
@@ -40,7 +39,14 @@ export function parseTargets(args) {
 
 export function runPerformancePortfolio(
   targets,
-  { cliPath = PSI_CLI, cwd = PSI_ROOT, run = spawnSync, log = console.log } = {},
+  {
+    workspaceRoot = FLEET_ROOT,
+    projects,
+    cwd = resolveCollectorRoot(workspaceRoot, 'psi-swarm', projects),
+    cliPath = resolve(cwd, 'cli/dist/cli.js'),
+    run = spawnSync,
+    log = console.log,
+  } = {},
 ) {
   if (!existsSync(cliPath) && run === spawnSync) {
     throw new Error('PSI Swarm CLI is not built');
@@ -62,6 +68,8 @@ export function runPerformancePortfolio(
       'desktop',
       '--tag',
       'console-portfolio',
+      '--output',
+      'html',
       '--no-suggest',
       '--no-crux',
       '--no-ahrefs',

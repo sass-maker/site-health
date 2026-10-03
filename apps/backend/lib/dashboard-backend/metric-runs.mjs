@@ -3,6 +3,7 @@ import { spawn } from 'node:child_process';
 import { existsSync, realpathSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { PSI_NODE_VERSION } from './psi-runtime.mjs';
+import { resolveCollectorRoot } from './collector-paths.mjs';
 
 import {
   domainStrengthRoots,
@@ -34,10 +35,20 @@ function projectRoot(workspaceRoot, repositoryRoot, project) {
   if (project.id === 'site-health') {
     return resolve(repositoryRoot, 'apps/web');
   }
-  return project.repo ? resolve(workspaceRoot, project.repo) : null;
+  const path = project.sourcePath ?? project.repo;
+  return path ? resolve(workspaceRoot, path) : null;
 }
 
-function commandFor({ family, project, workspaceRoot, repositoryRoot }) {
+function collectorScript(workspaceRoot, id, file, projects) {
+  const root = resolveCollectorRoot(workspaceRoot, id, projects);
+  const path = resolve(root, file);
+  if (!existsSync(path)) {
+    fail('METRIC_RUNNER_UNAVAILABLE', `${id} collector is unavailable at its cataloged checkout`);
+  }
+  return { root, path: existingRealPath(path) };
+}
+
+function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }) {
   if (PORTFOLIO_ONLY_FAMILIES[family]) {
     fail('METRIC_SCOPE_INVALID', `${PORTFOLIO_ONLY_FAMILIES[family]} updates are portfolio-only`);
   }
@@ -46,11 +57,9 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot }) {
     fail('METRIC_DOMAIN_MISSING', `${project.name} has no canonical domain`);
   }
   if (family === 'psi') {
-    const cli = resolve(workspaceRoot, 'psi-swarm/cli/dist/cli.js');
-    if (!existsSync(cli)) {
-      fail('METRIC_RUNNER_UNAVAILABLE', 'PSI Swarm CLI is not built');
-    }
+    const { root, path: cli } = collectorScript(workspaceRoot, 'psi-swarm', 'cli/dist/cli.js', projects);
     return {
+      cwd: root,
       command: 'mise',
       args: [
         'exec',
@@ -66,6 +75,8 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot }) {
         'desktop',
         '--tag',
         'console-manual',
+        '--output',
+        'html',
         '--no-suggest',
         '--no-crux',
         '--no-ahrefs',
@@ -76,8 +87,9 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot }) {
     };
   }
   if (family === 'drank') {
-    const script = existingRealPath(resolve(workspaceRoot, 'drank/scripts/update-global-dr.mjs'));
+    const { root, path: script } = collectorScript(workspaceRoot, 'drank', 'scripts/update-global-dr.mjs', projects);
     return {
+      cwd: root,
       command: process.execPath,
       args: [
         script,
@@ -111,10 +123,12 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
     if (targets.length === 0) {
       fail('METRIC_DOMAIN_MISSING', 'No domain-strength targets are configured');
     }
+    const { root, path: script } = collectorScript(workspaceRoot, 'drank', 'scripts/update-global-dr.mjs', projects);
     return {
+      cwd: root,
       command: process.execPath,
       args: [
-        existingRealPath(resolve(workspaceRoot, 'drank/scripts/update-global-dr.mjs')),
+        script,
         '--sites',
         'data/fleet-sites.json',
         '--data',
@@ -223,7 +237,7 @@ export function createMetricRunController({
             repositoryRoot,
             projects: [...projectsById.values()],
           })
-        : commandFor({ family, project, workspaceRoot, repositoryRoot });
+        : commandFor({ family, project, workspaceRoot, repositoryRoot, projects: currentProjects });
       const run = {
         runId: `metric_${randomUUID().replaceAll('-', '')}`,
         family,
@@ -248,7 +262,7 @@ export function createMetricRunController({
       onRunChange(publicRun(run));
 
       const child = spawnProcess(plan.command, plan.args, {
-        cwd: projectRoot(workspaceRoot, repositoryRoot, project ?? { id: 'site-health' }),
+        cwd: plan.cwd ?? projectRoot(workspaceRoot, repositoryRoot, project ?? { id: 'site-health' }),
         env: process.env,
         shell: false,
         stdio: ['ignore', 'pipe', 'pipe'],

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { latestPerformanceBatch, performanceStatus } from '../lib/dashboard-projection.mjs';
+import { latestPerformanceBatch, numeric, performanceStatus } from '../lib/dashboard-projection.mjs';
 
 function run(observedAt, score, lcp, preset = 'desktop') {
   return { observedAt, preset, score, lcp };
@@ -86,6 +86,25 @@ test('runs without a usable score, LCP, or timestamp are skipped', () => {
   ]);
   assert.equal(batch.sampleCount, 1);
   assert.equal(batch.observedAt, '2026-09-05T07:31:45.000Z');
+});
+
+test('absent provider metrics never become measured zeroes or contaminate a batch', () => {
+  const timestamp = '2026-10-02T00:00:00Z';
+  for (const missing of [null, undefined, '', '  ', false, [], {}]) {
+    assert.equal(numeric(missing), null);
+    assert.equal(latestPerformanceBatch([run(timestamp, missing, 1800)]), null);
+    assert.equal(latestPerformanceBatch([run(timestamp, 92, missing)]), null);
+    const batch = latestPerformanceBatch([
+      run(timestamp, 92, 1800),
+      run('2026-10-02T00:01:00Z', 92, missing),
+    ]);
+    assert.equal(batch.sampleCount, 1);
+    assert.equal(batch.lcp, 1800);
+    assert.equal(batch.observedAt, timestamp);
+  }
+  assert.equal(numeric(0), 0);
+  assert.equal(numeric('0'), 0);
+  assert.equal(latestPerformanceBatch([run(timestamp, 0, 0)]).sampleCount, 1);
 });
 
 test('status needs both signals inside their gates', () => {
