@@ -1,13 +1,77 @@
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { PassThrough } from 'node:stream';
 import { join } from 'node:path';
-import test from 'node:test';
+import test, { after } from 'node:test';
 
-import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
+import { createMetricRunController as createController } from '../lib/dashboard-backend/metric-runs.mjs';
 import { resolveFleetRoot, runPerformancePortfolio } from '../scripts/run-performance-portfolio.mjs';
+
+const fixtureRoot = mkdtempSync(join(tmpdir(), 'site-health-metric-runners-'));
+for (const file of ['drank/scripts/update-global-dr.mjs', 'psi-swarm/cli/dist/cli.js']) {
+  const path = join(fixtureRoot, file);
+  mkdirSync(join(path, '..'), { recursive: true });
+  writeFileSync(path, '');
+}
+after(() => rmSync(fixtureRoot, { recursive: true, force: true }));
+function createMetricRunController(options) {
+  return createController({ workspaceRoot: fixtureRoot, ...options });
+}
+
+test('uses the cataloged archive paths for both collectors and their working directories', () => {
+  const root = realpathSync(mkdtempSync(join(tmpdir(), 'site-health-relocated-runners-')));
+  const projects = [project(),
+    { id: 'drank', repo: '../archive/drank', lifecycle: { status: 'inactive' } },
+    { id: 'psi-swarm', sourcePath: '../archive/psi-swarm', lifecycle: { status: 'inactive' } },
+  ];
+  const workspaceRoot = join(root, 'fleet');
+  const invocations = [];
+  try {
+    for (const file of ['drank/scripts/update-global-dr.mjs', 'psi-swarm/cli/dist/cli.js']) {
+      const path = join(root, 'archive', file);
+      mkdirSync(join(path, '..'), { recursive: true });
+      writeFileSync(path, '');
+    }
+    const controller = createMetricRunController({ projects, workspaceRoot,
+      spawnProcess: (command, args, options) => {
+        invocations.push({ command, args, options });
+        return fakeProcess();
+      },
+    });
+    controller.start({ family: 'drank', projectId: 'pace' });
+    controller.start({ family: 'psi', projectId: 'pace' });
+    controller.start({ family: 'drank', scope: 'portfolio' });
+    assert.equal(invocations[0].args[0], join(root, 'archive/drank/scripts/update-global-dr.mjs'));
+    assert.equal(invocations[0].options.cwd, join(root, 'archive/drank'));
+    assert.equal(invocations[1].args[4], join(root, 'archive/psi-swarm/cli/dist/cli.js'));
+    assert.equal(invocations[1].options.cwd, join(root, 'archive/psi-swarm'));
+    assert.equal(invocations[2].options.cwd, join(root, 'archive/drank'));
+    let performanceInvocation;
+    runPerformancePortfolio([{ projectId: 'pace', url: 'https://heypace.app/' }], {
+      projects, workspaceRoot, log() {},
+      run(command, args, options) { performanceInvocation = { args, options }; return { status: 0 }; },
+    });
+    assert.equal(performanceInvocation.args[4], invocations[1].args[4]);
+    assert.equal(performanceInvocation.options.cwd, invocations[1].options.cwd);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('missing cataloged collectors fail before spawning instead of falling back to a stale checkout', () => {
+  let spawned = false;
+  const controller = createMetricRunController({
+    projects: [project(), { id: 'drank', repo: 'missing/drank' }, { id: 'psi-swarm', repo: 'missing/psi-swarm' }],
+    spawnProcess() { spawned = true; return fakeProcess(); },
+  });
+  for (const family of ['drank', 'psi']) {
+    assert.throws(() => controller.start({ family, projectId: 'pace' }), { code: 'METRIC_RUNNER_UNAVAILABLE' });
+  }
+  assert.throws(() => controller.start({ family: 'drank', scope: 'portfolio' }), { code: 'METRIC_RUNNER_UNAVAILABLE' });
+  assert.equal(spawned, false);
+});
 
 function fakeProcess() {
   const child = new EventEmitter();

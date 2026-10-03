@@ -260,13 +260,20 @@ export function buildProjectDossier({
   const unknowns = [...actionVerification.unknowns];
   const expectedGithubHomepage = publicUrl(project);
   const observedGithubHomepage = operation.githubActionsMeta?.homepage ?? null;
+  const homepageObserved = Object.hasOwn(operation.githubActionsMeta ?? {}, 'homepage');
   const githubHomepageStatus = !expectedGithubHomepage
     ? 'not-applicable'
-    : !observedGithubHomepage
-      ? 'unset'
-      : observedGithubHomepage.replace(/\/+$/, '') === expectedGithubHomepage.replace(/\/+$/, '')
-        ? 'passed'
-        : 'different';
+    : !homepageObserved
+      ? 'unverified'
+      : !observedGithubHomepage
+        ? 'unset'
+        : observedGithubHomepage.replace(/\/+$/, '') === expectedGithubHomepage.replace(/\/+$/, '')
+          ? 'passed'
+          : 'different';
+
+  if (githubHomepageStatus === 'unverified') {
+    unknowns.push('GitHub repository homepage metadata has not been observed.');
+  }
 
   if (operation.source.state !== 'available') {
     unknowns.push('The owning checkout was unavailable during repository observation.');

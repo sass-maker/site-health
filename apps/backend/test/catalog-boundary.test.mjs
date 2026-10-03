@@ -107,7 +107,12 @@ test('deployment summaries stay internally consistent', () => {
         ? 'worker+pages'
         : [...liveDeploymentKinds][0];
 
-    if (project.id === 'site-health') {
+    if (project.deployKind === 'local') {
+      assert.equal(project.status, 'local-only', project.id);
+      assert.equal(project.portfolio.deployed, false, project.id);
+      assert.equal(liveDeploymentKinds.size, 0, project.id);
+      assert.deepEqual(project.domains, [], project.id);
+    } else if (project.id === 'site-health') {
       assert.equal(project.portfolio.deployed, false);
       assert.equal(project.deployKind, 'none');
     } else {
@@ -290,7 +295,7 @@ test('public directory metadata covers every retained identity with bounded publ
     }
 
     for (const date of [metadata.firstCommitAt, metadata.latestCommitAt]) {
-      assert.equal(date === null || /^\d{4}-\d{2}-\d{2}$/.test(date), true);
+      assert.equal(date === null || /^\d{4}-\d{2}-\d{2}$/.test(date), true, projectId);
     }
     if (metadata.firstCommitAt && metadata.latestCommitAt) {
       assert.equal(metadata.firstCommitAt <= metadata.latestCommitAt, true);

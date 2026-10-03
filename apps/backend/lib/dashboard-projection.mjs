@@ -7,6 +7,7 @@ import { validateRootSearchQueryContract } from './root-search-query-contract.mj
 import { defaultVisibilityOutcomePath, readVisibilityOutcomes } from './visibility-outcome-store.mjs';
 import { searchConsoleProjects, visibilityProjects } from './visibility-projects.mjs';
 import { domainStrengthRoots, registrableDomain } from './dashboard-backend/domain-scope.mjs';
+import { resolveCollectorRoot } from './dashboard-backend/collector-paths.mjs';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 // The portfolio runner measures each target with `--runs 2` so lab noise averages out.
@@ -60,7 +61,8 @@ function observedState(observedAt, now, maximumAge) {
 // returned nothing" into a measured zero — the one conflation every reader of this dashboard
 // has to be able to rule out. Absent inputs are rejected before any coercion happens.
 export function numeric(value) {
-  if (value === null || value === undefined || value === '' || typeof value === 'boolean') return null;
+  if (!['number', 'string'].includes(typeof value)
+    || (typeof value === 'string' && value.trim() === '')) return null;
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
 }
@@ -73,8 +75,8 @@ function signal(label, value, observedAt, series = []) {
 }
 
 function drankProjection(fleetRoot, catalog, now) {
-  const payload = readJson(resolve(fleetRoot, 'drank/data/fleet-dr.json'), { domains: {} });
   const projects = catalog.projects ?? [];
+  const payload = readJson(resolve(resolveCollectorRoot(fleetRoot, 'drank', projects), 'data/fleet-dr.json'), { domains: {} });
   const records = new Map(Object.entries(payload.domains ?? {}).map(([domain, record]) => [
     normalizedDomain(domain),
     record,
@@ -82,7 +84,9 @@ function drankProjection(fleetRoot, catalog, now) {
   return domainStrengthRoots(projects).map((domain) => {
     const record = records.get(domain) ?? {};
     const history = [...(record.history ?? [])]
-      .filter((item) => Number.isFinite(Number(item.ts)) && Number.isFinite(Number(item.dr)))
+      .filter((item) => numeric(item.ts) !== null
+        && Number.isFinite(new Date(Number(item.ts)).getTime())
+        && numeric(item.dr) !== null)
       .sort((left, right) => Number(left.ts) - Number(right.ts));
     const latest = history.at(-1);
     const observedAt = latest ? new Date(Number(latest.ts)).toISOString() : payload.lastUpdated ?? null;
@@ -121,6 +125,11 @@ function psiHistory(home) {
     ], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 4000 }) || '[]');
     const byDomain = new Map();
     for (const row of rows) {
+      const startedAt = numeric(row.started_at);
+      const score = numeric(row.performance_score);
+      const lcp = numeric(row.lcp);
+      if (startedAt === null || !Number.isFinite(new Date(startedAt).getTime())
+        || score === null || lcp === null) continue;
       let domain;
       try {
         domain = normalizedDomain(new URL(row.url).hostname);
@@ -130,10 +139,10 @@ function psiHistory(home) {
       const history = byDomain.get(domain) ?? [];
       if (history.length >= 30) continue;
       history.push({
-        observedAt: new Date(Number(row.started_at)).toISOString(),
+        observedAt: new Date(startedAt).toISOString(),
         preset: row.preset ?? null,
-        score: Number(row.performance_score),
-        lcp: Number(row.lcp),
+        score,
+        lcp,
       });
       byDomain.set(domain, history);
     }
@@ -153,8 +162,8 @@ function median(values) {
 // sample carries the full per-sample lab variance the runner's repeated runs exist to cancel.
 export function latestPerformanceBatch(history = []) {
   const runs = (history ?? [])
-    .filter((run) => Number.isFinite(Number(run?.score))
-      && Number.isFinite(Number(run?.lcp))
+    .filter((run) => numeric(run?.score) !== null
+      && numeric(run?.lcp) !== null
       && Number.isFinite(Date.parse(run?.observedAt)))
     .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt));
   const newest = runs.at(-1);

@@ -46,7 +46,7 @@ this list.
 
 | Family | Endpoint | Read from |
 | --- | --- | --- |
-| `drank` | `/v1/outcomes/domains` | `drank/data/fleet-dr.json` in the workspace |
+| `drank` | `/v1/outcomes/domains` | `data/fleet-dr.json` in DRank's cataloged checkout (currently `../fleet-archive/drank`) |
 | `psi` | `/v1/outcomes/performance` | `~/.psi-swarm/history.db` (`runs`), joined at read time |
 | `search` | `/v1/outcomes/search` | visibility-outcome store (Google Search Console) |
 | `seo` | `/v1/outcomes/seo-audit` | `apps/backend/data/seo-audit/latest.json` |
@@ -61,9 +61,11 @@ Every projection distinguishes three things a reader could otherwise conflate:
 a measured value, a measured zero, and no measurement at all.
 
 - A signal is `null` when nothing was measured, and `{ value: 0 }` when zero was
-  measured. `numeric()` in `dashboard-projection.mjs` rejects `null`, `''` and
-  booleans before coercion, because `Number(null)` is `0` and would silently
-  manufacture a measurement.
+  measured. `numeric()` in `dashboard-projection.mjs` rejects absent values,
+  blank strings, booleans and objects before coercion. PSI database rows and
+  domain-rating history are checked before conversion: incomplete samples do
+  not enter the median or sparkline, and invalid timestamps cannot erase the
+  rest of an otherwise readable performance history.
 - Each family enumerates the union of what its collector covers and what the
   public-metric scope expects, so a surface that was never collected appears as
   an explicit row rather than dropping out of the list. GEO separates

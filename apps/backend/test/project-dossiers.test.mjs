@@ -177,7 +177,11 @@ test('project public URL override preserves a canonical subpath', () => {
     catalog,
     operations,
     project,
-    operation: operations.projects.anchor,
+    operation: {
+      ...operations.projects.anchor,
+      githubActions: [],
+      githubActionsMeta: { homepage: `https://${sourceProject.domains[0]}/` },
+    },
     intent: intents.anchor,
     ownerNarrative: ownerSources.narratives.anchor,
     relatedNarratives: ownerSources.related.anchor,
@@ -195,18 +199,19 @@ test('project public URL override preserves a canonical subpath', () => {
   assert.equal(dossier.sharing.changelogUrl, `${project.public.url}changelog`);
 });
 
-test('GitHub homepage absence and trailing slash are known metadata states', () => {
+test('GitHub homepage metadata distinguishes known absence from an unobserved setting', () => {
   const { intents } = parsePortfolioIntents(intentMarkdown, catalog.projects);
   const ownerSources = parseOwnerNarratives(ownerNarrativesMarkdown, catalog.projects);
   const project = catalog.projects.find((entry) => entry.id === 'anchor');
-  const dossierFor = (homepage) =>
+  const dossierFor = (homepage, metadata = { homepage }) =>
     buildProjectDossier({
       catalog,
       operations,
       project,
       operation: {
         ...operations.projects.anchor,
-        githubActionsMeta: { ...operations.projects.anchor.githubActionsMeta, homepage },
+        githubActions: [],
+        githubActionsMeta: metadata,
       },
       intent: intents.anchor,
       ownerNarrative: ownerSources.narratives.anchor,
@@ -224,6 +229,14 @@ test('GitHub homepage absence and trailing slash are known metadata states', () 
   const unset = dossierFor(null);
   assert.equal(unset.verification.checks.githubHomepage, 'unset');
   assert.deepEqual(unset.verification.unknowns, []);
+  for (const metadata of [null, {}]) {
+    const unobserved = dossierFor(null, metadata);
+    assert.equal(unobserved.verification.checks.githubHomepage, 'unverified');
+    assert.equal(unobserved.verification.status, 'partial');
+    assert.deepEqual(unobserved.verification.unknowns, [
+      'GitHub repository homepage metadata has not been observed.',
+    ]);
+  }
 });
 
 test('workflow health distinguishes failures, staleness, stuck runs, and expected manual absence', () => {
