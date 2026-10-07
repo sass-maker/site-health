@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { reviewDiscoveryExperiment } from '../lib/discovery-experiment.mjs';
+import { reviewDiscoveryExperiment, reviewDiscoveryRecrawl } from '../lib/discovery-experiment.mjs';
 
 const experiment = {
   id: 'anime-discovery-20261007', projectId: 'anime-list', scope: 'anime-host',
@@ -72,4 +72,27 @@ test('deployment and review timestamps use Pacific provider dates across UTC mid
   assert.equal(report.after.end, '2026-10-10');
   assert.equal(report.days, 3);
   assert.equal(report.reportingTimezone, 'America/Los_Angeles');
+});
+
+const crawlExperiment = { ...experiment, liveChecks: [{ url: 'https://anime.example/search' }, { url: 'https://anime.example/manga' }] };
+test('pre-release crawls and undiscovered pages cannot reject the traffic hypothesis', () => {
+  const result = reviewDiscoveryRecrawl(crawlExperiment, [
+    { inspectedUrl: 'https://anime.example/search', state: 'not-indexed', lastCrawlTime: '2026-08-20T19:37:43Z' },
+    { inspectedUrl: 'https://anime.example/manga', state: 'not-indexed', coverageState: 'URL is unknown to Google' },
+  ]);
+  assert.equal(result.status, 'awaiting-recrawl-evidence');
+  assert.equal(result.routes[0].recrawledSincePublication, false);
+  assert.equal(result.routes[1].recrawledSincePublication, null);
+});
+test('recrawl evidence requires every changed URL and preserves indexing as a separate fact', () => {
+  const rows = crawlExperiment.liveChecks.map(({ url }) => ({ inspectedUrl: url, state: 'not-indexed', lastCrawlTime: '2026-10-09T12:00:00Z' }));
+  assert.equal(reviewDiscoveryRecrawl(crawlExperiment, rows.slice(0, 1)).status, 'awaiting-recrawl-evidence');
+  const result = reviewDiscoveryRecrawl(crawlExperiment, rows);
+  assert.equal(result.status, 'recrawl-recorded');
+  assert.equal(result.routes[0].indexState, 'not-indexed');
+});
+test('unavailable inspections and unverified publication remain unknown', () => {
+  const rows = [{ inspectedUrl: 'https://anime.example/search', state: 'unavailable', lastCrawlTime: '2026-10-09T12:00:00Z' }];
+  assert.equal(reviewDiscoveryRecrawl(crawlExperiment, rows).routes[0].recrawledSincePublication, null);
+  assert.equal(reviewDiscoveryRecrawl({ ...crawlExperiment, publication: { status: 'local-checked' } }, rows).status, 'awaiting-publication');
 });
