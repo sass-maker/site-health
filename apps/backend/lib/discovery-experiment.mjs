@@ -78,3 +78,34 @@ export function reviewDiscoveryExperiment(experiment, observation, now = new Dat
     indexInspection: observation.indexInspection ?? null,
   };
 }
+
+// URL Inspection describes Google's recorded version, not a live fetch. A
+// missing crawl timestamp cannot establish that this release has been seen.
+export function reviewDiscoveryRecrawl(experiment, inspections = []) {
+  const publishedAt = Date.parse(experiment.publication?.publishedAt);
+  if (experiment.publication?.status !== 'live-verified' || !Number.isFinite(publishedAt)) {
+    return { status: 'awaiting-publication', routes: [] };
+  }
+  const targets = experiment.liveChecks?.map((target) => target.url) ?? [];
+  if (!targets.length) return { status: 'unavailable', reason: 'No changed URLs configured.', routes: [] };
+  const routes = targets.map((url) => {
+    const inspection = inspections.find((item) => item.inspectedUrl === url);
+    const crawl = Date.parse(inspection?.lastCrawlTime);
+    return {
+      url,
+      indexState: inspection?.state ?? 'unavailable',
+      coverageState: inspection?.coverageState ?? null,
+      lastCrawlTime: inspection?.lastCrawlTime ?? null,
+      recrawledSincePublication: inspection && inspection.state !== 'unavailable' && Number.isFinite(crawl)
+        ? crawl >= publishedAt : null,
+      userCanonical: inspection?.userCanonical ?? null,
+      googleCanonical: inspection?.googleCanonical ?? null,
+    };
+  });
+  return {
+    status: routes.every((route) => route.recrawledSincePublication === true)
+      ? 'recrawl-recorded' : 'awaiting-recrawl-evidence',
+    routes,
+    limitation: 'Recorded crawl dates do not prove Google rendered the new content or that it will rank. Missing evidence cannot reject the hypothesis.',
+  };
+}

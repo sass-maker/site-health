@@ -2,7 +2,8 @@
 import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-import { reviewDiscoveryExperiment } from '../lib/discovery-experiment.mjs';
+import { reviewDiscoveryExperiment, reviewDiscoveryRecrawl } from '../lib/discovery-experiment.mjs';
+import { inspectSearchConsoleUrl } from '../lib/search-console.mjs';
 
 const args = process.argv.slice(2);
 const configIndex = args.indexOf('--experiment');
@@ -43,6 +44,42 @@ const observation = records.filter((record) => record.provider === 'google-searc
 const report = refreshError
   ? { schema: 'fleet.discovery-experiment-review.v1', experimentId: experiment.id, reviewedAt: new Date().toISOString(), status: 'unavailable', reason: refreshError }
   : reviewDiscoveryExperiment(experiment, observation);
+// Supplement the existing metrics collector with bounded inspections of the
+// exact changed URLs, using its canonical adapter and existing Google client.
+// This does not submit URLs, change sitemaps, or create a metrics ledger.
+const inspections = [];
+let inspectionError = null;
+if (args.includes('--refresh') && !refreshError && experiment.publication?.status === 'live-verified') {
+  try {
+    const urls = experiment.liveChecks.map((target) => target.url);
+    const origin = new URL(experiment.publication.publicUrl).origin;
+    if (!urls.length || urls.length > 5 || urls.some((url) => new URL(url).origin !== origin)) {
+      throw new Error('Inspections must stay on the experiment origin and contain at most five URLs.');
+    }
+    const siteUrl = experiment.scope.split(' · page:')[0];
+    const host = new URL(origin).hostname;
+    const domain = siteUrl.startsWith('sc-domain:') ? siteUrl.slice(10) : null;
+    if (domain ? host !== domain && !host.endsWith(`.${domain}`)
+      : urls.some((url) => !url.startsWith(new URL(siteUrl).href))) {
+      throw new Error('Inspection property does not match the experiment origin.');
+    }
+    const config = JSON.parse(readFileSync(resolve(experiment.collectorCwd, 'apps/backend/config/search-console.json'), 'utf8'));
+    const auth = spawnSync('gcloud', ['auth', 'application-default', 'print-access-token'], {
+      encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 30000,
+    });
+    if (auth.status !== 0 || !auth.stdout.trim()) throw new Error('Existing Google authorization unavailable for URL inspections.');
+    for (const inspectionUrl of urls) {
+      inspections.push(await inspectSearchConsoleUrl({ inspectionUrl, siteUrl,
+        accessToken: auth.stdout.trim(), quotaProject: config.quotaProject }));
+    }
+  } catch {
+    // Avoid leaking authentication or provider payloads into a report.
+    inspectionError = 'Changed-route inspection unavailable; do not infer a recrawl.';
+  }
+}
+report.recrawl = reviewDiscoveryRecrawl(experiment, inspections);
+if (inspectionError) report.recrawl.reason = inspectionError;
+if (inspections.length) report.recrawl.inspectedAt = new Date().toISOString();
 const text = [
   '# Anime List discovery experiment review', '',
   `Status: **${report.status}**. Reviewed ${report.reviewedAt}.`, '',
@@ -54,6 +91,12 @@ const text = [
     `| Impressions | ${report.before.impressions} | ${report.after.impressions} |`, '',
     `Previous: ${report.before.start}–${report.before.end}. Treatment: ${report.after.start}–${report.after.end}. Search Console Pacific dates; ${report.days} complete days.`, '',
   ] : []),
+  '## Changed-page crawl evidence', '',
+  `Status: **${report.recrawl.status}**.`, '',
+  '| URL | Google index state | Last recorded crawl | Crawl after publication |',
+  '| --- | --- | --- | --- |',
+  ...report.recrawl.routes.map((route) => `| ${route.url} | ${route.coverageState ?? route.indexState} | ${route.lastCrawlTime ?? 'Unknown'} | ${route.recrawledSincePublication === null ? 'Unknown' : route.recrawledSincePublication ? 'Yes' : 'No'} |`), '',
+  report.recrawl.reason ?? report.recrawl.limitation ?? '', '',
   ...(report.limitations ?? []).map((limitation) => `- ${limitation}`), '',
 ].join('\n');
 if (args.includes('--write')) {
