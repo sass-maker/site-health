@@ -188,14 +188,6 @@
       ]
     },
     {
-      "id": "journal",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "ios-landings/src/layouts/SiteLayout.astro"
-      ]
-    },
-    {
       "id": "kith",
       "kind": "visual",
       "state": "required",
@@ -232,7 +224,9 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "aliveville/astro-landing/src/layouts/Layout.astro"
+        "aliveville/astro-landing/src/pages/index.astro",
+        "aliveville/astro-landing/src/pages/ai-world-simulator.astro",
+        "aliveville/astro-landing/src/layouts/LegalLayout.astro"
       ]
     },
     {
@@ -289,14 +283,6 @@
       "state": "required",
       "files": [
         "portfolio/src/layouts/BaseLayout.astro"
-      ]
-    },
-    {
-      "id": "field-track",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "field-track/src/layouts/AppLayout.astro"
       ]
     },
     {
@@ -369,9 +355,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "every-song-is-a-website/index.html",
-        "every-song-is-a-website/404.html",
-        "every-song-is-a-website/shared/chrome.js"
+        "every-song-is-a-website/index.html"
       ]
     },
     {

@@ -561,22 +561,6 @@
       ]
     },
     {
-      "id": "field-track",
-      "origin": "https://field-track.sassmaker.com",
-      "queries": [
-        {
-          "qid": "field-track-brand",
-          "kind": "brand",
-          "q": "Field Track sassmaker"
-        },
-        {
-          "qid": "field-track-category",
-          "kind": "category",
-          "q": "Android field employee location tracking manager dashboard"
-        }
-      ]
-    },
-    {
       "id": "mashup",
       "origin": "https://mashup.highsignal.app",
       "queries": [
@@ -837,27 +821,6 @@
           "qid": "contextdaddy-problem",
           "kind": "problem",
           "q": "manage AI coding agent skills and telemetry"
-        }
-      ]
-    },
-    {
-      "id": "war-chest",
-      "origin": "https://warchest.significanthobbies.com",
-      "queries": [
-        {
-          "qid": "war-chest-brand",
-          "kind": "brand",
-          "q": "War Chest Godot game"
-        },
-        {
-          "qid": "war-chest-category",
-          "kind": "category",
-          "q": "turn-based tactics game Mac warband equipment packing"
-        },
-        {
-          "qid": "war-chest-problem",
-          "kind": "problem",
-          "q": "tactics game where equipment packing is strategy"
         }
       ]
     },
