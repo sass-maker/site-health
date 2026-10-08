@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
-      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      documentSha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -35,7 +35,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: browserdaddy
-      revision: 3e5dd25ac2e637dede2abdb2a0d4c0ed5500e8fa
+      revision: af1ec1f5c052a4a986ddf71c7eefd41c6392ecbf
       githubRepository: Significant-Hobbies/browserdaddy
       expectedHomepage: https://browser.daddyrad.com/
       observedHomepage: https://browser.daddyrad.com
@@ -47,7 +47,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: browserdaddy
-      revision: 3e5dd25ac2e637dede2abdb2a0d4c0ed5500e8fa
+      revision: af1ec1f5c052a4a986ddf71c7eefd41c6392ecbf
       githubRepository: Significant-Hobbies/browserdaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -57,7 +57,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -120,13 +120,13 @@ product:
     - Sparkle
   retainedGitHistory:
     firstCommitAt: 2026-09-19
-    latestCommitAt: 2026-10-08
-    retainedCommitCount: 94
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 95
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: browserdaddy
-  observedRevision: 3e5dd25ac2e637dede2abdb2a0d4c0ed5500e8fa
+  observedRevision: af1ec1f5c052a4a986ddf71c7eefd41c6392ecbf
   githubRepository: Significant-Hobbies/browserdaddy
   githubHomepageUrl: https://browser.daddyrad.com
   worktree: *a1
@@ -151,7 +151,7 @@ repository:
           - SafariTabsExtension/SafariTabsExtension.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -159,7 +159,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/browserdaddy
     defaultBranch: main
-    defaultBranchSha: 3e5dd25ac2e637dede2abdb2a0d4c0ed5500e8fa
+    defaultBranchSha: af1ec1f5c052a4a986ddf71c7eefd41c6392ecbf
     homepage: https://browser.daddyrad.com
     query: verified
     disposition:
@@ -184,15 +184,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37834670455
+          id: 37835373316
           status: completed
           conclusion: success
-          event: pull_request
-          branch: chore/ignore-wrangler-20261009
-          headSha: c580f179c32553600cddae5aab9ff37f8d13764f
-          createdAt: 2026-10-08T19:48:11Z
-          updatedAt: 2026-10-08T19:51:57Z
-          url: https://github.com/Significant-Hobbies/browserdaddy/actions/runs/37834670455
+          event: push
+          branch: main
+          headSha: af1ec1f5c052a4a986ddf71c7eefd41c6392ecbf
+          createdAt: 2026-10-08T19:53:52Z
+          updatedAt: 2026-10-08T20:03:39Z
+          url: https://github.com/Significant-Hobbies/browserdaddy/actions/runs/37835373316
         ageDays: 0
       schedule:
         health: not-applicable
@@ -202,15 +202,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37821173216
+          id: 37835373316
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3e5dd25ac2e637dede2abdb2a0d4c0ed5500e8fa
-          createdAt: 2026-10-08T18:02:11Z
-          updatedAt: 2026-10-08T18:04:58Z
-          url: https://github.com/Significant-Hobbies/browserdaddy/actions/runs/37821173216
+          headSha: af1ec1f5c052a4a986ddf71c7eefd41c6392ecbf
+          createdAt: 2026-10-08T19:53:52Z
+          updatedAt: 2026-10-08T20:03:39Z
+          url: https://github.com/Significant-Hobbies/browserdaddy/actions/runs/37835373316
         ageDays: 0
       attention: clear
     - name: Protected manual release

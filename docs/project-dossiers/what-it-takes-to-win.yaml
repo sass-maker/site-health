@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: what-it-takes-to-win
-      revision: 812b5b1a1a1fd2e3b5e6a7399fafec7843834754
+      revision: 156c12aa6d4cb788c5b2d26342a5dc03f223c2aa
       githubRepository: Significant-Hobbies/what-it-takes-to-win
       expectedHomepage: https://paths.significanthobbies.com
       observedHomepage: https://paths.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 1
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-10-08
       state: available
       checkout: what-it-takes-to-win
-      revision: 812b5b1a1a1fd2e3b5e6a7399fafec7843834754
+      revision: 156c12aa6d4cb788c5b2d26342a5dc03f223c2aa
       githubRepository: Significant-Hobbies/what-it-takes-to-win
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -114,13 +114,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-21
-    latestCommitAt: 2026-10-03
-    retainedCommitCount: 313
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 328
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: what-it-takes-to-win
-  observedRevision: 812b5b1a1a1fd2e3b5e6a7399fafec7843834754
+  observedRevision: 156c12aa6d4cb788c5b2d26342a5dc03f223c2aa
   githubRepository: Significant-Hobbies/what-it-takes-to-win
   githubHomepageUrl: https://paths.significanthobbies.com
   worktree: *a1
@@ -137,6 +137,8 @@ repository:
       - name: Biome
         evidence:
           - biome.json
+          - vendor/ultracite/7.11.0/config/biome/astro/biome.jsonc
+          - vendor/ultracite/7.11.0/config/biome/core/biome.jsonc
       - name: Cloudflare Wrangler
         evidence:
           - wrangler.jsonc
@@ -173,7 +175,7 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -181,7 +183,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/what-it-takes-to-win
     defaultBranch: main
-    defaultBranchSha: 893737b7aa8c979c88add3723c863ffba9ad0641
+    defaultBranchSha: 156c12aa6d4cb788c5b2d26342a5dc03f223c2aa
     homepage: https://paths.significanthobbies.com
     query: verified
     disposition:
@@ -206,15 +208,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37819882337
+          id: 37836260708
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 893737b7aa8c979c88add3723c863ffba9ad0641
-          createdAt: 2026-10-08T17:52:13Z
-          updatedAt: 2026-10-08T17:55:13Z
-          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/37819882337
+          headSha: 156c12aa6d4cb788c5b2d26342a5dc03f223c2aa
+          createdAt: 2026-10-08T20:00:58Z
+          updatedAt: 2026-10-08T20:03:32Z
+          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/37836260708
         ageDays: 0
       schedule:
         health: not-applicable
@@ -224,15 +226,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37819882337
+          id: 37836260708
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 893737b7aa8c979c88add3723c863ffba9ad0641
-          createdAt: 2026-10-08T17:52:13Z
-          updatedAt: 2026-10-08T17:55:13Z
-          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/37819882337
+          headSha: 156c12aa6d4cb788c5b2d26342a5dc03f223c2aa
+          createdAt: 2026-10-08T20:00:58Z
+          updatedAt: 2026-10-08T20:03:32Z
+          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/37836260708
         ageDays: 0
       attention: clear
     - name: Dependency lock repair

@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-10-04
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,33 +34,33 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: meme-lab
-      revision: 4a6a5752f567f26de152cd84710a2f3b516790bd
+      revision: c3165c10c6ee7d1c415929a3777f4a694a39ece5
       githubRepository: Significant-Hobbies/meme-lab
       expectedHomepage: https://memes.significanthobbies.com
       observedHomepage: https://memes.significanthobbies.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 19
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-10-08
       state: available
       checkout: meme-lab
-      revision: 4a6a5752f567f26de152cd84710a2f3b516790bd
+      revision: c3165c10c6ee7d1c415929a3777f4a694a39ece5
       githubRepository: Significant-Hobbies/meme-lab
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-20
       catalogLatestCommitAt: 2026-09-28
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
-        clear: 1
-        reconcile: 1
+        clear: 2
   unknowns: []
 ownerVoice:
   whyVerbatim: I'm not going to read this out. What I want is, as soon as someone does a comment, we get a meme. That is it. I don't care about the implementation details. I want it live for me to play around with it. Once it's live I want to expand on the next things.
@@ -123,13 +123,13 @@ product:
     - Anna SDK
   retainedGitHistory:
     firstCommitAt: 2026-09-20
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 56
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 103
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: meme-lab
-  observedRevision: 4a6a5752f567f26de152cd84710a2f3b516790bd
+  observedRevision: c3165c10c6ee7d1c415929a3777f4a694a39ece5
   githubRepository: Significant-Hobbies/meme-lab
   githubHomepageUrl: https://memes.significanthobbies.com
   worktree: *a1
@@ -138,23 +138,28 @@ repository:
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: null
+    declaredPackageManager: pnpm@10.33.2
     detectedSignals:
       - name: Cloudflare Wrangler
         evidence:
           - worker/tools/wrangler.jsonc
           - wrangler.jsonc
-      - name: npm
+      - name: pnpm
         evidence:
-          - package-lock.json
+          - pnpm-lock.yaml
     rootPackageScripts:
+      - acquire:dialogue-cornell
+      - acquire:dialogue-pilot
       - acquire:reaction-gifs
       - acquire:stage-1000
       - acquire:stage-300
       - acquire:stage-3000
       - acquire:stage-3000-nga
+      - audit:reaction-gifs:5000
       - audit:stage-3000
       - build:anna
+      - build:dialogue-data
+      - build:dialogue-eval
       - build:expansion
       - build:public
       - build:public-catalogue
@@ -167,6 +172,9 @@ repository:
       - deploy:public
       - dev:public
       - eval:canonical-gaps
+      - eval:dialogue-memorability
+      - eval:dialogue-memorability-classifier
+      - eval:dialogue-quality
       - eval:fit-score
       - eval:fit-score:build
       - eval:fit-score:finalists
@@ -193,17 +201,19 @@ repository:
       - experiment:stage-3000-safety
       - experiment:summarize
       - fingerprint:stage-3000
+      - link:dialogue-sources
       - metadata:reaction-gifs
       - metadata:reaction-gifs:merge
       - metadata:stage-3000
       - metadata:stage-3000:merge
+      - score:dialogue-pilot
       - select:stage-3000
       - signals:stage-3000
       - start
       - test
       - types:worker
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -211,7 +221,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/meme-lab
     defaultBranch: main
-    defaultBranchSha: 9106ac0c1182ba69bdba4c6ebb1bdba38214b6f1
+    defaultBranchSha: c3165c10c6ee7d1c415929a3777f4a694a39ece5
     homepage: https://memes.significanthobbies.com
     query: verified
     disposition:
@@ -237,15 +247,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37835251777
+          id: 37836092332
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9106ac0c1182ba69bdba4c6ebb1bdba38214b6f1
-          createdAt: 2026-10-08T19:52:54Z
-          updatedAt: 2026-10-08T19:53:29Z
-          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/37835251777
+          headSha: c3165c10c6ee7d1c415929a3777f4a694a39ece5
+          createdAt: 2026-10-08T19:59:46Z
+          updatedAt: 2026-10-08T20:00:22Z
+          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/37836092332
         ageDays: 0
       schedule:
         health: not-applicable
@@ -255,15 +265,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37835251777
+          id: 37836092332
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 9106ac0c1182ba69bdba4c6ebb1bdba38214b6f1
-          createdAt: 2026-10-08T19:52:54Z
-          updatedAt: 2026-10-08T19:53:29Z
-          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/37835251777
+          headSha: c3165c10c6ee7d1c415929a3777f4a694a39ece5
+          createdAt: 2026-10-08T19:59:46Z
+          updatedAt: 2026-10-08T20:00:22Z
+          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/37836092332
         ageDays: 0
       attention: clear
     - name: Production picker
@@ -274,12 +284,12 @@ githubActions:
       schedules:
         - 17 * * * *
       inventory:
-        source: remote-only
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
-        status: needs-reconciliation
-        reason: workflow exists in GitHub but not in the local working tree
+        status: active
+        reason: tracked workflow
       live:
         health: healthy
         reason: latest run concluded success
@@ -314,7 +324,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: reconcile
+      attention: clear
 deployment:
   kind: worker
   deployed: true

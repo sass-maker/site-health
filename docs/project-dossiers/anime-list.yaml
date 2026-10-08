@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -56,9 +56,10 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
-      healthy: 6
+      running: 1
+      healthy: 5
       stale: 1
       attention: &a2
         clear: 7
@@ -207,10 +208,11 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
-    healthy: 6
+    running: 1
+    healthy: 5
     stale: 1
   attention: *a2
   remote:
@@ -238,19 +240,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 37821152520
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: c4b491edc78756b5c703ce9781425d28d993fe46
-          createdAt: 2026-10-08T18:02:02Z
-          updatedAt: 2026-10-08T18:04:08Z
-          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/37821152520
+          id: 37838896559
+          status: in_progress
+          conclusion: null
+          event: pull_request
+          branch: agent/anime-list-fleet-local
+          headSha: 7b392d06cb4825dd47ccafb15f0539028998f1f2
+          createdAt: 2026-10-08T20:21:59Z
+          updatedAt: 2026-10-08T20:22:02Z
+          url: https://github.com/Significant-Hobbies/anime-list/actions/runs/37838896559
         ageDays: 0
       schedule:
         health: not-applicable

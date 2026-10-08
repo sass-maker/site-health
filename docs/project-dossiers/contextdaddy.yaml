@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: bafe2dc9dfd353e716620483f1608fe37a7cfbcc9fe8a8e26090ea24468695a1
-      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      documentSha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -35,19 +35,19 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: contextdaddy
-      revision: e77c590dc4e74252799408f9661e0d8d680c85c4
+      revision: c6bd95bdec975932e5e649b548cd458ffb78cfe3
       githubRepository: Significant-Hobbies/contextdaddy
       expectedHomepage: https://context.daddyrad.com/
       observedHomepage: null
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 13
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-10-08
       state: available
       checkout: contextdaddy
-      revision: e77c590dc4e74252799408f9661e0d8d680c85c4
+      revision: c6bd95bdec975932e5e649b548cd458ffb78cfe3
       githubRepository: Significant-Hobbies/contextdaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -58,10 +58,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
-      running: 1
-      healthy: 1
+      healthy: 2
       attention: &a2
         clear: 2
   unknowns: []
@@ -114,13 +113,13 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-09-23
-    latestCommitAt: 2026-10-02
-    retainedCommitCount: 32
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 55
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: contextdaddy
-  observedRevision: e77c590dc4e74252799408f9661e0d8d680c85c4
+  observedRevision: c6bd95bdec975932e5e649b548cd458ffb78cfe3
   githubRepository: Significant-Hobbies/contextdaddy
   githubHomepageUrl: null
   worktree: *a1
@@ -142,16 +141,15 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
-    running: 1
-    healthy: 1
+    healthy: 2
   attention: *a2
   remote:
     repository: Significant-Hobbies/contextdaddy
     defaultBranch: main
-    defaultBranchSha: d9257c57f82825dc31908302bb3feea0ef8ec337
+    defaultBranchSha: c6bd95bdec975932e5e649b548cd458ffb78cfe3
     homepage: null
     query: verified
     disposition:
@@ -172,19 +170,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is queued
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37835336828
-          status: queued
-          conclusion: null
-          event: pull_request
-          branch: agent/contextdaddy-release-ready-20261009
-          headSha: 65783ac9f329215a37a925904e330c7e82465c2b
-          createdAt: 2026-10-08T19:53:34Z
-          updatedAt: 2026-10-08T19:53:34Z
-          url: https://github.com/Significant-Hobbies/contextdaddy/actions/runs/37835336828
+          id: 37836481600
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: c6bd95bdec975932e5e649b548cd458ffb78cfe3
+          createdAt: 2026-10-08T20:02:39Z
+          updatedAt: 2026-10-08T20:10:00Z
+          url: https://github.com/Significant-Hobbies/contextdaddy/actions/runs/37836481600
         ageDays: 0
       schedule:
         health: not-applicable
@@ -194,15 +192,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37827657944
+          id: 37836481600
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: d9257c57f82825dc31908302bb3feea0ef8ec337
-          createdAt: 2026-10-08T18:52:40Z
-          updatedAt: 2026-10-08T18:57:38Z
-          url: https://github.com/Significant-Hobbies/contextdaddy/actions/runs/37827657944
+          headSha: c6bd95bdec975932e5e649b548cd458ffb78cfe3
+          createdAt: 2026-10-08T20:02:39Z
+          updatedAt: 2026-10-08T20:10:00Z
+          url: https://github.com/Significant-Hobbies/contextdaddy/actions/runs/37836481600
         ageDays: 0
       attention: clear
     - name: Protected manual release
@@ -231,7 +229,7 @@ githubActions:
           createdAt: 2026-10-04T19:58:01Z
           updatedAt: 2026-10-04T20:03:55Z
           url: https://github.com/Significant-Hobbies/contextdaddy/actions/runs/37230266333
-        ageDays: 3
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
