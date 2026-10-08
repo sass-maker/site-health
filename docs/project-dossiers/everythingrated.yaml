@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -52,7 +52,7 @@ verification:
       catalogDrift: []
       reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
       attention: &a1 {}
   unknowns:
@@ -126,7 +126,7 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary: {}
   attention: *a1

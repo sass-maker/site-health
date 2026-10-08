@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-10-08
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,19 +34,19 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: starboard
-      revision: 71c3866cf00c00fd9b4be296d6351d6b9bdf15f4
+      revision: 5b9aba6e27bf252a78916b2d1d281c7727e84181
       githubRepository: Codevetter/starboard
       expectedHomepage: https://starboard.codevetter.com
       observedHomepage: https://starboard.codevetter.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-10-08
       state: available
       checkout: starboard
-      revision: 71c3866cf00c00fd9b4be296d6351d6b9bdf15f4
+      revision: 5b9aba6e27bf252a78916b2d1d281c7727e84181
       githubRepository: Codevetter/starboard
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,15 +56,15 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
-      healthy: 7
-      running: 1
+      healthy: 8
       stale: 1
       disabled: 1
       attention: &a2
         reconcile: 2
-        clear: 8
+        clear: 7
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: GitHub stars were not working for me due to the volume so I decided to build my own UI. I am still adding some interesting features to it for better exploring but otherwise it is more or less done.
@@ -117,13 +117,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-22
-    latestCommitAt: 2026-10-03
-    retainedCommitCount: 447
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 457
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: starboard
-  observedRevision: 71c3866cf00c00fd9b4be296d6351d6b9bdf15f4
+  observedRevision: 5b9aba6e27bf252a78916b2d1d281c7727e84181
   githubRepository: Codevetter/starboard
   githubHomepageUrl: https://starboard.codevetter.com
   worktree: *a1
@@ -196,23 +196,23 @@ repository:
       - start
       - test
       - test:coverage
+      - test:dependency-security
       - test:e2e
       - test:e2e:mobile
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
-    healthy: 7
-    running: 1
+    healthy: 8
     stale: 1
     disabled: 1
   attention: *a2
   remote:
     repository: Codevetter/starboard
     defaultBranch: main
-    defaultBranchSha: ef51c8f78bba83da8bf58a7db9228bdb4e249bc4
+    defaultBranchSha: 5b9aba6e27bf252a78916b2d1d281c7727e84181
     homepage: https://starboard.codevetter.com
     query: verified
     disposition:
@@ -268,19 +268,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37835268617
-          status: in_progress
-          conclusion: null
+          id: 37836356119
+          status: completed
+          conclusion: success
           event: pull_request
-          branch: agent/starboard-issue151-footer-20261005
-          headSha: aeef78c50e88a5fc8c1ee563fb9ab7aed15e52e3
-          createdAt: 2026-10-08T19:53:02Z
-          updatedAt: 2026-10-08T19:53:05Z
-          url: https://github.com/Codevetter/starboard/actions/runs/37835268617
+          branch: chore/ignore-fleet-local-20261009
+          headSha: 9155490f55e024801e8e132018f99721bb10dcf0
+          createdAt: 2026-10-08T20:01:40Z
+          updatedAt: 2026-10-08T20:03:52Z
+          url: https://github.com/Codevetter/starboard/actions/runs/37836356119
         ageDays: 0
       schedule:
         health: not-applicable
@@ -290,15 +290,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37819847045
+          id: 37835939119
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: ef51c8f78bba83da8bf58a7db9228bdb4e249bc4
-          createdAt: 2026-10-08T17:51:57Z
-          updatedAt: 2026-10-08T17:54:54Z
-          url: https://github.com/Codevetter/starboard/actions/runs/37819847045
+          headSha: 5b9aba6e27bf252a78916b2d1d281c7727e84181
+          createdAt: 2026-10-08T19:58:25Z
+          updatedAt: 2026-10-08T20:00:57Z
+          url: https://github.com/Codevetter/starboard/actions/runs/37835939119
         ageDays: 0
       attention: clear
     - name: Cloudflare operator smoke
@@ -407,8 +407,8 @@ githubActions:
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision 5b9aba6
         lastRun:
           id: 37819847062
           status: completed
@@ -419,8 +419,7 @@ githubActions:
           createdAt: 2026-10-08T17:51:57Z
           updatedAt: 2026-10-08T17:52:08Z
           url: https://github.com/Codevetter/starboard/actions/runs/37819847062
-        ageDays: 0
-      attention: clear
+      attention: missing-data
     - name: Embed pending repos
       file: .github/workflows/embed-pending.yml
       triggers:

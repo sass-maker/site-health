@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: setline
-      revision: ccc3815df4640e72a77e41b707364c9d2157bdfb
+      revision: bf9360d9b463059d6c6334115e203f3e3f558da5
       githubRepository: Significant-Hobbies/setline
       expectedHomepage: https://setline.significanthobbies.com
       observedHomepage: https://setline.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: setline
-      revision: ccc3815df4640e72a77e41b707364c9d2157bdfb
+      revision: bf9360d9b463059d6c6334115e203f3e3f558da5
       githubRepository: Significant-Hobbies/setline
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 1
       attention: &a2
         action-required: 1
   unknowns: []
@@ -111,13 +111,13 @@ product:
     - PersonalSyncKit
   retainedGitHistory:
     firstCommitAt: 2026-07-27
-    latestCommitAt: 2026-09-23
-    retainedCommitCount: 131
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 133
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: setline
-  observedRevision: ccc3815df4640e72a77e41b707364c9d2157bdfb
+  observedRevision: bf9360d9b463059d6c6334115e203f3e3f558da5
   githubRepository: Significant-Hobbies/setline
   githubHomepageUrl: https://setline.significanthobbies.com
   worktree: *a1
@@ -154,10 +154,10 @@ repository:
       - quality:unused
       - test
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/setline
@@ -183,19 +183,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37833182248
+          id: 37836146337
           status: completed
-          conclusion: failure
-          event: push
-          branch: main
-          headSha: bf9360d9b463059d6c6334115e203f3e3f558da5
-          createdAt: 2026-10-08T19:36:11Z
-          updatedAt: 2026-10-08T19:49:01Z
-          url: https://github.com/Significant-Hobbies/setline/actions/runs/37833182248
+          conclusion: success
+          event: pull_request
+          branch: chore/land-sweep-20260926
+          headSha: 2b9746f7f6b1981a1fa69079e55c0d98e368d0e5
+          createdAt: 2026-10-08T20:00:12Z
+          updatedAt: 2026-10-08T20:21:50Z
+          url: https://github.com/Significant-Hobbies/setline/actions/runs/37836146337
         ageDays: 0
       schedule:
         health: not-applicable

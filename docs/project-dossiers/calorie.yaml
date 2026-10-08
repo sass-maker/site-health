@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-09-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: calorie
-      revision: f97df9c82bf39492f0b0ea760603365a7b2af4e7
+      revision: 99703eaede0fb32c1df42cfce73d1fe9e5b5568c
       githubRepository: Significant-Hobbies/calorie
       expectedHomepage: https://calorie.significanthobbies.com
       observedHomepage: https://calorie.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: calorie
-      revision: f97df9c82bf39492f0b0ea760603365a7b2af4e7
+      revision: 99703eaede0fb32c1df42cfce73d1fe9e5b5568c
       githubRepository: Significant-Hobbies/calorie
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
-      running: 1
+      healthy: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -124,12 +124,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-07-25
     latestCommitAt: 2026-10-09
-    retainedCommitCount: 167
+    retainedCommitCount: 168
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: calorie
-  observedRevision: f97df9c82bf39492f0b0ea760603365a7b2af4e7
+  observedRevision: 99703eaede0fb32c1df42cfce73d1fe9e5b5568c
   githubRepository: Significant-Hobbies/calorie
   githubHomepageUrl: https://calorie.significanthobbies.com
   worktree: *a1
@@ -182,15 +182,15 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
-    running: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/calorie
     defaultBranch: main
-    defaultBranchSha: f97df9c82bf39492f0b0ea760603365a7b2af4e7
+    defaultBranchSha: 99703eaede0fb32c1df42cfce73d1fe9e5b5568c
     homepage: https://calorie.significanthobbies.com
     query: verified
     disposition:
@@ -211,37 +211,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37834646905
-          status: in_progress
-          conclusion: null
-          event: pull_request
-          branch: chore/marketing-footer-resync-20261009
-          headSha: f929b1c54e97a4ffa51ce7b2a4cce9c0b2d4a72c
-          createdAt: 2026-10-08T19:48:00Z
-          updatedAt: 2026-10-08T19:48:09Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/37834646905
+          id: 37836894446
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 99703eaede0fb32c1df42cfce73d1fe9e5b5568c
+          createdAt: 2026-10-08T20:05:57Z
+          updatedAt: 2026-10-08T20:16:49Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/37836894446
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: running
-        reason: current main push is in_progress
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 37833630161
-          status: in_progress
-          conclusion: null
+          id: 37836894446
+          status: completed
+          conclusion: success
           event: push
           branch: main
-          headSha: f97df9c82bf39492f0b0ea760603365a7b2af4e7
-          createdAt: 2026-10-08T19:39:53Z
-          updatedAt: 2026-10-08T19:40:02Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/37833630161
+          headSha: 99703eaede0fb32c1df42cfce73d1fe9e5b5568c
+          createdAt: 2026-10-08T20:05:57Z
+          updatedAt: 2026-10-08T20:16:49Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/37836894446
         ageDays: 0
       attention: clear
 deployment:

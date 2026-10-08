@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-10-01
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-01
       reviewSha256: 2687f86ed6784b8a5fca36e6c468e12aa44dc3c7e8137e3160d1a95079bdcd02
-      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      documentSha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -53,7 +53,7 @@ verification:
       catalogDrift: []
       reason: "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/digital-life rev-parse HEAD"
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
       attention: &a1 {}
   unknowns:
@@ -126,7 +126,7 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary: {}
   attention: *a1

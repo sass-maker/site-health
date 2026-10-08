@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-10-01
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-01
       reviewSha256: 2bb18c8fc69b6f8231a5d94ed9daf2a08ddbcb3d509ec02a928f0c63ce2233ea
-      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      documentSha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -53,7 +53,7 @@ verification:
       catalogDrift: []
       reason: "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/human-v2 rev-parse HEAD"
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
       attention: &a1 {}
   unknowns:
@@ -127,7 +127,7 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary: {}
   attention: *a1

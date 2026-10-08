@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: kith
-      revision: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
+      revision: b087998ec1c70ff3e373c7af39db6bd4d20c3a93
       githubRepository: Significant-Hobbies/kith
       expectedHomepage: https://kith.significanthobbies.com
       observedHomepage: https://kith.significanthobbies.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: kith
-      revision: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
+      revision: b087998ec1c70ff3e373c7af39db6bd4d20c3a93
       githubRepository: Significant-Hobbies/kith
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
-      running: 1
+      healthy: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -111,13 +111,13 @@ product:
     - PersonalSyncKit
   retainedGitHistory:
     firstCommitAt: 2026-08-16
-    latestCommitAt: 2026-10-08
-    retainedCommitCount: 62
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 63
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: kith
-  observedRevision: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
+  observedRevision: b087998ec1c70ff3e373c7af39db6bd4d20c3a93
   githubRepository: Significant-Hobbies/kith
   githubHomepageUrl: https://kith.significanthobbies.com
   worktree: *a1
@@ -133,15 +133,15 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
-    running: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/kith
     defaultBranch: main
-    defaultBranchSha: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
+    defaultBranchSha: b087998ec1c70ff3e373c7af39db6bd4d20c3a93
     homepage: https://kith.significanthobbies.com
     query: verified
     disposition:
@@ -162,19 +162,19 @@ githubActions:
         status: active
         reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
       live:
-        health: running
-        reason: latest run is queued
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37835308491
-          status: queued
-          conclusion: null
-          event: pull_request
-          branch: chore/land-sweep-20260926
-          headSha: 16cd1c7cc1e0fee6c1b108d5b7a52bfce3bd8b7d
-          createdAt: 2026-10-08T19:53:20Z
-          updatedAt: 2026-10-08T19:53:20Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/37835308491
+          id: 37837391633
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: b087998ec1c70ff3e373c7af39db6bd4d20c3a93
+          createdAt: 2026-10-08T20:09:58Z
+          updatedAt: 2026-10-08T20:21:07Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/37837391633
         ageDays: 0
       schedule:
         health: not-applicable
@@ -184,15 +184,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37821255827
+          id: 37837391633
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
-          createdAt: 2026-10-08T18:02:51Z
-          updatedAt: 2026-10-08T18:15:53Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/37821255827
+          headSha: b087998ec1c70ff3e373c7af39db6bd4d20c3a93
+          createdAt: 2026-10-08T20:09:58Z
+          updatedAt: 2026-10-08T20:21:07Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/37837391633
         ageDays: 0
       attention: clear
 deployment:

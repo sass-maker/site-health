@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
       infrastructureUpdatedAt: 2026-10-06
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -34,7 +34,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: storagedaddy
-      revision: a6915f17e415a2e262e3e6e9a2817ff52c7fb6eb
+      revision: e547e3c5be2ea1becf33557b4e2e199e417f8b30
       githubRepository: Significant-Hobbies/storagedaddy
       expectedHomepage: https://storage.daddyrad.com/
       observedHomepage: https://storage.daddyrad.com
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-10-08
       state: available
       checkout: storagedaddy
-      revision: a6915f17e415a2e262e3e6e9a2817ff52c7fb6eb
+      revision: e547e3c5be2ea1becf33557b4e2e199e417f8b30
       githubRepository: Significant-Hobbies/storagedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,10 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T19:52:57.555Z
+      observedAt: 2026-10-08T20:22:37.978Z
       staleAfterDays: 30
-      running: 1
-      healthy: 1
+      healthy: 2
       attention: &a2
         clear: 2
   unknowns: []
@@ -125,13 +124,13 @@ product:
     - Astro
   retainedGitHistory:
     firstCommitAt: 2026-09-13
-    latestCommitAt: 2026-10-08
-    retainedCommitCount: 79
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 80
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: storagedaddy
-  observedRevision: a6915f17e415a2e262e3e6e9a2817ff52c7fb6eb
+  observedRevision: e547e3c5be2ea1becf33557b4e2e199e417f8b30
   githubRepository: Significant-Hobbies/storagedaddy
   githubHomepageUrl: https://storage.daddyrad.com
   worktree: *a1
@@ -156,16 +155,15 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-10-08T19:52:57.555Z
+  observedAt: 2026-10-08T20:22:37.978Z
   staleAfterDays: 30
   summary:
-    running: 1
-    healthy: 1
+    healthy: 2
   attention: *a2
   remote:
     repository: Significant-Hobbies/storagedaddy
     defaultBranch: main
-    defaultBranchSha: a6915f17e415a2e262e3e6e9a2817ff52c7fb6eb
+    defaultBranchSha: e547e3c5be2ea1becf33557b4e2e199e417f8b30
     homepage: https://storage.daddyrad.com
     query: verified
     disposition:
@@ -186,19 +184,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37834840476
-          status: in_progress
-          conclusion: null
-          event: pull_request
-          branch: chore/ignore-local-state-20261009
-          headSha: 33f212ff676d00812d74f49ff2a950563f521d6f
-          createdAt: 2026-10-08T19:49:35Z
-          updatedAt: 2026-10-08T19:50:58Z
-          url: https://github.com/Significant-Hobbies/storagedaddy/actions/runs/37834840476
+          id: 37835848211
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: e547e3c5be2ea1becf33557b4e2e199e417f8b30
+          createdAt: 2026-10-08T19:57:38Z
+          updatedAt: 2026-10-08T20:06:37Z
+          url: https://github.com/Significant-Hobbies/storagedaddy/actions/runs/37835848211
         ageDays: 0
       schedule:
         health: not-applicable
@@ -208,15 +206,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37777376033
+          id: 37835848211
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: a6915f17e415a2e262e3e6e9a2817ff52c7fb6eb
-          createdAt: 2026-10-08T12:30:41Z
-          updatedAt: 2026-10-08T12:36:32Z
-          url: https://github.com/Significant-Hobbies/storagedaddy/actions/runs/37777376033
+          headSha: e547e3c5be2ea1becf33557b4e2e199e417f8b30
+          createdAt: 2026-10-08T19:57:38Z
+          updatedAt: 2026-10-08T20:06:37Z
+          url: https://github.com/Significant-Hobbies/storagedaddy/actions/runs/37835848211
         ageDays: 0
       attention: clear
     - name: Protected manual release
