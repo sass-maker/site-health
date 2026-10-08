@@ -3,7 +3,7 @@ projectId: performancedaddy
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-25
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,18 +24,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
-      documentSha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: performancedaddy
-      revision: 74db4a802309729e9884ff1fdcbcd9241ffd9668
+      revision: 302077f7b5841e7b76551d9f4592351c1eebb1ba
       githubRepository: Significant-Hobbies/performancedaddy
       expectedHomepage: https://performance.daddyrad.com/
       observedHomepage: https://performance.daddyrad.com
@@ -44,10 +44,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: performancedaddy
-      revision: 74db4a802309729e9884ff1fdcbcd9241ffd9668
+      revision: 302077f7b5841e7b76551d9f4592351c1eebb1ba
       githubRepository: Significant-Hobbies/performancedaddy
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -57,12 +57,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      healthy: 2
+      running: 1
+      healthy: 1
       attention: &a2
-        missing-data: 1
-        clear: 1
+        clear: 2
   unknowns: []
 ownerVoice:
   whyVerbatim: deploy both of them properly
@@ -107,7 +107,7 @@ product:
     audience: Developers running local servers, coding agents and other moving parts on a Mac.
     outcome: Find the process or port evidence behind a slowdown and choose the next check deliberately.
     mechanism: A native local Mac app records bounded CPU, memory, thermal, process and socket observations with reviewed stop controls.
-    proof: The public signed Sparkle feed and download serve notarized 0.2.3 build8 with matching DMG bytes. An isolated build3-to-5 Sparkle update and native journey were observed; build8 has not been installed for a new journey.
+    proof: Public 0.2.16 build21 is signed, universal and notarized. The download matches the release checksum; the Sparkle feed, staple and local launch were verified on 2026-10-02. Full live-window acceptance and a 10x whole-app memory reduction remain unverified.
     nextAction: Read the public landing and use the current GitHub release for a Mac install; review measured evidence before acting on a diagnosis.
   form: macOS app
   platforms:
@@ -121,13 +121,13 @@ product:
     - Sparkle
   retainedGitHistory:
     firstCommitAt: 2026-09-20
-    latestCommitAt: 2026-09-27
-    retainedCommitCount: 74
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 88
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: performancedaddy
-  observedRevision: 74db4a802309729e9884ff1fdcbcd9241ffd9668
+  observedRevision: 302077f7b5841e7b76551d9f4592351c1eebb1ba
   githubRepository: Significant-Hobbies/performancedaddy
   githubHomepageUrl: https://performance.daddyrad.com
   worktree: *a1
@@ -149,15 +149,16 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    healthy: 2
+    running: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/performancedaddy
     defaultBranch: main
-    defaultBranchSha: 74db4a802309729e9884ff1fdcbcd9241ffd9668
+    defaultBranchSha: 302077f7b5841e7b76551d9f4592351c1eebb1ba
     homepage: https://performance.daddyrad.com
     query: verified
     disposition:
@@ -178,38 +179,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is queued
         apiState: active
         lastRun:
-          id: 36331993788
-          status: completed
-          conclusion: success
+          id: 37835072622
+          status: queued
+          conclusion: null
           event: push
           branch: main
-          headSha: 9f328e894449d593c585236bba243bf7e812fb32
-          createdAt: 2026-09-27T16:06:22Z
-          updatedAt: 2026-09-27T16:09:48Z
-          url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/36331993788
-        ageDays: 1
+          headSha: 302077f7b5841e7b76551d9f4592351c1eebb1ba
+          createdAt: 2026-10-08T19:51:27Z
+          updatedAt: 2026-10-08T19:51:27Z
+          url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/37835072622
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 74db4a8
+        health: running
+        reason: current main push is queued
         lastRun:
-          id: 36331993788
-          status: completed
-          conclusion: success
+          id: 37835072622
+          status: queued
+          conclusion: null
           event: push
           branch: main
-          headSha: 9f328e894449d593c585236bba243bf7e812fb32
-          createdAt: 2026-09-27T16:06:22Z
-          updatedAt: 2026-09-27T16:09:48Z
-          url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/36331993788
-      attention: missing-data
+          headSha: 302077f7b5841e7b76551d9f4592351c1eebb1ba
+          createdAt: 2026-10-08T19:51:27Z
+          updatedAt: 2026-10-08T19:51:27Z
+          url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/37835072622
+        ageDays: 0
+      attention: clear
     - name: Protected manual release
       file: .github/workflows/release.yml
       triggers:
@@ -227,16 +229,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36332005103
+          id: 37190399732
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 9f328e894449d593c585236bba243bf7e812fb32
-          createdAt: 2026-09-27T16:06:34Z
-          updatedAt: 2026-09-27T16:14:39Z
-          url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/36332005103
-        ageDays: 1
+          headSha: c139fe84ca554bc6c2aeec68e3fc0660481c91ae
+          createdAt: 2026-10-04T08:53:52Z
+          updatedAt: 2026-10-04T10:40:50Z
+          url: https://github.com/Significant-Hobbies/performancedaddy/actions/runs/37190399732
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -298,8 +300,8 @@ sharing:
   publicListing: maintained
   maturity: preview
   ready: true
-  verifiedAt: 2026-09-26
-  reason: Public 0.2.3 build8 download returned 7,466,879 bytes with SHA-256 97f91011f7c1791090e4a35459df20168ca00b091db975a602039f878a1907fb, matching the Developer ID signed, Apple notarized, stapled DMG from protected manual run 36183263765. The live Sparkle feed and update enclosure matched the qualified signed artifacts. An isolated build3-to-5 Sparkle update and native journey were observed; build8 has not been installed for a new journey.
+  verifiedAt: 2026-10-02
+  reason: Public 0.2.16 build21 published 2026-10-02 from 439d06490d3e135942d4decc62fb96c9ddca0ced. Independent https://performance.daddyrad.com/download bytes match SHA-256 f1ff1f8a59499220a102d2eebcb4182ee61de55b13d4365568afcd0894766098 and the release asset. Signed Sparkle feed, universal architectures, Developer ID signature, Apple notarization, staple and local launch verified. Live native UI acceptance remains unverified because the automation provider cannot start; installed build20 was not replaced. No 10x whole-app memory reduction is claimed.
   changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/performancedaddy/issues
   geoIdentity:

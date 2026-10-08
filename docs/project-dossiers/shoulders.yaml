@@ -3,7 +3,7 @@ projectId: shoulders
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-20
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,15 +24,15 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-14
       reviewSha256: e3a97ff166bf6d5304c4e0f43aba0876daaa2c63461414cd4b1ebe34b9f3d379
-      documentSha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: unavailable
       checkout: ../fleet-archive/shoulders
       revision: null
@@ -41,7 +41,7 @@ verification:
       observedHomepage: null
       worktree: null
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: unavailable
       checkout: ../fleet-archive/shoulders
       revision: null
@@ -53,7 +53,7 @@ verification:
       catalogDrift: []
       reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       attention: &a1 {}
   unknowns:
@@ -125,7 +125,7 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary: {}
   attention: *a1

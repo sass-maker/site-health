@@ -3,7 +3,7 @@ projectId: reader
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-08-30
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-05
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Reader
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: reader
-      revision: 8fbbf9af788e091f828225559a66b126f1d4f017
+      revision: 83aec72ba27086cb98c38eaeac0f97fdf214d4d1
       githubRepository: Significant-Hobbies/reader
       expectedHomepage: https://read.significanthobbies.com
       observedHomepage: https://read.significanthobbies.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: reader
-      revision: 8fbbf9af788e091f828225559a66b126f1d4f017
+      revision: 83aec72ba27086cb98c38eaeac0f97fdf214d4d1
       githubRepository: Significant-Hobbies/reader
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,13 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 4
       failing: 1
       attention: &a2
-        clear: 3
-        missing-data: 1
+        clear: 4
         review-history: 1
   unknowns: []
 ownerVoice:
@@ -116,13 +115,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2025-11-16
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 349
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 363
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reader
-  observedRevision: 8fbbf9af788e091f828225559a66b126f1d4f017
+  observedRevision: 83aec72ba27086cb98c38eaeac0f97fdf214d4d1
   githubRepository: Significant-Hobbies/reader
   githubHomepageUrl: https://read.significanthobbies.com
   worktree: *a1
@@ -193,6 +192,7 @@ repository:
       - test:account-notes
       - test:account-pdf
       - test:coverage
+      - test:dependency-security
       - test:e2e
       - test:guest-pdf
       - test:local-library
@@ -203,7 +203,7 @@ repository:
       - validate:env:deploy
       - validate:env:runtime
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 4
@@ -212,7 +212,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/reader
     defaultBranch: main
-    defaultBranchSha: 8fbbf9af788e091f828225559a66b126f1d4f017
+    defaultBranchSha: 83aec72ba27086cb98c38eaeac0f97fdf214d4d1
     homepage: https://read.significanthobbies.com
     query: verified
     disposition:
@@ -237,15 +237,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36377471160
+          id: 37819803289
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8fbbf9af788e091f828225559a66b126f1d4f017
-          createdAt: 2026-09-28T04:23:04Z
-          updatedAt: 2026-09-28T04:25:37Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/36377471160
+          headSha: 83aec72ba27086cb98c38eaeac0f97fdf214d4d1
+          createdAt: 2026-10-08T17:51:37Z
+          updatedAt: 2026-10-08T17:54:25Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/37819803289
         ageDays: 0
       schedule:
         health: not-applicable
@@ -255,15 +255,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36377471160
+          id: 37819803289
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8fbbf9af788e091f828225559a66b126f1d4f017
-          createdAt: 2026-09-28T04:23:04Z
-          updatedAt: 2026-09-28T04:25:37Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/36377471160
+          headSha: 83aec72ba27086cb98c38eaeac0f97fdf214d4d1
+          createdAt: 2026-10-08T17:51:37Z
+          updatedAt: 2026-10-08T17:54:25Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/37819803289
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
@@ -283,15 +283,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36377684215
+          id: 37792374222
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 8fbbf9af788e091f828225559a66b126f1d4f017
-          createdAt: 2026-09-28T04:26:03Z
-          updatedAt: 2026-09-28T04:26:42Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/36377684215
+          headSha: 4d48c64431d6df7a53c50ffa071bb60fbeceeb1f
+          createdAt: 2026-10-08T14:25:44Z
+          updatedAt: 2026-10-08T14:26:30Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/37792374222
         ageDays: 0
       schedule:
         health: not-applicable
@@ -321,34 +321,35 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34273051412
+          id: 37819802847
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
-          createdAt: 2026-09-08T20:08:32Z
-          updatedAt: 2026-09-08T20:08:42Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34273051412
-        ageDays: 19
+          headSha: 83aec72ba27086cb98c38eaeac0f97fdf214d4d1
+          createdAt: 2026-10-08T17:51:36Z
+          updatedAt: 2026-10-08T17:51:45Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/37819802847
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 8fbbf9a
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 34273051412
+          id: 37819802847
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 90bc39768fcb773f91ecde87549aa3e5a4b3cb51
-          createdAt: 2026-09-08T20:08:32Z
-          updatedAt: 2026-09-08T20:08:42Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/34273051412
-      attention: missing-data
+          headSha: 83aec72ba27086cb98c38eaeac0f97fdf214d4d1
+          createdAt: 2026-10-08T17:51:36Z
+          updatedAt: 2026-10-08T17:51:45Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/37819802847
+        ageDays: 0
+      attention: clear
     - name: AI Code Review
       file: .github/workflows/review.yaml
       triggers:
@@ -375,7 +376,7 @@ githubActions:
           createdAt: 2026-05-08T16:51:58Z
           updatedAt: 2026-05-08T16:52:04Z
           url: https://github.com/Significant-Hobbies/reader/actions/runs/25568063470
-        ageDays: 143
+        ageDays: 153
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -401,16 +402,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36455764507
+          id: 37345642168
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 8fbbf9af788e091f828225559a66b126f1d4f017
-          createdAt: 2026-09-28T17:06:18Z
-          updatedAt: 2026-09-28T17:07:10Z
-          url: https://github.com/Significant-Hobbies/reader/actions/runs/36455764507
-        ageDays: 0
+          headSha: 963e0ead536752831574ce44795dc847f6731edb
+          createdAt: 2026-10-05T17:04:12Z
+          updatedAt: 2026-10-05T17:05:17Z
+          url: https://github.com/Significant-Hobbies/reader/actions/runs/37345642168
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -435,11 +436,30 @@ deployment:
         name: reader
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-10-04T22:58:04.776709Z
+          deploymentId: 928a6124-f385-41cb-8110-f24f5468863a
+          versionId: 2f582008-9406-432a-a110-ccd9cbe1a433
+          sourceCommit: 963e0ead536752831574ce44795dc847f6731edb
+          trafficPercent: 100
+          state: success-production-verified
+          evidence: "PR #74 exact merge SHA is tagged on the active 100% Worker version. Exact-main CI 37241365669 and docs run 37241365711 passed; production library renders existing sources, search, add-source, and filters, with review-pack/coming-soon/early-access blockers absent."
+          serviceBindings:
+            - name: FREE_AI
+              service: free-ai-gateway
+              entrypoint: FleetGateway
+          evidencePath: known-closure-runs/reader70-release.json
     resources:
       - provider: cloudflare
         kind: d1
         name: reader
         state: active
+        verification:
+          observedAt: 2026-10-02T10:50:29Z
+          state: production-preview-identities-verified
+          evidence: Exact production version metadata and committed top-level database_id both identify f59f66af-79d1-4c2d-be34-fbdf20ed8da6. fb70ecb4-ff51-413f-9b21-d87456a97a9d is preview_database_id shown by local dry-run. The earlier mismatch was a preview observation; no database substitution or migration occurred.
+          productionDatabaseId: f59f66af-79d1-4c2d-be34-fbdf20ed8da6
+          previewDatabaseId: fb70ecb4-ff51-413f-9b21-d87456a97a9d
         scope: project
         operationalOwner: reader
         attributionReason: "Canonical project owner: reader"
@@ -461,6 +481,21 @@ deployment:
         kind: workers-ai
         name: AI
         state: active
+        scope: project
+        operationalOwner: reader
+        attributionReason: "Canonical project owner: reader"
+      - provider: cloudflare
+        kind: service-binding
+        name: free-ai-gateway
+        state: active
+        binding: FREE_AI
+        entrypoint: FleetGateway
+        dependencyProject: free-ai
+        verification:
+          observedAt: 2026-10-02T10:50:29Z
+          versionId: d2c61174-d0b0-4d8b-a8c5-4fd24a7f7bf8
+          sourceCommit: b5d1275604c820992d2607a842915bbbe942c75a
+          state: production-binding-verified
         scope: project
         operationalOwner: reader
         attributionReason: "Canonical project owner: reader"
@@ -496,4 +531,4 @@ sharing:
       state: not-declared
 notes:
   catalog: D1 reader is authoritative.
-  infrastructure: null
+  infrastructure: " 2026-10-05: Reader PR #74 source 963e0ead536752831574ce44795dc847f6731edb is live at 100% as version 2f582008-9406-432a-a110-ccd9cbe1a433; see known-closure-runs/reader70-release.json."

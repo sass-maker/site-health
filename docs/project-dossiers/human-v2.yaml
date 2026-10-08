@@ -1,0 +1,170 @@
+schemaVersion: 1
+projectId: human-v2
+verification:
+  status: partial
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-10-08
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: unavailable
+    githubHomepage: not-applicable
+    githubActionsLiveState: not-applicable
+    retainedGitHistory: unavailable
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-01
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=human-v2].ownerNarrative
+      sourceHeading: Human V2
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-10-01
+      reviewSha256: 2bb18c8fc69b6f8231a5d94ed9daf2a08ddbcb3d509ec02a928f0c63ce2233ea
+      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-10-08
+      state: unavailable
+      checkout: ../fleet-archive/human-v2
+      revision: null
+      githubRepository: null
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: null
+    retainedGitHistory:
+      observedAt: 2026-10-08
+      state: unavailable
+      checkout: ../fleet-archive/human-v2
+      revision: null
+      githubRepository: null
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: null
+      catalogLatestCommitAt: null
+      catalogDrift: []
+      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/human-v2 rev-parse HEAD"
+    githubActions:
+      observedAt: 2026-10-08T19:52:57.555Z
+      staleAfterDays: 30
+      attention: &a1 {}
+  unknowns:
+    - The owning checkout was unavailable during repository observation.
+ownerVoice:
+  whyVerbatim: New Fleet project
+  fullReviewVerbatim: New Fleet project
+  relatedHistoricalReviews: []
+decision:
+  classification: Inactive / archived
+  whySummary: "One homepage: human body, experiment, Simulate, annual progression and fatal-point reasoning. Owner requires scientific calibration."
+  currentState: Owner archived on 2026-10-08; source and local evidence preserved outside active Fleet.
+  nextDecision: No development unless the owner explicitly reopens it.
+identity:
+  name: Human V2
+  publicName: null
+  aliases: []
+  family: human-v2
+  category: research
+  audience: public
+  personalUse: false
+  moneyOrPersonalBrand: false
+  unmetNeed: false
+  kind: experiment
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
+  lifecycle:
+    status: inactive
+    resumeCondition: Only resume after an explicit new owner decision.
+    shareable: false
+  operationalStatus: local-only
+  authenticationModel: local-only
+  inRegistry: false
+product:
+  description: One-page body experiments with a locally qualified coupled physiology engine, simultaneous mechanisms and explicit yearly/fatal prediction limits.
+  publicMakerNote: Change several body mechanisms, Simulate, and inspect matched acute trajectories. Yearly organ aging and fatal causes remain uncalibrated.
+  purposeContract:
+    purpose: Human V2 helps learners compare simultaneous body changes through coupled, reproducible acute physiology experiments, a visible body and recorded causal observations, with unsupported yearly and fatal outcomes kept explicit.
+    audience: Curious learners inspecting reproducible body experiments and their evidence limits.
+    outcome: Understand measured coupled responses and distinguish them from unsupported chronic effects or fatal predictions.
+    mechanism: One homepage with a visible body, six joint mechanism controls, matched native Pulse4.4.0 short-term experiments, recorded playback and audited threshold observations.
+    proof: Exact independent native replay; local finite-output/dense-mean audits, API and browser verification. Custom intervention magnitudes are not independently clinically calibrated; no aging or fatal-cause model.
+    nextAction: Choose a body experiment, combine mechanisms and Simulate; inspect the matched acute response and explicit evidence limits.
+  form: Browser optimization arena
+  platforms:
+    - Web
+  prominentTools:
+    - React
+    - TypeScript
+    - Pulse Physiology Engine
+    - Node.js
+  retainedGitHistory:
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: ../fleet-archive/human-v2
+  observedRevision: null
+  githubRepository: null
+  githubHomepageUrl: null
+  worktree: null
+  visibility: private
+  url: https://github.com/Significant-Hobbies/human-v2
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
+githubActions:
+  observedAt: 2026-10-08T19:52:57.555Z
+  staleAfterDays: 30
+  summary: {}
+  attention: *a1
+  remote:
+    repository: null
+    defaultBranch: null
+    defaultBranchSha: null
+    homepage: null
+    query: unverifiable
+    disposition:
+      disposition: active
+      reason: tracked project
+  workflows: []
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-10-02
+  reason: Local coupled acute native engine integration has exact replay and finite-output/dense-mean verification. Scientific modified-organ annual progression/fatal outcomes remain unavailable. Not yet ready to share; no commit/public deployment.
+  changelogUrl: null
+  roadmapUrl: https://github.com/Significant-Hobbies/human-v2/issues
+  geoIdentity: null
+notes:
+  catalog: |-
+    Owner supplied PRD, selected B Life Theatre then requested one homepage: human body, experiment, Simulate, annual progression/fatal points. Owner chose scientific outcomes. Local native Pulse short-term combined mechanism experiments now work; scientific modified-body annual deterioration/fatal causation remains unresolved. Materia is archived; its body design was rejected.
+    Owner archived this project and moved the local checkout outside active Fleet on 2026-10-08.
+  infrastructure: Local Miniflare D1 persistence only; no Cloudflare resource created. Materia remains a separate archived reference.

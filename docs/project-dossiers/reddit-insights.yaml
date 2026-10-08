@@ -3,7 +3,7 @@ projectId: reddit-insights
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: reddit-insights
-      revision: 14abc0d30a93a8c628f940be262e9ccd5a8954d9
+      revision: 35b8b0063dc62a40c2ffecda0d1eee4b84b69f78
       githubRepository: High-Signal-App/research-subreddit
       expectedHomepage: https://reddit-insights.highsignal.app
       observedHomepage: https://reddit-insights.highsignal.app
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: reddit-insights
-      revision: 14abc0d30a93a8c628f940be262e9ccd5a8954d9
+      revision: 35b8b0063dc62a40c2ffecda0d1eee4b84b69f78
       githubRepository: High-Signal-App/research-subreddit
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -112,13 +112,13 @@ product:
     - R2
   retainedGitHistory:
     firstCommitAt: 2026-08-07
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 32
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 57
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: reddit-insights
-  observedRevision: 14abc0d30a93a8c628f940be262e9ccd5a8954d9
+  observedRevision: 35b8b0063dc62a40c2ffecda0d1eee4b84b69f78
   githubRepository: High-Signal-App/research-subreddit
   githubHomepageUrl: https://reddit-insights.highsignal.app
   worktree: *a1
@@ -127,7 +127,7 @@ repository:
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: null
+    declaredPackageManager: pnpm@10.33.2
     detectedSignals:
       - name: Biome
         evidence:
@@ -137,9 +137,9 @@ repository:
           - scripts/reddit-proxy/wrangler.jsonc
           - workers/daily-collector/wrangler.jsonc
           - wrangler.jsonc
-      - name: npm
+      - name: pnpm
         evidence:
-          - package-lock.json
+          - pnpm-lock.yaml
     rootPackageScripts:
       - analyze
       - build:display
@@ -158,15 +158,18 @@ repository:
       - quality:duplication
       - quality:unused
       - run
+      - snapshots:import
+      - snapshots:ui
       - test
       - test:collector
       - test:coverage
       - test:display
       - test:performance
+      - test:snapshots
       - typecheck
       - ui
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -174,7 +177,7 @@ githubActions:
   remote:
     repository: High-Signal-App/research-subreddit
     defaultBranch: main
-    defaultBranchSha: 14abc0d30a93a8c628f940be262e9ccd5a8954d9
+    defaultBranchSha: 35b8b0063dc62a40c2ffecda0d1eee4b84b69f78
     homepage: https://reddit-insights.highsignal.app
     query: verified
     disposition:
@@ -199,15 +202,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36363842900
+          id: 37827414315
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 14abc0d30a93a8c628f940be262e9ccd5a8954d9
-          createdAt: 2026-09-28T00:53:01Z
-          updatedAt: 2026-09-28T00:53:42Z
-          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/36363842900
+          headSha: 35b8b0063dc62a40c2ffecda0d1eee4b84b69f78
+          createdAt: 2026-10-08T18:50:46Z
+          updatedAt: 2026-10-08T18:51:40Z
+          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/37827414315
         ageDays: 0
       schedule:
         health: not-applicable
@@ -217,15 +220,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36363842900
+          id: 37827414315
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 14abc0d30a93a8c628f940be262e9ccd5a8954d9
-          createdAt: 2026-09-28T00:53:01Z
-          updatedAt: 2026-09-28T00:53:42Z
-          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/36363842900
+          headSha: 35b8b0063dc62a40c2ffecda0d1eee4b84b69f78
+          createdAt: 2026-10-08T18:50:46Z
+          updatedAt: 2026-10-08T18:51:40Z
+          url: https://github.com/High-Signal-App/research-subreddit/actions/runs/37827414315
         ageDays: 0
       attention: clear
 deployment:

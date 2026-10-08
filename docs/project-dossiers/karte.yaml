@@ -3,7 +3,7 @@ projectId: karte
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-09-12
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-05
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Karte
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: karte
-      revision: 60ff3338e94654ffb42ce080f58a767882e8eda4
+      revision: cd0201ab3661bf8de6fc953d32b03d0bfd0c5ca8
       githubRepository: Significant-Hobbies/karte
       expectedHomepage: https://karte.cc
       observedHomepage: https://karte.cc
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: karte
-      revision: 60ff3338e94654ffb42ce080f58a767882e8eda4
+      revision: cd0201ab3661bf8de6fc953d32b03d0bfd0c5ca8
       githubRepository: Significant-Hobbies/karte
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,10 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      healthy: 4
+      running: 1
+      healthy: 3
       attention: &a2
         clear: 3
         missing-data: 1
@@ -114,13 +115,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-03-05
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 537
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 551
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: karte
-  observedRevision: 60ff3338e94654ffb42ce080f58a767882e8eda4
+  observedRevision: cd0201ab3661bf8de6fc953d32b03d0bfd0c5ca8
   githubRepository: Significant-Hobbies/karte
   githubHomepageUrl: https://karte.cc
   worktree: *a1
@@ -194,15 +195,16 @@ repository:
       - typecheck
       - upload:cf
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    healthy: 4
+    running: 1
+    healthy: 3
   attention: *a2
   remote:
     repository: Significant-Hobbies/karte
     defaultBranch: main
-    defaultBranchSha: 60ff3338e94654ffb42ce080f58a767882e8eda4
+    defaultBranchSha: cd0201ab3661bf8de6fc953d32b03d0bfd0c5ca8
     homepage: https://karte.cc
     query: verified
     disposition:
@@ -223,37 +225,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 36369916636
-          status: completed
-          conclusion: success
+          id: 37835072552
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 60ff3338e94654ffb42ce080f58a767882e8eda4
-          createdAt: 2026-09-28T02:27:54Z
-          updatedAt: 2026-09-28T02:30:03Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/36369916636
+          headSha: cd0201ab3661bf8de6fc953d32b03d0bfd0c5ca8
+          createdAt: 2026-10-08T19:51:27Z
+          updatedAt: 2026-10-08T19:51:32Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/37835072552
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: running
+        reason: current main push is in_progress
         lastRun:
-          id: 36369916636
-          status: completed
-          conclusion: success
+          id: 37835072552
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 60ff3338e94654ffb42ce080f58a767882e8eda4
-          createdAt: 2026-09-28T02:27:54Z
-          updatedAt: 2026-09-28T02:30:03Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/36369916636
+          headSha: cd0201ab3661bf8de6fc953d32b03d0bfd0c5ca8
+          createdAt: 2026-10-08T19:51:27Z
+          updatedAt: 2026-10-08T19:51:32Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/37835072552
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
@@ -273,16 +275,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36370096915
+          id: 37352580339
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 60ff3338e94654ffb42ce080f58a767882e8eda4
-          createdAt: 2026-09-28T02:30:42Z
-          updatedAt: 2026-09-28T02:33:03Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/36370096915
-        ageDays: 0
+          headSha: e2a05d1681aa9416b9c8e08102154c613d5ba2cf
+          createdAt: 2026-10-05T17:59:33Z
+          updatedAt: 2026-10-05T18:01:26Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/37352580339
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -310,33 +312,33 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34130582349
+          id: 37830518065
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2d073a711320494b99ef5a9f2884013765ffa2bb
-          createdAt: 2026-09-07T14:00:47Z
-          updatedAt: 2026-09-07T14:00:58Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
-        ageDays: 21
+          headSha: 55d3b6c1240732141293a11770e329b80fc11cc8
+          createdAt: 2026-10-08T19:15:01Z
+          updatedAt: 2026-10-08T19:15:10Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/37830518065
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 60ff333
+        reason: no push run at current main revision cd0201a
         lastRun:
-          id: 34130582349
+          id: 37830518065
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2d073a711320494b99ef5a9f2884013765ffa2bb
-          createdAt: 2026-09-07T14:00:47Z
-          updatedAt: 2026-09-07T14:00:58Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/34130582349
+          headSha: 55d3b6c1240732141293a11770e329b80fc11cc8
+          createdAt: 2026-10-08T19:15:01Z
+          updatedAt: 2026-10-08T19:15:10Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/37830518065
       attention: missing-data
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
@@ -354,16 +356,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35665012744
+          id: 37385371502
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 3ef325f957c56ea0c667f44276391448bd4a357c
-          createdAt: 2026-09-21T22:54:15Z
-          updatedAt: 2026-09-21T22:55:03Z
-          url: https://github.com/Significant-Hobbies/karte/actions/runs/35665012744
-        ageDays: 6
+          headSha: e2a05d1681aa9416b9c8e08102154c613d5ba2cf
+          createdAt: 2026-10-05T22:54:21Z
+          updatedAt: 2026-10-05T22:55:18Z
+          url: https://github.com/Significant-Hobbies/karte/actions/runs/37385371502
+        ageDays: 2
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -389,12 +391,28 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-11T21:09:23.368Z
-          sourceCommit: 745254fff16d003c1ed8a4e1d594924dc8c2894d
-          versionId: fa092f5e-1c39-414d-a3d1-c7a9a6060c81
-          workflowRun: 34647565894
-          state: success-production-browser-verified
-          evidencePath: ../saas-maker/.fleet-local/karte-creator-handoff-20260912.json
+          observedAt: 2026-10-05T18:01:13.555647Z
+          sourceCommit: e2a05d1681aa9416b9c8e08102154c613d5ba2cf
+          deploymentId: 63c21f01-2d99-49db-8317-9116b91c993e
+          state: success-production-verified
+          scope: Selected Precise public closing-footer, public asset bytes and route boundaries; native release and unrelated backend capabilities excluded
+          evidencePath: karte/.fleet-local/footer180-root-review-20261005/live-release-proof.json
+          versionId: 3b63fd70-19f1-4555-b050-929453ed7286
+          trafficPercent: 100
+          evidence: "Footer rollout #180: exact source/current CI, existing publisher/provider and bounded actual rendered public routes verified; historical operational evidence retained separately."
+        verificationHistory:
+          - observedAt: 2026-10-02T11:01:23Z
+            deploymentId: d9904c5b-2c32-4b33-bc5b-3afd9eb1e840
+            versionId: 38e0195a-85ab-44d4-b96c-cfa665959fe5
+            sourceCommit: 868f30cc807a2919e29e1f56c72ac676d372bce1
+            trafficPercent: 100
+            state: success-production-verified
+            evidence: "Free AI issue #83 release receipt: exact-main CI 36998119934 passed; deployment 36998471159. Exact source tag and 100% traffic were verified, with FREE_AI targeting free-ai-gateway#FleetGateway. Six Fleet gates passed before this release. SDK contract tests and public smoke passed. Explicit user BYOK/local choices are preserved."
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+        versionId: 3b63fd70-19f1-4555-b050-929453ed7286
       - provider: cloudflare
         kind: email-worker
         name: karte-email
@@ -475,6 +493,21 @@ deployment:
         kind: zone
         name: karte.cc
         state: active-config-derived
+        scope: project
+        operationalOwner: karte
+        attributionReason: "Canonical project owner: karte"
+      - provider: cloudflare
+        kind: service-binding
+        name: free-ai-gateway
+        state: active
+        binding: FREE_AI
+        entrypoint: FleetGateway
+        dependencyProject: free-ai
+        verification:
+          observedAt: 2026-10-02T11:01:23Z
+          versionId: 38e0195a-85ab-44d4-b96c-cfa665959fe5
+          sourceCommit: 868f30cc807a2919e29e1f56c72ac676d372bce1
+          state: production-binding-verified
         scope: project
         operationalOwner: karte
         attributionReason: "Canonical project owner: karte"

@@ -3,7 +3,7 @@ projectId: kith
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: kith
-      revision: 8b85d555839f125237f3e00af79c49c2da775280
+      revision: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
       githubRepository: Significant-Hobbies/kith
       expectedHomepage: https://kith.significanthobbies.com
       observedHomepage: https://kith.significanthobbies.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: kith
-      revision: 8b85d555839f125237f3e00af79c49c2da775280
+      revision: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
       githubRepository: Significant-Hobbies/kith
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      healthy: 1
+      running: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -111,13 +111,13 @@ product:
     - PersonalSyncKit
   retainedGitHistory:
     firstCommitAt: 2026-08-16
-    latestCommitAt: 2026-09-21
-    retainedCommitCount: 61
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 62
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: kith
-  observedRevision: 8b85d555839f125237f3e00af79c49c2da775280
+  observedRevision: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
   githubRepository: Significant-Hobbies/kith
   githubHomepageUrl: https://kith.significanthobbies.com
   worktree: *a1
@@ -133,15 +133,15 @@ repository:
           - ios/Kith.xcodeproj/project.pbxproj
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/kith
     defaultBranch: main
-    defaultBranchSha: 8b85d555839f125237f3e00af79c49c2da775280
+    defaultBranchSha: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
     homepage: https://kith.significanthobbies.com
     query: verified
     disposition:
@@ -162,20 +162,20 @@ githubActions:
         status: active
         reason: Owner reaffirmed Kith as an active priority for immediate phone use on 2026-09-08. Native CI and release readiness must remain visible; actual installed journeys and optional sync require separate verification.
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is queued
         apiState: active
         lastRun:
-          id: 35635152305
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 8b85d555839f125237f3e00af79c49c2da775280
-          createdAt: 2026-09-21T17:56:16Z
-          updatedAt: 2026-09-21T18:06:46Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/35635152305
-        ageDays: 6
+          id: 37835308491
+          status: queued
+          conclusion: null
+          event: pull_request
+          branch: chore/land-sweep-20260926
+          headSha: 16cd1c7cc1e0fee6c1b108d5b7a52bfce3bd8b7d
+          createdAt: 2026-10-08T19:53:20Z
+          updatedAt: 2026-10-08T19:53:20Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/37835308491
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -184,16 +184,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 35635152305
+          id: 37821255827
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8b85d555839f125237f3e00af79c49c2da775280
-          createdAt: 2026-09-21T17:56:16Z
-          updatedAt: 2026-09-21T18:06:46Z
-          url: https://github.com/Significant-Hobbies/kith/actions/runs/35635152305
-        ageDays: 6
+          headSha: c1e5d84eae4c6f8feb22df19ad7039c6f8e60a60
+          createdAt: 2026-10-08T18:02:51Z
+          updatedAt: 2026-10-08T18:15:53Z
+          url: https://github.com/Significant-Hobbies/kith/actions/runs/37821255827
+        ageDays: 0
       attention: clear
 deployment:
   kind: pages

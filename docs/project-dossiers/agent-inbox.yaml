@@ -1,0 +1,238 @@
+schemaVersion: 1
+projectId: agent-inbox
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-10-08
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-08
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=agent-inbox].ownerNarrative
+      sourceHeading: Agent Inbox
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-10-08
+      reviewSha256: 158aa596ddfc1efc580b3cf49b34a106ac93ff2d213dcd3138f5760ad56c77b2
+      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-10-08
+      state: available
+      checkout: agentbox
+      revision: 96b831e71e9c218ec8dc30448ff9383696e306a2
+      githubRepository: sarthakagrawal927/agentbox
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: dirty
+        trackedChangeCount: 43
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-10-08
+      state: available
+      checkout: agentbox
+      revision: 96b831e71e9c218ec8dc30448ff9383696e306a2
+      githubRepository: sarthakagrawal927/agentbox
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-09-29
+      catalogLatestCommitAt: 2026-10-06
+      catalogDrift: []
+      reason: null
+    githubActions:
+      observedAt: 2026-10-08T19:52:57.555Z
+      staleAfterDays: 30
+      never-run: 1
+      attention: &a2
+        missing-data: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: retire field track,  war chest
+  fullReviewVerbatim: |-
+    retire field track,  war chest
+
+    add agentibox
+
+    are these the only 2 that are not added??
+  relatedHistoricalReviews: []
+decision:
+  classification: Active local personal tool
+  whySummary: Notice local coding-agent requests and reach the correct verified conversation.
+  currentState: Owner-added Agentbox fork; local unsigned development baseline, private Fleet listing; physical sleep/wake, notifications and outside-session parity remain open.
+  nextDecision: Complete the bounded local qualification in `agentbox/PRODUCT.md` before public sharing.
+identity:
+  name: Agent Inbox
+  publicName: null
+  aliases:
+    - agentbox
+    - Agentbox
+  family: agent-inbox
+  category: utility
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: null
+  unmetNeed: true
+  kind: product
+  priority: P2
+  tier: active
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: false
+  operationalStatus: local-only
+  authenticationModel: local-only
+  inRegistry: false
+product:
+  description: A local inbox for coding-agent status, attention requests and verified conversation replies.
+  publicMakerNote: I want a local inbox that shows which coding agents need me and lets me reach the correct conversation.
+  purposeContract:
+    purpose: Notice local coding-agent work that needs attention and reply through a verified connection.
+    audience: The owner running local Claude Code and Codex conversations.
+    outcome: Find the correct live conversation, review its status and respond to requests without confusing transcripts with live sessions.
+    mechanism: A local inbox, floating pill and bounded lifecycle metadata connect observed agents to verified conversation transports or host-app handoff.
+    proof: The local product contract and dated qualification report describe the working development baseline; no signed or notarized release is qualified.
+    nextAction: Complete physical sleep/wake, notification and outside-session parity qualification before public sharing.
+  form: Local macOS app
+  platforms:
+    - macOS
+    - Local
+  prominentTools:
+    - Electron
+    - TypeScript
+    - Swift
+  retainedGitHistory:
+    firstCommitAt: 2026-09-29
+    latestCommitAt: 2026-10-06
+    retainedCommitCount: 633
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: agentbox
+  observedRevision: 96b831e71e9c218ec8dc30448ff9383696e306a2
+  githubRepository: sarthakagrawal927/agentbox
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: public
+  url: https://github.com/sarthakagrawal927/agentbox
+  aliases: []
+  sourceOverride: null
+  tooling:
+    declaredPackageManager: null
+    detectedSignals:
+      - name: npm
+        evidence:
+          - package-lock.json
+      - name: Vite
+        evidence:
+          - renderer/vite.config.ts
+      - name: Vitest
+        evidence:
+          - vitest.config.mjs
+    rootPackageScripts:
+      - app
+      - build
+      - check:public
+      - dev
+      - fresh
+      - hooks:install
+      - icon
+      - pack
+      - pack:side
+      - postinstall
+      - prepack
+      - prepare
+      - prepublishOnly
+      - release
+      - serve
+      - setup:feedback
+      - ship
+      - start
+      - test
+      - test:changed
+      - typecheck
+githubActions:
+  observedAt: 2026-10-08T19:52:57.555Z
+  staleAfterDays: 30
+  summary:
+    never-run: 1
+  attention: *a2
+  remote:
+    repository: sarthakagrawal927/agentbox
+    defaultBranch: main
+    defaultBranchSha: 1aeab77d592c2bad4e51de1f2f3b1070bb31b6e5
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: Owner-added local Agent Inbox project; bounded work follows agentbox/PRODUCT.md.
+  workflows:
+    - name: tests
+      file: .github/workflows/tests.yml
+      triggers:
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: Owner-added local Agent Inbox project; bounded work follows agentbox/PRODUCT.md.
+      live:
+        health: never-run
+        reason: no workflow run was returned by GitHub
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: missing
+        reason: no push run was returned for main
+        lastRun: null
+      attention: missing-data
+deployment:
+  kind: local
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-10-08
+  reason: Local unsigned development fork. The 2026-10-07 qualification report records live-thread linking and acknowledged replies; physical sleep/wake, OS notification delivery, external-session parity and release qualification remain open.
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/agentbox/issues
+  geoIdentity: null
+notes:
+  catalog: Owner added Agent Inbox to Fleet on 2026-10-08. Agentbox is the upstream implementation baseline; the local project scope is Agent Inbox. Existing provider accounts are used; inbox state stays local.
+  infrastructure: Owner-local Agent Inbox development fork in agentbox. No hosting, cloud resource or release was created by registration.

@@ -3,7 +3,7 @@ projectId: field-track
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-08-23
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-06
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Field Track
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
-      checkout: field-track
-      revision: 244c7b736bb7cefa5cc6a6ef50edbcf71bf3fb97
+      checkout: ../fleet-archive/field-track
+      revision: 23e0687dee82b351a95cb39a166d9bcecec6f374
       githubRepository: sass-maker/field-track
       expectedHomepage: https://field-track.sassmaker.com
       observedHomepage: https://field-track.sassmaker.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
-      checkout: field-track
-      revision: 244c7b736bb7cefa5cc6a6ef50edbcf71bf3fb97
+      checkout: ../fleet-archive/field-track
+      revision: 23e0687dee82b351a95cb39a166d9bcecec6f374
       githubRepository: sass-maker/field-track
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,21 +56,21 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
-        clear: 1
+        ignored: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Fieldtrack is a product I'm building for my dad but as of now the economics of this do not make sense and I will have to build it out eventually. I am kind of delaying it because I did not want to deal with android application building. It's a product in which you can track the employees by installing an application on their phone. They can choose when they want to track
   fullReviewVerbatim: Fieldtrack is a product I'm building for my dad but as of now the economics of this do not make sense and I will have to build it out eventually. I am kind of delaying it because I did not want to deal with android application building. It's a product in which you can track the employees by installing an application on their phone. They can choose when they want to track
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
-  whySummary: Give the owner's father an employee-controlled field-location tracker.
-  currentState: Paused experiment; no current work or obligation to resume.
-  nextDecision: "Keep: A bounded field-work prototype for your father's operation. Stop: A tracking SaaS or platform before a real field pilot is wanted."
+  classification: Inactive / retired
+  whySummary: Preserve the field-location prototype as historical work.
+  currentState: Owner retired it from active Fleet on 2026-10-08; retained source, data and infrastructure remain attributed.
+  nextDecision: No development or expansion unless the owner explicitly reopens it.
 identity:
   name: Field Track
   publicName: Field Track
@@ -82,12 +82,12 @@ identity:
   moneyOrPersonalBrand: false
   unmetNeed: false
   kind: product
-  priority: P2
-  tier: secondary
+  priority: P4
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
+    status: inactive
+    resumeCondition: Only resume after an explicit new owner decision.
     shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
@@ -114,13 +114,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-08-12
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 21
+    latestCommitAt: 2026-09-29
+    retainedCommitCount: 22
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: field-track
-  observedRevision: 244c7b736bb7cefa5cc6a6ef50edbcf71bf3fb97
+  checkout: ../fleet-archive/field-track
+  observedRevision: 23e0687dee82b351a95cb39a166d9bcecec6f374
   githubRepository: sass-maker/field-track
   githubHomepageUrl: https://field-track.sassmaker.com
   worktree: *a1
@@ -153,7 +153,7 @@ repository:
       - test
       - test:public-telemetry
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -161,12 +161,12 @@ githubActions:
   remote:
     repository: sass-maker/field-track
     defaultBranch: main
-    defaultBranchSha: 244c7b736bb7cefa5cc6a6ef50edbcf71bf3fb97
+    defaultBranchSha: 829fb0406e4892bf9a64504f5153ce4b16aaf32e
     homepage: https://field-track.sassmaker.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: Owner retired the project on 2026-10-08. Preserve existing source, workflows and attributed infrastructure; exclude from active Fleet work.
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -179,23 +179,23 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: Owner retired the project on 2026-10-08. Preserve existing source, workflows and attributed infrastructure; exclude from active Fleet work.
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36385600700
+          id: 37358766467
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 244c7b736bb7cefa5cc6a6ef50edbcf71bf3fb97
-          createdAt: 2026-09-28T06:15:59Z
-          updatedAt: 2026-09-28T06:19:32Z
-          url: https://github.com/sass-maker/field-track/actions/runs/36385600700
-        ageDays: 0
+          headSha: 829fb0406e4892bf9a64504f5153ce4b16aaf32e
+          createdAt: 2026-10-05T18:48:44Z
+          updatedAt: 2026-10-05T18:52:14Z
+          url: https://github.com/sass-maker/field-track/actions/runs/37358766467
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -204,17 +204,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36385600700
+          id: 37358766467
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 244c7b736bb7cefa5cc6a6ef50edbcf71bf3fb97
-          createdAt: 2026-09-28T06:15:59Z
-          updatedAt: 2026-09-28T06:19:32Z
-          url: https://github.com/sass-maker/field-track/actions/runs/36385600700
-        ageDays: 0
-      attention: clear
+          headSha: 829fb0406e4892bf9a64504f5153ce4b16aaf32e
+          createdAt: 2026-10-05T18:48:44Z
+          updatedAt: 2026-10-05T18:52:14Z
+          url: https://github.com/sass-maker/field-track/actions/runs/37358766467
+        ageDays: 3
+      attention: ignored
 deployment:
   kind: worker
   deployed: true
@@ -230,17 +230,27 @@ deployment:
         name: field-track
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-10-06
+          sourceCommit: 829fb0406e4892bf9a64504f5153ce4b16aaf32e
+          versionId: 643d426e-d8c6-45c9-94ca-d9fa26926f1a
+          trafficPercent: 100
+          evidencePath: field-track/.fleet-local/footer180-root-review-20261005/current-c-deployment-proof-20261006.json
+          scope: Synthetic demo footer only; unchanged demo bindings; no D1/device/enrollment/employee data writes
+          state: success-production-verified
+          evidence: Exact source/current owning CI, existing publisher/provider and anonymous bytes plus root actual runtime/render proof. Numeric slop scanner remains unknown.
+        versionId: 643d426e-d8c6-45c9-94ca-d9fa26926f1a
     resources: []
   otherProviders:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: experiment
   ready: true
   verifiedAt: 2026-09-07
   reason: Demo only; no Android/device/real workforce qualification.
-  changelogUrl: https://field-track.sassmaker.com/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/sass-maker/field-track/issues
   geoIdentity:
     id: field-track
@@ -262,5 +272,7 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: The public Cloudflare Worker serves the actual manager dashboard as a clearly labeled synthetic demo. Production employee data, authenticated operations, and physical-device Android pilot validation remain unreleased.
+  catalog: |-
+    The public Cloudflare Worker serves the actual manager dashboard as a clearly labeled synthetic demo. Production employee data, authenticated operations, and physical-device Android pilot validation remain unreleased.
+    Owner retired this project from active Fleet on 2026-10-08. Preserve source, data and infrastructure attribution; no provider decommission or repository archival was performed.
   infrastructure: null

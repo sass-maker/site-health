@@ -3,7 +3,7 @@ projectId: what-it-takes-to-win
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: what-it-takes-to-win
-      revision: 3a69db31794c340f6dd79534d4e37c4e8aa3bb96
+      revision: 812b5b1a1a1fd2e3b5e6a7399fafec7843834754
       githubRepository: Significant-Hobbies/what-it-takes-to-win
       expectedHomepage: https://paths.significanthobbies.com
       observedHomepage: https://paths.significanthobbies.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 1
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: what-it-takes-to-win
-      revision: 3a69db31794c340f6dd79534d4e37c4e8aa3bb96
+      revision: 812b5b1a1a1fd2e3b5e6a7399fafec7843834754
       githubRepository: Significant-Hobbies/what-it-takes-to-win
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,11 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      healthy: 1
+      healthy: 2
       attention: &a2
         clear: 1
+        reconcile: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: The purpose for this project was to research what are the advantages held by people who are successful and also to help my habit of comparison to die down. I think I will invest a lot more time in this to study people.
@@ -113,13 +114,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-21
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 310
+    latestCommitAt: 2026-10-03
+    retainedCommitCount: 313
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: what-it-takes-to-win
-  observedRevision: 3a69db31794c340f6dd79534d4e37c4e8aa3bb96
+  observedRevision: 812b5b1a1a1fd2e3b5e6a7399fafec7843834754
   githubRepository: Significant-Hobbies/what-it-takes-to-win
   githubHomepageUrl: https://paths.significanthobbies.com
   worktree: *a1
@@ -172,15 +173,15 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    healthy: 2
   attention: *a2
   remote:
     repository: Significant-Hobbies/what-it-takes-to-win
     defaultBranch: main
-    defaultBranchSha: 3a69db31794c340f6dd79534d4e37c4e8aa3bb96
+    defaultBranchSha: 893737b7aa8c979c88add3723c863ffba9ad0641
     homepage: https://paths.significanthobbies.com
     query: verified
     disposition:
@@ -205,15 +206,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36393018067
+          id: 37819882337
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3a69db31794c340f6dd79534d4e37c4e8aa3bb96
-          createdAt: 2026-09-28T07:41:24Z
-          updatedAt: 2026-09-28T07:44:35Z
-          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/36393018067
+          headSha: 893737b7aa8c979c88add3723c863ffba9ad0641
+          createdAt: 2026-10-08T17:52:13Z
+          updatedAt: 2026-10-08T17:55:13Z
+          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/37819882337
         ageDays: 0
       schedule:
         health: not-applicable
@@ -223,17 +224,52 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36393018067
+          id: 37819882337
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3a69db31794c340f6dd79534d4e37c4e8aa3bb96
-          createdAt: 2026-09-28T07:41:24Z
-          updatedAt: 2026-09-28T07:44:35Z
-          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/36393018067
+          headSha: 893737b7aa8c979c88add3723c863ffba9ad0641
+          createdAt: 2026-10-08T17:52:13Z
+          updatedAt: 2026-10-08T17:55:13Z
+          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/37819882337
         ageDays: 0
       attention: clear
+    - name: Dependency lock repair
+      file: .github/workflows/dependency-lock-repair.yml
+      triggers: []
+      schedules: []
+      inventory:
+        source: remote-only
+        local: false
+        remote: true
+      ownerDisposition:
+        status: needs-reconciliation
+        reason: workflow exists in GitHub but not in the local working tree
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37423238425
+          status: completed
+          conclusion: success
+          event: pull_request
+          branch: agent/paths-issue69-dependency-exit-20261006
+          headSha: e472ac433a5e9a478690463862461978ce31515b
+          createdAt: 2026-10-06T06:21:03Z
+          updatedAt: 2026-10-06T06:21:25Z
+          url: https://github.com/Significant-Hobbies/what-it-takes-to-win/actions/runs/37423238425
+        ageDays: 2
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: reconcile
 deployment:
   kind: pages
   deployed: true

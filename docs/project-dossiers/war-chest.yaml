@@ -3,19 +3,19 @@ projectId: war-chest
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: unset
-    githubActionsLiveState: not-applicable
+    githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,18 +24,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: 04b33167c82a9b23f28393d269ff865ed02940d455369c517c1e7ff2eee76c27
-      documentSha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
-      checkout: war-chest
-      revision: e94dae4ce4e646555cbd9534ec59964c796cd7b8
+      checkout: ../fleet-archive/war-chest
+      revision: f4c9f48646d706a28afb9ed89cb307b0cb321947
       githubRepository: Significant-Hobbies/war-chest
       expectedHomepage: https://warchest.significanthobbies.com
       observedHomepage: null
@@ -44,10 +44,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
-      checkout: war-chest
-      revision: e94dae4ce4e646555cbd9534ec59964c796cd7b8
+      checkout: ../fleet-archive/war-chest
+      revision: f4c9f48646d706a28afb9ed89cb307b0cb321947
       githubRepository: Significant-Hobbies/war-chest
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -58,19 +58,21 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      attention: &a2 {}
+      healthy: 1
+      attention: &a2
+        ignored: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: War chest is an experimental war game
   fullReviewVerbatim: War chest is an experimental war game
   relatedHistoricalReviews: []
 decision:
-  classification: Active
-  whySummary: Explore an experimental tactical war game.
-  currentState: Unsigned local Mac game and practice apps; the repository has no commits or published release.
-  nextDecision: Play the practice route and decide whether the prototype merits further work.
+  classification: Inactive / retired
+  whySummary: Preserve the experimental local tactical game as historical work.
+  currentState: Owner retired it from active Fleet on 2026-10-08; local game builds, source and infrastructure remain retained.
+  nextDecision: No development or expansion unless the owner explicitly reopens it.
 identity:
   name: War Chest
   publicName: War Chest
@@ -82,11 +84,12 @@ identity:
   moneyOrPersonalBrand: null
   unmetNeed: null
   kind: experiment
-  tier: secondary
-  attention: my-work
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
+    status: inactive
+    resumeCondition: Only resume after an explicit new owner decision.
     shareable: false
   operationalStatus: live
   authenticationModel: local-only
@@ -110,13 +113,13 @@ product:
     - GDScript
   retainedGitHistory:
     firstCommitAt: 2026-09-26
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 5
+    latestCommitAt: 2026-10-03
+    retainedCommitCount: 10
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: war-chest
-  observedRevision: e94dae4ce4e646555cbd9534ec59964c796cd7b8
+  checkout: ../fleet-archive/war-chest
+  observedRevision: f4c9f48646d706a28afb9ed89cb307b0cb321947
   githubRepository: Significant-Hobbies/war-chest
   githubHomepageUrl: null
   worktree: *a1
@@ -129,20 +132,68 @@ repository:
     detectedSignals: []
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
-  summary: {}
+  summary:
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/war-chest
     defaultBranch: main
-    defaultBranchSha: e94dae4ce4e646555cbd9534ec59964c796cd7b8
+    defaultBranchSha: f4c9f48646d706a28afb9ed89cb307b0cb321947
     homepage: null
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
-  workflows: []
+      disposition: ignored
+      reason: Owner retired the project on 2026-10-08. Preserve existing source, workflows and attributed infrastructure; exclude from active Fleet work.
+  workflows:
+    - name: Site landing checks
+      file: .github/workflows/site-check.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: Owner retired the project on 2026-10-08. Preserve existing source, workflows and attributed infrastructure; exclude from active Fleet work.
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37133510178
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f4c9f48646d706a28afb9ed89cb307b0cb321947
+          createdAt: 2026-10-03T15:30:56Z
+          updatedAt: 2026-10-03T15:31:10Z
+          url: https://github.com/Significant-Hobbies/war-chest/actions/runs/37133510178
+        ageDays: 5
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 37133510178
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: f4c9f48646d706a28afb9ed89cb307b0cb321947
+          createdAt: 2026-10-03T15:30:56Z
+          updatedAt: 2026-10-03T15:31:10Z
+          url: https://github.com/Significant-Hobbies/war-chest/actions/runs/37133510178
+        ageDays: 5
+      attention: ignored
 deployment:
   kind: pages
   deployed: true
@@ -170,10 +221,12 @@ sharing:
   maturity: experiment
   ready: false
   verifiedAt: 2026-09-25
-  reason: Unsigned local War Chest and Practice War Chest apps exist in the checkout. The repository has no commits and no published release; native play acceptance remains open.
+  reason: Unsigned local War Chest and Practice War Chest apps exist in the checkout. The repository retains five commits (2026-09-26 through 2026-09-28) and has no published release; native play acceptance remains open.
   changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/war-chest/issues
   geoIdentity: null
 notes:
-  catalog: Owner registered the experimental local war game on 2026-09-25.
+  catalog: |-
+    Owner registered the experimental local war game on 2026-09-25.
+    Owner retired this project from active Fleet on 2026-10-08. Preserve source, data and infrastructure attribution; no provider decommission or repository archival was performed.
   infrastructure: Static teaser page (site/index.html + existing artifacts art) deployed to Pages war-chest at warchest.significanthobbies.com on 2026-09-27. Unsigned local game apps; no production resources claimed.

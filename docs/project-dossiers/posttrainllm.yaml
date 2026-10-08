@@ -3,7 +3,7 @@ projectId: posttrainllm
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: posttrainllm
-      revision: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
+      revision: 0362acd4e4098be75cee3e724338a90a019c382c
       githubRepository: PostTrainLLM/posttrainllm
       expectedHomepage: https://posttrainllm.com
       observedHomepage: https://posttrainllm.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 6
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: posttrainllm
-      revision: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
+      revision: 0362acd4e4098be75cee3e724338a90a019c382c
       githubRepository: PostTrainLLM/posttrainllm
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,10 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      healthy: 2
+      running: 1
+      healthy: 1
       attention: &a2
         clear: 2
   unknowns: []
@@ -113,13 +114,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-05-21
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 945
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 984
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: posttrainllm
-  observedRevision: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
+  observedRevision: 0362acd4e4098be75cee3e724338a90a019c382c
   githubRepository: PostTrainLLM/posttrainllm
   githubHomepageUrl: https://posttrainllm.com
   worktree: *a1
@@ -165,17 +166,19 @@ repository:
       - quality:unused
       - test
       - test:coverage
+      - test:dependency-security
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    healthy: 2
+    running: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: PostTrainLLM/posttrainllm
     defaultBranch: main
-    defaultBranchSha: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
+    defaultBranchSha: 78b0f438e388a58dc61871bf3056856a18befcee
     homepage: https://posttrainllm.com
     query: verified
     disposition:
@@ -197,19 +200,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 36433312145
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
-          createdAt: 2026-09-28T14:05:13Z
-          updatedAt: 2026-09-28T14:23:41Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36433312145
+          id: 37834703321
+          status: in_progress
+          conclusion: null
+          event: pull_request
+          branch: chore/land-local-assets-20261009
+          headSha: 0362acd4e4098be75cee3e724338a90a019c382c
+          createdAt: 2026-10-08T19:48:27Z
+          updatedAt: 2026-10-08T19:49:47Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/37834703321
         ageDays: 0
       schedule:
         health: not-applicable
@@ -219,15 +222,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36433312145
+          id: 37822092273
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
-          createdAt: 2026-09-28T14:05:13Z
-          updatedAt: 2026-09-28T14:23:41Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36433312145
+          headSha: 78b0f438e388a58dc61871bf3056856a18befcee
+          createdAt: 2026-10-08T18:09:23Z
+          updatedAt: 2026-10-08T18:22:48Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/37822092273
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Pages
@@ -247,16 +250,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36435764290
+          id: 37218930357
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 69e44de9a4c0fcc05da6a0c51b3721e9f4bb4a02
-          createdAt: 2026-09-28T14:24:46Z
-          updatedAt: 2026-09-28T14:26:19Z
-          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/36435764290
-        ageDays: 0
+          headSha: e5f501d4499689448598d20f2dc79979b98fa288
+          createdAt: 2026-10-04T17:01:21Z
+          updatedAt: 2026-10-04T17:02:40Z
+          url: https://github.com/PostTrainLLM/posttrainllm/actions/runs/37218930357
+        ageDays: 4
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

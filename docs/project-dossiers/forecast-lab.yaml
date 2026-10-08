@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: forecast-lab
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: unavailable
+    repositorySnapshot: passed
     githubHomepage: not-applicable
-    githubActionsLiveState: not-applicable
-    retainedGitHistory: unavailable
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,44 +28,48 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
-      state: unavailable
+      observedAt: 2026-10-08
+      state: available
       checkout: ../fleet-archive/forecast-lab
-      revision: null
-      githubRepository: null
+      revision: 9ae50aa0ff2ee363fca6bd8efd917ee1a58c57b8
+      githubRepository: sarthakagrawal927/forecast-lab
       expectedHomepage: null
       observedHomepage: null
-      worktree: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
-      state: unavailable
+      observedAt: 2026-10-08
+      state: available
       checkout: ../fleet-archive/forecast-lab
-      revision: null
-      githubRepository: null
+      revision: 9ae50aa0ff2ee363fca6bd8efd917ee1a58c57b8
+      githubRepository: sarthakagrawal927/forecast-lab
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-21
-      catalogLatestCommitAt: 2026-09-07
+      catalogLatestCommitAt: 2026-10-08
       catalogDrift: []
-      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
+      reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      attention: &a1 {}
-  unknowns:
-    - The owning checkout was unavailable during repository observation.
+      healthy: 1
+      attention: &a2
+        ignored: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
   fullReviewVerbatim: Forecast lab is also a very interesting product. This is also a product I wanted to build for a long time. The purpose for this was to study statistics and understand how demand works in places like Zepto or other e-commerce stores based on region, timestamp, frequency, and other parameters and try to predict the future. This is a very complicated B2B SaaS product and since I did not have expertise and I had better things, I put a pause on this product so this will be on definite hold.
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
-  whySummary: Learn forecasting through reproducible experiments.
-  currentState: Paused experiment; no current work or obligation to resume.
-  nextDecision: "Keep: Reproducible benchmark results and lessons already learned. Stop: A forecasting SaaS or more methods without a concrete research question."
+  classification: Inactive / archived
+  whySummary: Retain forecasting experiments and lessons.
+  currentState: Owner archived on 2026-10-08; checkout and evidence preserved at ../fleet-archive/forecast-lab.
+  nextDecision: Keep completed exploratory results and history. No active research, features or deployment unless the owner explicitly reopens it.
 identity:
   name: Forecast Lab
   publicName: Forecast Lab
@@ -78,15 +82,15 @@ identity:
   unmetNeed: false
   kind: experiment
   priority: P4
-  tier: parked
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
     status: inactive
-    resumeCondition: null
+    resumeCondition: Only explicit owner reactivation; no active Fleet work.
     shareable: false
   operationalStatus: undeployed
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: Forecasting experiments and evaluation tooling.
   publicMakerNote: I wanted to learn forecasting by modeling how regional, temporal, and behavioral signals shape commerce demand.
@@ -96,7 +100,7 @@ product:
     outcome: Understand which signals improve a forecast and where the model fails, without pretending to offer a proven consulting product.
     mechanism: Rust, Python, and web experiments compare forecasting approaches against held-out data and visible metrics.
     proof: The research toolkit supports concrete experiments, but lacks the proprietary data and domain validation required for credible B2B claims.
-    nextAction: Preserved experiment; no current work or obligation to resume.
+    nextAction: Archived outside Fleet; retain completed results and history. No active roadmap.
   form: Research toolkit
   platforms:
     - CLI
@@ -104,43 +108,119 @@ product:
   prominentTools:
     - Rust
     - Python
+    - PyTorch
     - React
     - Vite
   retainedGitHistory:
-    firstCommitAt: null
-    latestCommitAt: null
-    retainedCommitCount: null
-    historyCompleteness: null
+    firstCommitAt: 2026-06-21
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 20
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/forecast-lab
-  observedRevision: null
-  githubRepository: null
+  observedRevision: 9ae50aa0ff2ee363fca6bd8efd917ee1a58c57b8
+  githubRepository: sarthakagrawal927/forecast-lab
   githubHomepageUrl: null
-  worktree: null
+  worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/forecast-lab
   aliases: []
   sourceOverride: ../fleet-archive/forecast-lab
   tooling:
     declaredPackageManager: null
-    detectedSignals: []
-    rootPackageScripts: []
+    detectedSignals:
+      - name: Docker
+        evidence:
+          - co2-transformer/Dockerfile
+          - co2-transformer/docker-compose.yml
+          - event-forecast/docker-compose.yml
+      - name: npm
+        evidence:
+          - web/package-lock.json
+      - name: Python pyproject
+        evidence:
+          - benchmark-lab/pyproject.toml
+          - co2-transformer/pyproject.toml
+          - demand-forecast/pyproject.toml
+          - recsys-lab/pyproject.toml
+      - name: Rust Cargo
+        evidence:
+          - event-forecast/Cargo.toml
+      - name: uv
+        evidence:
+          - benchmark-lab/uv.lock
+          - co2-transformer/uv.lock
+          - demand-forecast/uv.lock
+          - recsys-lab/uv.lock
+      - name: Vite
+        evidence:
+          - web/vite.config.ts
+    rootPackageScripts:
+      - deploy
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
-  summary: {}
-  attention: *a1
+  summary:
+    healthy: 1
+  attention: *a2
   remote:
-    repository: null
-    defaultBranch: null
-    defaultBranchSha: null
+    repository: sarthakagrawal927/forecast-lab
+    defaultBranch: main
+    defaultBranchSha: 9ae50aa0ff2ee363fca6bd8efd917ee1a58c57b8
     homepage: null
-    query: unverifiable
+    query: verified
     disposition:
       disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows: []
+      reason: Owner retired Forecast Lab on 2026-10-08. Preserve completed exploratory results and history; no unattended or active feature/research/deployment work. CI remains for source preservation.
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: Owner retired Forecast Lab on 2026-10-08. Preserve completed exploratory results and history; no unattended or active feature/research/deployment work. CI remains for source preservation.
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37816014336
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 9ae50aa0ff2ee363fca6bd8efd917ee1a58c57b8
+          createdAt: 2026-10-08T17:22:12Z
+          updatedAt: 2026-10-08T17:22:59Z
+          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/37816014336
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 37816014336
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 9ae50aa0ff2ee363fca6bd8efd917ee1a58c57b8
+          createdAt: 2026-10-08T17:22:12Z
+          updatedAt: 2026-10-08T17:22:59Z
+          url: https://github.com/sarthakagrawal927/forecast-lab/actions/runs/37816014336
+        ageDays: 0
+      attention: ignored
 deployment:
   kind: none
   deployed: false
@@ -155,7 +235,7 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: past
+  publicListing: hidden
   maturity: null
   ready: false
   verifiedAt: 2026-09-07
@@ -164,5 +244,5 @@ sharing:
   roadmapUrl: https://github.com/sarthakagrawal927/forecast-lab/issues
   geoIdentity: null
 notes:
-  catalog: Inactive historical repository; explicit reactivation required.
+  catalog: Reactivated 2026-10-04 by owner for the appliedcomputingtech AI-Challenge (CO2 concentration forecasting for an Imperial College carbon-capture pilot plant). Undeployed and not shareable. Archived outside Fleet on 2026-10-08 at the owner’s request; completed results and local history retained.
   infrastructure: null

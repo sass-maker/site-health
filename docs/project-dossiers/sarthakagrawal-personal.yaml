@@ -3,7 +3,7 @@ projectId: sarthakagrawal-personal
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-09-12
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-05
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Portfolio
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: portfolio
-      revision: 12472971cab9499cd083ad0ba24cf06e274025cb
+      revision: 807a6ddd3cea70285dd0539e826a19c4c4e9d749
       githubRepository: Significant-Hobbies/portfolio
       expectedHomepage: https://sarthakagrawal.dev
       observedHomepage: https://sarthakagrawal.dev
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: portfolio
-      revision: 12472971cab9499cd083ad0ba24cf06e274025cb
+      revision: 807a6ddd3cea70285dd0539e826a19c4c4e9d749
       githubRepository: Significant-Hobbies/portfolio
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,13 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 1
-      stale: 1
       attention: &a2
         clear: 1
-        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Portfolio, as the name suggests, is my personal website. It needs to exist so it's there. I am happy with how it is so no major changes.
@@ -117,13 +115,13 @@ product:
     - IssuePages
   retainedGitHistory:
     firstCommitAt: 2026-05-22
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 106
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 128
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: portfolio
-  observedRevision: 12472971cab9499cd083ad0ba24cf06e274025cb
+  observedRevision: 807a6ddd3cea70285dd0539e826a19c4c4e9d749
   githubRepository: Significant-Hobbies/portfolio
   githubHomepageUrl: https://sarthakagrawal.dev
   worktree: *a1
@@ -132,7 +130,7 @@ repository:
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: null
+    declaredPackageManager: pnpm@10.33.2
     detectedSignals:
       - name: Astro
         evidence:
@@ -143,9 +141,6 @@ repository:
       - name: Cloudflare Wrangler
         evidence:
           - wrangler.jsonc
-      - name: npm
-        evidence:
-          - package-lock.json
       - name: pnpm
         evidence:
           - pnpm-lock.yaml
@@ -175,16 +170,15 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 1
-    stale: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/portfolio
     defaultBranch: main
-    defaultBranchSha: 2678f7b0362cd5ab0f1c5939c9b5bf46a5cdc86d
+    defaultBranchSha: 807a6ddd3cea70285dd0539e826a19c4c4e9d749
     homepage: https://sarthakagrawal.dev
     query: verified
     disposition:
@@ -210,15 +204,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36381124136
+          id: 37830452983
           status: completed
           conclusion: success
-          event: workflow_dispatch
+          event: push
           branch: main
-          headSha: 2678f7b0362cd5ab0f1c5939c9b5bf46a5cdc86d
-          createdAt: 2026-09-28T05:15:32Z
-          updatedAt: 2026-09-28T05:16:21Z
-          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/36381124136
+          headSha: 807a6ddd3cea70285dd0539e826a19c4c4e9d749
+          createdAt: 2026-10-08T19:14:29Z
+          updatedAt: 2026-10-08T19:15:12Z
+          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/37830452983
         ageDays: 0
       schedule:
         health: not-applicable
@@ -228,63 +222,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36380989652
+          id: 37830452983
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2678f7b0362cd5ab0f1c5939c9b5bf46a5cdc86d
-          createdAt: 2026-09-28T05:13:44Z
-          updatedAt: 2026-09-28T05:14:16Z
-          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/36380989652
+          headSha: 807a6ddd3cea70285dd0539e826a19c4c4e9d749
+          createdAt: 2026-10-08T19:14:29Z
+          updatedAt: 2026-10-08T19:15:12Z
+          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/37830452983
         ageDays: 0
       attention: clear
-    - name: Build résumé PDF
-      file: .github/workflows/resume.yml
-      triggers:
-        - push
-        - workflow_dispatch
-      schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: stale
-        reason: latest run is 129 days old
-        apiState: active
-        lastRun:
-          id: 26280785969
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: dd90b65bf3b37f2e7b225d90784b70edf11619a9
-          createdAt: 2026-05-22T09:48:57Z
-          updatedAt: 2026-05-22T09:50:23Z
-          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/26280785969
-        ageDays: 129
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: missing
-        reason: no push run at current main revision 2678f7b
-        lastRun:
-          id: 26280785969
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: dd90b65bf3b37f2e7b225d90784b70edf11619a9
-          createdAt: 2026-05-22T09:48:57Z
-          updatedAt: 2026-05-22T09:50:23Z
-          url: https://github.com/Significant-Hobbies/portfolio/actions/runs/26280785969
-      attention: missing-data
 deployment:
   kind: pages
   deployed: true
@@ -301,10 +249,15 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-11T21:30:15.945541+00:00
-          sourceCommit: 462cdfdd2d3560f9d53ff89b638ea56f247b62c9
-          deploymentUrl: https://c579d4cb.sarthakagrawal.pages.dev
-          evidencePath: ../saas-maker/.fleet-local/portfolio-public-sync-20260912.json
+          observedAt: 2026-10-04T21:25:15.557859+00:00
+          sourceCommit: 89e390087434b2ef3ec3dc920419cc943d891189
+          providerSourceAbbreviation: "89e3900"
+          deploymentId: 68a0145b-ac34-401a-a661-4179f2962c59
+          deploymentUrl: https://68a0145b.sarthakagrawal.pages.dev
+          environment: Production
+          branch: main
+          state: success-production-verified
+          evidence: "Portfolio #55/PR56: exact-main CI37234977576 and manual release37235091466 passed. Existing release workflow refreshed its hosted public-catalog input before build. Provider Production/main source prefix matches exact checkout SHA. Independent live verification covered all15 direct200 sitemap pages, matching normalized canonical/og:url, homepage ProfilePage/title, and preserved /index308. Fresh Ahrefs10205901 crawl225URLs/3m16 shows canonical-to-redirect0 (1 removed), noncanonical-sitemap0 (1 removed). Six Fleet deploy gates passed after dispatch; ordering error recorded. No provider settings changed."
     resources:
       - provider: cloudflare
         kind: zone

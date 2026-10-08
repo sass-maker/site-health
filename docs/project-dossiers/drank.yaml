@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: drank
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: unavailable
-    githubHomepage: unset
-    githubActionsLiveState: not-applicable
-    retainedGitHistory: unavailable
+    repositorySnapshot: passed
+    githubHomepage: passed
+    githubActionsLiveState: verified
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,35 +28,40 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
-      state: unavailable
+      observedAt: 2026-10-08
+      state: available
       checkout: ../fleet-archive/drank
-      revision: null
-      githubRepository: null
+      revision: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+      githubRepository: sarthakagrawal927/drank
       expectedHomepage: https://domains.sassmaker.com
-      observedHomepage: null
-      worktree: null
+      observedHomepage: https://domains.sassmaker.com
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
-      state: unavailable
+      observedAt: 2026-10-08
+      state: available
       checkout: ../fleet-archive/drank
-      revision: null
-      githubRepository: null
+      revision: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+      githubRepository: sarthakagrawal927/drank
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-10
       catalogLatestCommitAt: 2026-09-08
-      catalogDrift: []
-      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
+      catalogDrift:
+        - latestCommitAt
+      reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      attention: &a1 {}
-  unknowns:
-    - The owning checkout was unavailable during repository observation.
+      failing: 2
+      attention: &a2
+        ignored: 2
+  unknowns: []
 ownerVoice:
   whyVerbatim: Drank, I started off because The domain ranking API suddenly got free and I was like I should have a tool to check domain rankings of my products.
   fullReviewVerbatim: |-
@@ -110,40 +115,175 @@ product:
     - TypeScript
     - Cloudflare Pages
   retainedGitHistory:
-    firstCommitAt: null
-    latestCommitAt: null
-    retainedCommitCount: null
-    historyCompleteness: null
+    firstCommitAt: 2026-06-10
+    latestCommitAt: 2026-09-21
+    retainedCommitCount: 99
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/drank
-  observedRevision: null
-  githubRepository: null
-  githubHomepageUrl: null
-  worktree: null
+  observedRevision: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+  githubRepository: sarthakagrawal927/drank
+  githubHomepageUrl: https://domains.sassmaker.com
+  worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/drank
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: null
-    detectedSignals: []
-    rootPackageScripts: []
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.toml
+      - name: Next.js
+        evidence:
+          - next.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - biome:lint
+      - build
+      - cf:build
+      - check
+      - deploy
+      - dev
+      - docs:check
+      - format
+      - format:check
+      - knip
+      - knip:strict
+      - lint
+      - quality
+      - quality:complexity
+      - quality:cycles
+      - quality:dependencies
+      - quality:duplication
+      - quality:unused
+      - size
+      - start
+      - test
+      - test:coverage
+      - typecheck
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
-  summary: {}
-  attention: *a1
+  summary:
+    failing: 2
+  attention: *a2
   remote:
-    repository: null
-    defaultBranch: null
-    defaultBranchSha: null
-    homepage: null
-    query: unverifiable
+    repository: sarthakagrawal927/drank
+    defaultBranch: main
+    defaultBranchSha: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+    homepage: https://domains.sassmaker.com
+    query: verified
     disposition:
       disposition: ignored
       reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows: []
+  workflows:
+    - name: DRank CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 35635043327
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+          createdAt: 2026-09-21T17:55:14Z
+          updatedAt: 2026-09-21T17:56:23Z
+          url: https://github.com/sarthakagrawal927/drank/actions/runs/35635043327
+        ageDays: 17
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: failing
+        reason: current main push concluded failure
+        lastRun:
+          id: 35635043327
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+          createdAt: 2026-09-21T17:55:14Z
+          updatedAt: 2026-09-21T17:56:23Z
+          url: https://github.com/sarthakagrawal927/drank/actions/runs/35635043327
+        ageDays: 17
+      attention: ignored
+    - name: Update Global DR History
+      file: .github/workflows/update-global-dr.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 4 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 37300504007
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+          createdAt: 2026-10-05T11:03:40Z
+          updatedAt: 2026-10-05T11:04:23Z
+          url: https://github.com/sarthakagrawal927/drank/actions/runs/37300504007
+        ageDays: 3
+      schedule:
+        health: failing
+        reason: latest scheduled run concluded failure
+        lastRun:
+          id: 37300504007
+          status: completed
+          conclusion: failure
+          event: schedule
+          branch: main
+          headSha: e46d5b9784afd35b446f9108c8904d9bb05d8f07
+          createdAt: 2026-10-05T11:03:40Z
+          updatedAt: 2026-10-05T11:04:23Z
+          url: https://github.com/sarthakagrawal927/drank/actions/runs/37300504007
+        ageDays: 3
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: ignored
 deployment:
   kind: none
   deployed: false

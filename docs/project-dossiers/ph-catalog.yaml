@@ -3,7 +3,7 @@ projectId: ph-catalog
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,18 +24,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: 653d1bfeb2bf543031f5323d9237c1a59c9330bf616437ce905f2fa0e19d871a
-      documentSha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: ph-catalog
-      revision: 4b1c3e8da834b3e4474044742e4264b7785173dc
+      revision: 76b5d4981bd31a110c87568f35be14892c7adf7e
       githubRepository: Significant-Hobbies/ph-catalog
       expectedHomepage: https://ph.significanthobbies.com
       observedHomepage: null
@@ -44,10 +44,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: ph-catalog
-      revision: 4b1c3e8da834b3e4474044742e4264b7785173dc
+      revision: 76b5d4981bd31a110c87568f35be14892c7adf7e
       githubRepository: Significant-Hobbies/ph-catalog
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -57,11 +57,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      running: 1
+      healthy: 2
       attention: &a2
-        clear: 1
+        clear: 2
   unknowns: []
 ownerVoice:
   whyVerbatim: i also want to keep ph_catalog as separate project and merge it inside sassmaker ig
@@ -117,13 +117,13 @@ product:
     - Parquet
   retainedGitHistory:
     firstCommitAt: 2026-08-31
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 19
+    latestCommitAt: 2026-10-05
+    retainedCommitCount: 29
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ph-catalog
-  observedRevision: 4b1c3e8da834b3e4474044742e4264b7785173dc
+  observedRevision: 76b5d4981bd31a110c87568f35be14892c7adf7e
   githubRepository: Significant-Hobbies/ph-catalog
   githubHomepageUrl: null
   worktree: *a1
@@ -142,21 +142,68 @@ repository:
           - uv.lock
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    running: 1
+    healthy: 2
   attention: *a2
   remote:
     repository: Significant-Hobbies/ph-catalog
     defaultBranch: main
-    defaultBranchSha: a49a7b692e284d9c2bbcf9c4ed3856f0ff1ad2c3
+    defaultBranchSha: 76b5d4981bd31a110c87568f35be14892c7adf7e
     homepage: null
     query: verified
     disposition:
       disposition: active
       reason: tracked project
   workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37227423335
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 76b5d4981bd31a110c87568f35be14892c7adf7e
+          createdAt: 2026-10-04T19:13:07Z
+          updatedAt: 2026-10-04T19:13:25Z
+          url: https://github.com/Significant-Hobbies/ph-catalog/actions/runs/37227423335
+        ageDays: 4
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 37227423335
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 76b5d4981bd31a110c87568f35be14892c7adf7e
+          createdAt: 2026-10-04T19:13:07Z
+          updatedAt: 2026-10-04T19:13:25Z
+          url: https://github.com/Significant-Hobbies/ph-catalog/actions/runs/37227423335
+        ageDays: 4
+      attention: clear
     - name: Daily Product Hunt refresh
       file: .github/workflows/daily.yml
       triggers:
@@ -172,34 +219,35 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is queued
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36360404248
-          status: queued
-          conclusion: null
+          id: 37712275324
+          status: completed
+          conclusion: success
           event: schedule
           branch: main
-          headSha: 51a31dbf6a4613276a2c163560421303f523e211
-          createdAt: 2026-09-27T23:57:20Z
-          updatedAt: 2026-09-27T23:57:20Z
-          url: https://github.com/Significant-Hobbies/ph-catalog/actions/runs/36360404248
+          headSha: 76b5d4981bd31a110c87568f35be14892c7adf7e
+          createdAt: 2026-10-08T01:18:36Z
+          updatedAt: 2026-10-08T01:25:53Z
+          url: https://github.com/Significant-Hobbies/ph-catalog/actions/runs/37712275324
         ageDays: 0
       schedule:
-        health: running
-        reason: latest scheduled run is queued
+        health: healthy
+        reason: latest scheduled run concluded success
         lastRun:
-          id: 36360404248
-          status: queued
-          conclusion: null
+          id: 37712275324
+          status: completed
+          conclusion: success
           event: schedule
           branch: main
-          headSha: 51a31dbf6a4613276a2c163560421303f523e211
-          createdAt: 2026-09-27T23:57:20Z
-          updatedAt: 2026-09-27T23:57:20Z
-          url: https://github.com/Significant-Hobbies/ph-catalog/actions/runs/36360404248
+          headSha: 76b5d4981bd31a110c87568f35be14892c7adf7e
+          createdAt: 2026-10-08T01:18:36Z
+          updatedAt: 2026-10-08T01:25:53Z
+          url: https://github.com/Significant-Hobbies/ph-catalog/actions/runs/37712275324
         ageDays: 0
+        freshnessDays: 2
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger

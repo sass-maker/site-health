@@ -3,7 +3,7 @@ projectId: pace
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: pace
-      revision: 6f06c04978a5b223201d2f71f92aad7c50d95b47
+      revision: e09e344e7693f35cdf7404c8180c155574436da9
       githubRepository: HeyPace/pace
       expectedHomepage: https://heypace.app
       observedHomepage: https://heypace.app
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: pace
-      revision: 6f06c04978a5b223201d2f71f92aad7c50d95b47
+      revision: e09e344e7693f35cdf7404c8180c155574436da9
       githubRepository: HeyPace/pace
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -113,13 +113,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-13
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 73
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 77
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: pace
-  observedRevision: 6f06c04978a5b223201d2f71f92aad7c50d95b47
+  observedRevision: e09e344e7693f35cdf7404c8180c155574436da9
   githubRepository: HeyPace/pace
   githubHomepageUrl: https://heypace.app
   worktree: *a1
@@ -154,9 +154,10 @@ repository:
       - quality:unused
       - test
       - test:coverage
+      - test:dependency-security
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -164,7 +165,7 @@ githubActions:
   remote:
     repository: HeyPace/pace
     defaultBranch: main
-    defaultBranchSha: 6f06c04978a5b223201d2f71f92aad7c50d95b47
+    defaultBranchSha: e09e344e7693f35cdf7404c8180c155574436da9
     homepage: https://heypace.app
     query: verified
     disposition:
@@ -190,15 +191,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36368153507
+          id: 37804250118
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6f06c04978a5b223201d2f71f92aad7c50d95b47
-          createdAt: 2026-09-28T02:00:41Z
-          updatedAt: 2026-09-28T02:05:42Z
-          url: https://github.com/HeyPace/pace/actions/runs/36368153507
+          headSha: e09e344e7693f35cdf7404c8180c155574436da9
+          createdAt: 2026-10-08T15:52:05Z
+          updatedAt: 2026-10-08T15:57:54Z
+          url: https://github.com/HeyPace/pace/actions/runs/37804250118
         ageDays: 0
       schedule:
         health: not-applicable
@@ -208,15 +209,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36368153507
+          id: 37804250118
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6f06c04978a5b223201d2f71f92aad7c50d95b47
-          createdAt: 2026-09-28T02:00:41Z
-          updatedAt: 2026-09-28T02:05:42Z
-          url: https://github.com/HeyPace/pace/actions/runs/36368153507
+          headSha: e09e344e7693f35cdf7404c8180c155574436da9
+          createdAt: 2026-10-08T15:52:05Z
+          updatedAt: 2026-10-08T15:57:54Z
+          url: https://github.com/HeyPace/pace/actions/runs/37804250118
         ageDays: 0
       attention: clear
     - name: Deploy pace to Cloudflare Pages
@@ -236,16 +237,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36368172784
+          id: 37319618424
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 6f06c04978a5b223201d2f71f92aad7c50d95b47
-          createdAt: 2026-09-28T02:00:58Z
-          updatedAt: 2026-09-28T02:02:02Z
-          url: https://github.com/HeyPace/pace/actions/runs/36368172784
-        ageDays: 0
+          headSha: c0148d04a9fc2a513b621e10f88082224076af81
+          createdAt: 2026-10-05T13:48:09Z
+          updatedAt: 2026-10-05T13:49:30Z
+          url: https://github.com/HeyPace/pace/actions/runs/37319618424
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -274,15 +275,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36368153355
+          id: 37804250524
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6f06c04978a5b223201d2f71f92aad7c50d95b47
-          createdAt: 2026-09-28T02:00:41Z
-          updatedAt: 2026-09-28T02:01:25Z
-          url: https://github.com/HeyPace/pace/actions/runs/36368153355
+          headSha: e09e344e7693f35cdf7404c8180c155574436da9
+          createdAt: 2026-10-08T15:52:05Z
+          updatedAt: 2026-10-08T15:52:44Z
+          url: https://github.com/HeyPace/pace/actions/runs/37804250524
         ageDays: 0
       schedule:
         health: not-applicable
@@ -292,15 +293,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36368153355
+          id: 37804250524
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 6f06c04978a5b223201d2f71f92aad7c50d95b47
-          createdAt: 2026-09-28T02:00:41Z
-          updatedAt: 2026-09-28T02:01:25Z
-          url: https://github.com/HeyPace/pace/actions/runs/36368153355
+          headSha: e09e344e7693f35cdf7404c8180c155574436da9
+          createdAt: 2026-10-08T15:52:05Z
+          updatedAt: 2026-10-08T15:52:44Z
+          url: https://github.com/HeyPace/pace/actions/runs/37804250524
         ageDays: 0
       attention: clear
 deployment:

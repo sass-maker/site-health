@@ -3,7 +3,7 @@ projectId: calorie
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: calorie
-      revision: 1651e689472b500b89edebbc49175c1ffac7cae8
+      revision: f97df9c82bf39492f0b0ea760603365a7b2af4e7
       githubRepository: Significant-Hobbies/calorie
       expectedHomepage: https://calorie.significanthobbies.com
       observedHomepage: https://calorie.significanthobbies.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: calorie
-      revision: 1651e689472b500b89edebbc49175c1ffac7cae8
+      revision: f97df9c82bf39492f0b0ea760603365a7b2af4e7
       githubRepository: Significant-Hobbies/calorie
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,9 +56,9 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      healthy: 1
+      running: 1
       attention: &a2
         clear: 1
   unknowns: []
@@ -123,13 +123,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-07-25
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 152
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 167
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: calorie
-  observedRevision: 1651e689472b500b89edebbc49175c1ffac7cae8
+  observedRevision: f97df9c82bf39492f0b0ea760603365a7b2af4e7
   githubRepository: Significant-Hobbies/calorie
   githubHomepageUrl: https://calorie.significanthobbies.com
   worktree: *a1
@@ -182,15 +182,15 @@ repository:
       - typecheck
       - types:worker
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    running: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/calorie
     defaultBranch: main
-    defaultBranchSha: 1651e689472b500b89edebbc49175c1ffac7cae8
+    defaultBranchSha: f97df9c82bf39492f0b0ea760603365a7b2af4e7
     homepage: https://calorie.significanthobbies.com
     query: verified
     disposition:
@@ -211,37 +211,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 36369944536
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 1651e689472b500b89edebbc49175c1ffac7cae8
-          createdAt: 2026-09-28T02:28:22Z
-          updatedAt: 2026-09-28T02:41:16Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/36369944536
+          id: 37834646905
+          status: in_progress
+          conclusion: null
+          event: pull_request
+          branch: chore/marketing-footer-resync-20261009
+          headSha: f929b1c54e97a4ffa51ce7b2a4cce9c0b2d4a72c
+          createdAt: 2026-10-08T19:48:00Z
+          updatedAt: 2026-10-08T19:48:09Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/37834646905
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: running
+        reason: current main push is in_progress
         lastRun:
-          id: 36369944536
-          status: completed
-          conclusion: success
+          id: 37833630161
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 1651e689472b500b89edebbc49175c1ffac7cae8
-          createdAt: 2026-09-28T02:28:22Z
-          updatedAt: 2026-09-28T02:41:16Z
-          url: https://github.com/Significant-Hobbies/calorie/actions/runs/36369944536
+          headSha: f97df9c82bf39492f0b0ea760603365a7b2af4e7
+          createdAt: 2026-10-08T19:39:53Z
+          updatedAt: 2026-10-08T19:40:02Z
+          url: https://github.com/Significant-Hobbies/calorie/actions/runs/37833630161
         ageDays: 0
       attention: clear
 deployment:

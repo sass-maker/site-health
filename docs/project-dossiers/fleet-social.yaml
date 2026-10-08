@@ -3,7 +3,7 @@ projectId: fleet-social
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-26
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,18 +24,18 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: d9cfaa7d8539f1413c7bfef3efce3831182597e49eef799506ba0aa27709ce17
-      documentSha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: fleet-social
-      revision: 2ed8967c9169e1f8e96682696b39de3a5f81ff02
+      revision: 50c9026b6931c996aa524ab7118124bb248dbeb0
       githubRepository: sass-maker/fleet-social
       expectedHomepage: https://fleet-social.sarthakagrawal927.workers.dev
       observedHomepage: null
@@ -44,10 +44,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: fleet-social
-      revision: 2ed8967c9169e1f8e96682696b39de3a5f81ff02
+      revision: 50c9026b6931c996aa524ab7118124bb248dbeb0
       githubRepository: sass-maker/fleet-social
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -58,7 +58,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 2
       attention: &a2
@@ -98,15 +98,15 @@ identity:
   authenticationModel: private-authenticated
   inRegistry: false
 product:
-  description: Private social draft review, scheduling, and delivery tracking for Fleet projects.
+  description: Private video review, scheduling and delivery tracking for Fleet projects, with local Mashup exports.
   publicMakerNote: I wanted one reviewable social publishing place for Fleet projects.
   purposeContract:
     purpose: Fleet Social is a private social publishing hub for Fleet projects.
     audience: The Fleet owner and internal product feeds.
     outcome: Prepare, approve, schedule, and account for project posts from one place.
     mechanism: Project-attributed drafts pass through owner review before per-account publishing and receipt tracking.
-    proof: The private CogSend-based Worker is live with isolated D1 and R2; Cloudflare Access, GitHub, and Google sign-in, project-attributed draft approval, health, and scheduler heartbeat passed. YouTube video jhAAHDS1oME was published privately and confirmed in Fleet Social and on the connected YouTube channel.
-    nextAction: Verify machine draft intake and an actual scheduled YouTube publish, then resolve Google OAuth Testing refresh-token expiry.
+    proof: Private Worker release a5d49a5 is live at 100 percent traffic with green main CI, owner Access sign-in, month/week calendar and saved-revision review. Local Mashup produced a 27.56-second vertical MP4 from two public licensed YouTube originals, with verified receipt hashes and full playback; default source/product examples reuse verified outputs in separate unapproved drafts. Production accepts finished MP4s and excludes the local renderer/rehearsal adapter. The private YouTube canary jhAAHDS1oME was verified on September 26, not rerun in this release.
+    nextAction: Complete owner Instagram OAuth and YouTube policy consent/connection readiness, verify machine draft intake and an actual scheduled private upload, then resolve Google OAuth Testing refresh-token expiry.
   form: Private web app
   platforms:
     - Web
@@ -118,13 +118,13 @@ product:
     - R2
   retainedGitHistory:
     firstCommitAt: 2026-09-22
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 52
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 67
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: fleet-social
-  observedRevision: 2ed8967c9169e1f8e96682696b39de3a5f81ff02
+  observedRevision: 50c9026b6931c996aa524ab7118124bb248dbeb0
   githubRepository: sass-maker/fleet-social
   githubHomepageUrl: null
   worktree: *a1
@@ -158,6 +158,7 @@ repository:
       - db:migrate:local
       - db:migrate:remote
       - db:seed:local
+      - demo
       - deploy
       - deploy:release
       - dev
@@ -170,10 +171,11 @@ repository:
       - setup
       - test
       - test:e2e
+      - test:e2e:isolated
       - test:e2e:totp
       - test:unit
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 2
@@ -181,7 +183,7 @@ githubActions:
   remote:
     repository: sass-maker/fleet-social
     defaultBranch: main
-    defaultBranchSha: 2ed8967c9169e1f8e96682696b39de3a5f81ff02
+    defaultBranchSha: 50c9026b6931c996aa524ab7118124bb248dbeb0
     homepage: null
     query: verified
     disposition:
@@ -207,15 +209,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36446457876
+          id: 37830542193
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2ed8967c9169e1f8e96682696b39de3a5f81ff02
-          createdAt: 2026-09-28T15:49:06Z
-          updatedAt: 2026-09-28T15:52:50Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/36446457876
+          headSha: 50c9026b6931c996aa524ab7118124bb248dbeb0
+          createdAt: 2026-10-08T19:15:12Z
+          updatedAt: 2026-10-08T19:18:22Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/37830542193
         ageDays: 0
       schedule:
         health: not-applicable
@@ -225,15 +227,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36446457876
+          id: 37830542193
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 2ed8967c9169e1f8e96682696b39de3a5f81ff02
-          createdAt: 2026-09-28T15:49:06Z
-          updatedAt: 2026-09-28T15:52:50Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/36446457876
+          headSha: 50c9026b6931c996aa524ab7118124bb248dbeb0
+          createdAt: 2026-10-08T19:15:12Z
+          updatedAt: 2026-10-08T19:18:22Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/37830542193
         ageDays: 0
       attention: clear
     - name: Scheduler tick
@@ -255,29 +257,29 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36427809794
+          id: 37794420745
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 7423d21da688d486c9d6db2c2f82ac94e9616959
-          createdAt: 2026-09-28T13:19:32Z
-          updatedAt: 2026-09-28T13:19:39Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/36427809794
+          headSha: a5d49a5b04c7dd7357244bdd8e9738f73cd3c077
+          createdAt: 2026-10-08T14:40:40Z
+          updatedAt: 2026-10-08T14:40:47Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/37794420745
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 36427809794
+          id: 37794420745
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 7423d21da688d486c9d6db2c2f82ac94e9616959
-          createdAt: 2026-09-28T13:19:32Z
-          updatedAt: 2026-09-28T13:19:39Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/36427809794
+          headSha: a5d49a5b04c7dd7357244bdd8e9738f73cd3c077
+          createdAt: 2026-10-08T14:40:40Z
+          updatedAt: 2026-10-08T14:40:47Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/37794420745
         ageDays: 0
         freshnessDays: 1
       currentDefaultBranch:
@@ -372,8 +374,8 @@ sharing:
   publicListing: hidden
   maturity: null
   ready: false
-  verifiedAt: 2026-09-26
-  reason: Private internal Worker deployed; Cloudflare Access, GitHub, and Google sign-in, owner YouTube channel connection, project-attributed draft approval, scheduler heartbeat, and a private YouTube video canary verified on 2026-09-26. Machine intake and an actual scheduled publish remain unverified.
+  verifiedAt: 2026-10-04
+  reason: Private Worker release a5d49a5b04c7dd7357244bdd8e9738f73cd3c077 is deployed as version ba2d4874-b00d-48f3-bc60-d77cecc6ca0a at 100 percent traffic. Main CI, 1027 app tests, 15 Python regressions and the full browser/2FA suites pass. Cloudflare Access owner sign-in, calendar month/week, existing draft review, healthy utility routes and rehearsal isolation are verified. Local Mashup rendered and played fresh public licensed YouTube excerpts; both demo examples reuse verified media in new unapproved drafts. The September 26 private YouTube canary remains historical; current YouTube readiness, Instagram OAuth and scheduled provider publication remain separate qualification.
   changelogUrl: null
   roadmapUrl: https://github.com/sass-maker/fleet-social/issues
   geoIdentity: null

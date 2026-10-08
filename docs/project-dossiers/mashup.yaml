@@ -3,7 +3,7 @@ projectId: mashup
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-08-28
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: mashup
-      revision: d4c23076ee8c4e0932acb3c9856bd15e0365d0fe
+      revision: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
       githubRepository: sass-maker/mashup
       expectedHomepage: https://mashup.highsignal.app
       observedHomepage: https://mashup.highsignal.app
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: mashup
-      revision: d4c23076ee8c4e0932acb3c9856bd15e0365d0fe
+      revision: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
       githubRepository: sass-maker/mashup
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -114,13 +114,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-25
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 58
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 65
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: mashup
-  observedRevision: d4c23076ee8c4e0932acb3c9856bd15e0365d0fe
+  observedRevision: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
   githubRepository: sass-maker/mashup
   githubHomepageUrl: https://mashup.highsignal.app
   worktree: *a1
@@ -155,7 +155,7 @@ repository:
       - test
       - test:coverage
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -163,7 +163,7 @@ githubActions:
   remote:
     repository: sass-maker/mashup
     defaultBranch: main
-    defaultBranchSha: 3f279c038293f2618d0144ff9eebe8672b6297c1
+    defaultBranchSha: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
     homepage: https://mashup.highsignal.app
     query: verified
     disposition:
@@ -189,15 +189,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36364948607
+          id: 37819750207
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3f279c038293f2618d0144ff9eebe8672b6297c1
-          createdAt: 2026-09-28T01:10:14Z
-          updatedAt: 2026-09-28T01:11:47Z
-          url: https://github.com/sass-maker/mashup/actions/runs/36364948607
+          headSha: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
+          createdAt: 2026-10-08T17:51:11Z
+          updatedAt: 2026-10-08T17:53:11Z
+          url: https://github.com/sass-maker/mashup/actions/runs/37819750207
         ageDays: 0
       schedule:
         health: not-applicable
@@ -207,15 +207,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36364948607
+          id: 37819750207
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3f279c038293f2618d0144ff9eebe8672b6297c1
-          createdAt: 2026-09-28T01:10:14Z
-          updatedAt: 2026-09-28T01:11:47Z
-          url: https://github.com/sass-maker/mashup/actions/runs/36364948607
+          headSha: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
+          createdAt: 2026-10-08T17:51:11Z
+          updatedAt: 2026-10-08T17:53:11Z
+          url: https://github.com/sass-maker/mashup/actions/runs/37819750207
         ageDays: 0
       attention: clear
 deployment:

@@ -3,7 +3,7 @@ projectId: meme-lab
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,12 +11,12 @@ verification:
     repositorySnapshot: passed
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-09-27
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-04
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Meme Lab
@@ -28,10 +28,10 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: meme-lab
       revision: 4a6a5752f567f26de152cd84710a2f3b516790bd
@@ -39,11 +39,11 @@ verification:
       expectedHomepage: https://memes.significanthobbies.com
       observedHomepage: https://memes.significanthobbies.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 19
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: meme-lab
       revision: 4a6a5752f567f26de152cd84710a2f3b516790bd
@@ -51,16 +51,16 @@ verification:
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-20
-      catalogLatestCommitAt: 2026-09-22
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-09-28
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      healthy: 1
+      healthy: 2
       attention: &a2
         clear: 1
+        reconcile: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: I'm not going to read this out. What I want is, as soon as someone does a comment, we get a meme. That is it. I don't care about the implementation details. I want it live for me to play around with it. Once it's live I want to expand on the next things.
@@ -102,16 +102,16 @@ identity:
   authenticationModel: public-persistent
   inRegistry: false
 product:
-  description: A public personal tool that ranks 3,000 reaction memes for a pasted comment and returns the best match plus scored alternatives.
+  description: A public tool that ranks 3,000 reaction memes for a comment; its Anna review candidate also creates personal photo memes with private saves and PNG downloads.
   publicMakerNote: I built Meme Lab to test whether a model can pick the right reaction meme for a comment, with a public playground for feedback.
   purposeContract:
-    purpose: Rank reaction memes against a pasted comment and evaluate local-model selection honestly.
-    audience: The owner; the public playground is a bounded demo surface.
+    purpose: Turn one pasted comment or situation into a useful meme immediately.
+    audience: People selecting reactions for everyday conversations; the owner evaluates selection quality.
     outcome: Return the best meme first, with four scored alternatives across distinct perspectives when available.
-    mechanism: A corrected 3,000-reference catalogue uses dual-view BGE embeddings and Vectorize to retrieve 30 candidates, then Jev rates tone, social fit, and distinct perspectives. GIF results load their full animated asset while the searchable collection uses lightweight still previews.
+    mechanism: A corrected 3,000-reference catalogue uses dual-view BGE embeddings and Vectorize to retrieve 30 candidates, then Jev rates tone, social fit, and distinct perspectives. GIF results load their full animated asset while the searchable collection uses lightweight still previews. The Anna review candidate uses the same shortlist with Anna-hosted contextual ranking and private saved reactions; it shares stable reference links without submitted situations. Anna version 1.2.0 adds user-supplied static templates and identity photos, one host image request, paired review, private generated-output storage and host PNG downloads.
     proof: Custom domain and retained workers.dev route verified live on Worker version fa5fa091-6db6-42cb-a644-ebac8c721ff6 at 100% traffic from main commit a86faa861d54e13c1065b98c2094a0776bff7ebf. Health reports 3,000 catalogue records, the public collection reports 1,195 GIFs and zero artwork fillers or excluded editing canvases, Vectorize reports 6,000 vectors, and the live sitemap exposes 3,003 canonical URLs. IndexNow accepted all 31 sitemap batches with zero failures, and Google Search Console accepted the sitemap on 2026-09-22. The pending-review 100-case gate reached 67% retrieval-at-30, 60% top-three relevance, 90% top-three given retrieval, and 96% correct serious-content abstention.
-    nextAction: Try comments at memes.significanthobbies.com, label the returned options, and use misses to improve retrieval before the separate 30,000-item movie-dialogue corpus.
-  form: Local experiment and Worker playground
+    nextAction: Try comments on the public playground and label misses. Anna personalized edition 1.2.0 is hosted-verified and awaiting Store review.
+  form: Local experiment, Worker playground and Anna review candidate
   platforms:
     - Web
     - Local
@@ -120,7 +120,7 @@ product:
     - Workers AI
     - Vectorize
     - D1
-    - Node.js
+    - Anna SDK
   retainedGitHistory:
     firstCommitAt: 2026-09-20
     latestCommitAt: 2026-09-28
@@ -154,6 +154,7 @@ repository:
       - acquire:stage-3000
       - acquire:stage-3000-nga
       - audit:stage-3000
+      - build:anna
       - build:expansion
       - build:public
       - build:public-catalogue
@@ -202,15 +203,15 @@ repository:
       - test
       - types:worker
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    healthy: 2
   attention: *a2
   remote:
     repository: Significant-Hobbies/meme-lab
     defaultBranch: main
-    defaultBranchSha: 4a6a5752f567f26de152cd84710a2f3b516790bd
+    defaultBranchSha: 9106ac0c1182ba69bdba4c6ebb1bdba38214b6f1
     homepage: https://memes.significanthobbies.com
     query: verified
     disposition:
@@ -236,15 +237,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36380273582
+          id: 37835251777
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4a6a5752f567f26de152cd84710a2f3b516790bd
-          createdAt: 2026-09-28T05:03:46Z
-          updatedAt: 2026-09-28T05:04:15Z
-          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/36380273582
+          headSha: 9106ac0c1182ba69bdba4c6ebb1bdba38214b6f1
+          createdAt: 2026-10-08T19:52:54Z
+          updatedAt: 2026-10-08T19:53:29Z
+          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/37835251777
         ageDays: 0
       schedule:
         health: not-applicable
@@ -254,17 +255,66 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36380273582
+          id: 37835251777
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4a6a5752f567f26de152cd84710a2f3b516790bd
-          createdAt: 2026-09-28T05:03:46Z
-          updatedAt: 2026-09-28T05:04:15Z
-          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/36380273582
+          headSha: 9106ac0c1182ba69bdba4c6ebb1bdba38214b6f1
+          createdAt: 2026-10-08T19:52:54Z
+          updatedAt: 2026-10-08T19:53:29Z
+          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/37835251777
         ageDays: 0
       attention: clear
+    - name: Production picker
+      file: .github/workflows/production-picker.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 17 * * * *
+      inventory:
+        source: remote-only
+        local: false
+        remote: true
+      ownerDisposition:
+        status: needs-reconciliation
+        reason: workflow exists in GitHub but not in the local working tree
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37802367589
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: e5d9636afdae11bc86fb8c1903b0741b8c92ab5d
+          createdAt: 2026-10-08T15:38:02Z
+          updatedAt: 2026-10-08T15:38:33Z
+          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/37802367589
+        ageDays: 0
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 37802367589
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: e5d9636afdae11bc86fb8c1903b0741b8c92ab5d
+          createdAt: 2026-10-08T15:38:02Z
+          updatedAt: 2026-10-08T15:38:33Z
+          url: https://github.com/Significant-Hobbies/meme-lab/actions/runs/37802367589
+        ageDays: 0
+        freshnessDays: 1
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: reconcile
 deployment:
   kind: worker
   deployed: true
@@ -280,9 +330,21 @@ deployment:
         name: meme-lab-play
         method: wrangler-direct
         state: live
-        versionId: 0492a74f-b0b0-4898-88b2-3f9c07c85940
-        notes: Public SEO/GEO assets (llms.txt, per-page markdown mirrors, OG image) plus crawlable meme pages deployed from main commit c8f285b at 100% traffic on 2026-09-27. memes.significanthobbies.com and all markdown/plain-text routes verified HTTP 200. Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
+        versionId: c736b2ff-8a6c-4743-8286-91025767d3cc
+        notes: "2026-10-02: PRs #16 and #18 merged after successful PR and main CI. Worker release receipt: exact main 7b1fcf97f62ae6f275763705d91a6ce7d693e4d4 deployed as f488e596-b000-455f-91f8-f5b0d3ce37ae. Anna shortlist and client-reported interaction endpoints, private per-user Anna saved reactions, updated privacy, and approved ANNA_SEARCH_LIMITER 120/minute/IP/route/location. Existing shared free-ai-gateway budget admission and patched deployment tooling preserved. Installed Anna flow and public routes verified. Anna app 389/version 1.2.0/version ID 1027/bundle 962 is hosted-verified and pending Store review; personalized backend/privacy exact main ee329fd299c7e6be6f5bbf8ef69f70693acbe1c4 deployed as ee837165-3337-4776-aeae-a5a0c169f5ab after PR20 and main CI37009616570; no qualified MAU or earnings established. 2026-10-04: Public picker repair PRs28/29 deployed exact main 512eaafe4163092fbab71903e1cdbba380812c65 as c5c5795d-b9ca-4e16-8df2-2bf17094e452 at100percent; main CI37177790339 passed. Adapter30-label support, bounded15-second ranking, transient retry, honest retrieval fallback, browser/server degradation events and hourly production probe are active. Local live probe and browser passed; GitHub probe37178160043 detected a real perspective fallback and App Health received it. Gemini inference remains intermittent; issue30 tracks provider cause and notification delivery. No user-data/schema/resource/config/secret changes. 2026-10-04: PR31 merged as e2dfaff188a91bf239d468741c95f229d6c7b459. Hourly picker probe forwarding is active with a dedicated production-scoped GitHub ingest secret retained in the Fleet vault; existing Worker key was not rotated. Hosted probe37183254376 passed and App Health stored its matching synthetic production.probe.passed. Post-App-Health-release probe37184228733 detected perspective degradation despiteHTTP200, delivered production.probe.failed successfully, and the live Overview feed displayed it. Provider reliability remains unresolved in Meme Lab issue30; unattended delivery tracked in App Health issue166. Worker deployment remains512eaaf/c5c5795d. 2026-10-04: PR33/34 merged with green full and main CI; exact main9dfc40060a094145162b2646c1c15e68e8b88cb7 deployed as c736b2ff-8a6c-4743-8286-91025767d3cc at100percent from checksum-verified CI package. Managed perspectives now score all30 candidates independently per viewpoint before assignment. Live tail verified malformed provider category scores caused intermittent503; invalid answers now receive one bounded retry and explicitly degraded retrieval fallback. Final hosted probe37187437227 passed both fixtures and App Health accepted202. Live browser rendered five loaded previews; live fallback and serious-input abstention also verified. App Health website is the owner-selected alert destination. Draft GitHub notifications remain unpublished and no query key was created; optional external channels remain issue166. Provider availability can still degrade, tracked in issue30."
         attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
+        verification:
+          observedAt: 2026-10-04T08:04:06.184167+00:00
+          deploymentId: a9cb2fb0-1f44-41f7-a8c7-d890fa7588be
+          versionId: c736b2ff-8a6c-4743-8286-91025767d3cc
+          sourceCommit: 9dfc40060a094145162b2646c1c15e68e8b88cb7
+          trafficPercent: 100
+          state: deployed-resilient-fallback-monitoring-verified
+          evidence: "2026-10-04: PR33/34 merged with green full and main CI; exact main9dfc40060a094145162b2646c1c15e68e8b88cb7 deployed as c736b2ff-8a6c-4743-8286-91025767d3cc at100percent from checksum-verified CI package. Managed perspectives now score all30 candidates independently per viewpoint before assignment. Live tail verified malformed provider category scores caused intermittent503; invalid answers now receive one bounded retry and explicitly degraded retrieval fallback. Final hosted probe37187437227 passed both fixtures and App Health accepted202. Live browser rendered five loaded previews; live fallback and serious-input abstention also verified. App Health website is the owner-selected alert destination. Draft GitHub notifications remain unpublished and no query key was created; optional external channels remain issue166. Provider availability can still degrade, tracked in issue30."
+          serviceBindings:
+            - name: FREE_AI
+              service: free-ai-gateway
+              entrypoint: FleetGateway
       - provider: cloudflare
         kind: worker
         name: meme-lab-catalogue-tool-stage-3000
@@ -295,7 +357,12 @@ deployment:
       - provider: cloudflare
         kind: workers-ai
         name: AI
-        state: active
+        state: retired-binding-in-production
+        verification:
+          observedAt: 2026-10-02T10:59:37.788366Z
+          versionId: b418b474-e94a-476e-a7ac-677e30553bd7
+          sourceCommit: 2660218c130d44dc65cd249178f2cefb49dea71b
+          evidence: The deployed version has FREE_AI and no direct AI binding; native inference is owned by Free AI.
         scope: project
         operationalOwner: meme-lab
         attributionReason: "Canonical project owner: meme-lab"
@@ -327,10 +394,33 @@ deployment:
         kind: d1
         name: meme-lab-feedback
         state: live
-        notes: database_id 5d85d86c-6383-4409-be18-d3ac05042d69, production; retains playground feedback for 30 days.
+        notes: database_id 490137b7-a3f8-4426-83e5-211867031d6f confirmed in deployment 2026-10-02; retains public playground feedback for 30 days. Anna shortlist does not write feedback.
         attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         scope: project
         operationalOwner: meme-lab
+      - provider: cloudflare
+        kind: rate-limit
+        name: ANNA_SEARCH_LIMITER
+        state: live
+        scope: project
+        operationalOwner: meme-lab
+        attributionReason: Owner explicitly approved this scoped binding and deployment on 2026-10-02 for Anna search/events only.
+        notes: namespace_id 389001; 120 requests per 60 seconds per IP and route per Cloudflare location; shared-IP users share admission. Not authentication or a global spend cap.
+      - provider: cloudflare
+        kind: service-binding
+        name: free-ai-gateway
+        state: active
+        binding: FREE_AI
+        entrypoint: FleetGateway
+        dependencyProject: free-ai
+        verification:
+          observedAt: 2026-10-02T10:59:37.788366Z
+          versionId: b418b474-e94a-476e-a7ac-677e30553bd7
+          sourceCommit: 2660218c130d44dc65cd249178f2cefb49dea71b
+          state: production-binding-verified
+        scope: project
+        operationalOwner: meme-lab
+        attributionReason: "Canonical project owner: meme-lab"
   otherProviders:
     deployments: []
     resources: []
@@ -344,5 +434,5 @@ sharing:
   roadmapUrl: https://github.com/Significant-Hobbies/meme-lab/issues
   geoIdentity: null
 notes:
-  catalog: Owner requested catalog addition and public release on 2026-09-20; repository made public the same day. The checkout moved into the Fleet workspace at meme-lab on 2026-09-22. The corrected 3,000-reference playground released on 2026-09-21 with 1,805 static memes, 1,195 usage-backed reaction GIFs, five ranked options, Jev, Vectorize, D1 feedback, and a daily cron. All 1,189 National Gallery artwork fillers plus six inert editing canvases were removed. Metadata and the 100-case evaluation remain assistant-authored pending owner feedback.
+  catalog: "Owner requested catalog addition and public release on 2026-09-20; repository made public the same day. The checkout moved into the Fleet workspace at meme-lab on 2026-09-22. The corrected 3,000-reference playground released on 2026-09-21 with 1,805 static memes, 1,195 usage-backed reaction GIFs, five ranked options, Jev, Vectorize, D1 feedback, and a daily cron. All 1,189 National Gallery artwork fillers plus six inert editing canvases were removed. Metadata and the 100-case evaluation remain assistant-authored pending owner feedback. 2026-10-02: Owner approved a consumer sharing and monetization pilot on Anna. App 389 under @significant-hobbies is pending Store review; no qualified MAU or earnings established. Anna provides signed-in host AI and private app storage; public retrieval remains anonymous with scoped burst admission. 2026-10-02 personalized release: PR20 merged, main CI37009616570 passed; exact main ee329fd299c7e6be6f5bbf8ef69f70693acbe1c4 deployed at100% as ee837165-3337-4776-aeae-a5a0c169f5ab. Anna1.2.0 version1027/bundle962 submitted pending review with actual hosted identity/captions, save/reload, disk download and conditional removal proof. Sharing unavailable fallback verified, no recipient delivery claim. No qualified MAU or earnings established."
   infrastructure: "The production Worker and stage-3,000 catalogue tool are both deployed and tagged to main commit 8a33c3b9a7b2c092e7156036e281c6ec1a5329ce. Historical base and stage-1,000 Vectorize indexes remain attributed to Meme Lab. 2026-09-26: the historical base and stage-1,000 Vectorize indexes were deleted with owner approval; stage-3,000 remains the only index. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features."

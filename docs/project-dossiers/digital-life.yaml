@@ -1,5 +1,5 @@
 schemaVersion: 1
-projectId: scale
+projectId: digital-life
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
@@ -16,14 +16,14 @@ verification:
     catalog:
       path: apps/backend/config/projects.json
       sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
-      infrastructureUpdatedAt: 2026-09-20
+      infrastructureUpdatedAt: 2026-10-01
     ownerVoice:
       path: apps/backend/config/projects.json
-      sourceField: projects[id=scale].ownerNarrative
-      sourceHeading: Scale
+      sourceField: projects[id=digital-life].ownerNarrative
+      sourceHeading: Digital Life
       sourceKind: verbatim-owner-message
-      capturedAt: 2026-09-20
-      reviewSha256: c19de664b1d979a9186baaadb154bf20dcb32107104f811de0cf99b125c75976
+      capturedAt: 2026-10-01
+      reviewSha256: 2687f86ed6784b8a5fca36e6c468e12aa44dc3c7e8137e3160d1a95079bdcd02
       documentSha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       restoredFromCommit: null
       restoredBlob: null
@@ -34,7 +34,7 @@ verification:
     repository:
       observedAt: 2026-10-08
       state: unavailable
-      checkout: null
+      checkout: ../fleet-archive/digital-life
       revision: null
       githubRepository: null
       expectedHomepage: null
@@ -43,15 +43,15 @@ verification:
     retainedGitHistory:
       observedAt: 2026-10-08
       state: unavailable
-      checkout: null
+      checkout: ../fleet-archive/digital-life
       revision: null
       githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: 2026-09-11
-      catalogLatestCommitAt: 2026-09-11
+      catalogFirstCommitAt: null
+      catalogLatestCommitAt: null
       catalogDrift: []
-      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
+      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/digital-life rev-parse HEAD"
     githubActions:
       observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
@@ -59,22 +59,22 @@ verification:
   unknowns:
     - The owning checkout was unavailable during repository observation.
 ownerVoice:
-  whyVerbatim: Original standalone Scale prototype; maintained game now lives in SWE Interview Prep.
-  fullReviewVerbatim: Original standalone Scale prototype; maintained game now lives in SWE Interview Prep.
+  whyVerbatim: approved
+  fullReviewVerbatim: approved
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
-  whySummary: Teach systems-engineering capacity and architecture trade-offs through a small idle game.
-  currentState: The standalone prototype is archived; the maintained game lives inside SWE Interview Prep.
-  nextDecision: Preserve the original experiment and direct future play or maintenance to the SWE Interview Prep implementation.
+  classification: Inactive / archived
+  whySummary: Test whether inherited executable strategies sustain viable populations under finite resources. Replication is supplied; diversity is not proof of adaptation.
+  currentState: Owner archived on 2026-10-08; source and local evidence preserved outside active Fleet.
+  nextDecision: No development unless the owner explicitly reopens it.
 identity:
-  name: Scale
-  publicName: Scale
+  name: Digital Life
+  publicName: null
   aliases: []
-  family: significanthobbies
-  category: experimental
-  audience: public
-  personalUse: false
+  family: digital-life
+  category: research
+  audience: internal
+  personalUse: true
   moneyOrPersonalBrand: false
   unmetNeed: false
   kind: experiment
@@ -83,28 +83,28 @@ identity:
   attention: ignored
   lifecycle:
     status: inactive
-    resumeCondition: null
+    resumeCondition: Only resume after an explicit new owner decision.
     shareable: false
   operationalStatus: local-only
   authenticationModel: local-only
   inRegistry: false
 product:
-  description: The original standalone Scale idle-game prototype, superseded by the game inside SWE Interview Prep.
-  publicMakerNote: This was the standalone prototype; the maintained game now lives inside SWE Interview Prep.
+  description: A bounded experimental world of resource-conserving bytecode organisms.
+  publicMakerNote: Test inherited executable strategies under finite resources without treating diversity as proof of adaptation.
   purposeContract:
-    purpose: Scale taught systems-engineering trade-offs through an idle game about growing a fictional company.
-    audience: Engineers learning capacity planning and architecture trade-offs.
-    outcome: Diagnose capacity pressure, compare fixes in Sandbox, and ship engineering changes.
-    mechanism: A simulated request path with selectable components, workloads, and alternative solutions.
-    proof: Single-commit prototype preserved on GitHub; the maintained implementation is verified inside SWE Interview Prep.
-    nextAction: Play the maintained game inside SWE Interview Prep.
-  form: Idle game prototype
+    purpose: Digital Life helps researchers test whether inherited executable strategies sustain viable populations.
+    audience: Researchers and the owner exploring artificial life.
+    outcome: Reproducible resource-constrained experiments with inspectable failure and candidate replays.
+    mechanism: A bounded bytecode VM, conserved material, environmental energy and matched seeded experiments.
+    proof: Local engine tests and a five-seed mutation-on/off experiment; viewer implementation pending.
+    nextAction: Select a viewer direction, then inspect and replay experiments.
+  form: Local research sandbox
   platforms:
+    - Node.js
     - Web
-    - Local
   prominentTools:
-    - Vite
-    - TypeScript
+    - JavaScript
+    - Node.js
   retainedGitHistory:
     firstCommitAt: null
     latestCommitAt: null
@@ -112,13 +112,13 @@ product:
     historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: null
+  checkout: ../fleet-archive/digital-life
   observedRevision: null
   githubRepository: null
   githubHomepageUrl: null
   worktree: null
-  visibility: public
-  url: https://github.com/sarthakagrawal927/scale
+  visibility: private
+  url: https://github.com/sarthakagrawal927/digital-life
   aliases: []
   sourceOverride: null
   tooling:
@@ -137,11 +137,11 @@ githubActions:
     homepage: null
     query: unverifiable
     disposition:
-      disposition: ignored
-      reason: "Inactive lifecycle: no unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      disposition: active
+      reason: tracked project
   workflows: []
 deployment:
-  kind: none
+  kind: local
   deployed: false
   domains: []
   primaryUrl: null
@@ -155,13 +155,15 @@ deployment:
     resources: []
 sharing:
   publicListing: hidden
-  maturity: experiment
+  maturity: null
   ready: false
-  verifiedAt: null
-  reason: null
+  verifiedAt: 2026-10-01
+  reason: Local engine and headless runner verified; viewer direction pending; remote repository has no commits.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/scale/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/digital-life/issues
   geoIdentity: null
 notes:
-  catalog: Original standalone Scale prototype; the maintained game lives in SWE Interview Prep (learn.significanthobbies.com/play/scale). Owner made the repository public and archived it on 2026-09-20. No local checkout retained.
-  infrastructure: Local prototype only; no hosting or provider resources. Superseded by the Scale game inside SWE Interview Prep; GitHub repository public and archived 2026-09-20.
+  catalog: |-
+    Owner supplied Digital Life Evolution Sandbox PRD and approved a separate digital-life project.
+    Owner archived this project and moved the local checkout outside active Fleet on 2026-10-08.
+  infrastructure: Owner-local research project; no cloud resources or deployment created.

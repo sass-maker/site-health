@@ -3,7 +3,7 @@ projectId: ai-game
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-08
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: AliveVille
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: aliveville
-      revision: 3755e61d33e06757ba159359240004ca1c611b22
+      revision: 3b487b94974ced5ae16dead25bc6d1969812617a
       githubRepository: Significant-Hobbies/aliveville
       expectedHomepage: https://aliveville.com
       observedHomepage: https://aliveville.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: aliveville
-      revision: 3755e61d33e06757ba159359240004ca1c611b22
+      revision: 3b487b94974ced5ae16dead25bc6d1969812617a
       githubRepository: Significant-Hobbies/aliveville
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -118,13 +118,13 @@ product:
     - Cloudflare
   retainedGitHistory:
     firstCommitAt: 2026-05-03
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 387
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 406
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: aliveville
-  observedRevision: 3755e61d33e06757ba159359240004ca1c611b22
+  observedRevision: 3b487b94974ced5ae16dead25bc6d1969812617a
   githubRepository: Significant-Hobbies/aliveville
   githubHomepageUrl: https://aliveville.com
   worktree: *a1
@@ -145,14 +145,12 @@ repository:
         evidence:
           - astro-landing/wrangler.toml
           - wrangler.jsonc
-      - name: npm
-        evidence:
-          - astro-landing/package-lock.json
       - name: Playwright
         evidence:
           - playwright.config.ts
       - name: pnpm
         evidence:
+          - astro-landing/pnpm-lock.yaml
           - pnpm-lock.yaml
       - name: Vitest
         evidence:
@@ -188,7 +186,7 @@ repository:
       - typecheck
       - verify:readiness
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -196,7 +194,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/aliveville
     defaultBranch: main
-    defaultBranchSha: 3755e61d33e06757ba159359240004ca1c611b22
+    defaultBranchSha: 3b487b94974ced5ae16dead25bc6d1969812617a
     homepage: https://aliveville.com
     query: verified
     disposition:
@@ -221,15 +219,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36397905460
+          id: 37821140524
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3755e61d33e06757ba159359240004ca1c611b22
-          createdAt: 2026-09-28T08:31:52Z
-          updatedAt: 2026-09-28T08:32:37Z
-          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/36397905460
+          headSha: 3b487b94974ced5ae16dead25bc6d1969812617a
+          createdAt: 2026-10-08T18:01:57Z
+          updatedAt: 2026-10-08T18:03:23Z
+          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/37821140524
         ageDays: 0
       schedule:
         health: not-applicable
@@ -239,15 +237,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36397905460
+          id: 37821140524
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3755e61d33e06757ba159359240004ca1c611b22
-          createdAt: 2026-09-28T08:31:52Z
-          updatedAt: 2026-09-28T08:32:37Z
-          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/36397905460
+          headSha: 3b487b94974ced5ae16dead25bc6d1969812617a
+          createdAt: 2026-10-08T18:01:57Z
+          updatedAt: 2026-10-08T18:03:23Z
+          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/37821140524
         ageDays: 0
       attention: clear
     - name: Deploy aliveville landing
@@ -267,15 +265,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36398076655
+          id: 37749994529
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 3755e61d33e06757ba159359240004ca1c611b22
-          createdAt: 2026-09-28T08:33:36Z
-          updatedAt: 2026-09-28T08:34:06Z
-          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/36398076655
+          headSha: b2184df42f20cb5eb998e6af39e42d4b675ab048
+          createdAt: 2026-10-08T08:27:48Z
+          updatedAt: 2026-10-08T08:28:24Z
+          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/37749994529
         ageDays: 0
       schedule:
         health: not-applicable
@@ -304,15 +302,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36397905595
+          id: 37833846845
           status: completed
           conclusion: success
           event: push
-          branch: main
-          headSha: 3755e61d33e06757ba159359240004ca1c611b22
-          createdAt: 2026-09-28T08:31:52Z
-          updatedAt: 2026-09-28T08:32:02Z
-          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/36397905595
+          branch: archive/agent/aliveville43-routing-20261008
+          headSha: 08c73949617c9b86a91c3ea557be0aa581334736
+          createdAt: 2026-10-08T19:41:36Z
+          updatedAt: 2026-10-08T19:41:49Z
+          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/37833846845
         ageDays: 0
       schedule:
         health: not-applicable
@@ -322,15 +320,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36397905595
+          id: 37821140393
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 3755e61d33e06757ba159359240004ca1c611b22
-          createdAt: 2026-09-28T08:31:52Z
-          updatedAt: 2026-09-28T08:32:02Z
-          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/36397905595
+          headSha: 3b487b94974ced5ae16dead25bc6d1969812617a
+          createdAt: 2026-10-08T18:01:57Z
+          updatedAt: 2026-10-08T18:02:24Z
+          url: https://github.com/Significant-Hobbies/aliveville/actions/runs/37821140393
         ageDays: 0
       attention: clear
 deployment:
@@ -350,14 +348,15 @@ deployment:
       - provider: cloudflare
         kind: pages
         name: aliveville
-        method: wrangler-direct
-        state: live-retained
+        method: github-actions
+        state: live
+        attributionReason: "Canonical project owner: ai-game. Existing manual deploy-aliveville.yml run37699166037 succeeded for exact main a2a991cc4a0ef1db65714b9119e971afe6394ae5 (PRs44/45). Read-only pinned Wrangler4.99.0 lists Production/main Pages deployment d241c571-6d95-4dff-9247-03aac5c8bd17, source a2a991c. Both canonical aliveville.com and exact Pages URL pass all27 finite sitemap/HTML/Markdown/HEAD/404 contracts; sequential negotiated representations show Cache-Control:no-store, Vary:Accept,Accept-Encoding and canonical cf-cache-status:BYPASS. Prior deployed canonical24/27 cache failure is preserved; no cache purge or edge configuration change. All45 non-HTML public files match qualified build; all4 HTML pages match after narrowly proven random particles and Cloudflare beacon/email augmentation. Desktop1728/mobile390 have no horizontal overflow, scroll/FAQ pass; unchanged game entry HTML is not gameplay qualification. Landing independent pnpm10.33.2/Astro7.3.6 retains one explicit high GHSA-ch52-4w7c-c8xp under tested static-boundary gate, no muted findings. These finite public contracts do not claim universal cache health, game behavior or Worker telemetry acceptance."
       - provider: cloudflare
         kind: worker
         name: aliveville
         method: wrangler-direct
-        state: deleted
-        attributionReason: Owner authorized cleanup 2026-09-26 via Fleet spend audit; deleted with Wrangler. Game Worker removed; its GameSessionDO state is orphaned with the worker. The Pages landing remains live-retained.
+        state: live
+        attributionReason: "Canonical project owner: ai-game. Read-only Wrangler 4.99.0 metadata on 2026-10-05 confirms Worker aliveville has a current 100%-traffic production deployment (deployment 15923b17-7dcc-4386-b2cf-cd609c7a7414; version 98069044-945c-4206-a98b-417c112b2ab6). The version was created 2026-10-02T13:10:54.277306Z and has no workers/tag or workers/message annotation, so its source SHA is unknown. App Health acceptance remains unverified; public API statuses are not ingest receipts."
     resources:
       - provider: cloudflare
         kind: zone
@@ -387,4 +386,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: "Aliveville world-sim; parked but live (user: leave)"
-  infrastructure: "The Pages project serves the marketing root; the Worker serves aliveville.com/game* and owns the per-session GameSessionDO runtime. 2026-09-26: the aliveville Worker (aliveville.com/game* and GameSessionDO) was deleted with owner approval; only the Pages landing remains."
+  infrastructure: The Pages project serves the marketing root. Wrangler confirms a current 100%-traffic production deployment for Worker aliveville (latest version 98069044-945c-4206-a98b-417c112b2ab6, created 2026-10-02). This version is untagged, so its source SHA is unknown. Public API success/error probes do not prove current route binding or App Health telemetry acceptance. The 2026-09-10 verification record is retained verbatim in verificationHistory for its stated earlier source and version. Pages landing dependency repair was published on 2026-10-08 local time through normal GitHub Actions; exact source and artifact proof are recorded on its Pages deployment entry. The separate Worker deployment and source/telemetry unknowns are retained.

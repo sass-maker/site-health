@@ -3,7 +3,7 @@ projectId: open-historia
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-05
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Open Historia
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: open-historia
-      revision: 5055588a324a1e1d016b21c6ffabf394b96afdba
+      revision: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
       githubRepository: Significant-Hobbies/open-historia
       expectedHomepage: https://historia.aliveville.com
       observedHomepage: https://historia.aliveville.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 2
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: open-historia
-      revision: 5055588a324a1e1d016b21c6ffabf394b96afdba
+      revision: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
       githubRepository: Significant-Hobbies/open-historia
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 3
       failing: 1
@@ -114,13 +114,13 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-02-08
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 245
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 266
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: open-historia
-  observedRevision: 5055588a324a1e1d016b21c6ffabf394b96afdba
+  observedRevision: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
   githubRepository: Significant-Hobbies/open-historia
   githubHomepageUrl: https://historia.aliveville.com
   worktree: *a1
@@ -183,7 +183,7 @@ repository:
       - typecheck
       - validate:env:deploy
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -192,7 +192,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/open-historia
     defaultBranch: main
-    defaultBranchSha: 72ea6fe5a73bfd75e945202a52439da88deac89d
+    defaultBranchSha: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
     homepage: https://historia.aliveville.com
     query: verified
     disposition:
@@ -217,15 +217,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36397748915
+          id: 37819792139
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 72ea6fe5a73bfd75e945202a52439da88deac89d
-          createdAt: 2026-09-28T08:30:19Z
-          updatedAt: 2026-09-28T08:35:09Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/36397748915
+          headSha: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
+          createdAt: 2026-10-08T17:51:32Z
+          updatedAt: 2026-10-08T17:56:05Z
+          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37819792139
         ageDays: 0
       schedule:
         health: not-applicable
@@ -235,15 +235,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36397748915
+          id: 37819792139
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 72ea6fe5a73bfd75e945202a52439da88deac89d
-          createdAt: 2026-09-28T08:30:19Z
-          updatedAt: 2026-09-28T08:35:09Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/36397748915
+          headSha: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
+          createdAt: 2026-10-08T17:51:32Z
+          updatedAt: 2026-10-08T17:56:05Z
+          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37819792139
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
@@ -263,15 +263,15 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 36363646010
+          id: 37767734753
           status: completed
           conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: 32e2eaa038bfb5d287ee75161610aad3a3aa4008
-          createdAt: 2026-09-28T00:49:49Z
-          updatedAt: 2026-09-28T00:50:10Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/36363646010
+          headSha: 7d63c0094c223d0737772c2abfedbf74b8aac433
+          createdAt: 2026-10-08T11:05:09Z
+          updatedAt: 2026-10-08T11:05:32Z
+          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37767734753
         ageDays: 0
       schedule:
         health: not-applicable
@@ -301,30 +301,30 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36455640681
+          id: 37348836099
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 72ea6fe5a73bfd75e945202a52439da88deac89d
-          createdAt: 2026-09-28T17:05:15Z
-          updatedAt: 2026-09-28T17:05:58Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/36455640681
-        ageDays: 0
+          headSha: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
+          createdAt: 2026-10-05T17:29:42Z
+          updatedAt: 2026-10-05T17:30:23Z
+          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37348836099
+        ageDays: 3
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 36455640681
+          id: 37348836099
           status: completed
           conclusion: success
           event: schedule
           branch: main
-          headSha: 72ea6fe5a73bfd75e945202a52439da88deac89d
-          createdAt: 2026-09-28T17:05:15Z
-          updatedAt: 2026-09-28T17:05:58Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/36455640681
-        ageDays: 0
+          headSha: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
+          createdAt: 2026-10-05T17:29:42Z
+          updatedAt: 2026-10-05T17:30:23Z
+          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37348836099
+        ageDays: 3
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
@@ -347,16 +347,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36387067024
+          id: 37273088591
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 5055588a324a1e1d016b21c6ffabf394b96afdba
-          createdAt: 2026-09-28T06:33:29Z
-          updatedAt: 2026-09-28T06:34:16Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/36387067024
-        ageDays: 0
+          headSha: 21bcded195c86f7b5886e835abd84776e09f526b
+          createdAt: 2026-10-05T06:34:16Z
+          updatedAt: 2026-10-05T06:35:20Z
+          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37273088591
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -382,6 +382,36 @@ deployment:
         method: wrangler-direct
         state: live
         attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
+        verification:
+          observedAt: 2026-10-05T17:15:58.572887+00:00
+          deploymentId: b0851883-4c6d-4f45-917d-b2700169aa04
+          versionId: 30acc0bb-2cb5-4ff0-8a1d-e53a7b0c0eee
+          sourceCommit: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
+          sourceTree: 887f2ad4bb9f730d2062a20fecdbfa647ec1e859
+          requestedTag: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
+          trafficPercent: 100
+          state: success-production-targeted-runtime-verified-recovery-window-unknown
+          exactMainCi: 37276336381
+          evidence: "Normal clean standalone-main guard PASS; exact-main CI PASS. Standard local validator, pnpm deploy and Fleet Workspace postflight PASS using existing auth without credential/config changes. Exact source tag/version at100% traffic. Synthetic unsupported-provider /api/turn,/api/chat,/api/advisor400 and public /,/play,/api/ai200 with expected content types. Hosted run37345491722 built successfully but failed GitHub deploy-secret validation before publishing; local standard path succeeded. Fresh complete natural-traffic error-rate/latency recovery window and supported-provider campaign acceptance remain unknown under #34."
+          naturalTrafficRecovery: unknown
+          targetedRuntimeChecksPassed: 6
+          hostedDeployRun: 37345491722
+          hostedDeployConclusion: failure-before-publication
+        verificationHistory:
+          - observedAt: 2026-10-05
+            versionId: 6b2d3de8-691a-4bbb-ba4c-1144428eeb61
+            sourceCommit: 21bcded195c86f7b5886e835abd84776e09f526b
+            requestedTag: 21bcded195c86f7b5886e835abd84776e09f526b
+            buildSourceHead: 4683237de5a9553bc662132ca6824ab71129a970
+            buildSourceTree: afab12c38ca3ef140e33c33bd4e88ae3332f55f0
+            mergedSourceTree: afab12c38ca3ef140e33c33bd4e88ae3332f55f0
+            trafficPercent: 100
+            state: success-production-verified
+            evidence: "PR #42 and exact-main CI passed. Exact merged source tree afab12c38ca3ef140e33c33bd4e88ae3332f55f0 was built and deployed from candidate HEAD 4683237de5a9553bc662132ca6824ab71129a970; merged SHA 21bcded195c86f7b5886e835abd84776e09f526b has the identical tree. Wrangler version 6b2d3de8-691a-4bbb-ba4c-1144428eeb61 is at 100% traffic with the exact merge SHA tag. Public /api/ai GET and HEAD returned 200 with matching selected headers and an empty HEAD body. Home and /play were 200 with no executable Clarity loader; the mask and first-party health tracker remain."
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
     resources:
       - provider: cloudflare
         kind: d1
@@ -394,6 +424,21 @@ deployment:
         kind: workers-ai
         name: AI
         state: active
+        scope: project
+        operationalOwner: open-historia
+        attributionReason: "Canonical project owner: open-historia"
+      - provider: cloudflare
+        kind: service-binding
+        name: free-ai-gateway
+        state: active
+        binding: FREE_AI
+        entrypoint: FleetGateway
+        dependencyProject: free-ai
+        verification:
+          observedAt: 2026-10-02T11:05:00Z
+          versionId: 61f99b50-eb8b-49ef-b0d1-61dbce18c55b
+          sourceCommit: b3431d901205e40aa5209a5c340c1f9d8a4eef6a
+          state: production-binding-verified
         scope: project
         operationalOwner: open-historia
         attributionReason: "Canonical project owner: open-historia"

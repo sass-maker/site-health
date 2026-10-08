@@ -3,7 +3,7 @@ projectId: motion
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: motion
-      revision: 9e18903e0f5b6388019899a2f2160f2ef3a38b73
+      revision: 2983ca07ea568d771d5a7f8fe5bb445d2ee87fac
       githubRepository: Significant-Hobbies/motion
       expectedHomepage: https://motion.significanthobbies.com
       observedHomepage: https://motion.significanthobbies.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: motion
-      revision: 9e18903e0f5b6388019899a2f2160f2ef3a38b73
+      revision: 2983ca07ea568d771d5a7f8fe5bb445d2ee87fac
       githubRepository: Significant-Hobbies/motion
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,11 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      failing: 1
+      healthy: 1
       attention: &a2
-        action-required: 1
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Notion was another fancy thing that I wanted to build. Its purpose was to have mobile games playable on TV. For example you will set the mobile along with the TV. The mobile will record things and your actions will be transferred on the screen. You can play games like Subway while also getting a workout done. This is something I would definitely want to pursue in the future but for now it's on hold due to lack of time.
@@ -114,13 +114,13 @@ product:
     - TypeScript
   retainedGitHistory:
     firstCommitAt: 2026-07-18
-    latestCommitAt: 2026-09-21
-    retainedCommitCount: 86
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 101
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: motion
-  observedRevision: 9e18903e0f5b6388019899a2f2160f2ef3a38b73
+  observedRevision: 2983ca07ea568d771d5a7f8fe5bb445d2ee87fac
   githubRepository: Significant-Hobbies/motion
   githubHomepageUrl: https://motion.significanthobbies.com
   worktree: *a1
@@ -129,7 +129,7 @@ repository:
   aliases: []
   sourceOverride: ios-landings
   tooling:
-    declaredPackageManager: null
+    declaredPackageManager: pnpm@10.33.2
     detectedSignals:
       - name: Biome
         evidence:
@@ -173,15 +173,15 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/motion
     defaultBranch: main
-    defaultBranchSha: 9e18903e0f5b6388019899a2f2160f2ef3a38b73
+    defaultBranchSha: 2983ca07ea568d771d5a7f8fe5bb445d2ee87fac
     homepage: https://motion.significanthobbies.com
     query: verified
     disposition:
@@ -202,39 +202,39 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35635208148
+          id: 37819772006
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 9e18903e0f5b6388019899a2f2160f2ef3a38b73
-          createdAt: 2026-09-21T17:56:47Z
-          updatedAt: 2026-09-21T17:59:38Z
-          url: https://github.com/Significant-Hobbies/motion/actions/runs/35635208148
-        ageDays: 6
+          headSha: 2983ca07ea568d771d5a7f8fe5bb445d2ee87fac
+          createdAt: 2026-10-08T17:51:22Z
+          updatedAt: 2026-10-08T17:53:17Z
+          url: https://github.com/Significant-Hobbies/motion/actions/runs/37819772006
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: failing
-        reason: current main push concluded failure
+        health: healthy
+        reason: current main push concluded success
         lastRun:
-          id: 35635208148
+          id: 37819772006
           status: completed
-          conclusion: failure
+          conclusion: success
           event: push
           branch: main
-          headSha: 9e18903e0f5b6388019899a2f2160f2ef3a38b73
-          createdAt: 2026-09-21T17:56:47Z
-          updatedAt: 2026-09-21T17:59:38Z
-          url: https://github.com/Significant-Hobbies/motion/actions/runs/35635208148
-        ageDays: 6
-      attention: action-required
+          headSha: 2983ca07ea568d771d5a7f8fe5bb445d2ee87fac
+          createdAt: 2026-10-08T17:51:22Z
+          updatedAt: 2026-10-08T17:53:17Z
+          url: https://github.com/Significant-Hobbies/motion/actions/runs/37819772006
+        ageDays: 0
+      attention: clear
 deployment:
   kind: pages
   deployed: true

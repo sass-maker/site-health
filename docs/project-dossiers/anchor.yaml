@@ -3,7 +3,7 @@ projectId: anchor
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: anchor
-      revision: ecd1838e14e77d66e8d50f70c3b69ce2d701db2e
+      revision: d49a5a0aa368228ab95a40b848742d4c24a2f196
       githubRepository: Significant-Hobbies/anchor
       expectedHomepage: https://anchor.significanthobbies.com
       observedHomepage: https://anchor.significanthobbies.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: anchor
-      revision: ecd1838e14e77d66e8d50f70c3b69ce2d701db2e
+      revision: d49a5a0aa368228ab95a40b848742d4c24a2f196
       githubRepository: Significant-Hobbies/anchor
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -127,13 +127,13 @@ product:
     - Foundation Models
   retainedGitHistory:
     firstCommitAt: 2026-08-16
-    latestCommitAt: 2026-09-27
-    retainedCommitCount: 159
+    latestCommitAt: 2026-10-05
+    retainedCommitCount: 164
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: anchor
-  observedRevision: ecd1838e14e77d66e8d50f70c3b69ce2d701db2e
+  observedRevision: d49a5a0aa368228ab95a40b848742d4c24a2f196
   githubRepository: Significant-Hobbies/anchor
   githubHomepageUrl: https://anchor.significanthobbies.com
   worktree: *a1
@@ -150,7 +150,7 @@ repository:
           - Package.swift
     rootPackageScripts: []
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -158,7 +158,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/anchor
     defaultBranch: main
-    defaultBranchSha: ecd1838e14e77d66e8d50f70c3b69ce2d701db2e
+    defaultBranchSha: d49a5a0aa368228ab95a40b848742d4c24a2f196
     homepage: https://anchor.significanthobbies.com
     query: verified
     disposition:
@@ -182,16 +182,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36305708652
+          id: 37300844280
           status: completed
           conclusion: success
           event: workflow_dispatch
-          branch: today-timetable-logger
-          headSha: 7a3363dc97d9d14870421b8d3f058ea2e344e099
-          createdAt: 2026-09-27T08:17:02Z
-          updatedAt: 2026-09-27T08:39:01Z
-          url: https://github.com/Significant-Hobbies/anchor/actions/runs/36305708652
-        ageDays: 1
+          branch: agent/anchor-r3-long-label-20261005
+          headSha: 5b0961800bdf33e71bddb7b976a6e87465ee7ee3
+          createdAt: 2026-10-05T11:06:53Z
+          updatedAt: 2026-10-05T11:48:09Z
+          url: https://github.com/Significant-Hobbies/anchor/actions/runs/37300844280
+        ageDays: 3
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger

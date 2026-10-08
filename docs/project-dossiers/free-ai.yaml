@@ -3,7 +3,7 @@ projectId: free-ai
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-09-12
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-07
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Free AI
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: free-ai
-      revision: 84eba70cd998420cf97f5d17f4b5697409908c12
+      revision: 362a1b65b569b5c5a405a9f543cbe95de14b8b07
       githubRepository: sass-maker/free-ai
       expectedHomepage: https://ai-gateway.sassmaker.com
       observedHomepage: https://ai-gateway.sassmaker.com
       worktree: &a1
-        state: clean
-        trackedChangeCount: 0
+        state: dirty
+        trackedChangeCount: 17
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: free-ai
-      revision: 84eba70cd998420cf97f5d17f4b5697409908c12
+      revision: 362a1b65b569b5c5a405a9f543cbe95de14b8b07
       githubRepository: sass-maker/free-ai
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,13 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       failing: 1
       healthy: 3
       attention: &a2
         action-required: 1
-        clear: 3
+        clear: 2
+        missing-data: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Free AI is also a really good product. There are a lot of free AI providers which give you a decent daily free tier. I aggregated them into what kind of tool they can provide and put them behind a load balancer type thing. I can get access to a free AI whenever I want. So far it has been working well for my internal products. In future I would want to add hopefully more free AI options.
@@ -115,13 +116,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-15
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 277
+    latestCommitAt: 2026-10-03
+    retainedCommitCount: 288
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: free-ai
-  observedRevision: 84eba70cd998420cf97f5d17f4b5697409908c12
+  observedRevision: 362a1b65b569b5c5a405a9f543cbe95de14b8b07
   githubRepository: sass-maker/free-ai
   githubHomepageUrl: https://ai-gateway.sassmaker.com
   worktree: *a1
@@ -200,7 +201,7 @@ repository:
       - test:watch
       - typecheck
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     failing: 1
@@ -209,7 +210,7 @@ githubActions:
   remote:
     repository: sass-maker/free-ai
     defaultBranch: main
-    defaultBranchSha: 84eba70cd998420cf97f5d17f4b5697409908c12
+    defaultBranchSha: ba79b44b0989189e67c8a7e037f75e67f9c19971
     homepage: https://ai-gateway.sassmaker.com
     query: verified
     disposition:
@@ -235,30 +236,30 @@ githubActions:
         reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 36326052267
+          id: 37775706103
           status: completed
           conclusion: failure
-          event: schedule
+          event: workflow_dispatch
           branch: main
-          headSha: f2fb636c972697c589ca1aa1753ca81a7ecda3a1
-          createdAt: 2026-09-27T14:28:41Z
-          updatedAt: 2026-09-27T14:29:00Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/36326052267
-        ageDays: 1
+          headSha: ba79b44b0989189e67c8a7e037f75e67f9c19971
+          createdAt: 2026-10-08T12:16:27Z
+          updatedAt: 2026-10-08T12:16:48Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/37775706103
+        ageDays: 0
       schedule:
         health: failing
         reason: latest scheduled run concluded failure
         lastRun:
-          id: 36326052267
+          id: 37209592272
           status: completed
           conclusion: failure
           event: schedule
           branch: main
-          headSha: f2fb636c972697c589ca1aa1753ca81a7ecda3a1
-          createdAt: 2026-09-27T14:28:41Z
-          updatedAt: 2026-09-27T14:29:00Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/36326052267
-        ageDays: 1
+          headSha: 362a1b65b569b5c5a405a9f543cbe95de14b8b07
+          createdAt: 2026-10-04T14:31:44Z
+          updatedAt: 2026-10-04T14:32:01Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/37209592272
+        ageDays: 4
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
@@ -282,15 +283,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36370439000
+          id: 37775192698
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 84eba70cd998420cf97f5d17f4b5697409908c12
-          createdAt: 2026-09-28T02:35:58Z
-          updatedAt: 2026-09-28T02:36:58Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/36370439000
+          headSha: ba79b44b0989189e67c8a7e037f75e67f9c19971
+          createdAt: 2026-10-08T12:12:04Z
+          updatedAt: 2026-10-08T12:13:21Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/37775192698
         ageDays: 0
       schedule:
         health: not-applicable
@@ -300,15 +301,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36370439000
+          id: 37775192698
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 84eba70cd998420cf97f5d17f4b5697409908c12
-          createdAt: 2026-09-28T02:35:58Z
-          updatedAt: 2026-09-28T02:36:58Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/36370439000
+          headSha: ba79b44b0989189e67c8a7e037f75e67f9c19971
+          createdAt: 2026-10-08T12:12:04Z
+          updatedAt: 2026-10-08T12:13:21Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/37775192698
         ageDays: 0
       attention: clear
     - name: Deploy Cloudflare
@@ -328,15 +329,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36370449565
+          id: 37775424783
           status: completed
           conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 84eba70cd998420cf97f5d17f4b5697409908c12
-          createdAt: 2026-09-28T02:36:07Z
-          updatedAt: 2026-09-28T02:37:37Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/36370449565
+          headSha: ba79b44b0989189e67c8a7e037f75e67f9c19971
+          createdAt: 2026-10-08T12:14:04Z
+          updatedAt: 2026-10-08T12:15:31Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/37775424783
         ageDays: 0
       schedule:
         health: not-applicable
@@ -365,35 +366,34 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36370439010
+          id: 37745766855
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 84eba70cd998420cf97f5d17f4b5697409908c12
-          createdAt: 2026-09-28T02:35:58Z
-          updatedAt: 2026-09-28T02:36:48Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/36370439010
+          headSha: 1af86238ecec80a7b2dba340b5a0591cf793095a
+          createdAt: 2026-10-08T07:48:53Z
+          updatedAt: 2026-10-08T07:49:51Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/37745766855
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: missing
+        reason: no push run at current main revision ba79b44
         lastRun:
-          id: 36370439010
+          id: 37745766855
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 84eba70cd998420cf97f5d17f4b5697409908c12
-          createdAt: 2026-09-28T02:35:58Z
-          updatedAt: 2026-09-28T02:36:48Z
-          url: https://github.com/sass-maker/free-ai/actions/runs/36370439010
-        ageDays: 0
-      attention: clear
+          headSha: 1af86238ecec80a7b2dba340b5a0591cf793095a
+          createdAt: 2026-10-08T07:48:53Z
+          updatedAt: 2026-10-08T07:49:51Z
+          url: https://github.com/sass-maker/free-ai/actions/runs/37745766855
+      attention: missing-data
 deployment:
   kind: worker
   deployed: true
@@ -410,11 +410,107 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-11T21:25:55.481Z
-          versionId: bfb60c65-46c5-4128-bfa2-e152825892b0
-          sourceCommit: 20dac0f5fba7b15b08df031faedae9774c6a8dd5
-          evidencePath: ../saas-maker/.fleet-local/free-ai-timeout-release-20260912.json
-          method: successful GitHub workflow and deployment log; live public smoke
+          observedAt: 2026-10-05T19:01:48.598677+00:00
+          sourceCommit: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
+          versionId: 2176962a-b935-49f0-8b9e-e8e225443529
+          deploymentId: 900dba7a-9d8f-4971-b3f6-839ffe807986
+          trafficPercent: 100
+          state: source-verified-provider-replay-incomplete
+          registrySourceCommit: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
+          registryExactMainCi: 37359378122
+          deployWorkflow: 37359640342
+          effectiveChatModels: 50
+          catalogScope: Fresh hosted current-source policy:0stale,4/13catalogs;4credential gaps5unsupported;provider replay4/9FAIL
+          catalogObservedAt: 2026-10-05T18:54:24.460Z
+          lastFullPolicyRun: 37360316105
+          lastFullPolicySource: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
+          catalogGate: failed-current-source-provider-replay
+          providerReplay:
+            successful: 4
+            total: 9
+            failures:
+              - provider: gemini
+                upstreamStatus: 503
+                errorClass: usage_retriable
+              - provider: cerebras
+                upstreamStatus: 402
+                errorClass: provider_fatal
+              - provider: nvidia
+                upstreamStatus: 410
+                errorClass: provider_fatal
+              - provider: mistral
+                upstreamStatus: 403
+                errorClass: provider_fatal
+              - provider: zai
+                upstreamStatus: 405
+                errorClass: provider_fatal
+          evidence: PR99 retires exactly2disabled staging records and1unused quota; owning453tests/fullquality/docs on383base before other-owner PR98, exact-mainCI37359378122, unchanged6gate guard, manualdeploy37359640342, exactprovideridentity100percent and publichealth/models200 PASS. All50enabled objects and49explicitactive quota values preserved. Last normal fullpolicy37353421600 on3835486 FAIL4/9 successes; sanitized upstream statuses establish observations, not precise key/account/billing causes. Catalog coverage4/13 with4credential gaps and5unsupported. Issue62 remains OPEN. No credentials/configuration/resources/provider enrollment/paid fallback changed. Current RPC, cross-provider recovery and sustained reliability not requalified. Fresh normal policy37360316105 on exactcurrent04b593c3 FAIL:0stale,4/13catalogs,4/9providers; Gemini503/Cerebras402/NVIDIA410/Mistral403/ZAI405. This single new qualification follows other-ownerPR98 behavioral changes; no unchanged retries. Issue62 OPEN. Prior383 policy result retained historically.
+        verificationHistory:
+          - observedAt: 2026-10-02T11:02:20.201598Z
+            deploymentId: 672b0032-8661-4e4f-aca0-0e8990a8ebf5
+            versionId: 28708207-fd80-45b6-8a32-3dfe435568fd
+            sourceCommit: 36b12212b2785274c676d363b84b3274eac733c4
+            trafficPercent: 100
+            state: success-production-verified
+            evidence: Exact-main CI36998437883 and all six Fleet deployment gates passed. Production deploy workflow36998668386 succeeded; provider exact source tag at100percent with namedFleetGateway fetch/run. Runtime implementation unchanged from reviewed PR84; PR85 records live producer verification. All383tests and compiledWorkersruntime privateHTTP/nativeRPC smoke passed; publicauthentication rejectsanonymousplaceholder. Shared dailycap9500 intact. MemeLab public read-only Anna shortlist successfully exercised nativeRPC afterdeployment with30results; no comment was persisted. No secret values copied; consumer receipts under issue83.
+            namedHandlers:
+              - name: FleetGateway
+                handlers:
+                  - fetch
+                  - run
+          - observedAt: 2026-10-05T15:45:23.798436+00:00
+            deploymentId: d31feedb-d0bd-42d3-9244-822e967fbd9f
+            versionId: aeb9107c-a2be-4fb1-8ca9-d68146b77ae0
+            sourceCommit: 03f878909f7d40dea6b1fff8aadc9b878ab9fc65
+            trafficPercent: 100
+            state: source-verified-provider-replay-incomplete
+            evidence: "Production PR93 repair deployed by workflow37328790766; exact source03f878909f7d40dea6b1fff8aadc9b878ab9fc65 at100percent confirmed2026-10-05T15:45Z. Exact-main CI37328405400 passed. Public GET /v1/models on2026-10-05T15:42Z returned200,50chat models, GLM/LingFin absent and Dots enabled. Followup PR94 main d1d2a0400aff5a4bb4509c31e20892d03a755fb0 retires2inactive metadata records; exact-main CI37334737707 passed. Its50active objects are text-identical to deployed source; no current-main deployment is claimed. Catalog workflow37334806861 on followup main reports0stale,4/13 catalogs,4credential gaps,5unsupported catalogs,2new models left inactive, and healthy aggregate gateway health. Replay is4/9successful: Gemini502 usage_retriable and Cerebras/NVIDIA/Mistral/ZAI502 provider_fatal. Overallcataloggate FAILED; issue62 OPEN. No credentials, provider enrollments, new models or paid fallback activated; no new resource/config changes. Current named-handler/RPC, cross-provider recovery and sustained reliability are not requalified by these observations."
+            registrySourceCommit: d1d2a0400aff5a4bb4509c31e20892d03a755fb0
+            registryExactMainCi: 37334737707
+            catalogRun: 37334806861
+            catalogStaleModels: 0
+            catalogGate: failed-provider-replay
+            providerReplay:
+              successful: 4
+              total: 9
+            effectiveChatModels: 50
+          - observedAt: 2026-10-05T18:06:11.761927+00:00
+            sourceCommit: 38354865408e51d7ff92c20b8f2f20b18b251706
+            versionId: 603d83ab-dd84-479a-a5e3-668e98f42df0
+            deploymentId: 1e102bf7-4e15-46bb-b62b-537a34dd665e
+            trafficPercent: 100
+            state: diagnostic-source-release-qualified-provider-replay-incomplete
+            evidence: PR97 owning quality451tests/docs, exactCI, unchanged6gateguard, manualworkflow deploy and publicroutes PASS. Subsequent normal policy37353421600 on this source FAILED4/9 provider replay and detected2disabled stale catalog records.
+          - observedAt: 2026-10-05T18:58:30.070874+00:00
+            sourceCommit: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
+            versionId: 2176962a-b935-49f0-8b9e-e8e225443529
+            deploymentId: 900dba7a-9d8f-4971-b3f6-839ffe807986
+            trafficPercent: 100
+            state: source-verified-provider-replay-incomplete
+            registrySourceCommit: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
+            registryExactMainCi: 37359378122
+            deployWorkflow: 37359640342
+            effectiveChatModels: 50
+            catalogScope: OpenRouter-only unauthenticated official catalog;15valid0stale. No new full-policy replay after inactive-only metadata retirement.
+            catalogObservedAt: 2026-10-05T18:54:24.460Z
+            lastFullPolicyRun: 37353421600
+            lastFullPolicySource: 38354865408e51d7ff92c20b8f2f20b18b251706
+            catalogGate: last-full-policy-failed-provider-replay
+            providerReplay:
+              successful: 4
+              total: 9
+              failures:
+                - provider: gemini
+                  upstreamStatus: 503
+                - provider: cerebras
+                  upstreamStatus: 402
+                - provider: nvidia
+                  upstreamStatus: 410
+                - provider: mistral
+                  upstreamStatus: 403
+                - provider: zai
+                  upstreamStatus: 401
+            evidence: PR99 retires exactly2disabled staging records and1unused quota; owning453tests/fullquality/docs on383base before other-owner PR98, exact-mainCI37359378122, unchanged6gate guard, manualdeploy37359640342, exactprovideridentity100percent and publichealth/models200 PASS. All50enabled objects and49explicitactive quota values preserved. Last normal fullpolicy37353421600 on3835486 FAIL4/9 successes; sanitized upstream statuses establish observations, not precise key/account/billing causes. Catalog coverage4/13 with4credential gaps and5unsupported. Issue62 remains OPEN. No credentials/configuration/resources/provider enrollment/paid fallback changed. Current RPC, cross-provider recovery and sustained reliability not requalified.
     resources:
       - provider: cloudflare
         kind: d1
@@ -465,6 +561,24 @@ deployment:
         scope: project
         operationalOwner: free-ai
         attributionReason: "Canonical project owner: free-ai"
+      - provider: cloudflare
+        kind: waf-custom-rule
+        id: 2a126cca1e6141a4bcd902ef50f1d9da
+        name: "Free AI: Python urllib API compatibility (#104)"
+        state: active
+        zone: sassmaker.com
+        attributionReason: Owned by Free AI; the rule matches only its public API hostname and two urllib method/path pairs.
+        verification:
+          observedAt: 2026-10-07T13:16:23.073993+00:00
+          action: skip
+          products:
+            - bic
+          matchingRequestLogging: false
+          expression: (http.host eq "ai-gateway.sassmaker.com" and starts_with(http.user_agent, "Python-urllib/") and ((http.request.method eq "GET" and http.request.uri.path eq "/v1/models") or (http.request.method eq "POST" and http.request.uri.path eq "/v1/embeddings")))
+          state: edge-compatibility-verified
+          evidence: "2026-10-07: owner-approved rule deployed in signed-in Cloudflare dashboard. Persisted editor readback confirms Active, exact expression, only Browser Integrity Check skipped, request logging off. Final 11/11 anonymous checks passed: urllib/default and Python-urllib/3.12 GET models 200 and POST embeddings 401 invalid_api_key; OpenAI Python/node unchanged; urllib health and wrong method/path remain403 Error1010. First propagation probe10/11 retained separately. No gateway key, Worker source/deployment, authentication, other WAF product, or model provider changed. Existing normal authenticated public gateway replay run37626830461 returned fiveHTTP200s; issue104 directly read back CLOSED at2026-10-07T13:15:10Z. Wider replay5/9 and incomplete catalog4/13 remain under issue62. Authenticated public Modal embeddings remain separately unverified. Private receipts: /Users/sarthak/Documents/Codex/reports/fleet-pr-issue-audit-2026-10-04/known-closure-runs/continuation-20261007-approved/free-ai"
+        scope: project
+        operationalOwner: free-ai
   otherProviders:
     deployments: []
     resources: []

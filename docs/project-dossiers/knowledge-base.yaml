@@ -3,7 +3,7 @@ projectId: knowledge-base
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-04
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Knowledge Base
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: knowledge-base
-      revision: 716d56c04d42026f0b640da11e0e17ff4f0a0ae2
+      revision: 6f504979b20bc7bb5456952e49f3a4b22f08f253
       githubRepository: sass-maker/knowledge-base
       expectedHomepage: https://knowledgebase.sassmaker.com
       observedHomepage: https://knowledgebase.sassmaker.com
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: knowledge-base
-      revision: 716d56c04d42026f0b640da11e0e17ff4f0a0ae2
+      revision: 6f504979b20bc7bb5456952e49f3a4b22f08f253
       githubRepository: sass-maker/knowledge-base
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 3
       attention: &a2
@@ -114,13 +114,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-05-27
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 241
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 261
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: knowledge-base
-  observedRevision: 716d56c04d42026f0b640da11e0e17ff4f0a0ae2
+  observedRevision: 6f504979b20bc7bb5456952e49f3a4b22f08f253
   githubRepository: sass-maker/knowledge-base
   githubHomepageUrl: https://knowledgebase.sassmaker.com
   worktree: *a1
@@ -173,7 +173,7 @@ repository:
       - quality:suppressions
       - quality:unused
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 3
@@ -181,7 +181,7 @@ githubActions:
   remote:
     repository: sass-maker/knowledge-base
     defaultBranch: main
-    defaultBranchSha: 716d56c04d42026f0b640da11e0e17ff4f0a0ae2
+    defaultBranchSha: 6f504979b20bc7bb5456952e49f3a4b22f08f253
     homepage: https://knowledgebase.sassmaker.com
     query: verified
     disposition:
@@ -206,15 +206,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36391207835
+          id: 37821267517
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 716d56c04d42026f0b640da11e0e17ff4f0a0ae2
-          createdAt: 2026-09-28T07:21:22Z
-          updatedAt: 2026-09-28T07:22:32Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/36391207835
+          headSha: 6f504979b20bc7bb5456952e49f3a4b22f08f253
+          createdAt: 2026-10-08T18:02:57Z
+          updatedAt: 2026-10-08T18:04:32Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/37821267517
         ageDays: 0
       schedule:
         health: not-applicable
@@ -224,15 +224,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36391207835
+          id: 37821267517
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 716d56c04d42026f0b640da11e0e17ff4f0a0ae2
-          createdAt: 2026-09-28T07:21:22Z
-          updatedAt: 2026-09-28T07:22:32Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/36391207835
+          headSha: 6f504979b20bc7bb5456952e49f3a4b22f08f253
+          createdAt: 2026-10-08T18:02:57Z
+          updatedAt: 2026-10-08T18:04:32Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/37821267517
         ageDays: 0
       attention: clear
     - name: docs
@@ -253,33 +253,33 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 34331170937
+          id: 37576325529
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 33b0e338d965bd90256b29754a311921d777d811
-          createdAt: 2026-09-09T08:48:38Z
-          updatedAt: 2026-09-09T08:48:47Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170937
-        ageDays: 19
+          headSha: fcbebfd2f630f1b40e96b4dbf0d1e3484223310b
+          createdAt: 2026-10-07T05:26:38Z
+          updatedAt: 2026-10-07T05:26:46Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/37576325529
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision 716d56c
+        reason: no push run at current main revision 6f50497
         lastRun:
-          id: 34331170937
+          id: 37576325529
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 33b0e338d965bd90256b29754a311921d777d811
-          createdAt: 2026-09-09T08:48:38Z
-          updatedAt: 2026-09-09T08:48:47Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/34331170937
+          headSha: fcbebfd2f630f1b40e96b4dbf0d1e3484223310b
+          createdAt: 2026-10-07T05:26:38Z
+          updatedAt: 2026-10-07T05:26:46Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/37576325529
       attention: missing-data
     - name: worker-eval-on-pr
       file: .github/workflows/eval.yml
@@ -299,16 +299,16 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 35757064781
+          id: 37574915738
           status: completed
           conclusion: success
           event: pull_request
-          branch: codex/app-health-endpoints
-          headSha: 1e9eff67951471ddd10dedd669bc8eaac29558e4
-          createdAt: 2026-09-22T16:53:16Z
-          updatedAt: 2026-09-22T16:53:40Z
-          url: https://github.com/sass-maker/knowledge-base/actions/runs/35757064781
-        ageDays: 6
+          branch: agent/embeddinggemma2-20261007
+          headSha: 1a0de8a81ee0f122aba96cfecbdb248c362bc92b
+          createdAt: 2026-10-07T05:09:15Z
+          updatedAt: 2026-10-07T05:09:31Z
+          url: https://github.com/sass-maker/knowledge-base/actions/runs/37574915738
+        ageDays: 1
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -348,6 +348,45 @@ deployment:
         name: knowledgebase-app
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-10-04T20:29:24.044447+00:00
+          deploymentId: 1dc8ee4c-c136-4185-af6a-0e04d8f4cbc0
+          environment: Production
+          branch: main
+          providerSourceAbbreviation: d3a817f
+          sourceCommit: d3a817fb94e1c11a73b1e51f403b18c32c03db0a
+          url: https://1dc8ee4c.knowledgebase-app-acs.pages.dev
+          state: production-verified
+          evidence: "PR #63 merged at the exact source commit after candidate CI 37231921885 and exact-main CI 37232016988 passed. Authenticated dashboard inventory and Overview loaded without the reproduced API 404; observed /assets/index-CZEee_ua.js matched the exact merged build asset. Anonymous GET and HEAD operator API probes remained behind Cloudflare Access challenges on search.sassmaker.com and the deployment preview; no auth bypass was used."
+          liveChecks:
+            authenticated:
+              inventoryVisible: true
+              overviewLoaded: true
+              error404Visible: false
+              observedScript: /assets/index-CZEee_ua.js
+              matchesExactMergedBuildAsset: true
+            anonymousAccessChallenge:
+              customDomain:
+                origin: https://search.sassmaker.com
+                path: /api/v1/kb/operator/projects
+                get:
+                  status: 302
+                  accessChallenge: true
+                  cacheControl: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+                head:
+                  status: 302
+                  bodyBytes: 0
+                  accessChallenge: true
+              deploymentPreview:
+                origin: https://1dc8ee4c.knowledgebase-app-acs.pages.dev
+                path: /api/v1/kb/operator/projects
+                get:
+                  status: 302
+                  accessChallenge: true
+                head:
+                  status: 302
+                  bodyBytes: 0
+                  accessChallenge: true
       - provider: cloudflare
         kind: worker
         name: knowledgebase-app
@@ -359,6 +398,18 @@ deployment:
         name: knowledgebase
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-10-02T11:40:58.635184Z
+          deploymentId: 0f3a3715-f74b-4647-9bcb-a94735beb8a3
+          versionId: ffd6566b-0748-49a5-acbd-9786f25eabba
+          sourceCommit: 0207b5efc24cf5672dbce423757088f443e48b06
+          trafficPercent: 100
+          state: success-production-verified
+          evidence: "PR #57 (https://github.com/sass-maker/knowledge-base/pull/57) passed quality, worker-eval-dry-run, and Pages checks before merge. Exact-main CI run 37002214995 passed; Fleet deploy guard reported READY TO DEPLOY with six gates passed at clean, synced main 0207b5ef. Wrangler deploy dry-run passed; production deployment metadata reports 100% traffic for this version. Wrangler deployment output identifies FREE_AI as free-ai-gateway#FleetGateway and shows existing 384/768/1024/1536 Vectorize bindings. Public /v1/healthz returned ok with D1, D1 schema, Vectorize, and R2 healthy. Authenticated retrieval was not probed; no secret was accessed. Vision OCR now routes via FREE_AI.run; unpriced media models are denied by the gateway before AI inference, with parser fallback. Worker check: 457 passed, 1 skipped; docs check: 36 files valid."
+          serviceBindings:
+            - name: FREE_AI
+              service: free-ai-gateway
+              entrypoint: FleetGateway
     resources:
       - provider: cloudflare
         kind: d1
@@ -454,7 +505,15 @@ deployment:
       - provider: cloudflare
         kind: service-binding
         name: free-ai-gateway
-        state: retired-confirmed-absent
+        state: active
+        binding: FREE_AI
+        entrypoint: FleetGateway
+        dependencyProject: free-ai
+        verification:
+          observedAt: 2026-10-02T11:40:58.635184Z
+          versionId: ffd6566b-0748-49a5-acbd-9786f25eabba
+          sourceCommit: 0207b5efc24cf5672dbce423757088f443e48b06
+          state: production-binding-verified
         scope: project
         operationalOwner: knowledge-base
         attributionReason: "Canonical project owner: knowledge-base"

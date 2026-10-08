@@ -3,7 +3,7 @@ projectId: rolepatch
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-09-09
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-02
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: RolePatch
@@ -28,25 +28,25 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: rolepatch
-      revision: 25ecfb7873a1281bb5c1259fc4cab34396bfc7b4
+      revision: d22cd94b3b2dd0dc1882ac1d7905394221769079
       githubRepository: Significant-Hobbies/rolepatch
       expectedHomepage: https://rolepatch.com
       observedHomepage: https://rolepatch.com
       worktree: &a1
         state: dirty
-        trackedChangeCount: 1
+        trackedChangeCount: 81
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: rolepatch
-      revision: 25ecfb7873a1281bb5c1259fc4cab34396bfc7b4
+      revision: d22cd94b3b2dd0dc1882ac1d7905394221769079
       githubRepository: Significant-Hobbies/rolepatch
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,11 +56,11 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
-      healthy: 4
+      healthy: 3
       attention: &a2
-        clear: 4
+        clear: 3
   unknowns: []
 ownerVoice:
   whyVerbatim: Role patch was my attempt to build a tool for generating a resume for a job description. I am not actively looking for a job so I am not using it but it's a good product and I will test and start using it soon.
@@ -113,13 +113,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-02-23
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 455
+    latestCommitAt: 2026-10-04
+    retainedCommitCount: 467
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: rolepatch
-  observedRevision: 25ecfb7873a1281bb5c1259fc4cab34396bfc7b4
+  observedRevision: d22cd94b3b2dd0dc1882ac1d7905394221769079
   githubRepository: Significant-Hobbies/rolepatch
   githubHomepageUrl: https://rolepatch.com
   worktree: *a1
@@ -177,6 +177,7 @@ repository:
       - quality:suppressions
       - quality:unused
       - release:verify
+      - resume:mcp
       - smoke:local
       - smoke:prod
       - start
@@ -187,15 +188,15 @@ repository:
       - typecheck
       - verify:deploy-routes
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
-    healthy: 4
+    healthy: 3
   attention: *a2
   remote:
     repository: Significant-Hobbies/rolepatch
     defaultBranch: main
-    defaultBranchSha: 25ecfb7873a1281bb5c1259fc4cab34396bfc7b4
+    defaultBranchSha: 4dfb54e04e2fabd111e79753e0d826b168e7c02f
     homepage: https://rolepatch.com
     query: verified
     disposition:
@@ -220,15 +221,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36374485554
+          id: 37830431256
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 25ecfb7873a1281bb5c1259fc4cab34396bfc7b4
-          createdAt: 2026-09-28T03:38:06Z
-          updatedAt: 2026-09-28T03:40:40Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/36374485554
+          headSha: 4dfb54e04e2fabd111e79753e0d826b168e7c02f
+          createdAt: 2026-10-08T19:14:19Z
+          updatedAt: 2026-10-08T19:16:52Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/37830431256
         ageDays: 0
       schedule:
         health: not-applicable
@@ -238,15 +239,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36374485554
+          id: 37830431256
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 25ecfb7873a1281bb5c1259fc4cab34396bfc7b4
-          createdAt: 2026-09-28T03:38:06Z
-          updatedAt: 2026-09-28T03:40:40Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/36374485554
+          headSha: 4dfb54e04e2fabd111e79753e0d826b168e7c02f
+          createdAt: 2026-10-08T19:14:19Z
+          updatedAt: 2026-10-08T19:16:52Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/37830431256
         ageDays: 0
       attention: clear
     - name: Deploy to Cloudflare Workers
@@ -267,15 +268,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36362388121
+          id: 37829121253
           status: completed
           conclusion: success
-          event: workflow_dispatch
-          branch: main
-          headSha: fe5e7ce55d32c62df41be7888c5d58e59b4d2d0e
-          createdAt: 2026-09-28T00:29:11Z
-          updatedAt: 2026-09-28T00:31:37Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/36362388121
+          event: pull_request
+          branch: docs/agents-claude-visibility
+          headSha: 0da4baf38a3f7439cc40d5299d49527dffc46b6c
+          createdAt: 2026-10-08T19:03:59Z
+          updatedAt: 2026-10-08T19:05:54Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/37829121253
         ageDays: 0
       schedule:
         health: not-applicable
@@ -304,15 +305,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36374485538
+          id: 37830430983
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 25ecfb7873a1281bb5c1259fc4cab34396bfc7b4
-          createdAt: 2026-09-28T03:38:06Z
-          updatedAt: 2026-09-28T03:38:15Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/36374485538
+          headSha: 4dfb54e04e2fabd111e79753e0d826b168e7c02f
+          createdAt: 2026-10-08T19:14:19Z
+          updatedAt: 2026-10-08T19:14:28Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/37830430983
         ageDays: 0
       schedule:
         health: not-applicable
@@ -322,51 +323,16 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36374485538
+          id: 37830430983
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 25ecfb7873a1281bb5c1259fc4cab34396bfc7b4
-          createdAt: 2026-09-28T03:38:06Z
-          updatedAt: 2026-09-28T03:38:15Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/36374485538
+          headSha: 4dfb54e04e2fabd111e79753e0d826b168e7c02f
+          createdAt: 2026-10-08T19:14:19Z
+          updatedAt: 2026-10-08T19:14:28Z
+          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/37830430983
         ageDays: 0
-      attention: clear
-    - name: Dependabot Updates
-      file: dynamic/dependabot/dependabot-updates
-      triggers: []
-      schedules: []
-      inventory:
-        source: github-generated
-        local: false
-        remote: true
-      ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 35668234653
-          status: completed
-          conclusion: success
-          event: dynamic
-          branch: main
-          headSha: 917129aca33d5ced65fd0a83ac8289909bbb2204
-          createdAt: 2026-09-21T23:35:15Z
-          updatedAt: 2026-09-21T23:36:11Z
-          url: https://github.com/Significant-Hobbies/rolepatch/actions/runs/35668234653
-        ageDays: 6
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: not-applicable
-        reason: workflow has no push trigger
-        lastRun: null
       attention: clear
 deployment:
   kind: worker
@@ -384,10 +350,18 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-09T12:55:26.703806Z
-          deploymentId: cf264b17-55a9-4417-b815-7fd5629489fa
-          sourceCommit: 985dfd1f11a3c617482c49f05bf59708b9d7fd6b
-          evidencePath: docs/qualification/rolepatch-import-2026-09-09.json
+          observedAt: 2026-10-02T14:08:04Z
+          deploymentId: b2ef5475-1680-43cb-a0ca-6bb0590fb39f
+          versionId: ae147357-27a3-460a-8fb8-2ea48cfb13aa
+          sourceCommit: e44d5e00b7b875e4ed6085fc2726aca677e949a3
+          trafficPercent: 100
+          state: success-production-verified
+          evidence: "RolePatch issue #78, PR #79. Exact-main CI 37016649132 and Docs 37016649121 passed; all six Fleet gates passed before production dispatch 37017144734, whose production smoke passed. Provider active version full-SHA tag matches the release at 100% traffic. Canonical pricing/tools each transition MISS to HIT with revalidating client policy; all 15/14 referenced scripts return 200 with JavaScript MIME types. Synthetic RSC, prefetch, authorization and session-cookie probes bypass the document cache; RSC returns framework 307, not cached HTML. Concrete docs home example returns 200 JSON. Full local quality passes 501 tests; standalone release verification stops at jobs without a D1 binding, not a deployed Workers failure. Real signed-in sessions and Ahrefs recrawl remain unqualified. Browser Clarity tag loads, but a separate legacy Web Vitals collector returns 404."
+          evidencePath: ../site-health/docs/ahrefs-email-triage-2026-10-02.md
+          serviceBindings:
+            - name: FREE_AI
+              service: free-ai-gateway
+              entrypoint: FleetGateway
     resources:
       - provider: cloudflare
         kind: d1
@@ -428,6 +402,21 @@ deployment:
         kind: email-routing
         name: rolepatch.com
         state: enabled-catch-all
+        scope: project
+        operationalOwner: rolepatch
+        attributionReason: "Canonical project owner: rolepatch"
+      - provider: cloudflare
+        kind: service-binding
+        name: free-ai-gateway
+        state: active
+        binding: FREE_AI
+        entrypoint: FleetGateway
+        dependencyProject: free-ai
+        verification:
+          observedAt: 2026-10-02T11:23:00Z
+          versionId: b859e192-0348-476b-af53-a5986d3e5820
+          sourceCommit: 4b5089c73eb47d19144f211f90c95df1fcab5a58
+          state: production-binding-verified
         scope: project
         operationalOwner: rolepatch
         attributionReason: "Canonical project owner: rolepatch"

@@ -3,7 +3,7 @@ projectId: ios-landings
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-09-28
+  generatedAt: 2026-10-08
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f1ad4306abbe49ae352f404669bbb885fa1ebcb63c33f3721c8d34eecc0344ee
-      infrastructureUpdatedAt: 2026-09-27
+      sha256: 4777fa4d5faab414b29f920385bf8bd100b6a85f038d503654bace5c98518fd5
+      infrastructureUpdatedAt: 2026-10-06
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: iOS Landings
@@ -28,13 +28,13 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 62b660e8f8d5f2846350da9c0d5d8b5023771efce00b21e77e5aa82080825d06
+      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: ios-landings
-      revision: 8cef1325af8844f9bec46c82d3ee12f5a17dcb3f
+      revision: 1b38695d94bb0c490733cb63cf03c126c74fc077
       githubRepository: Significant-Hobbies/ios-landings
       expectedHomepage: https://apps.significanthobbies.com
       observedHomepage: null
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-09-28
+      observedAt: 2026-10-08
       state: available
       checkout: ios-landings
-      revision: 8cef1325af8844f9bec46c82d3ee12f5a17dcb3f
+      revision: 1b38695d94bb0c490733cb63cf03c126c74fc077
       githubRepository: Significant-Hobbies/ios-landings
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-09-28T17:51:33.879Z
+      observedAt: 2026-10-08T19:52:57.555Z
       staleAfterDays: 30
       healthy: 1
       attention: &a2
@@ -105,13 +105,13 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-08-17
-    latestCommitAt: 2026-09-28
-    retainedCommitCount: 77
+    latestCommitAt: 2026-10-08
+    retainedCommitCount: 91
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ios-landings
-  observedRevision: 8cef1325af8844f9bec46c82d3ee12f5a17dcb3f
+  observedRevision: 1b38695d94bb0c490733cb63cf03c126c74fc077
   githubRepository: Significant-Hobbies/ios-landings
   githubHomepageUrl: null
   worktree: *a1
@@ -155,7 +155,7 @@ repository:
       - dev:setline
       - preview
 githubActions:
-  observedAt: 2026-09-28T17:51:33.879Z
+  observedAt: 2026-10-08T19:52:57.555Z
   staleAfterDays: 30
   summary:
     healthy: 1
@@ -163,7 +163,7 @@ githubActions:
   remote:
     repository: Significant-Hobbies/ios-landings
     defaultBranch: main
-    defaultBranchSha: 8cef1325af8844f9bec46c82d3ee12f5a17dcb3f
+    defaultBranchSha: 1b38695d94bb0c490733cb63cf03c126c74fc077
     homepage: null
     query: verified
     disposition:
@@ -188,15 +188,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 36392596256
+          id: 37821236577
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8cef1325af8844f9bec46c82d3ee12f5a17dcb3f
-          createdAt: 2026-09-28T07:36:46Z
-          updatedAt: 2026-09-28T07:37:56Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/36392596256
+          headSha: 1b38695d94bb0c490733cb63cf03c126c74fc077
+          createdAt: 2026-10-08T18:02:41Z
+          updatedAt: 2026-10-08T18:03:31Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/37821236577
         ageDays: 0
       schedule:
         health: not-applicable
@@ -206,15 +206,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 36392596256
+          id: 37821236577
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8cef1325af8844f9bec46c82d3ee12f5a17dcb3f
-          createdAt: 2026-09-28T07:36:46Z
-          updatedAt: 2026-09-28T07:37:56Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/36392596256
+          headSha: 1b38695d94bb0c490733cb63cf03c126c74fc077
+          createdAt: 2026-10-08T18:02:41Z
+          updatedAt: 2026-10-08T18:03:31Z
+          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/37821236577
         ageDays: 0
       attention: clear
 deployment:
@@ -233,8 +233,18 @@ deployment:
         method: direct-upload
         state: live
         verification:
-          observedAt: 2026-09-27
-          evidencePath: null
+          observedAt: 2026-10-06
+          sourceCommit: d08041eaeeb6710798af6b50884e898289e77cc3
+          deploymentId: ca04cc74-2b11-42e4-8e4b-ee8e03d89662
+          providerSourceAbbreviated: d08041e
+          fullSourceProof: Explicit pinned publisher full SHA, merged tree equality, exact-main CI and public file hashes
+          evidencePath: ios-landings/.fleet-local/footer180-resume-20261005/index-prep/public-20261006/release-proof.json
+          scope: Factory index footer only; Journal, Habits and native app releases excluded
+          state: success-production-verified
+          evidence: Selected C Precise source/current CI, existing provider, anonymous public byte matches and actual responsive/control review qualified. Numeric scanner remains unknown.
+        verificationHistory:
+          - observedAt: 2026-09-27
+            evidencePath: null
     resources: []
   otherProviders:
     deployments: []
