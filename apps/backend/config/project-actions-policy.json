@@ -1,6 +1,10 @@
 {
   "schemaVersion": 1,
   "projects": {
+    "agent-inbox": {
+      "disposition": "active",
+      "reason": "Owner-added local Agent Inbox project; bounded work follows agentbox/PRODUCT.md."
+    },
     "agent-office": {
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
@@ -21,9 +25,13 @@
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
     },
+    "field-track": {
+      "disposition": "ignored",
+      "reason": "Owner retired the project on 2026-10-08. Preserve existing source, workflows and attributed infrastructure; exclude from active Fleet work."
+    },
     "forecast-lab": {
       "disposition": "ignored",
-      "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+      "reason": "Owner retired Forecast Lab on 2026-10-08. Preserve completed exploratory results and history; no unattended or active feature/research/deployment work. CI remains for source preservation."
     },
     "india-standards": {
       "disposition": "ignored",
@@ -76,6 +84,10 @@
     "verified-bases": {
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+    },
+    "war-chest": {
+      "disposition": "ignored",
+      "reason": "Owner retired the project on 2026-10-08. Preserve existing source, workflows and attributed infrastructure; exclude from active Fleet work."
     },
     "scale": {
       "disposition": "ignored",

@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import { EVIDENCE_POLICIES } from './evidence-freshness.mjs';
+
 const API_URL = 'https://www.clarity.ms/export-data/api/v1/project-live-insights';
 const REGISTRY_SCHEMA = 'fleet.clarity-registry.v2';
 const CAPABILITIES_SCHEMA = 'fleet.clarity-capabilities.v1';
@@ -11,7 +13,6 @@ const SNAPSHOT_SCHEMA = 'site-health.clarity-snapshot.v1';
 const PROVIDER_AUDIT_SCHEMA = 'site-health.clarity-provider-audit.v2';
 const KEYCHAIN_SERVICE = 'com.sassmaker.site-health.clarity';
 const INFISICAL_ENVIRONMENT = 'dev';
-const DAY_MS = 24 * 60 * 60 * 1000;
 const PROVIDER_AUDIT_STATES = new Set([
   'blocked',
   'conditional',
@@ -585,8 +586,9 @@ export async function fetchClaritySnapshot({
   let response;
   try {
     response = await fetchImpl(url, {
-      // Token resolution between sequential exports can outlast an idle socket.
-      // Close each connection instead of adding quota-consuming retries.
+      // The bounded, sequential exporter spends seconds resolving each token.
+      // Do not reuse a socket the provider may close while that lookup runs.
+      // One connection per export avoids idle-socket races without quota retries.
       headers: { accept: 'application/json', authorization: `Bearer ${token}`, connection: 'close' },
       signal: controller.signal,
     });
@@ -631,7 +633,7 @@ export function readClarityProjection(
   const receipt = store.getMetadata(`evidence-refresh:clarity:${projectId}`)?.value ?? null;
   const providerAudit = readClarityProviderAudit(store, projectId);
   const snapshotExpired = snapshot?.observedAt
-    ? Date.parse(now) > Date.parse(snapshot.observedAt) + DAY_MS
+    ? Date.parse(now) > Date.parse(snapshot.observedAt) + EVIDENCE_POLICIES.clarity.maximumAgeMs
     : true;
   let state = snapshot
     ? snapshotExpired ? 'stale' : 'fresh'

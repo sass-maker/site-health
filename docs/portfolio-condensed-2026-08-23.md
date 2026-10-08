@@ -1,7 +1,7 @@
 # Fleet portfolio: compressed owner intent
 
-Date: 2026-08-23 (lifecycle counts and new owner-requested identities reconciled 2026-09-26)
-Scope: all 74 retained canonical identities; archived identities remain recorded for infrastructure ownership but are excluded from Fleet listings.
+Date: 2026-08-23 (lifecycle counts and new owner-requested identities reconciled 2026-10-08)
+Scope: all 77 retained canonical identities; archived identities remain recorded for infrastructure ownership but are excluded from Fleet listings.
 
 This document preserves the meaning of the owner's project review in compact,
 decision-oriented language. It deliberately does not retain transcript wording
@@ -26,9 +26,9 @@ change lifecycle or sharing decisions.
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | Primary | 2 | Receives focused feature development, experiments and validation. |
-| Active | 34 | Supported and kept useful; improvements follow concrete needs. |
-| Inactive | 38 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
-| **Total** | **74** | Every canonical Fleet identity appears exactly once. |
+| Active | 53 | Supported and kept useful; improvements follow concrete needs. |
+| Inactive | 22 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
+| **Total** | **77** | Every canonical Fleet identity appears exactly once. |
 
 These statuses reflect current owner intent. They deliberately override misleading signals such as a live deployment for an inactive product or an old repository label that says maintenance while the owner is actively building.
 
@@ -39,7 +39,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | ContextDaddy (`contextdaddy`) | Active | Inspect local coding-agent context, skills, usage, and available telemetry to debug and speed up work. | Public 0.1.0 build 5 is signed, notarized, and served from its app-owned Worker; an earlier isolated build 2 launched and opened Usage and Skills. There is no in-app updater. | Keep new builds on the protected manual release path and test a migration before adding an updater. |
 | DaddyRad (`daddyrad`) | Active | Give the daddy series its own umbrella domain instead of Significant Hobbies subdomains. | Live at daddyrad.com via a small Worker; performance/browser/storage subdomains are canonical and the retired significanthobbies hostnames 308 over, including update feeds. | Keep it as the series home; add per-app depth only when a daddy app needs more than its own subdomain. |
 | Fleet Social (`fleet-social`) | Active | Give Fleet projects one private place to draft, review, schedule, and account for social posts. | The isolated CogSend-based Worker, D1, and R2 are live; login and health pass, while owner 2FA enrollment and provider publication remain pending. | Enroll 2FA, verify draft intake and scheduler, then run one approved provider canary before adding YouTube publishing. |
-| War Chest (`war-chest`) | Active | Explore an experimental tactical war game. | Unsigned local Mac game and practice apps; the repository has no commits or published release. | Play the practice route and decide whether the prototype merits further work. |
+| War Chest (`war-chest`) | Inactive / retired | Preserve the experimental local tactical game as historical work. | Owner retired it from active Fleet on 2026-10-08; local game builds, source and infrastructure remain retained. | No development or expansion unless the owner explicitly reopens it. |
 | MentionPilot (`mentionpilot`) | Active | Check brand awareness and perception across AI answers and supported community sources. | Owner reactivated it; API health returned HTTP 200 on 2026-09-25, but the repository-listed Pages web hostname did not resolve, so the public user journey is unverified. | Verify the web route and a real evidence-to-action journey before sharing it. |
 | Unified Portfolio (`unified-portfolio`) | Active | Observe personal investments across Zerodha, Angel One and INDmoney through a private normalized dashboard and read-only MCP. | New owner-requested local build; live connections and production acceptance remain unverified. | Complete the supplied PRD with resilient official authentication, atomic snapshots, explicit freshness and no trading operations. |
 | Shoulders (`shoulders`) | Inactive / paused | Explain familiar software through its documented foundations and creator contributions. | Owner lost interest and archived the local prototype on 2026-09-14; complete uncommitted checkout preserved in fleet-archive. | No further work unless the owner explicitly requests resumption. |
@@ -61,9 +61,9 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | Drank | Inactive | Track Domain Rating after the relevant API became freely usable. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The domain-metric adapter and references used by Site Health. Stop: A separate public dashboard and independent product roadmap. |
 | Kinetic (`email-manager`) | Inactive | Understand Gmail volume, identify repeat senders, and unsubscribe efficiently. | Done and performs its intended job. | Maintain authentication and Gmail compatibility; add no speculative features. |
 | EverythingRated (`everythingrated`) | Inactive | Let people create lists and rate anything. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The existing comparison work as a dated historical artifact. Stop: Crowdsourced ratings growth, new directories and a participation-driven platform. |
-| Field Track | Inactive | Give the owner's father an employee-controlled field-location tracker. | Paused experiment; no current work or obligation to resume. | Keep: A bounded field-work prototype for your father's operation. Stop: A tracking SaaS or platform before a real field pilot is wanted. |
+| Field Track (`field-track`) | Inactive / retired | Preserve the field-location prototype as historical work. | Owner retired it from active Fleet on 2026-10-08; retained source, data and infrastructure remain attributed. | No development or expansion unless the owner explicitly reopens it. |
 | Formula Composition Engine (`nutrition-formula-engine`) | Active | Turn mixed-format food, nutraceutical and medicinal batch formulas into traceable theoretical composition reports before label and regulatory work. | Public browser-first workspace accepts pasted text and common files, requires row and identity review, exposes assumptions and per-result contributions, and stores saved formulas and reusable ingredients in one public D1 history shared by every device. The active Worker is tagged to clean pushed `main`. | Test more supplier-labelled food products, replace public reference assumptions with supplier specifications or lot CoAs, and keep regulatory formatting separate from the underlying calculation. |
-| Forecast Lab | Inactive | Learn forecasting through reproducible experiments. | Paused experiment; no current work or obligation to resume. | Keep: Reproducible benchmark results and lessons already learned. Stop: A forecasting SaaS or more methods without a concrete research question. |
+| Forecast Lab | Inactive / archived | Retain forecasting experiments and lessons. | Owner archived on 2026-10-08; checkout and evidence preserved at ../fleet-archive/forecast-lab. | Keep completed exploratory results and history. No active research, features or deployment unless the owner explicitly reopens it. |
 | Free AI | Active | Aggregate useful free AI tiers behind one resilient interface. | Working well for internal consumers. | Add providers only when they improve capability coverage, reliability, or available free capacity. |
 | GitStat | Inactive | Understand work and code churn across the owner's repositories. | More or less complete; no unanswered recurring question is currently known. | Use it and add analysis only when a specific question is missing. |
 | High Signal | Active | Aggregate news/data sources and derive useful signals. | Active product; ongoing investment within the approved narrow scope. | Keep: One small source-backed brief that helps you make a real decision. Stop: All-topic coverage, endless feeds and a publishing volume target. |
@@ -216,4 +216,21 @@ MentionPilot was explicitly reactivated on 2026-09-14 and registered as a canoni
 - **paused-experiment**: AliveVille, Forecast Lab, Open Historia, ph-catalog, TrueHire, Web Playables, Office OS, Field Track, Local AI Video Studio, Mashup, Reel Pipeline, Materia.
 - **archived-work**: EverythingRated, agent-resume, ai-badges, backpropagate, clash-royale-meta, dev-workflow-migration, headcount, loadtesting, local-ai, ludo-pass-play, mentionpilot, Mobile Dev Cockpit, pinpoint, placard, port-whisperer, side-machine, society-relay, subreddit-research, temp-splitwise, today-little-log, DRank, elves-hq, PSI Swarm, Verified Bases, chess, India Standards, journal, Protein Index, Recipe Index.
 
+Forecast Lab was archived outside Fleet on 2026-10-08 at the owner’s request. Its paused-experiment listing above remains the dated 2026-09-10 record.
+
 Source and exact scope boundaries: [reviewed decisions](qualification/nonpersonal-owner-decisions-2026-09-10.json). GitHub receipts: [archive verification](qualification/nonpersonal-github-archive-2026-09-10.json).
+
+## New owner-approved research projects — 2026-10-01
+
+| Project | Classification | Why | Current state | Next decision |
+| --- | --- | --- | --- | --- |
+| Digital Life (`digital-life`) | Inactive / archived | Test whether inherited executable strategies sustain viable populations under finite resources. Replication is supplied; diversity is not proof of adaptation. | Owner archived on 2026-10-08; source and local evidence preserved outside active Fleet. | No development unless the owner explicitly reopens it. |
+| Human V2 (`human-v2`) | Inactive / archived | One homepage: human body, experiment, Simulate, annual progression and fatal-point reasoning. Owner requires scientific calibration. | Owner archived on 2026-10-08; source and local evidence preserved outside active Fleet. | No development unless the owner explicitly reopens it. |
+
+## Owner-approved Fleet membership — 2026-10-08
+
+Field Track and War Chest are retired from active Fleet. Their canonical records preserve historical ownership and source; this decision does not decommission hosting or archive remote repositories.
+
+| Project | Classification | Why | Current state | Next decision |
+| --- | --- | --- | --- | --- |
+| Agent Inbox (`agent-inbox`) | Active local personal tool | Notice local coding-agent requests and reach the correct verified conversation. | Owner-added Agentbox fork; local unsigned development baseline, private Fleet listing; physical sleep/wake, notifications and outside-session parity remain open. | Complete the bounded local qualification in `agentbox/PRODUCT.md` before public sharing. |
