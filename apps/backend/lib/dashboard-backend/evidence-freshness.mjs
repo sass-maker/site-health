@@ -14,6 +14,7 @@ export const ABANDONED_RUN_FAILURE = Object.freeze({
 });
 
 export const EVIDENCE_POLICIES = Object.freeze({
+  clarity: { maximumAgeMs: 3 * DAY_MS, cadence: 'every-3-days', provenance: 'provider' },
   drank: { maximumAgeMs: 7 * DAY_MS, cadence: 'weekly', provenance: 'provider' },
   psi: { maximumAgeMs: 7 * DAY_MS, cadence: 'explicit', provenance: 'provider' },
   search: { maximumAgeMs: DAY_MS, cadence: 'daily', provenance: 'provider' },

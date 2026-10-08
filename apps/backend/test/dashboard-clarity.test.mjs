@@ -456,6 +456,16 @@ test('collector refuses unwired projects and persists only the sanitized snapsho
   });
   assert.equal(projection.state, 'fresh');
   assert.equal(projection.failure, null);
+
+  const beforeNextScheduledRefresh = readClarityProjection(store, 'wired', registry(), {
+    now: '2026-09-04T08:00:00.000Z',
+  });
+  assert.equal(beforeNextScheduledRefresh.state, 'fresh');
+
+  const overdueRefresh = readClarityProjection(store, 'wired', registry(), {
+    now: '2026-09-04T08:00:00.001Z',
+  });
+  assert.equal(overdueRefresh.state, 'stale');
 });
 
 test('fleet status accounts for every identity without resolving tokens or calling Clarity', async () => {

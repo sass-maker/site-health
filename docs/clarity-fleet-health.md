@@ -27,6 +27,10 @@ even when a token is missing or Clarity rejects the request.
 Both modes accept `--format json|markdown`. JSON is the default and the
 machine-readable contract; markdown is the same data for a human report.
 
+Coverage counts canonical products plus unmatched Clarity receipts (reported
+as drift). Standalone repository-review rows in the portfolio dashboard are
+not products and are excluded from the Clarity denominator.
+
 Exit code is `1` when the run ends with any `failed` or `unavailable` project.
 
 ## The six reported classes
@@ -109,6 +113,12 @@ carry a token into the summary — asserted by test.
 
 `uniqueBrowsers` counts unique browser/device identities. It is not a count of
 registered accounts and must never be reported as users.
+
+Missing or invalid fields remain `null`, not zero. An aggregate field is only
+summed when every traffic row supplies that field; missing pages/session data
+on a positive-session row makes the weighted average unknown. Explicit
+zero-session rows contribute no pages. Previously stored normalized snapshots
+cannot be revalidated without a fresh provider export.
 
 ## Markdown table
 

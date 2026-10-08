@@ -2,9 +2,13 @@
 
 How the traffic stream from
 [`clarity-traffic-baseline-latest.md`](clarity-traffic-baseline-latest.md)
-recurs. The original installation was weekly on 2026-09-05. Use `status`
-to inspect the actual host configuration; source changes alone do not install
-a job or prove collection.
+recurs. The installed job uses a three-day interval, but a loaded job is not
+proof of successful collection. On 2026-10-02, launchd reported zero runs in the
+current login session; the latest log was dated 2026-09-28. After explicit owner
+approval, the repair was installed on 2026-10-02 with RunAtLoad enabled. Launchd
+confirmed one automatic run, which exited 1 for missing tokens and provider
+timeouts rather than claiming complete coverage. Two targeted follow-ups
+recovered the timeouts; ten token gaps remain. See the current baseline above.
 
 All-project run modes, the six reported classes, and the bounded summary schema
 are in [`clarity-fleet-health.md`](clarity-fleet-health.md).
@@ -19,30 +23,21 @@ three days, and **the cadence decides the coverage**:
 | Cadence | Coverage | Gap |
 | --- | --- | --- |
 | Weekly | 3 of every 7 days | **4 days per week unmeasured** |
-| Every 3 days | windows abut when runs succeed on time | offline or failed runs leave gaps |
+| Every 3 days | consecutive windows abut only when runs actually succeed on time | offline or failed runs leave gaps |
 
 No collector change alters this. The limit is the provider's.
 
 Each run costs one Data Export call per tokened project against a per-project
-daily quota. Use the current eligible/tokened counts rather than the historical
-26-project baseline. Overlapping exports must not be summed as distinct traffic.
+daily quota. Use the collector's current eligible/tokened counts; the historical
+26-project baseline is not the current coverage denominator.
 
 ## Freshness is a separate dial
 
-`readClarityProjection` (`apps/backend/lib/dashboard-backend/clarity.mjs:624`)
-hard-codes a 24-hour expiry:
-
-```js
-const snapshotExpired = Date.parse(now) > Date.parse(snapshot.observedAt) + DAY_MS;
-```
-
-Under a weekly cadence the dashboard therefore reads `stale` for six days out of
-seven even when the schedule is running perfectly — `stale` stops meaning "the
-refresh failed" and starts meaning "it isn't Monday." Every other evidence family
-already declares a policy matched to its cadence in
-`evidence-freshness.mjs` (`drank` and `ai` are `7 * DAY_MS` / `weekly`);
-Clarity has no entry there. Aligning the TTL with whichever cadence is chosen is
-a one-line change, and it is the third open question on SAR-25.
+Clarity now declares an `every-3-days` freshness policy in
+`evidence-freshness.mjs`, and `readClarityProjection` reads the same policy.
+A snapshot remains fresh through the scheduled three-day interval and becomes
+stale only after the next refresh is overdue. The dashboard no longer reports a
+healthy schedule as stale on days two and three.
 
 ## The tooling
 
@@ -62,34 +57,32 @@ Only `install` and `uninstall` touch the machine, and `install` refuses to run
 without `--confirm`, so no accidental invocation can leave a persistent agent
 behind.
 
-Installed 2026-09-05 with `pnpm clarity:schedule install --cadence weekly --confirm`.
+Originally installed 2026-09-05 and subsequently changed with
+`pnpm clarity:schedule install --cadence every-3-days --confirm`.
 `status` confirms it:
 
 ```
 label      com.sarthak.clarity-refresh
 plist      /Users/sarthak/Library/LaunchAgents/com.sarthak.clarity-refresh.plist (present)
 loaded     yes
-cadence    Weekday 1, Hour 9, Minute 40 (StartCalendarInterval)
+cadence    every 3 days (StartInterval)
 ```
-
-The freshness TTL question from the open questions above is unresolved — Clarity
-still has no entry in `evidence-freshness.mjs`, so the dashboard will read
-`stale` most of the week even with the schedule running. That's a separate
-follow-up, not blocking this install.
 
 Cadence flags map to the two launchd mechanisms that fit: `weekly` emits a
 `StartCalendarInterval` (default Monday 09:40, overridable with `--weekday`,
 `--hour`, `--minute`); `every-3-days` emits `StartInterval 259200`, because
 `StartCalendarInterval` cannot express "every third day." Both plists lint clean
-under `plutil -lint`. If the Mac is asleep at the scheduled moment launchd runs
-the job on wake; with `StartInterval`, multiple missed intervals coalesce into
-one run.
+under `plutil -lint`. Calendar jobs can run on wake after a missed scheduled
+time; do not assume the same catch-up behavior for interval jobs or that a Mac
+which was offline longer than three days can recover older provider data.
 
-The every-three-days source emits `RunAtLoad=true`, so login/reload does not
-restart another three-day wait. Weekly scheduling remains unchanged. Installing
-or reloading that interval job immediately spends provider quota. `status`
-reports the installed value and warns about an interval job without it. A
-loaded job is not proof of a successful provider refresh.
+The repaired `every-3-days` source emits `RunAtLoad=true`. This avoids waiting
+another full three-day interval after each login/reload, which could otherwise
+prevent collection in shorter sessions. Weekly scheduling remains unchanged.
+`status` now reports the installed RunAtLoad value and warns about an interval
+job without it. Installing the repair triggers a provider refresh immediately;
+it is not a read-only check. Repeated reloads can consume additional quota, and
+overlapping three-day windows must not be summed as distinct traffic.
 
 The job runs the collector directly rather than through pnpm — one fewer binary
 that has to be on the launchd PATH — and appends to
@@ -102,11 +95,15 @@ The silent-failure risk for any scheduled run is token resolution:
 job needs both the `infisical` binary on the login-shell PATH and a live CLI
 session. `preflight` checks that chain through the same `/bin/zsh -lc` login
 shell launchd will use. It requires both a successful lookup and non-empty
-output: Infisical's silent mode can exit zero for an absent key. The value stays
-in an unexported child-shell variable and is never emitted or logged. Missing
-binaries, an unwritable log directory, or an unresolved checked token cause a
-non-zero preflight exit. Synthetic tests cover empty-success, non-empty-success,
-and lookup-failure cases without real credentials.
+output: Infisical's `--silent` mode can otherwise exit zero for an absent key.
+The value stays in an unexported child-shell variable; only success/failure
+returns to the scheduler, and no value is emitted or written to a log. Missing
+binaries, an unwritable log directory or an unresolved checked token cause a
+non-zero preflight exit.
+
+On 2026-10-02, the current login-shell check resolved `live` and correctly
+reported `ph-catalog` as unresolved. Synthetic tests cover empty-success,
+non-empty-success and lookup-failure cases without using real credentials.
 
 Verified 2026-09-05 on the owner's Mac:
 
@@ -118,13 +115,17 @@ log dir     ok — writable
 token live  ok — resolvable from a login shell (value not read)
 ```
 
-The remaining caveat is that this probe ran inside an unlocked login session.
+That 2026-09-05 probe is historical, not current credential verification.
+The remaining caveat is that it ran inside an unlocked login session.
 A launchd `gui/$UID` job shares that session keychain, so it should behave
 identically, but the first scheduled run is the real proof — and it lands in the
 log either way.
 
 ## Not covered
 
-`pace` and `gitstat` stay uncollected: both need a human at a TTY for the
-Keychain prompt, so no schedule reaches them. See
+The September 5 decision to skip `pace` and `gitstat` remains historical in
 [the baseline](clarity-traffic-baseline-latest.md#deliberately-uncollected).
+Pace is now measured through its existing token. Current missing-token projects
+are listed in the baseline's current collection section; no schedule can repair
+an absent project-scoped token. Creating or storing credentials requires
+separate authority under the workspace's no-credential-change rule.

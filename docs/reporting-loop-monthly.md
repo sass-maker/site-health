@@ -79,7 +79,9 @@ public source has now been restored at the cataloged archive path, and the
 runner and projection use that path. A new successful provider collection has
 not been verified; source restoration does not refresh historical data. These are snapshots, not permanent
 exceptions: always use the current preflight output and report the real age and
-failure.
+failure. The public DR courtesy API also failed DNS resolution in the 2026-10-02
+bounded check; the public ranks snapshot remains dated 2026-09-07. Do not
+substitute that snapshot for fresh authority evidence.
 
 **5. Technical health.** Run the relevant `site-health` subskills — `seo-audit`
 for on-page, `psi-swarm` for Core Web Vitals, `agent-ready` for AI-crawler
