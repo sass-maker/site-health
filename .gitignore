@@ -17,3 +17,6 @@ dist/
 # Local Site Health state.
 apps/backend/*.sqlite
 apps/backend/*.sqlite-*
+
+# Fleet owner-local receipts and private assets (Fleet convention).
+.fleet-local/
