@@ -15334,6 +15334,175 @@
           "reason": "Owner-added local Agent Inbox project; bounded work follows agentbox/PRODUCT.md."
         }
       }
+    },
+    "techdata": {
+      "source": {
+        "state": "available",
+        "path": "techdata",
+        "revision": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
+        "repositorySlug": "High-Signal-App/techdata",
+        "worktree": {
+          "state": "clean",
+          "trackedChangeCount": 0,
+          "deletedWorkflowFiles": []
+        }
+      },
+      "history": {
+        "firstCommitAt": "2026-10-09",
+        "latestCommitAt": "2026-10-09",
+        "retainedCommitCount": 4,
+        "historyCompleteness": "complete",
+        "reason": null
+      },
+      "githubActions": [
+        {
+          "name": "CI",
+          "file": ".github/workflows/ci.yml",
+          "triggers": [
+            "pull_request",
+            "push"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
+          },
+          "live": {
+            "health": "failing",
+            "reason": "latest run concluded failure",
+            "apiState": "active",
+            "lastRun": {
+              "id": 37943038254,
+              "status": "completed",
+              "conclusion": "failure",
+              "event": "push",
+              "branch": "main",
+              "headSha": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
+              "createdAt": "2026-10-09T14:17:15Z",
+              "updatedAt": "2026-10-09T14:17:36Z",
+              "url": "https://github.com/High-Signal-App/techdata/actions/runs/37943038254"
+            },
+            "ageDays": 0
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "failing",
+            "reason": "current main push concluded failure",
+            "lastRun": {
+              "id": 37943038254,
+              "status": "completed",
+              "conclusion": "failure",
+              "event": "push",
+              "branch": "main",
+              "headSha": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
+              "createdAt": "2026-10-09T14:17:15Z",
+              "updatedAt": "2026-10-09T14:17:36Z",
+              "url": "https://github.com/High-Signal-App/techdata/actions/runs/37943038254"
+            },
+            "ageDays": 0
+          },
+          "attention": "action-required"
+        },
+        {
+          "name": "Deploy (manual)",
+          "file": ".github/workflows/deploy.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
+          },
+          "live": {
+            "health": "manual-or-reusable-never-run",
+            "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
+            "apiState": "active",
+            "lastRun": null,
+            "ageDays": null
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
+        }
+      ],
+      "toolingSignals": [
+        {
+          "name": "Astro",
+          "evidence": [
+            "astro.config.mjs"
+          ]
+        },
+        {
+          "name": "Biome",
+          "evidence": [
+            "biome.json"
+          ]
+        },
+        {
+          "name": "Cloudflare Wrangler",
+          "evidence": [
+            "wrangler.jsonc"
+          ]
+        },
+        {
+          "name": "pnpm",
+          "evidence": [
+            "pnpm-lock.yaml"
+          ]
+        },
+        {
+          "name": "Vitest",
+          "evidence": [
+            "vitest.config.ts"
+          ]
+        }
+      ],
+      "packageManager": "pnpm@10.33.2",
+      "rootPackageScripts": [
+        "build",
+        "check",
+        "dev",
+        "format",
+        "lint",
+        "preview",
+        "test",
+        "typecheck"
+      ],
+      "projectId": "techdata",
+      "githubActionsMeta": {
+        "repository": "High-Signal-App/techdata",
+        "defaultBranch": "main",
+        "defaultBranchSha": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
+        "homepage": null,
+        "query": "verified",
+        "disposition": {
+          "disposition": "active",
+          "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
+        }
+      }
     }
   },
   "githubObservedAt": "2026-10-09T03:02:38.910Z",

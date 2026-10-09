@@ -236,3 +236,11 @@ Field Track and War Chest are retired from active Fleet. Their canonical records
 | Project | Classification | Why | Current state | Next decision |
 | --- | --- | --- | --- | --- |
 | Agent Inbox (`agent-inbox`) | Active local personal tool | Notice local coding-agent requests and reach the correct verified conversation. | Owner-added Agentbox fork; local unsigned development baseline, private Fleet listing; physical sleep/wake, notifications and outside-session parity remain open. | Complete the bounded local qualification in `agentbox/PRODUCT.md` before public sharing. |
+
+## Owner-approved techdata workbench — 2026-10-09
+
+The owner named the consolidated data workbench techdata (Significant-Hobbies/ph-catalog#14). The five source projects stay active until the owner retires them.
+
+| Project | Classification | Why | Current state | Next decision |
+| --- | --- | --- | --- | --- |
+| techdata (`techdata`) | Active private tool | One private entry point to browse, search and export the owner's data collections with source provenance. | Private High-Signal-App/techdata on the SaaS Maker UI library; slice 1 (Nomad Atlas at parity, Podcasts read-only) verified locally only; not deployed, no domain or Cloudflare resources. | Owner decides domain, Cloudflare Access and deploy approval; add the remaining collections at parity before any source project is retired. |

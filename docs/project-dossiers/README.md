@@ -4,10 +4,10 @@ Observed through the GitHub API at `2026-10-09T03:02:38.910Z`. This is the agent
 
 Dossier contract: [`schema.json`](./schema.json). Verification means evidence was collected and attributed; workflow health is reported separately.
 
-- Workflows: 182
+- Workflows: 184
 - Cron/scheduled workflows: 25
-- Attention: action-required 2, clear 138, ignored 17, missing-data 11, reconcile 11, review-history 3
-- Inventory sources: github-generated 15, remote-only 11, tracked 156
+- Attention: action-required 3, clear 139, ignored 17, missing-data 11, reconcile 11, review-history 3
+- Inventory sources: github-generated 15, remote-only 11, tracked 158
 
 “Latest” is the latest run of any trigger. “Default branch” checks the latest push run against the exact current default-branch SHA. “Schedule” queries scheduled runs separately so a manual dispatch cannot hide a stopped cron.
 
@@ -190,6 +190,8 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [swe-interview-prep](./swe-interview-prep.yaml) | [Docs](https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/37837525456) | `.github/workflows/docs.yml` | tracked | active | pull_request, push, workflow_dispatch | — | healthy (2026-10-08) | missing (2026-10-08) | not-applicable | active | missing-data |
 | [swe-interview-prep](./swe-interview-prep.yaml) | [Refresh Library](https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/37311659096) | `.github/workflows/fetch-library.yml` | tracked | active | schedule, workflow_dispatch | 0 6 * * 1 | healthy (2026-10-05) | not-applicable | healthy (2026-10-05) | active | clear |
 | [swe-interview-prep](./swe-interview-prep.yaml) | [Dependabot Updates](https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/37286459022) | `dynamic/dependabot/dependabot-updates` | github-generated | active | unknown | — | healthy (2026-10-05) | not-applicable | not-applicable | managed | clear |
+| [techdata](./techdata.yaml) | [CI](https://github.com/High-Signal-App/techdata/actions/runs/37943038254) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | failing (2026-10-09) | failing (2026-10-09) | not-applicable | active | action-required |
+| [techdata](./techdata.yaml) | Deploy (manual) | `.github/workflows/deploy.yml` | tracked | active | workflow_dispatch | — | manual-or-reusable-never-run | not-applicable | not-applicable | active | clear |
 | [unified-portfolio](./unified-portfolio.yaml) | [CI](https://github.com/Significant-Hobbies/unified-portfolio/actions/runs/37836396648) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-08) | healthy (2026-10-08) | not-applicable | active | clear |
 | [war-chest](./war-chest.yaml) | [Site landing checks](https://github.com/Significant-Hobbies/war-chest/actions/runs/37133510178) | `.github/workflows/site-check.yml` | tracked | active | pull_request, push | — | healthy (2026-10-03) | healthy (2026-10-03) | not-applicable | ignored | ignored |
 | [web-playables](./web-playables.yaml) | [CI](https://github.com/Significant-Hobbies/web-playables/actions/runs/37938017218) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-09) | healthy (2026-10-09) | not-applicable | active | clear |

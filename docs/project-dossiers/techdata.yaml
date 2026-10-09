@@ -1,0 +1,276 @@
+schemaVersion: 1
+projectId: techdata
+verification:
+  status: verified
+  meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
+  generatedAt: 2026-10-09
+  checks:
+    canonicalCatalogEntry: passed
+    infrastructureAttribution: passed
+    ownerVoicePresent: passed-verbatim
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: verified
+    retainedGitHistory: passed
+  evidence:
+    catalog:
+      path: apps/backend/config/projects.json
+      sha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
+      infrastructureUpdatedAt: 2026-10-09
+    ownerVoice:
+      path: apps/backend/config/projects.json
+      sourceField: projects[id=techdata].ownerNarrative
+      sourceHeading: techdata
+      sourceKind: verbatim-owner-message
+      capturedAt: 2026-10-09
+      reviewSha256: 30c46994b53fd74b141aded73023a17e466e4362abf9827b9c60de661cb141b2
+      documentSha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
+      restoredFromCommit: null
+      restoredBlob: null
+    decisionSummary:
+      path: docs/portfolio-condensed-2026-08-23.md
+      sha256: 2ef4b475b46f843f844d4e9977589f9467b8dc1c7d7e83cd1c68197b1fd33643
+      sourceKind: derived-owner-intent
+    repository:
+      observedAt: 2026-10-09
+      state: available
+      checkout: techdata
+      revision: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
+      githubRepository: High-Signal-App/techdata
+      expectedHomepage: null
+      observedHomepage: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
+    retainedGitHistory:
+      observedAt: 2026-10-09
+      state: available
+      checkout: techdata
+      revision: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
+      githubRepository: High-Signal-App/techdata
+      method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
+      retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
+      catalogFirstCommitAt: 2026-10-09
+      catalogLatestCommitAt: 2026-10-09
+      catalogDrift: []
+      reason: null
+    githubActions:
+      observedAt: 2026-10-09T03:02:38.910Z
+      staleAfterDays: 30
+      failing: 1
+      manual-or-reusable-never-run: 1
+      attention: &a2
+        action-required: 1
+        clear: 1
+  unknowns: []
+ownerVoice:
+  whyVerbatim: "Owner decision (2026-10-09): the consolidated data workbench is named **techdata**. It is the first real product built on the SaaS Maker UI library (sass-maker/ui-library)."
+  fullReviewVerbatim: |-
+    Owner decision (2026-10-09): the consolidated data workbench is named **techdata**. It is the first real product built on the SaaS Maker UI library (sass-maker/ui-library).
+
+    Repo: private `High-Signal-App/techdata`. I chose High-Signal-App because it already holds Research Papers and Reddit Insights.
+  relatedHistoricalReviews: []
+decision:
+  classification: Active private tool
+  whySummary: One private entry point to browse, search and export the owner's data collections with source provenance.
+  currentState: Private High-Signal-App/techdata on the SaaS Maker UI library; slice 1 (Nomad Atlas at parity, Podcasts read-only) verified locally only; not deployed, no domain or Cloudflare resources.
+  nextDecision: Owner decides domain, Cloudflare Access and deploy approval; add the remaining collections at parity before any source project is retired.
+identity:
+  name: techdata
+  publicName: null
+  aliases: []
+  family: high-signal
+  category: utility
+  audience: internal
+  personalUse: true
+  moneyOrPersonalBrand: null
+  unmetNeed: null
+  kind: product
+  priority: P2
+  tier: secondary
+  attention: my-work
+  lifecycle:
+    status: active
+    resumeCondition: null
+    shareable: false
+  operationalStatus: undeployed
+  authenticationModel: private-authenticated
+  inRegistry: false
+product:
+  description: "A private data workbench: Nomad Atlas places and High Signal Podcasts claims in one console with ⌘K search, filters, comparison and provenance-carrying exports."
+  purposeContract:
+    purpose: One private entry point to browse, search and export the owner's data collections (Nomad Atlas, High Signal Podcasts; later Reddit Insights, Research Papers, PH Catalog) with source provenance.
+    audience: The owner.
+    outcome: Answer questions across the data collections from one console without losing source provenance.
+    mechanism: Astro and React islands on one Worker with Hono /api routes and one read-only adapter per collection; every response carries provenance.
+    proof: Slice 1 (Nomad Atlas at parity, Podcasts read-only) verified locally on workerd at 1440 and 390 px; not deployed.
+    nextAction: Owner decisions on domain, Cloudflare Access and deploy approval; then the remaining collections at parity.
+  form: Private data workbench
+  platforms:
+    - Web
+  prominentTools:
+    - Astro
+    - React
+    - Cloudflare Workers
+    - Hono
+    - SaaS Maker UI
+  retainedGitHistory:
+    firstCommitAt: 2026-10-09
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 4
+    historyCompleteness: complete
+    semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
+repository:
+  checkout: techdata
+  observedRevision: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
+  githubRepository: High-Signal-App/techdata
+  githubHomepageUrl: null
+  worktree: *a1
+  visibility: private
+  url: https://github.com/High-Signal-App/techdata
+  aliases: []
+  sourceOverride: techdata
+  tooling:
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Astro
+        evidence:
+          - astro.config.mjs
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - check
+      - dev
+      - format
+      - lint
+      - preview
+      - test
+      - typecheck
+githubActions:
+  observedAt: 2026-10-09T03:02:38.910Z
+  staleAfterDays: 30
+  summary:
+    failing: 1
+    manual-or-reusable-never-run: 1
+  attention: *a2
+  remote:
+    repository: High-Signal-App/techdata
+    defaultBranch: main
+    defaultBranchSha: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
+    homepage: null
+    query: verified
+    disposition:
+      disposition: active
+      reason: Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved.
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved.
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 37943038254
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
+          createdAt: 2026-10-09T14:17:15Z
+          updatedAt: 2026-10-09T14:17:36Z
+          url: https://github.com/High-Signal-App/techdata/actions/runs/37943038254
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: failing
+        reason: current main push concluded failure
+        lastRun:
+          id: 37943038254
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
+          createdAt: 2026-10-09T14:17:15Z
+          updatedAt: 2026-10-09T14:17:36Z
+          url: https://github.com/High-Signal-App/techdata/actions/runs/37943038254
+        ageDays: 0
+      attention: action-required
+    - name: Deploy (manual)
+      file: .github/workflows/deploy.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved.
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+deployment:
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
+  domainProbePaths: {}
+  targets: []
+  cloudflare:
+    deployments: []
+    resources: []
+  otherProviders:
+    deployments: []
+    resources: []
+sharing:
+  publicListing: hidden
+  maturity: null
+  ready: false
+  verifiedAt: 2026-10-09
+  reason: Private data workbench; first slice (0452b18..638688b) verified locally on workerd via astro preview only. Not deployed.
+  changelogUrl: null
+  roadmapUrl: https://github.com/High-Signal-App/techdata/issues
+  geoIdentity: null
+notes:
+  catalog: "Owner decision 2026-10-09 (Significant-Hobbies/ph-catalog#14): consolidated data workbench named techdata, private repo High-Signal-App/techdata, first real product on the SaaS Maker UI library. Collectors stay in their repos; techdata only reads until parity. The five source projects (Reddit Insights, Research Papers, High Signal Podcasts, Nomad Atlas, PH Catalog) stay active until the owner retires them. Open: domain, fate of the five public sites, where collectors live."
+  infrastructure: Registered 2026-10-09. No deployment, domain or Cloudflare resource exists yet; the planned Worker is techdata (wrangler.jsonc) behind Cloudflare Access, pending owner approval.

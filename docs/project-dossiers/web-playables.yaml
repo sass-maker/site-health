@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4b297475b23f4039b350f55ec52659c57f493d54eefbfac4ef2b25a798d14e5d
+      sha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
       infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: b4f7c8bba46d8840b40b1fedbb932c638eb0f01498d5ced98ebcffd3e224a916
+      sha256: 2ef4b475b46f843f844d4e9977589f9467b8dc1c7d7e83cd1c68197b1fd33643
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
