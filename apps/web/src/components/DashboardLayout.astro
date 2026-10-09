@@ -1,4 +1,6 @@
 ---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import DashboardNav from "./DashboardNav.astro";
 import "../styles/dashboard.css";
 
@@ -16,6 +18,21 @@ interface Props {
 const { title, description, active, eyebrow = "Site Health evidence", view, projectId, showProjectScope = true, loadDashboardEvidence = true } = Astro.props;
 const filterable = showProjectScope && !["project", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
 const directoryView = ["domains", "search", "ai-awareness", "performance", "projects"].includes(view ?? "");
+// The footer artwork is private-intended and never committed: it lives at the
+// gitignored apps/web/public/footer-art/site-health.webp on the owner's machine.
+// Fresh clones and CI build without it, so the footer renders its no-art layout
+// instead of referencing an image that cannot resolve.
+const footerArtFile = "footer-art/site-health.webp";
+const footerArt = existsSync(join(process.cwd(), "public", footerArtFile))
+  ? {
+      "art-src": `/${footerArtFile}`,
+      "art-alt": "Site Health: An owner's portfolio inspection observatory centers a lens and five-section blank inspection ledger. Several small fictional project-building models sit on organized surrounding shelves; they remain inspectable individual objects.",
+      "art-width": "2172",
+      "art-height": "724",
+      "art-position": "50% 50%",
+      "art-credit": "Original illustration for Site Health",
+    }
+  : {};
 ---
 
 <!doctype html>
@@ -76,6 +93,7 @@ const directoryView = ["domains", "search", "ai-awareness", "performance", "proj
           </section>
         )}
         <slot />
+        <fleet-footer-extension data-fleet-footer-project="site-health" product-name="Site Health" surface="app" theme="dark" {...footerArt}></fleet-footer-extension>
       </main>
     </div>
     <script>
@@ -91,6 +109,8 @@ const directoryView = ["domains", "search", "ai-awareness", "performance", "proj
       is:inline
       src="https://sassmaker.com/ai-chat-footer.js"
       data-name="Site Health"
+      data-surface="app"
+      data-theme="dark"
       data-prompt="Site Health is a private, local-only dashboard for one owner that joins Fleet project inventory, domains, repeated web performance, Google Search, and AI awareness evidence. Explain when this kind of dashboard is useful and what decisions each area supports. Do not imply it is a public SaaS or that you can access the local dashboard."
       defer
     ></script>
