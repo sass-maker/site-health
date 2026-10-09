@@ -89,6 +89,10 @@
       "disposition": "ignored",
       "reason": "Owner retired the project on 2026-10-08. Preserve existing source, workflows and attributed infrastructure; exclude from active Fleet work."
     },
+    "agent-testing": {
+      "disposition": "ignored",
+      "reason": "Owner retired Browser Agent Testing on 2026-10-09. Preserve source, workflows and attributed infrastructure; exclude from active Fleet work."
+    },
     "scale": {
       "disposition": "ignored",
       "reason": "Inactive lifecycle: no unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
