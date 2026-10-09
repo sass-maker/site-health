@@ -561,33 +561,6 @@
       ]
     },
     {
-      "id": "mashup",
-      "origin": "https://mashup.highsignal.app",
-      "queries": [
-        {
-          "qid": "mashup-brand",
-          "kind": "brand",
-          "q": "mashup.highsignal.app"
-        },
-        {
-          "qid": "mashup-category",
-          "kind": "category",
-          "q": "turn a podcast archive into edited clips with provenance"
-        }
-      ]
-    },
-    {
-      "id": "open-historia",
-      "origin": "https://historia.aliveville.com",
-      "queries": [
-        {
-          "qid": "open-historia-brand",
-          "kind": "brand",
-          "q": "historia.aliveville.com"
-        }
-      ]
-    },
-    {
       "id": "web-playables",
       "origin": "https://idle.aliveville.com",
       "queries": [
@@ -821,27 +794,6 @@
           "qid": "contextdaddy-problem",
           "kind": "problem",
           "q": "manage AI coding agent skills and telemetry"
-        }
-      ]
-    },
-    {
-      "id": "mentionpilot",
-      "origin": "https://mention.highsignal.app",
-      "queries": [
-        {
-          "qid": "mentionpilot-brand",
-          "kind": "brand",
-          "q": "MentionPilot"
-        },
-        {
-          "qid": "mentionpilot-category",
-          "kind": "category",
-          "q": "AI answer visibility research tool"
-        },
-        {
-          "qid": "mentionpilot-problem",
-          "kind": "problem",
-          "q": "track whether AI assistants mention a product"
         }
       ]
     },

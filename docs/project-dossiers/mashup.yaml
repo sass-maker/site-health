@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: not-applicable
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 29f1a2fa0c4de988d8e690b033f2d352844ef2d86c252a65b09ab90102b40398
-      infrastructureUpdatedAt: 2026-08-28
+      sha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Mashup
@@ -28,15 +28,15 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a01bc8b57ced1b8e0314e030b6c93c390deb137c6cdd9d2cfa0f700e1d169b75
+      sha256: 2ef4b475b46f843f844d4e9977589f9467b8dc1c7d7e83cd1c68197b1fd33643
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
       state: available
-      checkout: mashup
-      revision: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
-      githubRepository: sass-maker/mashup
-      expectedHomepage: https://mashup.highsignal.app
+      checkout: ../fleet-archive/mashup
+      revision: 402dc6e36c59492feebe7f9966a6034f4d8b3a97
+      githubRepository: sarthakagrawal927/mashup
+      expectedHomepage: null
       observedHomepage: https://mashup.highsignal.app
       worktree: &a1
         state: clean
@@ -45,9 +45,9 @@ verification:
     retainedGitHistory:
       observedAt: 2026-10-09
       state: available
-      checkout: mashup
-      revision: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
-      githubRepository: sass-maker/mashup
+      checkout: ../fleet-archive/mashup
+      revision: 402dc6e36c59492feebe7f9966a6034f4d8b3a97
+      githubRepository: sarthakagrawal927/mashup
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-25
@@ -58,19 +58,19 @@ verification:
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      healthy: 1
+      cancelled: 1
       attention: &a2
-        clear: 1
+        ignored: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
   fullReviewVerbatim: Mashup's purpose was that I was thinking about how comedy videos can be used. For a comic artist he has many videos. For those videos I want to get a single video on a particular topic so Mashup would go check the video, cut and paste, and get the final video. It can also be used as a clipping tool, a motivation tool, and a clipper. It's a good clipper and a good merger. Essentially I want to spend more time on it in the future.
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
+  classification: Inactive / merged
   whySummary: Turn a creator's archive into coherent topic-specific comedy, motivation, podcast, or clipping compilations.
-  currentState: Paused experiment; no current work or obligation to resume.
-  nextDecision: "Keep: One convincing thematic edit assembled from an existing archive. Stop: A general content factory, automatic viral clips and a publishing platform."
+  currentState: "Owner merged it into Fleet Social on 2026-10-09 as tools/mashup (fleet-social#13, PR #14); repository moved to sarthakagrawal927 and checkout to ../fleet-archive/mashup. The mashup Pages project and mashup.highsignal.app stay live, stewarded by Fleet Social."
+  nextDecision: "Keep: One convincing thematic edit assembled from an existing archive, inside Fleet Social. Stop: A general content factory, automatic viral clips, a publishing platform and a separate product repository."
 identity:
   name: Mashup
   publicName: Mashup
@@ -83,15 +83,15 @@ identity:
   unmetNeed: false
   kind: experiment
   priority: P2
-  tier: secondary
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
-  operationalStatus: live
+    status: inactive
+    resumeCondition: Only resume as an independent product after an explicit new owner decision.
+    shareable: false
+  operationalStatus: retired
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: Two playable examples of a local media-editing pipeline, with captions and inspectable source and approval receipts.
   publicMakerNote: I wanted a creator’s archive to become coherent topic-specific compilations instead of a pile of isolated clips.
@@ -101,7 +101,7 @@ product:
     outcome: Find, approve, sequence, and render useful clips without losing source provenance or editorial control.
     mechanism: A local pipeline combines archive analysis, clipping, editable EDLs, source receipts, approval boundaries, and deterministic rendering.
     proof: The first public Startups proof assembles a source-faithful 47-second argument from four beats across three Creative Commons podcast episodes, with captions and media receipts.
-    nextAction: Preserved experiment; no current work or obligation to resume.
+    nextAction: Merged into Fleet Social as tools/mashup; no independent roadmap.
   form: Local media tool with public proof
   platforms:
     - Web
@@ -114,18 +114,18 @@ product:
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-07-25
-    latestCommitAt: 2026-10-08
-    retainedCommitCount: 65
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 66
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: mashup
-  observedRevision: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
-  githubRepository: sass-maker/mashup
+  checkout: ../fleet-archive/mashup
+  observedRevision: 402dc6e36c59492feebe7f9966a6034f4d8b3a97
+  githubRepository: sarthakagrawal927/mashup
   githubHomepageUrl: https://mashup.highsignal.app
   worktree: *a1
   visibility: public
-  url: https://github.com/sass-maker/mashup
+  url: https://github.com/sarthakagrawal927/mashup
   aliases: []
   sourceOverride: null
   tooling:
@@ -158,17 +158,17 @@ githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    cancelled: 1
   attention: *a2
   remote:
-    repository: sass-maker/mashup
+    repository: sarthakagrawal927/mashup
     defaultBranch: main
-    defaultBranchSha: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
+    defaultBranchSha: 402dc6e36c59492feebe7f9966a6034f4d8b3a97
     homepage: https://mashup.highsignal.app
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems.
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -182,70 +182,67 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems.
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: cancelled
+        reason: latest run was cancelled
         apiState: active
         lastRun:
-          id: 37819750207
+          id: 37942389612
           status: completed
-          conclusion: success
+          conclusion: cancelled
           event: push
           branch: main
-          headSha: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
-          createdAt: 2026-10-08T17:51:11Z
-          updatedAt: 2026-10-08T17:53:11Z
-          url: https://github.com/sass-maker/mashup/actions/runs/37819750207
+          headSha: 402dc6e36c59492feebe7f9966a6034f4d8b3a97
+          createdAt: 2026-10-09T14:11:56Z
+          updatedAt: 2026-10-09T14:12:52Z
+          url: https://github.com/sarthakagrawal927/mashup/actions/runs/37942389612
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: unverifiable
+        reason: current main push concluded cancelled
         lastRun:
-          id: 37819750207
+          id: 37942389612
           status: completed
-          conclusion: success
+          conclusion: cancelled
           event: push
           branch: main
-          headSha: 1adcf83027b9a32ae4c72294a722f7d21f41a38d
-          createdAt: 2026-10-08T17:51:11Z
-          updatedAt: 2026-10-08T17:53:11Z
-          url: https://github.com/sass-maker/mashup/actions/runs/37819750207
+          headSha: 402dc6e36c59492feebe7f9966a6034f4d8b3a97
+          createdAt: 2026-10-09T14:11:56Z
+          updatedAt: 2026-10-09T14:12:52Z
+          url: https://github.com/sarthakagrawal927/mashup/actions/runs/37942389612
         ageDays: 0
-      attention: clear
+      attention: ignored
 deployment:
-  kind: pages
-  deployed: true
-  domains:
-    - mashup.highsignal.app
-  primaryUrl: https://mashup.highsignal.app
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
   targets: []
   cloudflare:
-    deployments:
-      - provider: cloudflare
-        kind: pages
-        name: mashup
-        method: wrangler-direct
-        state: live
+    deployments: []
     resources: []
   otherProviders:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: null
-  ready: true
+  ready: false
   verifiedAt: 2026-09-07
   reason: "Public finished-example playback, exact media receipts and corrected desktop/mobile captions pass. Automatic editorial selection, source installation and the real creator/operator pilot remain unqualified under #11."
-  changelogUrl: https://mashup.highsignal.app/changelog
-  roadmapUrl: https://github.com/sass-maker/mashup/issues
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/mashup/issues
   geoIdentity: null
 notes:
-  catalog: Independent, maintained local-first editorial product for archive analysis, inspectable planning, approval, provenance, and multi-clip rendering. Its Cloudflare Pages surface at mashup.highsignal.app screens approved proof media only; uploads, archive storage, rendering, approvals, and publishing remain local. Reel Pipeline accepts only its finished-media receipt and has no runtime dependency.
-  infrastructure: null
+  catalog: |-
+    Independent, maintained local-first editorial product for archive analysis, inspectable planning, approval, provenance, and multi-clip rendering. Its Cloudflare Pages surface at mashup.highsignal.app screens approved proof media only; uploads, archive storage, rendering, approvals, and publishing remain local. Reel Pipeline accepts only its finished-media receipt and has no runtime dependency.
+    Owner ended the independent product on 2026-10-09; merged into Fleet Social (sass-maker/fleet-social PR #14, squash 2ad5d4c; issue fleet-social#13) as tools/mashup. Cloudflare Pages project mashup and mashup.highsignal.app stay live (direct upload), attributed to fleet-social as steward; future deploys come from tools/mashup/web.
+    2026-10-09: GitHub repository transferred to sarthakagrawal927 (not GitHub-archived); local checkout moved intact to ../fleet-archive/mashup.
+  infrastructure: "2026-10-09: merged into Fleet Social; Pages project mashup and mashup.highsignal.app are attributed to fleet-social (infrastructure.projects.fleet-social, transferredFrom mashup)."

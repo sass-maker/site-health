@@ -2964,19 +2964,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "running",
+            "reason": "latest run is in_progress",
             "apiState": "active",
             "lastRun": {
-              "id": 37830542193,
-              "status": "completed",
-              "conclusion": "success",
+              "id": 37942151246,
+              "status": "in_progress",
+              "conclusion": null,
               "event": "push",
               "branch": "main",
-              "headSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
-              "createdAt": "2026-10-08T19:15:12Z",
-              "updatedAt": "2026-10-08T19:18:22Z",
-              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37830542193"
+              "headSha": "2ad5d4c83f31304e272c7fe9966fd1a0a264f275",
+              "createdAt": "2026-10-09T14:10:00Z",
+              "updatedAt": "2026-10-09T14:10:11Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37942151246"
             },
             "ageDays": 0
           },
@@ -2986,18 +2986,18 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
+            "health": "running",
+            "reason": "current main push is in_progress",
             "lastRun": {
-              "id": 37830542193,
-              "status": "completed",
-              "conclusion": "success",
+              "id": 37942151246,
+              "status": "in_progress",
+              "conclusion": null,
               "event": "push",
               "branch": "main",
-              "headSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
-              "createdAt": "2026-10-08T19:15:12Z",
-              "updatedAt": "2026-10-08T19:18:22Z",
-              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37830542193"
+              "headSha": "2ad5d4c83f31304e272c7fe9966fd1a0a264f275",
+              "createdAt": "2026-10-09T14:10:00Z",
+              "updatedAt": "2026-10-09T14:10:11Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37942151246"
             },
             "ageDays": 0
           },
@@ -3027,15 +3027,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37864180883,
+              "id": 37937173722,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
               "headSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
-              "createdAt": "2026-10-09T00:19:28Z",
-              "updatedAt": "2026-10-09T00:19:34Z",
-              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37864180883"
+              "createdAt": "2026-10-09T13:29:12Z",
+              "updatedAt": "2026-10-09T13:29:18Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37937173722"
             },
             "ageDays": 0
           },
@@ -3043,15 +3043,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 37864180883,
+              "id": 37937173722,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
               "headSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
-              "createdAt": "2026-10-09T00:19:28Z",
-              "updatedAt": "2026-10-09T00:19:34Z",
-              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37864180883"
+              "createdAt": "2026-10-09T13:29:12Z",
+              "updatedAt": "2026-10-09T13:29:18Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37937173722"
             },
             "ageDays": 0,
             "freshnessDays": 1
@@ -3126,7 +3126,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/fleet-social",
         "defaultBranch": "main",
-        "defaultBranchSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
+        "defaultBranchSha": "2ad5d4c83f31304e272c7fe9966fd1a0a264f275",
         "homepage": null,
         "query": "verified",
         "disposition": {
@@ -11045,9 +11045,9 @@
     "mashup": {
       "source": {
         "state": "available",
-        "path": "mashup",
-        "revision": "1adcf83027b9a32ae4c72294a722f7d21f41a38d",
-        "repositorySlug": "sass-maker/mashup",
+        "path": "../fleet-archive/mashup",
+        "revision": "402dc6e36c59492feebe7f9966a6034f4d8b3a97",
+        "repositorySlug": "sarthakagrawal927/mashup",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -11056,8 +11056,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 65,
+        "latestCommitAt": "2026-10-09",
+        "retainedCommitCount": 66,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11077,23 +11077,23 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "cancelled",
+            "reason": "latest run was cancelled",
             "apiState": "active",
             "lastRun": {
-              "id": 37819750207,
+              "id": 37942389612,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "cancelled",
               "event": "push",
               "branch": "main",
-              "headSha": "1adcf83027b9a32ae4c72294a722f7d21f41a38d",
-              "createdAt": "2026-10-08T17:51:11Z",
-              "updatedAt": "2026-10-08T17:53:11Z",
-              "url": "https://github.com/sass-maker/mashup/actions/runs/37819750207"
+              "headSha": "402dc6e36c59492feebe7f9966a6034f4d8b3a97",
+              "createdAt": "2026-10-09T14:11:56Z",
+              "updatedAt": "2026-10-09T14:12:52Z",
+              "url": "https://github.com/sarthakagrawal927/mashup/actions/runs/37942389612"
             },
             "ageDays": 0
           },
@@ -11103,22 +11103,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
+            "health": "unverifiable",
+            "reason": "current main push concluded cancelled",
             "lastRun": {
-              "id": 37819750207,
+              "id": 37942389612,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "cancelled",
               "event": "push",
               "branch": "main",
-              "headSha": "1adcf83027b9a32ae4c72294a722f7d21f41a38d",
-              "createdAt": "2026-10-08T17:51:11Z",
-              "updatedAt": "2026-10-08T17:53:11Z",
-              "url": "https://github.com/sass-maker/mashup/actions/runs/37819750207"
+              "headSha": "402dc6e36c59492feebe7f9966a6034f4d8b3a97",
+              "createdAt": "2026-10-09T14:11:56Z",
+              "updatedAt": "2026-10-09T14:12:52Z",
+              "url": "https://github.com/sarthakagrawal927/mashup/actions/runs/37942389612"
             },
             "ageDays": 0
           },
-          "attention": "clear"
+          "attention": "ignored"
         }
       ],
       "toolingSignals": [
@@ -11162,14 +11162,14 @@
       ],
       "projectId": "mashup",
       "githubActionsMeta": {
-        "repository": "sass-maker/mashup",
+        "repository": "sarthakagrawal927/mashup",
         "defaultBranch": "main",
-        "defaultBranchSha": "1adcf83027b9a32ae4c72294a722f7d21f41a38d",
+        "defaultBranchSha": "402dc6e36c59492feebe7f9966a6034f4d8b3a97",
         "homepage": "https://mashup.highsignal.app",
         "query": "verified",
         "disposition": {
-          "disposition": "active",
-          "reason": "tracked project"
+          "disposition": "ignored",
+          "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
         }
       }
     },
@@ -11359,9 +11359,9 @@
     "open-historia": {
       "source": {
         "state": "available",
-        "path": "open-historia",
-        "revision": "1b5b909944b9c1ecc5fb931419d834ec1dd3f38e",
-        "repositorySlug": "Significant-Hobbies/open-historia",
+        "path": "../fleet-archive/open-historia",
+        "revision": "84e83aa9eddc63f82e3be2d5175eb47da275b622",
+        "repositorySlug": "sarthakagrawal927/open-historia",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -11370,8 +11370,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 266,
+        "latestCommitAt": "2026-10-09",
+        "retainedCommitCount": 267,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11390,23 +11390,23 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37819792139,
+              "id": 37881591903,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "1b5b909944b9c1ecc5fb931419d834ec1dd3f38e",
-              "createdAt": "2026-10-08T17:51:32Z",
-              "updatedAt": "2026-10-08T17:56:05Z",
-              "url": "https://github.com/Significant-Hobbies/open-historia/actions/runs/37819792139"
+              "headSha": "84e83aa9eddc63f82e3be2d5175eb47da275b622",
+              "createdAt": "2026-10-09T03:56:52Z",
+              "updatedAt": "2026-10-09T04:01:48Z",
+              "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/37881591903"
             },
             "ageDays": 0
           },
@@ -11419,19 +11419,19 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 37819792139,
+              "id": 37881591903,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "1b5b909944b9c1ecc5fb931419d834ec1dd3f38e",
-              "createdAt": "2026-10-08T17:51:32Z",
-              "updatedAt": "2026-10-08T17:56:05Z",
-              "url": "https://github.com/Significant-Hobbies/open-historia/actions/runs/37819792139"
+              "headSha": "84e83aa9eddc63f82e3be2d5175eb47da275b622",
+              "createdAt": "2026-10-09T03:56:52Z",
+              "updatedAt": "2026-10-09T04:01:48Z",
+              "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/37881591903"
             },
             "ageDays": 0
           },
-          "attention": "clear"
+          "attention": "ignored"
         },
         {
           "name": "Deploy to Cloudflare Workers",
@@ -11446,23 +11446,23 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
           "live": {
-            "health": "failing",
-            "reason": "latest run concluded failure",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37767734753,
+              "id": 37881595138,
               "status": "completed",
-              "conclusion": "failure",
+              "conclusion": "success",
               "event": "workflow_dispatch",
               "branch": "main",
-              "headSha": "7d63c0094c223d0737772c2abfedbf74b8aac433",
-              "createdAt": "2026-10-08T11:05:09Z",
-              "updatedAt": "2026-10-08T11:05:32Z",
-              "url": "https://github.com/Significant-Hobbies/open-historia/actions/runs/37767734753"
+              "headSha": "84e83aa9eddc63f82e3be2d5175eb47da275b622",
+              "createdAt": "2026-10-09T03:56:54Z",
+              "updatedAt": "2026-10-09T03:57:24Z",
+              "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/37881595138"
             },
             "ageDays": 0
           },
@@ -11476,7 +11476,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "review-history"
+          "attention": "ignored"
         },
         {
           "name": "Weekly Quality Check",
@@ -11494,8 +11494,8 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
           "live": {
             "health": "healthy",
@@ -11510,7 +11510,7 @@
               "headSha": "566ec8371fb2f3f94d959c07a9344d86172e8c0e",
               "createdAt": "2026-10-05T17:29:42Z",
               "updatedAt": "2026-10-05T17:30:23Z",
-              "url": "https://github.com/Significant-Hobbies/open-historia/actions/runs/37348836099"
+              "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/37348836099"
             },
             "ageDays": 3
           },
@@ -11526,7 +11526,7 @@
               "headSha": "566ec8371fb2f3f94d959c07a9344d86172e8c0e",
               "createdAt": "2026-10-05T17:29:42Z",
               "updatedAt": "2026-10-05T17:30:23Z",
-              "url": "https://github.com/Significant-Hobbies/open-historia/actions/runs/37348836099"
+              "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/37348836099"
             },
             "ageDays": 3,
             "freshnessDays": 9
@@ -11536,7 +11536,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "clear"
+          "attention": "ignored"
         },
         {
           "name": "Dependabot Updates",
@@ -11549,25 +11549,25 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "managed",
-            "reason": "GitHub-generated workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37273088591,
+              "id": 37938532337,
               "status": "completed",
               "conclusion": "success",
               "event": "dynamic",
               "branch": "main",
-              "headSha": "21bcded195c86f7b5886e835abd84776e09f526b",
-              "createdAt": "2026-10-05T06:34:16Z",
-              "updatedAt": "2026-10-05T06:35:20Z",
-              "url": "https://github.com/Significant-Hobbies/open-historia/actions/runs/37273088591"
+              "headSha": "84e83aa9eddc63f82e3be2d5175eb47da275b622",
+              "createdAt": "2026-10-09T13:40:32Z",
+              "updatedAt": "2026-10-09T13:41:23Z",
+              "url": "https://github.com/sarthakagrawal927/open-historia/actions/runs/37938532337"
             },
-            "ageDays": 3
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -11579,7 +11579,7 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "clear"
+          "attention": "ignored"
         }
       ],
       "toolingSignals": [
@@ -11666,14 +11666,14 @@
       ],
       "projectId": "open-historia",
       "githubActionsMeta": {
-        "repository": "Significant-Hobbies/open-historia",
+        "repository": "sarthakagrawal927/open-historia",
         "defaultBranch": "main",
-        "defaultBranchSha": "1b5b909944b9c1ecc5fb931419d834ec1dd3f38e",
+        "defaultBranchSha": "84e83aa9eddc63f82e3be2d5175eb47da275b622",
         "homepage": "https://historia.aliveville.com",
         "query": "verified",
         "disposition": {
-          "disposition": "active",
-          "reason": "tracked project"
+          "disposition": "ignored",
+          "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
         }
       }
     },
@@ -12059,15 +12059,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37837206503,
+              "id": 37938017218,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "4126ed23a19cdfe0d528c1ce44ddac011c4b26d5",
-              "createdAt": "2026-10-08T20:08:28Z",
-              "updatedAt": "2026-10-08T20:08:48Z",
-              "url": "https://github.com/Significant-Hobbies/web-playables/actions/runs/37837206503"
+              "headSha": "0acdcde969bd407d3fb600a058b2d48d735b5de2",
+              "createdAt": "2026-10-09T13:36:12Z",
+              "updatedAt": "2026-10-09T13:41:09Z",
+              "url": "https://github.com/Significant-Hobbies/web-playables/actions/runs/37938017218"
             },
             "ageDays": 0
           },
@@ -12080,19 +12080,54 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 37837206503,
+              "id": 37938017218,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "4126ed23a19cdfe0d528c1ce44ddac011c4b26d5",
-              "createdAt": "2026-10-08T20:08:28Z",
-              "updatedAt": "2026-10-08T20:08:48Z",
-              "url": "https://github.com/Significant-Hobbies/web-playables/actions/runs/37837206503"
+              "headSha": "0acdcde969bd407d3fb600a058b2d48d735b5de2",
+              "createdAt": "2026-10-09T13:36:12Z",
+              "updatedAt": "2026-10-09T13:41:09Z",
+              "url": "https://github.com/Significant-Hobbies/web-playables/actions/runs/37938017218"
             },
             "ageDays": 0
           },
           "attention": "clear"
+        },
+        {
+          "name": "Deploy Open Historia Worker",
+          "file": ".github/workflows/deploy-historia.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "remote-only",
+            "local": false,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "needs-reconciliation",
+            "reason": "workflow exists in GitHub but not in the local working tree"
+          },
+          "live": {
+            "health": "manual-or-reusable-never-run",
+            "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
+            "apiState": "active",
+            "lastRun": null,
+            "ageDays": null
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "reconcile"
         },
         {
           "name": "Deploy web-playables to Cloudflare Pages",
@@ -12187,7 +12222,7 @@
       "githubActionsMeta": {
         "repository": "Significant-Hobbies/web-playables",
         "defaultBranch": "main",
-        "defaultBranchSha": "4126ed23a19cdfe0d528c1ce44ddac011c4b26d5",
+        "defaultBranchSha": "0acdcde969bd407d3fb600a058b2d48d735b5de2",
         "homepage": "https://idle.aliveville.com",
         "query": "verified",
         "disposition": {
@@ -14727,9 +14762,9 @@
     "mentionpilot": {
       "source": {
         "state": "available",
-        "path": "mentionpilot",
-        "revision": "1c1240eac8ca7e1809bd076b0fe69fef73e2a8fd",
-        "repositorySlug": "High-Signal-App/mentionpilot",
+        "path": "../fleet-archive/mentionpilot",
+        "revision": "4d7a23ec66a9527062f659d27ce8d5f57f733c04",
+        "repositorySlug": "sarthakagrawal927/mentionpilot",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -14738,8 +14773,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-18",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 91,
+        "latestCommitAt": "2026-10-09",
+        "retainedCommitCount": 92,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14758,23 +14793,23 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
           "live": {
-            "health": "running",
-            "reason": "latest run is queued",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37877486733,
-              "status": "queued",
-              "conclusion": null,
+              "id": 37941452405,
+              "status": "completed",
+              "conclusion": "success",
               "event": "pull_request",
-              "branch": "docs/marketing-agent-experiment-20261002",
-              "headSha": "c13a2f13c37f558b2958d67616d349511e00198f",
-              "createdAt": "2026-10-09T03:03:19Z",
-              "updatedAt": "2026-10-09T03:03:19Z",
-              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/37877486733"
+              "branch": "imgbot",
+              "headSha": "da2d5b2864357d0bd02c47d845a38610320b18c2",
+              "createdAt": "2026-10-09T14:04:18Z",
+              "updatedAt": "2026-10-09T14:05:38Z",
+              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37941452405"
             },
             "ageDays": 0
           },
@@ -14787,19 +14822,19 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 37819761273,
+              "id": 37877581652,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "1c1240eac8ca7e1809bd076b0fe69fef73e2a8fd",
-              "createdAt": "2026-10-08T17:51:17Z",
-              "updatedAt": "2026-10-08T17:52:34Z",
-              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/37819761273"
+              "headSha": "4d7a23ec66a9527062f659d27ce8d5f57f733c04",
+              "createdAt": "2026-10-09T03:04:32Z",
+              "updatedAt": "2026-10-09T03:05:40Z",
+              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37877581652"
             },
             "ageDays": 0
           },
-          "attention": "clear"
+          "attention": "ignored"
         },
         {
           "name": "Deploy Mentionpilot Web",
@@ -14815,8 +14850,8 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
           "live": {
             "health": "healthy",
@@ -14831,9 +14866,9 @@
               "headSha": "0654355722a51784a40aca41c09c29e31bdcd499",
               "createdAt": "2026-10-08T11:11:44Z",
               "updatedAt": "2026-10-08T11:13:23Z",
-              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/37768456116"
+              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37768456116"
             },
-            "ageDays": 0
+            "ageDays": 1
           },
           "schedule": {
             "health": "not-applicable",
@@ -14842,7 +14877,7 @@
           },
           "currentDefaultBranch": {
             "health": "missing",
-            "reason": "no push run at current main revision 1c1240e",
+            "reason": "no push run at current main revision 4d7a23e",
             "lastRun": {
               "id": 37768456116,
               "status": "completed",
@@ -14852,10 +14887,10 @@
               "headSha": "0654355722a51784a40aca41c09c29e31bdcd499",
               "createdAt": "2026-10-08T11:11:44Z",
               "updatedAt": "2026-10-08T11:13:23Z",
-              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/37768456116"
+              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37768456116"
             }
           },
-          "attention": "missing-data"
+          "attention": "ignored"
         },
         {
           "name": "Deploy Mentionpilot API Worker",
@@ -14872,8 +14907,8 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
           "live": {
             "health": "healthy",
@@ -14888,7 +14923,7 @@
               "headSha": "9dcffa9d903a7139e716eaf199c24fcf2e42986f",
               "createdAt": "2026-10-02T18:20:02Z",
               "updatedAt": "2026-10-02T18:20:31Z",
-              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/37046712662"
+              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37046712662"
             },
             "ageDays": 6
           },
@@ -14899,7 +14934,7 @@
           },
           "currentDefaultBranch": {
             "health": "missing",
-            "reason": "no push run at current main revision 1c1240e",
+            "reason": "no push run at current main revision 4d7a23e",
             "lastRun": {
               "id": 37046712662,
               "status": "completed",
@@ -14909,10 +14944,10 @@
               "headSha": "9dcffa9d903a7139e716eaf199c24fcf2e42986f",
               "createdAt": "2026-10-02T18:20:02Z",
               "updatedAt": "2026-10-02T18:20:31Z",
-              "url": "https://github.com/High-Signal-App/mentionpilot/actions/runs/37046712662"
+              "url": "https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37046712662"
             }
           },
-          "attention": "missing-data"
+          "attention": "ignored"
         }
       ],
       "toolingSignals": [
@@ -14968,14 +15003,14 @@
       ],
       "projectId": "mentionpilot",
       "githubActionsMeta": {
-        "repository": "High-Signal-App/mentionpilot",
+        "repository": "sarthakagrawal927/mentionpilot",
         "defaultBranch": "main",
-        "defaultBranchSha": "1c1240eac8ca7e1809bd076b0fe69fef73e2a8fd",
+        "defaultBranchSha": "4d7a23ec66a9527062f659d27ce8d5f57f733c04",
         "homepage": "https://mention.highsignal.app",
         "query": "verified",
         "disposition": {
-          "disposition": "active",
-          "reason": "tracked project"
+          "disposition": "ignored",
+          "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
         }
       }
     },
@@ -15297,6 +15332,175 @@
         "disposition": {
           "disposition": "active",
           "reason": "Owner-added local Agent Inbox project; bounded work follows agentbox/PRODUCT.md."
+        }
+      }
+    },
+    "techdata": {
+      "source": {
+        "state": "available",
+        "path": "techdata",
+        "revision": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
+        "repositorySlug": "High-Signal-App/techdata",
+        "worktree": {
+          "state": "clean",
+          "trackedChangeCount": 0,
+          "deletedWorkflowFiles": []
+        }
+      },
+      "history": {
+        "firstCommitAt": "2026-10-09",
+        "latestCommitAt": "2026-10-09",
+        "retainedCommitCount": 4,
+        "historyCompleteness": "complete",
+        "reason": null
+      },
+      "githubActions": [
+        {
+          "name": "CI",
+          "file": ".github/workflows/ci.yml",
+          "triggers": [
+            "pull_request",
+            "push"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
+          },
+          "live": {
+            "health": "failing",
+            "reason": "latest run concluded failure",
+            "apiState": "active",
+            "lastRun": {
+              "id": 37943038254,
+              "status": "completed",
+              "conclusion": "failure",
+              "event": "push",
+              "branch": "main",
+              "headSha": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
+              "createdAt": "2026-10-09T14:17:15Z",
+              "updatedAt": "2026-10-09T14:17:36Z",
+              "url": "https://github.com/High-Signal-App/techdata/actions/runs/37943038254"
+            },
+            "ageDays": 0
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "failing",
+            "reason": "current main push concluded failure",
+            "lastRun": {
+              "id": 37943038254,
+              "status": "completed",
+              "conclusion": "failure",
+              "event": "push",
+              "branch": "main",
+              "headSha": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
+              "createdAt": "2026-10-09T14:17:15Z",
+              "updatedAt": "2026-10-09T14:17:36Z",
+              "url": "https://github.com/High-Signal-App/techdata/actions/runs/37943038254"
+            },
+            "ageDays": 0
+          },
+          "attention": "action-required"
+        },
+        {
+          "name": "Deploy (manual)",
+          "file": ".github/workflows/deploy.yml",
+          "triggers": [
+            "workflow_dispatch"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
+          },
+          "live": {
+            "health": "manual-or-reusable-never-run",
+            "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
+            "apiState": "active",
+            "lastRun": null,
+            "ageDays": null
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
+        }
+      ],
+      "toolingSignals": [
+        {
+          "name": "Astro",
+          "evidence": [
+            "astro.config.mjs"
+          ]
+        },
+        {
+          "name": "Biome",
+          "evidence": [
+            "biome.json"
+          ]
+        },
+        {
+          "name": "Cloudflare Wrangler",
+          "evidence": [
+            "wrangler.jsonc"
+          ]
+        },
+        {
+          "name": "pnpm",
+          "evidence": [
+            "pnpm-lock.yaml"
+          ]
+        },
+        {
+          "name": "Vitest",
+          "evidence": [
+            "vitest.config.ts"
+          ]
+        }
+      ],
+      "packageManager": "pnpm@10.33.2",
+      "rootPackageScripts": [
+        "build",
+        "check",
+        "dev",
+        "format",
+        "lint",
+        "preview",
+        "test",
+        "typecheck"
+      ],
+      "projectId": "techdata",
+      "githubActionsMeta": {
+        "repository": "High-Signal-App/techdata",
+        "defaultBranch": "main",
+        "defaultBranchSha": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
+        "homepage": null,
+        "query": "verified",
+        "disposition": {
+          "disposition": "active",
+          "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
         }
       }
     }

@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: not-applicable
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 29f1a2fa0c4de988d8e690b033f2d352844ef2d86c252a65b09ab90102b40398
-      infrastructureUpdatedAt: 2026-10-05
+      sha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Open Historia
@@ -28,15 +28,15 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a01bc8b57ced1b8e0314e030b6c93c390deb137c6cdd9d2cfa0f700e1d169b75
+      sha256: 2ef4b475b46f843f844d4e9977589f9467b8dc1c7d7e83cd1c68197b1fd33643
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
       state: available
-      checkout: open-historia
-      revision: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
-      githubRepository: Significant-Hobbies/open-historia
-      expectedHomepage: https://historia.aliveville.com
+      checkout: ../fleet-archive/open-historia
+      revision: 84e83aa9eddc63f82e3be2d5175eb47da275b622
+      githubRepository: sarthakagrawal927/open-historia
+      expectedHomepage: null
       observedHomepage: https://historia.aliveville.com
       worktree: &a1
         state: clean
@@ -45,9 +45,9 @@ verification:
     retainedGitHistory:
       observedAt: 2026-10-09
       state: available
-      checkout: open-historia
-      revision: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
-      githubRepository: Significant-Hobbies/open-historia
+      checkout: ../fleet-archive/open-historia
+      revision: 84e83aa9eddc63f82e3be2d5175eb47da275b622
+      githubRepository: sarthakagrawal927/open-historia
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-02-08
@@ -58,21 +58,19 @@ verification:
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      healthy: 3
-      failing: 1
+      healthy: 4
       attention: &a2
-        clear: 3
-        review-history: 1
+        ignored: 4
   unknowns: []
 ownerVoice:
   whyVerbatim: I played a game called Historia. I really liked it but it was limited on credits so I was like, let's build a version in which I can use things locally. That is, it uses a local codex AI agent and it works in the browser and it works for free. After playing 1 or 2 games and the map quality not being good enough, I dropped it but this is something I would want to pick up in the future when I do a live build because it is also kind of like long-form memory but for countries.
   fullReviewVerbatim: I played a game called Historia. I really liked it but it was limited on credits so I was like, let's build a version in which I can use things locally. That is, it uses a local codex AI agent and it works in the browser and it works for free. After playing 1 or 2 games and the map quality not being good enough, I dropped it but this is something I would want to pick up in the future when I do a live build because it is also kind of like long-form memory but for countries.
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
+  classification: Inactive / merged
   whySummary: Recreate an AI grand-strategy game locally and without credit limits.
-  currentState: Paused experiment; no current work or obligation to resume.
-  nextDecision: "Keep: A small local campaign with meaningful decisions and consistent state. Stop: An unlimited world simulator, enormous map scope and content breadth."
+  currentState: "Owner merged it into Web Playables on 2026-10-09 as networked-games/open-historia (web-playables#21, PR #22); repository moved to sarthakagrawal927 and checkout to ../fleet-archive/open-historia. The live Worker, D1 and historia.aliveville.com are attributed to Web Playables."
+  nextDecision: "Keep: A small local campaign with meaningful decisions and consistent state, inside Web Playables. Stop: An unlimited world simulator, enormous map scope, content breadth and a separate product repository."
 identity:
   name: Open Historia
   publicName: Open Historia
@@ -85,15 +83,15 @@ identity:
   unmetNeed: false
   kind: experiment
   priority: P4
-  tier: secondary
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
+    status: inactive
+    resumeCondition: Only resume as an independent product after an explicit new owner decision.
     shareable: false
-  operationalStatus: live
+  operationalStatus: retired
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: Interactive historical storytelling and world simulation.
   publicMakerNote: I wanted a local, credit-free version of an AI grand-strategy game where long-form memory could make countries feel alive.
@@ -103,7 +101,7 @@ product:
     outcome: Play a coherent campaign in which countries feel persistent and past decisions continue to matter.
     mechanism: A local simulation combines long-form country memory, generated events, diplomacy, and an interactive campaign map.
     proof: Durable country memory works as an idea, but the map and campaign-turn loop were not enjoyable enough to sustain development.
-    nextAction: Preserved experiment; no current work or obligation to resume.
+    nextAction: Merged into Web Playables as a networked game; no independent roadmap.
   form: Strategy web game
   platforms:
     - Web
@@ -114,20 +112,20 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-02-08
-    latestCommitAt: 2026-10-08
-    retainedCommitCount: 266
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 267
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: open-historia
-  observedRevision: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
-  githubRepository: Significant-Hobbies/open-historia
+  checkout: ../fleet-archive/open-historia
+  observedRevision: 84e83aa9eddc63f82e3be2d5175eb47da275b622
+  githubRepository: sarthakagrawal927/open-historia
   githubHomepageUrl: https://historia.aliveville.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/open-historia
   aliases: []
-  sourceOverride: open-historia
+  sourceOverride: ../fleet-archive/open-historia
   tooling:
     declaredPackageManager: pnpm@10.33.2
     detectedSignals:
@@ -186,18 +184,17 @@ githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
-    healthy: 3
-    failing: 1
+    healthy: 4
   attention: *a2
   remote:
-    repository: Significant-Hobbies/open-historia
+    repository: sarthakagrawal927/open-historia
     defaultBranch: main
-    defaultBranchSha: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
+    defaultBranchSha: 84e83aa9eddc63f82e3be2d5175eb47da275b622
     homepage: https://historia.aliveville.com
     query: verified
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems.
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -210,22 +207,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems.
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37819792139
+          id: 37881591903
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
-          createdAt: 2026-10-08T17:51:32Z
-          updatedAt: 2026-10-08T17:56:05Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37819792139
+          headSha: 84e83aa9eddc63f82e3be2d5175eb47da275b622
+          createdAt: 2026-10-09T03:56:52Z
+          updatedAt: 2026-10-09T04:01:48Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/37881591903
         ageDays: 0
       schedule:
         health: not-applicable
@@ -235,17 +232,17 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37819792139
+          id: 37881591903
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 1b5b909944b9c1ecc5fb931419d834ec1dd3f38e
-          createdAt: 2026-10-08T17:51:32Z
-          updatedAt: 2026-10-08T17:56:05Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37819792139
+          headSha: 84e83aa9eddc63f82e3be2d5175eb47da275b622
+          createdAt: 2026-10-09T03:56:52Z
+          updatedAt: 2026-10-09T04:01:48Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/37881591903
         ageDays: 0
-      attention: clear
+      attention: ignored
     - name: Deploy to Cloudflare Workers
       file: .github/workflows/deploy.yml
       triggers:
@@ -256,22 +253,22 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems.
       live:
-        health: failing
-        reason: latest run concluded failure
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37767734753
+          id: 37881595138
           status: completed
-          conclusion: failure
+          conclusion: success
           event: workflow_dispatch
           branch: main
-          headSha: 7d63c0094c223d0737772c2abfedbf74b8aac433
-          createdAt: 2026-10-08T11:05:09Z
-          updatedAt: 2026-10-08T11:05:32Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37767734753
+          headSha: 84e83aa9eddc63f82e3be2d5175eb47da275b622
+          createdAt: 2026-10-09T03:56:54Z
+          updatedAt: 2026-10-09T03:57:24Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/37881595138
         ageDays: 0
       schedule:
         health: not-applicable
@@ -281,7 +278,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: review-history
+      attention: ignored
     - name: Weekly Quality Check
       file: .github/workflows/weekly.yml
       triggers:
@@ -294,8 +291,8 @@ githubActions:
         local: true
         remote: true
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems.
       live:
         health: healthy
         reason: latest run concluded success
@@ -309,7 +306,7 @@ githubActions:
           headSha: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
           createdAt: 2026-10-05T17:29:42Z
           updatedAt: 2026-10-05T17:30:23Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37348836099
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/37348836099
         ageDays: 3
       schedule:
         health: healthy
@@ -323,14 +320,14 @@ githubActions:
           headSha: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
           createdAt: 2026-10-05T17:29:42Z
           updatedAt: 2026-10-05T17:30:23Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37348836099
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/37348836099
         ageDays: 3
         freshnessDays: 9
       currentDefaultBranch:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
     - name: Dependabot Updates
       file: dynamic/dependabot/dependabot-updates
       triggers: []
@@ -340,23 +337,23 @@ githubActions:
         local: false
         remote: true
       ownerDisposition:
-        status: managed
-        reason: GitHub-generated workflow
+        status: ignored
+        reason: Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems.
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37273088591
+          id: 37938532337
           status: completed
           conclusion: success
           event: dynamic
           branch: main
-          headSha: 21bcded195c86f7b5886e835abd84776e09f526b
-          createdAt: 2026-10-05T06:34:16Z
-          updatedAt: 2026-10-05T06:35:20Z
-          url: https://github.com/Significant-Hobbies/open-historia/actions/runs/37273088591
-        ageDays: 3
+          headSha: 84e83aa9eddc63f82e3be2d5175eb47da275b622
+          createdAt: 2026-10-09T13:40:32Z
+          updatedAt: 2026-10-09T13:41:23Z
+          url: https://github.com/sarthakagrawal927/open-historia/actions/runs/37938532337
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -365,95 +362,32 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: ignored
 deployment:
-  kind: worker
-  deployed: true
-  domains:
-    - historia.aliveville.com
-  primaryUrl: https://historia.aliveville.com
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
   targets: []
   cloudflare:
-    deployments:
-      - provider: cloudflare
-        kind: worker
-        name: open-historia
-        method: wrangler-direct
-        state: live
-        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
-        verification:
-          observedAt: 2026-10-05T17:15:58.572887+00:00
-          deploymentId: b0851883-4c6d-4f45-917d-b2700169aa04
-          versionId: 30acc0bb-2cb5-4ff0-8a1d-e53a7b0c0eee
-          sourceCommit: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
-          sourceTree: 887f2ad4bb9f730d2062a20fecdbfa647ec1e859
-          requestedTag: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
-          trafficPercent: 100
-          state: success-production-targeted-runtime-verified-recovery-window-unknown
-          exactMainCi: 37276336381
-          evidence: "Normal clean standalone-main guard PASS; exact-main CI PASS. Standard local validator, pnpm deploy and Fleet Workspace postflight PASS using existing auth without credential/config changes. Exact source tag/version at100% traffic. Synthetic unsupported-provider /api/turn,/api/chat,/api/advisor400 and public /,/play,/api/ai200 with expected content types. Hosted run37345491722 built successfully but failed GitHub deploy-secret validation before publishing; local standard path succeeded. Fresh complete natural-traffic error-rate/latency recovery window and supported-provider campaign acceptance remain unknown under #34."
-          naturalTrafficRecovery: unknown
-          targetedRuntimeChecksPassed: 6
-          hostedDeployRun: 37345491722
-          hostedDeployConclusion: failure-before-publication
-        verificationHistory:
-          - observedAt: 2026-10-05
-            versionId: 6b2d3de8-691a-4bbb-ba4c-1144428eeb61
-            sourceCommit: 21bcded195c86f7b5886e835abd84776e09f526b
-            requestedTag: 21bcded195c86f7b5886e835abd84776e09f526b
-            buildSourceHead: 4683237de5a9553bc662132ca6824ab71129a970
-            buildSourceTree: afab12c38ca3ef140e33c33bd4e88ae3332f55f0
-            mergedSourceTree: afab12c38ca3ef140e33c33bd4e88ae3332f55f0
-            trafficPercent: 100
-            state: success-production-verified
-            evidence: "PR #42 and exact-main CI passed. Exact merged source tree afab12c38ca3ef140e33c33bd4e88ae3332f55f0 was built and deployed from candidate HEAD 4683237de5a9553bc662132ca6824ab71129a970; merged SHA 21bcded195c86f7b5886e835abd84776e09f526b has the identical tree. Wrangler version 6b2d3de8-691a-4bbb-ba4c-1144428eeb61 is at 100% traffic with the exact merge SHA tag. Public /api/ai GET and HEAD returned 200 with matching selected headers and an empty HEAD body. Home and /play were 200 with no executable Clarity loader; the mask and first-party health tracker remain."
-            serviceBindings:
-              - name: FREE_AI
-                service: free-ai-gateway
-                entrypoint: FleetGateway
-    resources:
-      - provider: cloudflare
-        kind: d1
-        name: open-historia
-        state: live
-        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
-        scope: project
-        operationalOwner: open-historia
-      - provider: cloudflare
-        kind: workers-ai
-        name: AI
-        state: active
-        scope: project
-        operationalOwner: open-historia
-        attributionReason: "Canonical project owner: open-historia"
-      - provider: cloudflare
-        kind: service-binding
-        name: free-ai-gateway
-        state: active
-        binding: FREE_AI
-        entrypoint: FleetGateway
-        dependencyProject: free-ai
-        verification:
-          observedAt: 2026-10-02T11:05:00Z
-          versionId: 61f99b50-eb8b-49ef-b0d1-61dbce18c55b
-          sourceCommit: b3431d901205e40aa5209a5c340c1f9d8a4eef6a
-          state: production-binding-verified
-        scope: project
-        operationalOwner: open-historia
-        attributionReason: "Canonical project owner: open-historia"
+    deployments: []
+    resources: []
   otherProviders:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: null
   ready: false
   verifiedAt: 2026-09-09
   reason: "Guest checkpoint persistence and desktop/mobile layout repairs are deployed from 9445110fc7857238eadff2de27804deca754f380 as Worker e529a943-f06e-4529-9323-dd3a384d5fc7 at100%, deployment21a0e2d9-30a1-4636-a6f5-c884b501a960. The September9 receipt proves six viewport sizes without panel overlap or branch-control collisions, 44px branch targets, public asset parity and actual guest Save/reload preserving three snapshots, relations, summary and selected branch. Earlier real guest AI turns also proved checkpoint memory and branch parent continuity. Final tests/docs-only HEAD6b7fa8f883f261291a5c32a47516f06b18668da0 passed CI34327732410 on the first attempt with22 browser and87 unit tests, after an explicitly recorded earlier flaky run. Historical faction/scenario coherence, geography and authenticated cloud saves/account isolation remain unqualified under #27. Keep inactive/nonshareable; these repairs do not establish a coherent complete campaign."
-  changelogUrl: https://historia.aliveville.com/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/open-historia/issues
   geoIdentity: null
 notes:
-  catalog: "September 8: a79b6e2598cdf965e3cee0fc7e23ca32cf4f0021 deployed at 100% as d420bcf2-f9e9-46af-9703-c1aa78b38731 after exact CI 34238119844. Responsive campaign panels, local terminal scrolling, empty timeline reopening and valid map zoom expression repaired. Both browser projects passed in CI. Live 390px guest turn returned HTTP 200 in 4117ms; map, controls, narrative, relation and timeline save verified. Remains held/unqualified for historical coherence and authenticated cloud journeys."
-  infrastructure: "September9 release receipt: runtime9445110fc7857238eadff2de27804deca754f380 is deployed at100% as Worker e529a943-f06e-4529-9323-dd3a384d5fc7, deployment21a0e2d9-30a1-4636-a6f5-c884b501a960. Six-size layout, public asset parity and guest Save/reload passed. Final tests/docs-only source6b7fa8f passed clean CI34327732410. Prior runtime e4a26fe5-9d2f-46fd-83e6-228d1e8c7a75 remains the rollback. Campaign coherence and authenticated save qualification remain open. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features."
+  catalog: |-
+    September 8: a79b6e2598cdf965e3cee0fc7e23ca32cf4f0021 deployed at 100% as d420bcf2-f9e9-46af-9703-c1aa78b38731 after exact CI 34238119844. Responsive campaign panels, local terminal scrolling, empty timeline reopening and valid map zoom expression repaired. Both browser projects passed in CI. Live 390px guest turn returned HTTP 200 in 4117ms; map, controls, narrative, relation and timeline save verified. Remains held/unqualified for historical coherence and authenticated cloud journeys.
+    Owner ended the independent product on 2026-10-09; merged into Web Playables (Significant-Hobbies/web-playables PR #22, squash 0acdcde; issue web-playables#21) as networked-games/open-historia. Worker open-historia, D1 open-historia and historia.aliveville.com are unchanged and attributed to web-playables; they deploy from web-playables after the owner runs deploy-historia.yml.
+    2026-10-09: GitHub repository transferred to sarthakagrawal927 (not GitHub-archived); local checkout moved intact to ../fleet-archive/open-historia.
+  infrastructure: "2026-10-09: merged into Web Playables; Worker open-historia, D1 open-historia, historia.aliveville.com and their bindings are attributed to web-playables (infrastructure.projects.web-playables, transferredFrom open-historia)."

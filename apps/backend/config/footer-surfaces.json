@@ -236,27 +236,11 @@
       ]
     },
     {
-      "id": "mashup",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "mashup/web/src/pages/index.astro"
-      ]
-    },
-    {
       "id": "motion",
       "kind": "visual",
       "state": "required",
       "files": [
         "ios-landings/src/layouts/SiteLayout.astro"
-      ]
-    },
-    {
-      "id": "open-historia",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "open-historia/landing-astro/src/layouts/Layout.astro"
       ]
     },
     {
@@ -352,14 +336,6 @@
       "state": "required",
       "files": [
         "every-song-is-a-website/index.html"
-      ]
-    },
-    {
-      "id": "mentionpilot",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "mentionpilot/apps/web/src/app/page.tsx"
       ]
     },
     {

@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 29f1a2fa0c4de988d8e690b033f2d352844ef2d86c252a65b09ab90102b40398
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=fleet-social].ownerNarrative
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: d9cfaa7d8539f1413c7bfef3efce3831182597e49eef799506ba0aa27709ce17
-      documentSha256: 29f1a2fa0c4de988d8e690b033f2d352844ef2d86c252a65b09ab90102b40398
+      documentSha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a01bc8b57ced1b8e0314e030b6c93c390deb137c6cdd9d2cfa0f700e1d169b75
+      sha256: 2ef4b475b46f843f844d4e9977589f9467b8dc1c7d7e83cd1c68197b1fd33643
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
@@ -60,7 +60,8 @@ verification:
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      healthy: 2
+      running: 1
+      healthy: 1
       attention: &a2
         clear: 2
   unknowns: []
@@ -116,6 +117,7 @@ product:
     - Cloudflare Workers
     - D1
     - R2
+    - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-09-22
     latestCommitAt: 2026-10-09
@@ -178,12 +180,13 @@ githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
-    healthy: 2
+    running: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: sass-maker/fleet-social
     defaultBranch: main
-    defaultBranchSha: 50c9026b6931c996aa524ab7118124bb248dbeb0
+    defaultBranchSha: 2ad5d4c83f31304e272c7fe9966fd1a0a264f275
     homepage: null
     query: verified
     disposition:
@@ -205,37 +208,37 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 37830542193
-          status: completed
-          conclusion: success
+          id: 37942151246
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 50c9026b6931c996aa524ab7118124bb248dbeb0
-          createdAt: 2026-10-08T19:15:12Z
-          updatedAt: 2026-10-08T19:18:22Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/37830542193
+          headSha: 2ad5d4c83f31304e272c7fe9966fd1a0a264f275
+          createdAt: 2026-10-09T14:10:00Z
+          updatedAt: 2026-10-09T14:10:11Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/37942151246
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: running
+        reason: current main push is in_progress
         lastRun:
-          id: 37830542193
-          status: completed
-          conclusion: success
+          id: 37942151246
+          status: in_progress
+          conclusion: null
           event: push
           branch: main
-          headSha: 50c9026b6931c996aa524ab7118124bb248dbeb0
-          createdAt: 2026-10-08T19:15:12Z
-          updatedAt: 2026-10-08T19:18:22Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/37830542193
+          headSha: 2ad5d4c83f31304e272c7fe9966fd1a0a264f275
+          createdAt: 2026-10-09T14:10:00Z
+          updatedAt: 2026-10-09T14:10:11Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/37942151246
         ageDays: 0
       attention: clear
     - name: Scheduler tick
@@ -257,29 +260,29 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37864180883
+          id: 37937173722
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 50c9026b6931c996aa524ab7118124bb248dbeb0
-          createdAt: 2026-10-09T00:19:28Z
-          updatedAt: 2026-10-09T00:19:34Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/37864180883
+          createdAt: 2026-10-09T13:29:12Z
+          updatedAt: 2026-10-09T13:29:18Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/37937173722
         ageDays: 0
       schedule:
         health: healthy
         reason: latest scheduled run concluded success
         lastRun:
-          id: 37864180883
+          id: 37937173722
           status: completed
           conclusion: success
           event: schedule
           branch: main
           headSha: 50c9026b6931c996aa524ab7118124bb248dbeb0
-          createdAt: 2026-10-09T00:19:28Z
-          updatedAt: 2026-10-09T00:19:34Z
-          url: https://github.com/sass-maker/fleet-social/actions/runs/37864180883
+          createdAt: 2026-10-09T13:29:12Z
+          updatedAt: 2026-10-09T13:29:18Z
+          url: https://github.com/sass-maker/fleet-social/actions/runs/37937173722
         ageDays: 0
         freshnessDays: 1
       currentDefaultBranch:
@@ -288,13 +291,22 @@ githubActions:
         lastRun: null
       attention: clear
 deployment:
-  kind: worker
+  kind: worker+pages
   deployed: true
   domains:
     - fleet-social.sarthakagrawal927.workers.dev
+    - mashup.highsignal.app
   primaryUrl: https://fleet-social.sarthakagrawal927.workers.dev
   domainProbePaths: {}
-  targets: []
+  targets:
+    - id: app
+      kind: worker
+      name: fleet-social
+      sourcePath: fleet-social
+    - id: mashup
+      kind: pages
+      name: mashup
+      sourcePath: fleet-social/tools/mashup/web
   cloudflare:
     deployments:
       - provider: cloudflare
@@ -318,6 +330,13 @@ deployment:
             - GitHub and Google sign-in reached the owner dashboard through Cloudflare Access
             - YouTube owner channel UCSLizWE4xLqunkbH87kmLTA connected through Google OAuth with upload and read scopes
             - Approved private MP4 canary published as YouTube video jhAAHDS1oME; Fleet Social receipt and YouTube page both show Private
+      - provider: cloudflare
+        kind: pages
+        name: mashup
+        method: wrangler-direct
+        state: live
+        transferredFrom: mashup
+        attributionReason: "Transferred 2026-10-09 from mashup after the owner merged Mashup into Fleet Social (fleet-social PR #14); fleet-social is steward and deploys come from tools/mashup/web."
     resources:
       - provider: cloudflare
         kind: d1
@@ -359,6 +378,14 @@ deployment:
         scope: project
         operationalOwner: fleet-social
         attributionReason: "Canonical project owner: fleet-social"
+      - provider: cloudflare
+        kind: custom-domain
+        name: mashup.highsignal.app
+        state: active
+        transferredFrom: mashup
+        attributionReason: "Transferred 2026-10-09 from mashup after the owner merged Mashup into Fleet Social (fleet-social PR #14); fleet-social is steward and deploys come from tools/mashup/web."
+        scope: project
+        operationalOwner: fleet-social
   otherProviders:
     deployments: []
     resources:
@@ -381,4 +408,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: New Fleet internal social publishing hub based on CogSend. Separate from the paused Reel Pipeline and its fleet-postiz tunnel.
-  infrastructure: "Private CogSend-based Fleet instance. Cloudflare Access, GitHub, Google sign-in, owner YouTube channel connection, and a private video publish are verified. Machine draft intake and actual scheduled publication remain pending. The feature is committed locally at 741ff6b and status follow-up fc2e609, but a sandbox DNS block prevented pushing PR #2. The live Worker predates the final composer copy; redeploy was blocked by unavailable Wrangler authentication in the sandbox."
+  infrastructure: "Private CogSend-based Fleet instance. Cloudflare Access, GitHub, Google sign-in, owner YouTube channel connection, and a private video publish are verified. Machine draft intake and actual scheduled publication remain pending. The feature is committed locally at 741ff6b and status follow-up fc2e609, but a sandbox DNS block prevented pushing PR #2. The live Worker predates the final composer copy; redeploy was blocked by unavailable Wrangler authentication in the sandbox. 2026-10-09: absorbed Mashup; Pages project mashup and mashup.highsignal.app moved here from mashup."
