@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
+      sha256: 29f1a2fa0c4de988d8e690b033f2d352844ef2d86c252a65b09ab90102b40398
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
+      sha256: a01bc8b57ced1b8e0314e030b6c93c390deb137c6cdd9d2cfa0f700e1d169b75
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
@@ -104,7 +104,7 @@ product:
     audience: Developers and teams shipping code produced with AI agents.
     outcome: Higher confidence that an agent completed the requested change correctly and safely.
     mechanism: Local-first review combines repository context, executable checks, targeted evaluation, and inspectable verification receipts.
-    proof: Published macOS 1.14.3 is signed and notarized; its DMG hash and local installation were verified. An earlier bounded CLI fixture demonstrated real Codex review, pass/fail checks and persisted receipts.
+    proof: "Published macOS 1.16.0 is notarized: its DMG hash matches the release and the bundled app passes strict signature and Gatekeeper checks. An earlier bounded CLI fixture demonstrated real Codex review, pass/fail checks and persisted receipts."
     nextAction: Try the current Mac release on a small local repository. Use the documented manual update path until in-app installation is qualified.
   form: Desktop app
   platforms:
@@ -902,8 +902,8 @@ sharing:
   publicListing: maintained
   maturity: experiment
   ready: true
-  verifiedAt: 2026-09-25
-  reason: Published 1.14.3 DMG matched GitHub SHA-256, passed strict signature and Gatekeeper notarization checks, and was installed and launched from /Applications. The previous 1.12.0 native-preview bundle was preserved separately. The earlier bounded CLI review receipt remains historical; current full native workflow and in-app Sparkle installation were not exercised in this audit.
+  verifiedAt: 2026-10-09
+  reason: "Published v1.16.0 (2026-10-09, GitHub Latest, release run 37886067815 from d54a3c19): CodeVetter-1.16.0-arm64.dmg SHA-256 d1e43ea2325c904efa296f9db0bb70614a649812f3fdf2273746a1b96031f8cd matches the GitHub asset digest; the bundled CodeVetter.app 1.16.0 (build 11600) passes strict codesign and Gatekeeper as a notarized Developer ID app. The DMG container itself is unsigned and unstapled. The release publishes a Sparkle appcast for 1.16.0. Not installed or launched in this audit; foreground native workflow and in-app Sparkle installation remain unexercised."
   changelogUrl: https://codevetter.com/changelog
   roadmapUrl: https://github.com/Codevetter/codevetter/issues
   geoIdentity:
