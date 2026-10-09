@@ -77,8 +77,10 @@ test('registry retains canonical experiment rationale without making it shareabl
     const project = projects.find(p => p.id === id);
     assert.equal(project.lifecycle.shareable, false);
     assert.match(project.sharingReadiness.reason, /experiment/);
-    assert.equal(project.lifecycle.resumeCondition, null);
   }
+  assert.equal(projects.find(p => p.id === 'reel-pipeline').lifecycle.resumeCondition, null);
+  // Archived by the owner on 2026-10-08: only an explicit owner reactivation resumes it.
+  assert.match(projects.find(p => p.id === 'forecast-lab').lifecycle.resumeCondition, /explicit owner reactivation/);
 });
 
 test('lifecycle and resume filters use their own fields, including non-null conditions', () => {

@@ -3,7 +3,7 @@ projectId: research-papers
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-08
+  generatedAt: 2026-10-09
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
+      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-08
+      observedAt: 2026-10-09
       state: available
       checkout: research-papers
-      revision: 7a9a987051715bdf09c8b35325f48d74b17775e0
+      revision: 0fc686afb56fba4eee4553dc38c5f580d14a7272
       githubRepository: High-Signal-App/research-papers
       expectedHomepage: https://papers.highsignal.app
       observedHomepage: https://papers.highsignal.app
@@ -43,10 +43,10 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-10-08
+      observedAt: 2026-10-09
       state: available
       checkout: research-papers
-      revision: 7a9a987051715bdf09c8b35325f48d74b17775e0
+      revision: 0fc686afb56fba4eee4553dc38c5f580d14a7272
       githubRepository: High-Signal-App/research-papers
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,11 +56,14 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T20:22:37.978Z
+      observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      healthy: 3
+      running: 1
+      failing: 1
+      healthy: 1
       attention: &a2
-        clear: 3
+        clear: 2
+        review-history: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: Research paper was my attempt to understand what all there is in the market by adding some RAG on top of it. It has a huge amount of papers. I would want to do some more analysis in the future but for now I think it is done. It's just a lot of research papers.
@@ -113,12 +116,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-05-30
     latestCommitAt: 2026-10-09
-    retainedCommitCount: 136
+    retainedCommitCount: 137
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: research-papers
-  observedRevision: 7a9a987051715bdf09c8b35325f48d74b17775e0
+  observedRevision: 0fc686afb56fba4eee4553dc38c5f580d14a7272
   githubRepository: High-Signal-App/research-papers
   githubHomepageUrl: https://papers.highsignal.app
   worktree: *a1
@@ -168,10 +171,12 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-10-08T20:22:37.978Z
+  observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
-    healthy: 3
+    running: 1
+    failing: 1
+    healthy: 1
   attention: *a2
   remote:
     repository: High-Signal-App/research-papers
@@ -198,19 +203,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 37835106871
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 7a9a987051715bdf09c8b35325f48d74b17775e0
-          createdAt: 2026-10-08T19:51:43Z
-          updatedAt: 2026-10-08T19:53:39Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/37835106871
+          id: 37877320785
+          status: in_progress
+          conclusion: null
+          event: pull_request
+          branch: agent/research-papers-deploy-pnpm-pin
+          headSha: 0fc686afb56fba4eee4553dc38c5f580d14a7272
+          createdAt: 2026-10-09T03:01:11Z
+          updatedAt: 2026-10-09T03:01:14Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/37877320785
         ageDays: 0
       schedule:
         health: not-applicable
@@ -244,20 +249,20 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 37323966767
+          id: 37877045573
           status: completed
-          conclusion: success
+          conclusion: failure
           event: workflow_dispatch
           branch: main
-          headSha: 88aaedb9038a815e7645ae390e45c42d28c95c59
-          createdAt: 2026-10-05T14:20:54Z
-          updatedAt: 2026-10-05T14:21:57Z
-          url: https://github.com/High-Signal-App/research-papers/actions/runs/37323966767
-        ageDays: 3
+          headSha: 7a9a987051715bdf09c8b35325f48d74b17775e0
+          createdAt: 2026-10-09T02:57:47Z
+          updatedAt: 2026-10-09T02:58:00Z
+          url: https://github.com/High-Signal-App/research-papers/actions/runs/37877045573
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -266,7 +271,7 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: clear
+      attention: review-history
     - name: Docs
       file: .github/workflows/docs.yml
       triggers:

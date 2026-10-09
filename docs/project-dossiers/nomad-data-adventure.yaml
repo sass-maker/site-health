@@ -3,7 +3,7 @@ projectId: nomad-data-adventure
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-08
+  generatedAt: 2026-10-09
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
+      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,7 +31,7 @@ verification:
       sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-08
+      observedAt: 2026-10-09
       state: available
       checkout: nomad-data-adventure
       revision: 3ab6a63046cea91703923d100db482ebe189a0d1
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-10-08
+      observedAt: 2026-10-09
       state: available
       checkout: nomad-data-adventure
       revision: 3ab6a63046cea91703923d100db482ebe189a0d1
@@ -56,7 +56,7 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T20:22:37.978Z
+      observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
       healthy: 1
       cancelled: 1
@@ -140,7 +140,7 @@ repository:
       - dev
       - test
 githubActions:
-  observedAt: 2026-10-08T20:22:37.978Z
+  observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
     healthy: 1
