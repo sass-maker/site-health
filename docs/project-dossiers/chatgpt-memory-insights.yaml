@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: different
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 877b47d5f810866330dbeec2f0dcf999535b93756953cbd5c895af9b19b30916
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: 287dc07cec7fe4b42d0256377988230fc374f2f039abc3889966a5fe8e46105d
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: ChatGPT Memory Insights
@@ -33,11 +33,11 @@ verification:
     repository:
       observedAt: 2026-10-09
       state: available
-      checkout: chatgpt-memory-insights
-      revision: 950a85ce1fd4fb255d145e1c514e776426a9b4e8
-      githubRepository: Significant-Hobbies/chatgpt-memory-insights
+      checkout: saas-maker
+      revision: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+      githubRepository: sass-maker/saas-maker
       expectedHomepage: https://chatgpt.significanthobbies.com
-      observedHomepage: https://chatgpt.significanthobbies.com
+      observedHomepage: https://sassmaker.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -45,25 +45,26 @@ verification:
     retainedGitHistory:
       observedAt: 2026-10-09
       state: available
-      checkout: chatgpt-memory-insights
-      revision: 950a85ce1fd4fb255d145e1c514e776426a9b4e8
-      githubRepository: Significant-Hobbies/chatgpt-memory-insights
+      checkout: saas-maker
+      revision: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+      githubRepository: sass-maker/saas-maker
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-28
       catalogLatestCommitAt: 2026-09-19
       catalogDrift:
+        - firstCommitAt
         - latestCommitAt
       reason: null
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      healthy: 2
-      stale: 1
+      healthy: 8
+      manual-or-reusable-never-run: 5
+      failing: 1
       attention: &a2
-        reconcile: 1
-        clear: 1
-        missing-data: 1
+        clear: 13
+        action-required: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: I started off this product to have a way to analyse my conversations I have with ChatGPT. Its purpose is that I can use an exported version of ChatGPT's conversation and it will give me insights into memory, what I talk about, my emotions, and other relevant things.
@@ -116,107 +117,182 @@ product:
     - TypeScript
     - Cloudflare Pages
   retainedGitHistory:
-    firstCommitAt: 2026-07-28
+    firstCommitAt: 2026-02-26
     latestCommitAt: 2026-10-09
-    retainedCommitCount: 88
+    retainedCommitCount: 1507
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: chatgpt-memory-insights
-  observedRevision: 950a85ce1fd4fb255d145e1c514e776426a9b4e8
-  githubRepository: Significant-Hobbies/chatgpt-memory-insights
-  githubHomepageUrl: https://chatgpt.significanthobbies.com
+  checkout: saas-maker
+  observedRevision: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+  githubRepository: sass-maker/saas-maker
+  githubHomepageUrl: https://sassmaker.com
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/chatgpt-memory-insights
+  url: https://github.com/sass-maker/saas-maker
   aliases: []
-  sourceOverride: null
+  sourceOverride: saas-maker/apps/memory-map
   tooling:
     declaredPackageManager: pnpm@10.33.2
     detectedSignals:
       - name: Astro
         evidence:
-          - astro.config.ts
+          - apps/memory-map/astro.config.ts
+          - apps/showcase/astro.config.mjs
+          - tooling/templates/web-landing/astro.config.mjs
       - name: Biome
         evidence:
+          - apps/memory-map/biome.json
           - biome.json
+          - packages/ai-chat-footer/biome.json
+          - packages/newsletter-capture/biome.json
+          - packages/portfolio-project-strip/biome.json
       - name: Cloudflare Wrangler
         evidence:
-          - wrangler.toml
+          - apps/cockpit/wrangler.toml
+          - apps/memory-map/wrangler.toml
+          - workers/api/wrangler.toml
+      - name: Next.js
+        evidence:
+          - apps/cockpit/next.config.ts
       - name: pnpm
         evidence:
           - pnpm-lock.yaml
       - name: Rust Cargo
         evidence:
-          - packer/Cargo.toml
+          - apps/memory-map/packer/Cargo.toml
+      - name: Turborepo
+        evidence:
+          - turbo.json
       - name: Vitest
         evidence:
+          - apps/memory-map/vitest.config.ts
           - vitest.config.ts
     rootPackageScripts:
       - build
-      - check
-      - deploy
-      - dev
+      - build:api
+      - build:cockpit
+      - build:showcase
+      - build:widget
+      - catalog:check-operations
+      - catalog:check-public
+      - catalog:check-source
+      - catalog:check-systems
+      - catalog:check-table
+      - catalog:sync
+      - catalog:sync-operations
+      - catalog:sync-public
+      - catalog:sync-systems
+      - catalog:table
+      - catalog:test-schema
+      - catalog:validate-public
+      - check:docs
+      - check:memory-map
+      - check:shared-packages
+      - deploy:api
+      - deploy:cockpit
+      - deploy:directory
+      - deploy:guard
+      - deploy:memory-map
+      - dev:api
+      - dev:cockpit
+      - dev:cockpit:local
+      - format
       - format:check
-      - knip
-      - knip:strict
       - lint
-      - preview
-      - quality
-      - quality:complexity
-      - quality:cycles
-      - quality:dependencies
-      - quality:duplication
-      - quality:hygiene
-      - quality:suppressions
-      - quality:unused
+      - prepare
+      - smoke
       - test
-      - test:coverage
-      - test:import
+      - tooling:ai-clients
+      - tooling:check
+      - tooling:clarity
+      - tooling:credentials
+      - tooling:footers
       - typecheck
 githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
-    healthy: 2
-    stale: 1
+    healthy: 8
+    manual-or-reusable-never-run: 5
+    failing: 1
   attention: *a2
   remote:
-    repository: Significant-Hobbies/chatgpt-memory-insights
+    repository: sass-maker/saas-maker
     defaultBranch: main
-    defaultBranchSha: 950a85ce1fd4fb255d145e1c514e776426a9b4e8
-    homepage: https://chatgpt.significanthobbies.com
+    defaultBranchSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+    homepage: https://sassmaker.com
     query: verified
     disposition:
       disposition: active
       reason: tracked project
   workflows:
-    - name: Bounded dependency lock repair
-      file: .github/workflows/bounded-dependency-lock-repair.yml
-      triggers: []
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
       schedules: []
       inventory:
-        source: remote-only
-        local: false
+        source: tracked
+        local: true
         remote: true
       ownerDisposition:
-        status: needs-reconciliation
-        reason: workflow exists in GitHub but not in the local working tree
+        status: active
+        reason: tracked workflow
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37735009639
+          id: 37954002458
           status: completed
           conclusion: success
-          event: pull_request
-          branch: agent/root-memorymap50-live-20261008
-          headSha: 93c7e0aa91f31d06dc35c8aee9ccef5f5521b933
-          createdAt: 2026-10-08T05:57:30Z
-          updatedAt: 2026-10-08T05:57:45Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/37735009639
+          event: push
+          branch: main
+          headSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          createdAt: 2026-10-09T15:44:41Z
+          updatedAt: 2026-10-09T15:48:33Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37954002458
         ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 37954002458
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          createdAt: 2026-10-09T15:44:41Z
+          updatedAt: 2026-10-09T15:48:33Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37954002458
+        ageDays: 0
+      attention: clear
+    - name: Daddy macOS candidate
+      file: .github/workflows/daddy-macos-candidate.yml
+      triggers:
+        - workflow_call
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -225,9 +301,9 @@ githubActions:
         health: not-applicable
         reason: workflow has no push trigger
         lastRun: null
-      attention: reconcile
-    - name: CI
-      file: .github/workflows/ci.yml
+      attention: clear
+    - name: Docs
+      file: .github/workflows/docs.yml
       triggers:
         - pull_request
         - push
@@ -244,15 +320,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37838765924
+          id: 37954002474
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 950a85ce1fd4fb255d145e1c514e776426a9b4e8
-          createdAt: 2026-10-08T20:20:57Z
-          updatedAt: 2026-10-08T20:24:01Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/37838765924
+          headSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          createdAt: 2026-10-09T15:44:41Z
+          updatedAt: 2026-10-09T15:44:52Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37954002474
         ageDays: 0
       schedule:
         health: not-applicable
@@ -262,19 +338,94 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37838765924
+          id: 37954002474
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 950a85ce1fd4fb255d145e1c514e776426a9b4e8
-          createdAt: 2026-10-08T20:20:57Z
-          updatedAt: 2026-10-08T20:24:01Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/37838765924
+          headSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          createdAt: 2026-10-09T15:44:41Z
+          updatedAt: 2026-10-09T15:44:52Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37954002474
+        ageDays: 0
+      attention: clear
+    - name: Drank CI
+      file: .github/workflows/drank-ci.yml
+      triggers:
+        - workflow_call
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: memory-pack CI
+      file: .github/workflows/memory-pack-ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37954002464
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          createdAt: 2026-10-09T15:44:41Z
+          updatedAt: 2026-10-09T15:45:20Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37954002464
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 37954002464
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          createdAt: 2026-10-09T15:44:41Z
+          updatedAt: 2026-10-09T15:45:20Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37954002464
         ageDays: 0
       attention: clear
     - name: memory-pack release
-      file: .github/workflows/packer-release.yml
+      file: .github/workflows/memory-pack-release.yml
       triggers:
         - push
         - workflow_dispatch
@@ -287,20 +438,20 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: stale
-        reason: latest run is 38 days old
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 33382333378
+          id: 37954074373
           status: completed
-          conclusion: success
-          event: push
-          branch: memory-pack-v0.1.2
-          headSha: 04ffcd4934075d7cf4782a5028db61a6977af449
-          createdAt: 2026-08-31T10:25:24Z
-          updatedAt: 2026-08-31T10:27:17Z
-          url: https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/33382333378
-        ageDays: 38
+          conclusion: failure
+          event: workflow_dispatch
+          branch: main
+          headSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          createdAt: 2026-10-09T15:45:16Z
+          updatedAt: 2026-10-09T15:46:50Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37954074373
+        ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
@@ -309,7 +460,318 @@ githubActions:
         health: missing
         reason: no push run was returned for main
         lastRun: null
-      attention: missing-data
+      attention: action-required
+    - name: PSI Swarm CI
+      file: .github/workflows/psi-swarm-ci.yml
+      triggers:
+        - workflow_call
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Site Health CI
+      file: .github/workflows/site-health-ci.yml
+      triggers:
+        - workflow_call
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Tooling CI
+      file: .github/workflows/tooling-ci.yml
+      triggers:
+        - pull_request
+        - push
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37954002535
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          createdAt: 2026-10-09T15:44:41Z
+          updatedAt: 2026-10-09T15:45:19Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37954002535
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: healthy
+        reason: current main push concluded success
+        lastRun:
+          id: 37954002535
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          createdAt: 2026-10-09T15:44:41Z
+          updatedAt: 2026-10-09T15:45:19Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37954002535
+        ageDays: 0
+      attention: clear
+    - name: Public Performance Sweep
+      file: .github/workflows/tooling-performance-sweep.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 9 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37348874378
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 3fb8bf5367d27d8ec1da36b28d9b81d9b972089a
+          createdAt: 2026-10-05T17:30:01Z
+          updatedAt: 2026-10-05T17:30:28Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37348874378
+        ageDays: 3
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 37348874378
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 3fb8bf5367d27d8ec1da36b28d9b81d9b972089a
+          createdAt: 2026-10-05T17:30:01Z
+          updatedAt: 2026-10-05T17:30:28Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37348874378
+        ageDays: 3
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Public Surface Audit
+      file: .github/workflows/tooling-surface-audit.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 37 6 * * 3
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37631248027
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: c8138c477e060174d2245f76219dc290acf56d2c
+          createdAt: 2026-10-07T13:46:55Z
+          updatedAt: 2026-10-07T13:47:16Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37631248027
+        ageDays: 1
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 37631248027
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: c8138c477e060174d2245f76219dc290acf56d2c
+          createdAt: 2026-10-07T13:46:55Z
+          updatedAt: 2026-10-07T13:47:16Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37631248027
+        ageDays: 1
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Verify Local
+      file: .github/workflows/verify-local.yml
+      triggers:
+        - workflow_call
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Weekly Quality Check
+      file: .github/workflows/weekly.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 0 9 * * 1
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: tracked workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37348905708
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 3fb8bf5367d27d8ec1da36b28d9b81d9b972089a
+          createdAt: 2026-10-05T17:30:14Z
+          updatedAt: 2026-10-05T17:32:24Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37348905708
+        ageDays: 3
+      schedule:
+        health: healthy
+        reason: latest scheduled run concluded success
+        lastRun:
+          id: 37348905708
+          status: completed
+          conclusion: success
+          event: schedule
+          branch: main
+          headSha: 3fb8bf5367d27d8ec1da36b28d9b81d9b972089a
+          createdAt: 2026-10-05T17:30:14Z
+          updatedAt: 2026-10-05T17:32:24Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37348905708
+        ageDays: 3
+        freshnessDays: 9
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
+    - name: Dependabot Updates
+      file: dynamic/dependabot/dependabot-updates
+      triggers: []
+      schedules: []
+      inventory:
+        source: github-generated
+        local: false
+        remote: true
+      ownerDisposition:
+        status: managed
+        reason: GitHub-generated workflow
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 37385370475
+          status: completed
+          conclusion: success
+          event: dynamic
+          branch: main
+          headSha: c8138c477e060174d2245f76219dc290acf56d2c
+          createdAt: 2026-10-05T22:54:20Z
+          updatedAt: 2026-10-05T22:55:08Z
+          url: https://github.com/sass-maker/saas-maker/actions/runs/37385370475
+        ageDays: 3
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: clear
 deployment:
   kind: pages
   deployed: true
@@ -325,6 +787,15 @@ deployment:
         name: chatgpt-memory-insights
         method: wrangler-direct
         state: live
+        attributionReason: Memory Map (catalog id chatgpt-memory-insights) owns this Pages project and chatgpt.significanthobbies.com; since 2026-10-09 it is deployed from sass-maker/saas-maker apps/memory-map (pnpm deploy:memory-map). The project and hostname are kept so visitors' saved IndexedDB indexes keep their origin.
+        verification:
+          observedAt: 2026-10-09
+          sourceCommit: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+          deploymentId: 4ef026cc-02a4-418a-a0e9-6125988090c7
+          deploymentUrl: https://4ef026cc.chatgpt-memory-insights.pages.dev
+          previousDeploymentId: ce1af558-69c9-4b16-914b-58ec32c81e21
+          scope: First production deploy of apps/memory-map from SaaS Maker to the existing Pages project
+          evidence: Deploy guard passed (exact origin/main 576a623e, green push CI); live routes, redirects and headers unchanged; Chrome at 390/1280/1440 rendered without overflow or page errors; a synthetic two-conversation export parsed and embedded with no archive marker in any request (sass-maker/saas-maker#210).
     resources: []
   otherProviders:
     deployments: []
@@ -336,7 +807,7 @@ sharing:
   verifiedAt: 2026-09-10
   reason: "2026-09-10 live isolated Chromium: real compact embeddings completed for 12/12 conversations, 12/12 prompts and 2/2 facts; relevant herb search; explicit save; reload and relevant TypeScript search; 390px layout without document overflow; confirmed forget and reload returned to import. No page errors. Synthetic data only; telemetry writes blocked; browser closed. Shareable as the owner-selected finished browser-local experiment. Large/split archives, multilingual and cross-browser behavior, optional local chat generation and post-initialization GPU failures remain outside this verified core; issue #37 remains open for broader acceptance."
   changelogUrl: https://chatgpt.significanthobbies.com/changelog
-  roadmapUrl: https://github.com/Significant-Hobbies/chatgpt-memory-insights/issues
+  roadmapUrl: https://github.com/sass-maker/saas-maker/issues
   geoIdentity:
     id: chatgpt-memory-insights
     name: Memory Map
@@ -346,17 +817,17 @@ sharing:
     origin: https://chatgpt.significanthobbies.com
     source:
       state: public
-      url: https://github.com/Significant-Hobbies/chatgpt-memory-insights
+      url: https://github.com/sass-maker/saas-maker/tree/main/apps/memory-map
     docs:
       state: repository-readme
-      url: https://github.com/Significant-Hobbies/chatgpt-memory-insights#readme
+      url: https://github.com/sass-maker/saas-maker/tree/main/apps/memory-map#readme
     officialProfiles:
-      - https://github.com/Significant-Hobbies/chatgpt-memory-insights
+      - https://github.com/sass-maker/saas-maker/tree/main/apps/memory-map
     availability:
       primary: web
       appStore: not-applicable
     pricing:
       state: not-declared
 notes:
-  catalog: Browser-only ChatGPT export analysis; archive contents and derived text stay on-device, with optional IndexedDB persistence. Source absorbed into SaaS Maker apps/memory-map on 2026-10-09 (sass-maker/saas-maker#211, from 950a85ce); production is still deployed from this repository until the owner-approved cutover tracked in sass-maker/saas-maker#210. The memory-pack packer CLI and its releases remain here.
+  catalog: "Browser-only ChatGPT export analysis; archive contents and derived text stay on-device, with optional IndexedDB persistence. Absorbed into SaaS Maker apps/memory-map on 2026-10-09 (sass-maker/saas-maker#211, from 950a85ce); since the 2026-10-09 cutover (sass-maker/saas-maker#210, #215) it deploys from there with `pnpm deploy:memory-map` to the same chatgpt-memory-insights Pages project and hostname, so saved browser-local indexes keep their origin. The memory-pack CLI, its CI/release workflows and install.sh also live in apps/memory-map (packer/); releases v0.1.0-v0.1.2 remain on the former Significant-Hobbies/chatgpt-memory-insights repository, which now hosts the DaddyRad MCP server."
   infrastructure: null
