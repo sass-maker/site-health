@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
+      sha256: 3858cb0320196c17e571d92e3bd8c335fb17f739a97122ffc4b69abba42041f9
       infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -23,8 +23,8 @@ verification:
       sourceHeading: techdata
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-09
-      reviewSha256: 30c46994b53fd74b141aded73023a17e466e4362abf9827b9c60de661cb141b2
-      documentSha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
+      reviewSha256: 74ff7d1b3faf4c46efce30259833f4d7ada4cf4ee4452da388e1962b2ea5a029
+      documentSha256: 3858cb0320196c17e571d92e3bd8c335fb17f739a97122ffc4b69abba42041f9
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -65,11 +65,11 @@ verification:
         clear: 1
   unknowns: []
 ownerVoice:
-  whyVerbatim: "Owner decision (2026-10-09): the consolidated data workbench is named **techdata**. It is the first real product built on the SaaS Maker UI library (sass-maker/ui-library)."
+  whyVerbatim: the first project with new UI library will be the commomn data one
   fullReviewVerbatim: |-
-    Owner decision (2026-10-09): the consolidated data workbench is named **techdata**. It is the first real product built on the SaaS Maker UI library (sass-maker/ui-library).
+    the first project with new UI library will be the commomn data one
 
-    Repo: private `High-Signal-App/techdata`. I chose High-Signal-App because it already holds Research Papers and Reddit Insights.
+    Let's call it techdata
   relatedHistoricalReviews: []
 decision:
   classification: Active private tool
