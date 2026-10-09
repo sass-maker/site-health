@@ -52,6 +52,7 @@ this list.
 | `seo` | `/v1/outcomes/seo-audit` | `apps/backend/data/seo-audit/latest.json` |
 | `geo` | `/v1/outcomes/geo-awareness` | `apps/backend/data/geo-observatory/ledger.jsonl` |
 | `ai` | `/v1/outcomes/ai-awareness` | `visibility.run-recorded` events in `foundry.sqlite` |
+| brand evidence | `/v1/projects/{id}/brand-evidence` | private `brand-evidence.sqlite` (see `ai-visibility-operations.md`) |
 | clarity | `/v1/projects/{id}/clarity` | `clarity-snapshot:{id}` in `local_metadata` |
 | spend | `/v1/spend` | `spend-snapshot:portfolio` in `local_metadata` |
 
@@ -142,7 +143,9 @@ The service has no public-host, Cloudflare Tunnel, or Cloudflare Access mode.
 
 Collectors retain bounded scalar summaries and public provider pointers. They
 do not copy credentials, raw provider responses, prompts, transcripts, private
-payloads, or feedback submissions.
+payloads, or feedback submissions. The one deliberate exception is the private brand-evidence
+store, which keeps original prompts and answers for owner inspection; it is a
+separate local file, outside the ledger backup, and never leaves this machine.
 
 ## Microsoft Clarity
 

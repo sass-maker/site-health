@@ -17,6 +17,7 @@ import {
   defaultDatabasePath,
   verifyBackup,
 } from '../lib/dashboard-backend/store.mjs';
+import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evidence/store.mjs';
 
 function usage() {
   console.log(`Site Health backend
@@ -117,8 +118,12 @@ if (command === 'status') {
       capabilities: 'local',
     };
   };
+  const brandEvidenceStore = new BrandEvidenceStore({
+    databasePath: process.env.SITE_HEALTH_BRAND_EVIDENCE_DB || defaultBrandEvidencePath(),
+  });
   const server = await startDashboardService({
     store,
+    brandEvidenceStore,
     port,
     prewarmProjection: true,
     ownerToken: process.env.DASHBOARD_OWNER_TOKEN ?? process.env.FOUNDER_CONTROL_OWNER_TOKEN,
@@ -142,7 +147,10 @@ if (command === 'status') {
   };
   const shutdown = () => {
     abandonInFlightRuns();
-    server.close(() => store.close());
+    server.close(() => {
+      store.close();
+      brandEvidenceStore.close();
+    });
   };
   process.on('SIGINT', shutdown);
   process.on('SIGTERM', shutdown);
