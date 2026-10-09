@@ -20,3 +20,7 @@ apps/backend/*.sqlite-*
 
 # Fleet owner-local receipts and private assets (Fleet convention).
 .fleet-local/
+
+# Private-intended footer artwork (#505): served locally from this path, never
+# committed or uploaded. Builds without it render the footer's no-art layout.
+apps/web/public/footer-art/
