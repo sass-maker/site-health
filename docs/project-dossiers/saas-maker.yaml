@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
-      infrastructureUpdatedAt: 2026-10-06
+      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SaaS Maker
@@ -711,17 +711,23 @@ deployment:
         state: live
         attributionReason: SaaS Maker owns the public directory and the native /launchdesk catalog backed by its checked-in provenance-bearing dataset. The former standalone LaunchDesk Worker was deleted on 2026-09-18.
         verification:
-          observedAt: 2026-10-05T19:46:22.688Z
-          sourceCommit: 00c3d7a761da28d44405ee6c670c35a94b0e81ec
-          deploymentId: 2e4162fd-3d2a-4327-a743-4480d6d83f2d
-          deploymentUrl: https://2e4162fd.saas-maker-home.pages.dev
-          providerSourceAbbreviated: 00c3d7a
-          fullSourceProof: Existing pinned publisher full commit and exact-main CI artifact, public JS bytes match
-          evidencePath: saas-maker/.fleet-local/footer193-capture-state-20261006/production-proof.json
-          scope: Shared capture-state193 complete public directory artifact; API/cockpit not redeployed; existing cache policy retained
-          state: success-production-verified
-          evidence: Exact source/current owning CI, existing publisher/provider and anonymous bytes plus root actual runtime/render proof. Numeric slop scanner remains unknown.
+          observedAt: 2026-10-09
+          sourceCommit: 6184cb27b2221b99e3e265380f2912360fbc1dcc
+          deploymentId: 92c9c86d
+          deploymentUrl: https://92c9c86d.saas-maker-home.pages.dev
+          scope: Showcase site release
+          evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time.
         verificationHistory:
+          - observedAt: 2026-10-05T19:46:22.688Z
+            sourceCommit: 00c3d7a761da28d44405ee6c670c35a94b0e81ec
+            deploymentId: 2e4162fd-3d2a-4327-a743-4480d6d83f2d
+            deploymentUrl: https://2e4162fd.saas-maker-home.pages.dev
+            providerSourceAbbreviated: 00c3d7a
+            fullSourceProof: Existing pinned publisher full commit and exact-main CI artifact, public JS bytes match
+            evidencePath: saas-maker/.fleet-local/footer193-capture-state-20261006/production-proof.json
+            scope: Shared capture-state193 complete public directory artifact; API/cockpit not redeployed; existing cache policy retained
+            state: success-production-verified
+            evidence: Exact source/current owning CI, existing publisher/provider and anonymous bytes plus root actual runtime/render proof. Numeric slop scanner remains unknown.
           - observedAt: 2026-10-02T14:02:55Z
             deploymentId: e3327bda-0772-43f8-9855-78be64744ff2
             deploymentUrl: https://e3327bda.saas-maker-home.pages.dev

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
+      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
       infrastructureUpdatedAt: 2026-10-05
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: 716a47374fe4e6e2eacab74e5e06fad025d095c8254bc4d9691d1bb6edbb99a0
-      documentSha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
+      documentSha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -84,12 +84,12 @@ identity:
   unmetNeed: true
   kind: experiment
   priority: P4
-  tier: secondary
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
+    status: inactive
+    resumeCondition: Only resume after an explicit new owner decision.
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: false
@@ -245,14 +245,17 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: experiment
-  ready: true
+  ready: false
   verifiedAt: 2026-09-20
   reason: The completed Browser Agent Testing experiment and reusable source repository are public. Its 79-tool catalogue, 26-arm quantitative journey matrix, seven additional probes, ten experiment records, exact observed version pins, agent JSON surfaces, security headers and live routes were verified on 2026-09-20.
-  changelogUrl: https://browser-agents.sarthakagrawal.dev/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/agent-testing/issues
   geoIdentity: null
 notes:
-  catalog: Owner marked Browser Agent Testing a completed experiment on 2026-09-20. It compares saved baselines and agent-driven web/iOS candidates against independent product verifiers without claiming a winner before qualification. Keep the live read-only evidence map and public reproducibility artifacts; there is no active framework or catalogue-expansion roadmap.
+  catalog: |-
+    Owner marked Browser Agent Testing a completed experiment on 2026-09-20. It compares saved baselines and agent-driven web/iOS candidates against independent product verifiers without claiming a winner before qualification. Keep the live read-only evidence map and public reproducibility artifacts; there is no active framework or catalogue-expansion roadmap.
+    Owner retired Browser Agent Testing from active Fleet on 2026-10-09: this could have been a blog. Preserve source, evidence and infrastructure attribution; no blog conversion, provider decommission or remote repository archival was performed.
+    2026-10-09: GitHub repository transferred to sarthakagrawal927 and archived; API readback verified the new owner and archived flag. Existing local checkout, source history and hosted resources retained.
   infrastructure: Public read-only guide for the public reusable benchmark runner. Cloudflare manages the custom-domain DNS record and TLS certificate. No bindings, persistent data, production credentials or model API calls.

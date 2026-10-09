@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
-      infrastructureUpdatedAt: 2026-08-11
+      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: LoopTV
@@ -464,6 +464,10 @@ deployment:
         name: looptv
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-10-09
+          sourceCommit: 976e1e45ebeebd266e2cbd51c29a140f531e0e7a
+          evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time. GitHub Actions deploy run 37887543037.
     resources: []
   otherProviders:
     deployments: []

@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
-      infrastructureUpdatedAt: 2026-08-22
+      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: ChatGPT Connections
@@ -299,6 +299,11 @@ deployment:
         name: fleet-chatgpt-connections
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-10-09
+          sourceCommit: 1e8a2a9322f8a5cc4f42dfebeed8ff6143ee4056
+          versionId: 2e77e481-7d2f-4f73-a673-deb87cda5e8d
+          evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time.
     resources:
       - provider: cloudflare
         kind: kv

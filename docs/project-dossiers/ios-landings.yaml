@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
-      infrastructureUpdatedAt: 2026-10-06
+      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: iOS Landings
@@ -233,16 +233,22 @@ deployment:
         method: direct-upload
         state: live
         verification:
-          observedAt: 2026-10-06
-          sourceCommit: d08041eaeeb6710798af6b50884e898289e77cc3
-          deploymentId: ca04cc74-2b11-42e4-8e4b-ee8e03d89662
-          providerSourceAbbreviated: d08041e
-          fullSourceProof: Explicit pinned publisher full SHA, merged tree equality, exact-main CI and public file hashes
-          evidencePath: ios-landings/.fleet-local/footer180-resume-20261005/index-prep/public-20261006/release-proof.json
-          scope: Factory index footer only; Journal, Habits and native app releases excluded
-          state: success-production-verified
-          evidence: Selected C Precise source/current CI, existing provider, anonymous public byte matches and actual responsive/control review qualified. Numeric scanner remains unknown.
+          observedAt: 2026-10-09
+          sourceCommit: ecfd6a51405768e0a5c68f01bbb1f7ce5daee514
+          deploymentUrl: https://3674d635.ios-landings.pages.dev
+          deploymentId: 3674d635
+          scope: Factory index site release
+          evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time.
         verificationHistory:
+          - observedAt: 2026-10-06
+            sourceCommit: d08041eaeeb6710798af6b50884e898289e77cc3
+            deploymentId: ca04cc74-2b11-42e4-8e4b-ee8e03d89662
+            providerSourceAbbreviated: d08041e
+            fullSourceProof: Explicit pinned publisher full SHA, merged tree equality, exact-main CI and public file hashes
+            evidencePath: ios-landings/.fleet-local/footer180-resume-20261005/index-prep/public-20261006/release-proof.json
+            scope: Factory index footer only; Journal, Habits and native app releases excluded
+            state: success-production-verified
+            evidence: Selected C Precise source/current CI, existing provider, anonymous public byte matches and actual responsive/control review qualified. Numeric scanner remains unknown.
           - observedAt: 2026-09-27
             evidencePath: null
     resources: []

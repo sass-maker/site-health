@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
+      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
       infrastructureUpdatedAt: 2026-10-05
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -530,5 +530,7 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: D1 reader is authoritative.
+  catalog: |-
+    D1 reader is authoritative.
+    2026-10-09 owner decision: retain Reader. The owner wants to use it but is not currently using it; investigate the actual reading-use obstacle before expanding features.
   infrastructure: " 2026-10-05: Reader PR #74 source 963e0ead536752831574ce44795dc847f6731edb is live at 100% as version 2f582008-9406-432a-a110-ccd9cbe1a433; see known-closure-runs/reader70-release.json."
