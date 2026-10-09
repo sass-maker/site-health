@@ -24,6 +24,27 @@ import DashboardLayout from "../components/DashboardLayout.astro";
     </div>
     <div class="loading-state" data-dashboard-slot="ai-awareness">Building AI awareness view…</div>
   </section>
+  <section class="owner-section owner-section--directory" aria-labelledby="brand-evidence-title">
+    <div class="section-head brand-evidence-head">
+      <div>
+        <h2 id="brand-evidence-title">Brand evidence</h2>
+        <p>Original prompts, answers, citations and community findings for one project, and the follow-ups they led to.</p>
+        <p class="measurement-boundary-note">API model checks and consumer-assistant captures are counted separately. A failed provider call stays a failure; it is never counted as a missing mention.</p>
+      </div>
+      <div class="brand-evidence-controls">
+        <label>
+          <span class="sr-only">Brand evidence project</span>
+          <select data-brand-evidence-project>
+            <option value="">Reading profiles</option>
+          </select>
+        </label>
+        <button type="button" class="secondary-action" data-brand-evidence-check disabled>Run API check</button>
+        <span class="portfolio-refresh-status" role="status" aria-live="polite" data-brand-evidence-status></span>
+      </div>
+      <span class="count" data-dashboard-count="brand-evidence">—</span>
+    </div>
+    <div class="loading-state" data-dashboard-slot="brand-evidence">Reading private brand evidence…</div>
+  </section>
   <section class="owner-section owner-section--directory" aria-labelledby="geo-awareness-title">
     <div class="section-head">
       <div>

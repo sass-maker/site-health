@@ -16,6 +16,7 @@ import {
 } from './ai-visibility-registry.mjs';
 import { loadClarityRegistry, readClarityProjection } from './clarity.mjs';
 import { readSpendSnapshot } from './spend.mjs';
+import { createBrandEvidenceRoutes } from '../brand-evidence/routes.mjs';
 
 const MAX_REQUEST_BYTES = 32 * 1024;
 
@@ -229,8 +230,17 @@ export function createDashboardHandler({
   prefillEvidence,
   projectsProvider = () => store.projects,
   clarityRegistryProvider = loadClarityRegistry,
+  brandEvidenceStore = null,
+  brandEvidenceEnv = process.env,
+  brandEvidenceFetch = fetch,
 }) {
   let projectionCache = null;
+  const brandEvidenceRoutes = createBrandEvidenceRoutes({
+    store: brandEvidenceStore,
+    env: brandEvidenceEnv,
+    fetchImpl: brandEvidenceFetch,
+    now,
+  });
   const completedMetricRuns = new Set();
   const resolvedMetricRunController = metricRunController ?? createMetricRunController({
     projectsProvider,
@@ -362,6 +372,7 @@ export function createDashboardHandler({
       store.projects = projectsProvider();
       const projections = projectionFor(store);
       if (method === 'GET' && handleProjectionReadRoutes(url, projections, response)) return;
+      if (method === 'GET' && brandEvidenceRoutes.read(url, store.projects ?? [], response, json)) return;
 
       if (
         method !== 'GET' &&
@@ -375,6 +386,7 @@ export function createDashboardHandler({
 
       if (await handleMetricRunMutations(url, method, request, response)) return;
       if (await handleProjectionMutations(url, method, response)) return;
+      if (await brandEvidenceRoutes.mutate(url, method, request, store.projects ?? [], response, { json, readBody })) return;
       return json(response, 404, { error: 'route not found' });
     } catch (error) {
       return json(response, error.statusCode ?? (error.code ? 422 : 500), {
@@ -399,6 +411,9 @@ export function startDashboardService({
   prefillEvidence,
   projectsProvider,
   clarityRegistryProvider,
+  brandEvidenceStore,
+  brandEvidenceEnv,
+  brandEvidenceFetch,
 } = {}) {
   const server = createServer(
     createDashboardHandler({
@@ -413,6 +428,9 @@ export function startDashboardService({
       ...(prefillEvidence ? { prefillEvidence } : {}),
       ...(projectsProvider ? { projectsProvider } : {}),
       ...(clarityRegistryProvider ? { clarityRegistryProvider } : {}),
+      ...(brandEvidenceStore ? { brandEvidenceStore } : {}),
+      ...(brandEvidenceEnv ? { brandEvidenceEnv } : {}),
+      ...(brandEvidenceFetch ? { brandEvidenceFetch } : {}),
     }),
   );
   return new Promise((resolve, reject) => {

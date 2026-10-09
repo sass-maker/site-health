@@ -749,6 +749,259 @@ async function renderAiAwareness() {
       : empty("No GEO Observatory evidence"));
   updateCoverage("geo-awareness", geo, ["not-measured", "not-configured"]);
   updateOutcomeTime(payload);
+  await renderBrandEvidence().catch(() => replace("brand-evidence", empty("Brand evidence unavailable")));
+}
+
+// Brand evidence (absorbed from MentionPilot): one project at a time, original
+// prompts and answers, explicit failures, community findings and follow-ups.
+const BRAND_EVIDENCE_CHANNELS: Record<string, string> = {
+  "api-model": "API model check",
+  "consumer-assistant": "Consumer assistant capture",
+};
+
+function rateLabel(rate: unknown) {
+  return typeof rate === "number" && Number.isFinite(rate) ? `${Math.round(rate * 100)}%` : "Not measured";
+}
+
+function safeHttpUrl(candidate: unknown) {
+  try {
+    const url = new URL(String(candidate ?? ""));
+    return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
+// A failed or unavailable provider call has no verdict. Saying "not mentioned"
+// for it would invent a negative observation.
+function observationVerdict(observation: JsonRecord) {
+  if (observation.status !== "completed") return `No verdict · ${observation.errorMessage ?? "provider unavailable"}`;
+  if (!observation.brandMentioned) return "Not mentioned";
+  const position = observation.brandPosition ? ` at #${observation.brandPosition}` : "";
+  return `Mentioned${position}${observation.brandCited ? " · own site cited" : ""}`;
+}
+
+function brandEvidencePath(projectId: string, suffix = "") {
+  return `/v1/projects/${encodeURIComponent(projectId)}/brand-evidence${suffix}`;
+}
+
+function brandEvidenceButton(label: string, onClick: () => Promise<void>) {
+  const button = element("button", { type: "button", class: "secondary-action brand-evidence__action" }, [label]);
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    try {
+      await onClick();
+    } catch (error) {
+      const status = document.querySelector<HTMLElement>("[data-brand-evidence-status]");
+      if (status) status.textContent = error instanceof Error ? error.message : "Unavailable";
+      button.disabled = false;
+    }
+  });
+  return button;
+}
+
+function brandEvidenceSummary(view: JsonRecord) {
+  const apiChannel = view.summary?.channels?.["api-model"] ?? {};
+  const consumer = view.summary?.channels?.["consumer-assistant"] ?? {};
+  const failures = Number(apiChannel.error ?? 0) + Number(apiChannel.unavailable ?? 0);
+  return metricGrid([
+    { label: "API answers", value: String(apiChannel.completed ?? 0), detail: apiChannel.lastObservedAt ? `Last ${formatted(apiChannel.lastObservedAt)}` : "No API check yet" },
+    { label: "Mentioned", value: rateLabel(apiChannel.mentionRate), detail: "Completed API answers only" },
+    { label: "Provider failures", value: String(failures), detail: "Unavailable, not negative" },
+    { label: "Consumer captures", value: String(consumer.completed ?? 0), detail: `Mention rate: ${rateLabel(consumer.mentionRate).toLowerCase()}` },
+    { label: "Open follow-ups", value: String(view.summary?.openActions ?? 0) },
+  ]);
+}
+
+function brandEvidenceGroup(title: string, count: number, body: Node) {
+  return element("section", { class: "brand-evidence__group" }, [
+    element("h3", {}, [title, element("span", { class: "brand-evidence__count" }, [String(count)])]),
+    body,
+  ]);
+}
+
+function brandEvidenceObservation(projectId: string, observation: JsonRecord, refresh: () => Promise<void>) {
+  const citations = (observation.citations ?? []).map(safeHttpUrl).filter(Boolean).slice(0, 8) as string[];
+  return element("article", { class: "brand-evidence__item", "data-observation-status": observation.status }, [
+    element("header", { class: "brand-evidence__item-head" }, [
+      element("span", {}, [`${observation.provider} · ${observation.model}`]),
+      element("span", { class: "brand-evidence__channel" }, [BRAND_EVIDENCE_CHANNELS[observation.channel] ?? observation.channel]),
+      state(observation.status),
+      element("small", {}, [formatted(observation.observedAt)]),
+    ]),
+    element("p", { class: "brand-evidence__prompt" }, [observation.promptText]),
+    element("p", { class: "brand-evidence__verdict" }, [observationVerdict(observation)]),
+    observation.answerText
+      ? element("details", { class: "brand-evidence__answer" }, [
+          element("summary", {}, ["Original answer"]),
+          element("p", {}, [observation.answerText]),
+        ])
+      : null,
+    citations.length
+      ? element("ul", { class: "brand-evidence__citations" }, citations.map((url) =>
+          element("li", {}, [element("a", { href: url, rel: "noreferrer noopener", target: "_blank" }, [url])])))
+      : null,
+    brandEvidenceButton("Create follow-up", async () => {
+      await api(brandEvidencePath(projectId, "/actions"), {
+        method: "POST",
+        body: JSON.stringify({
+          subjectKind: "observation",
+          subjectId: observation.id,
+          title: `Follow up: ${String(observation.promptText).slice(0, 160)}`,
+        }),
+      });
+      await refresh();
+    }),
+  ]);
+}
+
+function brandEvidenceFinding(projectId: string, finding: JsonRecord, refresh: () => Promise<void>) {
+  const url = safeHttpUrl(finding.url);
+  const setStatus = (status: string) => async () => {
+    await api(brandEvidencePath(projectId, `/findings/${encodeURIComponent(finding.id)}`), {
+      method: "POST",
+      body: JSON.stringify({ status }),
+    });
+    await refresh();
+  };
+  return element("article", { class: "brand-evidence__item" }, [
+    element("header", { class: "brand-evidence__item-head" }, [
+      element("span", {}, [finding.sourceName ?? finding.source]),
+      element("span", { class: "brand-evidence__channel" }, [`${finding.intent} · relevance ${finding.relevanceScore}`]),
+      state(finding.status),
+      element("small", {}, [formatted(finding.publishedAt ?? finding.firstSeenAt)]),
+    ]),
+    element("p", { class: "brand-evidence__prompt" }, [
+      url ? element("a", { href: url, rel: "noreferrer noopener", target: "_blank" }, [finding.title]) : finding.title,
+    ]),
+    finding.content ? element("p", { class: "brand-evidence__verdict" }, [String(finding.content).slice(0, 280)]) : null,
+    element("div", { class: "brand-evidence__buttons" }, [
+      finding.status !== "reviewed" ? brandEvidenceButton("Mark reviewed", setStatus("reviewed")) : null,
+      finding.status !== "resolved" ? brandEvidenceButton("Resolve", setStatus("resolved")) : null,
+      finding.status !== "dismissed" ? brandEvidenceButton("Dismiss", setStatus("dismissed")) : null,
+      brandEvidenceButton("Create follow-up", async () => {
+        await api(brandEvidencePath(projectId, "/actions"), {
+          method: "POST",
+          body: JSON.stringify({ subjectKind: "finding", subjectId: finding.id, title: `Follow up: ${String(finding.title).slice(0, 160)}` }),
+        });
+        await refresh();
+      }),
+    ]),
+  ]);
+}
+
+function brandEvidenceActions(projectId: string, actions: JsonRecord[], refresh: () => Promise<void>) {
+  if (!actions.length) return element("p", { class: "brand-evidence__empty" }, ["No follow-ups yet. Create one from an answer or a finding."]);
+  return element("ul", { class: "brand-evidence__list" }, actions.map((action) =>
+    element("li", {}, [
+      state(action.status),
+      element("span", {}, [action.title]),
+      element("small", {}, [`${action.subjectKind} · ${formatted(action.completedAt ?? action.createdAt)}`]),
+      brandEvidenceButton(action.status === "open" ? "Mark done" : "Reopen", async () => {
+        await api(brandEvidencePath(projectId, `/actions/${encodeURIComponent(action.id)}`), {
+          method: "POST",
+          body: JSON.stringify({ status: action.status === "open" ? "completed" : "open" }),
+        });
+        await refresh();
+      }),
+    ])));
+}
+
+function brandEvidenceChecks(checks: JsonRecord[]) {
+  if (!checks.length) return element("p", { class: "brand-evidence__empty" }, ["No checks recorded."]);
+  return element("ul", { class: "brand-evidence__list" }, checks.slice(0, 10).map((check) =>
+    element("li", {}, [
+      state(check.status),
+      element("span", {}, [`${check.completed}/${check.attempted} answered · ${check.failed} unavailable`]),
+      element("small", {}, [`${check.trigger} · ${formatted(check.startedAt)}`]),
+    ])));
+}
+
+function brandEvidenceProfile(profile: JsonRecord | null) {
+  if (!profile) return null;
+  const provider = profile.provider?.mode === "custom-endpoint"
+    ? `Custom endpoint · ${profile.provider.model}`
+    : "free-ai gateway · auto";
+  const competitors = (profile.competitors ?? []).map((competitor: JsonRecord) => competitor.name).join(", ");
+  return element("p", { class: "measurement-boundary-note brand-evidence__profile" }, [
+    `${profile.brandName}${profile.brandUrl ? ` · ${profile.brandUrl}` : ""}`,
+    competitors ? ` · vs ${competitors}` : "",
+    ` · ${provider}`,
+    ` · schedule ${profile.schedule ?? "manual"}`,
+  ]);
+}
+
+async function renderBrandEvidence() {
+  const select = document.querySelector<HTMLSelectElement>("[data-brand-evidence-project]");
+  const checkButton = document.querySelector<HTMLButtonElement>("[data-brand-evidence-check]");
+  const status = document.querySelector<HTMLElement>("[data-brand-evidence-status]");
+  const count = document.querySelector<HTMLElement>('[data-dashboard-count="brand-evidence"]');
+  if (!select) return;
+  let listing: JsonRecord;
+  try {
+    listing = await api("/v1/brand-evidence/projects");
+  } catch {
+    replace("brand-evidence", empty("Brand evidence store unavailable"));
+    return;
+  }
+  const profiles: JsonRecord[] = listing.profiles ?? [];
+  if (count) count.textContent = String(profiles.length);
+  if (!profiles.length) {
+    replace("brand-evidence", element("div", { class: "empty-state" }, [
+      element("strong", {}, ["No brand profiles yet"]),
+      element("span", {}, ["Import MentionPilot history or save a profile with apps/backend/scripts/brand-evidence.mjs."]),
+    ]));
+    return;
+  }
+  const requested = new URLSearchParams(window.location.search).get("project");
+  select.replaceChildren(...profiles.map((profile) =>
+    element("option", { value: profile.projectId }, [`${profile.brandName} · ${profile.projectId}`])));
+  select.value = profiles.some((profile) => profile.projectId === requested) ? requested! : profiles[0].projectId;
+
+  const show = async () => {
+    const projectId = select.value;
+    const url = new URL(window.location.href);
+    url.searchParams.set("project", projectId);
+    window.history.replaceState(null, "", url);
+    const view = await api(brandEvidencePath(projectId));
+    const refresh = show;
+    if (checkButton) checkButton.disabled = !view.profile || !(view.prompts ?? []).length;
+    replace("brand-evidence", element("div", { class: "brand-evidence" }, [
+      brandEvidenceProfile(view.profile),
+      brandEvidenceSummary(view),
+      brandEvidenceGroup("Answers", (view.observations ?? []).length, (view.observations ?? []).length
+        ? element("div", { class: "brand-evidence__items" }, view.observations.slice(0, 25).map((observation: JsonRecord) =>
+            brandEvidenceObservation(projectId, observation, refresh)))
+        : element("p", { class: "brand-evidence__empty" }, ["No answers recorded for this project."])),
+      brandEvidenceGroup("Follow-ups", (view.actions ?? []).length, brandEvidenceActions(projectId, view.actions ?? [], refresh)),
+      brandEvidenceGroup("Community findings", (view.findings ?? []).length, (view.findings ?? []).length
+        ? element("div", { class: "brand-evidence__items" }, view.findings.slice(0, 25).map((finding: JsonRecord) =>
+            brandEvidenceFinding(projectId, finding, refresh)))
+        : element("p", { class: "brand-evidence__empty" }, ["No Hacker News or Reddit findings recorded."])),
+      brandEvidenceGroup("Check history", (view.checks ?? []).length, brandEvidenceChecks(view.checks ?? [])),
+    ]));
+  };
+  if (select.dataset.brandEvidenceBound !== "true") {
+    select.dataset.brandEvidenceBound = "true";
+    select.addEventListener("change", () => {
+      if (status) status.textContent = "";
+      void show().catch(() => replace("brand-evidence", empty("Brand evidence unavailable")));
+    });
+    checkButton?.addEventListener("click", async () => {
+      checkButton.disabled = true;
+      if (status) status.textContent = "Running API check…";
+      try {
+        const result = await api(brandEvidencePath(select.value, "/checks"), { method: "POST", body: "{}" });
+        if (status) status.textContent = result.status === "skipped" ? result.reason : result.summary ?? result.status;
+        await show();
+      } catch (error) {
+        if (status) status.textContent = error instanceof Error ? error.message : "Unavailable";
+      } finally {
+        checkButton.disabled = false;
+      }
+    });
+  }
+  await show();
 }
 
 async function renderPerformance() {
