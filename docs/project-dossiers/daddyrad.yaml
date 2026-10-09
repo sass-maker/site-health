@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
-      infrastructureUpdatedAt: 2026-09-25
+      sha256: dd87e765d59c23467b7f9ff5f40fe1d7180d5279c68d5e1158971dc6653cbcc2
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=daddyrad].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: 35c87491e8a1d4934b08cadcbd79aa9d1d19064c2f1aedeadd52cdd189cf1b1b
-      documentSha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
+      documentSha256: dd87e765d59c23467b7f9ff5f40fe1d7180d5279c68d5e1158971dc6653cbcc2
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -245,6 +245,13 @@ deployment:
         name: www.daddyrad.com
         state: active
         attributionReason: 301 redirect to the apex.
+        scope: project
+        operationalOwner: daddyrad
+      - provider: cloudflare
+        kind: email-routing
+        name: daddyrad.com
+        state: enabled-catch-all
+        attributionReason: Owner-requested catch-all forwarding configured 2026-10-09; Cloudflare dashboard confirms active forwarding to the existing verified owner destination and locked mail DNS records.
         scope: project
         operationalOwner: daddyrad
   otherProviders:
