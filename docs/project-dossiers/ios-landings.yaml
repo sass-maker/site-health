@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 287dc07cec7fe4b42d0256377988230fc374f2f039abc3889966a5fe8e46105d
+      sha256: 1074024badee976bd2e543a7a8456618be5f2a7580a397a4f814dfe7087345e5
       infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 4a14ebc7f95c00053fe3f2a862b6a55ed51491724ccd7e8178c2f973610ba6e1
+      sha256: 7a12fcda5a95f43f7923970ce41571bb8d6284c607451595a45a84a7f2e968af
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
@@ -251,7 +251,51 @@ deployment:
             evidence: Selected C Precise source/current CI, existing provider, anonymous public byte matches and actual responsive/control review qualified. Numeric scanner remains unknown.
           - observedAt: 2026-09-27
             evidencePath: null
-    resources: []
+      - provider: cloudflare
+        kind: worker
+        name: daddyrad
+        method: wrangler-direct
+        state: live
+        versionId: 7b4aebf3-ff56-4d12-9ed1-83d3ac8742f8
+        attributionReason: "Transferred 2026-10-09 from daddyrad after the owner merged the DaddyRad site into ios-landings (PR #43); source now ios-landings sites/daddyrad, deployed with pnpm run deploy:daddyrad. Owner-registered daddy-series umbrella domain; Worker serves the landing on the apex and redirects www to it."
+        transferredFrom: daddyrad
+        verification:
+          observedAt: 2026-10-09T14:50:00Z
+          sourceCommit: ab3e1d988581c2237d2dd14498c12b09318c0531
+          versionId: 7b4aebf3-ff56-4d12-9ed1-83d3ac8742f8
+          trafficPercent: 100
+          state: success-production-verified
+          scope: Cutover of the unchanged DaddyRad site from the daddyrad repo to ios-landings sites/daddyrad
+          evidence: pnpm run deploy:daddyrad from ios-landings main ab3e1d9; 21 routes/methods re-probed with identical bodies and headers (CSP, nosniff, Referrer-Policy, www 301 with path+query, 404 guide, body-free HEAD, 405 Allow GET, HEAD); Chrome renders at 390/768/1440 unchanged apart from the randomized studio footer list. Rollback version 09722320-7fb7-4468-b72b-2327430285de. Evidence on Significant-Hobbies/ios-landings#42.
+        verificationHistory:
+          - versionId: 09722320-7fb7-4468-b72b-2327430285de
+            state: previous-deployed-version
+            qualification: Deployed 2026-10-04 from the daddyrad repo (tag 80087ee); catalog had recorded c535bcdd.
+    resources:
+      - provider: cloudflare
+        kind: custom-domain
+        name: daddyrad.com
+        state: active
+        attributionReason: "Transferred 2026-10-09 from daddyrad after the owner merged the DaddyRad site into ios-landings (PR #43); source now ios-landings sites/daddyrad, deployed with pnpm run deploy:daddyrad. Registered via Cloudflare Registrar 2026-09-25; umbrella landing apex."
+        transferredFrom: daddyrad
+        scope: project
+        operationalOwner: ios-landings
+      - provider: cloudflare
+        kind: custom-domain
+        name: www.daddyrad.com
+        state: active
+        attributionReason: "Transferred 2026-10-09 from daddyrad after the owner merged the DaddyRad site into ios-landings (PR #43); source now ios-landings sites/daddyrad, deployed with pnpm run deploy:daddyrad. 301 redirect to the apex."
+        transferredFrom: daddyrad
+        scope: project
+        operationalOwner: ios-landings
+      - provider: cloudflare
+        kind: email-routing
+        name: daddyrad.com
+        state: enabled-catch-all
+        attributionReason: "Transferred 2026-10-09 from daddyrad after the owner merged the DaddyRad site into ios-landings (PR #43); source now ios-landings sites/daddyrad, deployed with pnpm run deploy:daddyrad. Owner-requested catch-all forwarding configured 2026-10-09; Cloudflare dashboard confirms active forwarding to the existing verified owner destination and locked mail DNS records."
+        transferredFrom: daddyrad
+        scope: project
+        operationalOwner: ios-landings
   otherProviders:
     deployments: []
     resources: []

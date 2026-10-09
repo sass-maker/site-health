@@ -6,7 +6,7 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 
 - Workflows: 195
 - Cron/scheduled workflows: 28
-- Attention: action-required 4, clear 151, ignored 17, missing-data 10, reconcile 10, review-history 3
+- Attention: action-required 5, clear 150, ignored 17, missing-data 10, reconcile 10, review-history 3
 - Inventory sources: github-generated 16, remote-only 10, tracked 169
 
 “Latest” is the latest run of any trigger. “Default branch” checks the latest push run against the exact current default-branch SHA. “Schedule” queries scheduled runs separately so a manual dispatch cannot hide a stopped cron.
@@ -64,7 +64,7 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [codevetter](./codevetter.yaml) | [CodeQL](https://github.com/Codevetter/codevetter/actions/runs/37876500410) | `dynamic/github-code-scanning/codeql` | github-generated | active | unknown | — | running (2026-10-09) | not-applicable | not-applicable | managed | clear |
 | [contextdaddy](./contextdaddy.yaml) | [ContextDaddy CI](https://github.com/Significant-Hobbies/contextdaddy/actions/runs/37836481600) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-08) | healthy (2026-10-08) | not-applicable | active | clear |
 | [contextdaddy](./contextdaddy.yaml) | [Protected manual release](https://github.com/Significant-Hobbies/contextdaddy/actions/runs/37230266333) | `.github/workflows/release.yml` | tracked | active | workflow_dispatch | — | healthy (2026-10-04) | not-applicable | not-applicable | active | clear |
-| [daddyrad](./daddyrad.yaml) | [CI](https://github.com/Significant-Hobbies/daddyrad/actions/runs/37821205447) | `.github/workflows/ci.yml` | tracked | active | pull_request, push, workflow_dispatch | — | healthy (2026-10-08) | healthy (2026-10-08) | not-applicable | active | clear |
+| [daddyrad](./daddyrad.yaml) | CI | `.github/workflows/ci.yml` | tracked | — | pull_request, push, workflow_dispatch | — | unverifiable | unverified | unverified | ignored | action-required |
 | [drank](./drank.yaml) | [DRank CI](https://github.com/sarthakagrawal927/drank/actions/runs/35635043327) | `.github/workflows/ci.yml` | tracked | active | pull_request, push, workflow_dispatch | — | failing (2026-09-21) | failing (2026-09-21) | not-applicable | ignored | ignored |
 | [drank](./drank.yaml) | [Update Global DR History](https://github.com/sarthakagrawal927/drank/actions/runs/37300504007) | `.github/workflows/update-global-dr.yml` | tracked | active | schedule, workflow_dispatch | 0 4 * * 1 | failing (2026-10-05) | not-applicable | failing (2026-10-05) | ignored | ignored |
 | [email-manager](./email-manager.yaml) | [CI](https://github.com/Significant-Hobbies/email-manager/actions/runs/37830509305) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-08) | healthy (2026-10-08) | not-applicable | active | clear |

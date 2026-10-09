@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: daddyrad
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-10-09
   checks:
@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: unset
-    githubActionsLiveState: verified
+    githubHomepage: not-applicable
+    githubActionsLiveState: partial
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 287dc07cec7fe4b42d0256377988230fc374f2f039abc3889966a5fe8e46105d
+      sha256: 1074024badee976bd2e543a7a8456618be5f2a7580a397a4f814dfe7087345e5
       infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,20 +24,20 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: 35c87491e8a1d4934b08cadcbd79aa9d1d19064c2f1aedeadd52cdd189cf1b1b
-      documentSha256: 287dc07cec7fe4b42d0256377988230fc374f2f039abc3889966a5fe8e46105d
+      documentSha256: 1074024badee976bd2e543a7a8456618be5f2a7580a397a4f814dfe7087345e5
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 4a14ebc7f95c00053fe3f2a862b6a55ed51491724ccd7e8178c2f973610ba6e1
+      sha256: 7a12fcda5a95f43f7923970ce41571bb8d6284c607451595a45a84a7f2e968af
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
       state: available
-      checkout: daddyrad
-      revision: bfdd8a813deff13fbc9a342ff865a28a50b724e3
-      githubRepository: Significant-Hobbies/daddyrad
-      expectedHomepage: https://daddyrad.com/
+      checkout: ../fleet-archive/daddyrad
+      revision: 37e96b3572eb773bf2a3540228cdfbdd589824ce
+      githubRepository: sarthakagrawal927/daddyrad
+      expectedHomepage: null
       observedHomepage: null
       worktree: &a1
         state: clean
@@ -46,9 +46,9 @@ verification:
     retainedGitHistory:
       observedAt: 2026-10-09
       state: available
-      checkout: daddyrad
-      revision: bfdd8a813deff13fbc9a342ff865a28a50b724e3
-      githubRepository: Significant-Hobbies/daddyrad
+      checkout: ../fleet-archive/daddyrad
+      revision: 37e96b3572eb773bf2a3540228cdfbdd589824ce
+      githubRepository: sarthakagrawal927/daddyrad
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-25
@@ -59,10 +59,11 @@ verification:
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      healthy: 1
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        action-required: 1
+  unknowns:
+    - 1 workflow(s) could not be verified through GitHub.
 ownerVoice:
   whyVerbatim: ok daddyrad is mine now
   fullReviewVerbatim: |-
@@ -78,10 +79,10 @@ ownerVoice:
     also we can remove daddy from subdomain for daddyrad, since it already as daddy
   relatedHistoricalReviews: []
 decision:
-  classification: Active
+  classification: Inactive / merged
   whySummary: Give the daddy series its own umbrella domain instead of Significant Hobbies subdomains.
-  currentState: Live at daddyrad.com via a small Worker; performance/browser/storage subdomains are canonical and the retired significanthobbies hostnames 308 over, including update feeds.
-  nextDecision: Keep it as the series home; add per-app depth only when a daddy app needs more than its own subdomain.
+  currentState: "Owner retired the independent project on 2026-10-09: site merged into ios-landings sites/daddyrad, MCP moved into chatgpt-memory-insights mcp/, repository moved to sarthakagrawal927/daddyrad and checkout to ../fleet-archive/daddyrad. The Worker, domains and email routing are attributed to iOS Landings."
+  nextDecision: Keep the series home in iOS Landings and the MCP source preview in chatgpt-memory-insights; no independent repository roadmap or routine Fleet audits.
 identity:
   name: DaddyRad
   publicName: DaddyRad
@@ -93,16 +94,16 @@ identity:
   moneyOrPersonalBrand: false
   unmetNeed: false
   kind: platform
-  priority: P3
-  tier: active
-  attention: toolbox
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
-  operationalStatus: live
+    status: inactive
+    resumeCondition: Only resume as an independent product after an explicit new owner decision.
+    shareable: false
+  operationalStatus: retired
   authenticationModel: none
-  inRegistry: true
+  inRegistry: false
 product:
   description: Series home and a local read-only MCP source preview for performance, storage, browser rules and agent context.
   publicMakerNote: I moved the daddy series onto its own domain so the apps read as one family.
@@ -112,7 +113,7 @@ product:
     outcome: One domain introduces all four apps and routes to each product's site.
     mechanism: A small Cloudflare Worker serves the series landing; each app owns its subdomain. A local stdio MCP source preview uses all four native cores with bounded read-only tools.
     proof: DaddyRad MCP mcp-v0.1.0 source preview published 2026-10-02 at https://github.com/Significant-Hobbies/daddyrad/releases/tag/mcp-v0.1.0. Exact-revision CI verifies all eight tools across four engines. Source/build instructions only; no signed/notarized server executable is distributed.
-    nextAction: Visit daddyrad.com and pick an app.
+    nextAction: Merged into ios-landings (site) and chatgpt-memory-insights (MCP); no independent roadmap.
   form: website
   platforms:
     - Web
@@ -123,20 +124,20 @@ product:
     - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-09-25
-    latestCommitAt: 2026-10-08
-    retainedCommitCount: 34
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 35
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: daddyrad
-  observedRevision: bfdd8a813deff13fbc9a342ff865a28a50b724e3
-  githubRepository: Significant-Hobbies/daddyrad
+  checkout: ../fleet-archive/daddyrad
+  observedRevision: 37e96b3572eb773bf2a3540228cdfbdd589824ce
+  githubRepository: sarthakagrawal927/daddyrad
   githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/daddyrad
+  url: https://github.com/sarthakagrawal927/daddyrad
   aliases: []
-  sourceOverride: null
+  sourceOverride: ../fleet-archive/daddyrad
   tooling:
     declaredPackageManager: null
     detectedSignals:
@@ -154,17 +155,18 @@ githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
   remote:
-    repository: Significant-Hobbies/daddyrad
-    defaultBranch: main
-    defaultBranchSha: bfdd8a813deff13fbc9a342ff865a28a50b724e3
+    repository: sarthakagrawal927/daddyrad
+    defaultBranch: null
+    defaultBranchSha: null
     homepage: null
-    query: verified
+    query: unverifiable
+    reason: "Command failed: gh api repos/sarthakagrawal927/daddyrad/actions/runs?per_page=100"
     disposition:
-      disposition: active
-      reason: tracked project
+      disposition: ignored
+      reason: Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems.
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -176,96 +178,42 @@ githubActions:
       inventory:
         source: tracked
         local: true
-        remote: true
+        remote: false
       ownerDisposition:
-        status: active
-        reason: tracked workflow
+        status: ignored
+        reason: Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems.
+      attention: action-required
       live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 37821205447
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: bfdd8a813deff13fbc9a342ff865a28a50b724e3
-          createdAt: 2026-10-08T18:02:26Z
-          updatedAt: 2026-10-08T18:09:28Z
-          url: https://github.com/Significant-Hobbies/daddyrad/actions/runs/37821205447
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
+        health: unverifiable
+        reason: "Command failed: gh api repos/sarthakagrawal927/daddyrad/actions/runs?per_page=100"
+        apiState: null
         lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 37821205447
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: bfdd8a813deff13fbc9a342ff865a28a50b724e3
-          createdAt: 2026-10-08T18:02:26Z
-          updatedAt: 2026-10-08T18:09:28Z
-          url: https://github.com/Significant-Hobbies/daddyrad/actions/runs/37821205447
-        ageDays: 0
-      attention: clear
+        ageDays: null
 deployment:
-  kind: worker
-  deployed: true
-  domains:
-    - daddyrad.com
-    - www.daddyrad.com
-  primaryUrl: https://daddyrad.com/
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
   targets: []
   cloudflare:
-    deployments:
-      - provider: cloudflare
-        kind: worker
-        name: daddyrad
-        method: wrangler-direct
-        state: live
-        versionId: c535bcdd-b6ac-4b9e-9937-f59c9f5198d8
-        attributionReason: Owner-registered daddy-series umbrella domain; Worker serves the landing on the apex and redirects www to it.
-    resources:
-      - provider: cloudflare
-        kind: custom-domain
-        name: daddyrad.com
-        state: active
-        attributionReason: Registered via Cloudflare Registrar 2026-09-25; umbrella landing apex.
-        scope: project
-        operationalOwner: daddyrad
-      - provider: cloudflare
-        kind: custom-domain
-        name: www.daddyrad.com
-        state: active
-        attributionReason: 301 redirect to the apex.
-        scope: project
-        operationalOwner: daddyrad
-      - provider: cloudflare
-        kind: email-routing
-        name: daddyrad.com
-        state: enabled-catch-all
-        attributionReason: Owner-requested catch-all forwarding configured 2026-10-09; Cloudflare dashboard confirms active forwarding to the existing verified owner destination and locked mail DNS records.
-        scope: project
-        operationalOwner: daddyrad
+    deployments: []
+    resources: []
   otherProviders:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: beta
-  ready: true
-  verifiedAt: 2026-09-25
-  reason: Umbrella landing returned HTTPS 200 at daddyrad.com and www redirects to the apex; each of the four app subdomains now serves its own public site and download.
+  ready: false
+  verifiedAt: 2026-10-09
+  reason: Retired as an independent project; daddyrad.com is now an ios-landings worker-site target.
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/daddyrad/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/daddyrad/issues
   geoIdentity: null
 notes:
-  catalog: DaddyRad is the public umbrella for four native Mac apps. Its Worker serves daddyrad.com and redirects www; each app owns its public subdomain, download, and update path.
-  infrastructure: Domain registered and site deployed 2026-09-25; replaces significanthobbies.com subdomains as the daddy-series home. context.daddyrad.com moved to the contextdaddy-site Worker later the same day when ContextDaddy shipped its public beta.
+  catalog: |-
+    DaddyRad is the public umbrella for four native Mac apps. Its Worker serves daddyrad.com and redirects www; each app owns its public subdomain, download, and update path.
+    Owner ended the independent project on 2026-10-09. The site merged into ios-landings sites/daddyrad (Significant-Hobbies/ios-landings PR #43, squash ab3e1d9; issue ios-landings#42) and was deployed from ios-landings main ab3e1d9 as Worker daddyrad version 7b4aebf3-ff56-4d12-9ed1-83d3ac8742f8 (previous 09722320-7fb7-4468-b72b-2327430285de); live routes, headers, www 301, 404, HEAD and 405 byte/header-identical before and after. mcp/ and its macOS CI moved to chatgpt-memory-insights (https://github.com/Significant-Hobbies/chatgpt-memory-insights/pull/60 (25c4940)).
+    2026-10-09: GitHub repository transferred to sarthakagrawal927 (not GitHub-archived); local checkout moved intact to ../fleet-archive/daddyrad.
+  infrastructure: "2026-10-09: merged into ios-landings; Worker daddyrad, daddyrad.com, www.daddyrad.com and the daddyrad.com email routing are attributed to ios-landings (infrastructure.projects.ios-landings, transferredFrom daddyrad)."

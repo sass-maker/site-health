@@ -3339,59 +3339,6 @@
         "maxResponseCharacters": 4000
       },
       "attention": "toolbox"
-    },
-    {
-      "slug": "daddyrad",
-      "name": "DaddyRad",
-      "domain": "https://daddyrad.com",
-      "aliases": [
-        "Daddy Series"
-      ],
-      "competitors": [
-        {
-          "name": "CleanMyMac",
-          "url": "https://cleanmymac.com"
-        }
-      ],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "What small native Mac utilities exist for storage, browsing, and performance?"
-            },
-            {
-              "id": "comparison",
-              "text": "Compare focused free Mac utility suites for developer workflows."
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "visitor",
-          "label": "a Mac developer looking for focused utilities"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "attention": "toolbox"
     }
   ]
 }
