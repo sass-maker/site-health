@@ -3,7 +3,7 @@ projectId: codevetter
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-08
+  generatedAt: 2026-10-09
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 6d3a433d6a364c9e693e4a3dd9c33c854e904fc3184f6cc9eef7c3d0eb2c64a8
+      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
       infrastructureUpdatedAt: 2026-08-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,22 +31,22 @@ verification:
       sha256: 9b39a97d596bcb85f17f78e1242bde0205a4ef2f3dc4e42cdf1f53b56a1f3f84
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-08
+      observedAt: 2026-10-09
       state: available
       checkout: codevetter
-      revision: 989cc977270eecf0bb2746b32657c97a75147a70
+      revision: ba18d236d74cdc0fdf6f086a9e2c566ef6b5841c
       githubRepository: Codevetter/codevetter
       expectedHomepage: https://codevetter.com
       observedHomepage: https://codevetter.com
       worktree: &a1
-        state: dirty
-        trackedChangeCount: 27
+        state: clean
+        trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-10-08
+      observedAt: 2026-10-09
       state: available
       checkout: codevetter
-      revision: 989cc977270eecf0bb2746b32657c97a75147a70
+      revision: ba18d236d74cdc0fdf6f086a9e2c566ef6b5841c
       githubRepository: Codevetter/codevetter
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -56,12 +56,12 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-08T20:22:37.978Z
+      observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
       healthy: 10
-      running: 1
       failing: 1
       stale: 1
+      running: 1
       attention: &a2
         missing-data: 2
         clear: 11
@@ -116,13 +116,13 @@ product:
     - SQLite
   retainedGitHistory:
     firstCommitAt: 2025-11-30
-    latestCommitAt: 2026-10-03
-    retainedCommitCount: 1467
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 1506
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: codevetter
-  observedRevision: 989cc977270eecf0bb2746b32657c97a75147a70
+  observedRevision: ba18d236d74cdc0fdf6f086a9e2c566ef6b5841c
   githubRepository: Codevetter/codevetter
   githubHomepageUrl: https://codevetter.com
   worktree: *a1
@@ -261,6 +261,7 @@ repository:
       - test:core-tools
       - test:corpus-contracts
       - test:cross-review-benchmark
+      - test:dependency-security
       - test:graph-context
       - test:native
       - test:native-appcast
@@ -289,18 +290,18 @@ repository:
       - version:check
       - version:sync
 githubActions:
-  observedAt: 2026-10-08T20:22:37.978Z
+  observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
     healthy: 10
-    running: 1
     failing: 1
     stale: 1
+    running: 1
   attention: *a2
   remote:
     repository: Codevetter/codevetter
     defaultBranch: main
-    defaultBranchSha: c8a2791c1ef41e9db24a0e2fc6209c20d949ea89
+    defaultBranchSha: 4504d0a0dcabec15b7ea684e415a4e02acd48662
     homepage: https://codevetter.com
     query: verified
     disposition:
@@ -341,7 +342,7 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision c8a2791
+        reason: no push run at current main revision 4504d0a
         lastRun:
           id: 36178050452
           status: completed
@@ -368,19 +369,19 @@ githubActions:
         status: active
         reason: tracked workflow
       live:
-        health: running
-        reason: latest run is in_progress
+        health: healthy
+        reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37835864989
-          status: in_progress
-          conclusion: null
-          event: pull_request
-          branch: agent/codevetter-osv-advisories-20261009
-          headSha: d51f45723dd3cdaa534357b181df1a47daf760e5
-          createdAt: 2026-10-08T19:57:46Z
-          updatedAt: 2026-10-08T19:58:01Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/37835864989
+          id: 37853034025
+          status: completed
+          conclusion: success
+          event: push
+          branch: main
+          headSha: 4504d0a0dcabec15b7ea684e415a4e02acd48662
+          createdAt: 2026-10-08T22:22:16Z
+          updatedAt: 2026-10-08T22:42:10Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/37853034025
         ageDays: 0
       schedule:
         health: not-applicable
@@ -390,15 +391,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37826672696
+          id: 37853034025
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: c8a2791c1ef41e9db24a0e2fc6209c20d949ea89
-          createdAt: 2026-10-08T18:44:58Z
-          updatedAt: 2026-10-08T19:12:29Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/37826672696
+          headSha: 4504d0a0dcabec15b7ea684e415a4e02acd48662
+          createdAt: 2026-10-08T22:22:16Z
+          updatedAt: 2026-10-08T22:42:10Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/37853034025
         ageDays: 0
       attention: clear
     - name: Deploy Landing Page
@@ -455,15 +456,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37835864585
+          id: 37876478185
           status: completed
           conclusion: success
-          event: pull_request
-          branch: agent/codevetter-osv-advisories-20261009
-          headSha: d51f45723dd3cdaa534357b181df1a47daf760e5
-          createdAt: 2026-10-08T19:57:46Z
-          updatedAt: 2026-10-08T19:58:22Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/37835864585
+          event: push
+          branch: preserve/main-checkout-dirty-20261003
+          headSha: e1db4ce1fab67d8e9e319bd0d517c1aae5b526a2
+          createdAt: 2026-10-09T02:50:36Z
+          updatedAt: 2026-10-09T02:51:26Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/37876478185
         ageDays: 0
       schedule:
         health: not-applicable
@@ -473,15 +474,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37826672142
+          id: 37853033008
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: c8a2791c1ef41e9db24a0e2fc6209c20d949ea89
-          createdAt: 2026-10-08T18:44:57Z
-          updatedAt: 2026-10-08T18:45:32Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/37826672142
+          headSha: 4504d0a0dcabec15b7ea684e415a4e02acd48662
+          createdAt: 2026-10-08T22:22:16Z
+          updatedAt: 2026-10-08T22:27:52Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/37853033008
         ageDays: 0
       attention: clear
     - name: Native macOS production-candidate qualification
@@ -577,15 +578,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37835864667
+          id: 37846575447
           status: completed
           conclusion: success
-          event: pull_request
-          branch: agent/codevetter-osv-advisories-20261009
-          headSha: d51f45723dd3cdaa534357b181df1a47daf760e5
-          createdAt: 2026-10-08T19:57:46Z
-          updatedAt: 2026-10-08T19:59:25Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/37835864667
+          event: push
+          branch: main
+          headSha: ba18d236d74cdc0fdf6f086a9e2c566ef6b5841c
+          createdAt: 2026-10-08T21:24:41Z
+          updatedAt: 2026-10-08T21:25:38Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/37846575447
         ageDays: 0
       schedule:
         health: not-applicable
@@ -593,17 +594,17 @@ githubActions:
         lastRun: null
       currentDefaultBranch:
         health: missing
-        reason: no push run at current main revision c8a2791
+        reason: no push run at current main revision 4504d0a
         lastRun:
-          id: 37363664437
+          id: 37846575447
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4a0bc0ea004c9d8d12e0460271886a57c626b1a6
-          createdAt: 2026-10-05T19:28:54Z
-          updatedAt: 2026-10-05T19:30:18Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/37363664437
+          headSha: ba18d236d74cdc0fdf6f086a9e2c566ef6b5841c
+          createdAt: 2026-10-08T21:24:41Z
+          updatedAt: 2026-10-08T21:25:38Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/37846575447
       attention: missing-data
     - name: Release Native macOS App
       file: .github/workflows/release.yml
@@ -661,15 +662,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37835864734
+          id: 37853033018
           status: completed
           conclusion: success
-          event: pull_request
-          branch: agent/codevetter-osv-advisories-20261009
-          headSha: d51f45723dd3cdaa534357b181df1a47daf760e5
-          createdAt: 2026-10-08T19:57:46Z
-          updatedAt: 2026-10-08T19:58:27Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/37835864734
+          event: push
+          branch: main
+          headSha: 4504d0a0dcabec15b7ea684e415a4e02acd48662
+          createdAt: 2026-10-08T22:22:16Z
+          updatedAt: 2026-10-08T22:28:01Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/37853033018
         ageDays: 0
       schedule:
         health: not-applicable
@@ -679,15 +680,15 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37826672157
+          id: 37853033018
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: c8a2791c1ef41e9db24a0e2fc6209c20d949ea89
-          createdAt: 2026-10-08T18:44:57Z
-          updatedAt: 2026-10-08T18:45:30Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/37826672157
+          headSha: 4504d0a0dcabec15b7ea684e415a4e02acd48662
+          createdAt: 2026-10-08T22:22:16Z
+          updatedAt: 2026-10-08T22:28:01Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/37853033018
         ageDays: 0
       attention: clear
     - name: Weekly Quality Check
@@ -821,19 +822,19 @@ githubActions:
         status: managed
         reason: GitHub-generated workflow
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: running
+        reason: latest run is in_progress
         apiState: active
         lastRun:
-          id: 37835860987
-          status: completed
-          conclusion: success
+          id: 37876500410
+          status: in_progress
+          conclusion: null
           event: dynamic
-          branch: refs/pull/370/head
-          headSha: d51f45723dd3cdaa534357b181df1a47daf760e5
-          createdAt: 2026-10-08T19:57:45Z
-          updatedAt: 2026-10-08T20:17:10Z
-          url: https://github.com/Codevetter/codevetter/actions/runs/37835860987
+          branch: refs/pull/375/head
+          headSha: e1db4ce1fab67d8e9e319bd0d517c1aae5b526a2
+          createdAt: 2026-10-09T02:50:52Z
+          updatedAt: 2026-10-09T02:51:01Z
+          url: https://github.com/Codevetter/codevetter/actions/runs/37876500410
         ageDays: 0
       schedule:
         health: not-applicable
