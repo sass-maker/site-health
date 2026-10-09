@@ -15586,9 +15586,9 @@
     "daddyrad": {
       "source": {
         "state": "available",
-        "path": "daddyrad",
-        "revision": "bfdd8a813deff13fbc9a342ff865a28a50b724e3",
-        "repositorySlug": "Significant-Hobbies/daddyrad",
+        "path": "../fleet-archive/daddyrad",
+        "revision": "37e96b3572eb773bf2a3540228cdfbdd589824ce",
+        "repositorySlug": "sarthakagrawal927/daddyrad",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -15597,8 +15597,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-25",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 34,
+        "latestCommitAt": "2026-10-09",
+        "retainedCommitCount": 35,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15615,51 +15615,20 @@
           "inventory": {
             "source": "tracked",
             "local": true,
-            "remote": true
+            "remote": false
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
+          "attention": "action-required",
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
-            "apiState": "active",
-            "lastRun": {
-              "id": 37821205447,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "bfdd8a813deff13fbc9a342ff865a28a50b724e3",
-              "createdAt": "2026-10-08T18:02:26Z",
-              "updatedAt": "2026-10-08T18:09:28Z",
-              "url": "https://github.com/Significant-Hobbies/daddyrad/actions/runs/37821205447"
-            },
-            "ageDays": 0
-          },
-          "schedule": {
-            "health": "not-applicable",
-            "reason": "workflow has no schedule trigger",
-            "lastRun": null
-          },
-          "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
-            "lastRun": {
-              "id": 37821205447,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "bfdd8a813deff13fbc9a342ff865a28a50b724e3",
-              "createdAt": "2026-10-08T18:02:26Z",
-              "updatedAt": "2026-10-08T18:09:28Z",
-              "url": "https://github.com/Significant-Hobbies/daddyrad/actions/runs/37821205447"
-            },
-            "ageDays": 0
-          },
-          "attention": "clear"
+            "health": "unverifiable",
+            "reason": "Command failed: gh api repos/sarthakagrawal927/daddyrad/actions/runs?per_page=100",
+            "apiState": null,
+            "lastRun": null,
+            "ageDays": null
+          }
         }
       ],
       "toolingSignals": [
@@ -15686,14 +15655,15 @@
       "rootPackageScripts": [],
       "projectId": "daddyrad",
       "githubActionsMeta": {
-        "repository": "Significant-Hobbies/daddyrad",
-        "defaultBranch": "main",
-        "defaultBranchSha": "bfdd8a813deff13fbc9a342ff865a28a50b724e3",
+        "repository": "sarthakagrawal927/daddyrad",
+        "defaultBranch": null,
+        "defaultBranchSha": null,
         "homepage": null,
-        "query": "verified",
+        "query": "unverifiable",
+        "reason": "Command failed: gh api repos/sarthakagrawal927/daddyrad/actions/runs?per_page=100",
         "disposition": {
-          "disposition": "active",
-          "reason": "tracked project"
+          "disposition": "ignored",
+          "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
         }
       }
     },
