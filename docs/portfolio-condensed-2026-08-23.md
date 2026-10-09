@@ -1,6 +1,6 @@
 # Fleet portfolio: compressed owner intent
 
-Date: 2026-08-23 (lifecycle counts and new owner-requested identities reconciled 2026-10-08)
+Date: 2026-08-23 (lifecycle counts and new owner-requested identities reconciled 2026-10-09)
 Scope: all 77 retained canonical identities; archived identities remain recorded for infrastructure ownership but are excluded from Fleet listings.
 
 This document preserves the meaning of the owner's project review in compact,
@@ -26,8 +26,8 @@ change lifecycle or sharing decisions.
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | Primary | 2 | Receives focused feature development, experiments and validation. |
-| Active | 53 | Supported and kept useful; improvements follow concrete needs. |
-| Inactive | 22 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
+| Active | 51 | Supported and kept useful; improvements follow concrete needs. |
+| Inactive | 24 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
 | **Total** | **77** | Every canonical Fleet identity appears exactly once. |
 
 These statuses reflect current owner intent. They deliberately override misleading signals such as a live deployment for an inactive product or an old repository label that says maintenance while the owner is actively building.
@@ -51,7 +51,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | Anchor | Active | Plan a realistic day, follow it with a focus timer, and explain why the lived day differed. | Public Mac build 20 is notarized; local build 25 is installed for dogfooding but Gatekeeper rejects it as unnotarized. Account continuity and production CloudKit compatibility remain release gates. | Dogfood the complete schedule → focus → interruption → review loop; qualify a newer public build separately. |
 | Anime List | Active | Add better anime filtering, discovery, and a personal watchlist. | Complete and frequently used; broader anime-community features are unwanted. | Maintain the directory/watchlist and fix only meaningful regressions or missing core functions. |
 | App Health | Active | Replace fragmented Sentry, PostHog, Slack, and cloud-console checking with easy high-level observability. | Good v0/v1 with a coherent OpenTelemetry-friendly model. | Integrate it across owned production services and let observed failures drive improvements. |
-| Browser Agent Testing (`agent-testing`) | Inactive / completed experiment | Compare browser and native UI automation by verified feedback time, cost, reliability, and defect detection. | Completed public benchmark and evidence map with no active framework or catalogue-expansion roadmap. | Keep the public evidence map and reproducibility artifacts; replay a documented arm only when a concrete product decision requires it. |
+| Browser Agent Testing (`agent-testing`) | Inactive / retired | Preserve the browser/native automation comparison as historical research that could have been a blog post. | Owner retired it from active Fleet on 2026-10-09; source, benchmark evidence and infrastructure attribution remain retained. | No development, catalogue expansion or routine Fleet obligations unless the owner explicitly reopens it. |
 | Calorie | Active | Support weight loss through food logging, fasting windows, exercise timing, and daily performance. | Functionally done and connected to the Hub family. | Keep using it; change it only when repeated use reveals a gap. |
 | ChatGPT Connections | Active | Let ChatGPT securely reach selected Fleet projects. | Working shared read-only gateway; ChatGPT is the destination and MCP is the protocol. | Add stronger or additional connections only when a concrete consumer needs them. |
 | Memory Map (`chatgpt-memory-insights`) | Inactive | Analyse exported AI conversations for themes, memory, emotion, and personal change. | Useful but not complete; dashboard and insight quality can improve. | Deepen historical-shift insights, then add Codex, Claude, and other sources without weakening the browser-local privacy boundary. |
