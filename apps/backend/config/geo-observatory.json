@@ -561,22 +561,6 @@
       ]
     },
     {
-      "id": "mashup",
-      "origin": "https://mashup.highsignal.app",
-      "queries": [
-        {
-          "qid": "mashup-brand",
-          "kind": "brand",
-          "q": "mashup.highsignal.app"
-        },
-        {
-          "qid": "mashup-category",
-          "kind": "category",
-          "q": "turn a podcast archive into edited clips with provenance"
-        }
-      ]
-    },
-    {
       "id": "web-playables",
       "origin": "https://idle.aliveville.com",
       "queries": [

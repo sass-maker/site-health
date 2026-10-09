@@ -2964,19 +2964,19 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "running",
+            "reason": "latest run is in_progress",
             "apiState": "active",
             "lastRun": {
-              "id": 37830542193,
-              "status": "completed",
-              "conclusion": "success",
+              "id": 37942151246,
+              "status": "in_progress",
+              "conclusion": null,
               "event": "push",
               "branch": "main",
-              "headSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
-              "createdAt": "2026-10-08T19:15:12Z",
-              "updatedAt": "2026-10-08T19:18:22Z",
-              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37830542193"
+              "headSha": "2ad5d4c83f31304e272c7fe9966fd1a0a264f275",
+              "createdAt": "2026-10-09T14:10:00Z",
+              "updatedAt": "2026-10-09T14:10:11Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37942151246"
             },
             "ageDays": 0
           },
@@ -2986,18 +2986,18 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
+            "health": "running",
+            "reason": "current main push is in_progress",
             "lastRun": {
-              "id": 37830542193,
-              "status": "completed",
-              "conclusion": "success",
+              "id": 37942151246,
+              "status": "in_progress",
+              "conclusion": null,
               "event": "push",
               "branch": "main",
-              "headSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
-              "createdAt": "2026-10-08T19:15:12Z",
-              "updatedAt": "2026-10-08T19:18:22Z",
-              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37830542193"
+              "headSha": "2ad5d4c83f31304e272c7fe9966fd1a0a264f275",
+              "createdAt": "2026-10-09T14:10:00Z",
+              "updatedAt": "2026-10-09T14:10:11Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37942151246"
             },
             "ageDays": 0
           },
@@ -3027,15 +3027,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37864180883,
+              "id": 37937173722,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
               "headSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
-              "createdAt": "2026-10-09T00:19:28Z",
-              "updatedAt": "2026-10-09T00:19:34Z",
-              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37864180883"
+              "createdAt": "2026-10-09T13:29:12Z",
+              "updatedAt": "2026-10-09T13:29:18Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37937173722"
             },
             "ageDays": 0
           },
@@ -3043,15 +3043,15 @@
             "health": "healthy",
             "reason": "latest scheduled run concluded success",
             "lastRun": {
-              "id": 37864180883,
+              "id": 37937173722,
               "status": "completed",
               "conclusion": "success",
               "event": "schedule",
               "branch": "main",
               "headSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
-              "createdAt": "2026-10-09T00:19:28Z",
-              "updatedAt": "2026-10-09T00:19:34Z",
-              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37864180883"
+              "createdAt": "2026-10-09T13:29:12Z",
+              "updatedAt": "2026-10-09T13:29:18Z",
+              "url": "https://github.com/sass-maker/fleet-social/actions/runs/37937173722"
             },
             "ageDays": 0,
             "freshnessDays": 1
@@ -3126,7 +3126,7 @@
       "githubActionsMeta": {
         "repository": "sass-maker/fleet-social",
         "defaultBranch": "main",
-        "defaultBranchSha": "50c9026b6931c996aa524ab7118124bb248dbeb0",
+        "defaultBranchSha": "2ad5d4c83f31304e272c7fe9966fd1a0a264f275",
         "homepage": null,
         "query": "verified",
         "disposition": {
@@ -11045,9 +11045,9 @@
     "mashup": {
       "source": {
         "state": "available",
-        "path": "mashup",
-        "revision": "1adcf83027b9a32ae4c72294a722f7d21f41a38d",
-        "repositorySlug": "sass-maker/mashup",
+        "path": "../fleet-archive/mashup",
+        "revision": "402dc6e36c59492feebe7f9966a6034f4d8b3a97",
+        "repositorySlug": "sarthakagrawal927/mashup",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -11056,8 +11056,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 65,
+        "latestCommitAt": "2026-10-09",
+        "retainedCommitCount": 66,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11077,23 +11077,23 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "cancelled",
+            "reason": "latest run was cancelled",
             "apiState": "active",
             "lastRun": {
-              "id": 37819750207,
+              "id": 37942389612,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "cancelled",
               "event": "push",
               "branch": "main",
-              "headSha": "1adcf83027b9a32ae4c72294a722f7d21f41a38d",
-              "createdAt": "2026-10-08T17:51:11Z",
-              "updatedAt": "2026-10-08T17:53:11Z",
-              "url": "https://github.com/sass-maker/mashup/actions/runs/37819750207"
+              "headSha": "402dc6e36c59492feebe7f9966a6034f4d8b3a97",
+              "createdAt": "2026-10-09T14:11:56Z",
+              "updatedAt": "2026-10-09T14:12:52Z",
+              "url": "https://github.com/sarthakagrawal927/mashup/actions/runs/37942389612"
             },
             "ageDays": 0
           },
@@ -11103,22 +11103,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
+            "health": "unverifiable",
+            "reason": "current main push concluded cancelled",
             "lastRun": {
-              "id": 37819750207,
+              "id": 37942389612,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "cancelled",
               "event": "push",
               "branch": "main",
-              "headSha": "1adcf83027b9a32ae4c72294a722f7d21f41a38d",
-              "createdAt": "2026-10-08T17:51:11Z",
-              "updatedAt": "2026-10-08T17:53:11Z",
-              "url": "https://github.com/sass-maker/mashup/actions/runs/37819750207"
+              "headSha": "402dc6e36c59492feebe7f9966a6034f4d8b3a97",
+              "createdAt": "2026-10-09T14:11:56Z",
+              "updatedAt": "2026-10-09T14:12:52Z",
+              "url": "https://github.com/sarthakagrawal927/mashup/actions/runs/37942389612"
             },
             "ageDays": 0
           },
-          "attention": "clear"
+          "attention": "ignored"
         }
       ],
       "toolingSignals": [
@@ -11162,14 +11162,14 @@
       ],
       "projectId": "mashup",
       "githubActionsMeta": {
-        "repository": "sass-maker/mashup",
+        "repository": "sarthakagrawal927/mashup",
         "defaultBranch": "main",
-        "defaultBranchSha": "1adcf83027b9a32ae4c72294a722f7d21f41a38d",
+        "defaultBranchSha": "402dc6e36c59492feebe7f9966a6034f4d8b3a97",
         "homepage": "https://mashup.highsignal.app",
         "query": "verified",
         "disposition": {
-          "disposition": "active",
-          "reason": "tracked project"
+          "disposition": "ignored",
+          "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
         }
       }
     },

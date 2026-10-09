@@ -2803,52 +2803,6 @@
       "attention": "toolbox"
     },
     {
-      "slug": "mashup",
-      "name": "Mashup",
-      "domain": "https://mashup.highsignal.app",
-      "aliases": [],
-      "competitors": [],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "What browser tools demo local media editing pipelines?"
-            },
-            {
-              "id": "comparison",
-              "text": "Compare local media-editing demos with inspectable receipts."
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "visitor",
-          "label": "someone evaluating local media pipelines"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "attention": "toolbox"
-    },
-    {
       "slug": "ph-catalog",
       "name": "PH Catalog",
       "domain": "https://ph.significanthobbies.com",
