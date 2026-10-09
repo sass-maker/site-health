@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: not-applicable
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
+      sha256: 877b47d5f810866330dbeec2f0dcf999535b93756953cbd5c895af9b19b30916
       infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: ae3ff03bb973a0027691fdad911c271ef2c6c2488b735c10088a42895f991b6d
-      documentSha256: 93065bf883cd00010d88edd89e655e9edae75cadb6638c5eead93172c89fb690
+      documentSha256: 877b47d5f810866330dbeec2f0dcf999535b93756953cbd5c895af9b19b30916
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 2ef4b475b46f843f844d4e9977589f9467b8dc1c7d7e83cd1c68197b1fd33643
+      sha256: 4a14ebc7f95c00053fe3f2a862b6a55ed51491724ccd7e8178c2f973610ba6e1
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
@@ -37,7 +37,7 @@ verification:
       checkout: ../fleet-archive/mentionpilot
       revision: 4d7a23ec66a9527062f659d27ce8d5f57f733c04
       githubRepository: sarthakagrawal927/mentionpilot
-      expectedHomepage: https://mention.highsignal.app
+      expectedHomepage: null
       observedHomepage: https://mention.highsignal.app
       worktree: &a1
         state: clean
@@ -70,7 +70,7 @@ ownerVoice:
 decision:
   classification: Inactive / merged
   whySummary: Check brand awareness and perception across AI answers and supported community sources.
-  currentState: "Owner merged it into Site Health AI Awareness on 2026-10-09 (site-health#518, PR #520); repository moved to sarthakagrawal927 and checkout to ../fleet-archive/mentionpilot. Live Workers, Pages, D1 and domain stay attributed to MentionPilot, stewarded by Site Health, until the owner data transfer and retirement cutover."
+  currentState: "Owner merged it into Site Health AI Awareness on 2026-10-09 (site-health#518, PR #520); repository moved to sarthakagrawal927 and checkout to ../fleet-archive/mentionpilot. Cutover done 2026-10-09: data transferred into Site Health brand evidence; Workers, Pages and deploy workflows removed, so mention.highsignal.app no longer serves the product; D1 kept as a backup, stewarded by Site Health."
   nextDecision: Use Site Health AI Awareness brand evidence; no independent product roadmap.
 identity:
   name: MentionPilot
@@ -89,7 +89,7 @@ identity:
     status: inactive
     resumeCondition: Only resume as an independent product after an explicit new owner decision.
     shareable: false
-  operationalStatus: live
+  operationalStatus: retired
   authenticationModel: public-persistent
   inRegistry: false
 product:
@@ -101,7 +101,7 @@ product:
     outcome: Inspect original evidence, identify source or positioning gaps, and decide a useful follow-up.
     mechanism: A web workspace retains prompts, responses, citations, provider status, timestamps, and bounded social signals.
     proof: The API health endpoint returned HTTP 200 on 2026-09-25; the listed web hostname did not resolve, so a current public user journey is unverified.
-    nextAction: Merged into Site Health AI Awareness; retained infrastructure awaits the owner data transfer and retirement cutover.
+    nextAction: "Retired: evidence lives in Site Health AI Awareness brand evidence; the public service is offline."
   form: Web intelligence workspace
   platforms:
     - Web
@@ -317,45 +317,33 @@ githubActions:
           url: https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37046712662
       attention: ignored
 deployment:
-  kind: worker+pages
-  deployed: true
-  domains:
-    - mention.highsignal.app
-  primaryUrl: https://mention.highsignal.app
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
-  targets:
-    - id: domain
-      kind: pages
-      name: mentionpilot-domain
-      sourcePath: ../fleet-archive/mentionpilot/workers/domain-proxy
-    - id: api
-      kind: worker
-      name: mentionpilot-api
-      sourcePath: ../fleet-archive/mentionpilot/workers/api
-    - id: web
-      kind: worker
-      name: mentionpilot-web
-      sourcePath: ../fleet-archive/mentionpilot/apps/web
+  targets: []
   cloudflare:
     deployments:
       - provider: cloudflare
         kind: pages
         name: mentionpilot-domain
-        state: live-observed
+        state: deleted
         consumerRepository: sarthakagrawal927/mentionpilot
         scope: shared-fleet-account
-        attributionReason: Canonical MentionPilot project owns this resource; its repository identifies the matching Cloudflare runtime or D1 binding. Provider inventory was last observed on 2026-09-14.
+        attributionReason: Deleted 2026-10-09 in the MentionPilot retirement cutover (site-health#518) after the D1 data transfer into Site Health brand evidence verified. Custom domains mention.highsignal.app and mention.highsignal.com detached via Cloudflare API first.
         verification:
           observedAt: 2026-09-14
           evidence: Authenticated Cloudflare Pages inventory / Workers dashboard; local mentionpilot AGENTS.md identifies frontend and API.
           currentAccess: Repository-listed mentionpilot-web.pages.dev did not resolve on 2026-09-25; provider deployment was not rechecked.
+        deletedAt: 2026-10-09
       - provider: cloudflare
         kind: worker
         name: mentionpilot-api
-        state: live
+        state: deleted
         consumerRepository: sarthakagrawal927/mentionpilot
         scope: shared-fleet-account
-        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
+        attributionReason: Deleted 2026-10-09 in the MentionPilot retirement cutover (site-health#518) after the D1 data transfer into Site Health brand evidence verified. Its daily 06:00 UTC cron went with it.
         verification:
           observedAt: 2026-10-02T10:50:42Z
           deploymentId: d36b5201-e990-496a-aa0c-d1f452efbb13
@@ -368,35 +356,37 @@ deployment:
             - name: FREE_AI
               service: free-ai-gateway
               entrypoint: FleetGateway
+        deletedAt: 2026-10-09
       - provider: cloudflare
         kind: worker
         name: mentionpilot-web
-        state: live
+        state: deleted
         consumerRepository: sarthakagrawal927/mentionpilot
         scope: shared-fleet-account
-        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
+        attributionReason: Deleted 2026-10-09 in the MentionPilot retirement cutover (site-health#518) after the D1 data transfer into Site Health brand evidence verified.
         verification:
           observedAt: 2026-09-14
           evidence: Authenticated Cloudflare Pages inventory / Workers dashboard; local mentionpilot AGENTS.md identifies frontend and API.
           currentAccess: Repository-listed mentionpilot-web.pages.dev did not resolve on 2026-09-25; provider deployment was not rechecked.
+        deletedAt: 2026-10-09
     resources:
       - provider: cloudflare
         kind: d1
         name: mentionpilot-db
         id: 50564400-a892-48b5-a2f9-1357fa409e0a
-        state: live
+        state: retained-backup
         consumerRepository: sarthakagrawal927/mentionpilot
         scope: shared-fleet-account
-        attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
+        attributionReason: "Retained as a backup after the 2026-10-09 retirement cutover; no Worker binds it. Steward: site-health. Exported to a private owner-local file and transferred into Site Health brand evidence (batch 72429df9-836f-4a14-a117-26a40455b1bb)."
         verification:
-          observedAt: 2026-10-02
+          observedAt: 2026-10-09
           state: provider-id-confirmed
-          evidence: Release receipt and current repository binding configuration identify this D1 database ID; replaces the historical generated dossier ID.
+          evidence: "wrangler d1 info mentionpilot-db after Worker deletion: 23 tables, 639 kB."
         operationalOwner: mentionpilot
       - provider: cloudflare
         kind: service-binding
         name: free-ai-gateway
-        state: active
+        state: removed
         binding: FREE_AI
         entrypoint: FleetGateway
         dependencyProject: free-ai
@@ -405,9 +395,9 @@ deployment:
           versionId: b5266695-f690-4329-8e56-6e0f3433a88e
           sourceCommit: c7d624ac90f6637c9b9cbbe108b59681e29f8d78
           state: production-binding-verified
+        attributionReason: Binding removed with the mentionpilot-api Worker deletion on 2026-10-09.
         scope: project
         operationalOwner: mentionpilot
-        attributionReason: "Canonical project owner: mentionpilot"
   otherProviders:
     deployments: []
     resources: []
@@ -425,4 +415,5 @@ notes:
     Owner reactivated MentionPilot to inspect awareness across AI and community sources.
     Owner ended the independent product on 2026-10-09; merged into Site Health AI Awareness (sass-maker/site-health PR #520, squash 1e18dfb; issue site-health#518). Live Workers, Pages, D1 and mention.highsignal.app remain attributed here as retained infrastructure, stewarded by site-health, until the owner data transfer and retirement cutover.
     2026-10-09: GitHub repository transferred to sarthakagrawal927 (not GitHub-archived); local checkout moved intact to ../fleet-archive/mentionpilot.
-  infrastructure: "Owner reactivated MentionPilot. The API health route returned HTTP 200 on 2026-09-25. The listed Pages web hostname did not resolve; web availability and any similarly named external domains remain unverified. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features. 2026-10-09: Product merged into Site Health AI Awareness. These live resources are retained infrastructure pending the owner data transfer and retirement cutover; steward: site-health."
+    2026-10-09: Retirement cutover done (site-health#518). D1 exported to a private owner-local path; transferred into Site Health brand evidence (batch 72429df9-836f-4a14-a117-26a40455b1bb, verify passed). Pages mentionpilot-domain (custom domains detached) and Workers mentionpilot-web and mentionpilot-api (daily cron) deleted. D1 mentionpilot-db kept as a backup. mention.highsignal.app DNS/registration left untouched.
+  infrastructure: "Owner reactivated MentionPilot. The API health route returned HTTP 200 on 2026-09-25. The listed Pages web hostname did not resolve; web availability and any similarly named external domains remain unverified. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features. 2026-10-09: Product merged into Site Health AI Awareness. These live resources are retained infrastructure pending the owner data transfer and retirement cutover; steward: site-health. 2026-10-09: Cutover done; Workers and Pages deleted, D1 retained as a backup; steward: site-health."
