@@ -252,14 +252,6 @@
       ]
     },
     {
-      "id": "open-historia",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "open-historia/landing-astro/src/layouts/Layout.astro"
-      ]
-    },
-    {
       "id": "web-playables",
       "kind": "visual",
       "state": "required",
@@ -352,14 +344,6 @@
       "state": "required",
       "files": [
         "every-song-is-a-website/index.html"
-      ]
-    },
-    {
-      "id": "mentionpilot",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "mentionpilot/apps/web/src/app/page.tsx"
       ]
     },
     {

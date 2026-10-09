@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 29f1a2fa0c4de988d8e690b033f2d352844ef2d86c252a65b09ab90102b40398
-      infrastructureUpdatedAt: 2026-10-05
+      sha256: 317d24a925a1fb86255d62ab0b0bea80d01955be1447d56b60fcc9a0bcddf966
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Web Playables
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a01bc8b57ced1b8e0314e030b6c93c390deb137c6cdd9d2cfa0f700e1d169b75
+      sha256: a0ffa8505730ff697f76bfccd8055fce7a68d1be63ddd13128dff007b28689e5
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
@@ -59,9 +59,11 @@ verification:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
       healthy: 1
+      manual-or-reusable-never-run: 1
       failing: 1
       attention: &a2
         clear: 1
+        reconcile: 1
         review-history: 1
   unknowns: []
 ownerVoice:
@@ -112,6 +114,7 @@ product:
     - TypeScript
     - Vite
     - Cloudflare Pages
+    - Cloudflare Workers
   retainedGitHistory:
     firstCommitAt: 2026-07-10
     latestCommitAt: 2026-10-09
@@ -163,12 +166,13 @@ githubActions:
   staleAfterDays: 30
   summary:
     healthy: 1
+    manual-or-reusable-never-run: 1
     failing: 1
   attention: *a2
   remote:
     repository: Significant-Hobbies/web-playables
     defaultBranch: main
-    defaultBranchSha: 4126ed23a19cdfe0d528c1ce44ddac011c4b26d5
+    defaultBranchSha: 0acdcde969bd407d3fb600a058b2d48d735b5de2
     homepage: https://idle.aliveville.com
     query: verified
     disposition:
@@ -193,15 +197,15 @@ githubActions:
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37837206503
+          id: 37938017218
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4126ed23a19cdfe0d528c1ce44ddac011c4b26d5
-          createdAt: 2026-10-08T20:08:28Z
-          updatedAt: 2026-10-08T20:08:48Z
-          url: https://github.com/Significant-Hobbies/web-playables/actions/runs/37837206503
+          headSha: 0acdcde969bd407d3fb600a058b2d48d735b5de2
+          createdAt: 2026-10-09T13:36:12Z
+          updatedAt: 2026-10-09T13:41:09Z
+          url: https://github.com/Significant-Hobbies/web-playables/actions/runs/37938017218
         ageDays: 0
       schedule:
         health: not-applicable
@@ -211,17 +215,44 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37837206503
+          id: 37938017218
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 4126ed23a19cdfe0d528c1ce44ddac011c4b26d5
-          createdAt: 2026-10-08T20:08:28Z
-          updatedAt: 2026-10-08T20:08:48Z
-          url: https://github.com/Significant-Hobbies/web-playables/actions/runs/37837206503
+          headSha: 0acdcde969bd407d3fb600a058b2d48d735b5de2
+          createdAt: 2026-10-09T13:36:12Z
+          updatedAt: 2026-10-09T13:41:09Z
+          url: https://github.com/Significant-Hobbies/web-playables/actions/runs/37938017218
         ageDays: 0
       attention: clear
+    - name: Deploy Open Historia Worker
+      file: .github/workflows/deploy-historia.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: remote-only
+        local: false
+        remote: true
+      ownerDisposition:
+        status: needs-reconciliation
+        reason: workflow exists in GitHub but not in the local working tree
+      live:
+        health: manual-or-reusable-never-run
+        reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger
+        apiState: active
+        lastRun: null
+        ageDays: null
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
+      attention: reconcile
     - name: Deploy web-playables to Cloudflare Pages
       file: .github/workflows/deploy.yml
       triggers:
@@ -259,13 +290,22 @@ githubActions:
         lastRun: null
       attention: review-history
 deployment:
-  kind: pages
+  kind: worker+pages
   deployed: true
   domains:
     - idle.aliveville.com
+    - historia.aliveville.com
   primaryUrl: https://idle.aliveville.com
   domainProbePaths: {}
-  targets: []
+  targets:
+    - id: site
+      kind: pages
+      name: web-playables
+      sourcePath: web-playables
+    - id: open-historia
+      kind: worker
+      name: open-historia
+      sourcePath: web-playables/networked-games/open-historia
   cloudflare:
     deployments:
       - provider: cloudflare
@@ -283,7 +323,84 @@ deployment:
           providerSourceAbbreviated: 5641fd9
           fullSourceProof: Explicit pinned publishercommit metadata and exact maintain tree equality
           evidence: "Footer rollout #180: exact source/current CI, existing publisher/provider and bounded actual rendered public routes verified; historical operational evidence retained separately."
-    resources: []
+      - provider: cloudflare
+        kind: worker
+        name: open-historia
+        method: wrangler-direct
+        state: live
+        attributionReason: "Transferred 2026-10-09 from open-historia after the owner merged Open Historia into Web Playables (web-playables PR #22); source now web-playables networked-games/open-historia. Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed."
+        verification:
+          observedAt: 2026-10-05T17:15:58.572887+00:00
+          deploymentId: b0851883-4c6d-4f45-917d-b2700169aa04
+          versionId: 30acc0bb-2cb5-4ff0-8a1d-e53a7b0c0eee
+          sourceCommit: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
+          sourceTree: 887f2ad4bb9f730d2062a20fecdbfa647ec1e859
+          requestedTag: 566ec8371fb2f3f94d959c07a9344d86172e8c0e
+          trafficPercent: 100
+          state: success-production-targeted-runtime-verified-recovery-window-unknown
+          exactMainCi: 37276336381
+          evidence: "Normal clean standalone-main guard PASS; exact-main CI PASS. Standard local validator, pnpm deploy and Fleet Workspace postflight PASS using existing auth without credential/config changes. Exact source tag/version at100% traffic. Synthetic unsupported-provider /api/turn,/api/chat,/api/advisor400 and public /,/play,/api/ai200 with expected content types. Hosted run37345491722 built successfully but failed GitHub deploy-secret validation before publishing; local standard path succeeded. Fresh complete natural-traffic error-rate/latency recovery window and supported-provider campaign acceptance remain unknown under #34."
+          naturalTrafficRecovery: unknown
+          targetedRuntimeChecksPassed: 6
+          hostedDeployRun: 37345491722
+          hostedDeployConclusion: failure-before-publication
+        verificationHistory:
+          - observedAt: 2026-10-05
+            versionId: 6b2d3de8-691a-4bbb-ba4c-1144428eeb61
+            sourceCommit: 21bcded195c86f7b5886e835abd84776e09f526b
+            requestedTag: 21bcded195c86f7b5886e835abd84776e09f526b
+            buildSourceHead: 4683237de5a9553bc662132ca6824ab71129a970
+            buildSourceTree: afab12c38ca3ef140e33c33bd4e88ae3332f55f0
+            mergedSourceTree: afab12c38ca3ef140e33c33bd4e88ae3332f55f0
+            trafficPercent: 100
+            state: success-production-verified
+            evidence: "PR #42 and exact-main CI passed. Exact merged source tree afab12c38ca3ef140e33c33bd4e88ae3332f55f0 was built and deployed from candidate HEAD 4683237de5a9553bc662132ca6824ab71129a970; merged SHA 21bcded195c86f7b5886e835abd84776e09f526b has the identical tree. Wrangler version 6b2d3de8-691a-4bbb-ba4c-1144428eeb61 is at 100% traffic with the exact merge SHA tag. Public /api/ai GET and HEAD returned 200 with matching selected headers and an empty HEAD body. Home and /play were 200 with no executable Clarity loader; the mask and first-party health tracker remain."
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+        transferredFrom: open-historia
+    resources:
+      - provider: cloudflare
+        kind: d1
+        name: open-historia
+        state: live
+        attributionReason: "Transferred 2026-10-09 from open-historia after the owner merged Open Historia into Web Playables (web-playables PR #22); source now web-playables networked-games/open-historia. Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed."
+        transferredFrom: open-historia
+        scope: project
+        operationalOwner: web-playables
+      - provider: cloudflare
+        kind: workers-ai
+        name: AI
+        state: active
+        transferredFrom: open-historia
+        attributionReason: "Transferred 2026-10-09 from open-historia after the owner merged Open Historia into Web Playables (web-playables PR #22); source now web-playables networked-games/open-historia."
+        scope: project
+        operationalOwner: web-playables
+      - provider: cloudflare
+        kind: service-binding
+        name: free-ai-gateway
+        state: active
+        binding: FREE_AI
+        entrypoint: FleetGateway
+        dependencyProject: free-ai
+        verification:
+          observedAt: 2026-10-02T11:05:00Z
+          versionId: 61f99b50-eb8b-49ef-b0d1-61dbce18c55b
+          sourceCommit: b3431d901205e40aa5209a5c340c1f9d8a4eef6a
+          state: production-binding-verified
+        transferredFrom: open-historia
+        attributionReason: "Transferred 2026-10-09 from open-historia after the owner merged Open Historia into Web Playables (web-playables PR #22); source now web-playables networked-games/open-historia."
+        scope: project
+        operationalOwner: web-playables
+      - provider: cloudflare
+        kind: custom-domain
+        name: historia.aliveville.com
+        state: active
+        transferredFrom: open-historia
+        attributionReason: "Transferred 2026-10-09 from open-historia after the owner merged Open Historia into Web Playables (web-playables PR #22); source now web-playables networked-games/open-historia."
+        scope: project
+        operationalOwner: web-playables
   otherProviders:
     deployments: []
     resources: []
@@ -298,4 +415,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: Inactive historical repository with a retained live Cloudflare Pages surface; explicit source reactivation is required for changes.
-  infrastructure: null
+  infrastructure: "2026-10-09: absorbed Open Historia; Worker open-historia, D1 open-historia and historia.aliveville.com moved here from open-historia. Open Historia operational history: September9 release receipt: runtime9445110fc7857238eadff2de27804deca754f380 is deployed at100% as Worker e529a943-f06e-4529-9323-dd3a384d5fc7, deployment21a0e2d9-30a1-4636-a6f5-c884b501a960. Six-size layout, public asset parity and guest Save/reload passed. Final tests/docs-only source6b7fa8f passed clean CI34327732410. Prior runtime e4a26fe5-9d2f-46fd-83e6-228d1e8c7a75 remains the rollback. Campaign coherence and authenticated save qualification remain open. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features."

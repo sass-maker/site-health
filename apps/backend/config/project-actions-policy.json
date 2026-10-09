@@ -57,6 +57,10 @@
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
     },
+    "open-historia": {
+      "disposition": "ignored",
+      "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
+    },
     "protein-index": {
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
@@ -88,6 +92,10 @@
     "war-chest": {
       "disposition": "ignored",
       "reason": "Owner retired the project on 2026-10-08. Preserve existing source, workflows and attributed infrastructure; exclude from active Fleet work."
+    },
+    "mentionpilot": {
+      "disposition": "ignored",
+      "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
     },
     "scale": {
       "disposition": "ignored",
