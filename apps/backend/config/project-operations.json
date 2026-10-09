@@ -3640,9 +3640,9 @@
     "chatgpt-memory-insights": {
       "source": {
         "state": "available",
-        "path": "chatgpt-memory-insights",
-        "revision": "950a85ce1fd4fb255d145e1c514e776426a9b4e8",
-        "repositorySlug": "Significant-Hobbies/chatgpt-memory-insights",
+        "path": "saas-maker",
+        "revision": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+        "repositorySlug": "sass-maker/saas-maker",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -3650,43 +3650,93 @@
         }
       },
       "history": {
-        "firstCommitAt": "2026-07-28",
+        "firstCommitAt": "2026-02-26",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 88,
+        "retainedCommitCount": 1507,
         "historyCompleteness": "complete",
         "reason": null
       },
       "githubActions": [
         {
-          "name": "Bounded dependency lock repair",
-          "file": ".github/workflows/bounded-dependency-lock-repair.yml",
-          "triggers": [],
+          "name": "CI",
+          "file": ".github/workflows/ci.yml",
+          "triggers": [
+            "pull_request",
+            "push",
+            "workflow_dispatch"
+          ],
           "schedules": [],
           "inventory": {
-            "source": "remote-only",
-            "local": false,
+            "source": "tracked",
+            "local": true,
             "remote": true
           },
           "ownerDisposition": {
-            "status": "needs-reconciliation",
-            "reason": "workflow exists in GitHub but not in the local working tree"
+            "status": "active",
+            "reason": "tracked workflow"
           },
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37735009639,
+              "id": 37954002458,
               "status": "completed",
               "conclusion": "success",
-              "event": "pull_request",
-              "branch": "agent/root-memorymap50-live-20261008",
-              "headSha": "93c7e0aa91f31d06dc35c8aee9ccef5f5521b933",
-              "createdAt": "2026-10-08T05:57:30Z",
-              "updatedAt": "2026-10-08T05:57:45Z",
-              "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/37735009639"
+              "event": "push",
+              "branch": "main",
+              "headSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+              "createdAt": "2026-10-09T15:44:41Z",
+              "updatedAt": "2026-10-09T15:48:33Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37954002458"
             },
             "ageDays": 0
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "healthy",
+            "reason": "current main push concluded success",
+            "lastRun": {
+              "id": 37954002458,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "push",
+              "branch": "main",
+              "headSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+              "createdAt": "2026-10-09T15:44:41Z",
+              "updatedAt": "2026-10-09T15:48:33Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37954002458"
+            },
+            "ageDays": 0
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Daddy macOS candidate",
+          "file": ".github/workflows/daddy-macos-candidate.yml",
+          "triggers": [
+            "workflow_call"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "manual-or-reusable-never-run",
+            "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
+            "apiState": "active",
+            "lastRun": null,
+            "ageDays": null
           },
           "schedule": {
             "health": "not-applicable",
@@ -3698,11 +3748,11 @@
             "reason": "workflow has no push trigger",
             "lastRun": null
           },
-          "attention": "reconcile"
+          "attention": "clear"
         },
         {
-          "name": "CI",
-          "file": ".github/workflows/ci.yml",
+          "name": "Docs",
+          "file": ".github/workflows/docs.yml",
           "triggers": [
             "pull_request",
             "push"
@@ -3722,15 +3772,15 @@
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37838765924,
+              "id": 37954002474,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "950a85ce1fd4fb255d145e1c514e776426a9b4e8",
-              "createdAt": "2026-10-08T20:20:57Z",
-              "updatedAt": "2026-10-08T20:24:01Z",
-              "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/37838765924"
+              "headSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+              "createdAt": "2026-10-09T15:44:41Z",
+              "updatedAt": "2026-10-09T15:44:52Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37954002474"
             },
             "ageDays": 0
           },
@@ -3743,15 +3793,108 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 37838765924,
+              "id": 37954002474,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "950a85ce1fd4fb255d145e1c514e776426a9b4e8",
-              "createdAt": "2026-10-08T20:20:57Z",
-              "updatedAt": "2026-10-08T20:24:01Z",
-              "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/37838765924"
+              "headSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+              "createdAt": "2026-10-09T15:44:41Z",
+              "updatedAt": "2026-10-09T15:44:52Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37954002474"
+            },
+            "ageDays": 0
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Drank CI",
+          "file": ".github/workflows/drank-ci.yml",
+          "triggers": [
+            "workflow_call"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "manual-or-reusable-never-run",
+            "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
+            "apiState": "active",
+            "lastRun": null,
+            "ageDays": null
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "memory-pack CI",
+          "file": ".github/workflows/memory-pack-ci.yml",
+          "triggers": [
+            "pull_request",
+            "push",
+            "workflow_dispatch"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "healthy",
+            "reason": "latest run concluded success",
+            "apiState": "active",
+            "lastRun": {
+              "id": 37954002464,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "push",
+              "branch": "main",
+              "headSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+              "createdAt": "2026-10-09T15:44:41Z",
+              "updatedAt": "2026-10-09T15:45:20Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37954002464"
+            },
+            "ageDays": 0
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "healthy",
+            "reason": "current main push concluded success",
+            "lastRun": {
+              "id": 37954002464,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "push",
+              "branch": "main",
+              "headSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+              "createdAt": "2026-10-09T15:44:41Z",
+              "updatedAt": "2026-10-09T15:45:20Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37954002464"
             },
             "ageDays": 0
           },
@@ -3759,7 +3902,7 @@
         },
         {
           "name": "memory-pack release",
-          "file": ".github/workflows/packer-release.yml",
+          "file": ".github/workflows/memory-pack-release.yml",
           "triggers": [
             "push",
             "workflow_dispatch"
@@ -3775,21 +3918,21 @@
             "reason": "tracked workflow"
           },
           "live": {
-            "health": "stale",
-            "reason": "latest run is 38 days old",
+            "health": "failing",
+            "reason": "latest run concluded failure",
             "apiState": "active",
             "lastRun": {
-              "id": 33382333378,
+              "id": 37954074373,
               "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "memory-pack-v0.1.2",
-              "headSha": "04ffcd4934075d7cf4782a5028db61a6977af449",
-              "createdAt": "2026-08-31T10:25:24Z",
-              "updatedAt": "2026-08-31T10:27:17Z",
-              "url": "https://github.com/Significant-Hobbies/chatgpt-memory-insights/actions/runs/33382333378"
+              "conclusion": "failure",
+              "event": "workflow_dispatch",
+              "branch": "main",
+              "headSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+              "createdAt": "2026-10-09T15:45:16Z",
+              "updatedAt": "2026-10-09T15:46:50Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37954074373"
             },
-            "ageDays": 38
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -3801,26 +3944,426 @@
             "reason": "no push run was returned for main",
             "lastRun": null
           },
-          "attention": "missing-data"
+          "attention": "action-required"
+        },
+        {
+          "name": "PSI Swarm CI",
+          "file": ".github/workflows/psi-swarm-ci.yml",
+          "triggers": [
+            "workflow_call"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "manual-or-reusable-never-run",
+            "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
+            "apiState": "active",
+            "lastRun": null,
+            "ageDays": null
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Site Health CI",
+          "file": ".github/workflows/site-health-ci.yml",
+          "triggers": [
+            "workflow_call"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "manual-or-reusable-never-run",
+            "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
+            "apiState": "active",
+            "lastRun": null,
+            "ageDays": null
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Tooling CI",
+          "file": ".github/workflows/tooling-ci.yml",
+          "triggers": [
+            "pull_request",
+            "push",
+            "workflow_dispatch"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "healthy",
+            "reason": "latest run concluded success",
+            "apiState": "active",
+            "lastRun": {
+              "id": 37954002535,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "push",
+              "branch": "main",
+              "headSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+              "createdAt": "2026-10-09T15:44:41Z",
+              "updatedAt": "2026-10-09T15:45:19Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37954002535"
+            },
+            "ageDays": 0
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "healthy",
+            "reason": "current main push concluded success",
+            "lastRun": {
+              "id": 37954002535,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "push",
+              "branch": "main",
+              "headSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+              "createdAt": "2026-10-09T15:44:41Z",
+              "updatedAt": "2026-10-09T15:45:19Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37954002535"
+            },
+            "ageDays": 0
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Public Performance Sweep",
+          "file": ".github/workflows/tooling-performance-sweep.yml",
+          "triggers": [
+            "schedule",
+            "workflow_dispatch"
+          ],
+          "schedules": [
+            "0 9 * * 1"
+          ],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "healthy",
+            "reason": "latest run concluded success",
+            "apiState": "active",
+            "lastRun": {
+              "id": 37348874378,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "schedule",
+              "branch": "main",
+              "headSha": "3fb8bf5367d27d8ec1da36b28d9b81d9b972089a",
+              "createdAt": "2026-10-05T17:30:01Z",
+              "updatedAt": "2026-10-05T17:30:28Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37348874378"
+            },
+            "ageDays": 3
+          },
+          "schedule": {
+            "health": "healthy",
+            "reason": "latest scheduled run concluded success",
+            "lastRun": {
+              "id": 37348874378,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "schedule",
+              "branch": "main",
+              "headSha": "3fb8bf5367d27d8ec1da36b28d9b81d9b972089a",
+              "createdAt": "2026-10-05T17:30:01Z",
+              "updatedAt": "2026-10-05T17:30:28Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37348874378"
+            },
+            "ageDays": 3,
+            "freshnessDays": 9
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Public Surface Audit",
+          "file": ".github/workflows/tooling-surface-audit.yml",
+          "triggers": [
+            "schedule",
+            "workflow_dispatch"
+          ],
+          "schedules": [
+            "37 6 * * 3"
+          ],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "healthy",
+            "reason": "latest run concluded success",
+            "apiState": "active",
+            "lastRun": {
+              "id": 37631248027,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "schedule",
+              "branch": "main",
+              "headSha": "c8138c477e060174d2245f76219dc290acf56d2c",
+              "createdAt": "2026-10-07T13:46:55Z",
+              "updatedAt": "2026-10-07T13:47:16Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37631248027"
+            },
+            "ageDays": 1
+          },
+          "schedule": {
+            "health": "healthy",
+            "reason": "latest scheduled run concluded success",
+            "lastRun": {
+              "id": 37631248027,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "schedule",
+              "branch": "main",
+              "headSha": "c8138c477e060174d2245f76219dc290acf56d2c",
+              "createdAt": "2026-10-07T13:46:55Z",
+              "updatedAt": "2026-10-07T13:47:16Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37631248027"
+            },
+            "ageDays": 1,
+            "freshnessDays": 9
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Verify Local",
+          "file": ".github/workflows/verify-local.yml",
+          "triggers": [
+            "workflow_call"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "manual-or-reusable-never-run",
+            "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
+            "apiState": "active",
+            "lastRun": null,
+            "ageDays": null
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Weekly Quality Check",
+          "file": ".github/workflows/weekly.yml",
+          "triggers": [
+            "schedule",
+            "workflow_dispatch"
+          ],
+          "schedules": [
+            "0 9 * * 1"
+          ],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "tracked workflow"
+          },
+          "live": {
+            "health": "healthy",
+            "reason": "latest run concluded success",
+            "apiState": "active",
+            "lastRun": {
+              "id": 37348905708,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "schedule",
+              "branch": "main",
+              "headSha": "3fb8bf5367d27d8ec1da36b28d9b81d9b972089a",
+              "createdAt": "2026-10-05T17:30:14Z",
+              "updatedAt": "2026-10-05T17:32:24Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37348905708"
+            },
+            "ageDays": 3
+          },
+          "schedule": {
+            "health": "healthy",
+            "reason": "latest scheduled run concluded success",
+            "lastRun": {
+              "id": 37348905708,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "schedule",
+              "branch": "main",
+              "headSha": "3fb8bf5367d27d8ec1da36b28d9b81d9b972089a",
+              "createdAt": "2026-10-05T17:30:14Z",
+              "updatedAt": "2026-10-05T17:32:24Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37348905708"
+            },
+            "ageDays": 3,
+            "freshnessDays": 9
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Dependabot Updates",
+          "file": "dynamic/dependabot/dependabot-updates",
+          "triggers": [],
+          "schedules": [],
+          "inventory": {
+            "source": "github-generated",
+            "local": false,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "managed",
+            "reason": "GitHub-generated workflow"
+          },
+          "live": {
+            "health": "healthy",
+            "reason": "latest run concluded success",
+            "apiState": "active",
+            "lastRun": {
+              "id": 37385370475,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "dynamic",
+              "branch": "main",
+              "headSha": "c8138c477e060174d2245f76219dc290acf56d2c",
+              "createdAt": "2026-10-05T22:54:20Z",
+              "updatedAt": "2026-10-05T22:55:08Z",
+              "url": "https://github.com/sass-maker/saas-maker/actions/runs/37385370475"
+            },
+            "ageDays": 3
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
+          },
+          "attention": "clear"
         }
       ],
       "toolingSignals": [
         {
           "name": "Astro",
           "evidence": [
-            "astro.config.ts"
+            "apps/memory-map/astro.config.ts",
+            "apps/showcase/astro.config.mjs",
+            "tooling/templates/web-landing/astro.config.mjs"
           ]
         },
         {
           "name": "Biome",
           "evidence": [
-            "biome.json"
+            "apps/memory-map/biome.json",
+            "biome.json",
+            "packages/ai-chat-footer/biome.json",
+            "packages/newsletter-capture/biome.json",
+            "packages/portfolio-project-strip/biome.json"
           ]
         },
         {
           "name": "Cloudflare Wrangler",
           "evidence": [
-            "wrangler.toml"
+            "apps/cockpit/wrangler.toml",
+            "apps/memory-map/wrangler.toml",
+            "workers/api/wrangler.toml"
+          ]
+        },
+        {
+          "name": "Next.js",
+          "evidence": [
+            "apps/cockpit/next.config.ts"
           ]
         },
         {
@@ -3832,12 +4375,19 @@
         {
           "name": "Rust Cargo",
           "evidence": [
-            "packer/Cargo.toml"
+            "apps/memory-map/packer/Cargo.toml"
+          ]
+        },
+        {
+          "name": "Turborepo",
+          "evidence": [
+            "turbo.json"
           ]
         },
         {
           "name": "Vitest",
           "evidence": [
+            "apps/memory-map/vitest.config.ts",
             "vitest.config.ts"
           ]
         }
@@ -3845,33 +4395,52 @@
       "packageManager": "pnpm@10.33.2",
       "rootPackageScripts": [
         "build",
-        "check",
-        "deploy",
-        "dev",
+        "build:api",
+        "build:cockpit",
+        "build:showcase",
+        "build:widget",
+        "catalog:check-operations",
+        "catalog:check-public",
+        "catalog:check-source",
+        "catalog:check-systems",
+        "catalog:check-table",
+        "catalog:sync",
+        "catalog:sync-operations",
+        "catalog:sync-public",
+        "catalog:sync-systems",
+        "catalog:table",
+        "catalog:test-schema",
+        "catalog:validate-public",
+        "check:docs",
+        "check:memory-map",
+        "check:shared-packages",
+        "deploy:api",
+        "deploy:cockpit",
+        "deploy:directory",
+        "deploy:guard",
+        "deploy:memory-map",
+        "dev:api",
+        "dev:cockpit",
+        "dev:cockpit:local",
+        "format",
         "format:check",
-        "knip",
-        "knip:strict",
         "lint",
-        "preview",
-        "quality",
-        "quality:complexity",
-        "quality:cycles",
-        "quality:dependencies",
-        "quality:duplication",
-        "quality:hygiene",
-        "quality:suppressions",
-        "quality:unused",
+        "prepare",
+        "smoke",
         "test",
-        "test:coverage",
-        "test:import",
+        "tooling:ai-clients",
+        "tooling:check",
+        "tooling:clarity",
+        "tooling:credentials",
+        "tooling:footers",
         "typecheck"
       ],
       "projectId": "chatgpt-memory-insights",
       "githubActionsMeta": {
-        "repository": "Significant-Hobbies/chatgpt-memory-insights",
+        "repository": "sass-maker/saas-maker",
         "defaultBranch": "main",
-        "defaultBranchSha": "950a85ce1fd4fb255d145e1c514e776426a9b4e8",
-        "homepage": "https://chatgpt.significanthobbies.com",
+        "defaultBranchSha": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+        "homepage": "https://sassmaker.com",
         "query": "verified",
         "disposition": {
           "disposition": "active",
