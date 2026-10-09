@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
+      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -83,12 +83,12 @@ identity:
   unmetNeed: false
   kind: product
   priority: P2
-  tier: secondary
-  attention: toolbox
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
+    status: inactive
+    resumeCondition: Only resume as an independent product after an explicit new owner decision.
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: false
@@ -123,7 +123,7 @@ repository:
   githubHomepageUrl: https://git.significanthobbies.com
   worktree: *a1
   visibility: public
-  url: https://github.com/sass-maker/gitstat
+  url: https://github.com/sarthakagrawal927/gitstat
   aliases: []
   sourceOverride: null
   tooling:
@@ -233,14 +233,17 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: experiment
-  ready: true
+  ready: false
   verifiedAt: 2026-09-07
   reason: One public profile; private repositories untested.
-  changelogUrl: https://git.significanthobbies.com/changelog
-  roadmapUrl: https://github.com/sass-maker/gitstat/issues
+  changelogUrl: null
+  roadmapUrl: https://github.com/sarthakagrawal927/gitstat/issues
   geoIdentity: null
 notes:
-  catalog: Fleet-owned GitHub analytics product. Cloudflare Pages and the custom domain were live on 2026-08-22; anonymous public analysis works, while the optional browser OAuth connection flow still needs repair.
+  catalog: |-
+    Fleet-owned GitHub analytics product. Cloudflare Pages and the custom domain were live on 2026-08-22; anonymous public analysis works, while the optional browser OAuth connection flow still needs repair.
+    Owner ended the independent product on 2026-10-09; retained destination: saas-maker. Existing source, data and infrastructure are preserved; no provider decommission or remote repository archival.
+    2026-10-09: GitHub repository transferred to sarthakagrawal927 and archived; API readback verified the new owner and archived flag. Existing local checkout, source history and hosted resources retained.
   infrastructure: Live Cloudflare deployment owned by the Fleet GitStat product. Repository icon release 9bcb8d01f88d4a2618e9652d300203674f118da9 verified on existing gitstat deployment effcff98-77df-443e-a4d6-3a67632dadda. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px.

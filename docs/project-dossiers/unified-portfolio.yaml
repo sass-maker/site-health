@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
-      infrastructureUpdatedAt: 2026-09-29
+      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
+      infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=unified-portfolio].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: 4314450abd80804c303a47f6fffc1c8fbff6c9cd86c5aa8645d3dc0e028e029d
-      documentSha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
+      documentSha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -249,12 +249,17 @@ deployment:
         state: live
         attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         verification:
-          observedAt: 2026-09-29
-          timeZone: Asia/Kolkata
-          versionId: 2a33f36c-37ed-4daf-b52e-59cb6144394d
-          sourceCommit: 046ed63601d7c08709c993073e5cacc70ab3f778
-          trafficPercent: 100
-          state: success-production-verified
+          observedAt: 2026-10-09
+          sourceCommit: dd32aea81a1ddd2a1efaf2bb2d4fe80f7eb6ddc6
+          versionId: f3d55286-f7f8-4bff-8c99-164e471d685b
+          evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time.
+        verificationHistory:
+          - observedAt: 2026-09-29
+            timeZone: Asia/Kolkata
+            versionId: 2a33f36c-37ed-4daf-b52e-59cb6144394d
+            sourceCommit: 046ed63601d7c08709c993073e5cacc70ab3f778
+            trafficPercent: 100
+            state: success-production-verified
     resources:
       - provider: cloudflare
         kind: d1

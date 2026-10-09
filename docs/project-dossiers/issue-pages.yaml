@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9cb55e9297e90f4f10bf1197a98fb0dbb0983d2d54542c6832c195cf02a17e7a
+      sha256: ce3a2ce768627349b2be5bb93be260e2955fdbd178ab4ae89cb75525619e34b5
       infrastructureUpdatedAt: 2026-10-05
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -87,12 +87,12 @@ identity:
   unmetNeed: false
   kind: experiment
   priority: P4
-  tier: secondary
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
+    status: inactive
+    resumeCondition: Only resume as an independent product after an explicit new owner decision.
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -290,14 +290,17 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: experiment
-  ready: true
+  ready: false
   verifiedAt: 2026-09-07
   reason: New issue publication not tested or required for retained read-only surface.
-  changelogUrl: https://issues.sarthakagrawal.dev/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/issue-pages/issues
   geoIdentity: null
 notes:
-  catalog: Owner-only production pilot at issues.sarthakagrawal.dev, with the workers.dev hostname retained as provider fallback. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.
+  catalog: |-
+    Owner-only production pilot at issues.sarthakagrawal.dev, with the workers.dev hostname retained as provider fallback. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.
+    Owner ended the independent product on 2026-10-09; retained destination: sarthakagrawal-personal. Existing source, data and infrastructure are preserved; no provider decommission or remote repository archival.
+    2026-10-09: GitHub repository transferred to sarthakagrawal927 and archived; API readback verified the new owner and archived flag. Existing local checkout, source history and hosted resources retained.
   infrastructure: " 2026-09-26: issue-pages-production Worker deleted with owner approval; D1 retained, custom domain unrouted. Restored same day without cron after owner reversal; secrets need re-adding for GitHub features. 2026-10-05: PR #29 source e3870ad0c0c4f7bc593431a2e3752c7ef99257c5 is live at 100% as version 1b8489d9-f667-43f0-ae3a-30a1c647f5fb; fresh Ahrefs acceptance closed issue #27. See known-closure-runs/issuepages29-release.json."
