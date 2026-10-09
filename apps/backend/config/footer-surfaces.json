@@ -89,7 +89,6 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "high-signal/apps/web/landing-astro/src/layouts/Layout.astro",
         "high-signal/apps/web/src/app/layout.tsx"
       ]
     },
@@ -162,7 +161,8 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "swe-interview-prep/index.html"
+        "swe-interview-prep/index.html",
+        "swe-interview-prep/scripts/generate-public-curriculum.mjs"
       ]
     },
     {
@@ -224,9 +224,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "aliveville/astro-landing/src/pages/index.astro",
-        "aliveville/astro-landing/src/pages/ai-world-simulator.astro",
-        "aliveville/astro-landing/src/layouts/LegalLayout.astro"
+        "aliveville/astro-landing/src/components/PreciseFooter.astro"
       ]
     },
     {
@@ -316,9 +314,7 @@
       "files": [
         "meme-lab/worker/public/index.html",
         "meme-lab/worker/public/collection.html",
-        "meme-lab/worker/public/how-it-works.html",
-        "meme-lab/public/index.html",
-        "meme-lab/public/review.html"
+        "meme-lab/worker/public/how-it-works.html"
       ]
     },
     {
