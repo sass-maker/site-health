@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9335388dcdaeb0028de845b2757a5fcea26f1af67a9581edf658be26e760792c
-      infrastructureUpdatedAt: 2026-09-12
+      sha256: 72345b4400ed983624d3ad448023c6de185f89ed9947bc064ca8e0045bcf0726
+      infrastructureUpdatedAt: 2026-10-10
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Anchor
@@ -228,11 +228,6 @@ deployment:
         name: habits
         method: wrangler-direct
         state: live-compatibility
-      - provider: cloudflare
-        kind: pages
-        name: indulge
-        method: wrangler-direct
-        state: live-source-removed
     resources: []
   otherProviders:
     deployments:
@@ -271,4 +266,4 @@ sharing:
       state: not-declared
 notes:
   catalog: "Sole maintained successor to Indulge/Habits: a day planner and focus timer with direct habit tracking, optional scheduling, day copying and pause/return. Build25 includes the device-only private-note vault and durable session/schedule repairs. Hosted native run34470263891 passed 219 shared tests,14 Mac UI tests,8 iPhone simulator tests and Watch build at077f8564ee3e85631f1807c365b03e9d283c41db. Later isolated installed-Mac core flow and saved-block relaunch checks passed. September12 bundle inspection confirms installed build25 with a valid strict/deep signature, while Gatekeeper rejects it as Unnotarized Developer ID. Public build20 remains the distributed release. Production-entitled legacy note migration/reopen, signed mixed-version/account continuity and historical CloudKit note copies remain unverified. Current source585671477851ac2215f09211073c3649e01a6934; documentation correction50b2d27. No owner store or production service was changed in this refresh."
-  infrastructure: "Cloudflare Pages anchor-landing serves landing source ios-landings4135729397639292ecd8a9ee79c7dc64113568b1 through deployment155ccf31, verified September12. The public Mac download remains notarized build20; landing privacy describes its private-iCloud note behavior. The historical habits Pages project remains a compatibility surface. The indulge Pages project (indulge.significanthobbies.com) still exists with its last published build, but its landing source was removed from ios-landings in #46 (2026-10-10) and it is not rebuilt; deletion is an owner decision. Historical App Store Connect record6803853891/build12 is not current installed-version evidence. Installed Mac build25 isolated core and phone build23 launch have September11 receipts; current production CloudKit continuity, device-only note migration rollout and public build25 notarization/distribution remain unverified. Repository-icon publication from ios-landings b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330 supersedes the prior landing deployment, preserving build20 download and privacy content; current Pages deployment 7490b63c-357b-4965-a75e-d22e133b81cf."
+  infrastructure: "Cloudflare Pages anchor-landing serves landing source ios-landings4135729397639292ecd8a9ee79c7dc64113568b1 through deployment155ccf31, verified September12. The public Mac download remains notarized build20; landing privacy describes its private-iCloud note behavior. The historical habits Pages project remains a compatibility surface. The indulge custom domain was detached and its Pages project deleted with owner approval on 2026-10-10 after source removal in ios-landings #46. Cloudflare confirms the project is absent; indulge.pages.dev no longer resolves and indulge.significanthobbies.com returns HTTP 403. DNS inspection/removal is blocked by OAuth permissions (HTTP 403, code 10000). Historical App Store Connect record6803853891/build12 is not current installed-version evidence. Installed Mac build25 isolated core and phone build23 launch have September11 receipts; current production CloudKit continuity, device-only note migration rollout and public build25 notarization/distribution remain unverified. Repository-icon publication from ios-landings b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330 supersedes the prior landing deployment, preserving build20 download and privacy content; current Pages deployment 7490b63c-357b-4965-a75e-d22e133b81cf."

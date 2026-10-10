@@ -3,7 +3,7 @@ projectId: techdata
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-10
+  generatedAt: 2026-10-09
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: unset
     githubActionsLiveState: verified
-    retainedGitHistory: passed
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8ca7c92fd04d8100f721f52d8f7d8db79fe658f28fdb15264098472269208dc0
+      sha256: 72345b4400ed983624d3ad448023c6de185f89ed9947bc064ca8e0045bcf0726
       infrastructureUpdatedAt: 2026-10-10
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-09
       reviewSha256: 74ff7d1b3faf4c46efce30259833f4d7ada4cf4ee4452da388e1962b2ea5a029
-      documentSha256: 8ca7c92fd04d8100f721f52d8f7d8db79fe658f28fdb15264098472269208dc0
+      documentSha256: 72345b4400ed983624d3ad448023c6de185f89ed9947bc064ca8e0045bcf0726
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,10 +32,10 @@ verification:
       sha256: 7a12fcda5a95f43f7923970ce41571bb8d6284c607451595a45a84a7f2e968af
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-10
+      observedAt: 2026-10-09
       state: available
       checkout: techdata
-      revision: f1d4301dcbb095390945dcca2ef2ee92de180aa0
+      revision: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
       githubRepository: High-Signal-App/techdata
       expectedHomepage: https://techdata.sarthakagrawal927.workers.dev
       observedHomepage: null
@@ -44,24 +44,26 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-10-10
+      observedAt: 2026-10-09
       state: available
       checkout: techdata
-      revision: f1d4301dcbb095390945dcca2ef2ee92de180aa0
+      revision: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
       githubRepository: High-Signal-App/techdata
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-10-09
       catalogLatestCommitAt: 2026-10-10
-      catalogDrift: []
+      catalogDrift:
+        - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-10T09:16:50.156Z
+      observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      healthy: 1
+      failing: 1
       manual-or-reusable-never-run: 1
       attention: &a2
-        clear: 2
+        action-required: 1
+        clear: 1
   unknowns: []
 ownerVoice:
   whyVerbatim: the first project with new UI library will be the commomn data one
@@ -116,13 +118,13 @@ product:
     - SaaS Maker UI
   retainedGitHistory:
     firstCommitAt: 2026-10-09
-    latestCommitAt: 2026-10-10
-    retainedCommitCount: 11
+    latestCommitAt: 2026-10-09
+    retainedCommitCount: 4
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: techdata
-  observedRevision: f1d4301dcbb095390945dcca2ef2ee92de180aa0
+  observedRevision: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
   githubRepository: High-Signal-App/techdata
   githubHomepageUrl: null
   worktree: *a1
@@ -158,21 +160,21 @@ repository:
       - test
       - typecheck
 githubActions:
-  observedAt: 2026-10-10T09:16:50.156Z
+  observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    failing: 1
     manual-or-reusable-never-run: 1
   attention: *a2
   remote:
     repository: High-Signal-App/techdata
     defaultBranch: main
-    defaultBranchSha: 157ab9937834c45e451a7271cfb78207d80a00d3
+    defaultBranchSha: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
     homepage: null
     query: verified
     disposition:
       disposition: active
-      reason: Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10).
+      reason: Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved.
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -186,41 +188,41 @@ githubActions:
         remote: true
       ownerDisposition:
         status: active
-        reason: Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10).
+        reason: Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved.
       live:
-        health: healthy
-        reason: latest run concluded success
+        health: failing
+        reason: latest run concluded failure
         apiState: active
         lastRun:
-          id: 38040307467
+          id: 37943038254
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 157ab9937834c45e451a7271cfb78207d80a00d3
-          createdAt: 2026-10-10T09:07:59Z
-          updatedAt: 2026-10-10T09:08:36Z
-          url: https://github.com/High-Signal-App/techdata/actions/runs/38040307467
+          headSha: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
+          createdAt: 2026-10-09T14:17:15Z
+          updatedAt: 2026-10-09T14:17:36Z
+          url: https://github.com/High-Signal-App/techdata/actions/runs/37943038254
         ageDays: 0
       schedule:
         health: not-applicable
         reason: workflow has no schedule trigger
         lastRun: null
       currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
+        health: failing
+        reason: current main push concluded failure
         lastRun:
-          id: 38040307467
+          id: 37943038254
           status: completed
-          conclusion: success
+          conclusion: failure
           event: push
           branch: main
-          headSha: 157ab9937834c45e451a7271cfb78207d80a00d3
-          createdAt: 2026-10-10T09:07:59Z
-          updatedAt: 2026-10-10T09:08:36Z
-          url: https://github.com/High-Signal-App/techdata/actions/runs/38040307467
+          headSha: 638688b486b4c62b38b7878fb2f62d4b8087ce2e
+          createdAt: 2026-10-09T14:17:15Z
+          updatedAt: 2026-10-09T14:17:36Z
+          url: https://github.com/High-Signal-App/techdata/actions/runs/37943038254
         ageDays: 0
-      attention: clear
+      attention: action-required
     - name: Deploy (manual)
       file: .github/workflows/deploy.yml
       triggers:
@@ -232,7 +234,7 @@ githubActions:
         remote: true
       ownerDisposition:
         status: active
-        reason: Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10).
+        reason: Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved.
       live:
         health: manual-or-reusable-never-run
         reason: no direct run observed; workflow is manual, reusable, generated, or has no static trigger

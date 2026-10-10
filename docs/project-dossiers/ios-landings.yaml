@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9335388dcdaeb0028de845b2757a5fcea26f1af67a9581edf658be26e760792c
+      sha256: 72345b4400ed983624d3ad448023c6de185f89ed9947bc064ca8e0045bcf0726
       infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -309,5 +309,5 @@ sharing:
   roadmapUrl: https://github.com/Significant-Hobbies/ios-landings/issues
   geoIdentity: null
 notes:
-  catalog: "Builds the Journal, Kith, Setline, Motion, Anchor, and a compatibility Habits landing tree. Journal's native source lives in its independent repository; Habits points to Anchor without removing its domain. The Indulge landing tree was removed in ios-landings #46 (2026-10-10); its Cloudflare Pages project indulge still exists, is not rebuilt, and was not deleted. Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker. On 2026-09-08, source c768b01 added explicit eight-product CI and an existing-only content deployment option. All checks and six deploy gates passed; only Kith was published (b31f1441-d684-40d3-8371-836e6a2bf3bb)."
+  catalog: "Builds the Journal, Kith, Setline, Motion, Anchor, and a compatibility Habits landing tree. Journal's native source lives in its independent repository; Habits points to Anchor without removing its domain. The Indulge landing tree was removed in ios-landings #46 (2026-10-10); its custom domain was detached and Cloudflare Pages project indulge deleted with owner approval on 2026-10-10; DNS cleanup remains blocked by OAuth permissions. Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker. On 2026-09-08, source c768b01 added explicit eight-product CI and an existing-only content deployment option. All checks and six deploy gates passed; only Kith was published (b31f1441-d684-40d3-8371-836e6a2bf3bb)."
   infrastructure: Static factory index page (site/index.html) deployed to Pages ios-landings at apps.significanthobbies.com on 2026-09-27; product deployments remain attributed to product rows. Publicly readable shared landing factory; deployments are attributed to product rows. Anchor, Kith, Setline and Motion now expose verified public repository icons from source b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330. Journal native source is retained in the owner personal archive.
