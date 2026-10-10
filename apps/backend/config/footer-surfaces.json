@@ -129,7 +129,8 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "looptv/src/content/home.json"
+        "looptv/src/content/home.json",
+        "looptv/src/components/StudioFooter.astro"
       ]
     },
     {
@@ -240,7 +241,8 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "what-it-takes-to-win/src/content/home.json"
+        "what-it-takes-to-win/src/content/home.json",
+        "what-it-takes-to-win/src/components/StudioFooter.astro"
       ]
     },
     {
