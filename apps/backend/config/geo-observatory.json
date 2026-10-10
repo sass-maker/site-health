@@ -519,48 +519,6 @@
       ]
     },
     {
-      "id": "issue-pages",
-      "origin": "https://issues.sarthakagrawal.dev",
-      "queries": [
-        {
-          "qid": "issue-pages-brand",
-          "kind": "brand",
-          "q": "IssuePages issues.sarthakagrawal.dev"
-        },
-        {
-          "qid": "issue-pages-category",
-          "kind": "category",
-          "q": "turn a GitHub issue into a public shareable page"
-        },
-        {
-          "qid": "issue-pages-problem",
-          "kind": "problem",
-          "q": "publish a public page from a GitHub issue without a website"
-        }
-      ]
-    },
-    {
-      "id": "gitstat",
-      "origin": "https://git.significanthobbies.com",
-      "queries": [
-        {
-          "qid": "gitstat-brand",
-          "kind": "brand",
-          "q": "GitStat GitHub analytics"
-        },
-        {
-          "qid": "gitstat-category",
-          "kind": "category",
-          "q": "GitHub contribution analytics code churn and AI involvement"
-        },
-        {
-          "qid": "gitstat-problem",
-          "kind": "problem",
-          "q": "see how much of a GitHub repository was written by AI"
-        }
-      ]
-    },
-    {
       "id": "web-playables",
       "origin": "https://idle.aliveville.com",
       "queries": [

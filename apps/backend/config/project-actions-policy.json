@@ -97,13 +97,25 @@
       "disposition": "ignored",
       "reason": "Owner retired the project on 2026-10-08. Preserve existing source, workflows and attributed infrastructure; exclude from active Fleet work."
     },
+    "agent-testing": {
+      "disposition": "ignored",
+      "reason": "Owner retired Browser Agent Testing on 2026-10-09. Preserve source, workflows and attributed infrastructure; exclude from active Fleet work."
+    },
+    "gitstat": {
+      "disposition": "ignored",
+      "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
+    },
+    "issue-pages": {
+      "disposition": "ignored",
+      "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
+    },
     "mentionpilot": {
       "disposition": "ignored",
       "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
     },
     "techdata": {
       "disposition": "active",
-      "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
+      "reason": "Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only and not yet approved (blocked on Cloudflare Access)."
     },
     "scale": {
       "disposition": "ignored",

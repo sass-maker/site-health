@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 9bb30b3c4abc571be90da8954ec786dd80f59e57d5f6312e4b2d8d4bffc18555
+      sha256: 9335388dcdaeb0028de845b2757a5fcea26f1af67a9581edf658be26e760792c
       infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-09
       reviewSha256: 74ff7d1b3faf4c46efce30259833f4d7ada4cf4ee4452da388e1962b2ea5a029
-      documentSha256: 9bb30b3c4abc571be90da8954ec786dd80f59e57d5f6312e4b2d8d4bffc18555
+      documentSha256: 9335388dcdaeb0028de845b2757a5fcea26f1af67a9581edf658be26e760792c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -104,8 +104,8 @@ product:
     audience: The owner.
     outcome: Answer questions across the data collections from one console without losing source provenance.
     mechanism: Astro and React islands on one Worker with Hono /api routes and one read-only adapter per collection; every response carries provenance.
-    proof: Slice 1 (Nomad Atlas at parity, Podcasts read-only) verified locally on workerd at 1440 and 390 px; not deployed.
-    nextAction: Owner decisions on domain, Cloudflare Access and deploy approval; then the remaining collections at parity.
+    proof: Five collections (Nomad Atlas, Podcasts, Reddit Insights, Research Papers, PH Catalog) verified locally on workerd; PH Catalog full export and DuckDB-WASM binaries self-hosted on private R2 bucket techdata-data; CI green without a token (ui-library is public); not deployed.
+    nextAction: Owner enables Cloudflare Zero Trust (free plan) with an owner-only Access policy; then deploy to workers.dev behind Access and verify unauthenticated /api requests get the Access login.
   form: Private data workbench
   platforms:
     - Web
@@ -267,7 +267,7 @@ sharing:
   maturity: null
   ready: false
   verifiedAt: 2026-10-09
-  reason: Private data workbench; first slice (0452b18..638688b) verified locally on workerd via astro preview only. Not deployed.
+  reason: "Private data workbench; verified locally on workerd (PH Catalog full export of 575,479 products loads from private R2 in about 5 s). Worker not deployed: Cloudflare Zero Trust/Access is not set up on the account, and owner-only Access must exist before any workers.dev deploy."
   changelogUrl: null
   roadmapUrl: https://github.com/High-Signal-App/techdata/issues
   geoIdentity: null
