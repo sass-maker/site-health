@@ -7,7 +7,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "codevetter/apps/landing-page-astro/src/layouts/Layout.astro"
+        "codevetter/apps/landing-page-astro/src/content/codevetter.json"
       ]
     },
     {
@@ -39,7 +39,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "live/landing-astro/src/layouts/Layout.astro"
+        "live/landing-astro/src/content/live.json"
       ]
     },
     {
@@ -51,19 +51,11 @@
       ]
     },
     {
-      "id": "gitstat",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "gitstat/index.html"
-      ]
-    },
-    {
       "id": "email-manager",
       "kind": "visual",
       "state": "required",
       "files": [
-        "email-manager/landing-astro/src/layouts/Layout.astro"
+        "email-manager/landing-astro/src/content/home.json"
       ]
     },
     {
@@ -101,14 +93,6 @@
       ]
     },
     {
-      "id": "issue-pages",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "issue-pages/src/ui/templates.ts"
-      ]
-    },
-    {
       "id": "research-papers",
       "kind": "visual",
       "state": "required",
@@ -121,7 +105,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "knowledge-base/landing-astro/src/layouts/Layout.astro"
+        "knowledge-base/landing-astro/src/content/home.json"
       ]
     },
     {
@@ -129,7 +113,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "significanthobbies/services/hub-backend/src/hub.ts"
+        "significanthobbies/landing/src/content/home.json"
       ]
     },
     {
@@ -145,7 +129,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "looptv/src/layouts/BaseLayout.astro"
+        "looptv/src/content/home.json"
       ]
     },
     {
@@ -153,7 +137,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "reader/landing-astro/src/layouts/Layout.astro"
+        "reader/landing-astro/src/content/reader.json"
       ]
     },
     {
@@ -200,7 +184,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "rolepatch/landing-astro/src/components/SiteFooter.astro"
+        "rolepatch/landing-astro/src/content/home.json"
       ]
     },
     {
@@ -208,7 +192,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "karte/landing-astro/src/layouts/Layout.astro"
+        "karte/landing-astro/src/content/home.json"
       ]
     },
     {
@@ -216,7 +200,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "starboard/landing-astro/src/layouts/Layout.astro"
+        "starboard/landing-astro/src/content/home.json"
       ]
     },
     {
@@ -256,15 +240,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "what-it-takes-to-win/src/layouts/Base.astro"
-      ]
-    },
-    {
-      "id": "portfolio",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "portfolio/src/layouts/BaseLayout.astro"
+        "what-it-takes-to-win/src/content/home.json"
       ]
     },
     {
@@ -296,20 +272,9 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "meme-lab/worker/public/index.html",
+        "meme-lab/landing/src/content/home.json",
         "meme-lab/worker/public/collection.html",
         "meme-lab/worker/public/how-it-works.html"
-      ]
-    },
-    {
-      "id": "agent-testing",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "agent-testing/site/index.html",
-        "agent-testing/site/experiments.html",
-        "agent-testing/site/tools.html",
-        "agent-testing/site/404.html"
       ]
     },
     {
@@ -378,6 +343,14 @@
       "state": "required",
       "files": [
         "ph-catalog/landing/index.html"
+      ]
+    },
+    {
+      "id": "sarthakagrawal-personal",
+      "kind": "visual",
+      "state": "required",
+      "files": [
+        "portfolio/src/content/home.json"
       ]
     },
     {
