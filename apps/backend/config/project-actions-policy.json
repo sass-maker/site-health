@@ -117,6 +117,10 @@
       "disposition": "active",
       "reason": "Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10)."
     },
+    "slow-serp": {
+      "disposition": "ignored",
+      "reason": "Owner absorbed this independent project on 2026-10-10; historical policy retained in ownerRetirement.previousSystems."
+    },
     "scale": {
       "disposition": "ignored",
       "reason": "Inactive lifecycle: no unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."

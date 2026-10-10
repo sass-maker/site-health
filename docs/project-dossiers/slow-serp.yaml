@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 38b9a883842673b1c47366557046fbab4d16b5cbf4d4306c271bb36b445d28b6
+      sha256: 92b6c39dc782b3c71206c5c51f2cd98e2004f1190937eb1dec8cf1d7c70bbd22
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-12
       reviewSha256: c4d0128a194fd6145af541880b8ed010fb4485aed8d8ca1c424984c612658da9
-      documentSha256: 38b9a883842673b1c47366557046fbab4d16b5cbf4d4306c271bb36b445d28b6
+      documentSha256: 92b6c39dc782b3c71206c5c51f2cd98e2004f1190937eb1dec8cf1d7c70bbd22
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -80,15 +80,15 @@ identity:
   personalUse: true
   moneyOrPersonalBrand: false
   unmetNeed: false
-  kind: platform
-  priority: P2
-  tier: active
-  attention: toolbox
+  kind: experiment
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
-  operationalStatus: local-only
+    status: inactive
+    resumeCondition: Only resume as an independent product after an explicit new owner decision.
+    shareable: false
+  operationalStatus: retired
   authenticationModel: local-only
   inRegistry: false
 product:
@@ -122,9 +122,9 @@ repository:
   githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/slow-serp
+  url: https://github.com/sarthakagrawal927/slow-serp
   aliases: []
-  sourceOverride: null
+  sourceOverride: ../fleet-archive/slow-serp
   tooling:
     declaredPackageManager: pnpm@10.33.2
     detectedSignals:
@@ -178,8 +178,8 @@ sharing:
   verifiedAt: 2026-09-12
   reason: "Private local support tool. Source tests and doctor passed; the real Google search workflow remains blocked by upstream HTTP 429. Owner identified outbound IPs as the dependency. No proxy infrastructure or successful organic result has been qualified. Receipt: docs/qualification/slow-serp-core-2026-09-11.json."
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/slow-serp/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/slow-serp/issues
   geoIdentity: null
 notes:
-  catalog: Selected support tool from the reviewed readiness cohort, now reconciled into the private catalog. Checkout moved into Fleet with a compatibility link at the original Codex workspace path. Personal GitHub source made public on 2026-09-20. No public product, Cloudflare resources or live search success are claimed.
+  catalog: Selected support tool from the reviewed readiness cohort, now reconciled into the private catalog. Checkout moved into Fleet with a compatibility link at the original Codex workspace path. Personal GitHub source made public on 2026-09-20. No public product, Cloudflare resources or live search success are claimed. Absorbed into SaaS Maker tooling/collect on 2026-10-10 (saas-maker#234); repository transferred to sarthakagrawal927 (not GitHub-archived) and checkout moved to fleet-archive. Google search availability remains unestablished (upstream HTTP 429, needs authorized outbound IPs).
   infrastructure: Local HTTP-first crawler and search API. No Cloudflare resources or hosted endpoint. Outbound IP/proxy infrastructure is not provisioned or qualified. Scheduled crawler was not loaded during the placement check.
