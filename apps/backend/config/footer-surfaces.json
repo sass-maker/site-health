@@ -154,7 +154,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "calorie/marketing/index.html",
+        "calorie/landing/src/content/calorie.json",
         "calorie/marketing/privacy/index.html",
         "calorie/marketing/support/index.html",
         "calorie/marketing/terms/index.html",
@@ -316,7 +316,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "storagedaddy/site/public/storagedaddy/index.html"
+        "storagedaddy/site/landing/src/content/storagedaddy.json"
       ]
     },
     {
