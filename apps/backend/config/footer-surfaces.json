@@ -23,7 +23,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "posttrainllm/browser/src/layouts/Default.astro"
+        "posttrainllm/browser/src/components/StudioFooter.astro"
       ]
     },
     {
@@ -63,9 +63,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "saas-maker/apps/memory-map/src/pages/index.astro",
-        "saas-maker/apps/memory-map/src/pages/about.astro",
-        "saas-maker/apps/memory-map/src/pages/changelog.astro"
+        "saas-maker/apps/memory-map/src/components/studio-footer.astro"
       ]
     },
     {
@@ -85,19 +83,11 @@
       ]
     },
     {
-      "id": "high-signal-podcasts",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "on-record/apps/web/src/layouts/Base.astro"
-      ]
-    },
-    {
       "id": "research-papers",
       "kind": "visual",
       "state": "required",
       "files": [
-        "research-papers/web/src/pages/index.astro"
+        "research-papers/web/src/components/studio-footer.tsx"
       ]
     },
     {
@@ -121,7 +111,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "anime-list/index.html"
+        "anime-list/components/Footer.tsx"
       ]
     },
     {
@@ -129,8 +119,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "looptv/src/content/home.json",
-        "looptv/src/components/StudioFooter.astro"
+        "looptv/src/content/home.json"
       ]
     },
     {
@@ -146,7 +135,6 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "swe-interview-prep/index.html",
         "swe-interview-prep/scripts/generate-public-curriculum.mjs"
       ]
     },
@@ -205,19 +193,11 @@
       ]
     },
     {
-      "id": "aliveville",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "aliveville/astro-landing/src/components/PreciseFooter.astro"
-      ]
-    },
-    {
       "id": "app-health",
       "kind": "visual",
       "state": "required",
       "files": [
-        "app-health/apps/web/index.html"
+        "app-health/apps/web/src/LandingPage.tsx"
       ]
     },
     {
@@ -233,7 +213,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "web-playables/apps/hub/index.html"
+        "web-playables/apps/hub/src/main.ts"
       ]
     },
     {
@@ -241,8 +221,7 @@
       "kind": "visual",
       "state": "required",
       "files": [
-        "what-it-takes-to-win/src/content/home.json",
-        "what-it-takes-to-win/src/components/StudioFooter.astro"
+        "what-it-takes-to-win/src/content/home.json"
       ]
     },
     {
@@ -330,13 +309,11 @@
       ]
     },
     {
-      "id": "chatgpt-memory-insights",
+      "id": "ai-game",
       "kind": "visual",
       "state": "required",
       "files": [
-        "saas-maker/apps/memory-map/src/pages/index.astro",
-        "saas-maker/apps/memory-map/src/pages/about.astro",
-        "saas-maker/apps/memory-map/src/pages/changelog.astro"
+        "aliveville/astro-landing/src/components/PreciseFooter.astro"
       ]
     },
     {
