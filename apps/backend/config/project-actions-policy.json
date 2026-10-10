@@ -115,7 +115,7 @@
     },
     "techdata": {
       "disposition": "active",
-      "reason": "Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only and not yet approved (blocked on Cloudflare Access)."
+      "reason": "Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10)."
     },
     "scale": {
       "disposition": "ignored",
