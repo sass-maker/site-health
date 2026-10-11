@@ -212,3 +212,23 @@ test('ignores malformed records already present in the private ledger', (context
 
   assert.deepEqual(readVisibilityOutcomes({ path }), []);
 });
+
+
+test('round-trips query sample coverage while keeping older collections readable', () => {
+  const path = join(mkdtempSync(join(tmpdir(), 'fleet-search-sample-')), 'ledger.jsonl');
+  const sample = {
+    requestedRowLimit: 5000, returnedRows: 5000, retainedRows: 1,
+    rowLimitReached: true, strategy: 'clicks-and-impressions',
+  };
+  appendVisibilityOutcomeBundle(bundle([
+    searchObservation(),
+    searchObservation({ id: 'search-pace-sampled', searchTermSample: sample }),
+  ]), { path });
+  const read = readVisibilityOutcomes({ path });
+  assert.equal(read.length, 2);
+  assert.equal(read[0].searchTermSample, undefined);
+  assert.deepEqual(read[1].searchTermSample, sample);
+  assert.throws(() => appendVisibilityOutcomeBundle(bundle([
+    searchObservation({ id: 'search-pace-bad-sample', searchTermSample: { ...sample, retainedRows: 25 } }),
+  ]), { path }), /retainedRows/);
+});

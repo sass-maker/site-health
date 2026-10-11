@@ -1,7 +1,8 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const projectRoot = new URL("..", import.meta.url).pathname;
+const projectRoot = fileURLToPath(new URL("..", import.meta.url));
 const distRoot = process.env.DASHBOARD_DIST ?? join(projectRoot, "dist");
 const html = readFileSync(join(distRoot, "index.html"), "utf8");
 

@@ -321,6 +321,51 @@ function searchTrend(signal?: JsonRecord | null) {
   return figure;
 }
 
+function searchKeywordVisibility(row: JsonRecord) {
+  const terms: JsonRecord[] = row.searchTerms ?? [];
+  const sample = row.searchTermSample;
+  const sampleNote = sample
+    ? `${sample.retainedRows} retained from ${sample.returnedRows} returned query/page rows. ${sample.rowLimitReached ? "Provider row limit reached. " : ""}Selected by clicks and impressions; Google omits some queries.`
+    : "Sample coverage unavailable for this collection; Google omits some queries.";
+  const number = (entry: unknown, suffix = "") => Number.isFinite(Number(entry))
+    ? `${Number(entry).toLocaleString("en", { maximumFractionDigits: 1 })}${suffix}` : "Unavailable";
+  const landing = (term: JsonRecord) => {
+    try {
+      const url = new URL(term.landingPage);
+      if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) return null;
+      return element("a", { href: url.href, target: "_blank", rel: "noreferrer" }, [url.pathname + url.search]);
+    } catch { return null; }
+  };
+  return element("details", { class: "search-keywords" }, [
+    element("summary", {}, [`Keyword visibility · ${terms.length} query/page rows`]),
+    element("p", { class: "measurement-boundary-note" }, [sampleNote]),
+    terms.length
+      ? element("div", { class: "search-keywords__scroll", tabindex: "0", "aria-label": "Search keywords and landing pages" }, [
+          element("table", {}, [
+            element("caption", { class: "sr-only" }, ["Observed Google queries and their landing pages"]),
+            element("thead", {}, [element("tr", {}, ["Keyword / page", "Impressions", "Clicks", "CTR", "Position"].map((label) => element("th", { scope: "col" }, [label])))]),
+            element("tbody", {}, terms.map((term) => element("tr", {}, [
+              element("th", { scope: "row" }, [element("strong", {}, [term.query]), landing(term) ?? element("small", {}, ["Landing page unavailable"])]),
+              element("td", {}, [number(term.impressions)]),
+              element("td", {}, [number(term.clicks)]),
+              element("td", {}, [number(term.ctr, "%")]),
+              element("td", {}, [number(term.position)]),
+            ]))),
+          ]),
+        ])
+      : element("p", { class: "measurement-boundary-note" }, ["No query/page rows were retained. This does not establish that the site has no keyword visibility."]),
+  ]);
+}
+
+function searchIndexStatus(row: JsonRecord) {
+  const inspection = row.indexInspection;
+  return element("p", { class: "search-index-status" }, [
+    inspection
+      ? `Root index: ${String(inspection.state).replaceAll("-", " ")} · ${inspection.coverageState ?? inspection.failureReason ?? "Coverage detail unavailable"}${inspection.lastCrawlTime ? ` · last crawled ${formatted(inspection.lastCrawlTime)}` : ""}`
+      : "Root index: not inspected",
+  ]);
+}
+
 function searchResult(row: JsonRecord) {
   const providerUrl = safeSearchConsoleUrl(row.providerUrl);
   const previous = new Map((row.previousPeriod?.metrics ?? []).map((metric: JsonRecord) => [metric.label, Number(metric.value)]));
@@ -350,6 +395,8 @@ function searchResult(row: JsonRecord) {
       ]),
       searchTrend(row.impressions),
     ]),
+    searchIndexStatus(row),
+    searchKeywordVisibility(row),
     element("footer", {}, [
       element("span", {}, [`Collected ${formatted(row.observedAt)}`]),
       providerUrl
@@ -716,9 +763,26 @@ async function renderSearch() {
   const period = payload.rows.find((row: JsonRecord) => row.period)?.period;
   const periodTarget = document.querySelector<HTMLElement>("[data-search-period]");
   if (periodTarget) periodTarget.textContent = `Google data: ${reportingPeriod(period)}`;
-  replace("search", payload.rows.length
-    ? element("div", { class: "search-results" }, payload.rows.map(searchResult))
-    : empty("No Google Search evidence"));
+  const scope = document.querySelector<HTMLSelectElement>("[data-search-scope]");
+  const scopeNote = document.querySelector<HTMLElement>("[data-search-scope-note]");
+  const requested = new URLSearchParams(window.location.search).get("scope");
+  if (scope) scope.value = requested === "all" || !payload.rows.some((row: JsonRecord) => row.futureForm === "active-product") ? "all" : "active";
+  const show = () => {
+    const rows = scope?.value === "active"
+      ? payload.rows.filter((row: JsonRecord) => row.futureForm === "active-product")
+      : payload.rows;
+    if (scopeNote) scopeNote.textContent = `${rows.length} properties · ${rows.filter((row: JsonRecord) => row.observedAt).length} measured${scope?.value === "active" ? " · paused experiments excluded" : ""}`;
+    replace("search", rows.length
+      ? element("div", { class: "search-results" }, rows.map(searchResult))
+      : empty("No Google Search evidence for this scope"));
+  };
+  if (scope) scope.onchange = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("scope", scope.value);
+    window.history.replaceState(null, "", url);
+    show();
+  };
+  show();
   replace("seo-audit", audit.unavailable
     ? empty("On-page SEO audit unavailable")
     : audit.rows.length

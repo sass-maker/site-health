@@ -4,6 +4,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
+import { appendVisibilityOutcomeBundle } from '../lib/visibility-outcome-store.mjs';
+
 import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
 
 const NOW = '2026-09-05T12:00:00.000Z';
@@ -22,7 +24,7 @@ function project(id, overrides = {}) {
   };
 }
 
-function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seoAudit = {} } = {}) {
+function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seoAudit = {}, searchLedger = [] } = {}) {
   const repositoryRoot = mkdtempSync(join(tmpdir(), 'site-health-projection-'));
   const configRoot = join(repositoryRoot, 'apps/backend/config');
   const dataRoot = join(repositoryRoot, 'apps/backend/data');
@@ -36,6 +38,9 @@ function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seo
     ledger.map((row) => JSON.stringify(row)).join('\n'),
   );
   writeFileSync(join(dataRoot, 'seo-audit/latest.json'), JSON.stringify(seoAudit));
+  if (searchLedger.length) appendVisibilityOutcomeBundle({
+    schema: 'fleet.visibility-outcome-bundle.v1', observations: searchLedger,
+  }, { path: join(repositoryRoot, '.fleet/visibility-outcomes/ledger.jsonl') });
   return buildDashboardProjection({
     repositoryRoot,
     workspaceRoot: repositoryRoot,
@@ -210,4 +215,29 @@ test('an audited surface outside the public-metric scope is still enumerated', (
     },
   });
   assert.equal(seoAudit.find((row) => row.projectId === 'hidden').status, 'clean');
+});
+
+
+test('Google Search preserves keyword-page evidence, index status and the owner product cohort', () => {
+  const terms = [{ query: 'relevant keyword', landingPage: 'https://alpha.example/guide', impressions: 40, clicks: 0, ctr: 0, position: 42 }];
+  const sample = { requestedRowLimit: 5000, returnedRows: 30, retainedRows: 1, rowLimitReached: false, strategy: 'clicks-and-impressions' };
+  const { search } = fixture({
+    projects: [project('alpha', { portfolio: { futureForm: 'active-product' } }), project('paused', { portfolio: { futureForm: 'paused-experiment' } })],
+    searchLedger: [{
+      id: 'search-alpha-fixture', projectId: 'alpha', family: 'search', provider: 'google-search-console',
+      scope: 'sc-domain:alpha.example', observedAt: NOW,
+      period: { start: '2026-08-01T00:00:00Z', end: '2026-08-28T23:59:59Z' },
+      metrics: [{ label: 'Search impressions', value: 100 }], searchTerms: terms, searchTermSample: sample,
+      indexInspection: { inspectedUrl: 'https://alpha.example/', state: 'not-indexed', coverageState: 'Crawled - currently not indexed' },
+    }],
+  });
+  const alpha = search.find((row) => row.projectId === 'alpha');
+  const paused = search.find((row) => row.projectId === 'paused');
+  assert.deepEqual(alpha.searchTerms, terms);
+  assert.deepEqual(alpha.searchTermSample, sample);
+  assert.equal(alpha.futureForm, 'active-product');
+  assert.equal(alpha.indexInspection.state, 'not-indexed');
+  assert.equal(paused.futureForm, 'paused-experiment');
+  assert.deepEqual(paused.searchTerms, []);
+  assert.equal(paused.searchTermSample, null);
 });

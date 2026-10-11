@@ -173,6 +173,19 @@ function normalizeSearchTerms(searchTerms, family) {
   return normalized;
 }
 
+function normalizeSearchTermSample(value, family, terms) {
+  if (value === undefined) return null;
+  assert(family === 'search', 'searchTermSample is only supported for Search Console outcomes');
+  const path = 'observation.searchTermSample';
+  assertKnownKeys(value, new Set(['requestedRowLimit', 'returnedRows', 'retainedRows', 'rowLimitReached', 'strategy']), path);
+  assert(Number.isInteger(value.requestedRowLimit) && value.requestedRowLimit > 0 && value.requestedRowLimit <= 25000, `${path}.requestedRowLimit is invalid`);
+  assert(Number.isInteger(value.returnedRows) && value.returnedRows >= 0 && value.returnedRows <= value.requestedRowLimit, `${path}.returnedRows is invalid`);
+  assert(value.retainedRows === terms.length && value.retainedRows <= value.returnedRows, `${path}.retainedRows is invalid`);
+  assert(value.rowLimitReached === (value.returnedRows === value.requestedRowLimit), `${path}.rowLimitReached is invalid`);
+  assert(value.strategy === 'clicks-and-impressions', `${path}.strategy is invalid`);
+  return { ...value };
+}
+
 function normalizeDailySeries(value, family) {
   if (value === undefined) return [];
   assert(family === 'search', 'dailySeries is only supported for Search Console outcomes');
@@ -274,7 +287,7 @@ function normalizeIndexInspection(value, family) {
 function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
   assertKnownKeys(
     observation,
-    new Set(['id', 'projectId', 'family', 'provider', 'provenance', 'providerUrl', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms', 'dailySeries', 'previousPeriod', 'indexInspection', 'breakdowns']),
+    new Set(['id', 'projectId', 'family', 'provider', 'provenance', 'providerUrl', 'scope', 'observedAt', 'period', 'metrics', 'searchTerms', 'searchTermSample', 'dailySeries', 'previousPeriod', 'indexInspection', 'breakdowns']),
     'observation',
   );
   assert(typeof observation.id === 'string' && IDENTIFIER.test(observation.id), 'observation.id is invalid');
@@ -305,6 +318,7 @@ function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
     normalizeMetric(metric, contract, `observation.metrics[${index}]`));
   assert(new Set(metrics.map((metric) => metric.label)).size === metrics.length, 'observation.metrics contains duplicates');
   const searchTerms = normalizeSearchTerms(observation.searchTerms, observation.family);
+  const searchTermSample = normalizeSearchTermSample(observation.searchTermSample, observation.family, searchTerms);
   const dailySeries = normalizeDailySeries(observation.dailySeries, observation.family);
   const previousPeriod = normalizePreviousPeriod(observation.previousPeriod, contract, observation.family);
   const indexInspection = normalizeIndexInspection(observation.indexInspection, observation.family);
@@ -325,6 +339,7 @@ function normalizeVisibilityOutcome(observation, { allowedProjectIds } = {}) {
     period: { start: periodStart, end: periodEnd },
     metrics,
     ...(observation.family === 'search' ? { searchTerms } : {}),
+    ...(searchTermSample ? { searchTermSample } : {}),
     ...(observation.family === 'search' ? { dailySeries } : {}),
     ...(previousPeriod ? { previousPeriod } : {}),
     ...(indexInspection ? { indexInspection } : {}),
@@ -370,6 +385,7 @@ export function readVisibilityOutcomes({ path = defaultVisibilityOutcomePath() }
             ? value.metrics.map((metric) => ({ label: metric?.label, value: metric?.value }))
             : value.metrics,
           searchTerms: value.searchTerms,
+          searchTermSample: value.searchTermSample,
           dailySeries: value.dailySeries,
           previousPeriod: value.previousPeriod
             ? {
