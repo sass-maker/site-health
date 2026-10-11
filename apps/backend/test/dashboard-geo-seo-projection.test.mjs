@@ -24,7 +24,7 @@ function project(id, overrides = {}) {
   };
 }
 
-function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seoAudit = {}, searchLedger = [] } = {}) {
+function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seoAudit = {}, searchLedger = [], rootBrands = null, rootQueries = null } = {}) {
   const repositoryRoot = mkdtempSync(join(tmpdir(), 'site-health-projection-'));
   const configRoot = join(repositoryRoot, 'apps/backend/config');
   const dataRoot = join(repositoryRoot, 'apps/backend/data');
@@ -33,6 +33,8 @@ function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seo
   mkdirSync(join(dataRoot, 'seo-audit'), { recursive: true });
   writeFileSync(join(configRoot, 'projects.json'), JSON.stringify({ projects }));
   writeFileSync(join(configRoot, 'geo-observatory.json'), JSON.stringify(geoConfig));
+  if (rootBrands) writeFileSync(join(configRoot, 'root-brands.json'), JSON.stringify(rootBrands));
+  if (rootQueries) writeFileSync(join(configRoot, 'root-search-queries.json'), JSON.stringify(rootQueries));
   writeFileSync(
     join(dataRoot, 'geo-observatory/ledger.jsonl'),
     ledger.map((row) => JSON.stringify(row)).join('\n'),
@@ -240,4 +242,35 @@ test('Google Search preserves keyword-page evidence, index status and the owner 
   assert.equal(paused.futureForm, 'paused-experiment');
   assert.deepEqual(paused.searchTerms, []);
   assert.equal(paused.searchTermSample, null);
+});
+
+test('search projection keeps multiple surfaces of one owner separate', () => {
+  const { search } = fixture({
+    projects: [project('owner', { domains: ['app.example.com', 'example.com'] })],
+    rootBrands: { version: 1, brands: [{ rootDomain: 'example.com', canonicalName: 'Example', alternateNames: [] }] },
+    rootQueries: { version: 1, cadence: 'weekly', roots: [{ rootDomain: 'example.com', projectId: 'owner', collision: { state: 'clear', note: 'Distinct test brand with an independently owned root domain.' }, queries: ['brand', 'exact-domain', 'category', 'problem'].map((kind) => ({ id: `example-${kind}`, kind, text: kind, status: 'active' })) }] },
+    searchLedger: ['app.example.com', 'example.com'].map((domain, index) => ({
+      id: `search-owner-${index}`, projectId: 'owner', family: 'search', provider: 'google-search-console',
+      scope: `sc-domain:example.com · page:https://${domain}/`, observedAt: NOW,
+      period: { start: '2026-08-01T00:00:00Z', end: '2026-08-28T23:59:59Z' },
+      metrics: [{ label: 'Search impressions', value: index ? 70 : 30 }],
+      indexInspection: { inspectedUrl: `https://${domain}/`, state: index ? 'not-indexed' : 'indexed' },
+    })),
+  });
+  assert.equal(search.length, 2);
+  assert.equal(search.find((row) => row.domain === 'app.example.com').impressions.value, 30);
+  assert.equal(search.find((row) => row.domain === 'example.com').impressions.value, 70);
+  assert.equal(search.find((row) => row.domain === 'example.com').indexInspection.state, 'not-indexed');
+});
+
+test('GEO follows the configured surface and excludes a retired query cohort', () => {
+  const { geoAwareness } = fixture({
+    projects: [project('owner', { domains: ['app.example.com', 'example.com'] })],
+    geoConfig: { products: [{ id: 'owner', origin: 'https://example.com', queries: [{ qid: 'new-brand', kind: 'brand' }] }] },
+    ledger: [{ date: '2026-09-05', product: 'owner', qid: 'old-brand', class: 'A' }],
+  });
+  const row = geoAwareness.find((row) => row.projectId === 'owner');
+  assert.equal(row.domain, 'example.com');
+  assert.equal(row.status, 'not-measured');
+  assert.equal(row.runCount, 0);
 });
