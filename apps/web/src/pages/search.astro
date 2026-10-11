@@ -16,6 +16,14 @@ import DashboardLayout from "../components/DashboardLayout.astro";
     <span class="snapshot-time" data-outcome-time>Reading Search Console evidence</span>
   </div>
   <section class="owner-section owner-section--directory" aria-label="Google Search results by project">
+    <div class="project-scope project-scope--compact">
+      <label for="search-scope">Show</label>
+      <select id="search-scope" data-search-scope>
+        <option value="active">Active products</option>
+        <option value="all">All maintained search properties</option>
+      </select>
+      <span class="measurement-boundary-note" data-search-scope-note></span>
+    </div>
     <div class="loading-state" data-dashboard-slot="search">Building Google Search ledger…</div>
   </section>
   <section class="owner-section owner-section--directory" aria-labelledby="seo-audit-title">

@@ -2,6 +2,7 @@ const SEARCH_CONSOLE_API = 'https://www.googleapis.com/webmasters/v3';
 const SEARCH_CONSOLE_INSPECTION_API = 'https://searchconsole.googleapis.com/v1';
 const SEARCH_CONSOLE_TIMEOUT_MS = 20_000;
 const SEARCH_CONSOLE_INSPECTION_CONCURRENCY = 4;
+const SEARCH_CONSOLE_QUERY_POOL_LIMIT = 5000;
 
 function isoDay(date) {
   return date.toISOString().slice(0, 10);
@@ -543,6 +544,33 @@ export async function inspectSearchConsoleUrl({
   };
 }
 
+// Search Console sorts query rows by clicks. Keep a bounded mix of clicked
+// results and high-impression opportunities, including rows with zero clicks.
+function selectSearchTerms(rows, limit) {
+  const key = (row) => `${row.query}\n${row.landingPage}`;
+  const unique = [...new Map(rows.map((row) => [key(row), row])).values()];
+  const tie = (left, right) => key(left).localeCompare(key(right), 'en');
+  const clicked = unique.filter((row) => row.clicks > 0)
+    .sort((a, b) => b.clicks - a.clicks || b.impressions - a.impressions || tie(a, b))
+    .slice(0, Math.ceil(limit / 2));
+  const retained = new Map(clicked.map((row) => [key(row), row]));
+  for (const row of unique.sort((a, b) => b.impressions - a.impressions || b.clicks - a.clicks || tie(a, b))) {
+    if (retained.size >= limit) break;
+    retained.set(key(row), row);
+  }
+  return [...retained.values()];
+}
+
+export function searchConsoleRefreshReceipt({ projectId = null, runId }) {
+  return {
+    family: 'search',
+    scope: projectId ? 'project' : 'portfolio',
+    projectId,
+    runId,
+    label: projectId ? `${projectId} Search Console evidence` : 'Portfolio Search Console evidence',
+  };
+}
+
 export async function collectSearchConsoleOutcomes({
   projects,
   accessToken,
@@ -601,7 +629,7 @@ export async function collectSearchConsoleOutcomes({
           endDate,
           pageFilter: selected.pageFilter,
           dimensions: ['query', 'page'],
-          rowLimit: searchTermLimit,
+          rowLimit: SEARCH_CONSOLE_QUERY_POOL_LIMIT,
         }),
       },
     );
@@ -648,19 +676,22 @@ export async function collectSearchConsoleOutcomes({
       inspectionRequest,
     ]);
     const row = result.rows?.[0] ?? null;
-    const searchTerms = (termResult.rows ?? []).flatMap((term) => {
+    const queryRows = (termResult.rows ?? []).flatMap((term) => {
       const query = String(term.keys?.[0] ?? '').replace(/\s+/g, ' ').trim();
       let landingPage = null;
       try {
         const url = new URL(String(term.keys?.[1] ?? ''));
-        if (!['http:', 'https:'].includes(url.protocol)) return [];
+        if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || url.href.length > 2048) return [];
         landingPage = url.href;
       } catch {
         return [];
       }
-      if (!query || !Number.isFinite(Number(term.position)) || Number(term.position) <= 0) {
+      if (!query || query.length > 2048 || !Number.isFinite(Number(term.position)) || Number(term.position) <= 0) {
         return [];
       }
+      if (!Number.isFinite(Number(term.impressions ?? 0)) || Number(term.impressions ?? 0) < 0 ||
+          !Number.isFinite(Number(term.clicks ?? 0)) || Number(term.clicks ?? 0) < 0 ||
+          !Number.isFinite(Number(term.ctr ?? 0)) || Number(term.ctr ?? 0) < 0 || Number(term.ctr ?? 0) > 1) return [];
       return [{
         query,
         landingPage,
@@ -670,6 +701,14 @@ export async function collectSearchConsoleOutcomes({
         position: Number(term.position),
       }];
     });
+    const searchTerms = selectSearchTerms(queryRows, searchTermLimit);
+    const searchTermSample = {
+      requestedRowLimit: SEARCH_CONSOLE_QUERY_POOL_LIMIT,
+      returnedRows: (termResult.rows ?? []).length,
+      retainedRows: searchTerms.length,
+      rowLimitReached: (termResult.rows ?? []).length >= SEARCH_CONSOLE_QUERY_POOL_LIMIT,
+      strategy: 'clicks-and-impressions',
+    };
     const metrics = [
       { label: 'Search impressions', value: Number(row?.impressions ?? 0) },
       { label: 'Search clicks', value: Number(row?.clicks ?? 0) },
@@ -721,6 +760,7 @@ export async function collectSearchConsoleOutcomes({
         metrics: previousMetrics,
       },
       searchTerms,
+      searchTermSample,
       indexInspection,
     } };
   });

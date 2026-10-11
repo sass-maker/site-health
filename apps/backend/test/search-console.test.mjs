@@ -8,6 +8,7 @@ import {
   inspectSearchConsoleUrl,
   reconcileSearchConsoleSitemaps,
   searchConsoleProviderUrl,
+  searchConsoleRefreshReceipt,
   searchConsoleSitemapTargets,
   selectSearchConsoleProperty,
 } from '../lib/search-console.mjs';
@@ -379,7 +380,7 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
   });
   const queryRequest = requests.find((request) => request.body?.dimensions?.includes('query'));
   assert.deepEqual(queryRequest.body.dimensions, ['query', 'page']);
-  assert.equal(queryRequest.body.rowLimit, 25);
+  assert.equal(queryRequest.body.rowLimit, 5000);
   assert.equal(result.bundle.observations[0].period.start, '2026-07-01T00:00:00.000Z');
   assert.equal(result.bundle.observations[0].period.end, '2026-07-28T23:59:59.999Z');
   assert.deepEqual(result.bundle.observations[0].dailySeries, [
@@ -388,4 +389,47 @@ test('collects project-scoped aggregates and keeps unavailable properties out of
   ]);
   assert.equal(result.bundle.observations[0].previousPeriod.start, '2026-06-03T00:00:00.000Z');
   assert.equal(result.bundle.observations[0].previousPeriod.end, '2026-06-30T23:59:59.999Z');
+});
+
+
+test('retains high-impression zero-click opportunities beyond the old click-sorted sample', async () => {
+  const clicked = Array.from({ length: 30 }, (_, index) => ({
+    keys: [`brand-${index}`, 'https://alpha.example/'], clicks: 30 - index, impressions: 100,
+    ctr: (30 - index) / 100, position: 3,
+  }));
+  const opportunity = { keys: ['relevant category query', 'https://alpha.example/guide'], clicks: 0, impressions: 9000, ctr: 0, position: 42 };
+  const rows = [...clicked, opportunity];
+  const collect = (queryRows) => collectSearchConsoleOutcomes({
+    projects: [{ id: 'alpha', domains: ['alpha.example'] }],
+    now: new Date('2026-10-11T12:00:00Z'),
+    requestImpl: async (path, { body } = {}) => {
+      if (path === '/sites') return { siteEntry: [{ siteUrl: 'sc-domain:alpha.example', permissionLevel: 'siteOwner' }] };
+      if (path.includes('urlInspection')) return {};
+      if (body.dimensions?.includes('query')) {
+        assert.equal(body.rowLimit, 5000);
+        return { rows: queryRows };
+      }
+      if (body.dimensions?.includes('date')) return { rows: [] };
+      return { rows: [{ impressions: 12000, clicks: 465, ctr: 465 / 12000, position: 20 }] };
+    },
+  });
+  const first = (await collect(rows)).bundle.observations[0];
+  const reordered = (await collect([...rows].reverse())).bundle.observations[0];
+  assert.equal(first.searchTerms.length, 25);
+  assert(first.searchTerms.some((term) => term.query === 'relevant category query' && term.landingPage.endsWith('/guide')));
+  assert(first.searchTerms.some((term) => term.query === 'brand-0'));
+  assert.deepEqual(first.searchTerms, reordered.searchTerms);
+  assert.deepEqual(first.searchTermSample, {
+    requestedRowLimit: 5000, returnedRows: 31, retainedRows: 25,
+    rowLimitReached: false, strategy: 'clicks-and-impressions',
+  });
+  assert.equal(first.metrics.find((metric) => metric.label === 'Search clicks').value, 465);
+});
+
+test('a targeted collection cannot claim a portfolio refresh', () => {
+  assert.deepEqual(searchConsoleRefreshReceipt({ projectId: 'pace', runId: 'search_test' }), {
+    family: 'search', scope: 'project', projectId: 'pace', runId: 'search_test', label: 'pace Search Console evidence',
+  });
+  assert.equal(searchConsoleRefreshReceipt({ runId: 'search_all' }).scope, 'portfolio');
+  assert.equal(searchConsoleRefreshReceipt({ runId: 'search_all' }).projectId, null);
 });

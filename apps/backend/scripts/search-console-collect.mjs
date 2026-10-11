@@ -11,6 +11,7 @@ import {
   attachSitemapSubmissionState,
   collectSearchConsoleOutcomes,
   ensureSearchConsoleSitemaps,
+  searchConsoleRefreshReceipt,
 } from '../lib/search-console.mjs';
 import {
   appendVisibilityOutcomeBundle,
@@ -146,13 +147,10 @@ const store = new DashboardStore({
 try {
   const summary = await withRefreshReceipt(
     store,
-    {
-      family: 'search',
-      scope: 'portfolio',
-      projectId: null,
+    searchConsoleRefreshReceipt({
+      projectId: options.projectId,
       runId: `search_${randomUUID().replaceAll('-', '')}`,
-      label: 'Portfolio Search Console evidence',
-    },
+    }),
     collect,
     { summarize: (result) => ({ resultCount: result.measuredProjects }) },
   );

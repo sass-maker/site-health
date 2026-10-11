@@ -248,6 +248,7 @@ function searchProjection(catalog, configRoot, home) {
     return {
       projectId: project.id,
       name: project.name ?? project.id,
+      futureForm: project.portfolio?.futureForm ?? null,
       domain: normalizedDomain(project.domains?.[0]),
       status: latest ? (Number(impressions?.value) > 0 ? 'observed' : 'zero-impressions') : 'not-measured',
       observedAt: latest?.observedAt ?? null,
@@ -258,6 +259,8 @@ function searchProjection(catalog, configRoot, home) {
       period: latest?.period ?? null,
       previousPeriod: latest?.previousPeriod ?? null,
       indexInspection: latest?.indexInspection ?? null,
+      searchTerms: latest?.searchTerms ?? [],
+      searchTermSample: latest?.searchTermSample ?? null,
       impressions,
       clicks: metric('Search clicks', 'clicks'),
       ctr: metric('Search CTR', 'ctr'),
