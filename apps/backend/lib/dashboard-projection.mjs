@@ -343,7 +343,9 @@ function geoProjection(catalog, configRoot, dataRoot) {
     const project = projects.get(projectId);
     const name = project?.name ?? projectId;
     const productConfig = configured.get(projectId);
-    const domain = normalizedDomain(productConfig?.origin ?? project?.domains?.[0]);
+    const domain = productConfig?.origin
+      ? searchObservationDomain({ scope: productConfig.origin })
+      : normalizedDomain(project?.domains?.[0]);
     const queryIds = new Set((productConfig?.queries ?? []).map((query) => query.qid));
     const observations = (byProduct.get(projectId) ?? []).filter((row) => !productConfig || queryIds.has(row.qid));
     const runDates = [...new Set(observations.map((row) => row.date))].sort();
