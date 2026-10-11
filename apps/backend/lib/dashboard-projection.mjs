@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 import { validateRootBrandContract } from './root-brand-contract.mjs';
 import { validateRootSearchQueryContract } from './root-search-query-contract.mjs';
 import { defaultVisibilityOutcomePath, readVisibilityOutcomes } from './visibility-outcome-store.mjs';
-import { searchConsoleProjects, visibilityProjects } from './visibility-projects.mjs';
+import { searchConsoleProjects, searchObservationDomain, visibilityProjects } from './visibility-projects.mjs';
 import { domainStrengthRoots, registrableDomain } from './dashboard-backend/domain-scope.mjs';
 import { resolveCollectorRoot } from './dashboard-backend/collector-paths.mjs';
 
@@ -232,8 +232,12 @@ function searchProjection(catalog, configRoot, home) {
     rows.push(observation);
     byProject.set(observation.projectId, rows);
   }
-  return searchProjectsFor(catalog, configRoot).map((project) => {
+  const targets = searchProjectsFor(catalog, configRoot);
+  return targets.map((project) => {
+    const domain = normalizedDomain(project.domains?.[0]);
+    const multipleTargets = targets.filter((target) => target.id === project.id).length > 1;
     const history = (byProject.get(project.id) ?? [])
+      .filter((row) => searchObservationDomain(row) === domain || (!multipleTargets && !searchObservationDomain(row)))
       .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt));
     const latest = history.at(-1) ?? null;
     const metric = (label, dailyKey) => {
@@ -338,8 +342,12 @@ function geoProjection(catalog, configRoot, dataRoot) {
   return enumerated.map((projectId) => {
     const project = projects.get(projectId);
     const name = project?.name ?? projectId;
-    const domain = normalizedDomain(project?.domains?.[0]);
-    const observations = byProduct.get(projectId) ?? [];
+    const productConfig = configured.get(projectId);
+    const domain = productConfig?.origin
+      ? searchObservationDomain({ scope: productConfig.origin })
+      : normalizedDomain(project?.domains?.[0]);
+    const queryIds = new Set((productConfig?.queries ?? []).map((query) => query.qid));
+    const observations = (byProduct.get(projectId) ?? []).filter((row) => !productConfig || queryIds.has(row.qid));
     const runDates = [...new Set(observations.map((row) => row.date))].sort();
     const latestDate = runDates.at(-1) ?? null;
     if (!latestDate) {

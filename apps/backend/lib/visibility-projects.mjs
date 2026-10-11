@@ -29,7 +29,7 @@ export function searchConsoleProjects(catalog, rootsByDomain = new Map()) {
   const catalogProjects = catalog?.projects ?? [];
   const catalogById = new Map(catalogProjects.map((project) => [project.id, project]));
   const selected = visibilityProjects(catalog);
-  const selectedById = new Map(selected.map((project) => [project.id, project]));
+  const targets = new Set(selected.map((project) => `${project.id}:${normalizedDomain(project.domains?.[0])}`));
 
   for (const root of rootsByDomain.values()) {
     const rootDomain = normalizedDomain(root?.rootDomain);
@@ -42,21 +42,25 @@ export function searchConsoleProjects(catalog, rootsByDomain = new Map()) {
       throw new Error(`Search Console root project domain mismatch: ${projectId} does not own ${rootDomain || '(empty)'}`);
     }
 
-    const existing = selectedById.get(projectId);
-    if (existing) {
-      const primaryDomain = normalizedDomain(existing.domains?.[0]);
-      if (primaryDomain !== rootDomain) {
-        throw new Error(
-          `Search Console root conflicts with the public metric target: ${projectId} measures ${primaryDomain || '(empty)'}, not ${rootDomain}`,
-        );
-      }
-      continue;
-    }
-
-    const target = { ...project, domains: [rootDomain] };
-    selected.push(target);
-    selectedById.set(projectId, target);
+    const key = `${projectId}:${rootDomain}`;
+    if (targets.has(key)) continue;
+    selected.push({ ...project, domains: [rootDomain] });
+    targets.add(key);
   }
 
   return selected;
+}
+
+// Old ledger rows retain their inspected URL/property scope, so domain separation
+// works without rewriting provider evidence or changing the ledger schema.
+export function searchObservationDomain(observation) {
+  const scope = String(observation?.scope ?? '');
+  const value = observation?.indexInspection?.inspectedUrl
+    ?? (scope.includes(' · page:') ? scope.split(' · page:')[1] : scope);
+  if (String(value).startsWith('sc-domain:')) return normalizedDomain(String(value).slice(10));
+  try {
+    return normalizedDomain(new URL(value).hostname);
+  } catch {
+    return null;
+  }
 }

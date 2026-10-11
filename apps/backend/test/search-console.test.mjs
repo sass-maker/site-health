@@ -433,3 +433,29 @@ test('a targeted collection cannot claim a portfolio refresh', () => {
   assert.equal(searchConsoleRefreshReceipt({ runId: 'search_all' }).scope, 'portfolio');
   assert.equal(searchConsoleRefreshReceipt({ runId: 'search_all' }).projectId, null);
 });
+
+test('collects two owned domains with distinct observation identities', async () => {
+  const result = await collectSearchConsoleOutcomes({
+    projects: [{ id: 'owner', domains: ['app.example.com'] }, { id: 'owner', domains: ['example.com'] }],
+    accessToken: 'not-retained', quotaProject: 'quota-project',
+    now: new Date('2026-08-05T12:00:00.000Z'),
+    fetchImpl: async (url, options = {}) => {
+      if (url.endsWith('/sites')) return Response.json({ siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }] });
+      if (url.includes('/urlInspection/')) return Response.json({ inspectionResult: { indexStatusResult: { verdict: 'PASS' } } });
+      const body = JSON.parse(options.body);
+      if (body.dimensions?.length) return Response.json({ rows: [] });
+      const isApp = body.dimensionFilterGroups?.[0]?.filters?.[0]?.expression === 'https://app.example.com/';
+      return Response.json({ rows: [{ clicks: 0, impressions: isApp ? 3 : 7, ctr: 0, position: 8 }] });
+    },
+  });
+  const rows = result.bundle.observations;
+  assert.equal(new Set(rows.map((row) => row.id)).size, 2);
+  assert.deepEqual(rows.map((row) => row.indexInspection.inspectedUrl), ['https://app.example.com/', 'https://example.com/']);
+  assert.deepEqual(rows.map((row) => row.metrics[0].value), [3, 7]);
+  const attached = attachSitemapSubmissionState(result.bundle, [
+    { projectId: 'owner', domain: 'app.example.com', state: 'submitted', submittedAt: '2026-08-04T12:00:00.000Z' },
+    { projectId: 'owner', domain: 'example.com', state: 'blocked' },
+  ]);
+  assert.equal(attached.observations[0].indexInspection.sitemapSubmissionState, 'submitted');
+  assert.equal(attached.observations[1].indexInspection.sitemapSubmissionState, undefined);
+});

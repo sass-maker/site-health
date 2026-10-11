@@ -1,6 +1,6 @@
 {
-  "$comment": "GEO Observatory query config. Queries are STABLE identifiers — never rephrase an existing query (add a new one instead) or trend history breaks. Rubric: A = product's own domain in top 3 organic results; B = product has partial page-one visibility (own domain below top 3 or via an aggregator/directory); C = absent from first page.",
-  "$coverage": "2026-09-05 (SAR-15): extended to every live product with a public organic surface. Excluded by design — chatgpt-connections (MCP endpoints only; mcp.highsignal.app returns 404 to a browser) and reel-pipeline (reels.sassmaker.com returns 401, auth-gated): both are status=live in projects.json but expose nothing a search engine can rank, so an origin-based A/B/C rubric would be meaningless for them. ai-game/aliveville.com is covered by the root-search contract, not here. Re-check this list whenever a project flips to status=live. 2026-09-27 catalog reconciliation: removed 12 products whose lifecycle is now inactive (agent-office, chess, drank, everythingrated, india-standards, journal, local-ai-video-studio, materia, protein-index, psi-swarm, truehire, veg-protein-food) so SERP collection no longer spends quota on out-of-portfolio origins; ledger history in data/ is retained.",
+  "$comment": "GEO Observatory query config. Queries are STABLE identifiers \u2014 never rephrase an existing query (add a new one instead) or trend history breaks. Rubric: A = product's own domain in top 3 organic results; B = product has partial page-one visibility (own domain below top 3 or via an aggregator/directory); C = absent from first page.",
+  "$coverage": "2026-09-05 (SAR-15): extended to every live product with a public organic surface. Excluded by design \u2014 chatgpt-connections (MCP endpoints only; mcp.highsignal.app returns 404 to a browser) and reel-pipeline (reels.sassmaker.com returns 401, auth-gated): both are status=live in projects.json but expose nothing a search engine can rank, so an origin-based A/B/C rubric would be meaningless for them. ai-game/aliveville.com is covered by the root-search contract, not here. Re-check this list whenever a project flips to status=live. 2026-09-27 catalog reconciliation: removed 12 products whose lifecycle is now inactive (agent-office, chess, drank, everythingrated, india-standards, journal, local-ai-video-studio, materia, protein-index, psi-swarm, truehire, veg-protein-food) so SERP collection no longer spends quota on out-of-portfolio origins; ledger history in data/ is retained.",
   "cadence": "weekly",
   "classes": [
     "A",
@@ -280,7 +280,7 @@
     {
       "id": "what-it-takes-to-win",
       "origin": "https://paths.significanthobbies.com",
-      "$note": "Named priority surface. Extended 2026-09-05 (SAR-3) from 2 to 4 queries — brand, exact domain, category, buyer problem — matching the depth given to on-record, and closing scorecard.md gap 1. The pre-existing what-it-takes-to-win-brand qid carries exact-domain text; it is kept verbatim so its trend survives, and what-it-takes-to-win-brand-2 is the real brand query. The bare product name is a common English phrase, so the brand query is disambiguated — SAR-11 returned powerlisting.fandom.com and gamepressure.com for the undisambiguated form.",
+      "$note": "Named priority surface. Extended 2026-09-05 (SAR-3) from 2 to 4 queries \u2014 brand, exact domain, category, buyer problem \u2014 matching the depth given to on-record, and closing scorecard.md gap 1. The pre-existing what-it-takes-to-win-brand qid carries exact-domain text; it is kept verbatim so its trend survives, and what-it-takes-to-win-brand-2 is the real brand query. The bare product name is a common English phrase, so the brand query is disambiguated \u2014 SAR-11 returned powerlisting.fandom.com and gamepressure.com for the undisambiguated form.",
       "queries": [
         {
           "qid": "what-it-takes-to-win-brand",
@@ -472,7 +472,7 @@
     {
       "id": "on-record",
       "origin": "https://podcasts.highsignal.app",
-      "$note": "Named priority surface. Four queries — brand, exact domain, category, buyer problem — matching the depth given to pace and high-signal.",
+      "$note": "Named priority surface. Four queries \u2014 brand, exact domain, category, buyer problem \u2014 matching the depth given to pace and high-signal.",
       "queries": [
         {
           "qid": "on-record-brand",
@@ -499,7 +499,7 @@
     {
       "id": "live",
       "origin": "https://live.significanthobbies.com",
-      "$note": "Brand probe is the exact hostname — the product name 'Live' is unsearchable on its own.",
+      "$note": "Brand probe is the exact hostname \u2014 the product name 'Live' is unsearchable on its own.",
       "queries": [
         {
           "qid": "live-brand",
@@ -531,17 +531,52 @@
     },
     {
       "id": "ios-landings",
-      "origin": "https://apps.significanthobbies.com",
+      "origin": "https://daddyrad.com",
       "queries": [
         {
-          "qid": "ios-landings-brand",
+          "qid": "daddyrad-brand-2",
           "kind": "brand",
-          "q": "Significant Hobbies app landings"
+          "q": "DaddyRad mac apps",
+          "status": "active"
         },
         {
-          "qid": "ios-landings-category",
+          "qid": "daddyrad-brand",
+          "kind": "brand",
+          "q": "DaddyRad Mac utilities",
+          "status": "historical",
+          "supersededBy": "daddyrad-brand-2"
+        },
+        {
+          "qid": "daddyrad-exact-domain",
+          "kind": "exact-domain",
+          "q": "daddyrad.com",
+          "status": "active"
+        },
+        {
+          "qid": "daddyrad-category-2",
           "kind": "category",
-          "q": "landing pages for Significant Hobbies apps"
+          "q": "native macOS utility apps suite",
+          "status": "active"
+        },
+        {
+          "qid": "daddyrad-category",
+          "kind": "category",
+          "q": "native Mac utility apps for storage browsing performance",
+          "status": "historical",
+          "supersededBy": "daddyrad-category-2"
+        },
+        {
+          "qid": "daddyrad-problem-2",
+          "kind": "problem",
+          "q": "mac utilities for storage cleanup performance and browsing",
+          "status": "active"
+        },
+        {
+          "qid": "daddyrad-problem",
+          "kind": "problem",
+          "q": "free focused Mac utilities for developers",
+          "status": "historical",
+          "supersededBy": "daddyrad-problem-2"
         }
       ]
     },

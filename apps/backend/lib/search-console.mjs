@@ -1,3 +1,6 @@
+import { createHash } from 'node:crypto';
+import { searchObservationDomain } from './visibility-projects.mjs';
+
 const SEARCH_CONSOLE_API = 'https://www.googleapis.com/webmasters/v3';
 const SEARCH_CONSOLE_INSPECTION_API = 'https://searchconsole.googleapis.com/v1';
 const SEARCH_CONSOLE_TIMEOUT_MS = 20_000;
@@ -448,11 +451,11 @@ export async function ensureSearchConsoleSitemaps({
 const RECORDED_SITEMAP_STATES = new Set(['submitted', 'already-submitted']);
 
 export function attachSitemapSubmissionState(bundle, sitemapResults) {
-  const sitemapByProject = new Map(sitemapResults.map((result) => [result.projectId, result]));
+  const sitemapByProject = new Map(sitemapResults.map((result) => [`${result.projectId}:${result.domain ?? ''}`, result]));
   return {
     ...bundle,
     observations: bundle.observations.map((observation) => {
-      const sitemap = sitemapByProject.get(observation.projectId);
+      const sitemap = sitemapByProject.get(`${observation.projectId}:${searchObservationDomain(observation) ?? ''}`);
       if (
         !observation.indexInspection ||
         !sitemap?.submittedAt ||
@@ -738,7 +741,7 @@ export async function collectSearchConsoleOutcomes({
       }];
     });
     return { observation: {
-      id: `search-${project.id}-${endDate}-${runId}`,
+      id: `search-${project.id}-${createHash('sha256').update(domain).digest('hex').slice(0, 12)}-${endDate}-${runId}`,
       projectId: project.id,
       family: 'search',
       provider: 'google-search-console',

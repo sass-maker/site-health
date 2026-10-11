@@ -126,7 +126,8 @@ async function collect() {
     schema: 'fleet.search-console-collection-receipt.v1',
     period: collected.period,
     accessibleProperties: collected.propertyCount,
-    measuredProjects: collected.bundle.observations.length,
+    measuredProjects: new Set(collected.bundle.observations.map((row) => row.projectId)).size,
+    measuredProperties: collected.bundle.observations.length,
     unavailable: collected.unavailable,
     recorded: receipt.recorded,
     duplicates: receipt.duplicates,
@@ -152,7 +153,7 @@ try {
       runId: `search_${randomUUID().replaceAll('-', '')}`,
     }),
     collect,
-    { summarize: (result) => ({ resultCount: result.measuredProjects }) },
+    { summarize: (result) => ({ resultCount: result.measuredProperties }) },
   );
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
 } finally {

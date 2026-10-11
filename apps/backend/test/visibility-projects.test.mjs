@@ -4,6 +4,7 @@ import test from 'node:test';
 import {
   isVisibilityProject,
   searchConsoleProjects,
+  searchObservationDomain,
   visibilityProjects,
 } from '../lib/visibility-projects.mjs';
 
@@ -85,7 +86,7 @@ test('Search Console targets add contracted roots without changing visibility el
   assert.deepEqual(visibilityProjects(catalog).map((entry) => entry.id), ['first']);
 });
 
-test('Search Console targets reject unknown ownership and conflicting public scope', () => {
+test('Search Console targets retain primary and owned root surfaces while rejecting unknown ownership', () => {
   const catalog = { projects: [project({ id: 'first', domains: ['app.example.com', 'example.com'] })] };
 
   assert.throws(
@@ -94,10 +95,19 @@ test('Search Console targets reject unknown ownership and conflicting public sco
     ])),
     /Unknown Search Console root project/,
   );
-  assert.throws(
-    () => searchConsoleProjects(catalog, new Map([
-      ['example.com', { rootDomain: 'example.com', projectId: 'first' }],
-    ])),
-    /conflicts with the public metric target/,
-  );
+  assert.deepEqual(searchConsoleProjects(catalog, new Map([
+    ['example.com', { rootDomain: 'example.com', projectId: 'first' }],
+    ['duplicate', { rootDomain: 'example.com', projectId: 'first' }],
+  ])).map((entry) => entry.domains[0]), ['app.example.com', 'example.com']);
+  assert.throws(() => searchConsoleProjects(catalog, new Map([
+    ['unowned.com', { rootDomain: 'unowned.com', projectId: 'first' }],
+  ])), /does not own/);
+});
+
+test('search domain identity uses inspected URL before shared property scope', () => {
+  assert.equal(searchObservationDomain({ scope: 'sc-domain:example.com · page:https://app.example.com/' }), 'app.example.com');
+  assert.equal(searchObservationDomain({ scope: 'sc-domain:example.com', indexInspection: { inspectedUrl: 'https://second.example.com/' } }), 'second.example.com');
+  assert.equal(searchObservationDomain({ scope: 'https://example.com/' }), 'example.com');
+  assert.equal(searchObservationDomain({ scope: 'sc-domain:example.com' }), 'example.com');
+  assert.equal(searchObservationDomain({ scope: 'legacy unscoped' }), null);
 });

@@ -28,19 +28,20 @@ test('covers every contracted brand root with one active query per required inte
   }
 });
 
-test('Search Console covers every contracted root without expanding the public metric portfolio', () => {
+test('Search Console covers current root owners without changing public metric eligibility', () => {
   const catalog = { projects };
   const roots = validateRootSearchQueryContract(contract, brands, projects);
   const publicProjects = visibilityProjects(catalog);
   const searchProjects = searchConsoleProjects(catalog, roots);
 
   assert.deepEqual(
-    searchProjects.map((project) => project.id).sort(),
-    publicProjects.map((project) => project.id).sort(),
+    [...new Set(searchProjects.map((project) => project.id))].sort(),
+    [...new Set([...publicProjects.map((project) => project.id), ...[...roots.values()].map((root) => root.projectId)])].sort(),
   );
   assert.equal(publicProjects.some((project) => project.id === 'site-health'), false);
+  assert.deepEqual(visibilityProjects(catalog), publicProjects);
   for (const root of roots.values()) {
-    const target = searchProjects.find((project) => project.id === root.projectId);
+    const target = searchProjects.find((project) => project.id === root.projectId && project.domains[0] === root.rootDomain);
     assert.ok(target, `missing Search Console target for ${root.rootDomain}`);
     assert.equal(target.domains[0], root.rootDomain);
   }
