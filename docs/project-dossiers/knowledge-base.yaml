@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 92b6c39dc782b3c71206c5c51f2cd98e2004f1190937eb1dec8cf1d7c70bbd22
-      infrastructureUpdatedAt: 2026-10-04
+      sha256: f6577aff18dea2f4f8a09126871640b6e5de3cf5d72fb327068306e7fa45d4c5
+      infrastructureUpdatedAt: 2026-10-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Knowledge Base
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 7a12fcda5a95f43f7923970ce41571bb8d6284c607451595a45a84a7f2e968af
+      sha256: e0de229713af00c907006ffd9f1685ac0a04ba588821878b652c992b0215d062
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
@@ -399,17 +399,33 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-02T11:40:58.635184Z
-          deploymentId: 0f3a3715-f74b-4647-9bcb-a94735beb8a3
-          versionId: ffd6566b-0748-49a5-acbd-9786f25eabba
+          observedAt: 2026-10-11T13:48:32.291342Z
           sourceCommit: 0207b5efc24cf5672dbce423757088f443e48b06
+          deploymentId: d0fbcee1-22fd-4677-96ce-ac44b1dee267
+          versionId: daabe39e-cd61-4bf4-8c87-d13f5c528f9e
           trafficPercent: 100
-          state: success-production-verified
-          evidence: "PR #57 (https://github.com/sass-maker/knowledge-base/pull/57) passed quality, worker-eval-dry-run, and Pages checks before merge. Exact-main CI run 37002214995 passed; Fleet deploy guard reported READY TO DEPLOY with six gates passed at clean, synced main 0207b5ef. Wrangler deploy dry-run passed; production deployment metadata reports 100% traffic for this version. Wrangler deployment output identifies FREE_AI as free-ai-gateway#FleetGateway and shows existing 384/768/1024/1536 Vectorize bindings. Public /v1/healthz returned ok with D1, D1 schema, Vectorize, and R2 healthy. Authenticated retrieval was not probed; no secret was accessed. Vision OCR now routes via FREE_AI.run; unpriced media models are denied by the gateway before AI inference, with parser fallback. Worker check: 457 passed, 1 skipped; docs check: 36 files valid."
+          state: credential-rotation-verified-runtime-unqualified
+          credentialRotation:
+            kind: legacy-gateway-key
+            consumer: knowledgebase
+            observedAt: 2026-10-11T13:48:32.291342Z
+          evidence: Owner-authorized gateway key rotation updated knowledgebase FREE_AI_API_KEY. Provider reports Secret Change version at 100% traffic, preserving the preceding source tag. Shared gateway replacement-key authentication and invalid-key rejection passed without inference. Knowledge Base authenticated retrieval/OCR and native RPC were not requalified by this credential change. Earlier dated runtime and binding qualification is retained in verificationHistory.
           serviceBindings:
             - name: FREE_AI
               service: free-ai-gateway
               entrypoint: FleetGateway
+        verificationHistory:
+          - observedAt: 2026-10-02T11:40:58.635184Z
+            deploymentId: 0f3a3715-f74b-4647-9bcb-a94735beb8a3
+            versionId: ffd6566b-0748-49a5-acbd-9786f25eabba
+            sourceCommit: 0207b5efc24cf5672dbce423757088f443e48b06
+            trafficPercent: 100
+            state: success-production-verified
+            evidence: "PR #57 (https://github.com/sass-maker/knowledge-base/pull/57) passed quality, worker-eval-dry-run, and Pages checks before merge. Exact-main CI run 37002214995 passed; Fleet deploy guard reported READY TO DEPLOY with six gates passed at clean, synced main 0207b5ef. Wrangler deploy dry-run passed; production deployment metadata reports 100% traffic for this version. Wrangler deployment output identifies FREE_AI as free-ai-gateway#FleetGateway and shows existing 384/768/1024/1536 Vectorize bindings. Public /v1/healthz returned ok with D1, D1 schema, Vectorize, and R2 healthy. Authenticated retrieval was not probed; no secret was accessed. Vision OCR now routes via FREE_AI.run; unpriced media models are denied by the gateway before AI inference, with parser fallback. Worker check: 457 passed, 1 skipped; docs check: 36 files valid."
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
     resources:
       - provider: cloudflare
         kind: d1

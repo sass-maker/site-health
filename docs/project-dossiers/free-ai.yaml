@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 92b6c39dc782b3c71206c5c51f2cd98e2004f1190937eb1dec8cf1d7c70bbd22
-      infrastructureUpdatedAt: 2026-10-07
+      sha256: f6577aff18dea2f4f8a09126871640b6e5de3cf5d72fb327068306e7fa45d4c5
+      infrastructureUpdatedAt: 2026-10-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Free AI
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 7a12fcda5a95f43f7923970ce41571bb8d6284c607451595a45a84a7f2e968af
+      sha256: e0de229713af00c907006ffd9f1685ac0a04ba588821878b652c992b0215d062
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
@@ -411,41 +411,17 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-05T19:01:48.598677+00:00
-          sourceCommit: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
-          versionId: 2176962a-b935-49f0-8b9e-e8e225443529
-          deploymentId: 900dba7a-9d8f-4971-b3f6-839ffe807986
+          observedAt: 2026-10-11T13:48:27.516368Z
+          sourceCommit: bf35ac919833fa0a1d31a364c1ead3fbefd466fc
+          deploymentId: 2a2898b4-c199-4729-90e0-6e10ff74b13a
+          versionId: dac6840b-f48f-43ab-a696-e4e19a1d03d7
           trafficPercent: 100
-          state: source-verified-provider-replay-incomplete
-          registrySourceCommit: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
-          registryExactMainCi: 37359378122
-          deployWorkflow: 37359640342
-          effectiveChatModels: 50
-          catalogScope: Fresh hosted current-source policy:0stale,4/13catalogs;4credential gaps5unsupported;provider replay4/9FAIL
-          catalogObservedAt: 2026-10-05T18:54:24.460Z
-          lastFullPolicyRun: 37360316105
-          lastFullPolicySource: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
-          catalogGate: failed-current-source-provider-replay
-          providerReplay:
-            successful: 4
-            total: 9
-            failures:
-              - provider: gemini
-                upstreamStatus: 503
-                errorClass: usage_retriable
-              - provider: cerebras
-                upstreamStatus: 402
-                errorClass: provider_fatal
-              - provider: nvidia
-                upstreamStatus: 410
-                errorClass: provider_fatal
-              - provider: mistral
-                upstreamStatus: 403
-                errorClass: provider_fatal
-              - provider: zai
-                upstreamStatus: 405
-                errorClass: provider_fatal
-          evidence: PR99 retires exactly2disabled staging records and1unused quota; owning453tests/fullquality/docs on383base before other-owner PR98, exact-mainCI37359378122, unchanged6gate guard, manualdeploy37359640342, exactprovideridentity100percent and publichealth/models200 PASS. All50enabled objects and49explicitactive quota values preserved. Last normal fullpolicy37353421600 on3835486 FAIL4/9 successes; sanitized upstream statuses establish observations, not precise key/account/billing causes. Catalog coverage4/13 with4credential gaps and5unsupported. Issue62 remains OPEN. No credentials/configuration/resources/provider enrollment/paid fallback changed. Current RPC, cross-provider recovery and sustained reliability not requalified. Fresh normal policy37360316105 on exactcurrent04b593c3 FAIL:0stale,4/13catalogs,4/9providers; Gemini503/Cerebras402/NVIDIA410/Mistral403/ZAI405. This single new qualification follows other-ownerPR98 behavioral changes; no unchanged retries. Issue62 OPEN. Prior383 policy result retained historically.
+          state: credential-rotation-verified-runtime-unqualified
+          credentialRotation:
+            kind: legacy-gateway-key
+            consumer: knowledgebase
+            observedAt: 2026-10-11T13:48:27.516368Z
+          evidence: Owner-authorized legacy gateway key rotation updated free-ai-gateway GATEWAY_API_KEY, sass-maker/free-ai GitHub Actions GATEWAY_API_KEY and knowledgebase FREE_AI_API_KEY. Provider reports Secret Change version at 100% traffic. Fresh replacement-key empty-input request passed authentication and returned HTTP 400 missing_input; invalid-key control returned HTTP 401 invalid_api_key. No inference was dispatched. Existing hashed gateway key ring was preserved. This verifies credential acceptance, not provider reliability, inference quality or whole-key-ring revocation. Earlier dated code and provider-replay qualification is retained in verificationHistory.
         verificationHistory:
           - observedAt: 2026-10-02T11:02:20.201598Z
             deploymentId: 672b0032-8661-4e4f-aca0-0e8990a8ebf5
@@ -512,6 +488,41 @@ deployment:
                 - provider: zai
                   upstreamStatus: 401
             evidence: PR99 retires exactly2disabled staging records and1unused quota; owning453tests/fullquality/docs on383base before other-owner PR98, exact-mainCI37359378122, unchanged6gate guard, manualdeploy37359640342, exactprovideridentity100percent and publichealth/models200 PASS. All50enabled objects and49explicitactive quota values preserved. Last normal fullpolicy37353421600 on3835486 FAIL4/9 successes; sanitized upstream statuses establish observations, not precise key/account/billing causes. Catalog coverage4/13 with4credential gaps and5unsupported. Issue62 remains OPEN. No credentials/configuration/resources/provider enrollment/paid fallback changed. Current RPC, cross-provider recovery and sustained reliability not requalified.
+          - observedAt: 2026-10-05T19:01:48.598677+00:00
+            sourceCommit: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
+            versionId: 2176962a-b935-49f0-8b9e-e8e225443529
+            deploymentId: 900dba7a-9d8f-4971-b3f6-839ffe807986
+            trafficPercent: 100
+            state: source-verified-provider-replay-incomplete
+            registrySourceCommit: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
+            registryExactMainCi: 37359378122
+            deployWorkflow: 37359640342
+            effectiveChatModels: 50
+            catalogScope: Fresh hosted current-source policy:0stale,4/13catalogs;4credential gaps5unsupported;provider replay4/9FAIL
+            catalogObservedAt: 2026-10-05T18:54:24.460Z
+            lastFullPolicyRun: 37360316105
+            lastFullPolicySource: 04b593c3aa2291a188dc6835cbb3e191761ebd5e
+            catalogGate: failed-current-source-provider-replay
+            providerReplay:
+              successful: 4
+              total: 9
+              failures:
+                - provider: gemini
+                  upstreamStatus: 503
+                  errorClass: usage_retriable
+                - provider: cerebras
+                  upstreamStatus: 402
+                  errorClass: provider_fatal
+                - provider: nvidia
+                  upstreamStatus: 410
+                  errorClass: provider_fatal
+                - provider: mistral
+                  upstreamStatus: 403
+                  errorClass: provider_fatal
+                - provider: zai
+                  upstreamStatus: 405
+                  errorClass: provider_fatal
+            evidence: PR99 retires exactly2disabled staging records and1unused quota; owning453tests/fullquality/docs on383base before other-owner PR98, exact-mainCI37359378122, unchanged6gate guard, manualdeploy37359640342, exactprovideridentity100percent and publichealth/models200 PASS. All50enabled objects and49explicitactive quota values preserved. Last normal fullpolicy37353421600 on3835486 FAIL4/9 successes; sanitized upstream statuses establish observations, not precise key/account/billing causes. Catalog coverage4/13 with4credential gaps and5unsupported. Issue62 remains OPEN. No credentials/configuration/resources/provider enrollment/paid fallback changed. Current RPC, cross-provider recovery and sustained reliability not requalified. Fresh normal policy37360316105 on exactcurrent04b593c3 FAIL:0stale,4/13catalogs,4/9providers; Gemini503/Cerebras402/NVIDIA410/Mistral403/ZAI405. This single new qualification follows other-ownerPR98 behavioral changes; no unchanged retries. Issue62 OPEN. Prior383 policy result retained historically.
     resources:
       - provider: cloudflare
         kind: d1

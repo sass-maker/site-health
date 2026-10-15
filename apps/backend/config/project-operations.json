@@ -15909,22 +15909,22 @@
           },
           "ownerDisposition": {
             "status": "active",
-            "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
+            "reason": "Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10)."
           },
           "live": {
-            "health": "failing",
-            "reason": "latest run concluded failure",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37943038254,
+              "id": 38709410703,
               "status": "completed",
-              "conclusion": "failure",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
-              "createdAt": "2026-10-09T14:17:15Z",
-              "updatedAt": "2026-10-09T14:17:36Z",
-              "url": "https://github.com/High-Signal-App/techdata/actions/runs/37943038254"
+              "headSha": "665cdd93bf07610d1629fbd114064554ce3c0bba",
+              "createdAt": "2026-10-15T08:57:38Z",
+              "updatedAt": "2026-10-15T08:58:24Z",
+              "url": "https://github.com/High-Signal-App/techdata/actions/runs/38709410703"
             },
             "ageDays": 0
           },
@@ -15934,22 +15934,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "failing",
-            "reason": "current main push concluded failure",
+            "health": "healthy",
+            "reason": "current main push concluded success",
             "lastRun": {
-              "id": 37943038254,
+              "id": 38709410703,
               "status": "completed",
-              "conclusion": "failure",
+              "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
-              "createdAt": "2026-10-09T14:17:15Z",
-              "updatedAt": "2026-10-09T14:17:36Z",
-              "url": "https://github.com/High-Signal-App/techdata/actions/runs/37943038254"
+              "headSha": "665cdd93bf07610d1629fbd114064554ce3c0bba",
+              "createdAt": "2026-10-15T08:57:38Z",
+              "updatedAt": "2026-10-15T08:58:24Z",
+              "url": "https://github.com/High-Signal-App/techdata/actions/runs/38709410703"
             },
             "ageDays": 0
           },
-          "attention": "action-required"
+          "attention": "clear"
         },
         {
           "name": "Deploy (manual)",
@@ -15965,14 +15965,24 @@
           },
           "ownerDisposition": {
             "status": "active",
-            "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
+            "reason": "Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10)."
           },
           "live": {
-            "health": "manual-or-reusable-never-run",
-            "reason": "no direct run observed; workflow is manual, reusable, generated, or has no static trigger",
+            "health": "healthy",
+            "reason": "latest run concluded success",
             "apiState": "active",
-            "lastRun": null,
-            "ageDays": null
+            "lastRun": {
+              "id": 38709692177,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "workflow_dispatch",
+              "branch": "main",
+              "headSha": "665cdd93bf07610d1629fbd114064554ce3c0bba",
+              "createdAt": "2026-10-15T08:59:58Z",
+              "updatedAt": "2026-10-15T09:00:57Z",
+              "url": "https://github.com/High-Signal-App/techdata/actions/runs/38709692177"
+            },
+            "ageDays": 0
           },
           "schedule": {
             "health": "not-applicable",
@@ -16034,12 +16044,12 @@
       "githubActionsMeta": {
         "repository": "High-Signal-App/techdata",
         "defaultBranch": "main",
-        "defaultBranchSha": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
-        "homepage": null,
+        "defaultBranchSha": "665cdd93bf07610d1629fbd114064554ce3c0bba",
+        "homepage": "https://data.highsignal.app",
         "query": "verified",
         "disposition": {
           "disposition": "active",
-          "reason": "Owner-approved techdata project; CI on push, deploy is workflow_dispatch only and not yet approved."
+          "reason": "Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10)."
         }
       }
     }
