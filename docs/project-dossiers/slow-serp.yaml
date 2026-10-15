@@ -29,7 +29,7 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: e0de229713af00c907006ffd9f1685ac0a04ba588821878b652c992b0215d062
+      sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-09
@@ -66,10 +66,10 @@ ownerVoice:
   fullReviewVerbatim: slow serp needs IPs
   relatedHistoricalReviews: []
 decision:
-  classification: Active
+  classification: Inactive / merged
   whySummary: Supply bounded public web extraction and paced search to internal workflows.
-  currentState: Private support tool; local crawler checks pass, while real Google search is blocked by upstream HTTP 429.
-  nextDecision: Qualify outbound IP infrastructure before treating the search path as usable; retain the existing bounded extraction scope.
+  currentState: Owner absorbed the search API and crawler into SaaS Maker tooling/collect on 2026-10-10; original source and collected data remain archived. Real Google search remains blocked by upstream HTTP 429.
+  nextDecision: Use the SaaS Maker collector; qualify outbound IPs before relying on Google search, and resume an independent Slow SERP only after a new owner decision.
 identity:
   name: Slow SERP
   publicName: null
