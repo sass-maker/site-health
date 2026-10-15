@@ -22,7 +22,10 @@ import {
 } from '../apps/backend/lib/project-dossiers.mjs';
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const catalogPath = resolve(repositoryRoot, 'apps/backend/config/projects.json');
+const catalogPathArgument = process.argv.find((argument) => argument.startsWith('--catalog-path='));
+const catalogPath = catalogPathArgument
+  ? resolve(catalogPathArgument.slice('--catalog-path='.length))
+  : resolve(repositoryRoot, 'apps/backend/config/projects.json');
 const operationsPath = resolve(repositoryRoot, 'apps/backend/config/project-operations.json');
 const actionsPolicyPath = resolve(
   repositoryRoot,

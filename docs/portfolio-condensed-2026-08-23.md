@@ -1,7 +1,7 @@
 # Fleet portfolio: compressed owner intent
 
-Date: 2026-08-23 (lifecycle counts and new owner-requested identities reconciled 2026-10-08)
-Scope: all 77 retained canonical identities; archived identities remain recorded for infrastructure ownership but are excluded from Fleet listings.
+Date: 2026-08-23 (lifecycle counts and new owner-requested identities reconciled 2026-10-15)
+Scope: all 78 retained canonical identities; archived identities remain recorded for infrastructure ownership but are excluded from Fleet listings.
 
 This document preserves the meaning of the owner's project review in compact,
 decision-oriented language. It deliberately does not retain transcript wording
@@ -26,9 +26,9 @@ change lifecycle or sharing decisions.
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | Primary | 2 | Receives focused feature development, experiments and validation. |
-| Active | 53 | Supported and kept useful; improvements follow concrete needs. |
-| Inactive | 22 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
-| **Total** | **77** | Every canonical Fleet identity appears exactly once. |
+| Active | 45 | Supported and kept useful; improvements follow concrete needs. |
+| Inactive | 31 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
+| **Total** | **78** | Every canonical Fleet identity appears exactly once. |
 
 These statuses reflect current owner intent. They deliberately override misleading signals such as a live deployment for an inactive product or an old repository label that says maintenance while the owner is actively building.
 
@@ -91,12 +91,12 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | PostTrainLLM | Primary | Explore browser and Mac-local model training, then turn that work into repeatable specialist-model recipes. | Active product; ongoing investment within the approved narrow scope. | Keep: A reproducible path from private task examples to a measured local-model improvement. Stop: Supporting every model, training method and deployment platform before the core task works. |
 | Protein Index | Inactive | Catalogue and compare protein products available in India. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The existing Indian product-data experiment and provenance notes. Stop: Ongoing retailer ingestion, price maintenance and a public comparison business. |
 | PSI Swarm | Inactive | Measure real product performance across repeated Lighthouse conditions. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The performance-measurement scripts and reusable evidence format. Stop: An independent performance platform and public controller product. |
-| Reader | Inactive | Capture any article or PDF and prepare it for focused reading and research. | Finished experiment; bounded artifact without an active roadmap. | Keep: The current reader as a finished experiment you may revisit if actual reading exposes a need. Stop: Competing feature-for-feature with established reading and annotation products. |
+| Reader | Active | Capture an article or PDF for focused reading and research. | Owner retained it on 2026-10-09 and wants to use it, but is not currently doing so. | Identify and fix the obstacle in the actual capture → open → read workflow before adding features. |
 | Recipe Index (`veg-protein-food`) | Inactive | Collect higher-protein recipes using Indian ingredients. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The recipe experiment as historical work. Stop: Maintaining a recipe catalogue you do not want to use. |
 | Reddit Insights | Inactive | Track historical shifts in subreddit signals and emotion. | Finished experiment; bounded artifact without an active roadmap. | Keep: A documented experiment answering one historical community question. Stop: A general social-monitoring product and unavailable-data promises. |
 | Reel Pipeline | Inactive | Explore automated product-video creation. | Paused experiment; no current work or obligation to resume. | Keep: One reproducible production recipe and its best finished video. Stop: More recipes, automatic distribution and a perpetual output pipeline without a chosen format. |
 | Research Papers | Inactive | Maintain a large RAG-assisted library of market and research papers. | Finished experiment; bounded artifact without an active roadmap. | Keep: A bounded paper collection and one reproducible research example. Stop: Universal scholarly search and growing the corpus without a question. |
-| Slow SERP (`slow-serp`) | Active | Supply bounded public web extraction and paced search to internal workflows. | Private support tool; local crawler checks pass, while real Google search is blocked by upstream HTTP 429. | Qualify outbound IP infrastructure before treating the search path as usable; retain the existing bounded extraction scope. |
+| Slow SERP (`slow-serp`) | Inactive / merged | Supply bounded public web extraction and paced search to internal workflows. | Owner absorbed the search API and crawler into SaaS Maker tooling/collect on 2026-10-10; original source and collected data remain archived. Real Google search remains blocked by upstream HTTP 429. | Use the SaaS Maker collector; qualify outbound IPs before relying on Google search, and resume an independent Slow SERP only after a new owner decision. |
 | RolePatch | Inactive | Tailor a resume and supporting application material to a job description. | Strong product, but unused because the owner is not job hunting. | Test it against real applications when job-search intent returns; let that test trim unnecessary breadth. |
 | SaaS Maker | Active | House reusable packages, public Fleet discovery, the source-attributed launch-destination catalog, feedback tooling, workflows, skills, and operator automation. | Canonical tooling home; public directory includes only verified shareable surfaces. The former standalone LaunchDesk identity was absorbed here on 2026-09-20 as the native `/launchdesk` feature and checked-in dataset. | Stabilize its package boundaries and let real Fleet consumers determine which packages and catalog capabilities deserve investment; LaunchDesk has no independent roadmap or portfolio listing. |
 | Scale (`scale`) | Inactive | Teach systems-engineering capacity and architecture trade-offs through a small idle game. | The standalone prototype is archived; the maintained game lives inside SWE Interview Prep. | Preserve the original experiment and direct future play or maintenance to the SWE Interview Prep implementation. |
