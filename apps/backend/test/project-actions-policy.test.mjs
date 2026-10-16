@@ -8,9 +8,13 @@ const policies = JSON.parse(
   readFileSync(new URL('../config/project-actions-policy.json', import.meta.url), 'utf8'),
 );
 
-for (const [projectId, expectedDisposition, expectedAttention] of [
-  ['nomad-data-adventure', 'active', 'action-required'],
-  ['shoulders', 'ignored', 'ignored'],
+for (const [projectId, expectedDisposition, expectedAttention, expectedReason] of [
+  ['nomad-data-adventure', 'ignored', 'ignored', /Retained TechData source component/],
+  ['ph-catalog', 'ignored', 'ignored', /Retained TechData source component/],
+  ['research-papers', 'ignored', 'ignored', /Retained TechData source component/],
+  ['reddit-insights', 'ignored', 'ignored', /Retained TechData source component/],
+  ['shoulders', 'ignored', 'ignored', /inactive.*CI\/deploy workflows remain/],
+  ['on-record', 'active', 'action-required'],
   ['active-control', 'active', 'action-required'],
 ]) {
   test(`${projectId} attention follows policy without hiding workflow failures`, async () => {
@@ -72,8 +76,7 @@ for (const [projectId, expectedDisposition, expectedAttention] of [
     assert.equal(workflow.live.apiState, 'active');
     assert.deepEqual(workflow.triggers, ['push']);
     if (expectedDisposition === 'ignored') {
-      assert.match(workflow.ownerDisposition.reason, /inactive/);
-      assert.match(workflow.ownerDisposition.reason, /CI\/deploy workflows remain/);
+      assert.match(workflow.ownerDisposition.reason, expectedReason);
     }
   });
 }
