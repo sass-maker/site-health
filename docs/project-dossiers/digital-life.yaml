@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: unavailable
     githubHomepage: not-applicable
     githubActionsLiveState: not-applicable
-    retainedGitHistory: unavailable
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f6577aff18dea2f4f8a09126871640b6e5de3cf5d72fb327068306e7fa45d4c5
+      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
       infrastructureUpdatedAt: 2026-10-01
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-01
       reviewSha256: 2687f86ed6784b8a5fca36e6c468e12aa44dc3c7e8137e3160d1a95079bdcd02
-      documentSha256: f6577aff18dea2f4f8a09126871640b6e5de3cf5d72fb327068306e7fa45d4c5
+      documentSha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -41,17 +41,17 @@ verification:
       observedHomepage: null
       worktree: null
     retainedGitHistory:
-      observedAt: 2026-10-09
+      observedAt: 2026-10-16
       state: unavailable
       checkout: ../fleet-archive/digital-life
       revision: null
       githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: null
-      catalogLatestCommitAt: null
+      catalogFirstCommitAt: 2026-10-16
+      catalogLatestCommitAt: 2026-10-16
       catalogDrift: []
-      reason: "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/digital-life rev-parse HEAD"
+      reason: null
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
@@ -106,10 +106,10 @@ product:
     - JavaScript
     - Node.js
   retainedGitHistory:
-    firstCommitAt: null
-    latestCommitAt: null
-    retainedCommitCount: null
-    historyCompleteness: null
+    firstCommitAt: 2026-10-16
+    latestCommitAt: 2026-10-16
+    retainedCommitCount: 1
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/digital-life
@@ -157,8 +157,8 @@ sharing:
   publicListing: hidden
   maturity: null
   ready: false
-  verifiedAt: 2026-10-01
-  reason: Local engine and headless runner verified; viewer direction pending; remote repository has no commits.
+  verifiedAt: 2026-10-16
+  reason: Local engine and headless runner verified; source and research artifacts preserved in an archived private repository. Viewer direction remains pending; no public deployment.
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/digital-life/issues
   geoIdentity: null

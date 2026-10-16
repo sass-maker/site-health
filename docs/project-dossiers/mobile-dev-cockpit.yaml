@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: unavailable
     githubHomepage: not-applicable
     githubActionsLiveState: not-applicable
-    retainedGitHistory: unavailable
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f6577aff18dea2f4f8a09126871640b6e5de3cf5d72fb327068306e7fa45d4c5
+      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
       infrastructureUpdatedAt: 2026-08-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -40,7 +40,7 @@ verification:
       observedHomepage: null
       worktree: null
     retainedGitHistory:
-      observedAt: 2026-10-09
+      observedAt: 2026-10-16
       state: unavailable
       checkout: ../fleet-archive/mobile-dev-cockpit
       revision: null
@@ -49,8 +49,9 @@ verification:
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-13
       catalogLatestCommitAt: 2026-09-07
-      catalogDrift: []
-      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
+      catalogDrift:
+        - latestCommitAt
+      reason: null
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
@@ -105,10 +106,10 @@ product:
     - React Native
     - TypeScript
   retainedGitHistory:
-    firstCommitAt: null
-    latestCommitAt: null
-    retainedCommitCount: null
-    historyCompleteness: null
+    firstCommitAt: 2026-07-13
+    latestCommitAt: 2026-09-21
+    retainedCommitCount: 36
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/mobile-dev-cockpit
