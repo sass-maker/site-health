@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1921986f2e1c9376cbcbf83fed8ef7e1cfdaf960807bf9f46f52555237c76868
+      sha256: 062e6a313a801f6d84a39ec25088373437191fb3cfb2b5662104a1e0c0061b05
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ee9cde34b52d8bee7cd17a801f9f58c8135011534d04109becd2dc278110ff71
+      sha256: 008da1b302bbb5cef449e56460e20b5510951c807f0cb7002fd296418c94b0f6
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -69,7 +69,7 @@ ownerVoice:
 decision:
   classification: Inactive / TechData source
   whySummary: Preserve snapshot provenance, archive ownership and redaction propagation.
-  currentState: TechData reads the retained public Snapshot API; the source repository still owns archive and deletion behavior.
+  currentState: Primary Fleet checkout removed on 2026-10-17 after its main matched remote; TechData continues to read the public Snapshot API, whose source repository owns archive and deletion behavior.
   nextDecision: Maintain that source contract under TechData; the unresolved source issue remains in its owning repository.
 identity:
   name: Reddit Insights
@@ -242,11 +242,15 @@ deployment:
     - id: site
       kind: pages
       name: reddit-insights
-      sourcePath: ../fleet-archive/reddit-insights
+      sourcePath: null
+      repositoryUrl: https://github.com/High-Signal-App/research-subreddit
+      repositoryRelativePath: .
     - id: proxy
       kind: worker
       name: reddit-proxy
-      sourcePath: reddit-insights/scripts/reddit-proxy
+      sourcePath: null
+      repositoryUrl: https://github.com/High-Signal-App/research-subreddit
+      repositoryRelativePath: scripts/reddit-proxy
   cloudflare:
     deployments:
       - provider: cloudflare
@@ -296,8 +300,8 @@ sharing:
     description: Search a dated snapshot of 93 Reddit communities in your browser, with links to original posts and explicit provenance limits.
     origin: https://reddit-insights.highsignal.app
     source:
-      state: internal
-      path: ../fleet-archive/reddit-insights
+      state: public
+      url: https://github.com/High-Signal-App/research-subreddit
     docs:
       state: landing-only
       url: https://reddit-insights.highsignal.app
@@ -312,4 +316,5 @@ notes:
   catalog: |-
     Static Reddit research observatory deployed to Cloudflare Pages; raw corpora and research data are excluded from the public artifact.
     2026-10-17: Removed from the independent active Fleet roster and grouped under TechData. Source snapshots, archive/redaction ownership and public Snapshot API read by TechData. Existing source code, local path, data, live site and collectors remain preserved; no production retirement, redirect, repository transfer or full-parity claim.
+    2026-10-17 local cleanup: Verified the source checkout matches remote main and removed it from Fleet. TechData reads bundled data, R2 or public APIs without this checkout. Local-only data and evidence are retained in the private TechData source-components data store; source code can be cloned from its retained repository when maintenance is needed. Live source services remain unchanged.
   infrastructure: " Repository icon release e0fa78f0d97fad9a3e54c9b6af593e0ce5bc1930 verified on existing reddit-insights deployment a2ef84ad-3cba-4b29-ab52-5179eba09d2e. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px."
