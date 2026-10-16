@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
+      sha256: 1921986f2e1c9376cbcbf83fed8ef7e1cfdaf960807bf9f46f52555237c76868
       infrastructureUpdatedAt: 2026-10-15
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-09
       reviewSha256: 74ff7d1b3faf4c46efce30259833f4d7ada4cf4ee4452da388e1962b2ea5a029
-      documentSha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
+      documentSha256: 1921986f2e1c9376cbcbf83fed8ef7e1cfdaf960807bf9f46f52555237c76868
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
+      sha256: ee9cde34b52d8bee7cd17a801f9f58c8135011534d04109becd2dc278110ff71
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -74,7 +74,7 @@ decision:
   classification: Active public data workbench
   whySummary: One public, read-only entry point to browse, search and export the owner's data collections with source provenance.
   currentState: Five collections are live at `data.highsignal.app` on the `techdata` Worker; the workers.dev host remains available. The custom-domain release is source-tagged and verified at 100% traffic.
-  nextDecision: "Decide the fate of the five independent source sites separately under techdata #13; keep them live until explicitly retired."
+  nextDecision: Use one TechData roadmap for the four retained source components; preserve source APIs, collectors and existing sites. Redirects, source moves or provider retirement require their own verified scope.
 identity:
   name: techdata
   publicName: null
@@ -104,7 +104,7 @@ product:
     outcome: Answer questions across the data collections from one console without losing source provenance.
     mechanism: Astro and React islands on one Worker with Hono /api routes and one read-only adapter per collection; every response carries provenance.
     proof: Live at https://data.highsignal.app, with the workers.dev host retained; five collections and source provenance verified in Chrome at 390, 768 and 1440px on 2026-10-15. All 15 sitemap pages return 200 with matching canonicals and no noindex. PH Catalog full export (575,479 products) and DuckDB-WASM binaries remain served from private R2 bucket techdata-data through an exact-key allowlisted Worker route with Range, ETag and public caching.
-    nextAction: Decide the fate of the five independent source sites separately under techdata#13; keep them live until explicitly retired.
+    nextAction: Use TechData as the shared data workbench; maintain the four retained source components and the separate Podcast API. Keep source sites and collectors operational until any separately approved migration or retirement.
   form: Public data workbench
   platforms:
     - Web
@@ -322,5 +322,7 @@ sharing:
   roadmapUrl: https://github.com/High-Signal-App/techdata/issues
   geoIdentity: null
 notes:
-  catalog: "Owner decision 2026-10-09 (Significant-Hobbies/ph-catalog#14): consolidated data workbench named techdata, private repo High-Signal-App/techdata, first real product on the SaaS Maker UI library. Collectors stay in their repos; techdata only reads until parity. The five source projects (Reddit Insights, Research Papers, High Signal Podcasts, Nomad Atlas, PH Catalog) stay active until the owner retires them. Chosen domain: data.highsignal.app. Open: fate of the five public sites and where collectors live."
+  catalog: |-
+    Owner decision 2026-10-09 (Significant-Hobbies/ph-catalog#14): consolidated data workbench named techdata, private repo High-Signal-App/techdata, first real product on the SaaS Maker UI library. Collectors stay in their repos; techdata only reads until parity. The five source projects (Reddit Insights, Research Papers, High Signal Podcasts, Nomad Atlas, PH Catalog) stay active until the owner retires them. Chosen domain: data.highsignal.app. Open: fate of the five public sites and where collectors live.
+    2026-10-17: The owner requested one active Fleet identity for Nomad, PH Catalog, Research Papers and Reddit Insights: TechData. Their historical project rows, source repositories, local paths, collectors and live sites remain retained source components. High Signal Podcasts stays active as its distinct API/ingestion service. This membership change is not a source-site retirement or full operator-workflow parity claim.
   infrastructure: Canonical public Worker at https://data.highsignal.app; workers.dev retained. Five source sites remain independent pending techdata#13. Previous Worker version remains in Cloudflare deployment history for rollback.

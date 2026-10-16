@@ -1125,59 +1125,6 @@
       "attention": "toolbox"
     },
     {
-      "slug": "research-papers",
-      "aliases": [
-        "Research Papers"
-      ],
-      "competitors": [
-        {
-          "name": "Semantic Scholar",
-          "url": "https://www.semanticscholar.org"
-        }
-      ],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "What platform provides semantic search across academic papers from arXiv, OpenReview, bioRxiv, and medRxiv?"
-            },
-            {
-              "id": "comparison",
-              "text": "Which research-paper tools combine citation graphs, review scores, topic tags, and embedding-based similar-paper discovery?"
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "researcher",
-          "label": "a researcher exploring a large paper corpus"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "name": "Research Papers",
-      "domain": "https://papers.highsignal.app",
-      "attention": "toolbox"
-    },
-    {
       "slug": "knowledge-base",
       "aliases": [
         "Knowledge Base"
@@ -2451,63 +2398,6 @@
       "attention": "toolbox"
     },
     {
-      "slug": "reddit-insights",
-      "aliases": [
-        "Research Subreddit"
-      ],
-      "competitors": [
-        {
-          "name": "GummySearch",
-          "url": "https://gummysearch.com"
-        }
-      ],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "What tools provide source-linked trend reports for Reddit communities without claiming platform-wide coverage?",
-              "ownedPage": {
-                "state": "published",
-                "url": "https://reddit-insights.highsignal.app/"
-              }
-            },
-            {
-              "id": "comparison",
-              "text": "Compare Reddit research tools by source transparency, historical coverage, and evidence-bounded claims."
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "community-researcher",
-          "label": "a researcher studying online communities"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "name": "Reddit Insights",
-      "domain": "https://reddit-insights.highsignal.app",
-      "attention": "foundry"
-    },
-    {
       "slug": "ios-landings",
       "name": "Significant Hobbies App Landings",
       "domain": "https://apps.significanthobbies.com",
@@ -2600,52 +2490,6 @@
       "attention": "toolbox"
     },
     {
-      "slug": "ph-catalog",
-      "name": "PH Catalog",
-      "domain": "https://ph.significanthobbies.com",
-      "aliases": [],
-      "competitors": [],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "What tools catalogue and analyze Product Hunt launches?"
-            },
-            {
-              "id": "comparison",
-              "text": "Compare local-first Product Hunt analytics experiments."
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "researcher",
-          "label": "a researcher studying launch data"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "attention": "toolbox"
-    },
-    {
       "slug": "web-playables",
       "name": "Web Playables",
       "domain": "https://idle.aliveville.com",
@@ -2670,61 +2514,6 @@
         {
           "id": "visitor",
           "label": "someone looking for quick browser games"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "attention": "toolbox"
-    },
-    {
-      "slug": "nomad-data-adventure",
-      "name": "Nomad Atlas",
-      "domain": "https://nomad.significanthobbies.com",
-      "aliases": [],
-      "competitors": [
-        {
-          "name": "Nomad List",
-          "url": "https://nomads.com"
-        },
-        {
-          "name": "Teleport",
-          "url": "https://teleport.org"
-        }
-      ],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "What tools compare cities on living cost and lifestyle data?"
-            },
-            {
-              "id": "comparison",
-              "text": "Compare digital-nomad city data tools on coverage and downloadable sources."
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "visitor",
-          "label": "a nomad comparing cities"
         }
       ],
       "providerPolicy": {

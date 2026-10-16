@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
+      sha256: 1921986f2e1c9376cbcbf83fed8ef7e1cfdaf960807bf9f46f52555237c76868
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
+      sha256: ee9cde34b52d8bee7cd17a801f9f58c8135011534d04109becd2dc278110ff71
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -67,10 +67,10 @@ ownerVoice:
   fullReviewVerbatim: "For the podcast, on record, the reason I'm building it is because a lot of people want to take insights from podcasts. I recently saw an application which was using podcasts to generate booker commendation from top-level people. I thought maybe I could generate a lot more insights that way. I can choose better podcasts to read, listen to, or just not have to listen to podcasts at all and get the relevant content easily. I can also track the latest signals coming from the latest tech podcasts and latest books from top people: what books are most common and other similar stuff."
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
-  whySummary: Index what notable people said on podcasts as evidenced claims, including books/apps they use.
-  currentState: Finished experiment; bounded artifact without an active roadmap.
-  nextDecision: "Keep: One attributable cross-podcast insight collection with episode links. Stop: A podcast app, universal transcription service and unlimited aggregation."
+  classification: Active source/API
+  whySummary: Index evidenced podcast claims with attribution and episode links.
+  currentState: Maintained podcast API and ingestion service; TechData consumes it through a read adapter.
+  nextDecision: Keep the bounded source/API role; this project was not among the four standalone identities removed from active Fleet.
 identity:
   name: High Signal Podcasts
   publicName: High Signal Podcasts

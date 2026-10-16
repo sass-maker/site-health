@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
+      sha256: 1921986f2e1c9376cbcbf83fed8ef7e1cfdaf960807bf9f46f52555237c76868
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
+      sha256: ee9cde34b52d8bee7cd17a801f9f58c8135011534d04109becd2dc278110ff71
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -70,10 +70,10 @@ ownerVoice:
   fullReviewVerbatim: Research paper was my attempt to understand what all there is in the market by adding some RAG on top of it. It has a huge amount of papers. I would want to do some more analysis in the future but for now I think it is done. It's just a lot of research papers.
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
-  whySummary: Maintain a large RAG-assisted library of market and research papers.
-  currentState: Finished experiment; bounded artifact without an active roadmap.
-  nextDecision: "Keep: A bounded paper collection and one reproducible research example. Stop: Universal scholarly search and growing the corpus without a question."
+  classification: Inactive / TechData source
+  whySummary: Preserve the operator corpus, citation data and public exports.
+  currentState: TechData exposes selected public papers; operator ClickHouse, specialised workflows and export jobs remain source-owned.
+  nextDecision: Maintain the source/export contract under TechData; catalog grouping does not claim full operator-workflow parity.
 identity:
   name: Research Papers
   publicName: Research Papers
@@ -86,12 +86,12 @@ identity:
   unmetNeed: true
   kind: product
   priority: P2
-  tier: secondary
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
+    status: inactive
+    resumeCondition: Resume as a standalone active project only after a new owner decision; maintain the retained source component under TechData.
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -347,12 +347,12 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: experiment
-  ready: true
+  ready: false
   verifiedAt: 2026-09-10
   reason: "Public static index and bounded paper-intent answer evidence retained. Existing Turnstile widget secret and missing production-only hostname allowlist restored under explicit owner approval; deployment34500247191 and public smoke passed. Protected general-answer success remains unverified: both headless and headed isolated browsers received no response token. Private research functions untested."
-  changelogUrl: https://papers.highsignal.app/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/High-Signal-App/research-papers/issues
   geoIdentity:
     id: research-papers
@@ -375,5 +375,5 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: null
+  catalog: "2026-10-17: Removed from the independent active Fleet roster and grouped under TechData. Operator corpus, citation data and public JSON exports; TechData reads selected public exports. Existing source code, local path, data, live site and collectors remain preserved; no production retirement, redirect, repository transfer or full-parity claim."
   infrastructure: null
