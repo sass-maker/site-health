@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
-      infrastructureUpdatedAt: 2026-10-04
+      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      infrastructureUpdatedAt: 2026-10-16
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Meme Lab
@@ -344,17 +344,128 @@ deployment:
         notes: "2026-10-02: PRs #16 and #18 merged after successful PR and main CI. Worker release receipt: exact main 7b1fcf97f62ae6f275763705d91a6ce7d693e4d4 deployed as f488e596-b000-455f-91f8-f5b0d3ce37ae. Anna shortlist and client-reported interaction endpoints, private per-user Anna saved reactions, updated privacy, and approved ANNA_SEARCH_LIMITER 120/minute/IP/route/location. Existing shared free-ai-gateway budget admission and patched deployment tooling preserved. Installed Anna flow and public routes verified. Anna app 389/version 1.2.0/version ID 1027/bundle 962 is hosted-verified and pending Store review; personalized backend/privacy exact main ee329fd299c7e6be6f5bbf8ef69f70693acbe1c4 deployed as ee837165-3337-4776-aeae-a5a0c169f5ab after PR20 and main CI37009616570; no qualified MAU or earnings established. 2026-10-04: Public picker repair PRs28/29 deployed exact main 512eaafe4163092fbab71903e1cdbba380812c65 as c5c5795d-b9ca-4e16-8df2-2bf17094e452 at100percent; main CI37177790339 passed. Adapter30-label support, bounded15-second ranking, transient retry, honest retrieval fallback, browser/server degradation events and hourly production probe are active. Local live probe and browser passed; GitHub probe37178160043 detected a real perspective fallback and App Health received it. Gemini inference remains intermittent; issue30 tracks provider cause and notification delivery. No user-data/schema/resource/config/secret changes. 2026-10-04: PR31 merged as e2dfaff188a91bf239d468741c95f229d6c7b459. Hourly picker probe forwarding is active with a dedicated production-scoped GitHub ingest secret retained in the Fleet vault; existing Worker key was not rotated. Hosted probe37183254376 passed and App Health stored its matching synthetic production.probe.passed. Post-App-Health-release probe37184228733 detected perspective degradation despiteHTTP200, delivered production.probe.failed successfully, and the live Overview feed displayed it. Provider reliability remains unresolved in Meme Lab issue30; unattended delivery tracked in App Health issue166. Worker deployment remains512eaaf/c5c5795d. 2026-10-04: PR33/34 merged with green full and main CI; exact main9dfc40060a094145162b2646c1c15e68e8b88cb7 deployed as c736b2ff-8a6c-4743-8286-91025767d3cc at100percent from checksum-verified CI package. Managed perspectives now score all30 candidates independently per viewpoint before assignment. Live tail verified malformed provider category scores caused intermittent503; invalid answers now receive one bounded retry and explicitly degraded retrieval fallback. Final hosted probe37187437227 passed both fixtures and App Health accepted202. Live browser rendered five loaded previews; live fallback and serious-input abstention also verified. App Health website is the owner-selected alert destination. Draft GitHub notifications remain unpublished and no query key was created; optional external channels remain issue166. Provider availability can still degrade, tracked in issue30."
         attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         verification:
-          observedAt: 2026-10-04T08:04:06.184167+00:00
-          deploymentId: a9cb2fb0-1f44-41f7-a8c7-d890fa7588be
-          versionId: c736b2ff-8a6c-4743-8286-91025767d3cc
-          sourceCommit: 9dfc40060a094145162b2646c1c15e68e8b88cb7
+          sourceCommit: 82ea0a68b18113c00cd6e99e5f06dc6538a07590
+          deploymentId: 16152264-dde9-4a79-b310-143b47d77854
+          versionId: 31334ab5-4657-47d9-9d8d-2fd6b5c9525d
           trafficPercent: 100
-          state: deployed-resilient-fallback-monitoring-verified
-          evidence: "2026-10-04: PR33/34 merged with green full and main CI; exact main9dfc40060a094145162b2646c1c15e68e8b88cb7 deployed as c736b2ff-8a6c-4743-8286-91025767d3cc at100percent from checksum-verified CI package. Managed perspectives now score all30 candidates independently per viewpoint before assignment. Live tail verified malformed provider category scores caused intermittent503; invalid answers now receive one bounded retry and explicitly degraded retrieval fallback. Final hosted probe37187437227 passed both fixtures and App Health accepted202. Live browser rendered five loaded previews; live fallback and serious-input abstention also verified. App Health website is the owner-selected alert destination. Draft GitHub notifications remain unpublished and no query key was created; optional external channels remain issue166. Provider availability can still degrade, tracked in issue30."
+          state: production-picker-qualified
+          exactMainCi: 38905318315
+          productionProbe: 38906065805
+          gatewaySourceCommit: a32c046070b7bb8547c00ae0c327843a3f7c0e42
+          evidence: Final PR72 source:281tests/exact-main CI, six release gates and artifact12048151379 verified. ZIP9dc44b07ecb5068e91731c8459cb716bf561916d56c1f1bdaea3eebc791e1196 and Worker0e3a254b9edc614dee6d58855f8c70daf46ab5b331b69b128a29f3c93a776726. Exact full provider source tag100percent. Hosted38906065805 passed general7248ms and complete high-confidence perspectives10530ms, no degradation AppHealth202. All three later perspective repeats passed high-confidence/full-viewpoint/no-degradation18997/6027/11908ms. One invocation caught Mistral flat output then successful perspective repair. Rejected models are bounded to this recommendation and repair diversifies provider automatically; every30-candidate viewpoint remains scored. Low effort requested; two adapter attempts,2000tokens and25second shared deadline retained, strict validation unchanged. Earlier isolated passes and later failures remain in history. Bounded qualification does not prove sustained uptime or human humor/caption quality. Issue30 closed; Anna12 pending external review.
+          observedAt: 2026-10-16T13:17:26.344807+00:00
           serviceBindings:
             - name: FREE_AI
               service: free-ai-gateway
               entrypoint: FleetGateway
+        verificationHistory:
+          - observedAt: 2026-10-04T08:04:06.184167+00:00
+            deploymentId: a9cb2fb0-1f44-41f7-a8c7-d890fa7588be
+            versionId: c736b2ff-8a6c-4743-8286-91025767d3cc
+            sourceCommit: 9dfc40060a094145162b2646c1c15e68e8b88cb7
+            trafficPercent: 100
+            state: deployed-resilient-fallback-monitoring-verified
+            evidence: "2026-10-04: PR33/34 merged with green full and main CI; exact main9dfc40060a094145162b2646c1c15e68e8b88cb7 deployed as c736b2ff-8a6c-4743-8286-91025767d3cc at100percent from checksum-verified CI package. Managed perspectives now score all30 candidates independently per viewpoint before assignment. Live tail verified malformed provider category scores caused intermittent503; invalid answers now receive one bounded retry and explicitly degraded retrieval fallback. Final hosted probe37187437227 passed both fixtures and App Health accepted202. Live browser rendered five loaded previews; live fallback and serious-input abstention also verified. App Health website is the owner-selected alert destination. Draft GitHub notifications remain unpublished and no query key was created; optional external channels remain issue166. Provider availability can still degrade, tracked in issue30."
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+          - sourceCommit: 9e9cfb3022ea00509b6fed9fc28b7f209f8dd762
+            versionId: 16d04fe8-194d-4855-b0ef-a3117c8e7019
+            deploymentId: 62a1282f-8af1-478d-b2c3-7dca46567fd6
+            trafficPercent: 100
+            state: source-verified-provider-recovery-in-progress
+            exactMainCi: 38887551985
+            evidence: October16 PR68 forwards the original visitor IP through the private classifier binding. Exact-main CI and six deployment gates passed. Checksum-verified CI artifact f2a43aa2bd1bbbd89aee159c6ebb3ba781a60046d7823ff98e95a8b7c62ec847 deployed; provider confirms full source tag at100percent. Hosted probe38889775663 passed general ranking but perspectives used degraded retrieval fallback; App Health accepted202. Subsequent bounded tracing observed upstream Groq429s and perspective HTTP429 degradation. Free AI routing recovery is in progress; full functional qualification is not claimed.
+            observedAt: 2026-10-16T11:02:19.399354+00:00
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+          - sourceCommit: b79e2e09f8c7f8e5447bf96fd8e88876acd3123d
+            deploymentId: 1352f60c-1d7e-4528-be6f-daf38e04990c
+            versionId: 4c067beb-7865-4ab5-87f7-ff0e70658fed
+            trafficPercent: 100
+            state: production-picker-qualified
+            exactMainCi: 38892918147
+            productionProbe: 38894255145
+            gatewaySourceCommit: c2f04651b8e3f4b9b0ff78d50b5390e825f326de
+            evidence: October16 PR68 preserves visitor rate-limit identity and PR69 forwards Cloudflare caller colo through the private classifier binding. Full exact-main CI and six deployment gates passed. GitHub artifact archive digest37b6359ccbaefe869687cd094112d43c59ff9693da119a64f65ea0ae10e4efa7 and compiled Worker SHA2565857ab7dbf368633b1933d1818b68da33e865a882cf5b1eb8229e63d915c0a6d verified. Provider confirms exact full source tag at100percent. Hosted38894255145 passed general7365ms and complete perspectives10404ms, high confidence, no degradation; App Health accepted202. Separate SIN request returned complete perspectives and gateway logs confirmed SIN context. Immediately preceding hosted38893851403 failed perspectives and is retained; one recovery pass is not sustained uptime or human humor qualification. Automatic routing,2000tokens, two consumer attempts and shared25second deadline preserved. Issue30 closed; Anna review remains separate.
+            observedAt: 2026-10-16T11:43:18.097863+00:00
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+          - sourceCommit: b79e2e09f8c7f8e5447bf96fd8e88876acd3123d
+            deploymentId: 1352f60c-1d7e-4528-be6f-daf38e04990c
+            versionId: 4c067beb-7865-4ab5-87f7-ff0e70658fed
+            trafficPercent: 100
+            state: source-verified-consumer-perspective-incomplete
+            exactMainCi: 38892918147
+            productionProbe: 38896614500
+            gatewaySourceCommit: aaf06eeb03b1902c9c63ef076cd79f0a53e80e76
+            evidence: Exact source B79 remains deployed at100percent. Latest hosted38896614500 after gateway PR125 passed general12452ms but perspectives reached25859ms and returned explicit degraded retrieval fallback, App Health accepted202. Independent NRT trace reproduced a flat ordinal answer followed by deadline exhaustion. Prior successful38894255145 is preserved in history; current consumer qualification is incomplete and issue30 reopened. Working on bounded ordinal output; no monitor threshold or deadline relaxed.
+            observedAt: 2026-10-16T11:56:59.428211+00:00
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+          - sourceCommit: c7e0a445381528c84376bedf19eec9c94b8058ca
+            deploymentId: 861d6eed-52fd-44ce-a797-c5c07495848e
+            versionId: 44d1232c-793b-46a1-b906-b2b37c02274f
+            trafficPercent: 100
+            state: source-verified-consumer-intermittent
+            exactMainCi: 38897935196
+            productionProbe: 38898368380
+            gatewaySourceCommit: aaf06eeb03b1902c9c63ef076cd79f0a53e80e76
+            evidence: PR70 compact ordinal pairs deployed from exact-main CI278tests; six release gates and verified artifact12044711514 passed. Archive74bbfc267ddc09382cab954e2a70cc26a73386bc6e6d8cd160160facf2665325, Worker881ca5287dc8cf6967e4ae798c41f717879f1da95cf126c4c84e086dc6e64cf5. Provider exact source tag100percent. Hosted38898229843 failed perspectives2974ms;38898368380 passed general11666ms and complete high-confidence perspectives21379ms, no degradation, AppHealth202. Bounded subsequent three perspective requests passed15945/13815ms then degraded5115ms; sanitized LHR trace recorded Gemini503 and Groq429. Issue30 remains open; FreeAI126 will admit documented already-enabled Mistral strict-schema models, pending CI/live qualification. All30candidates/viewpoint, automatic routing,2000tokens,two adapter attempts and25second deadline retained. No sustained reliability or humor-quality claim.
+            observedAt: 2026-10-16T12:15:16.881970+00:00
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+          - sourceCommit: c7e0a445381528c84376bedf19eec9c94b8058ca
+            deploymentId: 861d6eed-52fd-44ce-a797-c5c07495848e
+            versionId: 44d1232c-793b-46a1-b906-b2b37c02274f
+            trafficPercent: 100
+            state: source-verified-consumer-intermittent
+            exactMainCi: 38897935196
+            productionProbe: 38899885187
+            gatewaySourceCommit: 18184a8db63fbdbb2ccc768e6c1ca540e10e37f1
+            evidence: C7 exact source and artifact deployment remain100percent. Paired gateway181 hosted38899885187 passed general13393ms and complete high-confidence perspectives14140ms, no degradation, AppHealth202. Subsequent bounded three perspective requests all degraded27453/6087/9356ms; a separate SIN trace degraded18404ms with Gemini503 and Groq400json_validate_failed. This supersedes the isolated passing probe as reliability evidence. Issue30 remains open. FreeAI127 targets indefinitely stale routing health preventing recovered Mistral selection, pendingCI/release. Candidate coverage, automatic routing, token/attempt/deadline limits and strict monitor remain unchanged.
+            observedAt: 2026-10-16T12:30:50.747051+00:00
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+          - sourceCommit: c7e0a445381528c84376bedf19eec9c94b8058ca
+            deploymentId: 861d6eed-52fd-44ce-a797-c5c07495848e
+            versionId: 44d1232c-793b-46a1-b906-b2b37c02274f
+            trafficPercent: 100
+            state: source-verified-consumer-intermittent
+            exactMainCi: 38897935196
+            productionProbe: 38901752357
+            gatewaySourceCommit: 1c5bf0219987356bf339694aea1d79eeecdddd3f
+            evidence: Deployed C7 source unchanged. Hosted38901752357 passed general4062ms and complete high-confidence perspectives3152ms, no degradation, AppHealth202. Three later perspective repeats returned503 at12951/10400/12157ms; separate traced request degraded to general_fallback10264ms with six flat ordinal answers. Therefore current consumer remains intermittent and issue30 open. Meme71 main92c9e69 and FreeAI128 prepare request-local invalid-model exclusion during existing automatic repair; neither paired repair is deployed yet. All30candidates/viewpoint, two adapter calls,2000tokens and25second deadline remain.
+            observedAt: 2026-10-16T12:46:48.218646+00:00
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+          - sourceCommit: 92c9e69bcff1d6f9aab42bc07397254cb9bed47c
+            deploymentId: 19273bf4-310a-4265-bdbf-ac1e07dd2793
+            versionId: c38819ce-9416-42f3-a1b2-aa996657aede
+            trafficPercent: 100
+            state: source-verified-consumer-intermittent
+            exactMainCi: 38902866294
+            productionProbe: 38903826372
+            gatewaySourceCommit: 2360de370b4ba724d7559dea40a142a55c5ba621
+            evidence: PR71 invalid-model exclusion released after280tests, exact-main CI and six release gates; verified artifact12046412907 ZIPafdbdd58fcbcd270fc058e4f46b7ed2d9cabda52fc967768705c6598f24968a7 and Workerf5cb9d395efcbb8d47ac9fc6f01c25136a17d4a122c99f525e6cbca1eeee0078. Exact source tag100percent. Hosted38903826372 passed general4791ms and complete high-confidence perspectives8251ms, no degradation AppHealth202. Trace caught flat outputs followed by complete repair. Subsequent perspective repeats degraded15283/7094ms then passed4269ms. Issue30 remains open; provider diversity and bounded reasoning control pending in FreeAI129/Meme72. All30candidates/viewpoint, automatic model, strict validation, two adapter attempts,2000tokens and25second deadline retained.
+            observedAt: 2026-10-16T13:04:02.727546+00:00
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
       - provider: cloudflare
         kind: worker
         name: meme-lab-catalogue-tool-stage-3000

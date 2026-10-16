@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
-      infrastructureUpdatedAt: 2026-10-02
+      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      infrastructureUpdatedAt: 2026-10-16
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: High Signal
@@ -1198,29 +1198,51 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-02T09:48:55.244Z
-          versionId: c340a1a0-8bba-4e76-bfe9-9da4e6e20f1b
-          sourceCommit: ef9080df2ac90659b4c198cf2841daabf581a5c4
+          observedAt: 2026-10-16T13:23:01.737979+00:00
+          createdOn: 2026-10-14T10:33:19.295222Z
+          deploymentId: 00c87053-6e9b-4c61-9c22-ce81232e7a39
+          versionId: b75a5b88-9a08-4bcb-9503-8c1d19df24fd
+          sourceCommit: 478122b1c3bc0a781117b575b970eda23382e86f
           trafficPercent: 100
-          state: success-production-verified
-          evidence: "Owner release receipt: exact-main CI and all six Fleet deployment gates passed; exact source/version tag verified; production web build passed. Public /, /signals, /data, and /case-studies returned HTTP 200. This is route availability, not published evidence or live AI proof."
+          state: provider-identity-verified
+          scope: Read-only current production identity and traffic verification; product acceptance remains in the owning open issues.
+          evidencePath: ../app-health/.fleet-local/visitor-qualification-20261016/current-release-refresh.json
+          evidence: Cloudflare production deployment and version metadata independently read on 2026-10-16; no deployment performed in this verification.
+        verificationHistory:
+          - observedAt: 2026-10-02T09:48:55.244Z
+            versionId: c340a1a0-8bba-4e76-bfe9-9da4e6e20f1b
+            sourceCommit: ef9080df2ac90659b4c198cf2841daabf581a5c4
+            trafficPercent: 100
+            state: success-production-verified
+            evidence: "Owner release receipt: exact-main CI and all six Fleet deployment gates passed; exact source/version tag verified; production web build passed. Public /, /signals, /data, and /case-studies returned HTTP 200. This is route availability, not published evidence or live AI proof."
       - provider: cloudflare
         kind: worker
         name: high-signal-api
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-02T10:50:42Z
-          deploymentId: bbc81131-5951-41b6-b643-ebd8b66500b5
-          versionId: 2f694311-d4a0-43f9-82cd-3bcf36fc70fc
-          sourceCommit: 0919950917cc014da2c8af9df371f7174fd78076
+          observedAt: 2026-10-16T13:22:59.235342+00:00
+          createdOn: 2026-10-15T14:55:07.975936Z
+          deploymentId: d3056338-b5b7-4af5-a390-247494df0c40
+          versionId: 139f54ac-897c-4b3f-83b5-a37452591925
+          sourceCommit: f434fc0f2935d22dfa1335549fbf3de764c107df
           trafficPercent: 100
-          state: success-production-verified
-          evidence: Exact-SHA workers/tag confirmed in provider version metadata; FREE_AI service binding targets free-ai-gateway entrypoint FleetGateway; API and MCP production smoke checks passed. All six Fleet gates passed in post-release qualification; this is not a claim that those gates ran before the initial release.
-          serviceBindings:
-            - name: FREE_AI
-              service: free-ai-gateway
-              entrypoint: FleetGateway
+          state: provider-identity-verified
+          scope: Read-only current production identity and traffic verification; product acceptance remains in the owning open issues.
+          evidencePath: ../app-health/.fleet-local/visitor-qualification-20261016/current-release-refresh.json
+          evidence: Cloudflare production deployment and version metadata independently read on 2026-10-16; no deployment performed in this verification.
+        verificationHistory:
+          - observedAt: 2026-10-02T10:50:42Z
+            deploymentId: bbc81131-5951-41b6-b643-ebd8b66500b5
+            versionId: 2f694311-d4a0-43f9-82cd-3bcf36fc70fc
+            sourceCommit: 0919950917cc014da2c8af9df371f7174fd78076
+            trafficPercent: 100
+            state: success-production-verified
+            evidence: Exact-SHA workers/tag confirmed in provider version metadata; FREE_AI service binding targets free-ai-gateway entrypoint FleetGateway; API and MCP production smoke checks passed. All six Fleet gates passed in post-release qualification; this is not a claim that those gates ran before the initial release.
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
     resources:
       - provider: cloudflare
         kind: d1

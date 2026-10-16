@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
-      infrastructureUpdatedAt: 2026-10-11
+      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      infrastructureUpdatedAt: 2026-10-16
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Knowledge Base
@@ -399,17 +399,13 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-11T13:48:32.291342Z
-          sourceCommit: 0207b5efc24cf5672dbce423757088f443e48b06
-          deploymentId: d0fbcee1-22fd-4677-96ce-ac44b1dee267
-          versionId: daabe39e-cd61-4bf4-8c87-d13f5c528f9e
+          sourceCommit: 0df8d6e3a2ae67bc20efd1896f5fad58d48aabac
+          versionId: 03f3fdb4-ff6b-40cf-81cd-494d1f94b5af
+          deploymentId: 74100290-5b1d-4c2c-9f70-f5cd7003cd5f
           trafficPercent: 100
-          state: credential-rotation-verified-runtime-unqualified
-          credentialRotation:
-            kind: legacy-gateway-key
-            consumer: knowledgebase
-            observedAt: 2026-10-11T13:48:32.291342Z
-          evidence: Owner-authorized gateway key rotation updated knowledgebase FREE_AI_API_KEY. Provider reports Secret Change version at 100% traffic, preserving the preceding source tag. Shared gateway replacement-key authentication and invalid-key rejection passed without inference. Knowledge Base authenticated retrieval/OCR and native RPC were not requalified by this credential change. Earlier dated runtime and binding qualification is retained in verificationHistory.
+          state: source-observed-shared-pipeline-schema-applied
+          evidence: October16 read-only provider inspection confirms the existing October11 deployment and exact source tag at100percent. D1 rag-db reports migrations0001 through0011_catalog_snapshots_fts_decisions.sql applied; SELECT wrote zero rows. Starboard tenant has two768-dimensional logical indexes with zero and four documents; this is not a completed catalog/library migration. No new deployment, inference or index write was performed. Owner deferred Starboard176 on October16;172 remains paused. Authenticated retrieval/OCR/nativeRPC and whole-current-main parity were not requalified.
+          observedAt: 2026-10-16T11:02:19.399354+00:00
           serviceBindings:
             - name: FREE_AI
               service: free-ai-gateway
@@ -422,6 +418,21 @@ deployment:
             trafficPercent: 100
             state: success-production-verified
             evidence: "PR #57 (https://github.com/sass-maker/knowledge-base/pull/57) passed quality, worker-eval-dry-run, and Pages checks before merge. Exact-main CI run 37002214995 passed; Fleet deploy guard reported READY TO DEPLOY with six gates passed at clean, synced main 0207b5ef. Wrangler deploy dry-run passed; production deployment metadata reports 100% traffic for this version. Wrangler deployment output identifies FREE_AI as free-ai-gateway#FleetGateway and shows existing 384/768/1024/1536 Vectorize bindings. Public /v1/healthz returned ok with D1, D1 schema, Vectorize, and R2 healthy. Authenticated retrieval was not probed; no secret was accessed. Vision OCR now routes via FREE_AI.run; unpriced media models are denied by the gateway before AI inference, with parser fallback. Worker check: 457 passed, 1 skipped; docs check: 36 files valid."
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+          - observedAt: 2026-10-11T13:48:32.291342Z
+            sourceCommit: 0207b5efc24cf5672dbce423757088f443e48b06
+            deploymentId: d0fbcee1-22fd-4677-96ce-ac44b1dee267
+            versionId: daabe39e-cd61-4bf4-8c87-d13f5c528f9e
+            trafficPercent: 100
+            state: credential-rotation-verified-runtime-unqualified
+            credentialRotation:
+              kind: legacy-gateway-key
+              consumer: knowledgebase
+              observedAt: 2026-10-11T13:48:32.291342Z
+            evidence: Owner-authorized gateway key rotation updated knowledgebase FREE_AI_API_KEY. Provider reports Secret Change version at 100% traffic, preserving the preceding source tag. Shared gateway replacement-key authentication and invalid-key rejection passed without inference. Knowledge Base authenticated retrieval/OCR and native RPC were not requalified by this credential change. Earlier dated runtime and binding qualification is retained in verificationHistory.
             serviceBindings:
               - name: FREE_AI
                 service: free-ai-gateway

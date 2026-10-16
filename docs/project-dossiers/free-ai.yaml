@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
-      infrastructureUpdatedAt: 2026-10-11
+      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      infrastructureUpdatedAt: 2026-10-16
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Free AI
@@ -411,17 +411,20 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-11T13:48:27.516368Z
-          sourceCommit: bf35ac919833fa0a1d31a364c1ead3fbefd466fc
-          deploymentId: 2a2898b4-c199-4729-90e0-6e10ff74b13a
-          versionId: dac6840b-f48f-43ab-a696-e4e19a1d03d7
+          sourceCommit: a32c046070b7bb8547c00ae0c327843a3f7c0e42
+          deploymentId: abc8364f-d3c4-4f88-b88b-169d0aacf03c
+          versionId: fcd467c5-63a2-4659-b226-5eeb2649ed8c
           trafficPercent: 100
-          state: credential-rotation-verified-runtime-unqualified
-          credentialRotation:
-            kind: legacy-gateway-key
-            consumer: knowledgebase
-            observedAt: 2026-10-11T13:48:27.516368Z
-          evidence: Owner-authorized legacy gateway key rotation updated free-ai-gateway GATEWAY_API_KEY, sass-maker/free-ai GitHub Actions GATEWAY_API_KEY and knowledgebase FREE_AI_API_KEY. Provider reports Secret Change version at 100% traffic. Fresh replacement-key empty-input request passed authentication and returned HTTP 400 missing_input; invalid-key control returned HTTP 401 invalid_api_key. No inference was dispatched. Existing hashed gateway key ring was preserved. This verifies credential acceptance, not provider reliability, inference quality or whole-key-ring revocation. Earlier dated code and provider-replay qualification is retained in verificationHistory.
+          state: production-provider-and-consumer-qualified
+          exactMainCi: 38905307810
+          deployWorkflow: 38905573815
+          catalogRun: 38905860486
+          effectiveChatModels: 38
+          providerReplay:
+            successful: 8
+            total: 8
+          evidence: "Final PR129 source: exact-main CI691tests plus DocsCheck, six release gates and deploy passed; provider exact full source tag100percent. Full unchanged policy38905860486 passed8/8 replay, zero stale/new/credential/catalog errors, six supported/seven explicitly unsupported catalogs and aggregate health. Mistral strict-schema live qualification38899730264 remains applicable. Paired Meme82 hosted38906065805 passed both strict fixtures AppHealth202 and all three following perspective requests passed high-confidence/full-viewpoint/no-degradation18997/6027/11908ms. Per-invocation trace caught Mistral flat output followed by successful perspective repair. Private bounded request-local failed-model hints prefer another compatible external provider before siblings, WorkersAI last; public spoofing ignored and pins retained. Explicit effort forwarded only to qualified Gemini3.8/Groq families; other automatic defaults retained.24hour routing evidence preserves raw history, quotas and active exhaustion/cooldown. No keys/topups/cap raises/new models/paid fallback. This is bounded current-source qualification, not sustained uptime/human humor proof; historical failures preserved. Issues62and30 closed."
+          observedAt: 2026-10-16T13:17:26.344807+00:00
         verificationHistory:
           - observedAt: 2026-10-02T11:02:20.201598Z
             deploymentId: 672b0032-8661-4e4f-aca0-0e8990a8ebf5
@@ -523,6 +526,106 @@ deployment:
                   upstreamStatus: 405
                   errorClass: provider_fatal
             evidence: PR99 retires exactly2disabled staging records and1unused quota; owning453tests/fullquality/docs on383base before other-owner PR98, exact-mainCI37359378122, unchanged6gate guard, manualdeploy37359640342, exactprovideridentity100percent and publichealth/models200 PASS. All50enabled objects and49explicitactive quota values preserved. Last normal fullpolicy37353421600 on3835486 FAIL4/9 successes; sanitized upstream statuses establish observations, not precise key/account/billing causes. Catalog coverage4/13 with4credential gaps and5unsupported. Issue62 remains OPEN. No credentials/configuration/resources/provider enrollment/paid fallback changed. Current RPC, cross-provider recovery and sustained reliability not requalified. Fresh normal policy37360316105 on exactcurrent04b593c3 FAIL:0stale,4/13catalogs,4/9providers; Gemini503/Cerebras402/NVIDIA410/Mistral403/ZAI405. This single new qualification follows other-ownerPR98 behavioral changes; no unchanged retries. Issue62 OPEN. Prior383 policy result retained historically.
+          - observedAt: 2026-10-11T13:48:27.516368Z
+            sourceCommit: bf35ac919833fa0a1d31a364c1ead3fbefd466fc
+            deploymentId: 2a2898b4-c199-4729-90e0-6e10ff74b13a
+            versionId: dac6840b-f48f-43ab-a696-e4e19a1d03d7
+            trafficPercent: 100
+            state: credential-rotation-verified-runtime-unqualified
+            credentialRotation:
+              kind: legacy-gateway-key
+              consumer: knowledgebase
+              observedAt: 2026-10-11T13:48:27.516368Z
+            evidence: Owner-authorized legacy gateway key rotation updated free-ai-gateway GATEWAY_API_KEY, sass-maker/free-ai GitHub Actions GATEWAY_API_KEY and knowledgebase FREE_AI_API_KEY. Provider reports Secret Change version at 100% traffic. Fresh replacement-key empty-input request passed authentication and returned HTTP 400 missing_input; invalid-key control returned HTTP 401 invalid_api_key. No inference was dispatched. Existing hashed gateway key ring was preserved. This verifies credential acceptance, not provider reliability, inference quality or whole-key-ring revocation. Earlier dated code and provider-replay qualification is retained in verificationHistory.
+          - observedAt: 2026-10-16T11:06:55.089516+00:00
+            sourceCommit: a80f5f14c630e86b77cc6bbfa1e53303c2af4c20
+            deploymentId: 5faf1036-1948-410f-9881-e442d23b05f3
+            versionId: 6fc755c7-c35d-4413-8538-925afa54485d
+            trafficPercent: 100
+            state: source-verified-provider-replay-qualified
+            exactMainCi: 38890861458
+            deployWorkflow: 38891135798
+            catalogRun: 38891346607
+            effectiveChatModels: 39
+            catalogStaleModels: 0
+            catalogNewModels: 0
+            catalogCredentialGaps: 0
+            catalogCheckedProviders: 6
+            catalogUnsupportedProviders: 7
+            providerReplay:
+              successful: 8
+              total: 8
+            evidence: October16 PR120 uses the existing Worker Mistral credential for bounded authenticated catalog checks; no key copied into Actions. PR121 retires three stale IDs and stages two new candidates disabled. PR122 bounds nonstream body parsing at15seconds; PR123 diversifies automatic429 retries and disables two Inkling endpoints after live403. Existing attempts, WorkersAI9500/day and spending caps preserved. Exact-main CI, six deployment gates, deploy workflow and current full catalog/replay/health policy passed. Provider confirms exact tag at100percent; public model API confirms39 enabled chat models and no active Inkling endpoints. Catalog coverage6/13, seven explicitly unsupported, no credential/catalog errors or drift. Meme Lab consumer monitor remains separately unqualified; this is not an uptime guarantee.
+          - sourceCommit: c2f04651b8e3f4b9b0ff78d50b5390e825f326de
+            deploymentId: e88f5157-0e2b-4e4d-84d8-921e8d032362
+            versionId: 2e999ea0-8fe3-472a-9014-6b48a74481c6
+            trafficPercent: 100
+            state: consumer-recovered-provider-replay-incomplete
+            exactMainCi: 38893243285
+            deployWorkflow: 38893493959
+            catalogRun: 38894020144
+            effectiveChatModels: 39
+            providerReplay:
+              successful: 7
+              total: 8
+            evidence: October16 PR124 preserves private caller colo, persists confirmed Gemini regional rejection for30minutes only in that colo, and diversifies transient retries while preserving healthy external siblings ahead of WorkersAI. Exact-main CI, six release gates and deployment passed; provider exact source tag at100percent. Meme Lab hosted38894255145 subsequently passed both strict fixtures on this gateway source. Full provider policy38894020144 still failed only OpenRouter Nemotron Lightning at15068ms; other7providers and gateway health passed, catalog drift/credential gaps zero. PR125 quarantine and free-versus-paid quota correction are prepared but not yet released. No credentials, paid fallback or spending caps changed.
+            observedAt: 2026-10-16T11:43:18.097863+00:00
+          - sourceCommit: aaf06eeb03b1902c9c63ef076cd79f0a53e80e76
+            deploymentId: 4d603049-997d-4b79-9e89-0d6889a4d4a8
+            versionId: 83d1abd4-3918-4760-bcd7-59fe7590b40b
+            trafficPercent: 100
+            state: production-provider-policy-qualified
+            exactMainCi: 38895813503
+            deployWorkflow: 38896292400
+            catalogRun: 38896491525
+            effectiveChatModels: 38
+            providerReplay:
+              successful: 8
+              total: 8
+            evidence: "October16 PR125 quarantines repeatedly timing-out OpenRouter Lightning and distinguishes explicit free-model allowance from zero paid credit. Exact-main CI671tests, six release gates and deployment passed. Provider confirms exact source tag at100percent. Unchanged full policy38896491525: zero stale/new/gaps/errors, six supported catalogs and seven explicit unsupported sources; eight of eight provider replays200, including Dots6981ms and Mistral387ms; aggregate health passed. Earlier c2failed replay is retained in history. Public registry38chat, quarantined Lightning/Inkling absent. Subsequent Meme Lab hosted38896614500 failed perspective deadline and is not qualified by this producer pass. No keys, topups, paid fallback or spending caps changed."
+            observedAt: 2026-10-16T11:56:59.428211+00:00
+          - sourceCommit: 18184a8db63fbdbb2ccc768e6c1ca540e10e37f1
+            deploymentId: 9954e437-417c-4dcc-a88f-a6cc8f7eb663
+            versionId: 5a227312-447b-41b4-b4ce-6d4712ed6a5b
+            trafficPercent: 100
+            state: production-provider-policy-qualified-consumer-intermittent
+            exactMainCi: 38899277861
+            deployWorkflow: 38899506325
+            catalogRun: 38899848538
+            effectiveChatModels: 38
+            providerReplay:
+              successful: 8
+              total: 8
+            evidence: PR126 admits documented already-enabled Codestral/Ministral8B strict schemas. Exact-main CI673tests, six release gates and deploy passed; provider exact full tag100percent. Full normal policy38899848538 passed eight provider replays, zero stale/new/gaps/errors, six supported/seven explicit unsupported catalogs and aggregate health. Diagnostic-only38899730264 separately verified actual strict-schema output for Codestral565ms and Ministral8B783ms; no diagnostic code merged. Meme hosted38899885187 passed, but subsequent three perspective requests all degraded27453/6087/9356ms, followed by traced SIN degradation18404ms (Gemini503 and Groq400json_validate_failed). Public Mistral health retained11/21percent success and old evidence. PR127 adds a24hour routing-evidence lookback without resetting quota or active exhaustion; not yet released. Consumer qualification remains incomplete; no new credentials/models/paid fallback/spend increase.
+            observedAt: 2026-10-16T12:30:50.747051+00:00
+          - sourceCommit: 1c5bf0219987356bf339694aea1d79eeecdddd3f
+            deploymentId: 89fb276a-a211-4122-b1f9-b4a6f3587176
+            versionId: 5db163a2-3657-4af1-a031-ae01d8c36739
+            trafficPercent: 100
+            state: production-provider-policy-qualified-consumer-output-intermittent
+            exactMainCi: 38901216027
+            deployWorkflow: 38901469986
+            catalogRun: 38901696940
+            effectiveChatModels: 38
+            providerReplay:
+              successful: 8
+              total: 8
+            evidence: PR127 bounds routing metrics to24hours without clearing diagnostic history, daily usage, active cooldown or exhaustion. Exact-main CI676tests and DocsCheck passed; six release gates and deploy passed, provider exact source100percent. Full policy38901696940 passed all eight provider replays, zero stale/new/gaps/errors, six supported/seven explicit unsupported catalogs and aggregate health. Mistral schema qualification38899730264 remains applicable. Meme hosted38901752357 passed4062/3152ms; subsequent three perspective repeats returned503 at12951/10400/12157ms. Separate traced request returned degraded general_fallback10264ms with six flat ordinal answers. Existing adapter repair can select the same model after output rejection. Paired FreeAI128/Meme71 add request-local failed-model exclusions; not yet released. No new keys, models, paid fallback or raised caps.
+            observedAt: 2026-10-16T12:46:48.218646+00:00
+          - sourceCommit: 2360de370b4ba724d7559dea40a142a55c5ba621
+            deploymentId: 024b67f4-bb19-492f-b109-15337c5edd38
+            versionId: 25d090c4-f9ac-4b6f-9b28-6a6baabc1f21
+            trafficPercent: 100
+            state: production-provider-policy-qualified-consumer-intermittent
+            exactMainCi: 38903019099
+            deployWorkflow: 38903300446
+            catalogRun: 38903618686
+            effectiveChatModels: 38
+            providerReplay:
+              successful: 8
+              total: 8
+            evidence: PR128 private request-local invalid-model exclusions deployed. Exact-main CI684tests and DocsCheck passed; six release gates and deployment passed, provider exact full source100percent. Full policy38903618686 passed8/8 replay, zero stale/new/gaps/errors, six supported/seven explicit unsupported catalogs and health. Paired Meme92 hosted38903826372 passed4791/8251ms, high confidence complete/no degradation AppHealth202; trace observed flat answers followed by successful repair. Subsequent three perspective requests degraded15283/7094ms then passed4269ms. Thus consumer qualification remains intermittent and issue30 open. FreeAI129/Meme72 prepare failed-provider diversity, supported explicit Groq effort and safe provider attribution; not released. No new credentials/models/paid fallback/spend caps.
+            observedAt: 2026-10-16T13:04:02.727546+00:00
     resources:
       - provider: cloudflare
         kind: d1

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
+      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -82,12 +82,12 @@ identity:
   moneyOrPersonalBrand: false
   unmetNeed: null
   kind: product
-  priority: P2
-  tier: active
-  attention: toolbox
+  priority: P4
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
+    status: inactive
+    resumeCondition: Only resume after an explicit owner reactivation decision.
     shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
@@ -101,7 +101,7 @@ product:
     outcome: Move, play, and exercise through a game that responds directly to the body.
     mechanism: The iPhone performs body tracking and hosts the game while mirroring the experience to a television or larger display.
     proof: A promising native prototype exists, but physical control feel, fun, and distribution remain unproven on real devices.
-    nextAction: Treat it as a held prototype; reopen around physical-device testing of one genuinely fun control loop.
+    nextAction: Archived by the owner; resume only after an explicit reactivation decision.
   form: iOS game
   platforms:
     - iOS
@@ -262,12 +262,12 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: maintained
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Held physical-play experiment; any future functioning-game claim still needs camera/control/device evidence.
-  changelogUrl: https://motion.significanthobbies.com/changelog
+  verifiedAt: 2026-10-16
+  reason: Owner archived Motion; no active qualification or release work.
+  changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/motion/issues
   geoIdentity:
     id: motion

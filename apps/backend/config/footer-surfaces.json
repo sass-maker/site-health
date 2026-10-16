@@ -51,14 +51,6 @@
       ]
     },
     {
-      "id": "email-manager",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "email-manager/landing-astro/src/content/home.json"
-      ]
-    },
-    {
       "id": "memory-map",
       "kind": "visual",
       "state": "required",
@@ -198,14 +190,6 @@
       "state": "required",
       "files": [
         "app-health/apps/web/src/LandingPage.tsx"
-      ]
-    },
-    {
-      "id": "motion",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "ios-landings/src/layouts/SiteLayout.astro"
       ]
     },
     {

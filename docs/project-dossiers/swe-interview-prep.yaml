@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
-      infrastructureUpdatedAt: 2026-10-09
+      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      infrastructureUpdatedAt: 2026-10-16
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SWE Interview Prep
@@ -450,14 +450,29 @@ deployment:
         method: github-actions-wrangler
         state: live
         verification:
-          observedAt: 2026-10-09
-          sourceCommit: a115c26502c65a5af8e11de0d9ba73cf5f57aa9c
-          evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time. GitHub Actions deploy run 37887546390.
+          observedAt: 2026-10-16T15:27:34Z
+          deploymentId: 048e3a85-610d-4120-8d7b-9fba2226dbd8
+          sourceCommit: f3128d573146547bc61b6d0dc6365cab3d99b5b6
+          deploymentUrl: https://048e3a85.swe-interview-prep.pages.dev
+          state: provider-identity-verified
+          scope: Cloudflare Pages production identity and source f3128d5 match the successful GitHub Actions release. Public learning routes and responsive shell passed; signed-in mastery save/reload remains unverified.
+          evidenceUrl: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/38923316113
         verificationHistory:
+          - observedAt: 2026-10-16T13:37:51.957253+00:00
+            createdOn: 2026-10-14T10:29:19.275467Z
+            deploymentId: d21a0510-b891-4e5e-835a-66614dfcb89e
+            sourceCommit: e895f809dde211805da4d9943baa1922fefe5d54
+            deploymentUrl: https://d21a0510.swe-interview-prep.pages.dev
+            state: provider-identity-verified
+            scope: Read-only prior Pages production identity; retained for rollback.
+            evidencePath: ../swe-interview-prep/.fleet-local/issue141-20261016/current-release-rollback.json
           - observedAt: 2026-09-08
             deploymentId: d47298d6-3506-4565-86ac-9a0a1973ad03
             sourceCommit: b11f6c766251486d5621b0681b131de619cf9367
             evidencePath: docs/qualification/swe-interview-prep-2026-09-08/guest-release.json
+          - observedAt: 2026-10-09
+            sourceCommit: a115c26502c65a5af8e11de0d9ba73cf5f57aa9c
+            evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time. GitHub Actions deploy run 37887546390.
       - provider: cloudflare
         kind: worker
         name: swe-interview-prep-wars

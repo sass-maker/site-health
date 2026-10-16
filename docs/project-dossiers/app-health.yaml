@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
-      infrastructureUpdatedAt: 2026-10-08
+      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      infrastructureUpdatedAt: 2026-10-16
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: App Health
@@ -318,15 +318,36 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-08T04:40:09.040464+00:00
-          deploymentId: 09334867-331f-473f-8e19-4b61bcd90c48
-          versionId: 8de5243d-f910-4d6c-a9d4-7fce1206bb47
-          sourceCommit: 84620f0b062ccb188cad3f939ec6840d8c4fc95f
+          observedAt: 2026-10-16T15:27:00Z
+          createdOn: 2026-10-16T15:26:43.417089Z
+          deploymentId: bb64c1c2-fd4d-404a-bfed-7d160bf1d5df
+          versionId: 7211d781-62b2-4291-a6f2-9f9bd21abcd0
+          sourceCommit: 2ffdbb61f60e355f7157f260dfb7eb9722868509
           trafficPercent: 100
-          state: success-production-brand-nowrap-verified
-          evidencePath: /Users/sarthak/Documents/Codex/reports/fleet-pr-issue-audit-2026-10-04/known-closure-runs/continuation-20261008-closure-sweep/apphealth171/public-build-parity.json
-          evidence: "PR #174 exact-main CI 37727885028 passed; version 8de5243d-f910-4d6c-a9d4-7fce1206bb47 is tagged to main 84620f0b062ccb188cad3f939ec6840d8c4fc95f and serves 100%. Canonical /, /changelog and all three entry JS/CSS assets match the exact merged production build; /v1/health returned 200. Existing same-Worker public host ingest.sassmaker.com returned byte-identical canonical routes and public assets. Landing/footer brand and changelog renders passed at 390, 768 and 1440px with no horizontal overflow. Scope is brand-layout release verification only; no archive-retention or collector-recovery qualification is claimed."
-          ciRun: https://github.com/sass-maker/app-health/actions/runs/37727885028
+          state: provider-identity-verified
+          scope: Exact-main release identity and public route checks; owner-only aggregate, signed-in UI, and visitor qualification remain in open issues.
+          evidencePath: ../app-health/.fleet-local/issue199-194-live-20261016/release.json
+          evidence: "Cloudflare version tagged to green main CI serves 100%; public routes and health returned 200, unauthenticated aggregate returned 401. See issues #199, #194, and #96 for unverified acceptance."
+        verificationHistory:
+          - observedAt: 2026-10-16T13:22:56.309225+00:00
+            createdOn: 2026-10-10T10:27:30.90139Z
+            deploymentId: 5b468727-4175-475e-af11-db929707060f
+            versionId: 05349a7c-a601-46d9-84a1-0bca2269c2dd
+            sourceCommit: cb838f645940d9263eff598ed43b7e63760c0f69
+            trafficPercent: 100
+            state: provider-identity-verified
+            scope: Read-only current production identity and traffic verification; product acceptance remains in the owning open issues.
+            evidencePath: ../app-health/.fleet-local/visitor-qualification-20261016/current-release-refresh.json
+            evidence: Cloudflare production deployment and version metadata independently read on 2026-10-16; no deployment performed in this verification.
+          - observedAt: 2026-10-08T04:40:09.040464+00:00
+            deploymentId: 09334867-331f-473f-8e19-4b61bcd90c48
+            versionId: 8de5243d-f910-4d6c-a9d4-7fce1206bb47
+            sourceCommit: 84620f0b062ccb188cad3f939ec6840d8c4fc95f
+            trafficPercent: 100
+            state: success-production-brand-nowrap-verified
+            evidencePath: /Users/sarthak/Documents/Codex/reports/fleet-pr-issue-audit-2026-10-04/known-closure-runs/continuation-20261008-closure-sweep/apphealth171/public-build-parity.json
+            evidence: "PR #174 exact-main CI 37727885028 passed; version 8de5243d-f910-4d6c-a9d4-7fce1206bb47 is tagged to main 84620f0b062ccb188cad3f939ec6840d8c4fc95f and serves 100%. Canonical /, /changelog and all three entry JS/CSS assets match the exact merged production build; /v1/health returned 200. Existing same-Worker public host ingest.sassmaker.com returned byte-identical canonical routes and public assets. Landing/footer brand and changelog renders passed at 390, 768 and 1440px with no horizontal overflow. Scope is brand-layout release verification only; no archive-retention or collector-recovery qualification is claimed."
+            ciRun: https://github.com/sass-maker/app-health/actions/runs/37727885028
     resources:
       - provider: cloudflare
         kind: d1

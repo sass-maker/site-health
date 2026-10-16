@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
+      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -84,15 +84,15 @@ identity:
   unmetNeed: false
   kind: product
   priority: P4
-  tier: active
-  attention: toolbox
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
+    status: inactive
+    resumeCondition: Only resume after an explicit owner reactivation decision.
+    shareable: false
   operationalStatus: live
   authenticationModel: required-user
-  inRegistry: true
+  inRegistry: false
 product:
   description: A private Gmail workspace for local semantic search, sender insights, and explicit unsubscribe workflows.
   publicMakerNote: Gmail did not help me see who was filling my inbox, so I built a clearer way to understand volume and unsubscribe.
@@ -349,12 +349,12 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: maintained
   ready: false
   verifiedAt: 2026-09-11
   reason: "September 11 ordinary existing-account Google OAuth completed with the requested gmail.readonly and identity scopes. 500 messages cached and indexed to 100%; sender search returned 25 results and a generic semantic query returned 50. After reload the mailbox remained connected and indexed, and the same query returned 50 results. No email write actions or message contents retained. Personal use is qualified; broad public sharing remains false. Account switching and a forced expired-token refresh were not separately exercised. Existing historical broader permissions were displayed as already granted; the current request was Gmail read-only plus identity. Receipt: docs/qualification/kinetic-owner-core-2026-09-11.json."
-  changelogUrl: https://mail.significanthobbies.com/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/email-manager/issues
   geoIdentity:
     id: email-manager
