@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1921986f2e1c9376cbcbf83fed8ef7e1cfdaf960807bf9f46f52555237c76868
+      sha256: 062e6a313a801f6d84a39ec25088373437191fb3cfb2b5662104a1e0c0061b05
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ee9cde34b52d8bee7cd17a801f9f58c8135011534d04109becd2dc278110ff71
+      sha256: 008da1b302bbb5cef449e56460e20b5510951c807f0cb7002fd296418c94b0f6
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -72,7 +72,7 @@ ownerVoice:
 decision:
   classification: Inactive / TechData source
   whySummary: Preserve the operator corpus, citation data and public exports.
-  currentState: TechData exposes selected public papers; operator ClickHouse, specialised workflows and export jobs remain source-owned.
+  currentState: Primary Fleet checkout removed on 2026-10-17 after its main matched remote; TechData continues to expose selected public papers. Operator ClickHouse, specialised workflows and export jobs remain source-owned.
   nextDecision: Maintain the source/export contract under TechData; catalog grouping does not claim full operator-workflow parity.
 identity:
   name: Research Papers
@@ -375,5 +375,7 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: "2026-10-17: Removed from the independent active Fleet roster and grouped under TechData. Operator corpus, citation data and public JSON exports; TechData reads selected public exports. Existing source code, local path, data, live site and collectors remain preserved; no production retirement, redirect, repository transfer or full-parity claim."
+  catalog: |-
+    2026-10-17: Removed from the independent active Fleet roster and grouped under TechData. Operator corpus, citation data and public JSON exports; TechData reads selected public exports. Existing source code, local path, data, live site and collectors remain preserved; no production retirement, redirect, repository transfer or full-parity claim.
+    2026-10-17 local cleanup: Verified the source checkout matches remote main and removed it from Fleet. TechData reads bundled data, R2 or public APIs without this checkout. Local-only data and evidence are retained in the private TechData source-components data store; source code can be cloned from its retained repository when maintenance is needed. Live source services remain unchanged.
   infrastructure: null

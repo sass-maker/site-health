@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 1921986f2e1c9376cbcbf83fed8ef7e1cfdaf960807bf9f46f52555237c76868
+      sha256: 062e6a313a801f6d84a39ec25088373437191fb3cfb2b5662104a1e0c0061b05
       infrastructureUpdatedAt: 2026-09-13
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ee9cde34b52d8bee7cd17a801f9f58c8135011534d04109becd2dc278110ff71
+      sha256: 008da1b302bbb5cef449e56460e20b5510951c807f0cb7002fd296418c94b0f6
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -70,7 +70,7 @@ ownerVoice:
 decision:
   classification: Inactive / TechData source
   whySummary: Preserve the Nomads.com snapshot and its provenance.
-  currentState: TechData provides the shared explorer; the original snapshot/model and sibling parity-check path remain retained source inputs.
+  currentState: Primary Fleet checkout removed on 2026-10-17 after its main matched remote; TechData keeps the published snapshot and model copy.
   nextDecision: Maintain source compatibility under TechData; no independent product roadmap or provider retirement.
 identity:
   name: Nomad Data Adventure
@@ -126,7 +126,7 @@ repository:
   visibility: public
   url: https://github.com/sarthakagrawal927/nomad-data-adventure
   aliases: []
-  sourceOverride: nomad-data-adventure
+  sourceOverride: null
   tooling:
     declaredPackageManager: pnpm@10.30.3
     detectedSignals:
@@ -288,4 +288,5 @@ notes:
   catalog: |-
     Owner requested Cloudflare-only hosting and a richer visual explorer on 2026-09-13. Nomad Atlas shows 1,374 terrestrial places from the original 1,383-record JSON; nine Space novelty entries remain in the original download only. Alternative local exports contain the same records. Collection scripts, state, logs and duplicate exports stay in Git-ignored data/. No backend or scheduled collection. Owner marked this a shareable, completed experiment and requested nomad.significanthobbies.com on 2026-09-13.
     2026-10-17: Removed from the independent active Fleet roster and grouped under TechData. Bundled Nomad snapshot/model provenance and cross-repository parity checks. Existing source code, local path, data, live site and collectors remain preserved; no production retirement, redirect, repository transfer or full-parity claim.
+    2026-10-17 local cleanup: Verified the source checkout matches remote main and removed it from Fleet. TechData reads bundled data, R2 or public APIs without this checkout. Local-only data and evidence are retained in the private TechData source-components data store; source code can be cloned from its retained repository when maintenance is needed. Live source services remain unchanged.
   infrastructure: Shareable completed experiment. Cloudflare Pages hosts the static explorer at nomad.significanthobbies.com with automatic CNAME and HTTPS; pages.dev remains the provider alias. No backend, database or collection service. GitHub Pages retired.
