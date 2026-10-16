@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "observedAt": "2026-10-09",
-  "historyObservedAt": "2026-10-09",
+  "historyObservedAt": "2026-10-16",
   "observationSemantics": "Read-only snapshot of tracked workflow and toolchain files in the Fleet workspace. It reads workflow names, triggers, cron expressions, tracked-worktree state, root package script keys, package-manager declarations, and the commit dates and commit count retained by the checked-out HEAD only; environment files, credential-bearing configuration, secrets, command values, commit messages, and commit authorship are not retained.",
   "projects": {
     "codevetter": {
@@ -19,7 +19,7 @@
       "history": {
         "firstCommitAt": "2025-11-30",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 1506,
+        "retainedCommitCount": 1513,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -894,8 +894,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 77,
+        "latestCommitAt": "2026-10-11",
+        "retainedCommitCount": 87,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1325,7 +1325,7 @@
       "history": {
         "firstCommitAt": "2026-05-02",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 1173,
+        "retainedCommitCount": 1175,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1909,8 +1909,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-11",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 57,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 60,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2097,7 +2097,7 @@
       "history": {
         "firstCommitAt": "2026-02-26",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 1498,
+        "retainedCommitCount": 1499,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2903,11 +2903,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-05-28",
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 112,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -2939,8 +2939,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-22",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 67,
+        "latestCommitAt": "2026-10-15",
+        "retainedCommitCount": 73,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -3145,11 +3145,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-07-13",
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 36,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -3390,8 +3390,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-24",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 287,
+        "latestCommitAt": "2026-10-11",
+        "retainedCommitCount": 293,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -3652,7 +3652,7 @@
       "history": {
         "firstCommitAt": "2026-02-26",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 1507,
+        "retainedCommitCount": 1499,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4462,8 +4462,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-15",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 306,
+        "latestCommitAt": "2026-10-11",
+        "retainedCommitCount": 315,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -5079,8 +5079,8 @@
       },
       "history": {
         "firstCommitAt": "2026-04-25",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 1106,
+        "latestCommitAt": "2026-10-15",
+        "retainedCommitCount": 1138,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6802,11 +6802,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-04-26",
+        "latestCommitAt": "2026-09-27",
+        "retainedCommitCount": 173,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -6839,7 +6839,7 @@
       "history": {
         "firstCommitAt": "2026-05-30",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 137,
+        "retainedCommitCount": 139,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7125,8 +7125,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-27",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 261,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 267,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7384,8 +7384,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 577,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 579,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7547,11 +7547,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-07-27",
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 43,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -7583,8 +7583,8 @@
       },
       "history": {
         "firstCommitAt": "2025-02-16",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 446,
+        "latestCommitAt": "2026-10-11",
+        "retainedCommitCount": 454,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -8088,11 +8088,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-02-22",
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 100,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -8538,8 +8538,8 @@
       },
       "history": {
         "firstCommitAt": "2025-11-16",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 363,
+        "latestCommitAt": "2026-10-11",
+        "retainedCommitCount": 374,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9310,8 +9310,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 168,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 170,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9586,11 +9586,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-08-11",
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 31,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -9723,8 +9723,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-17",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 92,
+        "latestCommitAt": "2026-10-14",
+        "retainedCommitCount": 111,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10135,8 +10135,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-05",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 551,
+        "latestCommitAt": "2026-10-11",
+        "retainedCommitCount": 558,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10460,8 +10460,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 458,
+        "latestCommitAt": "2026-10-11",
+        "retainedCommitCount": 488,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11079,8 +11079,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-03",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 406,
+        "latestCommitAt": "2026-10-09",
+        "retainedCommitCount": 407,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11340,11 +11340,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-07-15",
+        "latestCommitAt": "2026-09-27",
+        "retainedCommitCount": 241,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -11409,7 +11409,7 @@
       "history": {
         "firstCommitAt": "2026-07-20",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 386,
+        "retainedCommitCount": 387,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11903,11 +11903,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-04-24",
+        "latestCommitAt": "2026-09-27",
+        "retainedCommitCount": 187,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -11940,7 +11940,7 @@
       "history": {
         "firstCommitAt": "2026-02-08",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 267,
+        "retainedCommitCount": 268,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12423,11 +12423,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-06-25",
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 10,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -12459,8 +12459,8 @@
       },
       "history": {
         "firstCommitAt": "2026-06-21",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 20,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 21,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12814,8 +12814,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-21",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 328,
+        "latestCommitAt": "2026-10-12",
+        "retainedCommitCount": 329,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13341,8 +13341,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-07",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 57,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 59,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13480,11 +13480,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-06-16",
+        "latestCommitAt": "2026-09-21",
+        "retainedCommitCount": 23,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -13605,8 +13605,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-12",
-        "latestCommitAt": "2026-10-04",
-        "retainedCommitCount": 24,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 25,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13755,8 +13755,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-13",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 80,
+        "latestCommitAt": "2026-10-13",
+        "retainedCommitCount": 99,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13920,7 +13920,7 @@
       "history": {
         "firstCommitAt": "2026-09-19",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 95,
+        "retainedCommitCount": 96,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14083,8 +14083,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-20",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 88,
+        "latestCommitAt": "2026-10-13",
+        "retainedCommitCount": 96,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14241,8 +14241,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-10",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 5,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 6,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14433,11 +14433,11 @@
         "worktree": null
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
+        "firstCommitAt": "2026-09-18",
+        "latestCommitAt": "2026-09-18",
+        "retainedCommitCount": 1,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -14470,7 +14470,7 @@
       "history": {
         "firstCommitAt": "2026-09-20",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 104,
+        "retainedCommitCount": 105,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15343,7 +15343,7 @@
       "history": {
         "firstCommitAt": "2026-03-18",
         "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 92,
+        "retainedCommitCount": 93,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15678,11 +15678,11 @@
         "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/digital-life rev-parse HEAD"
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/digital-life rev-parse HEAD"
+        "firstCommitAt": "2026-10-16",
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 1,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -15711,11 +15711,11 @@
         "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/human-v2 rev-parse HEAD"
       },
       "history": {
-        "firstCommitAt": null,
-        "latestCommitAt": null,
-        "retainedCommitCount": null,
-        "historyCompleteness": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/human-v2 rev-parse HEAD"
+        "firstCommitAt": "2026-10-16",
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 1,
+        "historyCompleteness": "complete",
+        "reason": null
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -15888,8 +15888,8 @@
       },
       "history": {
         "firstCommitAt": "2026-10-09",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 4,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 14,
         "historyCompleteness": "complete",
         "reason": null
       },

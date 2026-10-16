@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f6577aff18dea2f4f8a09126871640b6e5de3cf5d72fb327068306e7fa45d4c5
+      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
       infrastructureUpdatedAt: 2026-10-08
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-08
       reviewSha256: 158aa596ddfc1efc580b3cf49b34a106ac93ff2d213dcd3138f5760ad56c77b2
-      documentSha256: f6577aff18dea2f4f8a09126871640b6e5de3cf5d72fb327068306e7fa45d4c5
+      documentSha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -44,7 +44,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-10-09
+      observedAt: 2026-10-16
       state: available
       checkout: agentbox
       revision: bebec96ce36876dd3329ad849fb2e1c57fa88ea8

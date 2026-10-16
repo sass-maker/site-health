@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f6577aff18dea2f4f8a09126871640b6e5de3cf5d72fb327068306e7fa45d4c5
+      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
       infrastructureUpdatedAt: 2026-08-11
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-10-09
+      observedAt: 2026-10-16
       state: available
       checkout: research-papers
       revision: 0fc686afb56fba4eee4553dc38c5f580d14a7272
@@ -116,7 +116,7 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-05-30
     latestCommitAt: 2026-10-09
-    retainedCommitCount: 137
+    retainedCommitCount: 139
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
