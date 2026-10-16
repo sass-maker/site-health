@@ -75,14 +75,6 @@
       ]
     },
     {
-      "id": "research-papers",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "research-papers/web/src/components/studio-footer.tsx"
-      ]
-    },
-    {
       "id": "knowledge-base",
       "kind": "visual",
       "state": "required",
@@ -209,14 +201,6 @@
       ]
     },
     {
-      "id": "reddit-insights",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "reddit-insights/scripts/build-pages.mjs"
-      ]
-    },
-    {
       "id": "anchor",
       "kind": "visual",
       "state": "required",
@@ -250,14 +234,6 @@
         "nutrition-formula-engine/public/index.html",
         "nutrition-formula-engine/public/case-studies/index.html",
         "nutrition-formula-engine/public/recent-formulas/index.html"
-      ]
-    },
-    {
-      "id": "nomad-data-adventure",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "nomad-data-adventure/index.html"
       ]
     },
     {
@@ -298,14 +274,6 @@
       "state": "required",
       "files": [
         "aliveville/astro-landing/src/components/PreciseFooter.astro"
-      ]
-    },
-    {
-      "id": "ph-catalog",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "ph-catalog/landing/index.html"
       ]
     },
     {

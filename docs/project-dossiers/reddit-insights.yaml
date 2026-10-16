@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
+      sha256: 1921986f2e1c9376cbcbf83fed8ef7e1cfdaf960807bf9f46f52555237c76868
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
+      sha256: ee9cde34b52d8bee7cd17a801f9f58c8135011534d04109becd2dc278110ff71
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -67,10 +67,10 @@ ownerVoice:
   fullReviewVerbatim: Reddit Insights is a product in which I was trying to see how historically signals and emotions have changed in a subreddit but I was not able to finish because of a lack of data or lack of historical data. Reddit does not provide the historical data easily so that is why it kind of got blocked but I might reopen it and start storing the data soon.
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
-  whySummary: Track historical shifts in subreddit signals and emotion.
-  currentState: Finished experiment; bounded artifact without an active roadmap.
-  nextDecision: "Keep: A documented experiment answering one historical community question. Stop: A general social-monitoring product and unavailable-data promises."
+  classification: Inactive / TechData source
+  whySummary: Preserve snapshot provenance, archive ownership and redaction propagation.
+  currentState: TechData reads the retained public Snapshot API; the source repository still owns archive and deletion behavior.
+  nextDecision: Maintain that source contract under TechData; the unresolved source issue remains in its owning repository.
 identity:
   name: Reddit Insights
   publicName: Reddit Insights
@@ -83,12 +83,12 @@ identity:
   unmetNeed: false
   kind: experiment
   priority: P4
-  tier: secondary
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
+    status: inactive
+    resumeCondition: Resume as a standalone active project only after a new owner decision; maintain the retained source component under TechData.
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -281,12 +281,12 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: null
-  ready: true
+  ready: false
   verifiedAt: 2026-09-07
   reason: Hosted historical source-linked search/navigation and one original-source comparison pass. Incomplete capture provenance and full-corpus fidelity remain explicit; no live-monitoring claim.
-  changelogUrl: https://reddit-insights.highsignal.app/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/High-Signal-App/research-subreddit/issues
   geoIdentity:
     id: reddit-insights
@@ -309,5 +309,7 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Static Reddit research observatory deployed to Cloudflare Pages; raw corpora and research data are excluded from the public artifact.
+  catalog: |-
+    Static Reddit research observatory deployed to Cloudflare Pages; raw corpora and research data are excluded from the public artifact.
+    2026-10-17: Removed from the independent active Fleet roster and grouped under TechData. Source snapshots, archive/redaction ownership and public Snapshot API read by TechData. Existing source code, local path, data, live site and collectors remain preserved; no production retirement, redirect, repository transfer or full-parity claim.
   infrastructure: " Repository icon release e0fa78f0d97fad9a3e54c9b6af593e0ce5bc1930 verified on existing reddit-insights deployment a2ef84ad-3cba-4b29-ab52-5179eba09d2e. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px."

@@ -79,22 +79,6 @@
       ]
     },
     {
-      "id": "reddit-insights",
-      "origin": "https://reddit-insights.highsignal.app",
-      "queries": [
-        {
-          "qid": "reddit-insights-brand",
-          "kind": "brand",
-          "q": "Reddit Insights highsignal"
-        },
-        {
-          "qid": "reddit-insights-category",
-          "kind": "category",
-          "q": "subreddit topic history research dashboard"
-        }
-      ]
-    },
-    {
       "id": "pace",
       "origin": "https://heypace.app",
       "queries": [
@@ -353,22 +337,6 @@
       ]
     },
     {
-      "id": "research-papers",
-      "origin": "https://papers.highsignal.app",
-      "queries": [
-        {
-          "qid": "research-papers-brand",
-          "kind": "brand",
-          "q": "papers.highsignal.app"
-        },
-        {
-          "qid": "research-papers-category",
-          "kind": "category",
-          "q": "semantic academic paper search arXiv OpenReview bioRxiv medRxiv"
-        }
-      ]
-    },
-    {
       "id": "kith",
       "origin": "https://kith.significanthobbies.com",
       "queries": [
@@ -566,48 +534,6 @@
           "qid": "aliveville-problem",
           "kind": "problem",
           "q": "watch an AI world simulation run live"
-        }
-      ]
-    },
-    {
-      "id": "ph-catalog",
-      "origin": "https://ph.significanthobbies.com",
-      "queries": [
-        {
-          "qid": "ph-catalog-brand",
-          "kind": "brand",
-          "q": "PH Catalog"
-        },
-        {
-          "qid": "ph-catalog-category",
-          "kind": "category",
-          "q": "Product Hunt catalogue analytics experiment"
-        },
-        {
-          "qid": "ph-catalog-problem",
-          "kind": "problem",
-          "q": "analyze Product Hunt launches at scale locally"
-        }
-      ]
-    },
-    {
-      "id": "nomad-data-adventure",
-      "origin": "https://nomad.significanthobbies.com",
-      "queries": [
-        {
-          "qid": "nomad-brand",
-          "kind": "brand",
-          "q": "Nomad Atlas"
-        },
-        {
-          "qid": "nomad-category",
-          "kind": "category",
-          "q": "compare cities by living cost and lifestyle data"
-        },
-        {
-          "qid": "nomad-problem",
-          "kind": "problem",
-          "q": "digital nomad city cost of living data"
         }
       ]
     },

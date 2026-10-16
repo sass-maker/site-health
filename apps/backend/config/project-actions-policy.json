@@ -69,6 +69,10 @@
       "disposition": "ignored",
       "reason": "Owner archived Motion on 2026-10-16; previous policies are preserved in retainedFields.ownerRetirement.previousSystems."
     },
+    "nomad-data-adventure": {
+      "disposition": "ignored",
+      "reason": "Retained TechData source component since 2026-10-17; excluded from independent active Fleet audits and queue. Historical policy is retained in ownerRetirement.previousSystems."
+    },
     "open-historia": {
       "disposition": "ignored",
       "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
@@ -81,9 +85,17 @@
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
     },
+    "reddit-insights": {
+      "disposition": "ignored",
+      "reason": "Retained TechData source component since 2026-10-17; excluded from independent active Fleet audits and queue. Historical policy is retained in ownerRetirement.previousSystems."
+    },
     "reel-pipeline": {
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+    },
+    "research-papers": {
+      "disposition": "ignored",
+      "reason": "Retained TechData source component since 2026-10-17; excluded from independent active Fleet audits and queue. Historical policy is retained in ownerRetirement.previousSystems."
     },
     "shoulders": {
       "disposition": "ignored",
@@ -124,6 +136,10 @@
     "techdata": {
       "disposition": "active",
       "reason": "Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10)."
+    },
+    "ph-catalog": {
+      "disposition": "ignored",
+      "reason": "Retained TechData source component since 2026-10-17; excluded from independent active Fleet audits and queue. Historical policy is retained in ownerRetirement.previousSystems."
     },
     "slow-serp": {
       "disposition": "ignored",
