@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: drank
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-09
+  generatedAt: 2026-10-16
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: passed
+    repositorySnapshot: unavailable
     githubHomepage: passed
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: unavailable
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      sha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
       infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,37 +31,34 @@ verification:
       sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-09
-      state: available
-      checkout: ../fleet-archive/drank
-      revision: e46d5b9784afd35b446f9108c8904d9bb05d8f07
-      githubRepository: sarthakagrawal927/drank
+      observedAt: 2026-10-16
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
       expectedHomepage: https://domains.sassmaker.com
       observedHomepage: https://domains.sassmaker.com
-      worktree: &a1
-        state: clean
-        trackedChangeCount: 0
-        deletedWorkflowFiles: []
+      worktree: null
     retainedGitHistory:
       observedAt: 2026-10-16
-      state: available
-      checkout: ../fleet-archive/drank
-      revision: e46d5b9784afd35b446f9108c8904d9bb05d8f07
-      githubRepository: sarthakagrawal927/drank
+      state: unavailable
+      checkout: null
+      revision: null
+      githubRepository: null
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-06-10
       catalogLatestCommitAt: 2026-09-08
-      catalogDrift:
-        - latestCommitAt
-      reason: null
+      catalogDrift: []
+      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
       failing: 2
-      attention: &a2
+      attention: &a1
         ignored: 2
-  unknowns: []
+  unknowns:
+    - The owning checkout was unavailable during repository observation.
 ownerVoice:
   whyVerbatim: Drank, I started off because The domain ranking API suddenly got free and I was like I should have a tool to check domain rankings of my products.
   fullReviewVerbatim: |-
@@ -115,69 +112,31 @@ product:
     - TypeScript
     - Cloudflare Pages
   retainedGitHistory:
-    firstCommitAt: 2026-06-10
-    latestCommitAt: 2026-09-21
-    retainedCommitCount: 99
-    historyCompleteness: complete
+    firstCommitAt: null
+    latestCommitAt: null
+    retainedCommitCount: null
+    historyCompleteness: null
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: ../fleet-archive/drank
-  observedRevision: e46d5b9784afd35b446f9108c8904d9bb05d8f07
-  githubRepository: sarthakagrawal927/drank
+  checkout: null
+  observedRevision: null
+  githubRepository: null
   githubHomepageUrl: https://domains.sassmaker.com
-  worktree: *a1
+  worktree: null
   visibility: public
   url: https://github.com/sarthakagrawal927/drank
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: pnpm@10.33.2
-    detectedSignals:
-      - name: Biome
-        evidence:
-          - biome.json
-      - name: Cloudflare Wrangler
-        evidence:
-          - wrangler.toml
-      - name: Next.js
-        evidence:
-          - next.config.ts
-      - name: pnpm
-        evidence:
-          - pnpm-lock.yaml
-      - name: Vitest
-        evidence:
-          - vitest.config.ts
-    rootPackageScripts:
-      - biome:lint
-      - build
-      - cf:build
-      - check
-      - deploy
-      - dev
-      - docs:check
-      - format
-      - format:check
-      - knip
-      - knip:strict
-      - lint
-      - quality
-      - quality:complexity
-      - quality:cycles
-      - quality:dependencies
-      - quality:duplication
-      - quality:unused
-      - size
-      - start
-      - test
-      - test:coverage
-      - typecheck
+    declaredPackageManager: null
+    detectedSignals: []
+    rootPackageScripts: []
 githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
     failing: 2
-  attention: *a2
+  attention: *a1
   remote:
     repository: sarthakagrawal927/drank
     defaultBranch: main

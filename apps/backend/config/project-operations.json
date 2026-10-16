@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-10-09",
+  "observedAt": "2026-10-16",
   "historyObservedAt": "2026-10-16",
   "observationSemantics": "Read-only snapshot of tracked workflow and toolchain files in the Fleet workspace. It reads workflow names, triggers, cron expressions, tracked-worktree state, root package script keys, package-manager declarations, and the commit dates and commit count retained by the checked-out HEAD only; environment files, credential-bearing configuration, secrets, command values, commit messages, and commit authorship are not retained.",
   "projects": {
@@ -8,7 +8,7 @@
       "source": {
         "state": "available",
         "path": "codevetter",
-        "revision": "ba18d236d74cdc0fdf6f086a9e2c566ef6b5841c",
+        "revision": "1b9e5a96e311b1fb363a1a1e5536abf2f2477b0e",
         "repositorySlug": "Codevetter/codevetter",
         "worktree": {
           "state": "clean",
@@ -18,8 +18,8 @@
       },
       "history": {
         "firstCommitAt": "2025-11-30",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 1513,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 1556,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -884,7 +884,7 @@
       "source": {
         "state": "available",
         "path": "pace",
-        "revision": "e09e344e7693f35cdf7404c8180c155574436da9",
+        "revision": "d76aecb27b42a243421d6ea0e44571de9ebe57f6",
         "repositorySlug": "HeyPace/pace",
         "worktree": {
           "state": "clean",
@@ -894,8 +894,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-10-11",
-        "retainedCommitCount": 87,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 95,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1118,7 +1118,7 @@
       "source": {
         "state": "available",
         "path": "posttrainllm",
-        "revision": "825031a1cacaeb33827ed0123a85991aa96892a5",
+        "revision": "72a1d1e7c6ea32b9d4dc0338811e7335570d9acf",
         "repositorySlug": "PostTrainLLM/posttrainllm",
         "worktree": {
           "state": "clean",
@@ -1128,8 +1128,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-21",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 984,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 992,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1314,7 +1314,7 @@
       "source": {
         "state": "available",
         "path": "site-health",
-        "revision": "efc8dcea38ba7758400d7d296fa80460d992e353",
+        "revision": "da554e9afe4d1b9d57043cf1db9336235055ceac",
         "repositorySlug": "sass-maker/site-health",
         "worktree": {
           "state": "clean",
@@ -1324,8 +1324,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-02",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 1175,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 1198,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1453,7 +1453,7 @@
       "source": {
         "state": "available",
         "path": "live",
-        "revision": "878d3bf90a1c47bd72371f6d6f1c5f9e5ca6526e",
+        "revision": "b44527e9449c7c574ec1e61a0dfc59c9e463b381",
         "repositorySlug": "Significant-Hobbies/live",
         "worktree": {
           "state": "clean",
@@ -1463,8 +1463,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 621,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 635,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -1899,7 +1899,7 @@
       "source": {
         "state": "available",
         "path": "chatgpt-connections",
-        "revision": "dd9b9c96653a9f37aa2f8a086cf20dc3fc9ac41c",
+        "revision": "3e0e3a7fa99c511d8b603334e55c6ba73da65af1",
         "repositorySlug": "sass-maker/chatgpt-connections",
         "worktree": {
           "state": "clean",
@@ -2086,7 +2086,7 @@
       "source": {
         "state": "available",
         "path": "saas-maker",
-        "revision": "5f34cc6e24296f151cc6ea7ab6f5dde21072f7c6",
+        "revision": "d63a2bdc12700c14e8db15232053dbc545c21faf",
         "repositorySlug": "sass-maker/saas-maker",
         "worktree": {
           "state": "clean",
@@ -2096,8 +2096,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-26",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 1499,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 1563,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -2677,6 +2677,7 @@
         {
           "name": "Astro",
           "evidence": [
+            "apps/memory-map/astro.config.ts",
             "apps/showcase/astro.config.mjs",
             "tooling/templates/web-landing/astro.config.mjs"
           ]
@@ -2684,6 +2685,7 @@
         {
           "name": "Biome",
           "evidence": [
+            "apps/memory-map/biome.json",
             "biome.json",
             "packages/ai-chat-footer/biome.json",
             "packages/newsletter-capture/biome.json",
@@ -2694,6 +2696,7 @@
           "name": "Cloudflare Wrangler",
           "evidence": [
             "apps/cockpit/wrangler.toml",
+            "apps/memory-map/wrangler.toml",
             "workers/api/wrangler.toml"
           ]
         },
@@ -2706,7 +2709,15 @@
         {
           "name": "pnpm",
           "evidence": [
-            "pnpm-lock.yaml"
+            "pnpm-lock.yaml",
+            "tooling/collect/pnpm-lock.yaml",
+            "tooling/tools/gitstat/pnpm-lock.yaml"
+          ]
+        },
+        {
+          "name": "Rust Cargo",
+          "evidence": [
+            "apps/memory-map/packer/Cargo.toml"
           ]
         },
         {
@@ -2716,8 +2727,15 @@
           ]
         },
         {
+          "name": "Vite",
+          "evidence": [
+            "tooling/tools/gitstat/vite.config.ts"
+          ]
+        },
+        {
           "name": "Vitest",
           "evidence": [
+            "apps/memory-map/vitest.config.ts",
             "vitest.config.ts"
           ]
         }
@@ -2729,6 +2747,7 @@
         "build:cockpit",
         "build:showcase",
         "build:widget",
+        "capture:refresh",
         "catalog:check-operations",
         "catalog:check-public",
         "catalog:check-source",
@@ -2742,11 +2761,13 @@
         "catalog:test-schema",
         "catalog:validate-public",
         "check:docs",
+        "check:memory-map",
         "check:shared-packages",
         "deploy:api",
         "deploy:cockpit",
         "deploy:directory",
         "deploy:guard",
+        "deploy:memory-map",
         "dev:api",
         "dev:cockpit",
         "dev:cockpit:local",
@@ -2779,9 +2800,9 @@
     "gitstat": {
       "source": {
         "state": "available",
-        "path": "gitstat",
+        "path": "../fleet-archive/gitstat",
         "revision": "ff78cd743a7574296ee9bf45a9b454fed4de1cfe",
-        "repositorySlug": "sass-maker/gitstat",
+        "repositorySlug": "sarthakagrawal927/gitstat",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -2897,17 +2918,17 @@
       "projectId": "reel-pipeline",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/reel-pipeline",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-05-28",
-        "latestCommitAt": "2026-09-21",
-        "retainedCommitCount": 112,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -2929,7 +2950,7 @@
       "source": {
         "state": "available",
         "path": "fleet-social",
-        "revision": "50c9026b6931c996aa524ab7118124bb248dbeb0",
+        "revision": "9c48bd40a476d8a949e59eb325d21d3b5c034be1",
         "repositorySlug": "sass-maker/fleet-social",
         "worktree": {
           "state": "clean",
@@ -3066,6 +3087,12 @@
       ],
       "toolingSignals": [
         {
+          "name": "Astro",
+          "evidence": [
+            "tools/mashup/web/astro.config.mjs"
+          ]
+        },
+        {
           "name": "Cloudflare Wrangler",
           "evidence": [
             "wrangler.jsonc"
@@ -3087,6 +3114,25 @@
           "name": "Playwright",
           "evidence": [
             "playwright.config.ts"
+          ]
+        },
+        {
+          "name": "pnpm",
+          "evidence": [
+            "tools/mashup/pnpm-lock.yaml",
+            "tools/mashup/web/pnpm-lock.yaml"
+          ]
+        },
+        {
+          "name": "Python pyproject",
+          "evidence": [
+            "tools/mashup/pyproject.toml"
+          ]
+        },
+        {
+          "name": "uv",
+          "evidence": [
+            "tools/mashup/uv.lock"
           ]
         },
         {
@@ -3139,17 +3185,17 @@
       "projectId": "mobile-dev-cockpit",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/mobile-dev-cockpit",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-07-13",
-        "latestCommitAt": "2026-09-21",
-        "retainedCommitCount": 36,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -3168,23 +3214,20 @@
       }
     },
     "drank": {
+      "projectId": "drank",
       "source": {
-        "state": "available",
-        "path": "../fleet-archive/drank",
-        "revision": "e46d5b9784afd35b446f9108c8904d9bb05d8f07",
-        "repositorySlug": "sarthakagrawal927/drank",
-        "worktree": {
-          "state": "clean",
-          "trackedChangeCount": 0,
-          "deletedWorkflowFiles": []
-        }
+        "state": "unavailable",
+        "path": null,
+        "revision": null,
+        "repositorySlug": null,
+        "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-06-10",
-        "latestCommitAt": "2026-09-21",
-        "retainedCommitCount": 99,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [
         {
@@ -3305,65 +3348,9 @@
           "attention": "ignored"
         }
       ],
-      "toolingSignals": [
-        {
-          "name": "Biome",
-          "evidence": [
-            "biome.json"
-          ]
-        },
-        {
-          "name": "Cloudflare Wrangler",
-          "evidence": [
-            "wrangler.toml"
-          ]
-        },
-        {
-          "name": "Next.js",
-          "evidence": [
-            "next.config.ts"
-          ]
-        },
-        {
-          "name": "pnpm",
-          "evidence": [
-            "pnpm-lock.yaml"
-          ]
-        },
-        {
-          "name": "Vitest",
-          "evidence": [
-            "vitest.config.ts"
-          ]
-        }
-      ],
-      "packageManager": "pnpm@10.33.2",
-      "rootPackageScripts": [
-        "biome:lint",
-        "build",
-        "cf:build",
-        "check",
-        "deploy",
-        "dev",
-        "docs:check",
-        "format",
-        "format:check",
-        "knip",
-        "knip:strict",
-        "lint",
-        "quality",
-        "quality:complexity",
-        "quality:cycles",
-        "quality:dependencies",
-        "quality:duplication",
-        "quality:unused",
-        "size",
-        "start",
-        "test",
-        "test:coverage",
-        "typecheck"
-      ],
-      "projectId": "drank",
+      "toolingSignals": [],
+      "packageManager": null,
+      "rootPackageScripts": [],
       "githubActionsMeta": {
         "repository": "sarthakagrawal927/drank",
         "defaultBranch": "main",
@@ -3379,8 +3366,8 @@
     "email-manager": {
       "source": {
         "state": "available",
-        "path": "email-manager",
-        "revision": "edf984a757dd6f42dc12ce09f1b9049ddf6febf3",
+        "path": "../fleet-archive/email-manager",
+        "revision": "c55d6d4348b3bd0631c7784e5ddc02d14b41ee4a",
         "repositorySlug": "Significant-Hobbies/email-manager",
         "worktree": {
           "state": "clean",
@@ -3641,7 +3628,7 @@
       "source": {
         "state": "available",
         "path": "saas-maker",
-        "revision": "576a623ed0ca4e8ea883cbe6ce29d118cc480e47",
+        "revision": "d63a2bdc12700c14e8db15232053dbc545c21faf",
         "repositorySlug": "sass-maker/saas-maker",
         "worktree": {
           "state": "clean",
@@ -3651,8 +3638,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-26",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 1499,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 1563,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -4369,7 +4356,9 @@
         {
           "name": "pnpm",
           "evidence": [
-            "pnpm-lock.yaml"
+            "pnpm-lock.yaml",
+            "tooling/collect/pnpm-lock.yaml",
+            "tooling/tools/gitstat/pnpm-lock.yaml"
           ]
         },
         {
@@ -4382,6 +4371,12 @@
           "name": "Turborepo",
           "evidence": [
             "turbo.json"
+          ]
+        },
+        {
+          "name": "Vite",
+          "evidence": [
+            "tooling/tools/gitstat/vite.config.ts"
           ]
         },
         {
@@ -4399,6 +4394,7 @@
         "build:cockpit",
         "build:showcase",
         "build:widget",
+        "capture:refresh",
         "catalog:check-operations",
         "catalog:check-public",
         "catalog:check-source",
@@ -4452,7 +4448,7 @@
       "source": {
         "state": "available",
         "path": "free-ai",
-        "revision": "11dd1ef99bf63743b26dc13ac3194416329d3b44",
+        "revision": "a32c046070b7bb8547c00ae0c327843a3f7c0e42",
         "repositorySlug": "sass-maker/free-ai",
         "worktree": {
           "state": "clean",
@@ -4462,8 +4458,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-15",
-        "latestCommitAt": "2026-10-11",
-        "retainedCommitCount": 315,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 329,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -5069,7 +5065,7 @@
       "source": {
         "state": "available",
         "path": "high-signal",
-        "revision": "c1a99fb55dfffa6e3fcca558e533548cf5cff1d3",
+        "revision": "ebc043adc52c11ff49ade94a5490d1f4404def7b",
         "repositorySlug": "High-Signal-App/high-signal",
         "worktree": {
           "state": "clean",
@@ -5079,8 +5075,8 @@
       },
       "history": {
         "firstCommitAt": "2026-04-25",
-        "latestCommitAt": "2026-10-15",
-        "retainedCommitCount": 1138,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 1143,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6213,6 +6209,7 @@
         {
           "name": "Astro",
           "evidence": [
+            "apps/reader/astro.config.mjs",
             "apps/web/landing-astro/astro.config.mjs"
           ]
         },
@@ -6375,7 +6372,7 @@
       "source": {
         "state": "available",
         "path": "on-record",
-        "revision": "08461900ceb9c89bbd6c5aa73026b4810705722c",
+        "revision": "4f05c96d47dbeedb0b4add840c75408ed4bd205b",
         "repositorySlug": "Significant-Hobbies/on-record",
         "worktree": {
           "state": "clean",
@@ -6385,8 +6382,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-24",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 93,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 110,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -6603,6 +6600,7 @@
         {
           "name": "Vitest",
           "evidence": [
+            "apps/web/tests/vitest.config.ts",
             "workers/api/vitest.config.ts"
           ]
         }
@@ -6634,8 +6632,10 @@
         "release:build-trusted",
         "release:upload-reviewed-r2",
         "review:report",
+        "snapshot:homepage",
         "test",
         "test:python",
+        "test:web",
         "typecheck"
       ],
       "projectId": "on-record",
@@ -6654,9 +6654,9 @@
     "issue-pages": {
       "source": {
         "state": "available",
-        "path": "issue-pages",
+        "path": "../fleet-archive/issue-pages",
         "revision": "c81211be6b9b1a0b6ff195767f2ee75da148a59f",
-        "repositorySlug": "Significant-Hobbies/issue-pages",
+        "repositorySlug": "sarthakagrawal927/issue-pages",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -6796,17 +6796,17 @@
       "projectId": "everythingrated",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/everythingrated",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-04-26",
-        "latestCommitAt": "2026-09-27",
-        "retainedCommitCount": 173,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -6828,7 +6828,7 @@
       "source": {
         "state": "available",
         "path": "research-papers",
-        "revision": "0fc686afb56fba4eee4553dc38c5f580d14a7272",
+        "revision": "ef940e90968391c5f0db624f3468ce23af87fd8f",
         "repositorySlug": "High-Signal-App/research-papers",
         "worktree": {
           "state": "clean",
@@ -6838,8 +6838,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-30",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 139,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 141,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7115,7 +7115,7 @@
       "source": {
         "state": "available",
         "path": "knowledge-base",
-        "revision": "6f504979b20bc7bb5456952e49f3a4b22f08f253",
+        "revision": "cd64d50e6f91db78eeb2720c9aa2a5a4b7f67e70",
         "repositorySlug": "sass-maker/knowledge-base",
         "worktree": {
           "state": "clean",
@@ -7125,8 +7125,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-27",
-        "latestCommitAt": "2026-10-10",
-        "retainedCommitCount": 267,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 280,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7374,7 +7374,7 @@
       "source": {
         "state": "available",
         "path": "significanthobbies",
-        "revision": "a9f933b73ba873e1a613bcc145c2d74db8077254",
+        "revision": "c13082d646fd15fc4bb2e763db2354bfba267dd0",
         "repositorySlug": "Significant-Hobbies/significanthobbies",
         "worktree": {
           "state": "clean",
@@ -7384,8 +7384,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-01",
-        "latestCommitAt": "2026-10-10",
-        "retainedCommitCount": 579,
+        "latestCommitAt": "2026-10-11",
+        "retainedCommitCount": 581,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -7493,6 +7493,12 @@
       ],
       "toolingSignals": [
         {
+          "name": "Astro",
+          "evidence": [
+            "landing/astro.config.mjs"
+          ]
+        },
+        {
           "name": "Cloudflare Wrangler",
           "evidence": [
             "services/hub-backend/wrangler.jsonc"
@@ -7502,6 +7508,12 @@
           "name": "npm",
           "evidence": [
             "services/hub-backend/package-lock.json"
+          ]
+        },
+        {
+          "name": "pnpm",
+          "evidence": [
+            "landing/pnpm-lock.yaml"
           ]
         },
         {
@@ -7541,17 +7553,17 @@
       "projectId": "india-standards",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/india-standards",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-07-27",
-        "latestCommitAt": "2026-09-21",
-        "retainedCommitCount": 43,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -7573,7 +7585,7 @@
       "source": {
         "state": "available",
         "path": "anime-list",
-        "revision": "db4dcc398d897eb197c58e53dee32ab20be8a41f",
+        "revision": "5835879a55e085a2f9dfdd41511d95b7d4f77996",
         "repositorySlug": "Significant-Hobbies/anime-list",
         "worktree": {
           "state": "clean",
@@ -7583,8 +7595,8 @@
       },
       "history": {
         "firstCommitAt": "2025-02-16",
-        "latestCommitAt": "2026-10-11",
-        "retainedCommitCount": 454,
+        "latestCommitAt": "2026-10-14",
+        "retainedCommitCount": 458,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -8082,17 +8094,17 @@
       "projectId": "chess",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/chess",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-09-21",
-        "retainedCommitCount": 100,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -8114,7 +8126,7 @@
       "source": {
         "state": "available",
         "path": "looptv",
-        "revision": "ad56caa8737f5e2c8b5fbd5ebb4bf8b606c33b61",
+        "revision": "85cba007fe452bb177ab8f7760e0ee828d880faa",
         "repositorySlug": "Significant-Hobbies/looptv",
         "worktree": {
           "state": "clean",
@@ -8124,8 +8136,8 @@
       },
       "history": {
         "firstCommitAt": "2026-04-04",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 277,
+        "latestCommitAt": "2026-10-15",
+        "retainedCommitCount": 287,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -8528,7 +8540,7 @@
       "source": {
         "state": "available",
         "path": "reader",
-        "revision": "83aec72ba27086cb98c38eaeac0f97fdf214d4d1",
+        "revision": "0e6dca693ff9df1f00e14123829f05ab96c5f065",
         "repositorySlug": "Significant-Hobbies/reader",
         "worktree": {
           "state": "clean",
@@ -8538,8 +8550,8 @@
       },
       "history": {
         "firstCommitAt": "2025-11-16",
-        "latestCommitAt": "2026-10-11",
-        "retainedCommitCount": 374,
+        "latestCommitAt": "2026-10-14",
+        "retainedCommitCount": 382,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -8850,7 +8862,6 @@
         "build",
         "cf:build",
         "check",
-        "cli-bridge",
         "db:generate",
         "db:migrate:local",
         "db:migrate:remote",
@@ -8864,8 +8875,6 @@
         "knip",
         "knip:strict",
         "lint",
-        "local-ai",
-        "memory:demo",
         "prepare",
         "preview",
         "quality",
@@ -8877,13 +8886,9 @@
         "quality:suppressions",
         "quality:unused",
         "test",
-        "test:account-notes",
-        "test:account-pdf",
         "test:coverage",
         "test:dependency-security",
         "test:e2e",
-        "test:guest-pdf",
-        "test:local-library",
         "test:watch",
         "type-check",
         "typecheck",
@@ -8908,7 +8913,7 @@
       "source": {
         "state": "available",
         "path": "swe-interview-prep",
-        "revision": "37805c86c17fa7cbae08604aa627768be3946afe",
+        "revision": "f3128d573146547bc61b6d0dc6365cab3d99b5b6",
         "repositorySlug": "Significant-Hobbies/swe-interview-prep",
         "worktree": {
           "state": "clean",
@@ -8918,8 +8923,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-08",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 479,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 499,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9300,7 +9305,7 @@
       "source": {
         "state": "available",
         "path": "calorie",
-        "revision": "99703eaede0fb32c1df42cfce73d1fe9e5b5568c",
+        "revision": "142ff635fc3b3f5f109d47870a16950716452bb2",
         "repositorySlug": "Significant-Hobbies/calorie",
         "worktree": {
           "state": "clean",
@@ -9310,8 +9315,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-25",
-        "latestCommitAt": "2026-10-10",
-        "retainedCommitCount": 170,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 180,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9376,6 +9381,12 @@
       ],
       "toolingSignals": [
         {
+          "name": "Astro",
+          "evidence": [
+            "landing/astro.config.mjs"
+          ]
+        },
+        {
           "name": "Biome",
           "evidence": [
             "biome.json"
@@ -9390,6 +9401,7 @@
         {
           "name": "pnpm",
           "evidence": [
+            "landing/pnpm-lock.yaml",
             "pnpm-lock.yaml"
           ]
         },
@@ -9419,6 +9431,7 @@
         "format:check",
         "knip",
         "knip:strict",
+        "landing:build",
         "lint",
         "quality",
         "quality:complexity",
@@ -9451,7 +9464,7 @@
       "source": {
         "state": "available",
         "path": "setline",
-        "revision": "76ab8ad8fb533566cdd932f3b912c8c95c52199e",
+        "revision": "b0e08877cce760f35e5f9f9d74c483af8ae44b70",
         "repositorySlug": "Significant-Hobbies/setline",
         "worktree": {
           "state": "clean",
@@ -9461,8 +9474,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-27",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 135,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 138,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9580,17 +9593,17 @@
       "projectId": "journal",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/journal",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-08-11",
-        "latestCommitAt": "2026-09-21",
-        "retainedCommitCount": 31,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -9612,7 +9625,7 @@
       "source": {
         "state": "available",
         "path": "kith",
-        "revision": "b087998ec1c70ff3e373c7af39db6bd4d20c3a93",
+        "revision": "0070d63e883d6fd324c512d4b374f666facfb0f5",
         "repositorySlug": "Significant-Hobbies/kith",
         "worktree": {
           "state": "clean",
@@ -9622,8 +9635,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-16",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 63,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 67,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9713,7 +9726,7 @@
       "source": {
         "state": "available",
         "path": "ios-landings",
-        "revision": "8683328fd129c857711ed3794f09b1762eae4ce2",
+        "revision": "5eb30350ca537f8a9ebed792343c1783946842a4",
         "repositorySlug": "Significant-Hobbies/ios-landings",
         "worktree": {
           "state": "clean",
@@ -9723,8 +9736,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-17",
-        "latestCommitAt": "2026-10-14",
-        "retainedCommitCount": 111,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 114,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -9797,6 +9810,7 @@
         {
           "name": "Cloudflare Wrangler",
           "evidence": [
+            "sites/daddyrad/wrangler.jsonc",
             "wrangler.jsonc"
           ]
         },
@@ -9813,10 +9827,11 @@
         "build:one",
         "check",
         "check:one",
+        "check:worker-sites",
         "deploy",
         "deploy:anchor",
+        "deploy:daddyrad",
         "deploy:habits",
-        "deploy:indulge",
         "deploy:journal",
         "deploy:kith",
         "deploy:motion",
@@ -9825,7 +9840,6 @@
         "dev:anchor",
         "dev:calorie",
         "dev:habits",
-        "dev:indulge",
         "dev:journal",
         "dev:kith",
         "dev:motion",
@@ -9849,18 +9863,18 @@
       "source": {
         "state": "available",
         "path": "rolepatch",
-        "revision": "d22cd94b3b2dd0dc1882ac1d7905394221769079",
+        "revision": "987f8bdca453e9a94147d98cea31a86ca9dbcb96",
         "repositorySlug": "Significant-Hobbies/rolepatch",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 81,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-02-23",
-        "latestCommitAt": "2026-10-04",
-        "retainedCommitCount": 467,
+        "latestCommitAt": "2026-10-14",
+        "retainedCommitCount": 493,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10125,7 +10139,7 @@
       "source": {
         "state": "available",
         "path": "karte",
-        "revision": "cd0201ab3661bf8de6fc953d32b03d0bfd0c5ca8",
+        "revision": "e51da15a366ad17daef4a85ffb4db144ab649a65",
         "repositorySlug": "Significant-Hobbies/karte",
         "worktree": {
           "state": "clean",
@@ -10135,8 +10149,8 @@
       },
       "history": {
         "firstCommitAt": "2026-03-05",
-        "latestCommitAt": "2026-10-11",
-        "retainedCommitCount": 558,
+        "latestCommitAt": "2026-10-14",
+        "retainedCommitCount": 567,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -10450,7 +10464,7 @@
       "source": {
         "state": "available",
         "path": "starboard",
-        "revision": "5b0139a866d0eca19e9d2b382ca8fb8f3fab78d9",
+        "revision": "d527ec042fb317df44969fd3284410495aa4658c",
         "repositorySlug": "Codevetter/starboard",
         "worktree": {
           "state": "clean",
@@ -10460,8 +10474,8 @@
       },
       "history": {
         "firstCommitAt": "2026-02-22",
-        "latestCommitAt": "2026-10-11",
-        "retainedCommitCount": 488,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 491,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11018,6 +11032,7 @@
         "db:convert-turso-vectors",
         "db:enrich-repos",
         "db:enrich-tools",
+        "db:knowledge-migrate",
         "db:migrate",
         "db:migrate:local",
         "db:migrate:remote",
@@ -11069,7 +11084,7 @@
       "source": {
         "state": "available",
         "path": "aliveville",
-        "revision": "3b487b94974ced5ae16dead25bc6d1969812617a",
+        "revision": "b757781a1a8e499cd763c818eaec7ae8fcbf3241",
         "repositorySlug": "Significant-Hobbies/aliveville",
         "worktree": {
           "state": "clean",
@@ -11079,8 +11094,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-03",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 407,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 409,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11334,17 +11349,17 @@
       "projectId": "protein-index",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/protein-index-resilience",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-07-15",
-        "latestCommitAt": "2026-09-27",
-        "retainedCommitCount": 241,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -11398,7 +11413,7 @@
       "source": {
         "state": "available",
         "path": "app-health",
-        "revision": "74d4a8eee1e23020959e42347b2fad3dc46e2643",
+        "revision": "8f2470d16d14aa55dfc72fdc0e7ff4da49b35510",
         "repositorySlug": "sass-maker/app-health",
         "worktree": {
           "state": "clean",
@@ -11408,8 +11423,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-20",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 387,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 415,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11745,7 +11760,7 @@
     "motion": {
       "source": {
         "state": "available",
-        "path": "motion",
+        "path": "../fleet-archive/motion",
         "revision": "11041e80c36cda28703a5f3e48b488f2fe07a4b8",
         "repositorySlug": "Significant-Hobbies/motion",
         "worktree": {
@@ -11897,17 +11912,17 @@
       "projectId": "truehire",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/truehire",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-04-24",
-        "latestCommitAt": "2026-09-27",
-        "retainedCommitCount": 187,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -11929,7 +11944,7 @@
       "source": {
         "state": "available",
         "path": "../fleet-archive/open-historia",
-        "revision": "84e83aa9eddc63f82e3be2d5175eb47da275b622",
+        "revision": "cf49cbb48a7572921eb822e40b85e8b08d9d11ea",
         "repositorySlug": "sarthakagrawal927/open-historia",
         "worktree": {
           "state": "clean",
@@ -12250,7 +12265,7 @@
       "source": {
         "state": "available",
         "path": "ph-catalog",
-        "revision": "76b5d4981bd31a110c87568f35be14892c7adf7e",
+        "revision": "724cc7e84d8982e499ab5ec671516a1bc66ef5b8",
         "repositorySlug": "Significant-Hobbies/ph-catalog",
         "worktree": {
           "state": "clean",
@@ -12260,8 +12275,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-31",
-        "latestCommitAt": "2026-10-05",
-        "retainedCommitCount": 29,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 60,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12417,17 +12432,17 @@
       "projectId": "companion-robot",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/companion-robot",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-06-25",
-        "latestCommitAt": "2026-09-21",
-        "retainedCommitCount": 10,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -12449,7 +12464,7 @@
       "source": {
         "state": "available",
         "path": "../fleet-archive/forecast-lab",
-        "revision": "9ae50aa0ff2ee363fca6bd8efd917ee1a58c57b8",
+        "revision": "5baf39c386ce12ecbfe7b9360e606a14c403afa5",
         "repositorySlug": "sarthakagrawal927/forecast-lab",
         "worktree": {
           "state": "clean",
@@ -12590,7 +12605,7 @@
       "source": {
         "state": "available",
         "path": "web-playables",
-        "revision": "4126ed23a19cdfe0d528c1ce44ddac011c4b26d5",
+        "revision": "8c69b1713cdf057b74c6052239287de40062b88c",
         "repositorySlug": "Significant-Hobbies/web-playables",
         "worktree": {
           "state": "clean",
@@ -12600,8 +12615,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-10",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 55,
+        "latestCommitAt": "2026-10-10",
+        "retainedCommitCount": 59,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12746,20 +12761,48 @@
       ],
       "toolingSignals": [
         {
+          "name": "Astro",
+          "evidence": [
+            "networked-games/open-historia/landing-astro/astro.config.mjs"
+          ]
+        },
+        {
           "name": "Biome",
           "evidence": [
-            "biome.json"
+            "biome.json",
+            "networked-games/open-historia/biome.json"
           ]
         },
         {
           "name": "Cloudflare Wrangler",
           "evidence": [
+            "networked-games/open-historia/landing-astro/wrangler.jsonc",
+            "networked-games/open-historia/wrangler.jsonc",
             "wrangler.jsonc"
+          ]
+        },
+        {
+          "name": "Drizzle",
+          "evidence": [
+            "networked-games/open-historia/drizzle.config.ts"
+          ]
+        },
+        {
+          "name": "ESLint",
+          "evidence": [
+            "networked-games/open-historia/eslint.config.js"
+          ]
+        },
+        {
+          "name": "Playwright",
+          "evidence": [
+            "networked-games/open-historia/playwright.config.ts"
           ]
         },
         {
           "name": "pnpm",
           "evidence": [
+            "networked-games/open-historia/landing-astro/pnpm-lock.yaml",
             "pnpm-lock.yaml"
           ]
         },
@@ -12767,7 +12810,14 @@
           "name": "Vite",
           "evidence": [
             "apps/hub/vite.config.ts",
-            "games/idle-startup/vite.config.ts"
+            "games/idle-startup/vite.config.ts",
+            "networked-games/open-historia/vite.config.ts"
+          ]
+        },
+        {
+          "name": "Vitest",
+          "evidence": [
+            "networked-games/open-historia/vitest.config.ts"
           ]
         }
       ],
@@ -12779,6 +12829,10 @@
         "deploy",
         "dev",
         "dev:hub",
+        "historia:check",
+        "historia:deploy",
+        "historia:dev",
+        "historia:e2e",
         "knip",
         "knip:strict",
         "lint",
@@ -12804,7 +12858,7 @@
       "source": {
         "state": "available",
         "path": "what-it-takes-to-win",
-        "revision": "156c12aa6d4cb788c5b2d26342a5dc03f223c2aa",
+        "revision": "a0c818d4d94e98fbc272f639d51fe0da83d6ae52",
         "repositorySlug": "Significant-Hobbies/what-it-takes-to-win",
         "worktree": {
           "state": "clean",
@@ -12814,8 +12868,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-21",
-        "latestCommitAt": "2026-10-12",
-        "retainedCommitCount": 329,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 353,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -12997,7 +13051,7 @@
       "source": {
         "state": "available",
         "path": "portfolio",
-        "revision": "807a6ddd3cea70285dd0539e826a19c4c4e9d749",
+        "revision": "c65596959785f1804ffaa97d8623f3ec0976cef0",
         "repositorySlug": "Significant-Hobbies/portfolio",
         "worktree": {
           "state": "clean",
@@ -13007,8 +13061,8 @@
       },
       "history": {
         "firstCommitAt": "2026-05-22",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 128,
+        "latestCommitAt": "2026-10-13",
+        "retainedCommitCount": 137,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13331,7 +13385,7 @@
       "source": {
         "state": "available",
         "path": "reddit-insights",
-        "revision": "35b8b0063dc62a40c2ffecda0d1eee4b84b69f78",
+        "revision": "2c3abee96e1ec9628c17508821fe30d67b4d272e",
         "repositorySlug": "High-Signal-App/research-subreddit",
         "worktree": {
           "state": "clean",
@@ -13342,7 +13396,7 @@
       "history": {
         "firstCommitAt": "2026-08-07",
         "latestCommitAt": "2026-10-10",
-        "retainedCommitCount": 59,
+        "retainedCommitCount": 60,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13474,17 +13528,17 @@
       "projectId": "verified-bases",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/verified-bases",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-06-16",
-        "latestCommitAt": "2026-09-21",
-        "retainedCommitCount": 23,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -13506,7 +13560,7 @@
       "source": {
         "state": "available",
         "path": "anchor",
-        "revision": "d49a5a0aa368228ab95a40b848742d4c24a2f196",
+        "revision": "77a44b6d0ff30a32df3e76c87a37af8c5a08c8bb",
         "repositorySlug": "Significant-Hobbies/anchor",
         "worktree": {
           "state": "clean",
@@ -13516,8 +13570,8 @@
       },
       "history": {
         "firstCommitAt": "2026-08-16",
-        "latestCommitAt": "2026-10-05",
-        "retainedCommitCount": 164,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 170,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13595,7 +13649,7 @@
       "source": {
         "state": "available",
         "path": "nomad-data-adventure",
-        "revision": "3ab6a63046cea91703923d100db482ebe189a0d1",
+        "revision": "32ad9ff23f769483debb023e9a1467ed5a44196d",
         "repositorySlug": "Significant-Hobbies/nomad-data-adventure",
         "worktree": {
           "state": "clean",
@@ -13606,7 +13660,7 @@
       "history": {
         "firstCommitAt": "2026-09-12",
         "latestCommitAt": "2026-10-10",
-        "retainedCommitCount": 25,
+        "retainedCommitCount": 26,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13745,7 +13799,7 @@
       "source": {
         "state": "available",
         "path": "storagedaddy",
-        "revision": "e547e3c5be2ea1becf33557b4e2e199e417f8b30",
+        "revision": "a4df55ec564fee4931724acb72b1bf18b17e6890",
         "repositorySlug": "Significant-Hobbies/storagedaddy",
         "worktree": {
           "state": "clean",
@@ -13755,8 +13809,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-13",
-        "latestCommitAt": "2026-10-13",
-        "retainedCommitCount": 99,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 101,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -13866,6 +13920,12 @@
       ],
       "toolingSignals": [
         {
+          "name": "Astro",
+          "evidence": [
+            "site/landing/astro.config.mjs"
+          ]
+        },
+        {
           "name": "Cloudflare Wrangler",
           "evidence": [
             "site/wrangler.jsonc"
@@ -13878,8 +13938,16 @@
           ]
         },
         {
+          "name": "pnpm",
+          "evidence": [
+            "site/landing/pnpm-lock.yaml"
+          ]
+        },
+        {
           "name": "Rust Cargo",
           "evidence": [
+            "Vendor/FinderSearch/adapter/Cargo.toml",
+            "Vendor/FinderSearch/fsearch/Cargo.toml",
             "Vendor/MemoryPack/Cargo.toml"
           ]
         },
@@ -13909,7 +13977,7 @@
       "source": {
         "state": "available",
         "path": "browserdaddy",
-        "revision": "af1ec1f5c052a4a986ddf71c7eefd41c6392ecbf",
+        "revision": "e35fb355efa7ae8bd4f113f61ecfdd631a2a3349",
         "repositorySlug": "Significant-Hobbies/browserdaddy",
         "worktree": {
           "state": "clean",
@@ -13919,8 +13987,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-19",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 96,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 112,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14073,7 +14141,7 @@
       "source": {
         "state": "available",
         "path": "performancedaddy",
-        "revision": "302077f7b5841e7b76551d9f4592351c1eebb1ba",
+        "revision": "ef0a16e09821d0a85728e6dfea4ef46ed7a95192",
         "repositorySlug": "Significant-Hobbies/performancedaddy",
         "worktree": {
           "state": "clean",
@@ -14083,8 +14151,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-20",
-        "latestCommitAt": "2026-10-13",
-        "retainedCommitCount": 96,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 104,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14230,9 +14298,9 @@
     "slow-serp": {
       "source": {
         "state": "available",
-        "path": "slow-serp",
-        "revision": "ae8662f8cedea9bc1e0e9c8ec3a53df1331b2cf4",
-        "repositorySlug": "Significant-Hobbies/slow-serp",
+        "path": "../fleet-archive/slow-serp",
+        "revision": "f511e36affca21c2c63c7141dacd47fb53a43f3d",
+        "repositorySlug": "sarthakagrawal927/slow-serp",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -14286,7 +14354,7 @@
       "source": {
         "state": "available",
         "path": "unified-portfolio",
-        "revision": "a0ce90ffcc0a8323355553dd292665054c902877",
+        "revision": "f00fea1af495c076d15dab672fbe0ab347c3aa2e",
         "repositorySlug": "Significant-Hobbies/unified-portfolio",
         "worktree": {
           "state": "clean",
@@ -14296,8 +14364,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-19",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 10,
+        "latestCommitAt": "2026-10-13",
+        "retainedCommitCount": 20,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14427,17 +14495,17 @@
       "projectId": "shoulders",
       "source": {
         "state": "unavailable",
-        "path": "../fleet-archive/shoulders",
+        "path": null,
         "revision": null,
         "repositorySlug": null,
         "worktree": null
       },
       "history": {
-        "firstCommitAt": "2026-09-18",
-        "latestCommitAt": "2026-09-18",
-        "retainedCommitCount": 1,
-        "historyCompleteness": "complete",
-        "reason": null
+        "firstCommitAt": null,
+        "latestCommitAt": null,
+        "retainedCommitCount": null,
+        "historyCompleteness": null,
+        "reason": "The repository checkout is not present in the Fleet workspace, so no Git history could be read."
       },
       "githubActions": [],
       "toolingSignals": [],
@@ -14459,7 +14527,7 @@
       "source": {
         "state": "available",
         "path": "meme-lab",
-        "revision": "eb955f9c83a1d4c002a47234b1b985fdbbdf51e8",
+        "revision": "82ea0a68b18113c00cd6e99e5f06dc6538a07590",
         "repositorySlug": "Significant-Hobbies/meme-lab",
         "worktree": {
           "state": "clean",
@@ -14469,8 +14537,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-20",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 105,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 124,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14596,6 +14664,12 @@
       ],
       "toolingSignals": [
         {
+          "name": "Astro",
+          "evidence": [
+            "landing/astro.config.mjs"
+          ]
+        },
+        {
           "name": "Cloudflare Wrangler",
           "evidence": [
             "worker/tools/wrangler.jsonc",
@@ -14624,6 +14698,7 @@
         "build:dialogue-data",
         "build:dialogue-eval",
         "build:expansion",
+        "build:landing",
         "build:public",
         "build:public-catalogue",
         "build:stage-1000",
@@ -14669,12 +14744,14 @@
         "metadata:reaction-gifs:merge",
         "metadata:stage-3000",
         "metadata:stage-3000:merge",
+        "preview:landing",
         "score:dialogue-pilot",
         "select:stage-3000",
         "signals:stage-3000",
         "start",
         "test",
-        "types:worker"
+        "types:worker",
+        "verify:landing"
       ],
       "projectId": "meme-lab",
       "githubActionsMeta": {
@@ -14692,9 +14769,9 @@
     "agent-testing": {
       "source": {
         "state": "available",
-        "path": "agent-testing",
+        "path": "../fleet-archive/agent-testing",
         "revision": "7c0cfb2809ef244dbe2ac4936587eb5334fb5f13",
-        "repositorySlug": "Significant-Hobbies/agent-testing",
+        "repositorySlug": "sarthakagrawal927/agent-testing",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -14847,18 +14924,18 @@
       "source": {
         "state": "available",
         "path": "nutrition-formula-engine",
-        "revision": "77a4c3e678570380c714461d29b09cd9aaa2c9f8",
+        "revision": "788e1dd9941a489a0e6bf7d6bf8a6e11d9e1b2b7",
         "repositorySlug": "Significant-Hobbies/nutrition-formula-engine",
         "worktree": {
-          "state": "dirty",
-          "trackedChangeCount": 15,
+          "state": "clean",
+          "trackedChangeCount": 0,
           "deletedWorkflowFiles": []
         }
       },
       "history": {
         "firstCommitAt": "2026-09-21",
-        "latestCommitAt": "2026-09-28",
-        "retainedCommitCount": 19,
+        "latestCommitAt": "2026-10-16",
+        "retainedCommitCount": 41,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -14978,7 +15055,7 @@
       "source": {
         "state": "available",
         "path": "every-song-is-a-website",
-        "revision": "a7b821ab1f004d5eefe1739d892331e03f464f03",
+        "revision": "f39b0bda2fa0380bb202b73d7d48addf46eff881",
         "repositorySlug": "Significant-Hobbies/every-song-is-a-website",
         "worktree": {
           "state": "clean",
@@ -14988,8 +15065,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-22",
-        "latestCommitAt": "2026-10-08",
-        "retainedCommitCount": 33,
+        "latestCommitAt": "2026-10-11",
+        "retainedCommitCount": 35,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15080,7 +15157,7 @@
       "source": {
         "state": "available",
         "path": "contextdaddy",
-        "revision": "c6bd95bdec975932e5e649b548cd458ffb78cfe3",
+        "revision": "7da7d9572e4249f5175791dd251773147b64ba29",
         "repositorySlug": "Significant-Hobbies/contextdaddy",
         "worktree": {
           "state": "clean",
@@ -15090,8 +15167,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-23",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 55,
+        "latestCommitAt": "2026-10-14",
+        "retainedCommitCount": 69,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15332,7 +15409,7 @@
       "source": {
         "state": "available",
         "path": "../fleet-archive/mentionpilot",
-        "revision": "4d7a23ec66a9527062f659d27ce8d5f57f733c04",
+        "revision": "7d45df54487eee7d9a5d3261b8ad9e3509fc57f8",
         "repositorySlug": "sarthakagrawal927/mentionpilot",
         "worktree": {
           "state": "clean",
@@ -15668,14 +15745,16 @@
       }
     },
     "digital-life": {
-      "projectId": "digital-life",
       "source": {
-        "state": "unavailable",
+        "state": "available",
         "path": "../fleet-archive/digital-life",
-        "revision": null,
-        "repositorySlug": null,
-        "worktree": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/digital-life rev-parse HEAD"
+        "revision": "1759d9991fbe0d44176fea3dd62106d87e4d5c9f",
+        "repositorySlug": "sarthakagrawal927/digital-life",
+        "worktree": {
+          "state": "clean",
+          "trackedChangeCount": 0,
+          "deletedWorkflowFiles": []
+        }
       },
       "history": {
         "firstCommitAt": "2026-10-16",
@@ -15685,9 +15764,23 @@
         "reason": null
       },
       "githubActions": [],
-      "toolingSignals": [],
-      "packageManager": null,
-      "rootPackageScripts": [],
+      "toolingSignals": [
+        {
+          "name": "pnpm",
+          "evidence": [
+            "pnpm-lock.yaml"
+          ]
+        }
+      ],
+      "packageManager": "pnpm@10.33.2",
+      "rootPackageScripts": [
+        "dev",
+        "experiment",
+        "replay",
+        "stress",
+        "test"
+      ],
+      "projectId": "digital-life",
       "githubActionsMeta": {
         "repository": null,
         "defaultBranch": null,
@@ -15701,14 +15794,16 @@
       }
     },
     "human-v2": {
-      "projectId": "human-v2",
       "source": {
-        "state": "unavailable",
+        "state": "available",
         "path": "../fleet-archive/human-v2",
-        "revision": null,
-        "repositorySlug": null,
-        "worktree": null,
-        "reason": "Command failed: git -C /Users/sarthak/Desktop/fleet-archive/human-v2 rev-parse HEAD"
+        "revision": "bd05b6500499e8682c93fb69731989758dfe2970",
+        "repositorySlug": "Significant-Hobbies/human-v2",
+        "worktree": {
+          "state": "clean",
+          "trackedChangeCount": 0,
+          "deletedWorkflowFiles": []
+        }
       },
       "history": {
         "firstCommitAt": "2026-10-16",
@@ -15718,9 +15813,53 @@
         "reason": null
       },
       "githubActions": [],
-      "toolingSignals": [],
-      "packageManager": null,
-      "rootPackageScripts": [],
+      "toolingSignals": [
+        {
+          "name": "Biome",
+          "evidence": [
+            "biome.json"
+          ]
+        },
+        {
+          "name": "Playwright",
+          "evidence": [
+            "playwright.config.ts"
+          ]
+        },
+        {
+          "name": "pnpm",
+          "evidence": [
+            "pnpm-lock.yaml"
+          ]
+        },
+        {
+          "name": "Vite",
+          "evidence": [
+            "vite.config.ts"
+          ]
+        },
+        {
+          "name": "Vitest",
+          "evidence": [
+            "vitest.config.ts"
+          ]
+        }
+      ],
+      "packageManager": "pnpm@10.33.2",
+      "rootPackageScripts": [
+        "build",
+        "build:worker",
+        "check",
+        "dev",
+        "format",
+        "lint",
+        "preview",
+        "test",
+        "test:e2e",
+        "test:model",
+        "typecheck"
+      ],
+      "projectId": "human-v2",
       "githubActionsMeta": {
         "repository": null,
         "defaultBranch": null,
@@ -15737,7 +15876,7 @@
       "source": {
         "state": "available",
         "path": "agentbox",
-        "revision": "bebec96ce36876dd3329ad849fb2e1c57fa88ea8",
+        "revision": "8e010a5fa32ba9ff991a80f55e271c7af02a5230",
         "repositorySlug": "sarthakagrawal927/agentbox",
         "worktree": {
           "state": "clean",
@@ -15747,8 +15886,8 @@
       },
       "history": {
         "firstCommitAt": "2026-09-29",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 636,
+        "latestCommitAt": "2026-10-12",
+        "retainedCommitCount": 640,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -15878,7 +16017,7 @@
       "source": {
         "state": "available",
         "path": "techdata",
-        "revision": "638688b486b4c62b38b7878fb2f62d4b8087ce2e",
+        "revision": "665cdd93bf07610d1629fbd114064554ce3c0bba",
         "repositorySlug": "High-Signal-App/techdata",
         "worktree": {
           "state": "clean",
@@ -15888,8 +16027,8 @@
       },
       "history": {
         "firstCommitAt": "2026-10-09",
-        "latestCommitAt": "2026-10-10",
-        "retainedCommitCount": 14,
+        "latestCommitAt": "2026-10-15",
+        "retainedCommitCount": 24,
         "historyCompleteness": "complete",
         "reason": null
       },

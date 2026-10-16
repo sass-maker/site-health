@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: human-v2
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-09
+  generatedAt: 2026-10-16
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: unavailable
+    repositorySnapshot: passed
     githubHomepage: not-applicable
     githubActionsLiveState: not-applicable
     retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      sha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
       infrastructureUpdatedAt: 2026-10-01
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-01
       reviewSha256: 2bb18c8fc69b6f8231a5d94ed9daf2a08ddbcb3d509ec02a928f0c63ce2233ea
-      documentSha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      documentSha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,20 +32,23 @@ verification:
       sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-09
-      state: unavailable
+      observedAt: 2026-10-16
+      state: available
       checkout: ../fleet-archive/human-v2
-      revision: null
-      githubRepository: null
+      revision: bd05b6500499e8682c93fb69731989758dfe2970
+      githubRepository: Significant-Hobbies/human-v2
       expectedHomepage: null
       observedHomepage: null
-      worktree: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
     retainedGitHistory:
       observedAt: 2026-10-16
-      state: unavailable
+      state: available
       checkout: ../fleet-archive/human-v2
-      revision: null
-      githubRepository: null
+      revision: bd05b6500499e8682c93fb69731989758dfe2970
+      githubRepository: Significant-Hobbies/human-v2
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-10-16
@@ -55,9 +58,8 @@ verification:
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      attention: &a1 {}
-  unknowns:
-    - The owning checkout was unavailable during repository observation.
+      attention: &a2 {}
+  unknowns: []
 ownerVoice:
   whyVerbatim: New Fleet project
   fullReviewVerbatim: New Fleet project
@@ -114,23 +116,49 @@ product:
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: ../fleet-archive/human-v2
-  observedRevision: null
-  githubRepository: null
+  observedRevision: bd05b6500499e8682c93fb69731989758dfe2970
+  githubRepository: Significant-Hobbies/human-v2
   githubHomepageUrl: null
-  worktree: null
+  worktree: *a1
   visibility: private
   url: https://github.com/Significant-Hobbies/human-v2
   aliases: []
   sourceOverride: null
   tooling:
-    declaredPackageManager: null
-    detectedSignals: []
-    rootPackageScripts: []
+    declaredPackageManager: pnpm@10.33.2
+    detectedSignals:
+      - name: Biome
+        evidence:
+          - biome.json
+      - name: Playwright
+        evidence:
+          - playwright.config.ts
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - vite.config.ts
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - build:worker
+      - check
+      - dev
+      - format
+      - lint
+      - preview
+      - test
+      - test:e2e
+      - test:model
+      - typecheck
 githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary: {}
-  attention: *a1
+  attention: *a2
   remote:
     repository: null
     defaultBranch: null
