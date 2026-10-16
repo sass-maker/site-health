@@ -3,7 +3,7 @@ projectId: high-signal
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-09
+  generatedAt: 2026-10-16
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      sha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
       infrastructureUpdatedAt: 2026-10-16
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-09
+      observedAt: 2026-10-16
       state: available
       checkout: high-signal
-      revision: c1a99fb55dfffa6e3fcca558e533548cf5cff1d3
+      revision: ebc043adc52c11ff49ade94a5490d1f4404def7b
       githubRepository: High-Signal-App/high-signal
       expectedHomepage: https://highsignal.app
       observedHomepage: https://highsignal.app
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-10-16
       state: available
       checkout: high-signal
-      revision: c1a99fb55dfffa6e3fcca558e533548cf5cff1d3
+      revision: ebc043adc52c11ff49ade94a5490d1f4404def7b
       githubRepository: High-Signal-App/high-signal
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -119,13 +119,13 @@ product:
     - Cloudflare
   retainedGitHistory:
     firstCommitAt: 2026-04-25
-    latestCommitAt: 2026-10-15
-    retainedCommitCount: 1138
+    latestCommitAt: 2026-10-16
+    retainedCommitCount: 1143
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: high-signal
-  observedRevision: c1a99fb55dfffa6e3fcca558e533548cf5cff1d3
+  observedRevision: ebc043adc52c11ff49ade94a5490d1f4404def7b
   githubRepository: High-Signal-App/high-signal
   githubHomepageUrl: https://highsignal.app
   worktree: *a1
@@ -138,6 +138,7 @@ repository:
     detectedSignals:
       - name: Astro
         evidence:
+          - apps/reader/astro.config.mjs
           - apps/web/landing-astro/astro.config.mjs
       - name: Biome
         evidence:

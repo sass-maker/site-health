@@ -3,7 +3,7 @@ projectId: agent-testing
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-09
+  generatedAt: 2026-10-16
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      sha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
       infrastructureUpdatedAt: 2026-10-05
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: 716a47374fe4e6e2eacab74e5e06fad025d095c8254bc4d9691d1bb6edbb99a0
-      documentSha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      documentSha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -32,11 +32,11 @@ verification:
       sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-09
+      observedAt: 2026-10-16
       state: available
-      checkout: agent-testing
+      checkout: ../fleet-archive/agent-testing
       revision: 7c0cfb2809ef244dbe2ac4936587eb5334fb5f13
-      githubRepository: Significant-Hobbies/agent-testing
+      githubRepository: sarthakagrawal927/agent-testing
       expectedHomepage: https://browser-agents.sarthakagrawal.dev/
       observedHomepage: https://browser-agents.sarthakagrawal.dev
       worktree: &a1
@@ -46,9 +46,9 @@ verification:
     retainedGitHistory:
       observedAt: 2026-10-16
       state: available
-      checkout: agent-testing
+      checkout: ../fleet-archive/agent-testing
       revision: 7c0cfb2809ef244dbe2ac4936587eb5334fb5f13
-      githubRepository: Significant-Hobbies/agent-testing
+      githubRepository: sarthakagrawal927/agent-testing
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-09-20
@@ -120,9 +120,9 @@ product:
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: agent-testing
+  checkout: ../fleet-archive/agent-testing
   observedRevision: 7c0cfb2809ef244dbe2ac4936587eb5334fb5f13
-  githubRepository: Significant-Hobbies/agent-testing
+  githubRepository: sarthakagrawal927/agent-testing
   githubHomepageUrl: https://browser-agents.sarthakagrawal.dev
   worktree: *a1
   visibility: public

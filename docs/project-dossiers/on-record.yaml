@@ -3,7 +3,7 @@ projectId: on-record
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-09
+  generatedAt: 2026-10-16
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      sha256: 25ca399a27350df3551f101d77da4e55c392f357b3f0414a7f3073f920fb7fa9
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -31,10 +31,10 @@ verification:
       sha256: ae88603cfebb11e2a2469873aadf80dd86beafa86b9a3322ebd72422f2d145dc
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-09
+      observedAt: 2026-10-16
       state: available
       checkout: on-record
-      revision: 08461900ceb9c89bbd6c5aa73026b4810705722c
+      revision: 4f05c96d47dbeedb0b4add840c75408ed4bd205b
       githubRepository: Significant-Hobbies/on-record
       expectedHomepage: https://podcasts.highsignal.app
       observedHomepage: https://podcasts.highsignal.app
@@ -46,7 +46,7 @@ verification:
       observedAt: 2026-10-16
       state: available
       checkout: on-record
-      revision: 08461900ceb9c89bbd6c5aa73026b4810705722c
+      revision: 4f05c96d47dbeedb0b4add840c75408ed4bd205b
       githubRepository: Significant-Hobbies/on-record
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -113,13 +113,13 @@ product:
     - D1
   retainedGitHistory:
     firstCommitAt: 2026-08-24
-    latestCommitAt: 2026-10-08
-    retainedCommitCount: 93
+    latestCommitAt: 2026-10-16
+    retainedCommitCount: 110
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: on-record
-  observedRevision: 08461900ceb9c89bbd6c5aa73026b4810705722c
+  observedRevision: 4f05c96d47dbeedb0b4add840c75408ed4bd205b
   githubRepository: Significant-Hobbies/on-record
   githubHomepageUrl: https://podcasts.highsignal.app
   worktree: *a1
@@ -154,6 +154,7 @@ repository:
           - python/ingest/uv.lock
       - name: Vitest
         evidence:
+          - apps/web/tests/vitest.config.ts
           - workers/api/vitest.config.ts
     rootPackageScripts:
       - audit:claims
@@ -181,8 +182,10 @@ repository:
       - release:build-trusted
       - release:upload-reviewed-r2
       - review:report
+      - snapshot:homepage
       - test
       - test:python
+      - test:web
       - typecheck
 githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
