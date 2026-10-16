@@ -905,59 +905,6 @@
       "attention": "toolbox"
     },
     {
-      "slug": "email-manager",
-      "aliases": [
-        "Mail Manager"
-      ],
-      "competitors": [
-        {
-          "name": "Shortwave",
-          "url": "https://www.shortwave.com"
-        }
-      ],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "How can I search my Gmail semantically using AI?"
-            },
-            {
-              "id": "comparison",
-              "text": "Which local-first Gmail tools combine semantic search, subscription management, and sender analytics?"
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "privacy-conscious-email-user",
-          "label": "a privacy-conscious Gmail user"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "name": "Email Manager",
-      "domain": "https://mail.significanthobbies.com",
-      "attention": "toolbox"
-    },
-    {
       "slug": "chatgpt-memory-insights",
       "aliases": [
         "Memory Map"
@@ -2091,59 +2038,6 @@
       },
       "name": "App Health",
       "domain": "https://health.sassmaker.com",
-      "attention": "toolbox"
-    },
-    {
-      "slug": "motion",
-      "aliases": [
-        "Motion Game"
-      ],
-      "competitors": [
-        {
-          "name": "Just Dance Now",
-          "url": "https://justdancenow.com"
-        }
-      ],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "Which iPhone-hosted games let players use body movement as the controller and mirror to a larger screen?"
-            },
-            {
-              "id": "comparison",
-              "text": "Compare camera-based motion games by control feel, phone setup, local play, and large-screen mirroring."
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "motion-game-player",
-          "label": "a player looking for body-controlled local games"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "name": "Motion",
-      "domain": "https://motion.significanthobbies.com",
       "attention": "toolbox"
     },
     {

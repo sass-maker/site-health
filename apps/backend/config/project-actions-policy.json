@@ -21,6 +21,10 @@
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
     },
+    "email-manager": {
+      "disposition": "ignored",
+      "reason": "Owner archived Kinetic on 2026-10-16; previous policies are preserved in ownerRetirement.previousSystems."
+    },
     "everythingrated": {
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
@@ -60,6 +64,10 @@
     "mobile-dev-cockpit": {
       "disposition": "ignored",
       "reason": "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
+    },
+    "motion": {
+      "disposition": "ignored",
+      "reason": "Owner archived Motion on 2026-10-16; previous policies are preserved in retainedFields.ownerRetirement.previousSystems."
     },
     "open-historia": {
       "disposition": "ignored",

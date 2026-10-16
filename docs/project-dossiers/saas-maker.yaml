@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f2214a2e0550b0c55056ea7b50b91bbb933ee81653f8de9b12b1053ae6cf44f8
-      infrastructureUpdatedAt: 2026-10-09
+      sha256: 827622d1a5d4fcccd01e6881b53b412b3d6edde294867a92f0384b3d244f1a06
+      infrastructureUpdatedAt: 2026-10-16
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SaaS Maker
@@ -711,12 +711,14 @@ deployment:
         state: live
         attributionReason: SaaS Maker owns the public directory and the native /launchdesk catalog backed by its checked-in provenance-bearing dataset. The former standalone LaunchDesk Worker was deleted on 2026-09-18.
         verification:
-          observedAt: 2026-10-09
-          sourceCommit: 6184cb27b2221b99e3e265380f2912360fbc1dcc
-          deploymentId: 92c9c86d
-          deploymentUrl: https://92c9c86d.saas-maker-home.pages.dev
-          scope: Showcase site release
-          evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time.
+          observedAt: 2026-10-16T12:37:33.351678+00:00
+          createdOn: 2026-10-14T14:48:33.483214Z
+          deploymentId: 12db932c-9e31-47ab-9d26-290cf453c8fd
+          deploymentUrl: https://12db932c.saas-maker-home.pages.dev
+          sourceCommit: 05c666f5dd402071a27dbbfa2e830bd62716ed63
+          state: provider-identity-verified
+          scope: Read-only production Pages identity; Kinetic retirement projection not deployed.
+          evidencePath: .fleet-local/capture-qualification-167-20261016/current-release-rollback.json
         verificationHistory:
           - observedAt: 2026-10-05T19:46:22.688Z
             sourceCommit: 00c3d7a761da28d44405ee6c670c35a94b0e81ec
@@ -735,11 +737,28 @@ deployment:
             state: success-production-verified
             evidencePath: ../site-health/docs/ahrefs-email-triage-2026-10-02.md
             evidence: "SaaS Maker issue #171, PR #173. Both exact-main push workflows 37016579338 and 37016579336 passed, followed by all six Fleet deploy gates and the existing public-directory-only deploy pipeline. All 4 directory production smokes passed. Built 1193 HTML pages protect 286 public address occurrences and 4 mailto links; all 107 contact-bearing canonical pages returned HTTP 200 with contact text retained and no email-protection links. API and cockpit were not deployed. Shared sitemap audit now rejects HTML fallback documents. Ahrefs recrawl remains pending provider authentication."
+          - observedAt: 2026-10-09
+            sourceCommit: 6184cb27b2221b99e3e265380f2912360fbc1dcc
+            deploymentId: 92c9c86d
+            deploymentUrl: https://92c9c86d.saas-maker-home.pages.dev
+            scope: Showcase site release
+            evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time.
       - provider: cloudflare
         kind: worker
         name: saasmaker-api
         method: wrangler-direct
         state: live
+        verificationHistory: []
+        verification:
+          observedAt: 2026-10-16T12:37:33.351678+00:00
+          createdOn: 2026-10-03T17:21:20.927726Z
+          deploymentId: 46f5a50c-c634-47a2-bfb0-4ff74d715497
+          versionId: 8ae66d45-2c33-4b13-84a4-1a487cc9297a
+          sourceCommit: 81747a8e18a6dbc03d66e033889d38006df3b7d6
+          trafficPercent: 100
+          state: provider-identity-verified
+          scope: Read-only current API identity and traffic; capture source-label release not deployed.
+          evidencePath: .fleet-local/capture-qualification-167-20261016/current-release-rollback.json
       - provider: cloudflare
         kind: worker
         name: saasmaker-dashboard
