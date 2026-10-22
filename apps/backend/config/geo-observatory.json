@@ -406,33 +406,6 @@
       ]
     },
     {
-      "id": "on-record",
-      "origin": "https://podcasts.highsignal.app",
-      "$note": "Named priority surface. Four queries — brand, exact domain, category, buyer problem — matching the depth given to pace and high-signal.",
-      "queries": [
-        {
-          "qid": "on-record-brand",
-          "kind": "brand",
-          "q": "High Signal Podcasts"
-        },
-        {
-          "qid": "on-record-exact-domain",
-          "kind": "brand",
-          "q": "podcasts.highsignal.app"
-        },
-        {
-          "qid": "on-record-category",
-          "kind": "category",
-          "q": "search podcast claims with transcript source attached"
-        },
-        {
-          "qid": "on-record-problem",
-          "kind": "problem",
-          "q": "find which podcast episode recommended a book or tool"
-        }
-      ]
-    },
-    {
       "id": "live",
       "origin": "https://live.significanthobbies.com",
       "$note": "Brand probe is the exact hostname — the product name 'Live' is unsearchable on its own.",

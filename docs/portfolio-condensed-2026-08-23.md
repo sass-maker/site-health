@@ -1,6 +1,6 @@
 # Fleet portfolio: compressed owner intent
 
-Date: 2026-08-23 (lifecycle counts and new owner-requested identities reconciled 2026-10-15)
+Date: 2026-08-23 (lifecycle counts and purpose categories reconciled 2026-10-22)
 Scope: all 78 retained canonical identities; archived identities remain recorded for infrastructure ownership but are excluded from Fleet listings.
 
 This document preserves the meaning of the owner's project review in compact,
@@ -17,17 +17,21 @@ open issues. Those belong in the canonical catalog, each project's
 > catalog. The decision content below is preserved; only the classification
 > labels have been remapped.
 
-Project purpose is separately categorized as `utility`, `media`, or `experimental`.
-See [the complete category list](project-categories-2026-09-07.md). Categories do not
-change lifecycle or sharing decisions.
+The owner's primary purpose categories are **attention/money grabber**,
+**learn/skill showoff**, and **personal use** (2026-10-22). Every primary/active
+application has one `classification.purposeCategory` in the canonical catalog;
+personal use includes private Fleet infrastructure. The current 40 identities
+comprise 9 attention/money, 6 learning/showoff and 25 personal-use applications.
+Descriptive topic categories (`utility`, `media`, `experimental`) and lifecycle
+remain separate metadata. See [topic categories](project-categories-2026-09-07.md).
 
 ## Portfolio summary
 
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | Primary | 2 | Receives focused feature development, experiments and validation. |
-| Active | 45 | Supported and kept useful; improvements follow concrete needs. |
-| Inactive | 31 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
+| Active | 38 | Supported and kept useful; improvements follow concrete needs. |
+| Inactive | 38 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
 | **Total** | **78** | Every canonical Fleet identity appears exactly once. |
 
 These statuses reflect current owner intent. They deliberately override misleading signals such as a live deployment for an inactive product or an old repository label that says maintenance while the owner is actively building.
@@ -67,7 +71,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | Free AI | Active | Aggregate useful free AI tiers behind one resilient interface. | Working well for internal consumers. | Add providers only when they improve capability coverage, reliability, or available free capacity. |
 | GitStat | Inactive | Understand work and code churn across the owner's repositories. | More or less complete; no unanswered recurring question is currently known. | Use it and add analysis only when a specific question is missing. |
 | High Signal | Active | Aggregate news/data sources and derive useful signals. | Active product; ongoing investment within the approved narrow scope. | Keep: One small source-backed brief that helps you make a real decision. Stop: All-topic coverage, endless feeds and a publishing volume target. |
-| High Signal Podcasts (`on-record`) | Active source/API | Index evidenced podcast claims with attribution and episode links. | Maintained podcast API and ingestion service; TechData consumes it through a read adapter. | Keep the bounded source/API role; this project was not among the four standalone identities removed from active Fleet. |
+| High Signal Podcasts (`on-record`) | Inactive / TechData source component | Index evidenced podcast claims with attribution and episode links. | Owner consolidated its Fleet identity into TechData on 2026-10-22. Claims, episodes and people are already served through TechData's read adapter; source ingestion, API and existing site remain operational. | Use the TechData roadmap; retain collection-specific source services and data. Source migration, redirects and provider retirement remain separate work. |
 | India Standards | Inactive | Use official data to contextualize how a person is doing in India. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The dated, source-linked demographic comparison as historical work. Stop: Ongoing data-product expansion after your interest has ended. |
 | IssuePages (`issue-pages`) | Inactive | Make publishing a public page as simple as opening a GitHub issue. | Finished experiment; bounded artifact without an active roadmap. | Keep: One finished example of publishing a page from a GitHub issue. Stop: A CMS, publishing network and multiple author workflows. |
 | iOS landings (`ios-landings`) | Active | Reuse one landing-page engine across native Significant Hobbies products. | Canonical shared factory with multiple product-specific sites. | Add products and capabilities only when a native app actually needs a public landing surface. |
@@ -237,10 +241,10 @@ Field Track and War Chest are retired from active Fleet. Their canonical records
 | --- | --- | --- | --- | --- |
 | Agent Inbox (`agent-inbox`) | Active local personal tool | Notice local coding-agent requests and reach the correct verified conversation. | Owner-added Agentbox fork; local unsigned development baseline, private Fleet listing; physical sleep/wake, notifications and outside-session parity remain open. | Complete the bounded local qualification in `agentbox/PRODUCT.md` before public sharing. |
 
-## Owner-approved techdata workbench — updated 2026-10-17
+## Owner-approved techdata workbench — updated 2026-10-22
 
-The owner named the consolidated data workbench techdata (Significant-Hobbies/ph-catalog#14). On 2026-10-17, the owner removed Nomad, PH Catalog, Research Papers and Reddit Insights from the standalone active Fleet roster. Their primary Fleet checkouts were removed after each main matched its remote; remote source repositories remain available for on-demand clones, and local-only material was preserved in private local recovery storage. Existing linked worktrees and live sites remain intact. Source collectors, exports and workflow parity remain owned and verified separately from TechData's public read adapters; this cleanup does not retire endpoints or claim full source-workflow parity. High Signal Podcasts remains an active source/API project. The earlier future-form lists above retain their dated historical meaning.
+The owner named the consolidated data workbench techdata (Significant-Hobbies/ph-catalog#14). On 2026-10-17, the owner removed Nomad, PH Catalog, Research Papers and Reddit Insights from the standalone active Fleet roster. Their primary Fleet checkouts were removed after each main matched its remote; remote source repositories remain available for on-demand clones, and local-only material was preserved in private local recovery storage. Existing linked worktrees and live sites remain intact. Source collectors, exports and workflow parity remain owned and verified separately from TechData's public read adapters; this cleanup does not retire endpoints or claim full source-workflow parity. On 2026-10-22, the owner also consolidated High Signal Podcasts into TechData. All five collections now share one Fleet identity and roadmap; the Podcast repository, checkout, ingestion, API and existing website remain retained source components. The earlier future-form lists above retain their dated historical meaning.
 
 | Project | Classification | Why | Current state | Next decision |
 | --- | --- | --- | --- | --- |
-| techdata (`techdata`) | Active public data workbench | One public, read-only entry point to browse, search and export the owner's data collections with source provenance. | Five collections are live at `data.highsignal.app` on the `techdata` Worker; the workers.dev host remains available. The custom-domain release is source-tagged and verified at 100% traffic. | Use one TechData roadmap for the four retained source components; preserve source APIs, collectors and existing sites. Redirects, source moves or provider retirement require their own verified scope. |
+| techdata (`techdata`) | Active public data workbench | One public, read-only entry point to browse, search and export the owner's data collections with source provenance. | Five collections are live at `data.highsignal.app` on the `techdata` Worker; the workers.dev host remains available. The custom-domain release is source-tagged and verified at 100% traffic. | Use one TechData roadmap for all five retained source components, including High Signal Podcasts; preserve source APIs, collectors and existing sites. Redirects, source moves or provider retirement require their own verified scope. |
