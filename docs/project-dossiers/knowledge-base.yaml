@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: f3c7f5b2a26e28fd292b1cfb47c1fc5bf34c231c6771c06085328b3431be34b9
-      infrastructureUpdatedAt: 2026-10-16
+      sha256: ea0a3aa5182e5c6d0d58ed99708ee07761325b07de8c51a4eafe034636199ff5
+      infrastructureUpdatedAt: 2026-10-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Knowledge Base
@@ -345,50 +345,75 @@ deployment:
         name: knowledgebase-landing
         method: git-connected
         state: live
+        verificationHistory: []
+        verification:
+          deploymentId: 27f611a3-ca02-4d5e-805c-555fa39961e6
+          observedAt: 2026-10-22T13:58:22Z
+          url: https://knowledgebase.sassmaker.com
+          state: success-production-verified
+          scope: Supported static Astro dependency upgrade and source Node pin
+          evidence: "PR #83 merged at 5e4ef1d91c3c250effcc5216c78ae309abd23f83 and published through the existing Git-connected main deployment. Independent Production/main readback confirms provider source 5e4ef1d. Public landing renders at 390/768/1440 pass without overflow; compiled index.BWacaWJ9.css matches the qualified build. Astro 7.4.2 passes the normal dependency audit without the former temporary exception; Pages honors source Node 24.22.1. No provider setting change. Deployment creation time and Worker traffic percentage are not inferred."
+          environment: Production
+          branch: main
+          providerSourceAbbreviation: 5e4ef1d
+          sourceCommit: 5e4ef1d91c3c250effcc5216c78ae309abd23f83
+          evidencePath: /tmp/fleet-design-seo-geo-20261022/client-loading-next/kb-production-verification.md
       - provider: cloudflare
         kind: pages
         name: knowledgebase-app
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-04T20:29:24.044447+00:00
-          deploymentId: 1dc8ee4c-c136-4185-af6a-0e04d8f4cbc0
+          deploymentId: 36696e9b-0f04-459d-aa1c-17f11b05bbef
+          observedAt: 2026-10-22T14:00:37Z
+          url: https://search.sassmaker.com
+          state: success-production-verified
+          scope: Project-inventory retry and memory-only scoped Overview cache
+          evidence: "PR #83 merged at 5e4ef1d91c3c250effcc5216c78ae309abd23f83; exact-main CI 39790919247 and all six guards passed. The existing private Pages publisher exited 0 with that full SHA. Independent Production/main readback confirms this deployment and provider source 5e4ef1d. A normal owner session passed Access, populated Overview and retained inventory after Changelog navigation; owner renders at 390/768/1440 have no horizontal overflow. Loaded index-c3amYDq1.js SHA256 627e0c1d776068c6c6fb35749c406d75e1eeb1c1213a8c653730c199b6b9b9dc and index-DTlLKZij.css SHA256 26bc2ad2e8519928fb01cdc4672a59265291c6eb28ad45b0c92d2fee9543d7c5 match the qualified local build. The local synthetic pending/empty/error/retry/cache/project-isolation/403-clear matrix passes at all three widths, max CLS 0.000965471 <= 0.05. Anonymous production fixtures stop at Access; live failure injection, full authentication certification and the 300ms target are not certified. No retrieval Worker or provider configuration change."
           environment: Production
           branch: main
-          providerSourceAbbreviation: d3a817f
-          sourceCommit: d3a817fb94e1c11a73b1e51f403b18c32c03db0a
-          url: https://1dc8ee4c.knowledgebase-app-acs.pages.dev
-          state: production-verified
-          evidence: "PR #63 merged at the exact source commit after candidate CI 37231921885 and exact-main CI 37232016988 passed. Authenticated dashboard inventory and Overview loaded without the reproduced API 404; observed /assets/index-CZEee_ua.js matched the exact merged build asset. Anonymous GET and HEAD operator API probes remained behind Cloudflare Access challenges on search.sassmaker.com and the deployment preview; no auth bypass was used."
-          liveChecks:
-            authenticated:
-              inventoryVisible: true
-              overviewLoaded: true
-              error404Visible: false
-              observedScript: /assets/index-CZEee_ua.js
-              matchesExactMergedBuildAsset: true
-            anonymousAccessChallenge:
-              customDomain:
-                origin: https://search.sassmaker.com
-                path: /api/v1/kb/operator/projects
-                get:
-                  status: 302
-                  accessChallenge: true
-                  cacheControl: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
-                head:
-                  status: 302
-                  bodyBytes: 0
-                  accessChallenge: true
-              deploymentPreview:
-                origin: https://1dc8ee4c.knowledgebase-app-acs.pages.dev
-                path: /api/v1/kb/operator/projects
-                get:
-                  status: 302
-                  accessChallenge: true
-                head:
-                  status: 302
-                  bodyBytes: 0
-                  accessChallenge: true
+          providerSourceAbbreviation: 5e4ef1d
+          sourceCommit: 5e4ef1d91c3c250effcc5216c78ae309abd23f83
+          evidencePath: /tmp/fleet-design-seo-geo-20261022/client-loading-next/kb-production-verification.md
+        verificationHistory:
+          - observedAt: 2026-10-04T20:29:24.044447+00:00
+            deploymentId: 1dc8ee4c-c136-4185-af6a-0e04d8f4cbc0
+            environment: Production
+            branch: main
+            providerSourceAbbreviation: d3a817f
+            sourceCommit: d3a817fb94e1c11a73b1e51f403b18c32c03db0a
+            url: https://1dc8ee4c.knowledgebase-app-acs.pages.dev
+            state: production-verified
+            evidence: "PR #63 merged at the exact source commit after candidate CI 37231921885 and exact-main CI 37232016988 passed. Authenticated dashboard inventory and Overview loaded without the reproduced API 404; observed /assets/index-CZEee_ua.js matched the exact merged build asset. Anonymous GET and HEAD operator API probes remained behind Cloudflare Access challenges on search.sassmaker.com and the deployment preview; no auth bypass was used."
+            liveChecks:
+              authenticated:
+                inventoryVisible: true
+                overviewLoaded: true
+                error404Visible: false
+                observedScript: /assets/index-CZEee_ua.js
+                matchesExactMergedBuildAsset: true
+              anonymousAccessChallenge:
+                customDomain:
+                  origin: https://search.sassmaker.com
+                  path: /api/v1/kb/operator/projects
+                  get:
+                    status: 302
+                    accessChallenge: true
+                    cacheControl: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+                  head:
+                    status: 302
+                    bodyBytes: 0
+                    accessChallenge: true
+                deploymentPreview:
+                  origin: https://1dc8ee4c.knowledgebase-app-acs.pages.dev
+                  path: /api/v1/kb/operator/projects
+                  get:
+                    status: 302
+                    accessChallenge: true
+                  head:
+                    status: 302
+                    bodyBytes: 0
+                    accessChallenge: true
       - provider: cloudflare
         kind: worker
         name: knowledgebase-app
