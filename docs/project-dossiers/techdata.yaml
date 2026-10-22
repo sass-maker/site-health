@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3800a8ebdaff559a0d06b70e72c65d485bd46cb36349e5ef0fc8e00f3f5cb5b1
+      sha256: 356b137c66b8513c270e666f969187eff9f48a6042e13776315877458410558e
       infrastructureUpdatedAt: 2026-10-15
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-09
       reviewSha256: 74ff7d1b3faf4c46efce30259833f4d7ada4cf4ee4452da388e1962b2ea5a029
-      documentSha256: 3800a8ebdaff559a0d06b70e72c65d485bd46cb36349e5ef0fc8e00f3f5cb5b1
+      documentSha256: 356b137c66b8513c270e666f969187eff9f48a6042e13776315877458410558e
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -281,15 +281,15 @@ deployment:
         state: live
         attributionReason: techdata owns the Worker, the data.highsignal.app custom domain and its retained workers.dev host; the source collection sites remain independent.
         verification:
-          observedAt: 2026-10-15T09:00:53Z
-          sourceCommit: 665cdd93bf07610d1629fbd114064554ce3c0bba
-          deploymentId: 9f683ef7-5525-4302-a808-74742680dfb5
-          versionId: 74eefbf3-7575-469b-863d-b468bab4d8cd
+          observedAt: 2026-10-22T10:46:31Z
+          sourceCommit: be0607d491061c263deee6683a272d6538d5a2c9
+          deploymentId: 06e0f1fb-03c7-4805-9778-38c94453be09
+          versionId: 6e1b2576-e332-408d-b5f5-435f8ca111af
           trafficPercent: 100
           deploymentUrl: https://data.highsignal.app
-          scope: Canonical custom domain release; workers.dev retained
-          evidence: GitHub Actions deploy run 38709692177 succeeded; authenticated Wrangler deployment list reported this SHA-tagged version at 100% traffic. HTTPS certificate, robots.txt, sitemap, all 15 canonical pages, source links and 390/768/1440 Chrome layouts verified live.
-        versionId: 74eefbf3-7575-469b-863d-b468bab4d8cd
+          scope: Owner-approved table recovery fix; canonical custom domain and workers.dev retained
+          evidence: Owner-approved GitHub Actions manual deploy 39765261561 succeeded after six readiness gates and exact-main CI. Independent Wrangler deployment/version readback verifies full SHA tag and 100% traffic from 2026-10-22T10:44:35.355643Z. Live deployed CSS (no injection) passed six synthetic read-only error/empty recovery geometry cases and retry at exact 390/768/1440, with no horizontal overflow. This does not qualify the broader route/account matrix or strict cold-navigation 300ms target.
+        versionId: 6e1b2576-e332-408d-b5f5-435f8ca111af
         verificationHistory:
           - observedAt: 2026-10-10
             sourceCommit: 157ab9937834c45e451a7271cfb78207d80a00d3
@@ -297,6 +297,14 @@ deployment:
             deploymentUrl: https://techdata.sarthakagrawal927.workers.dev
             scope: Initial public release
             evidence: Browser-verified all views at 390 and 1440 with no console errors; robots.txt, sitemap.xml and canonicals present, no noindex; /api/files allowlist, Range and ETag checked.
+          - observedAt: 2026-10-15T09:00:53Z
+            sourceCommit: 665cdd93bf07610d1629fbd114064554ce3c0bba
+            deploymentId: 9f683ef7-5525-4302-a808-74742680dfb5
+            versionId: 74eefbf3-7575-469b-863d-b468bab4d8cd
+            trafficPercent: 100
+            deploymentUrl: https://data.highsignal.app
+            scope: Canonical custom domain release; workers.dev retained
+            evidence: GitHub Actions deploy run 38709692177 succeeded; authenticated Wrangler deployment list reported this SHA-tagged version at 100% traffic. HTTPS certificate, robots.txt, sitemap, all 15 canonical pages, source links and 390/768/1440 Chrome layouts verified live.
     resources:
       - provider: cloudflare
         kind: r2
