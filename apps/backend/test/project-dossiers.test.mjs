@@ -147,7 +147,12 @@ test('project YAML starts with verification and preserves verbatim owner voice',
     catalog,
     operations,
     project,
-    operation: operations.projects.anchor,
+    operation: {
+      ...operations.projects.anchor,
+      observedAt: '2026-10-22',
+      historyObservedAt: '2026-10-22',
+      githubObservedAt: '2026-10-22T09:00:00Z',
+    },
     intent: intents.anchor,
     ownerNarrative: ownerSources.narratives.anchor,
     relatedNarratives: ownerSources.related.anchor,
@@ -161,6 +166,11 @@ test('project YAML starts with verification and preserves verbatim owner voice',
   const parsed = validateProjectDossierYaml(rendered, 'anchor');
 
   assert.match(rendered, /^schemaVersion: 1\nprojectId: anchor\nverification:\n/);
+  assert.equal(parsed.verification.generatedAt, '2026-10-22');
+  assert.equal(parsed.verification.evidence.repository.observedAt, '2026-10-22');
+  assert.equal(parsed.verification.evidence.retainedGitHistory.observedAt, '2026-10-22');
+  assert.equal(parsed.verification.evidence.githubActions.observedAt, '2026-10-22T09:00:00Z');
+  assert.equal(parsed.githubActions.observedAt, '2026-10-22T09:00:00Z');
   assert.deepEqual(parsed.identity.purposeCategories, project.portfolio.purposeCategories);
   assert.equal(Object.hasOwn(parsed.identity, 'purposeCategory'), false);
   assert.match(parsed.ownerVoice.whyVerbatim, /The purpose of anchor/);

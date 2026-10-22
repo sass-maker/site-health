@@ -226,7 +226,7 @@ function retainedGitHistoryVerification(metadata, operation, operations) {
       historyCompleteness: history?.historyCompleteness ?? null,
     },
     evidence: {
-      observedAt: operations.historyObservedAt ?? operations.observedAt ?? null,
+      observedAt: operation.historyObservedAt ?? operations.historyObservedAt ?? operations.observedAt ?? null,
       state: operation.source.state,
       checkout: operation.source.path,
       revision: operation.source.revision,
@@ -301,7 +301,7 @@ export function buildProjectDossier({
       status: verificationStatus,
       meaning:
         'Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.',
-      generatedAt: operations.observedAt,
+      generatedAt: operation.observedAt ?? operations.observedAt,
       checks: {
         canonicalCatalogEntry: 'passed',
         infrastructureAttribution: 'passed',
@@ -336,7 +336,7 @@ export function buildProjectDossier({
           sourceKind: 'derived-owner-intent',
         },
         repository: {
-          observedAt: operations.observedAt,
+          observedAt: operation.observedAt ?? operations.observedAt,
           state: operation.source.state,
           checkout: operation.source.path,
           revision: operation.source.revision,
@@ -347,7 +347,7 @@ export function buildProjectDossier({
         },
         retainedGitHistory: historyVerification.evidence,
         githubActions: {
-          observedAt: operations.githubObservedAt ?? null,
+          observedAt: operation.githubObservedAt ?? operations.githubObservedAt ?? null,
           staleAfterDays: operations.githubStaleAfterDays ?? null,
           ...actionVerification.summary,
           attention: actionVerification.attention,
@@ -420,7 +420,7 @@ export function buildProjectDossier({
       },
     },
     githubActions: {
-      observedAt: operations.githubObservedAt ?? null,
+      observedAt: operation.githubObservedAt ?? operations.githubObservedAt ?? null,
       staleAfterDays: operations.githubStaleAfterDays ?? null,
       summary: actionVerification.summary,
       attention: actionVerification.attention,

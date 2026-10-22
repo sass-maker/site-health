@@ -4,10 +4,10 @@ Observed through the GitHub API at `2026-10-09T03:02:38.910Z`. This is the agent
 
 Dossier contract: [`schema.json`](./schema.json). Verification means evidence was collected and attributed; workflow health is reported separately.
 
-- Workflows: 195
+- Workflows: 196
 - Cron/scheduled workflows: 28
-- Attention: action-required 4, clear 151, ignored 17, missing-data 10, reconcile 10, review-history 3
-- Inventory sources: github-generated 16, remote-only 10, tracked 169
+- Attention: action-required 4, clear 152, ignored 17, missing-data 10, reconcile 10, review-history 3
+- Inventory sources: github-generated 16, remote-only 10, tracked 170
 
 “Latest” is the latest run of any trigger. “Default branch” checks the latest push run against the exact current default-branch SHA. “Schedule” queries scheduled runs separately so a manual dispatch cannot hide a stopped cron.
 
@@ -103,7 +103,8 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [high-signal](./high-signal.yaml) | reddit-archive-redact | `.github/workflows/reddit-archive-redact.yml` | tracked | active | workflow_dispatch | — | manual-or-reusable-never-run | not-applicable | not-applicable | active | clear |
 | [high-signal](./high-signal.yaml) | [Temporary High Signal deploy readiness](https://github.com/High-Signal-App/high-signal/actions/runs/37454837683) | `.github/workflows/temporary-highsignal-deploy-readiness.yml` | remote-only | active | unknown | — | healthy (2026-10-06) | not-applicable | not-applicable | needs-reconciliation | reconcile |
 | [high-signal](./high-signal.yaml) | [Weekly Quality Check](https://github.com/High-Signal-App/high-signal/actions/runs/37351203731) | `.github/workflows/weekly.yml` | tracked | active | schedule, workflow_dispatch | 0 9 * * 1 | healthy (2026-10-05) | not-applicable | healthy (2026-10-05) | active | clear |
-| [ios-landings](./ios-landings.yaml) | [CI](https://github.com/Significant-Hobbies/ios-landings/actions/runs/37839218718) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-08) | healthy (2026-10-08) | not-applicable | active | clear |
+| [ios-landings](./ios-landings.yaml) | [Retained iOS Landings](https://github.com/sass-maker/ui-library/actions/runs/39751797107) | `.github/workflows/ios-landings.yml` | tracked | active | pull_request, push | — | healthy (2026-10-22) | healthy (2026-10-22) | not-applicable | active | clear |
+| [ios-landings](./ios-landings.yaml) | [Native compact button](https://github.com/sass-maker/ui-library/actions/runs/38427160376) | `.github/workflows/native-button.yml` | tracked | active | pull_request, workflow_dispatch | — | healthy (2026-10-13) | not-applicable | not-applicable | active | clear |
 | [issue-pages](./issue-pages.yaml) | [CI](https://github.com/Significant-Hobbies/issue-pages/actions/runs/37834709712) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-08) | healthy (2026-10-08) | not-applicable | active | clear |
 | [karte](./karte.yaml) | [CI](https://github.com/Significant-Hobbies/karte/actions/runs/37835072552) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-08) | healthy (2026-10-08) | not-applicable | active | clear |
 | [karte](./karte.yaml) | [Deploy to Cloudflare Workers](https://github.com/Significant-Hobbies/karte/actions/runs/37877063572) | `.github/workflows/deploy.yml` | tracked | active | workflow_dispatch | — | healthy (2026-10-09) | not-applicable | not-applicable | active | clear |

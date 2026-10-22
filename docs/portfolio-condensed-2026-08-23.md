@@ -20,13 +20,14 @@ open issues. Those belong in the canonical catalog, each project's
 The owner's purpose categories are **attention/money grabber**,
 **learn/skill showoff**, and **personal use** (2026-10-22). They overlap:
 `classification.purposeCategories` is an array, not a primary-category choice.
-There are **40 unique primary/active applications**, with **13 attention/money**,
-**7 learning/showoff**, and **36 personal-use** memberships.
+There are **39 unique primary/active applications**, with **13 attention/money**,
+**7 learning/showoff**, and **35 personal-use** memberships.
 
 CodeVetter's three tags and the attention/money-only tags for Every Song Is a
 Website and Web Playables are explicit owner directions. The other assignments
 below are the current assessment from recorded owner intent and catalog purpose,
-ready for this portfolio re-discussion. They describe intended value, not proven
+ready for this portfolio re-discussion. iOS Landings is now a retained UI Library
+component and is excluded from these application totals. They describe intended value, not proven
 revenue or current usage. Public availability is insufficient evidence of a
 money motive; implementation complexity is insufficient evidence of a learning
 motive. Personal use includes private infrastructure.
@@ -57,7 +58,6 @@ topic categories remain separate: see [topic categories](project-categories-2026
 | Calorie | Personal use | Your own food logging and health routine. |
 | Setline | Personal use | Your own workout planning and logging. |
 | Kith | Personal use | Your own relationship memory. |
-| iOS landings | Personal use | Shared landing factory supporting your native apps. |
 | RolePatch | Personal use | Intended resume tailoring for your own applications; current regular use is not established. |
 | Karte | Attention / money, Personal use | Public personal/company presence and an assistant for your own inbound use. |
 | Starboard | Personal use | Find useful repositories in your own GitHub stars; public access alone is not a money motive. |
@@ -83,8 +83,8 @@ topic categories remain separate: see [topic categories](project-categories-2026
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | Primary | 2 | Receives focused feature development, experiments and validation. |
-| Active | 38 | Supported and kept useful; improvements follow concrete needs. |
-| Inactive | 38 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
+| Active | 37 | Supported and kept useful; improvements follow concrete needs. |
+| Inactive | 39 | No planned development or autonomous expansion. Preserve relevant software, data and evidence. |
 | **Total** | **78** | Every canonical Fleet identity appears exactly once. |
 
 These statuses reflect current owner intent. They deliberately override misleading signals such as a live deployment for an inactive product or an old repository label that says maintenance while the owner is actively building.
@@ -127,7 +127,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | High Signal Podcasts (`on-record`) | Inactive / TechData source component | Index evidenced podcast claims with attribution and episode links. | Owner consolidated its Fleet identity into TechData on 2026-10-22. Claims, episodes and people are already served through TechData's read adapter; source ingestion, API and existing site remain operational. | Use the TechData roadmap; retain collection-specific source services and data. Source migration, redirects and provider retirement remain separate work. |
 | India Standards | Inactive | Use official data to contextualize how a person is doing in India. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The dated, source-linked demographic comparison as historical work. Stop: Ongoing data-product expansion after your interest has ended. |
 | IssuePages (`issue-pages`) | Inactive | Make publishing a public page as simple as opening a GitHub issue. | Finished experiment; bounded artifact without an active roadmap. | Keep: One finished example of publishing a page from a GitHub issue. Stop: A CMS, publishing network and multiple author workflows. |
-| iOS landings (`ios-landings`) | Active | Reuse one landing-page engine across native Significant Hobbies products. | Canonical shared factory with multiple product-specific sites. | Add products and capabilities only when a native app actually needs a public landing surface. |
+| iOS landings (`ios-landings`) | Inactive / UI Library component | Retain the complete native-app landing factory and its product sites. | Absorbed with original Git history into `sass-maker/ui-library`, under `archives/ios-landings`, on 2026-10-22. Existing sites and provider resources remain operational. | Use the retained factory from UI Library; no independent product roadmap or feature expansion. |
 | Journal | Inactive | Make journaling a durable habit within the Hub. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The journal implementation as archived work. Stop: A separate writing application you explicitly do not want to maintain. |
 | Karte | Inactive | Evolve a link-in-bio page into a greeting card, company profile, and personal agent. | Strong individual profile and conversational foundation already exist. | Make the positioning and workflows company-friendly, then validate real company use. |
 | Kith | Active | Provide a beautiful personal relationship-memory app. | Built as a device-first constellation rather than a CRM. | Use it regularly and let relationship-management behavior determine improvements. |

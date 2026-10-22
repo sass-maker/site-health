@@ -3,7 +3,7 @@ projectId: ios-landings
 verification:
   status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-16
+  generatedAt: 2026-10-22
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
@@ -11,11 +11,11 @@ verification:
     repositorySnapshot: passed
     githubHomepage: unset
     githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: e8da11fa970545c7bff69c2cb0524f1908370874c522a991e742aec6ebb63505
+      sha256: 3800a8ebdaff559a0d06b70e72c65d485bd46cb36349e5ef0fc8e00f3f5cb5b1
       infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,14 +28,14 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: b3c615cb5225ada3293066edb114021562e1645b87996d6ea55a9025dae8f9b1
+      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-16
+      observedAt: 2026-10-22
       state: available
-      checkout: ios-landings
-      revision: 5eb30350ca537f8a9ebed792343c1783946842a4
-      githubRepository: Significant-Hobbies/ios-landings
+      checkout: ui-library
+      revision: 64aee3eca3a1e85feb3b53baeafb627170e32596
+      githubRepository: sass-maker/ui-library
       expectedHomepage: https://apps.significanthobbies.com
       observedHomepage: null
       worktree: &a1
@@ -43,138 +43,135 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-10-16
+      observedAt: 2026-10-22
       state: available
-      checkout: ios-landings
-      revision: 5eb30350ca537f8a9ebed792343c1783946842a4
-      githubRepository: Significant-Hobbies/ios-landings
+      checkout: ui-library
+      revision: 64aee3eca3a1e85feb3b53baeafb627170e32596
+      githubRepository: sass-maker/ui-library
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-08-17
-      catalogLatestCommitAt: 2026-09-22
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-10-22
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-10-09T03:02:38.910Z
+      observedAt: 2026-10-22T08:59:25.013Z
       staleAfterDays: 30
-      healthy: 1
+      healthy: 2
       attention: &a2
-        clear: 1
+        clear: 2
   unknowns: []
 ownerVoice:
   whyVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
   fullReviewVerbatim: IOS Landings is the core name. It is essentially a landing page template which we will use for a lot of our projects. Everywhere we have a setting page, might as well use it.
   relatedHistoricalReviews: []
 decision:
-  classification: Active
-  whySummary: Reuse one landing-page engine across native Significant Hobbies products.
-  currentState: Canonical shared factory with multiple product-specific sites.
-  nextDecision: Add products and capabilities only when a native app actually needs a public landing surface.
+  classification: Inactive / UI Library component
+  whySummary: Retain the complete native-app landing factory and its product sites.
+  currentState: Absorbed with original Git history into `sass-maker/ui-library`, under `archives/ios-landings`, on 2026-10-22. Existing sites and provider resources remain operational.
+  nextDecision: Use the retained factory from UI Library; no independent product roadmap or feature expansion.
 identity:
   name: iOS landings
   publicName: iOS landings
   aliases: []
   family: significanthobbies
   category: utility
-  purposeCategories:
-    - personal-use
+  purposeCategories: []
   audience: internal
   personalUse: true
   moneyOrPersonalBrand: false
   unmetNeed: false
   kind: platform
   priority: P2
-  tier: secondary
-  attention: toolbox
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
+    status: inactive
+    resumeCondition: No independent roadmap. Maintain the retained factory inside UI Library only for an explicitly requested product-site need.
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Shared Astro factory for native-app landing sites and per-product Markdown journals. Editorial layouts, StorageDaddy and PerformanceDaddy pages are prepared locally, not deployed.
+  description: Retained native-app landing and journal factory inside UI Library; product artwork, content, checks and existing deploy targets are preserved.
   publicMakerNote: I built one reusable landing-page engine so each native Significant Hobbies app does not need to reinvent its public home.
   purposeContract: null
-  form: Native-app landing and journal factory
+  form: Retained landing factory inside UI Library
   platforms:
     - Web
   prominentTools:
     - Astro
-    - TypeScript
+    - SaaS Maker UI
     - Cloudflare Pages
   retainedGitHistory:
     firstCommitAt: 2026-08-17
-    latestCommitAt: 2026-10-16
-    retainedCommitCount: 114
+    latestCommitAt: 2026-10-22
+    retainedCommitCount: 194
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: ios-landings
-  observedRevision: 5eb30350ca537f8a9ebed792343c1783946842a4
-  githubRepository: Significant-Hobbies/ios-landings
+  checkout: ui-library
+  observedRevision: 64aee3eca3a1e85feb3b53baeafb627170e32596
+  githubRepository: sass-maker/ui-library
   githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/ios-landings
-  aliases: []
-  sourceOverride: null
+  url: https://github.com/sass-maker/ui-library
+  aliases:
+    - Significant-Hobbies/ios-landings
+  sourceOverride: ui-library/archives/ios-landings
   tooling:
     declaredPackageManager: pnpm@10.33.2
     detectedSignals:
       - name: Astro
         evidence:
-          - astro.config.mjs
+          - archives/ios-landings/astro.config.mjs
+          - site/astro.config.mjs
       - name: Cloudflare Wrangler
         evidence:
-          - sites/daddyrad/wrangler.jsonc
-          - wrangler.jsonc
+          - archives/ios-landings/sites/daddyrad/wrangler.jsonc
+          - archives/ios-landings/wrangler.jsonc
       - name: pnpm
         evidence:
+          - archives/ios-landings/pnpm-lock.yaml
           - pnpm-lock.yaml
+      - name: Swift Package Manager
+        evidence:
+          - Package.swift
     rootPackageScripts:
       - build
-      - build:one
       - check
-      - check:one
-      - check:worker-sites
-      - deploy
-      - deploy:anchor
-      - deploy:daddyrad
-      - deploy:habits
-      - deploy:journal
-      - deploy:kith
-      - deploy:motion
-      - deploy:setline
+      - check:browser
       - dev
-      - dev:anchor
-      - dev:calorie
-      - dev:habits
-      - dev:journal
-      - dev:kith
-      - dev:motion
-      - dev:setline
-      - preview
+      - footer:build
+      - landings:build
+      - landings:check
+      - landings:check:one
+      - landings:deploy
+      - landings:deploy:daddyrad
+      - landings:dev
+      - registry:build
+      - test
+      - tokens:build
+      - typecheck
 githubActions:
-  observedAt: 2026-10-09T03:02:38.910Z
+  observedAt: 2026-10-22T08:59:25.013Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    healthy: 2
   attention: *a2
   remote:
-    repository: Significant-Hobbies/ios-landings
+    repository: sass-maker/ui-library
     defaultBranch: main
-    defaultBranchSha: 8683328fd129c857711ed3794f09b1762eae4ce2
+    defaultBranchSha: 64aee3eca3a1e85feb3b53baeafb627170e32596
     homepage: null
     query: verified
     disposition:
       disposition: active
-      reason: tracked project
+      reason: Retained landing factory runs inside UI Library; verify its operational CI without an independent product roadmap.
   workflows:
-    - name: CI
-      file: .github/workflows/ci.yml
+    - name: Retained iOS Landings
+      file: .github/workflows/ios-landings.yml
       triggers:
         - pull_request
         - push
@@ -185,21 +182,21 @@ githubActions:
         remote: true
       ownerDisposition:
         status: active
-        reason: tracked workflow
+        reason: Retained landing factory runs inside UI Library; verify its operational CI without an independent product roadmap.
       live:
         health: healthy
         reason: latest run concluded success
         apiState: active
         lastRun:
-          id: 37839218718
+          id: 39751797107
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8683328fd129c857711ed3794f09b1762eae4ce2
-          createdAt: 2026-10-08T20:24:32Z
-          updatedAt: 2026-10-08T20:25:13Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/37839218718
+          headSha: 64aee3eca3a1e85feb3b53baeafb627170e32596
+          createdAt: 2026-10-22T08:58:25Z
+          updatedAt: 2026-10-22T08:59:24Z
+          url: https://github.com/sass-maker/ui-library/actions/runs/39751797107
         ageDays: 0
       schedule:
         health: not-applicable
@@ -209,16 +206,53 @@ githubActions:
         health: healthy
         reason: current main push concluded success
         lastRun:
-          id: 37839218718
+          id: 39751797107
           status: completed
           conclusion: success
           event: push
           branch: main
-          headSha: 8683328fd129c857711ed3794f09b1762eae4ce2
-          createdAt: 2026-10-08T20:24:32Z
-          updatedAt: 2026-10-08T20:25:13Z
-          url: https://github.com/Significant-Hobbies/ios-landings/actions/runs/37839218718
+          headSha: 64aee3eca3a1e85feb3b53baeafb627170e32596
+          createdAt: 2026-10-22T08:58:25Z
+          updatedAt: 2026-10-22T08:59:24Z
+          url: https://github.com/sass-maker/ui-library/actions/runs/39751797107
         ageDays: 0
+      attention: clear
+    - name: Native compact button
+      file: .github/workflows/native-button.yml
+      triggers:
+        - pull_request
+        - workflow_dispatch
+      schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: active
+        reason: Retained landing factory runs inside UI Library; verify its operational CI without an independent product roadmap.
+      live:
+        health: healthy
+        reason: latest run concluded success
+        apiState: active
+        lastRun:
+          id: 38427160376
+          status: completed
+          conclusion: success
+          event: pull_request
+          branch: fix/13-native-compact-button
+          headSha: 56ec0529cd52503df35fc2b781e91a28e3a1fd5d
+          createdAt: 2026-10-13T16:02:11Z
+          updatedAt: 2026-10-13T16:03:27Z
+          url: https://github.com/sass-maker/ui-library/actions/runs/38427160376
+        ageDays: 8
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: not-applicable
+        reason: workflow has no push trigger
+        lastRun: null
       attention: clear
 deployment:
   kind: pages
@@ -310,8 +344,12 @@ sharing:
   verifiedAt: 2026-09-12
   reason: "Internal factory generation and scoped publication verified: all eight builds passed 19 required surfaces and internal links with zero Astro diagnostics. Exact 4135729 CI passed nine jobs and the six-gate deploy guard; only Anchor was published as Pages deployment155ccf31. Live Kith, Setline, Anchor and Calorie home/beta/privacy/support/hero resources return200. Native or fresh visual acceptance is not implied; browser tooling was unavailable. Factory remains internal, without a separate public product."
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/ios-landings/issues
+  roadmapUrl: https://github.com/sass-maker/ui-library/issues
   geoIdentity: null
 notes:
-  catalog: "Builds the Journal, Kith, Setline, Motion, Anchor, and a compatibility Habits landing tree. Journal's native source lives in its independent repository; Habits points to Anchor without removing its domain. The Indulge landing tree was removed in ios-landings #46 (2026-10-10); its custom domain was detached and Cloudflare Pages project indulge deleted with owner approval on 2026-10-10; DNS cleanup remains blocked by OAuth permissions. Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker. On 2026-09-08, source c768b01 added explicit eight-product CI and an existing-only content deployment option. All checks and six deploy gates passed; only Kith was published (b31f1441-d684-40d3-8371-836e6a2bf3bb)."
-  infrastructure: Static factory index page (site/index.html) deployed to Pages ios-landings at apps.significanthobbies.com on 2026-09-27; product deployments remain attributed to product rows. Publicly readable shared landing factory; deployments are attributed to product rows. Anchor, Kith, Setline and Motion now expose verified public repository icons from source b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330. Journal native source is retained in the owner personal archive.
+  catalog: |-
+    Builds the Journal, Kith, Setline, Motion, Anchor, and a compatibility Habits landing tree. Journal's native source lives in its independent repository; Habits points to Anchor without removing its domain. The Indulge landing tree was removed in ios-landings #46 (2026-10-10); its custom domain was detached and Cloudflare Pages project indulge deleted with owner approval on 2026-10-10; DNS cleanup remains blocked by OAuth permissions. Calorie stays on its Worker and Live owns the existing Significant Hobbies Worker. On 2026-09-08, source c768b01 added explicit eight-product CI and an existing-only content deployment option. All checks and six deploy gates passed; only Kith was published (b31f1441-d684-40d3-8371-836e6a2bf3bb).
+    2026-10-22: Owner approved full archival into UI Library at archives/ios-landings, including source, product assets, evidence, tests and deploy scripts. Original Git history is retained. The factory remains usable with an independent pnpm workspace and unchanged lockfile/UI pins; it has no separate active Fleet identity. SaaS Maker stewards the shared UI Library repository. Existing product services, factory index, DaddyRad, domains, API/download/update contracts and provider resources are retained; no production release is part of this source move.
+  infrastructure: |-
+    Static factory index page (site/index.html) deployed to Pages ios-landings at apps.significanthobbies.com on 2026-09-27; product deployments remain attributed to product rows. Publicly readable shared landing factory; deployments are attributed to product rows. Anchor, Kith, Setline and Motion now expose verified public repository icons from source b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330. Journal native source is retained in the owner personal archive.
+    2026-10-22: Source retained under UI Library archives/ios-landings; historical provider names and deployment evidence remain unchanged. SaaS Maker is the shared operational steward. No provider migration or deployment occurred.
