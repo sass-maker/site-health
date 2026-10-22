@@ -9725,9 +9725,9 @@
     "ios-landings": {
       "source": {
         "state": "available",
-        "path": "ios-landings",
-        "revision": "5eb30350ca537f8a9ebed792343c1783946842a4",
-        "repositorySlug": "Significant-Hobbies/ios-landings",
+        "path": "ui-library",
+        "revision": "64aee3eca3a1e85feb3b53baeafb627170e32596",
+        "repositorySlug": "sass-maker/ui-library",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -9736,15 +9736,15 @@
       },
       "history": {
         "firstCommitAt": "2026-08-17",
-        "latestCommitAt": "2026-10-16",
-        "retainedCommitCount": 114,
+        "latestCommitAt": "2026-10-22",
+        "retainedCommitCount": 194,
         "historyCompleteness": "complete",
         "reason": null
       },
       "githubActions": [
         {
-          "name": "CI",
-          "file": ".github/workflows/ci.yml",
+          "name": "Retained iOS Landings",
+          "file": ".github/workflows/ios-landings.yml",
           "triggers": [
             "pull_request",
             "push"
@@ -9757,22 +9757,22 @@
           },
           "ownerDisposition": {
             "status": "active",
-            "reason": "tracked workflow"
+            "reason": "Retained landing factory runs inside UI Library; verify its operational CI without an independent product roadmap."
           },
           "live": {
             "health": "healthy",
             "reason": "latest run concluded success",
             "apiState": "active",
             "lastRun": {
-              "id": 37839218718,
+              "id": 39751797107,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "8683328fd129c857711ed3794f09b1762eae4ce2",
-              "createdAt": "2026-10-08T20:24:32Z",
-              "updatedAt": "2026-10-08T20:25:13Z",
-              "url": "https://github.com/Significant-Hobbies/ios-landings/actions/runs/37839218718"
+              "headSha": "64aee3eca3a1e85feb3b53baeafb627170e32596",
+              "createdAt": "2026-10-22T08:58:25Z",
+              "updatedAt": "2026-10-22T08:59:24Z",
+              "url": "https://github.com/sass-maker/ui-library/actions/runs/39751797107"
             },
             "ageDays": 0
           },
@@ -9785,17 +9785,63 @@
             "health": "healthy",
             "reason": "current main push concluded success",
             "lastRun": {
-              "id": 37839218718,
+              "id": 39751797107,
               "status": "completed",
               "conclusion": "success",
               "event": "push",
               "branch": "main",
-              "headSha": "8683328fd129c857711ed3794f09b1762eae4ce2",
-              "createdAt": "2026-10-08T20:24:32Z",
-              "updatedAt": "2026-10-08T20:25:13Z",
-              "url": "https://github.com/Significant-Hobbies/ios-landings/actions/runs/37839218718"
+              "headSha": "64aee3eca3a1e85feb3b53baeafb627170e32596",
+              "createdAt": "2026-10-22T08:58:25Z",
+              "updatedAt": "2026-10-22T08:59:24Z",
+              "url": "https://github.com/sass-maker/ui-library/actions/runs/39751797107"
             },
             "ageDays": 0
+          },
+          "attention": "clear"
+        },
+        {
+          "name": "Native compact button",
+          "file": ".github/workflows/native-button.yml",
+          "triggers": [
+            "pull_request",
+            "workflow_dispatch"
+          ],
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "active",
+            "reason": "Retained landing factory runs inside UI Library; verify its operational CI without an independent product roadmap."
+          },
+          "live": {
+            "health": "healthy",
+            "reason": "latest run concluded success",
+            "apiState": "active",
+            "lastRun": {
+              "id": 38427160376,
+              "status": "completed",
+              "conclusion": "success",
+              "event": "pull_request",
+              "branch": "fix/13-native-compact-button",
+              "headSha": "56ec0529cd52503df35fc2b781e91a28e3a1fd5d",
+              "createdAt": "2026-10-13T16:02:11Z",
+              "updatedAt": "2026-10-13T16:03:27Z",
+              "url": "https://github.com/sass-maker/ui-library/actions/runs/38427160376"
+            },
+            "ageDays": 8
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "not-applicable",
+            "reason": "workflow has no push trigger",
+            "lastRun": null
           },
           "attention": "clear"
         }
@@ -9804,60 +9850,64 @@
         {
           "name": "Astro",
           "evidence": [
-            "astro.config.mjs"
+            "archives/ios-landings/astro.config.mjs",
+            "site/astro.config.mjs"
           ]
         },
         {
           "name": "Cloudflare Wrangler",
           "evidence": [
-            "sites/daddyrad/wrangler.jsonc",
-            "wrangler.jsonc"
+            "archives/ios-landings/sites/daddyrad/wrangler.jsonc",
+            "archives/ios-landings/wrangler.jsonc"
           ]
         },
         {
           "name": "pnpm",
           "evidence": [
+            "archives/ios-landings/pnpm-lock.yaml",
             "pnpm-lock.yaml"
+          ]
+        },
+        {
+          "name": "Swift Package Manager",
+          "evidence": [
+            "Package.swift"
           ]
         }
       ],
       "packageManager": "pnpm@10.33.2",
       "rootPackageScripts": [
         "build",
-        "build:one",
         "check",
-        "check:one",
-        "check:worker-sites",
-        "deploy",
-        "deploy:anchor",
-        "deploy:daddyrad",
-        "deploy:habits",
-        "deploy:journal",
-        "deploy:kith",
-        "deploy:motion",
-        "deploy:setline",
+        "check:browser",
         "dev",
-        "dev:anchor",
-        "dev:calorie",
-        "dev:habits",
-        "dev:journal",
-        "dev:kith",
-        "dev:motion",
-        "dev:setline",
-        "preview"
+        "footer:build",
+        "landings:build",
+        "landings:check",
+        "landings:check:one",
+        "landings:deploy",
+        "landings:deploy:daddyrad",
+        "landings:dev",
+        "registry:build",
+        "test",
+        "tokens:build",
+        "typecheck"
       ],
       "projectId": "ios-landings",
       "githubActionsMeta": {
-        "repository": "Significant-Hobbies/ios-landings",
+        "repository": "sass-maker/ui-library",
         "defaultBranch": "main",
-        "defaultBranchSha": "8683328fd129c857711ed3794f09b1762eae4ce2",
+        "defaultBranchSha": "64aee3eca3a1e85feb3b53baeafb627170e32596",
         "homepage": null,
         "query": "verified",
         "disposition": {
           "disposition": "active",
-          "reason": "tracked project"
+          "reason": "Retained landing factory runs inside UI Library; verify its operational CI without an independent product roadmap."
         }
-      }
+      },
+      "observedAt": "2026-10-22",
+      "historyObservedAt": "2026-10-22",
+      "githubObservedAt": "2026-10-22T08:59:25.013Z"
     },
     "rolepatch": {
       "source": {
