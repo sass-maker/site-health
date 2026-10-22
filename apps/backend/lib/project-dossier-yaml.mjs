@@ -377,7 +377,7 @@ export function buildProjectDossier({
       aliases: project.aliases ?? [],
       family: project.family,
       category: project.category ?? null,
-      purposeCategory: project.portfolio?.purposeCategory ?? null,
+      purposeCategories: project.portfolio?.purposeCategories ?? [],
       audience: project.audience ?? null,
       personalUse: project.personalUse ?? null,
       moneyOrPersonalBrand: project.moneyOrPersonalBrand ?? null,
