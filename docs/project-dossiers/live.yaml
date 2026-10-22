@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 356b137c66b8513c270e666f969187eff9f48a6042e13776315877458410558e
-      infrastructureUpdatedAt: 2026-10-06
+      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
+      infrastructureUpdatedAt: 2026-10-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Live
@@ -501,15 +501,15 @@ deployment:
         method: open-next-wrangler
         state: live
         verification:
-          observedAt: 2026-10-05T19:14:11.51315Z
-          sourceCommit: 1bf80b0c56fbd5717ce8bc125b347526b82b672c
-          versionId: c968274f-feba-4176-af93-abc90da72ba2
-          deploymentId: 4e91376a-0aa3-4745-8e91-c77ded2df46b
+          observedAt: 2026-10-22T12:05:12.723Z
+          sourceCommit: b9fdac4715bf337d629a09d6ec4458a1406b62d5
+          deploymentId: bfb8c1d9-b444-4a10-8d60-a2c15019fc1a
+          versionId: cfc7890d-7c02-404f-8d0d-c606f8e55679
           trafficPercent: 100
-          evidencePath: live/.fleet-local/footer180-current-C-prep-20261005/post-deploy-provider-public.json
-          scope: Live public footer and unchanged app continuity; no account/email/cron/data writes
+          deploymentUrl: https://live.significanthobbies.com
+          scope: Owner-approved loading and recovery fix
           state: success-production-verified
-          evidence: Exact source/current owning CI, existing publisher/provider and anonymous bytes plus root actual runtime/render proof. Numeric slop scanner remains unknown.
+          evidence: Owner-approved manual GitHub Actions deploy 39774598027 succeeded after six deploy gates and exact-main CI. Independent Wrangler deployment/version readback confirms the full SHA tag at 100% traffic from 2026-10-22T12:00:54.274976Z. Deployed compiled assets passed pending, empty, populated, failed-read, reload recovery and retained-record revisit at 390/768/1440; no overflow, observed CLS zero. Synthetic browser-local fixtures only. Strict cold-navigation 300ms target remains unmet.
         verificationHistory:
           - observedAt: 2026-10-02T11:15:46.001369Z
             deploymentId: 0e092878-6a8f-4e69-b6f3-ecc2d210aa07
@@ -522,7 +522,16 @@ deployment:
               - name: FREE_AI
                 service: free-ai-gateway
                 entrypoint: FleetGateway
-        versionId: c968274f-feba-4176-af93-abc90da72ba2
+          - observedAt: 2026-10-05T19:14:11.51315Z
+            sourceCommit: 1bf80b0c56fbd5717ce8bc125b347526b82b672c
+            versionId: c968274f-feba-4176-af93-abc90da72ba2
+            deploymentId: 4e91376a-0aa3-4745-8e91-c77ded2df46b
+            trafficPercent: 100
+            evidencePath: live/.fleet-local/footer180-current-C-prep-20261005/post-deploy-provider-public.json
+            scope: Live public footer and unchanged app continuity; no account/email/cron/data writes
+            state: success-production-verified
+            evidence: Exact source/current owning CI, existing publisher/provider and anonymous bytes plus root actual runtime/render proof. Numeric slop scanner remains unknown.
+        versionId: cfc7890d-7c02-404f-8d0d-c606f8e55679
     resources:
       - provider: cloudflare
         kind: d1

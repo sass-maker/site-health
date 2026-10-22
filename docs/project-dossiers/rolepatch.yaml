@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 356b137c66b8513c270e666f969187eff9f48a6042e13776315877458410558e
-      infrastructureUpdatedAt: 2026-10-02
+      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
+      infrastructureUpdatedAt: 2026-10-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: RolePatch
@@ -352,18 +352,29 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-02T14:08:04Z
-          deploymentId: b2ef5475-1680-43cb-a0ca-6bb0590fb39f
-          versionId: ae147357-27a3-460a-8fb8-2ea48cfb13aa
-          sourceCommit: e44d5e00b7b875e4ed6085fc2726aca677e949a3
+          observedAt: 2026-10-22T12:08:22.249Z
+          sourceCommit: 7ff25c036c867b1b1e0d35c240fe1ecc716aac33
+          deploymentId: ee3e8569-8c68-4e2b-bacc-caa8591541de
+          versionId: 2c8513b6-22f3-468a-8dd0-ed2b6a651faf
           trafficPercent: 100
+          deploymentUrl: https://rolepatch.com
+          scope: Owner-approved loading and recovery fix
           state: success-production-verified
-          evidence: "RolePatch issue #78, PR #79. Exact-main CI 37016649132 and Docs 37016649121 passed; all six Fleet gates passed before production dispatch 37017144734, whose production smoke passed. Provider active version full-SHA tag matches the release at 100% traffic. Canonical pricing/tools each transition MISS to HIT with revalidating client policy; all 15/14 referenced scripts return 200 with JavaScript MIME types. Synthetic RSC, prefetch, authorization and session-cookie probes bypass the document cache; RSC returns framework 307, not cached HTML. Concrete docs home example returns 200 JSON. Full local quality passes 501 tests; standalone release verification stops at jobs without a D1 binding, not a deployed Workers failure. Real signed-in sessions and Ahrefs recrawl remain unqualified. Browser Clarity tag loads, but a separate legacy Web Vitals collector returns 404."
-          evidencePath: ../site-health/docs/ahrefs-email-triage-2026-10-02.md
-          serviceBindings:
-            - name: FREE_AI
-              service: free-ai-gateway
-              entrypoint: FleetGateway
+          evidence: Owner-approved manual GitHub Actions deploy 39774606627 succeeded after six deploy gates and exact-main CI. Independent Wrangler deployment/version readback confirms the full SHA tag at 100% traffic from 2026-10-22T12:00:40.528636Z. Deployed compiled assets passed nine pending-to-ready empty/populated/complete-resume transitions and three failed-read to in-page retry to retained-job checks at 390/768/1440 under Slow4G and CPU4; no overflow, observed CLS zero against the unchanged 0.05 target. Synthetic guest browser-local fixtures only; private account sync and broader route/performance acceptance remain unqualified.
+        verificationHistory:
+          - observedAt: 2026-10-02T14:08:04Z
+            deploymentId: b2ef5475-1680-43cb-a0ca-6bb0590fb39f
+            versionId: ae147357-27a3-460a-8fb8-2ea48cfb13aa
+            sourceCommit: e44d5e00b7b875e4ed6085fc2726aca677e949a3
+            trafficPercent: 100
+            state: success-production-verified
+            evidence: "RolePatch issue #78, PR #79. Exact-main CI 37016649132 and Docs 37016649121 passed; all six Fleet gates passed before production dispatch 37017144734, whose production smoke passed. Provider active version full-SHA tag matches the release at 100% traffic. Canonical pricing/tools each transition MISS to HIT with revalidating client policy; all 15/14 referenced scripts return 200 with JavaScript MIME types. Synthetic RSC, prefetch, authorization and session-cookie probes bypass the document cache; RSC returns framework 307, not cached HTML. Concrete docs home example returns 200 JSON. Full local quality passes 501 tests; standalone release verification stops at jobs without a D1 binding, not a deployed Workers failure. Real signed-in sessions and Ahrefs recrawl remain unqualified. Browser Clarity tag loads, but a separate legacy Web Vitals collector returns 404."
+            evidencePath: ../site-health/docs/ahrefs-email-triage-2026-10-02.md
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+        versionId: 2c8513b6-22f3-468a-8dd0-ed2b6a651faf
     resources:
       - provider: cloudflare
         kind: d1
