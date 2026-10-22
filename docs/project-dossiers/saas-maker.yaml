@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ea0a3aa5182e5c6d0d58ed99708ee07761325b07de8c51a4eafe034636199ff5
-      infrastructureUpdatedAt: 2026-10-16
+      sha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
+      infrastructureUpdatedAt: 2026-10-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SaaS Maker
@@ -766,22 +766,75 @@ deployment:
         name: saasmaker-api
         method: wrangler-direct
         state: live
-        verificationHistory: []
+        verificationHistory:
+          - observedAt: 2026-10-16T12:37:33.351678+00:00
+            createdOn: 2026-10-03T17:21:20.927726Z
+            deploymentId: 46f5a50c-c634-47a2-bfb0-4ff74d715497
+            versionId: 8ae66d45-2c33-4b13-84a4-1a487cc9297a
+            sourceCommit: 81747a8e18a6dbc03d66e033889d38006df3b7d6
+            trafficPercent: 100
+            state: provider-identity-verified
+            scope: Read-only current API identity and traffic; capture source-label release not deployed.
+            evidencePath: .fleet-local/capture-qualification-167-20261016/current-release-rollback.json
+          - observedAt: 2026-10-22T14:56:11.502537+00:00
+            createdOn: 2026-10-22T14:55:34.493615Z
+            deploymentId: d6d9f7a5-ba7c-48a5-be60-66a17876bb44
+            versionId: a2e49fd4-fb51-43be-9e8a-bc93a0a6b24a
+            sourceCommit: bfdc9f9934bdd2674e9702873f85281149c3f53d
+            trafficPercent: 100
+            state: success-production-verified
+            scope: Hono/tooling update and capture labels; 32-product bounded synthetic capture acceptance
+            evidence: "Merged PRs #280 and #281. Exact-main CI 39797530714 and Tooling CI 39797530840 passed; six deploy gates and required binding-name presence passed. Published using the managed final-main checkout with the full SHA tag. Independent latest-by-created-time deployment/version reads confirm this source at 100%. All 11 production smoke checks pass. No authentication policy, schema, data migration or provider configuration change. All 68 API tests, typecheck, frozen install, dry-run bundle and scoped dependency audit pass with no API advisories. All 32 maintained newsletter-applicable non-MemeLab identities from the frozen original 55 cohort pass bounded tagged public-API QA: consent rejection, one durable newsletter row after duplicate normalized input, one feedback submission, valid stored v1 consent and unsubscribe. Independent read-only D1 aggregates confirm one append-only newsletter receipt and one feedback receipt per project, with zero active QA subscriptions and zero rows written by verification queries. Normal owner API reads match all 64 source-tagged log ids to 64 in-app feed entries, with no duplicate event groups or unexpected log prop keys. Feedback was submitted once per project; repeated feedback POST idempotency is not certified. This is synthetic QA, not organic demand or a positive browser-submit matrix on all sites. No current waitlists apply; Meme Lab remains separate. The completed India-day October22 report is ineligible until 2026-10-22T18:30:00Z; full-day visitor continuity and final report acceptance remain open."
+            evidencePath: /tmp/fleet-saasmaker-api-production-final-20261022.json
+            captureEvidencePaths:
+              - /tmp/fleet-capture-positive-results-20261022.json
+              - /tmp/fleet-capture-durable-32-unsubscribed-20261022.json
+              - /tmp/fleet-capture-alert-summary-20261022.json
         verification:
-          observedAt: 2026-10-16T12:37:33.351678+00:00
-          createdOn: 2026-10-03T17:21:20.927726Z
-          deploymentId: 46f5a50c-c634-47a2-bfb0-4ff74d715497
-          versionId: 8ae66d45-2c33-4b13-84a4-1a487cc9297a
-          sourceCommit: 81747a8e18a6dbc03d66e033889d38006df3b7d6
+          observedAt: 2026-10-22T15:40:55.354036+00:00
+          createdOn: 2026-10-22T15:40:21.998747Z
+          deploymentId: a1832efe-5ae7-443a-aa93-21a55719a6d2
+          versionId: 2a3737c8-1e78-4a9e-9047-c798a539141e
+          sourceCommit: 8ff6168b58825ff6c6ebd234cc9200e2960c63fc
           trafficPercent: 100
-          state: provider-identity-verified
-          scope: Read-only current API identity and traffic; capture source-label release not deployed.
-          evidencePath: .fleet-local/capture-qualification-167-20261016/current-release-rollback.json
+          state: success-production-verified
+          scope: Hono/tooling and bounded capture labels; ISO feedback-date correction; 36-product synthetic capture proof
+          evidence: "Merged PRs #280/#281/#282. Exact-main push CI 39804454645 and Tooling CI 39804454608 passed; six deploy gates, required binding-name presence and all 11 production smoke checks passed. Independent latest-by-created-time deployment/version reads confirm the full source SHA at 100%. API-only date fix preserves cockpit at its separately qualified bfdc9f99 release: its source/dependency inputs did not change. All 72 API tests pass, including four real-SQLite date regressions (three fail before the fix), with typecheck and zero scoped API dependency advisories. No auth policy, schema, migration or provider configuration change. Original owner ISO since queries now return all 36 strictly source/email/title matched QA feedback records; each is owner-read back as recoverably dismissed. Tagged public-API acceptance covers 32 maintained newsletter-applicable non-MemeLab products in the frozen original55 cohort and four maintained newsletter-N/A feedback-only identities. Independent read-only D1 aggregates confirm 32 consented newsletter rows, 36 feedback rows, 68 append-only receipts and zero active QA subscriptions; verification writes zero rows. Owner event logs match all 68 unique receipt log ids to in-app alerts across bounded feed snapshots, with no duplicate event groups or unexpected log prop keys. Newsletter normalized duplicate input creates one row/receipt/alert; feedback was submitted once per product, so repeated feedback POST idempotency is not certified. Four feedback-only backend controls do not establish product UI applicability. This is synthetic QA, not organic demand or a positive browser-submit matrix on all sites. Meme Lab remains separate. October22 completed India-day reporting is ineligible until 2026-10-22T18:30:00Z; full-day visitor continuity and parent acceptance remain open."
+          evidencePath: /tmp/fleet-saasmaker-api-date-production-final-20261022.json
+          captureEvidencePaths:
+            - /tmp/fleet-capture-positive-results-20261022.json
+            - /tmp/fleet-capture-durable-32-unsubscribed-20261022.json
+            - /tmp/fleet-capture-feedback-only-results-20261022.json
+            - /tmp/fleet-capture-feedback-only-durable-20261022.json
+            - /tmp/fleet-capture-alert-summary-20261022.json
+            - /tmp/fleet-capture-feedback-dismiss-final-20261022.json
       - provider: cloudflare
         kind: worker
         name: saasmaker-dashboard
         method: open-next-wrangler
         state: live
+        verificationHistory:
+          - observedAt: 2026-10-22T14:38:21.165082+00:00
+            createdOn: 2026-10-22T13:16:59.752253Z
+            deploymentId: 3608c41e-8ee1-4943-a036-1dd25dbd5a8e
+            versionId: 082373a0-d07b-4498-9387-2b9d20fe3baa
+            sourceCommit: e5b876991f6b84de87de27f279736f25ea79cb10
+            trafficPercent: 100
+            state: provider-identity-verified
+            scope: Read-only pre-release rollback observation; publisher attribution unknown.
+        verification:
+          observedAt: 2026-10-22T14:54:11.820124+00:00
+          createdOn: 2026-10-22T14:53:19.3021Z
+          deploymentId: f38aec4b-be21-427d-b674-da2501adf7b2
+          versionId: 22f7dab9-0109-4dce-bfbb-9e927626761c
+          sourceCommit: bfdc9f9934bdd2674e9702873f85281149c3f53d
+          trafficPercent: 100
+          state: success-production-verified
+          scope: Next/OpenNext security update; actual owner loading and retained navigation
+          evidence: "Merged PRs #280 and #281. Exact-main CI 39797530714 and Tooling CI 39797530840 passed; six deploy gates and required binding-name presence passed. Published using the managed final-main checkout with the full SHA tag. Independent latest-by-created-time deployment/version reads confirm this source at 100%. All 11 production smoke checks pass. No authentication policy, schema, data migration or provider configuration change. Final Cloudflare bundle/cache population passes. At 14:57:06–14:57:20 UTC a normal owner session at 390/768/1440 showed shaped loading then 13 feedback rows, a legitimate empty Subscribers view, and retained feedback on revisit. No document overflow; the tablet table uses its intended internal scroll. All 27 browser-loaded JS/CSS hashes exactly match the final compiled build (BUILD_ID mBt5j_KgGajDa9K4WZ8iQ). No request interception, live failure injection, cookie extraction or data write. Previous local recovery fixtures are separate evidence; strict 300ms, new live CLS and full authentication qualification are not certified."
+          evidencePath: /tmp/fleet-saasmaker-dashboard-production-final-20261022.json
+          journeyEvidencePath: /tmp/fleet-design-seo-geo-20261022/client-loading-next/cockpit-production-verification.md
+          assetEvidencePath: /tmp/fleet-design-seo-geo-20261022/client-loading-next/cockpit-production-assets.json
     resources:
       - provider: cloudflare
         kind: zone
