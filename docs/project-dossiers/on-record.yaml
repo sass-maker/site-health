@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 062e6a313a801f6d84a39ec25088373437191fb3cfb2b5662104a1e0c0061b05
+      sha256: 8dc4d2338446e55a8deb2e6d915e02c3ea29f6ea5042be88a7cd9d85fe32449f
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 008da1b302bbb5cef449e56460e20b5510951c807f0cb7002fd296418c94b0f6
+      sha256: d5d69f11c1758e1f0c0d441093dcaec70386b28feb4690d41d902c503967e418
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -67,28 +67,29 @@ ownerVoice:
   fullReviewVerbatim: "For the podcast, on record, the reason I'm building it is because a lot of people want to take insights from podcasts. I recently saw an application which was using podcasts to generate booker commendation from top-level people. I thought maybe I could generate a lot more insights that way. I can choose better podcasts to read, listen to, or just not have to listen to podcasts at all and get the relevant content easily. I can also track the latest signals coming from the latest tech podcasts and latest books from top people: what books are most common and other similar stuff."
   relatedHistoricalReviews: []
 decision:
-  classification: Active source/API
+  classification: Inactive / TechData source component
   whySummary: Index evidenced podcast claims with attribution and episode links.
-  currentState: Maintained podcast API and ingestion service; TechData consumes it through a read adapter.
-  nextDecision: Keep the bounded source/API role; this project was not among the four standalone identities removed from active Fleet.
+  currentState: Owner consolidated its Fleet identity into TechData on 2026-10-22. Claims, episodes and people are already served through TechData's read adapter; source ingestion, API and existing site remain operational.
+  nextDecision: Use the TechData roadmap; retain collection-specific source services and data. Source migration, redirects and provider retirement remain separate work.
 identity:
   name: High Signal Podcasts
   publicName: High Signal Podcasts
   aliases: []
   family: high-signal
   category: media
+  purposeCategory: null
   audience: public
   personalUse: false
   moneyOrPersonalBrand: true
   unmetNeed: false
   kind: product
-  priority: P2
-  tier: secondary
+  priority: P4
+  tier: out-of-fleet
   attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
+    status: inactive
+    resumeCondition: Resume as a standalone active project only after a new owner decision; maintain the Podcast source component under TechData.
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
@@ -391,12 +392,12 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: hidden
   maturity: experiment
   ready: true
   verifiedAt: 2026-09-07
   reason: Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed.
-  changelogUrl: https://podcasts.highsignal.app/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/on-record/issues
   geoIdentity:
     id: on-record
@@ -420,5 +421,7 @@ sharing:
       state: published
       url: https://podcasts.highsignal.app/pricing
 notes:
-  catalog: High Signal sub-product (own layout). Live at podcasts.highsignal.app; API at api.podcasts.highsignal.app. Workers on-record-api and high-signal-podcasts. D1 on-record-db, R2 on-record-raw. Source https://github.com/Significant-Hobbies/on-record.
+  catalog: |-
+    High Signal sub-product (own layout). Live at podcasts.highsignal.app; API at api.podcasts.highsignal.app. Workers on-record-api and high-signal-podcasts. D1 on-record-db, R2 on-record-raw. Source https://github.com/Significant-Hobbies/on-record.
+    2026-10-22: Owner consolidated the remaining High Signal Podcasts Fleet identity into TechData. TechData already serves Podcast claims, episodes and people through its read adapter; live stats matched the source API during this review. Retain the on-record repository, checkout, ingestion, API, website and data as source components under the TechData roadmap. No source move, redirect, deployment or provider retirement was performed.
   infrastructure: API-only deployment34348609233 released 46badc63151dd30a7bd95914763cf493a653023c after exact CI34348449974 and six deployment gates passed. Worker version 6ac7d86c-e48f-4dad-986b-c3c5455afc27 / deployment eb87f76e-e2fc-4269-a644-2b3c2f204736 verified at 100% on 2026-09-09. Web unchanged; no migration. Twelve paired stats responses preserved all counts. Issue24 remains open for production D1 row-read evidence; source and live receipts are in on-record/docs/operations/stats-performance-2026-09-09.md. Repository icon release 3e63f77c0fc0a5215063f75bf723d000aad17ee4 verified on existing high-signal-podcasts deployment 5fd158b1-b07f-4f1b-b061-08b1ab4f36a6. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px.

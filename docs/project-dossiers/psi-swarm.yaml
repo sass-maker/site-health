@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 062e6a313a801f6d84a39ec25088373437191fb3cfb2b5662104a1e0c0061b05
+      sha256: 8dc4d2338446e55a8deb2e6d915e02c3ea29f6ea5042be88a7cd9d85fe32449f
       infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 008da1b302bbb5cef449e56460e20b5510951c807f0cb7002fd296418c94b0f6
+      sha256: d5d69f11c1758e1f0c0d441093dcaec70386b28feb4690d41d902c503967e418
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -77,6 +77,7 @@ identity:
   aliases: []
   family: psi-swarm
   category: utility
+  purposeCategory: null
   audience: internal
   personalUse: true
   moneyOrPersonalBrand: false
