@@ -17,13 +17,66 @@ open issues. Those belong in the canonical catalog, each project's
 > catalog. The decision content below is preserved; only the classification
 > labels have been remapped.
 
-The owner's primary purpose categories are **attention/money grabber**,
-**learn/skill showoff**, and **personal use** (2026-10-22). Every primary/active
-application has one `classification.purposeCategory` in the canonical catalog;
-personal use includes private Fleet infrastructure. The current 40 identities
-comprise 9 attention/money, 6 learning/showoff and 25 personal-use applications.
-Descriptive topic categories (`utility`, `media`, `experimental`) and lifecycle
-remain separate metadata. See [topic categories](project-categories-2026-09-07.md).
+The owner's purpose categories are **attention/money grabber**,
+**learn/skill showoff**, and **personal use** (2026-10-22). They overlap:
+`classification.purposeCategories` is an array, not a primary-category choice.
+There are **40 unique primary/active applications**, with **13 attention/money**,
+**7 learning/showoff**, and **36 personal-use** memberships.
+
+CodeVetter's three tags and the attention/money-only tags for Every Song Is a
+Website and Web Playables are explicit owner directions. The other assignments
+below are the current assessment from recorded owner intent and catalog purpose,
+ready for this portfolio re-discussion. They describe intended value, not proven
+revenue or current usage. Public availability is insufficient evidence of a
+money motive; implementation complexity is insufficient evidence of a learning
+motive. Personal use includes private infrastructure.
+
+Purpose does not grant development priority or change lifecycle. Useful finished
+tools can remain supported without becoming active feature bets. Descriptive
+topic categories remain separate: see [topic categories](project-categories-2026-09-07.md).
+
+| Application | Purposes | Reason |
+| --- | --- | --- |
+| CodeVetter | Attention / money, Learn / show skills, Personal use | Owner explicitly confirmed all three purposes. |
+| HeyPace | Personal use | Private Mac assistant for your own workflow. |
+| PostTrainLLM | Attention / money, Learn / show skills, Personal use | Flagship local-model product, sustained training experiments and useful specialist models. |
+| Site Health | Personal use | Private portfolio operations. |
+| Live | Personal use | Your own goals and bucket list. |
+| ChatGPT Connections | Personal use | Private selective access to your tools and data. |
+| SaaS Maker | Attention / money, Personal use | Public Fleet presence plus the shared packages and tooling used to run it. |
+| Fleet Social | Personal use | Private Fleet publishing workflow. |
+| Memory Map | Learn / show skills, Personal use | Explore what your own conversation exports reveal; keep the analysis local. |
+| Free AI | Personal use | Shared gateway for your own applications. |
+| High Signal | Attention / money, Personal use | A public source-backed brief that is also useful for your own decisions. |
+| Knowledge Base | Personal use | Private cited retrieval for your own applications. |
+| Significant Hobbies | Personal use | Shared home and services for your personal apps. |
+| Anime List | Personal use | Your own discovery and watchlist; broader community features are unwanted. |
+| LoopTV | Personal use | Your controlled YouTube viewing experience; finished does not mean learning/showoff. |
+| Reader | Personal use | Intended personal reading workflow; current regular use is not established. |
+| SWE Interview Prep | Learn / show skills, Personal use | Your own learning-by-doing and interview practice. |
+| Calorie | Personal use | Your own food logging and health routine. |
+| Setline | Personal use | Your own workout planning and logging. |
+| Kith | Personal use | Your own relationship memory. |
+| iOS landings | Personal use | Shared landing factory supporting your native apps. |
+| RolePatch | Personal use | Intended resume tailoring for your own applications; current regular use is not established. |
+| Karte | Attention / money, Personal use | Public personal/company presence and an assistant for your own inbound use. |
+| Starboard | Personal use | Find useful repositories in your own GitHub stars; public access alone is not a money motive. |
+| AliveVille | Learn / show skills | A technically ambitious persistent-agent world experiment; regular personal use is unproven. |
+| App Health | Attention / money, Personal use | A public observability product that replaces fragmented tools across your own apps. |
+| Web Playables | Attention / money | Owner explicitly specified attention/money only. |
+| Paths | Attention / money, Learn / show skills, Personal use | Public essays, research into success and a personal response to comparison. |
+| Sarthak Agrawal | Attention / money, Learn / show skills | Public reputation and demonstration of your work. |
+| Anchor | Personal use | Your own day planning, focus and review. |
+| storagedaddy | Personal use | Solve your own Mac storage cleanup need. |
+| BrowserDaddy | Personal use | Your own local browsing archive. |
+| PerformanceDaddy | Personal use | Investigate slowdowns on your own Mac. |
+| Unified Portfolio | Personal use | Your own investment dashboard. |
+| Meme Lab | Attention / money, Personal use | Personal meme playground plus the owner-approved consumer monetization pilot. |
+| Formula Composition Engine | Attention / money, Personal use | Your own formula workflow and a product explicitly intended to share with others. |
+| Every Song Is a Website | Attention / money | Owner explicitly specified attention/money only. |
+| ContextDaddy | Personal use | Inspect and debug your local coding-agent workflow. |
+| Agent Inbox | Personal use | Your own local coding-agent inbox. |
+| techdata | Attention / money, Personal use | One public data workbench for the collections you also explore yourself. |
 
 ## Portfolio summary
 

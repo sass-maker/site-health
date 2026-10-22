@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8dc4d2338446e55a8deb2e6d915e02c3ea29f6ea5042be88a7cd9d85fe32449f
+      sha256: e8da11fa970545c7bff69c2cb0524f1908370874c522a991e742aec6ebb63505
       infrastructureUpdatedAt: 2026-10-01
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-01
       reviewSha256: 2687f86ed6784b8a5fca36e6c468e12aa44dc3c7e8137e3160d1a95079bdcd02
-      documentSha256: 8dc4d2338446e55a8deb2e6d915e02c3ea29f6ea5042be88a7cd9d85fe32449f
+      documentSha256: e8da11fa970545c7bff69c2cb0524f1908370874c522a991e742aec6ebb63505
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: d5d69f11c1758e1f0c0d441093dcaec70386b28feb4690d41d902c503967e418
+      sha256: b3c615cb5225ada3293066edb114021562e1645b87996d6ea55a9025dae8f9b1
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -75,7 +75,7 @@ identity:
   aliases: []
   family: digital-life
   category: research
-  purposeCategory: null
+  purposeCategories: []
   audience: internal
   personalUse: true
   moneyOrPersonalBrand: false

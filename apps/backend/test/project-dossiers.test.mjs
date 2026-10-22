@@ -135,7 +135,14 @@ test('current intent and operations snapshots cover every canonical project', ()
 test('project YAML starts with verification and preserves verbatim owner voice', () => {
   const { intents } = parsePortfolioIntents(intentMarkdown, catalog.projects);
   const ownerSources = parseOwnerNarratives(ownerNarrativesMarkdown, catalog.projects);
-  const project = catalog.projects.find((entry) => entry.id === 'anchor');
+  const sourceProject = catalog.projects.find((entry) => entry.id === 'anchor');
+  const project = {
+    ...sourceProject,
+    portfolio: {
+      ...sourceProject.portfolio,
+      purposeCategories: ['attention-money-grabber', 'learn-skill-showoff', 'personal-use'],
+    },
+  };
   const dossier = buildProjectDossier({
     catalog,
     operations,
@@ -154,6 +161,8 @@ test('project YAML starts with verification and preserves verbatim owner voice',
   const parsed = validateProjectDossierYaml(rendered, 'anchor');
 
   assert.match(rendered, /^schemaVersion: 1\nprojectId: anchor\nverification:\n/);
+  assert.deepEqual(parsed.identity.purposeCategories, project.portfolio.purposeCategories);
+  assert.equal(Object.hasOwn(parsed.identity, 'purposeCategory'), false);
   assert.match(parsed.ownerVoice.whyVerbatim, /The purpose of anchor/);
   assert.match(parsed.product.publicMakerNote, /\b(?:I|me|my)\b/);
   assert.equal(parsed.product.purposeContract.purpose.length > 0, true);
