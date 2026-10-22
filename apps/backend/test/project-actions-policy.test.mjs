@@ -14,7 +14,7 @@ for (const [projectId, expectedDisposition, expectedAttention, expectedReason] o
   ['research-papers', 'ignored', 'ignored', /Retained TechData source component/],
   ['reddit-insights', 'ignored', 'ignored', /Retained TechData source component/],
   ['shoulders', 'ignored', 'ignored', /inactive.*CI\/deploy workflows remain/],
-  ['on-record', 'active', 'action-required'],
+  ['on-record', 'ignored', 'ignored', /Retained TechData Podcast source component/],
   ['active-control', 'active', 'action-required'],
 ]) {
   test(`${projectId} attention follows policy without hiding workflow failures`, async () => {
