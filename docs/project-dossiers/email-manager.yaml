@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fb175c8c8a63aea72c05d00bb8ad67ab054ab4c1a198860885735d0615b068d9
+      sha256: 6b43f1db3ad72f8ded35be4ace531ea4b8455c5637b350b1f8fa140d60344f02
       infrastructureUpdatedAt: 2026-09-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -126,7 +126,7 @@ repository:
   githubHomepageUrl: https://mail.significanthobbies.com
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/email-manager
+  url: https://github.com/sarthakagrawal927/email-manager
   aliases: []
   sourceOverride: null
   tooling:
@@ -356,7 +356,7 @@ sharing:
   verifiedAt: 2026-09-11
   reason: "September 11 ordinary existing-account Google OAuth completed with the requested gmail.readonly and identity scopes. 500 messages cached and indexed to 100%; sender search returned 25 results and a generic semantic query returned 50. After reload the mailbox remained connected and indexed, and the same query returned 50 results. No email write actions or message contents retained. Personal use is qualified; broad public sharing remains false. Account switching and a forced expired-token refresh were not separately exercised. Existing historical broader permissions were displayed as already granted; the current request was Gmail read-only plus identity. Receipt: docs/qualification/kinetic-owner-core-2026-09-11.json."
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/email-manager/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/email-manager/issues
   geoIdentity:
     id: email-manager
     name: Kinetic
@@ -366,12 +366,12 @@ sharing:
     origin: https://mail.significanthobbies.com
     source:
       state: public
-      url: https://github.com/Significant-Hobbies/email-manager
+      url: https://github.com/sarthakagrawal927/email-manager
     docs:
       state: repository-readme
       url: https://github.com/Significant-Hobbies/email-manager#readme
     officialProfiles:
-      - https://github.com/Significant-Hobbies/email-manager
+      - https://github.com/sarthakagrawal927/email-manager
     availability:
       primary: web
       appStore: not-applicable

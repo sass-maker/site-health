@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fb175c8c8a63aea72c05d00bb8ad67ab054ab4c1a198860885735d0615b068d9
+      sha256: 6b43f1db3ad72f8ded35be4ace531ea4b8455c5637b350b1f8fa140d60344f02
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -124,7 +124,7 @@ repository:
   githubHomepageUrl: https://reddit-insights.highsignal.app
   worktree: *a1
   visibility: public
-  url: https://github.com/High-Signal-App/research-subreddit
+  url: https://github.com/sarthakagrawal927/research-subreddit
   aliases: []
   sourceOverride: null
   tooling:
@@ -244,13 +244,13 @@ deployment:
       kind: pages
       name: reddit-insights
       sourcePath: null
-      repositoryUrl: https://github.com/High-Signal-App/research-subreddit
+      repositoryUrl: https://github.com/sarthakagrawal927/research-subreddit
       repositoryRelativePath: .
     - id: proxy
       kind: worker
       name: reddit-proxy
       sourcePath: null
-      repositoryUrl: https://github.com/High-Signal-App/research-subreddit
+      repositoryUrl: https://github.com/sarthakagrawal927/research-subreddit
       repositoryRelativePath: scripts/reddit-proxy
   cloudflare:
     deployments:
@@ -292,7 +292,7 @@ sharing:
   verifiedAt: 2026-09-07
   reason: Hosted historical source-linked search/navigation and one original-source comparison pass. Incomplete capture provenance and full-corpus fidelity remain explicit; no live-monitoring claim.
   changelogUrl: null
-  roadmapUrl: https://github.com/High-Signal-App/research-subreddit/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/research-subreddit/issues
   geoIdentity:
     id: reddit-insights
     name: Reddit Insights
@@ -302,12 +302,12 @@ sharing:
     origin: https://reddit-insights.highsignal.app
     source:
       state: public
-      url: https://github.com/High-Signal-App/research-subreddit
+      url: https://github.com/sarthakagrawal927/research-subreddit
     docs:
       state: landing-only
       url: https://reddit-insights.highsignal.app
     officialProfiles:
-      - https://github.com/High-Signal-App/research-subreddit
+      - https://github.com/sarthakagrawal927/research-subreddit
     availability:
       primary: web
       appStore: not-applicable
