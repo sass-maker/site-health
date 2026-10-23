@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fb175c8c8a63aea72c05d00bb8ad67ab054ab4c1a198860885735d0615b068d9
+      sha256: 6b43f1db3ad72f8ded35be4ace531ea4b8455c5637b350b1f8fa140d60344f02
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -126,7 +126,7 @@ repository:
   githubHomepageUrl: https://motion.significanthobbies.com
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/motion
+  url: https://github.com/sarthakagrawal927/motion
   aliases: []
   sourceOverride: ios-landings
   tooling:
@@ -269,7 +269,7 @@ sharing:
   verifiedAt: 2026-10-16
   reason: Owner archived Motion; no active qualification or release work.
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/motion/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/motion/issues
   geoIdentity:
     id: motion
     name: Motion
@@ -278,12 +278,12 @@ sharing:
     origin: https://motion.significanthobbies.com
     source:
       state: public
-      url: https://github.com/Significant-Hobbies/motion
+      url: https://github.com/sarthakagrawal927/motion
     docs:
       state: repository-readme
       url: https://github.com/Significant-Hobbies/motion#readme
     officialProfiles:
-      - https://github.com/Significant-Hobbies/motion
+      - https://github.com/sarthakagrawal927/motion
     availability:
       primary: internal-only
       appStore: not-applicable

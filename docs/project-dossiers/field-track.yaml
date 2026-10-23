@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fb175c8c8a63aea72c05d00bb8ad67ab054ab4c1a198860885735d0615b068d9
+      sha256: 6b43f1db3ad72f8ded35be4ace531ea4b8455c5637b350b1f8fa140d60344f02
       infrastructureUpdatedAt: 2026-10-06
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -126,7 +126,7 @@ repository:
   githubHomepageUrl: https://field-track.sassmaker.com
   worktree: *a1
   visibility: public
-  url: https://github.com/sass-maker/field-track
+  url: https://github.com/sarthakagrawal927/field-track
   aliases: []
   sourceOverride: null
   tooling:
@@ -252,7 +252,7 @@ sharing:
   verifiedAt: 2026-09-07
   reason: Demo only; no Android/device/real workforce qualification.
   changelogUrl: null
-  roadmapUrl: https://github.com/sass-maker/field-track/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/field-track/issues
   geoIdentity:
     id: field-track
     name: Field Track
@@ -266,7 +266,7 @@ sharing:
       state: landing-only
       url: https://field-track.sassmaker.com
     officialProfiles:
-      - https://github.com/sass-maker/field-track
+      - https://github.com/sarthakagrawal927/field-track
     availability:
       primary: web
       appStore: not-applicable
