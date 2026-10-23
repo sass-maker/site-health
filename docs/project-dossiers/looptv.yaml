@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
       infrastructureUpdatedAt: 2026-10-09
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -467,9 +467,22 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-09
-          sourceCommit: 976e1e45ebeebd266e2cbd51c29a140f531e0e7a
-          evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time. GitHub Actions deploy run 37887543037.
+          observedAt: 2026-10-23T04:55:27.335888+00:00
+          sourceCommit: 8763a6977ac4685e691fd0e4aeaf75048fd22c95
+          deploymentId: 9dfceaa4-44c6-4ef9-bcb3-15cca8e9c1cc
+          deploymentUrl: https://9dfceaa4.looptv.pages.dev
+          environment: Production
+          branch: main
+          providerSourceAbbreviation: 8763a69
+          exactMainCi: 39894444814
+          deployWorkflow: 39895036233
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/looptv-production-summary.json
+          scope: PR72 patches Base-onlyv0.1.17controller and loads immutable native3f8controller oninteriors; all other template bytes, SSRmarkup/theme retained. RequiredVite/DOMPurify/cache security fixes and27cache regressions;0high/critical7moderate2low. Fullquality, candidate6cases/12renders, exactmainCI/sixgates/publisher pass. Provider Production/mainsource8763a69 matchesfullreleaseSHAworkflow; trafficpercent notinferred. Realhome390/768/1440 retry/news creates3feedback/1subscription/4receipts and4unique matching events/feed;6liveforms reviewed and QAcleanupindependentlystored. Liveinterior/abouthas exact3f8asset200 and3widthClose/retry/reset fixtures/6renders pass withoutrealwrites. No catalog/playback/quotachanges.
+        verificationHistory:
+          - observedAt: 2026-10-09
+            sourceCommit: 976e1e45ebeebd266e2cbd51c29a140f531e0e7a
+            evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time. GitHub Actions deploy run 37887543037.
     resources: []
   otherProviders:
     deployments: []

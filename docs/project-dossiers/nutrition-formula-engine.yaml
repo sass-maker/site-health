@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: a8abb04e76cd5e6f7f3feb386d4b30d465d06fe8d6fea2f253e0bf26ad29d651
-      documentSha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      documentSha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -245,18 +245,19 @@ deployment:
         name: nutrition-formula-engine
         method: wrangler-direct
         state: live
-        versionId: c5784ff1-2dff-49e4-8009-1de927b39b54
+        versionId: 4a2a769f-5742-4373-8ef0-0a04c71023a6
         url: https://formula.significanthobbies.com/
         verification:
-          observedAt: 2026-10-22T19:29:57.553Z
-          createdOn: 2026-10-15T09:08:33.255161Z
-          deploymentId: e146935b-4d01-4ec4-a95a-3839d48e09e8
-          versionId: c5784ff1-2dff-49e4-8009-1de927b39b54
-          sourceCommit: d64d4d94099f0fd0ad101b276a7cc88b2438ca69
+          observedAt: 2026-10-23T03:19:42.946519+00:00
+          sourceCommit: 0bf7f34e5274ad7a6c88012add8cd0476468d9c7
+          deploymentId: c3f4cf8e-82fb-4f30-96a1-6e123ce4cb20
+          versionId: 4a2a769f-5742-4373-8ef0-0a04c71023a6
+          createdOn: 2026-10-23T03:11:56.482492Z
           trafficPercent: 100
-          state: provider-identity-and-current-public-tracker-verified
-          evidencePath: ../app-health/.fleet-local/fleet-closeout-20261023/fleet-formula-provider-20261023.json
-          scope: Read-only Wrangler deployment/version metadata confirms tagged source at100% since October15; normal isolated browser root returns200 and loads persistent first-party tracker for app-ec98e406-d4b2-4c9d-920a-6c9576896fa9 via ingest.sassmaker.com. Current source tracker configuration agrees with deployed root. No Formula deployment, OCR qualification, hidden asset provenance or exact visitor seal performed. October12 version5f354b36 remains genuinely untagged; later source identity does not repair that historical gap.
+          exactMainCi: 39893317134
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/formula-production-summary.json
+          scope: PR28 replaces only native footer source; normal Vite build/publisher retains markup, fonts/art and engine. Vite8.3.5/source-map-js1.2.2 security prerequisites; auditzeroall. Fullweb check,9route-width candidate fixtures/18screens, exactPR/mainCI and sixgates pass. Worker fullSHA100percent provider readback. Real390/768/1440 lost-response retries produce3feedback plus1newsletter subscription,4receipts and4unique matching events/feedentries;6live renders reviewed; QA dismissed/unsubscribed, receipts retained. Compiled footer asset5ac58120… matches build. No OCR/privatefixture/engine or historical visitor-continuity acceptance claimed.
         attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         verificationHistory:
           - observedAt: 2026-09-21
@@ -276,6 +277,15 @@ deployment:
               - D1 migration preserved two formulas, two active ingredient profiles, and all formula versions in the shared public scope
               - canonical and Open Graph URLs use formula.significanthobbies.com
               - active Worker version is tagged with the exact origin/main SHA
+          - observedAt: 2026-10-22T19:29:57.553Z
+            createdOn: 2026-10-15T09:08:33.255161Z
+            deploymentId: e146935b-4d01-4ec4-a95a-3839d48e09e8
+            versionId: c5784ff1-2dff-49e4-8009-1de927b39b54
+            sourceCommit: d64d4d94099f0fd0ad101b276a7cc88b2438ca69
+            trafficPercent: 100
+            state: provider-identity-and-current-public-tracker-verified
+            evidencePath: ../app-health/.fleet-local/fleet-closeout-20261023/fleet-formula-provider-20261023.json
+            scope: Read-only Wrangler deployment/version metadata confirms tagged source at100% since October15; normal isolated browser root returns200 and loads persistent first-party tracker for app-ec98e406-d4b2-4c9d-920a-6c9576896fa9 via ingest.sassmaker.com. Current source tracker configuration agrees with deployed root. No Formula deployment, OCR qualification, hidden asset provenance or exact visitor seal performed. October12 version5f354b36 remains genuinely untagged; later source identity does not repair that historical gap.
     resources:
       - provider: cloudflare
         kind: d1

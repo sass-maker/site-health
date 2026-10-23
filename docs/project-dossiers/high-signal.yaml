@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -1202,17 +1202,18 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-22T21:28:59.057653+00:00
-          createdOn: 2026-10-22T21:28:05.642452Z
-          deploymentId: 46803c58-a85b-4d03-999a-21446094f6b3
-          versionId: 5c1490d9-993b-4db8-84fc-7de09843f78d
-          sourceCommit: 3559990b2f1990ed48d96bae7bc8285df8dae5a0
+          observedAt: 2026-10-23T01:43:45.153915+00:00
+          sourceCommit: 34a1ec6f07e405aa5bbafd59abf5f4cd18b09db0
+          deploymentId: 89cf6ad5-bbc4-41ea-8385-65c3e9112604
+          versionId: e6e9be2c-37a7-40e7-b913-f500079cad14
+          createdOn: 2026-10-23T01:38:14.118667Z
           trafficPercent: 100
-          state: provider-identity-and-reader-fallback-verified
-          exactMainCi: 39855864719
-          deployWorkflow: 39856948791
-          evidencePath: ../high-signal/.fleet-local/issue238-20261023/production-provider.json
-          scope: PR261 patches Next16.4.1 and existing DOMPurify3.4.17; OpenNext1.20.12 fixes the real preview-props manifest500. Exact-main CI, production publisher and compiled reader/fallback/restart gates pass. Public reader metadata identifies this exact source with12964profiles; two diagnostic live Next fallback reads are200, MISS then persisted HIT, with identical body bytes and no reader/outer-cache path. No forced production restart, universal latency or web95% qualification is claimed. The0high/critical dependency claim covers the root pnpm graph, not the separate docs build graph.
+          exactMainCi: 39883396118
+          deployWorkflow: 39884550764
+          assetSha256: 3f8c09772d1262b16689487b3b2366d2f6dda7c487536238fd668c859593b39a
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/highsignal-production-summary.json
+          scope: "PR262 publishes the reviewed footer retry/consent controller in both Next and Astro layouts, with a scoped Send hover foreground fix. Full exact-main CI and existing web publisher pass, including actual reader and persisted-ISR restart gates. Live390/768/1440 lost-response retries produce3feedback records plus1newsletter subscription,4receipts and4unique matching events/feed entries; all QA records cleaned, receipts retained. Six feedback renders reviewed; settled enabled-Send hover contrast12.39:1 at all3widths. Web only: no API/cache policy release or natural traffic95%/latency qualification. Complete final-source24h acceptance cannot end before2026-10-24T01:38:14.118667Z."
         verificationHistory:
           - observedAt: 2026-10-02T09:48:55.244Z
             versionId: c340a1a0-8bba-4e76-bfe9-9da4e6e20f1b
@@ -1230,6 +1231,17 @@ deployment:
             scope: Read-only current production identity and traffic verification; product acceptance remains in the owning open issues.
             evidencePath: ../app-health/.fleet-local/visitor-qualification-20261016/current-release-refresh.json
             evidence: Cloudflare production deployment and version metadata independently read on 2026-10-16; no deployment performed in this verification.
+          - observedAt: 2026-10-22T21:28:59.057653+00:00
+            createdOn: 2026-10-22T21:28:05.642452Z
+            deploymentId: 46803c58-a85b-4d03-999a-21446094f6b3
+            versionId: 5c1490d9-993b-4db8-84fc-7de09843f78d
+            sourceCommit: 3559990b2f1990ed48d96bae7bc8285df8dae5a0
+            trafficPercent: 100
+            state: provider-identity-and-reader-fallback-verified
+            exactMainCi: 39855864719
+            deployWorkflow: 39856948791
+            evidencePath: ../high-signal/.fleet-local/issue238-20261023/production-provider.json
+            scope: PR261 patches Next16.4.1 and existing DOMPurify3.4.17; OpenNext1.20.12 fixes the real preview-props manifest500. Exact-main CI, production publisher and compiled reader/fallback/restart gates pass. Public reader metadata identifies this exact source with12964profiles; two diagnostic live Next fallback reads are200, MISS then persisted HIT, with identical body bytes and no reader/outer-cache path. No forced production restart, universal latency or web95% qualification is claimed. The0high/critical dependency claim covers the root pnpm graph, not the separate docs build graph.
       - provider: cloudflare
         kind: worker
         name: high-signal-api

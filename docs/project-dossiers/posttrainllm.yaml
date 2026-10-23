@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
-      infrastructureUpdatedAt: 2026-09-12
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: PostTrainLLM
@@ -287,10 +287,21 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-11T20:32:35.940Z
-          deploymentId: 32fc1e98-50bc-4650-8ec6-2fde657fa28e
-          sourceCommit: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
-          evidencePath: ../saas-maker/.fleet-local/posttrainllm-repository-icon-release-20260912.json
+          observedAt: 2026-10-23T01:14:27.773400+00:00
+          sourceCommit: c5760bf6f9b082f91787bd25ee56be3ac1f3085b
+          deploymentId: 9b0c48ec-f483-44f1-84e9-ee4ebcbbf630
+          deploymentUrl: https://9b0c48ec.tinygpt.pages.dev
+          exactMainCi: 39880477316
+          deployWorkflow: 39882036025
+          assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+          state: provider-identity-and-footer-retry-verified
+          evidencePath: .fleet-local/feedback-retry-167-20261023/posttrain-production-summary.json
+          scope: PR205 exact shared footer bundle. Full main CI includes Mac tests; all six gates and existing Pages publisher pass. Live390/768/1440 lost-response retry creates3feedback rows from6POSTs; newsletter consent/duplicates create1subscription from3POSTs,4receipts and4matching unique in-app events.6feedback renders reviewed. QA dismissed/unsubscribed; receipts retained. Only browser runtime change from prior live53c2ef5 is footer.js; standard Blume publisher also refreshes docs/attempt-ledger.md. No native app or model binary was released. Synthetic QA is not customer demand or completed-day reporting.
+        verificationHistory:
+          - observedAt: 2026-09-11T20:32:35.940Z
+            deploymentId: 32fc1e98-50bc-4650-8ec6-2fde657fa28e
+            sourceCommit: 70e92ecbc9ab86917ca5022dc2a2a87aa4f5a36a
+            evidencePath: ../saas-maker/.fleet-local/posttrainllm-repository-icon-release-20260912.json
     resources:
       - provider: cloudflare
         kind: zone
