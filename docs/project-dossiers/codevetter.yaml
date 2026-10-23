@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4c0541c3476cad109892b227b5172b89627a2df255c197152cfad8a46a992219
+      sha256: fd66331d577555c7ae152ec3b9f54a88c3c1d5f7354432c07cbda4e5b4292072
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: af220eface4d514016425a923cadb8897ff3c6df28bd003ea9fdc4ca9a51da03
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -108,7 +108,7 @@ product:
     audience: Developers and teams shipping code produced with AI agents.
     outcome: Higher confidence that an agent completed the requested change correctly and safely.
     mechanism: Local-first review combines repository context, executable checks, targeted evaluation, and inspectable verification receipts.
-    proof: "Published macOS 1.16.0 is notarized: its DMG hash matches the release and the bundled app passes strict signature and Gatekeeper checks. An earlier bounded CLI fixture demonstrated real Codex review, pass/fail checks and persisted receipts."
+    proof: "Published macOS 1.16.3 is notarized: all public asset hashes match the release, and its bundled app passes strict signature, Gatekeeper and stapling checks. The corrected coverage collector matches source bytes. An earlier bounded CLI fixture demonstrated real Codex review, pass/fail checks and persisted receipts."
     nextAction: Try the current Mac release on a small local repository. Use the documented manual update path until in-app installation is qualified.
   form: Desktop app
   platforms:
@@ -873,33 +873,56 @@ deployment:
         method: git-connected
         state: live
         verification:
-          observedAt: 2026-10-23T05:33:06.423740+00:00
-          sourceCommit: 3b949ed23e0036567ced65af2e1b97b670a44675
-          deploymentId: 948d1785-0809-431d-a7a6-cb150820fda6
-          deploymentUrl: https://948d1785.codevetter.pages.dev
+          observedAt: 2026-10-23T10:34:43.439211+00:00
+          sourceCommit: c65347e37fb6709db04b3b93b66da1f1bf66095d
+          exactMainCi: 39936142097
+          state: provider-identity-and-1.16.3-download-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/codevetter/artifacts/release-1.16.3-20261023/closeout.json
+          deploymentId: 817cfdc4-221d-4542-84f6-733ab05a9282
+          deploymentUrl: https://817cfdc4.codevetter.pages.dev
           environment: Production
           branch: main
-          providerSourceAbbreviation: 3b949ed
-          exactMainCi: 39903031867
-          state: provider-identity-and-footer-capture-retry-verified
-          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/codevetter-production-summary.json
-          scope: Existing Pages and custom-domain Worker publishers both run from exact-main; static source abbreviation and actual built bytes match. Details in matching Worker verification. Pages traffic percentages not inferred.
+          providerSourceAbbreviation: c65347e
+          scope: Production Pages source abbreviation matches full qualified c65347e source; live three-width download page links to1.16.3. HTML equals compiled output after removing the observed provider Insights insertion; markdown bytes exact. No Pages traffic percentage inferred. Previous footer-capture proof preserved in history.
+        verificationHistory:
+          - observedAt: 2026-10-23T05:33:06.423740+00:00
+            sourceCommit: 3b949ed23e0036567ced65af2e1b97b670a44675
+            deploymentId: 948d1785-0809-431d-a7a6-cb150820fda6
+            deploymentUrl: https://948d1785.codevetter.pages.dev
+            environment: Production
+            branch: main
+            providerSourceAbbreviation: 3b949ed
+            exactMainCi: 39903031867
+            state: provider-identity-and-footer-capture-retry-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/codevetter-production-summary.json
+            scope: Existing Pages and custom-domain Worker publishers both run from exact-main; static source abbreviation and actual built bytes match. Details in matching Worker verification. Pages traffic percentages not inferred.
       - provider: cloudflare
         kind: worker
         name: codevetter-landing-proxy
         method: legacy-worker
         state: live-retained
         verification:
-          observedAt: 2026-10-23T05:33:06.423740+00:00
-          sourceCommit: 3b949ed23e0036567ced65af2e1b97b670a44675
-          deploymentId: 9fdda2d8-6ebd-4a09-8668-0cf62edb32ef
-          versionId: 47af1c74-e20f-4142-a6e8-4bfc676231cd
-          createdOn: 2026-10-23T05:31:58.239419Z
+          observedAt: 2026-10-23T10:34:43.439211+00:00
+          sourceCommit: c65347e37fb6709db04b3b93b66da1f1bf66095d
+          exactMainCi: 39936142097
+          state: provider-identity-and-1.16.3-download-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/codevetter/artifacts/release-1.16.3-20261023/closeout.json
+          deploymentId: 2e7155d8-db28-4bc9-a159-5fdb89180f84
+          versionId: 22be73e7-e968-4726-a4ac-e9f12020d04a
+          createdOn: 2026-10-23T10:33:47.203347Z
           trafficPercent: 100
-          exactMainCi: 39903031867
-          state: provider-identity-and-footer-capture-retry-verified
-          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/codevetter-production-summary.json
-          scope: "PR407: Base-onlyv0.1.18 backport plus scoped existing interior Close-button layering fix; docs Astro/Vite/DOMPurify/ip-address security prerequisites, both audits clear. Exact-main five push workflows, six gates, full landing+docs build and existing web publisher equivalent pass. Three-width real home retry/newsletter gives four receipts/log events/feed entries; independently stored QA cleanup. Live interior Close/Escape/focus/retry fixtures pass all widths and six additional renders reviewed. Native release/version/Clarity hold unchanged; broader348 acceptance not claimed."
+          scope: Existing normal web publisher releases matching c65347e fullSHA-tagged Worker at100percent after six guards and all five exact-main push workflows. Live390/768/1440 download labels/links1.16.3 pass; all six baseline/live screenshots manually reviewed with no overflow/pageerrors. Anonymous GET-only fixtures block analytics and writes. Native/public release proofs are separately retained; installed app/MCP preserved. Prior footer-retry acceptance remains unchanged in history; issue348 remains open.
+        verificationHistory:
+          - observedAt: 2026-10-23T05:33:06.423740+00:00
+            sourceCommit: 3b949ed23e0036567ced65af2e1b97b670a44675
+            deploymentId: 9fdda2d8-6ebd-4a09-8668-0cf62edb32ef
+            versionId: 47af1c74-e20f-4142-a6e8-4bfc676231cd
+            createdOn: 2026-10-23T05:31:58.239419Z
+            trafficPercent: 100
+            exactMainCi: 39903031867
+            state: provider-identity-and-footer-capture-retry-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/codevetter-production-summary.json
+            scope: "PR407: Base-onlyv0.1.18 backport plus scoped existing interior Close-button layering fix; docs Astro/Vite/DOMPurify/ip-address security prerequisites, both audits clear. Exact-main five push workflows, six gates, full landing+docs build and existing web publisher equivalent pass. Three-width real home retry/newsletter gives four receipts/log events/feed entries; independently stored QA cleanup. Live interior Close/Escape/focus/retry fixtures pass all widths and six additional renders reviewed. Native release/version/Clarity hold unchanged; broader348 acceptance not claimed."
     resources:
       - provider: cloudflare
         kind: zone
@@ -929,8 +952,8 @@ sharing:
   publicListing: maintained
   maturity: experiment
   ready: true
-  verifiedAt: 2026-10-09
-  reason: "Published v1.16.0 (2026-10-09, GitHub Latest, release run 37886067815 from d54a3c19): CodeVetter-1.16.0-arm64.dmg SHA-256 d1e43ea2325c904efa296f9db0bb70614a649812f3fdf2273746a1b96031f8cd matches the GitHub asset digest; the bundled CodeVetter.app 1.16.0 (build 11600) passes strict codesign and Gatekeeper as a notarized Developer ID app. The DMG container itself is unsigned and unstapled. The release publishes a Sparkle appcast for 1.16.0. Not installed or launched in this audit; foreground native workflow and in-app Sparkle installation remain unexercised."
+  verifiedAt: 2026-10-23
+  reason: Published macOS v1.16.3 (build 11603) from c65347e37fb6709db04b3b93b66da1f1bf66095d on 2026-10-23. All three public assets match their release digests; the ZIP SHA-256 is 9eb363f185237abd1456a4d2b9c2f4592e1b746bccbd44393547712b41a28a8b. Strict code signing, notarized Developer ID Gatekeeper, stapling and DMG checksum checks pass. The isolated bundled CLI reports 1.16.3, and its corrected coverage module matches source bytes. All 17 release readiness checks and isolated hosted upgrade, relaunch, data-preservation and rollback proofs pass. The matching Pages and Worker website releases show correct download links at three widths. Owner foreground use and in-app Sparkle installation remain unqualified. Earlier qualifications remain historical.
   changelogUrl: https://codevetter.com/changelog
   roadmapUrl: https://github.com/Codevetter/codevetter/issues
   geoIdentity:

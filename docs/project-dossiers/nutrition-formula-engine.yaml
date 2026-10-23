@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 4c0541c3476cad109892b227b5172b89627a2df255c197152cfad8a46a992219
+      sha256: fd66331d577555c7ae152ec3b9f54a88c3c1d5f7354432c07cbda4e5b4292072
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: a8abb04e76cd5e6f7f3feb386d4b30d465d06fe8d6fea2f253e0bf26ad29d651
-      documentSha256: 4c0541c3476cad109892b227b5172b89627a2df255c197152cfad8a46a992219
+      documentSha256: fd66331d577555c7ae152ec3b9f54a88c3c1d5f7354432c07cbda4e5b4292072
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: af220eface4d514016425a923cadb8897ff3c6df28bd003ea9fdc4ca9a51da03
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -82,11 +82,10 @@ identity:
   family: nutrition-formula-engine
   category: utility
   purposeCategories:
-    - attention-money-grabber
     - personal-use
-  audience: public
+  audience: internal
   personalUse: true
-  moneyOrPersonalBrand: true
+  moneyOrPersonalBrand: false
   unmetNeed: true
   kind: product
   priority: P2
@@ -245,19 +244,19 @@ deployment:
         name: nutrition-formula-engine
         method: wrangler-direct
         state: live
-        versionId: 4a2a769f-5742-4373-8ef0-0a04c71023a6
+        versionId: ca8a65e3-ad0e-4c52-9257-106818ec4af8
         url: https://formula.significanthobbies.com/
         verification:
-          observedAt: 2026-10-23T03:19:42.946519+00:00
-          sourceCommit: 0bf7f34e5274ad7a6c88012add8cd0476468d9c7
-          deploymentId: c3f4cf8e-82fb-4f30-96a1-6e123ce4cb20
-          versionId: 4a2a769f-5742-4373-8ef0-0a04c71023a6
-          createdOn: 2026-10-23T03:11:56.482492Z
+          observedAt: 2026-10-23T09:50:48.284096+00:00
+          sourceCommit: 5fd8d7dab40384f00d429001446608fca18fbad5
+          deploymentId: 27dae99a-a3ca-4ab4-9f5e-6f36e071928f
+          versionId: ca8a65e3-ad0e-4c52-9257-106818ec4af8
+          createdOn: 2026-10-23T09:48:56.334993Z
           trafficPercent: 100
-          exactMainCi: 39893317134
-          state: provider-identity-and-footer-capture-retry-verified
-          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/formula-production-summary.json
-          scope: PR28 replaces only native footer source; normal Vite build/publisher retains markup, fonts/art and engine. Vite8.3.5/source-map-js1.2.2 security prerequisites; auditzeroall. Fullweb check,9route-width candidate fixtures/18screens, exactPR/mainCI and sixgates pass. Worker fullSHA100percent provider readback. Real390/768/1440 lost-response retries produce3feedback plus1newsletter subscription,4receipts and4unique matching events/feedentries;6live renders reviewed; QA dismissed/unsubscribed, receipts retained. Compiled footer asset5ac58120… matches build. No OCR/privatefixture/engine or historical visitor-continuity acceptance claimed.
+          exactMainCi: 39933769919
+          state: provider-identity-and-ocr-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/formula-ocr-retry-22-20261023/production-proof.json
+          scope: PR29 clears failed OCR initialization for retry and terminates only a newly owned worker whose parameter setup failed, preserving the original error and concurrent successful-worker reuse. Four regressions fail before/pass after; 83 web tests and production build, exact PR/main CI and six deploy gates pass. Existing publisher verified at full-SHA 100 percent; live ingestion asset 517554 bytes, SHA256 8f9ffac439c3c8f9a88f364a960eeb8333da586d3e48e281d42e4b966cca1e2f matches build. Compiled and live 390/768/1440 isolated worker-protocol failure/retry fixtures each verify a visible error, exactly two worker starts and editable two-row provenance review, without POSTs, page errors or overflow; six live screenshots reviewed. This qualifies recovery, not owner-reviewed OCR accuracy, handwriting/layout corpus, real OCR-service reliability or historical visitor continuity. Previous footer capture/retry proof is retained unchanged in verificationHistory.
         attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         verificationHistory:
           - observedAt: 2026-09-21
@@ -286,6 +285,16 @@ deployment:
             state: provider-identity-and-current-public-tracker-verified
             evidencePath: ../app-health/.fleet-local/fleet-closeout-20261023/fleet-formula-provider-20261023.json
             scope: Read-only Wrangler deployment/version metadata confirms tagged source at100% since October15; normal isolated browser root returns200 and loads persistent first-party tracker for app-ec98e406-d4b2-4c9d-920a-6c9576896fa9 via ingest.sassmaker.com. Current source tracker configuration agrees with deployed root. No Formula deployment, OCR qualification, hidden asset provenance or exact visitor seal performed. October12 version5f354b36 remains genuinely untagged; later source identity does not repair that historical gap.
+          - observedAt: 2026-10-23T03:19:42.946519+00:00
+            sourceCommit: 0bf7f34e5274ad7a6c88012add8cd0476468d9c7
+            deploymentId: c3f4cf8e-82fb-4f30-96a1-6e123ce4cb20
+            versionId: 4a2a769f-5742-4373-8ef0-0a04c71023a6
+            createdOn: 2026-10-23T03:11:56.482492Z
+            trafficPercent: 100
+            exactMainCi: 39893317134
+            state: provider-identity-and-footer-capture-retry-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/formula-production-summary.json
+            scope: PR28 replaces only native footer source; normal Vite build/publisher retains markup, fonts/art and engine. Vite8.3.5/source-map-js1.2.2 security prerequisites; auditzeroall. Fullweb check,9route-width candidate fixtures/18screens, exactPR/mainCI and sixgates pass. Worker fullSHA100percent provider readback. Real390/768/1440 lost-response retries produce3feedback plus1newsletter subscription,4receipts and4unique matching events/feedentries;6live renders reviewed; QA dismissed/unsubscribed, receipts retained. Compiled footer asset5ac58120… matches build. No OCR/privatefixture/engine or historical visitor-continuity acceptance claimed.
     resources:
       - provider: cloudflare
         kind: d1
