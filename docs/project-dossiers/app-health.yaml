@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: fd66331d577555c7ae152ec3b9f54a88c3c1d5f7354432c07cbda4e5b4292072
+      sha256: fb175c8c8a63aea72c05d00bb8ad67ab054ab4c1a198860885735d0615b068d9
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -320,17 +320,17 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-23T10:38:19.311201+00:00
-          sourceCommit: e3ab751ee033afa0fbbe49bd2aebfe54beaa736e
-          deploymentId: 08337a2e-d7d3-470b-aa82-145634c2d8f9
-          versionId: 226a7283-79ad-4938-9f73-4c3dbec933f0
-          createdOn: 2026-10-23T10:37:23.309392Z
+          observedAt: 2026-10-23T13:36:06.950239+00:00
+          sourceCommit: 1986ddb0744ab19a07444ae652ab353da4f07cde
+          deploymentId: 6cf56fcc-bf92-433a-b9a8-b3259a9a3211
+          versionId: a81f5513-9dfa-4373-bc0d-a2abdeb24b21
+          createdOn: 2026-10-23T13:35:49.805284Z
           trafficPercent: 100
           providerIdentity: passed
-          state: provider-identity-and-home-critical-css-verified
-          exactMainCi: 39938517814
-          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/apphealth-mobile-194-20261023/production-qualification.json
-          scope: PR215 uses existing Beasties0.3.5 to inline selected homepage CSS and defer the full stylesheet through media loading with a no-JavaScript fallback. No new dependency or design change; 46 production files differ only at index.html, the other45 are byte-identical. Full147-browser repository check, PR/main CI and all six deploy guards pass. Independent full-SHA Worker readback is100percent. Fifteen live width/theme/delayed-CSS/no-JS cases and14 loaded asset hashes pass; one actual main stylesheet request, no overflow/pageerrors, maximum CLS0.032161; all six delayed theme/width viewport screenshots reviewed. Pinned mobile Lighthouse12.8.2 median3 LCP4.409s before to1.626s after, performance77 to97, accessibility/best-practices/SEO100; after CLS0.0000367 and TBT12ms. Matching simulated Slow4G/CPU4 settings; bounded lab observation with shared host/network variation, not field evidence. Owner explicitly retains300ms from navigation start; all after FCP samples exceed300ms, so that requirement remains unmet. Existing private app/changelog artifacts and previous dated-drilldown/footer proof are preserved. Sustained latency, exact visitor continuity and broader account/route acceptance remain open.
+          state: provider-identity-and-changelog-critical-css-verified
+          exactMainCi: 39961008020
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/apphealth-changelog-media-194-20261023/production-qualification.json
+          scope: "PR216 applies the existing critical-CSS media-loading mode to changelog.html with a no-JavaScript fallback. All46 production files compared: only changelog.html changes, the other45 byte-match the prior verified homepage release. Full repository check including147 browser scenarios, exact PR/main CI and all six deployment guards pass. Independent provider readback verifies exact source at100percent. Fifteen live width/theme/delayed-CSS/no-JS observations and9 loaded asset hashes pass, with one full stylesheet request and maximum CLS0.041893. All six actual live delayed-CSS screenshots reviewed at390/768/1440 in both themes, retaining the design without clipping/overflow/pageerrors. Pinned mobile Lighthouse12.8.2, three samples per arm with identical simulated Slow4G/CPU4 settings: median LCP3.594s before to1.353s after, performance85.0 to100. Bounded shared-host/network lab evidence, not field data. The owner retains300ms from navigation start; every after FCP exceeds300ms, so that requirement remains unmet. Earlier homepage, dated drill-down, changelog CLS and footer qualifications remain preserved in history. Broader route/account acceptance, sustained reads and visitor continuity remain open."
         verificationHistory:
           - observedAt: 2026-10-16T13:22:56.309225+00:00
             createdOn: 2026-10-10T10:27:30.90139Z
@@ -422,6 +422,17 @@ deployment:
             exactMainCi: 39917804620
             evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/apphealth-dated-drilldown/qualification-summary.json
             scope: PR214 preserves completed India day and source across real project selection and uses the selected date in the chart caption. Three application regressions fail before/pass after;88 focused tests, full repository quality including147browser tests, independent final source/render review, PR/mainCI and sixgates pass. FullSHA100percent independently verified. Normal owner1440/390/768 portfolio and source drill-down retain55products, Oct22/Unknown/acquisition,144CodeVetterviews and matching chart captions, no horizontal overflow; actual renders manually reviewed. Desktop report returned200; phone/tablet correctly reused existing scoped client report cache, with no fresh response invented. Original AliveVille restored, viewport reset and only own tab closed. No sealed visitor day, sustained latency or universal quality claim; previous CLS/footer observations retained unchanged in history.
+          - observedAt: 2026-10-23T10:38:19.311201+00:00
+            sourceCommit: e3ab751ee033afa0fbbe49bd2aebfe54beaa736e
+            deploymentId: 08337a2e-d7d3-470b-aa82-145634c2d8f9
+            versionId: 226a7283-79ad-4938-9f73-4c3dbec933f0
+            createdOn: 2026-10-23T10:37:23.309392Z
+            trafficPercent: 100
+            providerIdentity: passed
+            state: provider-identity-and-home-critical-css-verified
+            exactMainCi: 39938517814
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/apphealth-mobile-194-20261023/production-qualification.json
+            scope: PR215 uses existing Beasties0.3.5 to inline selected homepage CSS and defer the full stylesheet through media loading with a no-JavaScript fallback. No new dependency or design change; 46 production files differ only at index.html, the other45 are byte-identical. Full147-browser repository check, PR/main CI and all six deploy guards pass. Independent full-SHA Worker readback is100percent. Fifteen live width/theme/delayed-CSS/no-JS cases and14 loaded asset hashes pass; one actual main stylesheet request, no overflow/pageerrors, maximum CLS0.032161; all six delayed theme/width viewport screenshots reviewed. Pinned mobile Lighthouse12.8.2 median3 LCP4.409s before to1.626s after, performance77 to97, accessibility/best-practices/SEO100; after CLS0.0000367 and TBT12ms. Matching simulated Slow4G/CPU4 settings; bounded lab observation with shared host/network variation, not field evidence. Owner explicitly retains300ms from navigation start; all after FCP samples exceed300ms, so that requirement remains unmet. Existing private app/changelog artifacts and previous dated-drilldown/footer proof are preserved. Sustained latency, exact visitor continuity and broader account/route acceptance remain open.
     resources:
       - provider: cloudflare
         kind: d1
