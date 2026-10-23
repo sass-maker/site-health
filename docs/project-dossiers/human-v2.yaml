@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 6b43f1db3ad72f8ded35be4ace531ea4b8455c5637b350b1f8fa140d60344f02
+      sha256: d578ee862820fd015bbb5419a2a1ea76f834f8ed2377624cbe5cc3c7efffbb8a
       infrastructureUpdatedAt: 2026-10-01
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-01
       reviewSha256: 2bb18c8fc69b6f8231a5d94ed9daf2a08ddbcb3d509ec02a928f0c63ce2233ea
-      documentSha256: 6b43f1db3ad72f8ded35be4ace531ea4b8455c5637b350b1f8fa140d60344f02
+      documentSha256: d578ee862820fd015bbb5419a2a1ea76f834f8ed2377624cbe5cc3c7efffbb8a
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
