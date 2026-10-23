@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -321,17 +321,16 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-23T00:45:43.038265+00:00
-          deploymentId: 67dba8f3-ebb3-475c-9be1-ede935c5a8f5
-          versionId: ea0e184b-c091-46aa-afa6-c70cdd520678
-          sourceCommit: 76898e8547ca233f444906728a0459baea7be7d1
+          observedAt: 2026-10-23T03:11:37.646814+00:00
+          deploymentId: e23bed27-ae6a-40ea-b899-16202119fc8c
+          versionId: 9752b463-096a-45b8-bda1-a6f8544e5b15
+          sourceCommit: 0c1aff1e7d32fca9a13c65e323cb79b4b1f0cf94
           trafficPercent: 100
-          createdOn: 2026-10-23T00:39:09.25835Z
-          exactMainCi: 39878545098
-          state: provider-identity-and-footer-retry-verified
-          assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
-          evidencePath: .fleet-local/feedback-retry-167-20261023/apphealth-production-summary.json
-          scope: PR212 changes only the public footer bundle. Existing local publisher builds and releases exact green main at100percent. Three-width real response-loss retry, consent and newsletter duplicate controls yield3feedback rows+1subscription+4receipts+4matching unique in-app events;6feedback renders reviewed. QA records dismissed/unsubscribed; receipts retained.390 snapshot harness failure reconciled without duplicate submissions, detailed privately. Dashboard, ingest and previous CLS uncertainty unchanged.
+          createdOn: 2026-10-23T03:08:53.370058Z
+          state: provider-identity-and-changelog-cls-fix-verified
+          exactMainCi: 39892189760
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/apphealth-cls-194-20261023/qualification-summary.json
+          scope: PR213 adds selected critical changelog CSS at build time through Beasties0.3.5; other build artifacts and final design unchanged. Full144browser local suite, exactPR/mainCI and sixgates pass. Worker fullSHA100percent independently read back. Live390/412/768/1440 normal and2500ms CSS-delayed cases pass, exact criticalCSSsha2566dced542… matches compiled output,5entries/oneheading, nooverflow/pageerrors;8screens reviewed. CLS normal0, delayed0.00626–0.04163 under0.05. Pinned Lighthouse12.8.2 median3 LCP3.411s/CLS0/performance87/accessibility100/best-practices79/SEO100. +4.3KB gzip HTML, no browserJS dependency. Bounded lab verification, not strict300ms/sustained-latency/private-account acceptance.
         verificationHistory:
           - observedAt: 2026-10-16T13:22:56.309225+00:00
             createdOn: 2026-10-10T10:27:30.90139Z
@@ -392,6 +391,17 @@ deployment:
             exactMainCi: 39849826329
             evidencePath: ../app-health/.fleet-local/fleet-closeout-20261023/apphealth-changelog-production-provider.json
             scope: PR211 renders the existing Changelog into its initial document and hydrates its matching marker; five entries and one heading work without JavaScript. Six compiled and live390/768/1440 JS-disabled/hydrated checks pass with screenshots reviewed, no overflow or React/page errors.23 compiled files and8 live loaded assets match the qualified main build; exact-head and main CI,144 browser tests and six release guards pass. Bootstrap owner-session proof remains the separately preserved prior585 release observation; no new private owner-session matrix is inferred. Post-release Lighthouse includes an unresolved high-CLS sample; performance acceptance, sustained route latency, universal300ms and exact visitor qualification remain open. A single saved-trace diagnostic recorded0 CLS and zero LayoutShift trace events, but did not reproduce or explain the retained0.916 outlier; performance acceptance remains open.
+          - observedAt: 2026-10-23T00:45:43.038265+00:00
+            deploymentId: 67dba8f3-ebb3-475c-9be1-ede935c5a8f5
+            versionId: ea0e184b-c091-46aa-afa6-c70cdd520678
+            sourceCommit: 76898e8547ca233f444906728a0459baea7be7d1
+            trafficPercent: 100
+            createdOn: 2026-10-23T00:39:09.25835Z
+            exactMainCi: 39878545098
+            state: provider-identity-and-footer-retry-verified
+            assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+            evidencePath: .fleet-local/feedback-retry-167-20261023/apphealth-production-summary.json
+            scope: PR212 changes only the public footer bundle. Existing local publisher builds and releases exact green main at100percent. Three-width real response-loss retry, consent and newsletter duplicate controls yield3feedback rows+1subscription+4receipts+4matching unique in-app events;6feedback renders reviewed. QA records dismissed/unsubscribed; receipts retained.390 snapshot harness failure reconciled without duplicate submissions, detailed privately. Dashboard, ingest and previous CLS uncertainty unchanged.
     resources:
       - provider: cloudflare
         kind: d1

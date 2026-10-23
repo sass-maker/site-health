@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
-      infrastructureUpdatedAt: 2026-08-22
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: CodeVetter
@@ -872,11 +872,34 @@ deployment:
         name: codevetter
         method: git-connected
         state: live
+        verification:
+          observedAt: 2026-10-23T05:33:06.423740+00:00
+          sourceCommit: 3b949ed23e0036567ced65af2e1b97b670a44675
+          deploymentId: 948d1785-0809-431d-a7a6-cb150820fda6
+          deploymentUrl: https://948d1785.codevetter.pages.dev
+          environment: Production
+          branch: main
+          providerSourceAbbreviation: 3b949ed
+          exactMainCi: 39903031867
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/codevetter-production-summary.json
+          scope: Existing Pages and custom-domain Worker publishers both run from exact-main; static source abbreviation and actual built bytes match. Details in matching Worker verification. Pages traffic percentages not inferred.
       - provider: cloudflare
         kind: worker
         name: codevetter-landing-proxy
         method: legacy-worker
         state: live-retained
+        verification:
+          observedAt: 2026-10-23T05:33:06.423740+00:00
+          sourceCommit: 3b949ed23e0036567ced65af2e1b97b670a44675
+          deploymentId: 9fdda2d8-6ebd-4a09-8668-0cf62edb32ef
+          versionId: 47af1c74-e20f-4142-a6e8-4bfc676231cd
+          createdOn: 2026-10-23T05:31:58.239419Z
+          trafficPercent: 100
+          exactMainCi: 39903031867
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/codevetter-production-summary.json
+          scope: "PR407: Base-onlyv0.1.18 backport plus scoped existing interior Close-button layering fix; docs Astro/Vite/DOMPurify/ip-address security prerequisites, both audits clear. Exact-main five push workflows, six gates, full landing+docs build and existing web publisher equivalent pass. Three-width real home retry/newsletter gives four receipts/log events/feed entries; independently stored QA cleanup. Live interior Close/Escape/focus/retry fixtures pass all widths and six additional renders reviewed. Native release/version/Clarity hold unchanged; broader348 acceptance not claimed."
     resources:
       - provider: cloudflare
         kind: zone

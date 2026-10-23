@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
-      infrastructureUpdatedAt: 2026-09-09
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Significant Hobbies
@@ -275,6 +275,17 @@ deployment:
         name: personal-platform
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-10-23T05:47:34.274675+00:00
+          sourceCommit: ef35e0308d7372c1305eab50ae105900a570a526
+          deploymentId: 022c6fec-544f-4ba1-9425-9040153a96b7
+          versionId: 6a3fc047-f83d-4344-bf44-18e2b2d37212
+          createdOn: 2026-10-23T05:44:32.555496Z
+          trafficPercent: 100
+          exactMainCi: 39907090483
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/hub-production-summary.json
+          scope: "PR191: controller-onlyv0.1.13 Base backport and normal generated Worker snapshot; backend existing npm release-tool security prerequisites, generated type metadata/assets module declarations. Both audits clear; frozen independent installs, full web/Worker checks, Swift PR/mainCI, sixgates and existingpublisher pass. ExactfullSHA100percent. Real3width capture/retry/newsletter gives four receipts/logevents/feed entries; six renders reviewed; QA cleanup independently stored. No privateauth/sync/schema/dataauthority changes, Live/Journal source absorption or realaccount isolation/restore acceptance."
     resources:
       - provider: cloudflare
         kind: d1

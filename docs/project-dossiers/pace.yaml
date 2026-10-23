@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
-      infrastructureUpdatedAt: 2026-09-09
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Pace
@@ -321,6 +321,17 @@ deployment:
         name: pace
         method: github-actions
         state: live
+        verification:
+          observedAt: 2026-10-23T01:58:31.059930+00:00
+          sourceCommit: ab5c57c35bcc06eafd0b963ef8cddf97c9ba7845
+          deploymentId: c3f52e05-5dd5-4555-b2c5-f2c49cc1b690
+          deploymentUrl: https://c3f52e05.pace-6xg.pages.dev
+          exactMainCi: 39885528560
+          deployWorkflow: 39886227162
+          assetSha256: 3f8c09772d1262b16689487b3b2366d2f6dda7c487536238fd668c859593b39a
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/pace-production-summary.json
+          scope: PR226 publishes the reviewed immutable native footer controller while preserving existing SSR markup and v0.1.18 styles. Main CI (including Mac tests), both cache-security suites, all six gates and existing website publisher pass. Existing MCP SDK/Vite/DOMPurify release prerequisites patched; docs0high/critical with20moderate/2low remain, website audit clear. Live390/768/1440 lost-response retries create3feedback records plus1newsletter subscription,4receipts and4unique matching events/feed entries. Six renders reviewed, QA dismissed/unsubscribed, receipts retained. Website/docs output only; no native binary or router experiment release.
     resources:
       - provider: cloudflare
         kind: zone

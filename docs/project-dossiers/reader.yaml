@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
       infrastructureUpdatedAt: 2026-10-22
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -432,15 +432,13 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-22T13:40:30.401Z
-          sourceCommit: b7817e52814e6bccdc1f3ca6f91cb9efa346fbdd
-          deploymentId: e02325f5-1120-4d77-a444-98dab2444ccb
-          versionId: 0a51c324-66f5-4f98-84de-a043e287c329
-          trafficPercent: 100
-          deploymentUrl: https://read.significanthobbies.com
-          state: success-production-verified
-          scope: Inbox loading/recovery release, followed by corrected release instructions
-          evidence: "Owner approved PR #92 publication. Main CI 39777846576 attempt 2 and all six deploy gates passed; exact-tag manual publisher 39780051431 succeeded. Independent Wrangler deployment/version readback confirms full SHA at 100% from 2026-10-22T12:39:25.074922Z. Postpublisher actual compiled assets passed pending, populated, empty, failed-read, retry and cached filter revisit at 390/768/1440, with matching 85px first-row geometry, no overflow, and observed CLS 0.00539/0.00335/0.00112 against unchanged 0.05 target. Synthetic browser fixtures only; owner data unchanged, private-account sync not certified. Strict cold-navigation 300ms remains unmet. Existing Cloudflare Workers Builds also automatically publishes main and uploads PR preview versions; that publisher is separate from the manual GitHub workflow. Documentation-only PR #93 then corrected the formerly inaccurate manual-only release instructions. Exact main CI 39786999421 and all six guards passed; full-SHA manual publisher 39788601569 succeeded. Independent provider readback confirms final full SHA at 100% from 2026-10-22T13:38:52.129284Z. Public root and app returned 200. Live app, LibraryPage and bootstrap CSS SHA-256 bytes match the already-qualified production build, so the earlier live three-width matrix applies to unchanged product assets; the matrix was not repeated for this documentation-only follow-up."
+          observedAt: 2026-10-23T02:21:01.727049+00:00
+          exactMainCi: 39888245323
+          deployWorkflow: 39888877605
+          assetSha256: b9e76dc214f49bb509c6726fd7be35a6b3869944aaa163b2864453478ada205f
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/reader-production-summary.json
+          scope: PR94 preserves the v0.1.20 template/theme and patches only the Base feedback controller. DOMPurify override3.4.17 removes high/critical advisories;17moderate/1low remain. Main CI, six gates, automatic Cloudflare build and subsequent SHA-tagged manual publisher pass. Private inbox/account and strict300ms acceptance remain separate. Live390/768/1440 response-loss retry creates3feedback records and1newsletter subscription,4receipts and4matching events/feed entries. Six renders reviewed; QA dismissed/unsubscribed; receipts retained.
         verificationHistory:
           - observedAt: 2026-10-04T22:58:04.776709Z
             deploymentId: 928a6124-f385-41cb-8110-f24f5468863a
@@ -463,6 +461,15 @@ deployment:
             state: success-production-verified
             scope: Owner-approved inbox loading placeholder and existing recovery continuity
             evidence: "Owner approved PR #92 publication. Main CI 39777846576 attempt 2 and all six deploy gates passed; exact-tag manual publisher 39780051431 succeeded. Independent Wrangler deployment/version readback confirms full SHA at 100% from 2026-10-22T12:39:25.074922Z. Postpublisher actual compiled assets passed pending, populated, empty, failed-read, retry and cached filter revisit at 390/768/1440, with matching 85px first-row geometry, no overflow, and observed CLS 0.00539/0.00335/0.00112 against unchanged 0.05 target. Synthetic browser fixtures only; owner data unchanged, private-account sync not certified. Strict cold-navigation 300ms remains unmet. Existing Cloudflare Workers Builds also automatically publishes main and uploads PR preview versions; that publisher is separate from the manual GitHub workflow."
+          - observedAt: 2026-10-22T13:40:30.401Z
+            sourceCommit: b7817e52814e6bccdc1f3ca6f91cb9efa346fbdd
+            deploymentId: e02325f5-1120-4d77-a444-98dab2444ccb
+            versionId: 0a51c324-66f5-4f98-84de-a043e287c329
+            trafficPercent: 100
+            deploymentUrl: https://read.significanthobbies.com
+            state: success-production-verified
+            scope: Inbox loading/recovery release, followed by corrected release instructions
+            evidence: "Owner approved PR #92 publication. Main CI 39777846576 attempt 2 and all six deploy gates passed; exact-tag manual publisher 39780051431 succeeded. Independent Wrangler deployment/version readback confirms full SHA at 100% from 2026-10-22T12:39:25.074922Z. Postpublisher actual compiled assets passed pending, populated, empty, failed-read, retry and cached filter revisit at 390/768/1440, with matching 85px first-row geometry, no overflow, and observed CLS 0.00539/0.00335/0.00112 against unchanged 0.05 target. Synthetic browser fixtures only; owner data unchanged, private-account sync not certified. Strict cold-navigation 300ms remains unmet. Existing Cloudflare Workers Builds also automatically publishes main and uploads PR preview versions; that publisher is separate from the manual GitHub workflow. Documentation-only PR #93 then corrected the formerly inaccurate manual-only release instructions. Exact main CI 39786999421 and all six guards passed; full-SHA manual publisher 39788601569 succeeded. Independent provider readback confirms final full SHA at 100% from 2026-10-22T13:38:52.129284Z. Public root and app returned 200. Live app, LibraryPage and bootstrap CSS SHA-256 bytes match the already-qualified production build, so the earlier live three-width matrix applies to unchanged product assets; the matrix was not repeated for this documentation-only follow-up."
         versionId: 0a51c324-66f5-4f98-84de-a043e287c329
     resources:
       - provider: cloudflare

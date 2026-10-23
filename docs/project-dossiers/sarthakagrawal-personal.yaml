@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
       infrastructureUpdatedAt: 2026-10-05
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -252,15 +252,29 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-04T21:25:15.557859+00:00
-          sourceCommit: 89e390087434b2ef3ec3dc920419cc943d891189
-          providerSourceAbbreviation: "89e3900"
-          deploymentId: 68a0145b-ac34-401a-a661-4179f2962c59
-          deploymentUrl: https://68a0145b.sarthakagrawal.pages.dev
+          observedAt: 2026-10-23T06:32:14.440202+00:00
+          sourceCommit: 36418336e3d858833b92919d2a6f4395340ca0e2
+          deploymentId: ce831976-9859-4ede-ba27-3c692688dd57
+          deploymentUrl: https://ce831976.sarthakagrawal.pages.dev
           environment: Production
           branch: main
+          providerSourceAbbreviation: "3641833"
           state: success-production-verified
-          evidence: "Portfolio #55/PR56: exact-main CI37234977576 and manual release37235091466 passed. Existing release workflow refreshed its hosted public-catalog input before build. Provider Production/main source prefix matches exact checkout SHA. Independent live verification covered all15 direct200 sitemap pages, matching normalized canonical/og:url, homepage ProfilePage/title, and preserved /index308. Fresh Ahrefs10205901 crawl225URLs/3m16 shows canonical-to-redirect0 (1 removed), noncanonical-sitemap0 (1 removed). Six Fleet deploy gates passed after dispatch; ordering error recorded. No provider settings changed."
+          exactMainCi: https://github.com/Significant-Hobbies/portfolio/actions/runs/39911636246
+          publisher: https://github.com/Significant-Hobbies/portfolio/actions/runs/39911936913
+          evidencePath: saas-maker/.fleet-local/feedback-retry-167-20261023/portfolio-production-summary.json
+          scope: Public homepage three-width real capture/retry/newsletter and candidate home/interior twelve-case light/dark review. Fixes Astro form-navigation draft loss and interior header blocking Close. Existing design/coordinator/assets preserved; final live interior fixture review recorded separately.
+          evidence: PR69 exact main CI and six deploy gates passed. Existing manual release refreshed only the hosted public catalog and actual Pages deployment succeeded. Production/main provider source abbreviation matches full release SHA. Actual live three-width lost-response captures retained draft/consent and reused original records; newsletter consent and four durable receipts plus unique matching owner log/feed entries verified. All reserved QA feedback dismissed and newsletter unsubscribed with receipts retained; six live form renders manually reviewed.
+        verificationHistory:
+          - observedAt: 2026-10-04T21:25:15.557859+00:00
+            sourceCommit: 89e390087434b2ef3ec3dc920419cc943d891189
+            providerSourceAbbreviation: "89e3900"
+            deploymentId: 68a0145b-ac34-401a-a661-4179f2962c59
+            deploymentUrl: https://68a0145b.sarthakagrawal.pages.dev
+            environment: Production
+            branch: main
+            state: success-production-verified
+            evidence: "Portfolio #55/PR56: exact-main CI37234977576 and manual release37235091466 passed. Existing release workflow refreshed its hosted public-catalog input before build. Provider Production/main source prefix matches exact checkout SHA. Independent live verification covered all15 direct200 sitemap pages, matching normalized canonical/og:url, homepage ProfilePage/title, and preserved /index308. Fresh Ahrefs10205901 crawl225URLs/3m16 shows canonical-to-redirect0 (1 removed), noncanonical-sitemap0 (1 removed). Six Fleet deploy gates passed after dispatch; ordering error recorded. No provider settings changed."
     resources:
       - provider: cloudflare
         kind: zone
