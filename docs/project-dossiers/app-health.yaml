@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b101f7cc0b639d8d837498a6780c00f9300b907bd3bfc1d4f384629b4a253ee8
+      sha256: 4c0541c3476cad109892b227b5172b89627a2df255c197152cfad8a46a992219
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -321,16 +321,16 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-23T03:11:37.646814+00:00
-          deploymentId: e23bed27-ae6a-40ea-b899-16202119fc8c
-          versionId: 9752b463-096a-45b8-bda1-a6f8544e5b15
-          sourceCommit: 0c1aff1e7d32fca9a13c65e323cb79b4b1f0cf94
+          observedAt: 2026-10-23T07:38:02.056011+00:00
+          deploymentId: 6789040d-b771-48f4-ae2e-b96a978450ac
+          versionId: 60c18846-d787-44f9-a9e0-9f1952f71a6e
+          sourceCommit: 6243569719f1cac54bc632cf4f59500da7fc74b2
           trafficPercent: 100
-          createdOn: 2026-10-23T03:08:53.370058Z
-          state: provider-identity-and-changelog-cls-fix-verified
-          exactMainCi: 39892189760
-          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/apphealth-cls-194-20261023/qualification-summary.json
-          scope: PR213 adds selected critical changelog CSS at build time through Beasties0.3.5; other build artifacts and final design unchanged. Full144browser local suite, exactPR/mainCI and sixgates pass. Worker fullSHA100percent independently read back. Live390/412/768/1440 normal and2500ms CSS-delayed cases pass, exact criticalCSSsha2566dced542… matches compiled output,5entries/oneheading, nooverflow/pageerrors;8screens reviewed. CLS normal0, delayed0.00626–0.04163 under0.05. Pinned Lighthouse12.8.2 median3 LCP3.411s/CLS0/performance87/accessibility100/best-practices79/SEO100. +4.3KB gzip HTML, no browserJS dependency. Bounded lab verification, not strict300ms/sustained-latency/private-account acceptance.
+          createdOn: 2026-10-23T07:37:18.899496Z
+          state: provider-identity-and-dated-portfolio-drilldown-verified
+          exactMainCi: 39917804620
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/apphealth-dated-drilldown/qualification-summary.json
+          scope: PR214 preserves completed India day and source across real project selection and uses the selected date in the chart caption. Three application regressions fail before/pass after;88 focused tests, full repository quality including147browser tests, independent final source/render review, PR/mainCI and sixgates pass. FullSHA100percent independently verified. Normal owner1440/390/768 portfolio and source drill-down retain55products, Oct22/Unknown/acquisition,144CodeVetterviews and matching chart captions, no horizontal overflow; actual renders manually reviewed. Desktop report returned200; phone/tablet correctly reused existing scoped client report cache, with no fresh response invented. Original AliveVille restored, viewport reset and only own tab closed. No sealed visitor day, sustained latency or universal quality claim; previous CLS/footer observations retained unchanged in history.
         verificationHistory:
           - observedAt: 2026-10-16T13:22:56.309225+00:00
             createdOn: 2026-10-10T10:27:30.90139Z
@@ -402,6 +402,16 @@ deployment:
             assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
             evidencePath: .fleet-local/feedback-retry-167-20261023/apphealth-production-summary.json
             scope: PR212 changes only the public footer bundle. Existing local publisher builds and releases exact green main at100percent. Three-width real response-loss retry, consent and newsletter duplicate controls yield3feedback rows+1subscription+4receipts+4matching unique in-app events;6feedback renders reviewed. QA records dismissed/unsubscribed; receipts retained.390 snapshot harness failure reconciled without duplicate submissions, detailed privately. Dashboard, ingest and previous CLS uncertainty unchanged.
+          - observedAt: 2026-10-23T03:11:37.646814+00:00
+            deploymentId: e23bed27-ae6a-40ea-b899-16202119fc8c
+            versionId: 9752b463-096a-45b8-bda1-a6f8544e5b15
+            sourceCommit: 0c1aff1e7d32fca9a13c65e323cb79b4b1f0cf94
+            trafficPercent: 100
+            createdOn: 2026-10-23T03:08:53.370058Z
+            state: provider-identity-and-changelog-cls-fix-verified
+            exactMainCi: 39892189760
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/apphealth-cls-194-20261023/qualification-summary.json
+            scope: PR213 adds selected critical changelog CSS at build time through Beasties0.3.5; other build artifacts and final design unchanged. Full144browser local suite, exactPR/mainCI and sixgates pass. Worker fullSHA100percent independently read back. Live390/412/768/1440 normal and2500ms CSS-delayed cases pass, exact criticalCSSsha2566dced542… matches compiled output,5entries/oneheading, nooverflow/pageerrors;8screens reviewed. CLS normal0, delayed0.00626–0.04163 under0.05. Pinned Lighthouse12.8.2 median3 LCP3.411s/CLS0/performance87/accessibility100/best-practices79/SEO100. +4.3KB gzip HTML, no browserJS dependency. Bounded lab verification, not strict300ms/sustained-latency/private-account acceptance.
     resources:
       - provider: cloudflare
         kind: d1
