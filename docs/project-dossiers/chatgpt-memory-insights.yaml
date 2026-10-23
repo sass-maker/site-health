@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
-      infrastructureUpdatedAt: 2026-10-09
+      sha256: 65d322ae613a9d46768ac3b230bb6e8bb22360b30f500363326b46fae9c28e8c
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: ChatGPT Memory Insights
@@ -798,13 +798,28 @@ deployment:
         state: live
         attributionReason: Memory Map (catalog id chatgpt-memory-insights) owns this Pages project and chatgpt.significanthobbies.com; since 2026-10-09 it is deployed from sass-maker/saas-maker apps/memory-map (pnpm deploy:memory-map). The project and hostname are kept so visitors' saved IndexedDB indexes keep their origin.
         verification:
-          observedAt: 2026-10-09
-          sourceCommit: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
-          deploymentId: 4ef026cc-02a4-418a-a0e9-6125988090c7
-          deploymentUrl: https://4ef026cc.chatgpt-memory-insights.pages.dev
-          previousDeploymentId: ce1af558-69c9-4b16-914b-58ec32c81e21
-          scope: First production deploy of apps/memory-map from SaaS Maker to the existing Pages project
-          evidence: Deploy guard passed (exact origin/main 576a623e, green push CI); live routes, redirects and headers unchanged; Chrome at 390/1280/1440 rendered without overflow or page errors; a synthetic two-conversation export parsed and embedded with no archive marker in any request (sass-maker/saas-maker#210).
+          observedAt: 2026-10-23T00:00:45.432508+00:00
+          sourceCommit: 481f55d25f15b385387b5ae75fa235e8361b648d
+          deploymentId: df6807e8-6c4e-47fc-a8db-c14b859895ab
+          deploymentUrl: https://df6807e8.chatgpt-memory-insights.pages.dev
+          providerSourceAbbreviated: 481f55d
+          previousDeploymentId: 0da6fe4a-92ae-4537-9976-d2bf64fe0d3b
+          sourcePath: saas-maker/apps/memory-map
+          exactMainCi: 39874066179
+          uiSourceCommit: 45222b86b022b57bcb420640d44f5c79445d2d2d
+          assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+          state: success-production-verified
+          scope: Retry-safe Studio footer; three-width real feedback/newsletter, receipts, in-app alerts and QA cleanup
+          evidence: Merged scoped source; exact-main push CI and all six linked-worktree deploy gates pass. Existing publisher updates only the existing Pages resource. Three live widths verify exact footer bytes, lost-after-commit201 followed by200 with the same record ID, retained draft and consent, blocked unchecked newsletter consent, and normalized duplicate newsletter requests. Six feedback POSTs yield three feedback rows/receipts/unique matching log-feed entries; three newsletter POSTs yield one subscription/receipt/unique matching event and feed entry. All six feedback screenshots reviewed, no page errors or horizontal overflow. All three tagged QA feedback records are recoverably dismissed; QA subscription stored as unsubscribed; four receipts retained, independent D1 verifier writes zero rows. Synthetic QA only. Capture catalog-id corrected from unbound memory-map to canonical chatgpt-memory-insights, restoring both forms from preview-only. Full quality gate:104tests, type/quality checks and four-page build. Hostname and visitor-local data origin unchanged. Root deploy wrapper cannot discover managed checkout; explicit checkout guard passed before the existing package publisher ran.
+          evidencePath: .fleet-local/feedback-retry-167-20261023/memory-map-production-summary.json
+        verificationHistory:
+          - observedAt: 2026-10-09
+            sourceCommit: 576a623ed0ca4e8ea883cbe6ce29d118cc480e47
+            deploymentId: 4ef026cc-02a4-418a-a0e9-6125988090c7
+            deploymentUrl: https://4ef026cc.chatgpt-memory-insights.pages.dev
+            previousDeploymentId: ce1af558-69c9-4b16-914b-58ec32c81e21
+            scope: First production deploy of apps/memory-map from SaaS Maker to the existing Pages project
+            evidence: Deploy guard passed (exact origin/main 576a623e, green push CI); live routes, redirects and headers unchanged; Chrome at 390/1280/1440 rendered without overflow or page errors; a synthetic two-conversation export parsed and embedded with no archive marker in any request (sass-maker/saas-maker#210).
     resources: []
   otherProviders:
     deployments: []

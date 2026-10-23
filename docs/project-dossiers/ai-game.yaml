@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
-      infrastructureUpdatedAt: 2026-10-08
+      sha256: 65d322ae613a9d46768ac3b230bb6e8bb22360b30f500363326b46fae9c28e8c
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: AliveVille
@@ -357,6 +357,23 @@ deployment:
         method: github-actions
         state: live
         attributionReason: "Canonical project owner: ai-game. Existing manual deploy-aliveville.yml run37699166037 succeeded for exact main a2a991cc4a0ef1db65714b9119e971afe6394ae5 (PRs44/45). Read-only pinned Wrangler4.99.0 lists Production/main Pages deployment d241c571-6d95-4dff-9247-03aac5c8bd17, source a2a991c. Both canonical aliveville.com and exact Pages URL pass all27 finite sitemap/HTML/Markdown/HEAD/404 contracts; sequential negotiated representations show Cache-Control:no-store, Vary:Accept,Accept-Encoding and canonical cf-cache-status:BYPASS. Prior deployed canonical24/27 cache failure is preserved; no cache purge or edge configuration change. All45 non-HTML public files match qualified build; all4 HTML pages match after narrowly proven random particles and Cloudflare beacon/email augmentation. Desktop1728/mobile390 have no horizontal overflow, scroll/FAQ pass; unchanged game entry HTML is not gameplay qualification. Landing independent pnpm10.33.2/Astro7.3.6 retains one explicit high GHSA-ch52-4w7c-c8xp under tested static-boundary gate, no muted findings. These finite public contracts do not claim universal cache health, game behavior or Worker telemetry acceptance."
+        verificationHistory: []
+        verification:
+          observedAt: 2026-10-23T00:00:45.433100+00:00
+          sourceCommit: 5ae0112070653ff22ad9d6d3f1e4855ef4906c2d
+          deploymentId: 8ac2d995-4d0e-4bcb-be66-a7ff054db50a
+          deploymentUrl: https://8ac2d995.aliveville.pages.dev
+          providerSourceAbbreviated: 5ae0112
+          previousDeploymentId: 2254f25e-a0e3-4b90-a7ed-1bea773ece03
+          sourcePath: aliveville/astro-landing
+          exactMainCi: 39874545205
+          uiSourceCommit: 45222b86b022b57bcb420640d44f5c79445d2d2d
+          assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+          deployWorkflow: 39874751543
+          state: success-production-verified
+          scope: Retry-safe Studio footer; three-width real feedback/newsletter, receipts, in-app alerts and QA cleanup
+          evidence: Merged scoped source; exact-main push CI and all six linked-worktree deploy gates pass. Existing publisher updates only the existing Pages resource. Three live widths verify exact footer bytes, lost-after-commit201 followed by200 with the same record ID, retained draft and consent, blocked unchecked newsletter consent, and normalized duplicate newsletter requests. Six feedback POSTs yield three feedback rows/receipts/unique matching log-feed entries; three newsletter POSTs yield one subscription/receipt/unique matching event and feed entry. All six feedback screenshots reviewed, no page errors or horizontal overflow. All three tagged QA feedback records are recoverably dismissed; QA subscription stored as unsubscribed; four receipts retained, independent D1 verifier writes zero rows. Synthetic QA only. Existing landing source before release matches base b757781; only copied footer JavaScript changed, game Worker and landing CSS unchanged.
+          evidencePath: .fleet-local/feedback-retry-167-20261023/aliveville-production-summary.json
       - provider: cloudflare
         kind: worker
         name: aliveville

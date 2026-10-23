@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
-      infrastructureUpdatedAt: 2026-10-16
+      sha256: 65d322ae613a9d46768ac3b230bb6e8bb22360b30f500363326b46fae9c28e8c
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SWE Interview Prep
@@ -453,13 +453,16 @@ deployment:
         method: github-actions-wrangler
         state: live
         verification:
-          observedAt: 2026-10-16T15:27:34Z
-          deploymentId: 048e3a85-610d-4120-8d7b-9fba2226dbd8
-          sourceCommit: f3128d573146547bc61b6d0dc6365cab3d99b5b6
-          deploymentUrl: https://048e3a85.swe-interview-prep.pages.dev
-          state: provider-identity-verified
-          scope: Cloudflare Pages production identity and source f3128d5 match the successful GitHub Actions release. Public learning routes and responsive shell passed; signed-in mastery save/reload remains unverified.
-          evidenceUrl: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/38923316113
+          observedAt: 2026-10-23T00:36:10.828812+00:00
+          sourceCommit: 3b28e92ab0fb937e194e16c85a00ac03d9c48215
+          deploymentId: 0e8d204f-ba44-45cb-8ced-7a3a4297c6d6
+          exactMainCi: 39876837445
+          deployWorkflow: 39877472921
+          assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+          deploymentUrl: https://0e8d204f.swe-interview-prep.pages.dev
+          state: provider-identity-and-footer-retry-verified
+          evidencePath: .fleet-local/feedback-retry-167-20261023/swe-production-summary.json
+          scope: PR149 exact shared footer bundle. Live390/768/1440 response-loss retry preserves submission identity/draft/consent and creates3records from6POSTs; one newsletter subscription from3consentedPOSTs with unchecked consent blocked.4durable receipts and4matching logs/feed;6feedback screenshots reviewed. QA feedback dismissed and newsletter unsubscribed; receipts retained. Synthetic controls do not certify customer demand or completed-day reporting.
         verificationHistory:
           - observedAt: 2026-10-16T13:37:51.957253+00:00
             createdOn: 2026-10-14T10:29:19.275467Z
@@ -476,6 +479,23 @@ deployment:
           - observedAt: 2026-10-09
             sourceCommit: a115c26502c65a5af8e11de0d9ba73cf5f57aa9c
             evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time. GitHub Actions deploy run 37887546390.
+          - observedAt: 2026-10-16T15:27:34Z
+            deploymentId: 048e3a85-610d-4120-8d7b-9fba2226dbd8
+            sourceCommit: f3128d573146547bc61b6d0dc6365cab3d99b5b6
+            deploymentUrl: https://048e3a85.swe-interview-prep.pages.dev
+            state: provider-identity-verified
+            scope: Cloudflare Pages production identity and source f3128d5 match the successful GitHub Actions release. Public learning routes and responsive shell passed; signed-in mastery save/reload remains unverified.
+            evidenceUrl: https://github.com/Significant-Hobbies/swe-interview-prep/actions/runs/38923316113
+          - observedAt: 2026-10-22T18:43:39.521855+00:00
+            sourceCommit: 5e0c57ecb0d37dd633c4f34ba42e14825f2710ab
+            deploymentId: 29132a16-0b40-468d-a21b-88bf02213594
+            deploymentUrl: https://29132a16.swe-interview-prep.pages.dev
+            state: provider-identity-contrast-and-canvas-fonts-verified
+            exactMainCi: 39833253770
+            deployWorkflow: 39833721927
+            evidencePath: /tmp/fleet-design-seo-geo-20261022/swe-canvas-release-proof.json
+            scope: PR147 raises metadata contrast to6.1986:1; PR148 fixes Monaco AMD versus bundled CommonJS font-pool initialization while preserving standalone AMD/global fallbacks. Actual UMD regression red-to-green3tests; live390/768/1440 Excalifont, text entry/persistence/reopen, no page errors/nooverflow, and exact loader chunk hash pass. Scoped DOMPurify3.4.17 prerequisite clears high/critical installed-graph advisories; CDN-hosted code, account save/export and full product quality are not certified.
+            assetSha256: ff8b9cdeb673a150a4ca94e9bd75d3b4c524c3c13ba9c4d4c534c80783b31475
       - provider: cloudflare
         kind: worker
         name: swe-interview-prep-wars

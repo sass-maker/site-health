@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
-      infrastructureUpdatedAt: 2026-10-11
+      sha256: 65d322ae613a9d46768ac3b230bb6e8bb22360b30f500363326b46fae9c28e8c
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Anchor
@@ -143,7 +143,7 @@ repository:
   url: https://github.com/Significant-Hobbies/anchor
   aliases:
     - https://github.com/sarthakagrawal927/indulge
-  sourceOverride: ios-landings
+  sourceOverride: ui-library/archives/ios-landings
   tooling:
     declaredPackageManager: null
     detectedSignals:
@@ -219,12 +219,26 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-11T19:29:31.188259+00:00
-          deploymentId: 7490b63c-357b-4965-a75e-d22e133b81cf
-          sourceCommit: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
-          sourcePath: ios-landings
+          observedAt: 2026-10-22T23:11:43.705695+00:00
+          sourceCommit: 08e11bc304cf2118135749d55ed18f99e96f830e
+          sourcePath: ui-library/archives/ios-landings
+          deploymentId: aa7d62e7-5dbc-4709-91de-b7a9ff296796
+          deploymentUrl: https://aa7d62e7.anchor-landing-ejy.pages.dev
+          providerSourceAbbreviated: 08e11bc
+          previousDeploymentId: efb4bf0a-2083-496a-9872-e7e06b06a853
+          uiSourceCommit: 45222b86b022b57bcb420640d44f5c79445d2d2d
+          exactMainCi: 39868439680
           state: success-production-verified
-          evidencePath: ../saas-maker/.fleet-local/ios-landings-repository-links-live-20260912.json
+          scope: Retained archived landing only; retry-safe shared footer and live capture acceptance
+          evidence: "UI LibraryPR23 merged, frozen nested install and42tests/11builds pass; exact-main CI green. Existing-only factory publisher updates the existing Pages resource. All six candidate page texts and stylesheet/image URLs match production before release. This product passes390/768/1440 real response-loss retry: six POSTs produce three feedback rows/receipts, three consented newsletter POSTs produce one subscription/receipt; unchecked consent blocked. All four events have unique matching App Health logs and feed entries; six production feedback screenshots manually reviewed, no overflow or page errors. QA feedback dismissed and subscription unsubscribed, receipts retained. Native app/download workers unchanged. Synthetic traffic does not qualify organic usage or completed-day reporting."
+          evidencePath: .fleet-local/feedback-retry-167-20261023/factory-production-summary.json
+        verificationHistory:
+          - observedAt: 2026-09-11T19:29:31.188259+00:00
+            deploymentId: 7490b63c-357b-4965-a75e-d22e133b81cf
+            sourceCommit: b2111cdecc1fdbf72e7f12c0ef2ef1c3ea777330
+            sourcePath: ios-landings
+            state: success-production-verified
+            evidencePath: ../saas-maker/.fleet-local/ios-landings-repository-links-live-20260912.json
       - provider: cloudflare
         kind: pages
         name: habits

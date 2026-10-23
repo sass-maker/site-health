@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
-      infrastructureUpdatedAt: 2026-10-16
+      sha256: 65d322ae613a9d46768ac3b230bb6e8bb22360b30f500363326b46fae9c28e8c
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: App Health
@@ -321,16 +321,17 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-16T15:27:00Z
-          createdOn: 2026-10-16T15:26:43.417089Z
-          deploymentId: bb64c1c2-fd4d-404a-bfed-7d160bf1d5df
-          versionId: 7211d781-62b2-4291-a6f2-9f9bd21abcd0
-          sourceCommit: 2ffdbb61f60e355f7157f260dfb7eb9722868509
+          observedAt: 2026-10-23T00:45:43.038265+00:00
+          deploymentId: 67dba8f3-ebb3-475c-9be1-ede935c5a8f5
+          versionId: ea0e184b-c091-46aa-afa6-c70cdd520678
+          sourceCommit: 76898e8547ca233f444906728a0459baea7be7d1
           trafficPercent: 100
-          state: provider-identity-verified
-          scope: Exact-main release identity and public route checks; owner-only aggregate, signed-in UI, and visitor qualification remain in open issues.
-          evidencePath: ../app-health/.fleet-local/issue199-194-live-20261016/release.json
-          evidence: "Cloudflare version tagged to green main CI serves 100%; public routes and health returned 200, unauthenticated aggregate returned 401. See issues #199, #194, and #96 for unverified acceptance."
+          createdOn: 2026-10-23T00:39:09.25835Z
+          exactMainCi: 39878545098
+          state: provider-identity-and-footer-retry-verified
+          assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+          evidencePath: .fleet-local/feedback-retry-167-20261023/apphealth-production-summary.json
+          scope: PR212 changes only the public footer bundle. Existing local publisher builds and releases exact green main at100percent. Three-width real response-loss retry, consent and newsletter duplicate controls yield3feedback rows+1subscription+4receipts+4matching unique in-app events;6feedback renders reviewed. QA records dismissed/unsubscribed; receipts retained.390 snapshot harness failure reconciled without duplicate submissions, detailed privately. Dashboard, ingest and previous CLS uncertainty unchanged.
         verificationHistory:
           - observedAt: 2026-10-16T13:22:56.309225+00:00
             createdOn: 2026-10-10T10:27:30.90139Z
@@ -351,6 +352,46 @@ deployment:
             evidencePath: /Users/sarthak/Documents/Codex/reports/fleet-pr-issue-audit-2026-10-04/known-closure-runs/continuation-20261008-closure-sweep/apphealth171/public-build-parity.json
             evidence: "PR #174 exact-main CI 37727885028 passed; version 8de5243d-f910-4d6c-a9d4-7fce1206bb47 is tagged to main 84620f0b062ccb188cad3f939ec6840d8c4fc95f and serves 100%. Canonical /, /changelog and all three entry JS/CSS assets match the exact merged production build; /v1/health returned 200. Existing same-Worker public host ingest.sassmaker.com returned byte-identical canonical routes and public assets. Landing/footer brand and changelog renders passed at 390, 768 and 1440px with no horizontal overflow. Scope is brand-layout release verification only; no archive-retention or collector-recovery qualification is claimed."
             ciRun: https://github.com/sass-maker/app-health/actions/runs/37727885028
+          - observedAt: 2026-10-16T15:27:00Z
+            createdOn: 2026-10-16T15:26:43.417089Z
+            deploymentId: bb64c1c2-fd4d-404a-bfed-7d160bf1d5df
+            versionId: 7211d781-62b2-4291-a6f2-9f9bd21abcd0
+            sourceCommit: 2ffdbb61f60e355f7157f260dfb7eb9722868509
+            trafficPercent: 100
+            state: provider-identity-verified
+            scope: Exact-main release identity and public route checks; owner-only aggregate, signed-in UI, and visitor qualification remain in open issues.
+            evidencePath: ../app-health/.fleet-local/issue199-194-live-20261016/release.json
+            evidence: "Cloudflare version tagged to green main CI serves 100%; public routes and health returned 200, unauthenticated aggregate returned 401. See issues #199, #194, and #96 for unverified acceptance."
+          - observedAt: 2026-10-22T19:07:55.388615Z
+            createdOn: 2026-10-22T19:05:46.076366Z
+            deploymentId: b91617c9-cb08-49d8-99ca-8a9943328245
+            versionId: 587a2a61-d60a-47a6-b5c2-a998ed7ae84f
+            sourceCommit: ac1795a204936da6e35e88ae0bd1ac99434c1bc2
+            trafficPercent: 100
+            state: provider-identity-and-pending-metrics-verified
+            exactMainCi: 39833816035
+            evidencePath: ../app-health/.fleet-local/fleet-closeout-20261023/fleet-apphealth209-provider-20261023.json
+            scope: PR209 pending portfolio metrics keep content-shaped skeletons instead of false unavailable; actual failures remain unavailable. Compiled9 checks pass; live owner390/768 pending filters and1440 cached revisit verified with no overflow or false unavailable. Capture68 QA responses reconcile with the completed October22 India-day report; attribution uses one explicit QA-tagged visit. Sustained speed, exact visitor-day qualification and broader real-account journeys remain open. Auth bootstrap improvement is being qualified separately; no universal300ms claim.
+          - observedAt: 2026-10-22T20:17:21.013136+00:00
+            createdOn: 2026-10-22T19:59:37.658424Z
+            deploymentId: e2019101-5577-48ec-9da7-556e18ea7d0b
+            versionId: 2bdf7d1a-646b-41eb-a4a6-17defaf6e90f
+            sourceCommit: 585ce9f839769a6d9020b5b1e18248147ab87b57
+            trafficPercent: 100
+            state: provider-identity-and-owner-bootstrap-verified
+            exactMainCi: 39843234969
+            evidencePath: ../app-health/.fleet-local/fleet-closeout-20261023/apphealth-bootstrap-production.json
+            scope: PR210 keeps legacy credentials hidden during account/session bootstrap, preserves explicit legacy mode and sign-out, and provides honest accessible retries for actual configuration/session errors.144 browser tests,6 release guards and60 compiled/live three-width/theme observations pass; actual existing owner session390/768/1440 and overview-speed-overview revisit pass with no overflow. Owner768 instantaneous probe missed pending moment, so no pending-state claim from that probe. Provider metadata retained at release, catalog observation recorded later. Sustained dashboard latency, exact visitor continuity, universal300ms and remaining cross-product acceptance stay open.
+          - observedAt: 2026-10-22T20:40:26.646410+00:00
+            deploymentId: 886d7a15-459e-40f9-a6d5-9125c100c445
+            versionId: aca4e349-7afd-4efb-b6d9-66e786043228
+            sourceCommit: 529c1ee979af15ad5736544b07561d8fcc925086
+            trafficPercent: 100
+            createdOn: 2026-10-22T20:39:47.940864Z
+            state: provider-identity-and-changelog-document-verified
+            exactMainCi: 39849826329
+            evidencePath: ../app-health/.fleet-local/fleet-closeout-20261023/apphealth-changelog-production-provider.json
+            scope: PR211 renders the existing Changelog into its initial document and hydrates its matching marker; five entries and one heading work without JavaScript. Six compiled and live390/768/1440 JS-disabled/hydrated checks pass with screenshots reviewed, no overflow or React/page errors.23 compiled files and8 live loaded assets match the qualified main build; exact-head and main CI,144 browser tests and six release guards pass. Bootstrap owner-session proof remains the separately preserved prior585 release observation; no new private owner-session matrix is inferred. Post-release Lighthouse includes an unresolved high-CLS sample; performance acceptance, sustained route latency, universal300ms and exact visitor qualification remain open. A single saved-trace diagnostic recorded0 CLS and zero LayoutShift trace events, but did not reproduce or explain the retained0.916 outlier; performance acceptance remains open.
     resources:
       - provider: cloudflare
         kind: d1
