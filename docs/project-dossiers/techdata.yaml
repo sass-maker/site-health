@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d578ee862820fd015bbb5419a2a1ea76f834f8ed2377624cbe5cc3c7efffbb8a
-      infrastructureUpdatedAt: 2026-10-15
+      sha256: 8429c57473b6bbce7b34133eae2382f67f122dea172b575405a4405c6674812c
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=techdata].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-09
       reviewSha256: 74ff7d1b3faf4c46efce30259833f4d7ada4cf4ee4452da388e1962b2ea5a029
-      documentSha256: d578ee862820fd015bbb5419a2a1ea76f834f8ed2377624cbe5cc3c7efffbb8a
+      documentSha256: 8429c57473b6bbce7b34133eae2382f67f122dea172b575405a4405c6674812c
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -281,15 +281,29 @@ deployment:
         state: live
         attributionReason: techdata owns the Worker, the data.highsignal.app custom domain and its retained workers.dev host; the source collection sites remain independent.
         verification:
-          observedAt: 2026-10-22T10:46:31Z
-          sourceCommit: be0607d491061c263deee6683a272d6538d5a2c9
-          deploymentId: 06e0f1fb-03c7-4805-9778-38c94453be09
-          versionId: 6e1b2576-e332-408d-b5f5-435f8ca111af
+          observedAt: 2026-10-23T20:22:21Z
+          sourceCommit: d8a772fd27d9bdce720295ab53ef3bc031795926
+          deploymentId: 10c29381-9b0d-413f-9550-e6a13fbac449
+          versionId: def327a6-5f95-4082-b689-194551bff2c2
+          createdOn: 2026-10-23T20:04:19.427096Z
           trafficPercent: 100
           deploymentUrl: https://data.highsignal.app
-          scope: Owner-approved table recovery fix; canonical custom domain and workers.dev retained
-          evidence: Owner-approved GitHub Actions manual deploy 39765261561 succeeded after six readiness gates and exact-main CI. Independent Wrangler deployment/version readback verifies full SHA tag and 100% traffic from 2026-10-22T10:44:35.355643Z. Live deployed CSS (no injection) passed six synthetic read-only error/empty recovery geometry cases and retry at exact 390/768/1440, with no horizontal overflow. This does not qualify the broader route/account matrix or strict cold-navigation 300ms target.
-        versionId: 6e1b2576-e332-408d-b5f5-435f8ca111af
+          exactMainCi: 40015849436
+          publisherRun: 40016235745
+          inspectionRun: 40018632287
+          inspectionWorkflowCommit: 1f42152e0775c6b644ded327c9d2de7e0c8348b3
+          previousVersion:
+            deploymentId: 06e0f1fb-03c7-4805-9778-38c94453be09
+            deploymentCreatedAt: 2026-10-22T10:44:35.355643Z
+            versionId: 6e1b2576-e332-408d-b5f5-435f8ca111af
+            versionCreatedAt: 2026-10-22T10:44:34.598033Z
+            sourceCommit: be0607d491061c263deee6683a272d6538d5a2c9
+            trafficPercent: 100
+          state: provider-identity-verified
+          scope: Backward-compatible People and Episodes singular/plural count-label fix, PR27. Canonical custom domain and workers.dev retained. The workflow-only PR28 is a separate source identity and was not deployed.
+          evidence: Exact product-main CI and six release gates passed; the existing publisher successfully deployed the full-SHA-tagged version. Independent hosted read-only inspection confirms this single version at100% and the preceding be0607d version in deployment history. The inspection workflow deploy job was skipped. Fresh predeploy provider readback was missed because the local connection failed; the current/previous history proof was obtained after publication and does not retroactively close that gap. Broader route/account acceptance and the strict cold-navigation300ms target remain unqualified.
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/techdata-route-loading-244-20261023/release/provider-inspect-40018632287/techdata-provider-identity-inspect-40018632287/receipt.json
+        versionId: def327a6-5f95-4082-b689-194551bff2c2
         verificationHistory:
           - observedAt: 2026-10-10
             sourceCommit: 157ab9937834c45e451a7271cfb78207d80a00d3
@@ -305,6 +319,14 @@ deployment:
             deploymentUrl: https://data.highsignal.app
             scope: Canonical custom domain release; workers.dev retained
             evidence: GitHub Actions deploy run 38709692177 succeeded; authenticated Wrangler deployment list reported this SHA-tagged version at 100% traffic. HTTPS certificate, robots.txt, sitemap, all 15 canonical pages, source links and 390/768/1440 Chrome layouts verified live.
+          - observedAt: 2026-10-22T10:46:31Z
+            sourceCommit: be0607d491061c263deee6683a272d6538d5a2c9
+            deploymentId: 06e0f1fb-03c7-4805-9778-38c94453be09
+            versionId: 6e1b2576-e332-408d-b5f5-435f8ca111af
+            trafficPercent: 100
+            deploymentUrl: https://data.highsignal.app
+            scope: Owner-approved table recovery fix; canonical custom domain and workers.dev retained
+            evidence: Owner-approved GitHub Actions manual deploy 39765261561 succeeded after six readiness gates and exact-main CI. Independent Wrangler deployment/version readback verifies full SHA tag and 100% traffic from 2026-10-22T10:44:35.355643Z. Live deployed CSS (no injection) passed six synthetic read-only error/empty recovery geometry cases and retry at exact 390/768/1440, with no horizontal overflow. This does not qualify the broader route/account matrix or strict cold-navigation 300ms target.
     resources:
       - provider: cloudflare
         kind: r2
