@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 5919c270dcf5a213c69c494a0e840df03e6eec742354ffd2fe21e7b6939b3ab3
+      sha256: 78cf0c9201b8fd6ff57eb0afa9c3295cbf1c1abffc59e46292206205f752aeb6
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -108,7 +108,7 @@ product:
     audience: Developers and teams shipping code produced with AI agents.
     outcome: Higher confidence that an agent completed the requested change correctly and safely.
     mechanism: Local-first review combines repository context, executable checks, targeted evaluation, and inspectable verification receipts.
-    proof: "Published macOS 1.16.5 is notarized: all public asset hashes match the release, and its bundled app passes strict signature, Gatekeeper and stapling checks. Five packaged runtime modules match release source and pass 22 provenance and coverage regressions. An earlier bounded CLI fixture demonstrated real Codex review, pass/fail checks and persisted receipts."
+    proof: "Published macOS 1.16.6 is notarized: all public asset hashes match the release, and its bundled app passes strict signature, Gatekeeper and stapling checks. Thirteen packaged runtime modules match release source; 39 packaged provenance, coverage and source-snapshot checks pass on Node 24. An earlier bounded CLI fixture demonstrated real Codex review, pass/fail checks and persisted receipts."
     nextAction: Try the current Mac release on a small local repository. Use the documented manual update path until in-app installation is qualified.
   form: Desktop app
   platforms:
@@ -1001,7 +1001,7 @@ sharing:
   maturity: experiment
   ready: true
   verifiedAt: 2026-10-23
-  reason: Published macOS v1.16.5 (build 11605) from 8117bb680487e1a2150e6ea230e2609e1ac35701 at 2026-10-23T16:54:14Z. All three public asset hashes match GitHub; ZIP SHA-256 6f6a14758c74494125c4a68947bedcc8cda78aa99baf2e76437c0e8f807792b4. Strict signing, notarized Developer ID Gatekeeper, stapling and DMG checksum checks pass. The isolated bundled CLI reports 1.16.5; five packaged runtime modules match release source, and all 22 packaged provenance/coverage regressions pass. All 17 release readiness checks and isolated hosted upgrade, relaunch, data-preservation and rollback proofs pass. Website source 27c044cc623454d32244a8d5b8be53ba6e7e9989 is separately qualified by exact-main CI, six guards, hosted provider readback and three-width download checks; the Worker is at 100% traffic. Installed 1.15.0 and active MCP clients were preserved. Owner foreground use and in-app Sparkle installation remain unqualified. Earlier qualifications remain historical.
+  reason: Published macOS v1.16.6 (build 11606) from 951aac977b1792cf05fbf65bac455dccaeb5beac at 2026-10-23T18:47:05Z. All three public asset hashes match GitHub; ZIP SHA-256 451225224bd7d03d95abc11f64f2620ca32e3cb7a883ecde657b1279cf87e32b. Strict signing, notarized Developer ID Gatekeeper, stapling and DMG checksum checks pass. The isolated bundled CLI reports 1.16.6; 13 packaged runtime modules match release source. All 39 actual packaged provenance, coverage, CPU and optional source-snapshot controls pass on pinned Node24.22.1. All 17 release readiness checks, cryptographic appcast verification and isolated hosted upgrade, relaunch, data-preservation and rollback proofs pass. Source snapshots are optional observations through the owned final flush, not whole-process branch absence or qualified optimization recommendations. Node26 compatibility remains unqualified; its failed attempt is retained separately. Installed 1.15.0 and active MCP clients were preserved. Owner foreground use and in-app Sparkle installation remain unqualified. Website deployment qualification is recorded independently in infrastructure; earlier native qualifications remain historical.
   changelogUrl: https://codevetter.com/changelog
   roadmapUrl: https://github.com/Codevetter/codevetter/issues
   geoIdentity:
