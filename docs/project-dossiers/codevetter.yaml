@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 78cf0c9201b8fd6ff57eb0afa9c3295cbf1c1abffc59e46292206205f752aeb6
+      sha256: 8429c57473b6bbce7b34133eae2382f67f122dea172b575405a4405c6674812c
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -873,20 +873,20 @@ deployment:
         method: git-connected
         state: live
         verification:
-          observedAt: 2026-10-23T18:17:40Z
-          sourceCommit: 27c044cc623454d32244a8d5b8be53ba6e7e9989
-          nativeReleaseSource: 8117bb680487e1a2150e6ea230e2609e1ac35701
-          nativeRelease: 1.16.5
-          exactMainCi: 39997217174
-          publisherRun: 40001902346
-          state: provider-identity-and-1.16.5-download-verified
-          evidencePath: /Users/sarthak/Desktop/fleet/codevetter/artifacts/release-1.16.5-20261023/website-27c-proof/website-final-summary.json
-          deploymentId: 09fa54f9-5b96-4d1a-a37d-f3a066484f2d
-          deploymentUrl: https://09fa54f9.codevetter.pages.dev
+          observedAt: 2026-10-23T20:11:11Z
+          sourceCommit: 8de1f0130bfd2f0ed862ced10bd111a53cbf5f4c
+          nativeReleaseSource: 951aac977b1792cf05fbf65bac455dccaeb5beac
+          nativeRelease: 1.16.6
+          exactMainCi: 40013851276
+          publisherRun: 40017064434
+          state: provider-identity-and-1.16.6-download-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/codevetter/artifacts/release-1.16.6-20261023/website-final-proof/website-final-summary.json
+          deploymentId: d483972f-096f-4a08-9bac-50f5ccdbbaed
+          deploymentUrl: https://d483972f.codevetter.pages.dev
           environment: Production
           branch: main
-          providerSourceAbbreviation: 27c044c
-          scope: Hosted readback qualifies Production/main website source abbreviation separately from native source. Live download links pass at390/768/1440 with manual render review. Markdown matches built bytes; HTML parity uses the explicitly recorded provider beacon, existing hosted newsletter conditional and build-scoped Astro-ID normalization. No raw HTML equality or Pages traffic percentage is inferred; prior footer proofs remain in history.
+          providerSourceAbbreviation: 8de1f01
+          scope: Existing hosted publisher readback qualifies Production/main website source abbreviation separately from native release source. The website-only Zod security patch is released; 1.16.6 download links pass at390/768/1440 with manual render review, no page errors or document overflow. Markdown matches built bytes; HTML parity uses only the explicitly recorded provider beacon, existing hosted newsletter conditional and build-scoped Astro-ID normalization. No raw HTML equality or Pages traffic percentage is inferred. The preceding1.16.5 and earlier provider qualifications remain in history.
         verificationHistory:
           - observedAt: 2026-10-23T05:33:06.423740+00:00
             sourceCommit: 3b949ed23e0036567ced65af2e1b97b670a44675
@@ -921,25 +921,39 @@ deployment:
             branch: main
             providerSourceAbbreviation: bea17e4
             scope: Production Pages source abbreviation matches full qualified bea17e4 source; live three-width download page links to1.16.4. HTML equals compiled output after removing the observed provider Insights insertion; markdown bytes exact. No Pages traffic percentage inferred. Previous footer-capture proof preserved in history.
+          - observedAt: 2026-10-23T18:17:40Z
+            sourceCommit: 27c044cc623454d32244a8d5b8be53ba6e7e9989
+            nativeReleaseSource: 8117bb680487e1a2150e6ea230e2609e1ac35701
+            nativeRelease: 1.16.5
+            exactMainCi: 39997217174
+            publisherRun: 40001902346
+            state: provider-identity-and-1.16.5-download-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/codevetter/artifacts/release-1.16.5-20261023/website-27c-proof/website-final-summary.json
+            deploymentId: 09fa54f9-5b96-4d1a-a37d-f3a066484f2d
+            deploymentUrl: https://09fa54f9.codevetter.pages.dev
+            environment: Production
+            branch: main
+            providerSourceAbbreviation: 27c044c
+            scope: Hosted readback qualifies Production/main website source abbreviation separately from native source. Live download links pass at390/768/1440 with manual render review. Markdown matches built bytes; HTML parity uses the explicitly recorded provider beacon, existing hosted newsletter conditional and build-scoped Astro-ID normalization. No raw HTML equality or Pages traffic percentage is inferred; prior footer proofs remain in history.
       - provider: cloudflare
         kind: worker
         name: codevetter-landing-proxy
         method: legacy-worker
         state: live-retained
         verification:
-          observedAt: 2026-10-23T18:17:40Z
-          sourceCommit: 27c044cc623454d32244a8d5b8be53ba6e7e9989
-          nativeReleaseSource: 8117bb680487e1a2150e6ea230e2609e1ac35701
-          nativeRelease: 1.16.5
-          exactMainCi: 39997217174
-          publisherRun: 40001902346
-          state: provider-identity-and-1.16.5-download-verified
-          evidencePath: /Users/sarthak/Desktop/fleet/codevetter/artifacts/release-1.16.5-20261023/website-27c-proof/website-final-summary.json
-          deploymentId: 20aa5dac-7bf1-45e1-bc46-68fa3d952f91
-          versionId: a3c530ce-ad29-4a7e-9a47-3378b53db97e
-          createdOn: 2026-10-23T18:17:32.74026Z
+          observedAt: 2026-10-23T20:11:11Z
+          sourceCommit: 8de1f0130bfd2f0ed862ced10bd111a53cbf5f4c
+          nativeReleaseSource: 951aac977b1792cf05fbf65bac455dccaeb5beac
+          nativeRelease: 1.16.6
+          exactMainCi: 40013851276
+          publisherRun: 40017064434
+          state: provider-identity-and-1.16.6-download-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/codevetter/artifacts/release-1.16.6-20261023/website-final-proof/website-final-summary.json
+          deploymentId: 6f5706cf-b902-4c66-a151-d1580b9337f5
+          versionId: 45127f70-ee4e-4738-8986-7072bd7512b3
+          createdOn: 2026-10-23T20:11:04.299927Z
           trafficPercent: 100
-          scope: Full website-SHA-tagged single Worker version at100% verified through the existing hosted publisher connection. Exact-main CI and six guards pass. Live download page passes at390/768/1440 with no overflow/page errors and manually reviewed screenshots. Website/native source identities are deliberately separate; installed app/MCP unchanged. Native foreground and in-app updater acceptance remain unqualified; prior footer and release proofs remain in history.
+          scope: Full website-SHA-tagged single Worker version at100% verified through the existing hosted publisher connection after exact-main CI and six guards. The website-only Zod security patch is released; 1.16.6 download links pass at390/768/1440 with no page errors or document overflow and manually reviewed screenshots. Website source and native951 release identity remain separate. Installed app and active MCP clients are preserved; owner foreground, in-app updater, Node26 and broader performance acceptance remain unqualified. The preceding1.16.5 and earlier provider qualifications remain in history.
         verificationHistory:
           - observedAt: 2026-10-23T05:33:06.423740+00:00
             sourceCommit: 3b949ed23e0036567ced65af2e1b97b670a44675
@@ -971,6 +985,19 @@ deployment:
             createdOn: 2026-10-23T13:23:24.042021Z
             trafficPercent: 100
             scope: Existing normal web publisher releases matching bea17e4 fullSHA-tagged Worker at100percent after six guards and all five exact-main push workflows. Live390/768/1440 download labels/links1.16.4 pass; all six baseline/live screenshots manually reviewed with no overflow/pageerrors. Anonymous GET-only fixtures block analytics and writes. Native/public release proofs are separately retained; installed app/MCP preserved. Prior footer-retry acceptance remains unchanged in history; issue348 remains open.
+          - observedAt: 2026-10-23T18:17:40Z
+            sourceCommit: 27c044cc623454d32244a8d5b8be53ba6e7e9989
+            nativeReleaseSource: 8117bb680487e1a2150e6ea230e2609e1ac35701
+            nativeRelease: 1.16.5
+            exactMainCi: 39997217174
+            publisherRun: 40001902346
+            state: provider-identity-and-1.16.5-download-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/codevetter/artifacts/release-1.16.5-20261023/website-27c-proof/website-final-summary.json
+            deploymentId: 20aa5dac-7bf1-45e1-bc46-68fa3d952f91
+            versionId: a3c530ce-ad29-4a7e-9a47-3378b53db97e
+            createdOn: 2026-10-23T18:17:32.74026Z
+            trafficPercent: 100
+            scope: Full website-SHA-tagged single Worker version at100% verified through the existing hosted publisher connection. Exact-main CI and six guards pass. Live download page passes at390/768/1440 with no overflow/page errors and manually reviewed screenshots. Website/native source identities are deliberately separate; installed app/MCP unchanged. Native foreground and in-app updater acceptance remain unqualified; prior footer and release proofs remain in history.
     resources:
       - provider: cloudflare
         kind: zone
