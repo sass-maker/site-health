@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
-      infrastructureUpdatedAt: 2026-10-16
+      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Free AI
@@ -413,20 +413,17 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          sourceCommit: a32c046070b7bb8547c00ae0c327843a3f7c0e42
-          deploymentId: abc8364f-d3c4-4f88-b88b-169d0aacf03c
-          versionId: fcd467c5-63a2-4659-b226-5eeb2649ed8c
+          observedAt: 2026-10-22T18:09:34.952705+00:00
+          createdOn: 2026-10-22T18:08:37.713923Z
+          sourceCommit: ad7b01753033db65d21ecf1e5ab0b1137d0ac7ab
+          deploymentId: 0fbf4f1d-efb3-4258-9bf7-76c786228b7f
+          versionId: c09a279c-bcd3-4f4d-8a13-056c6ec54582
           trafficPercent: 100
-          state: production-provider-and-consumer-qualified
-          exactMainCi: 38905307810
-          deployWorkflow: 38905573815
-          catalogRun: 38905860486
-          effectiveChatModels: 38
-          providerReplay:
-            successful: 8
-            total: 8
-          evidence: "Final PR129 source: exact-main CI691tests plus DocsCheck, six release gates and deploy passed; provider exact full source tag100percent. Full unchanged policy38905860486 passed8/8 replay, zero stale/new/credential/catalog errors, six supported/seven explicitly unsupported catalogs and aggregate health. Mistral strict-schema live qualification38899730264 remains applicable. Paired Meme82 hosted38906065805 passed both strict fixtures AppHealth202 and all three following perspective requests passed high-confidence/full-viewpoint/no-degradation18997/6027/11908ms. Per-invocation trace caught Mistral flat output followed by successful perspective repair. Private bounded request-local failed-model hints prefer another compatible external provider before siblings, WorkersAI last; public spoofing ignored and pins retained. Explicit effort forwarded only to qualified Gemini3.8/Groq families; other automatic defaults retained.24hour routing evidence preserves raw history, quotas and active exhaustion/cooldown. No keys/topups/cap raises/new models/paid fallback. This is bounded current-source qualification, not sustained uptime/human humor proof; historical failures preserved. Issues62and30 closed."
-          observedAt: 2026-10-16T13:17:26.344807+00:00
+          state: provider-identity-and-responsive-navigation-verified
+          exactMainCi: 39828135056
+          deployWorkflow: 39828518444
+          evidencePath: /tmp/fleet-design-seo-geo-20261022/free-ai-release-proof.json
+          scope: PR130 keeps all5 header links visible on compact widths, with minimum44px targets. Live390/768/1440 keyboard Docs/FAQ, reduced motion, nooverflow and exact CSS parity verified. Vite8.1.6 development-tool security prerequisite; no gateway runtime/policy changes or inference calls. Historical provider replay remains historical, not a fresh uptime claim.
         verificationHistory:
           - observedAt: 2026-10-02T11:02:20.201598Z
             deploymentId: 672b0032-8661-4e4f-aca0-0e8990a8ebf5
@@ -628,6 +625,20 @@ deployment:
               total: 8
             evidence: PR128 private request-local invalid-model exclusions deployed. Exact-main CI684tests and DocsCheck passed; six release gates and deployment passed, provider exact full source100percent. Full policy38903618686 passed8/8 replay, zero stale/new/gaps/errors, six supported/seven explicit unsupported catalogs and health. Paired Meme92 hosted38903826372 passed4791/8251ms, high confidence complete/no degradation AppHealth202; trace observed flat answers followed by successful repair. Subsequent three perspective requests degraded15283/7094ms then passed4269ms. Thus consumer qualification remains intermittent and issue30 open. FreeAI129/Meme72 prepare failed-provider diversity, supported explicit Groq effort and safe provider attribution; not released. No new credentials/models/paid fallback/spend caps.
             observedAt: 2026-10-16T13:04:02.727546+00:00
+          - sourceCommit: a32c046070b7bb8547c00ae0c327843a3f7c0e42
+            deploymentId: abc8364f-d3c4-4f88-b88b-169d0aacf03c
+            versionId: fcd467c5-63a2-4659-b226-5eeb2649ed8c
+            trafficPercent: 100
+            state: production-provider-and-consumer-qualified
+            exactMainCi: 38905307810
+            deployWorkflow: 38905573815
+            catalogRun: 38905860486
+            effectiveChatModels: 38
+            providerReplay:
+              successful: 8
+              total: 8
+            evidence: "Final PR129 source: exact-main CI691tests plus DocsCheck, six release gates and deploy passed; provider exact full source tag100percent. Full unchanged policy38905860486 passed8/8 replay, zero stale/new/credential/catalog errors, six supported/seven explicitly unsupported catalogs and aggregate health. Mistral strict-schema live qualification38899730264 remains applicable. Paired Meme82 hosted38906065805 passed both strict fixtures AppHealth202 and all three following perspective requests passed high-confidence/full-viewpoint/no-degradation18997/6027/11908ms. Per-invocation trace caught Mistral flat output followed by successful perspective repair. Private bounded request-local failed-model hints prefer another compatible external provider before siblings, WorkersAI last; public spoofing ignored and pins retained. Explicit effort forwarded only to qualified Gemini3.8/Groq families; other automatic defaults retained.24hour routing evidence preserves raw history, quotas and active exhaustion/cooldown. No keys/topups/cap raises/new models/paid fallback. This is bounded current-source qualification, not sustained uptime/human humor proof; historical failures preserved. Issues62and30 closed."
+            observedAt: 2026-10-16T13:17:26.344807+00:00
     resources:
       - provider: cloudflare
         kind: d1

@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
-      infrastructureUpdatedAt: 2026-10-22
+      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SaaS Maker
@@ -729,14 +729,22 @@ deployment:
         state: live
         attributionReason: SaaS Maker owns the public directory and the native /launchdesk catalog backed by its checked-in provenance-bearing dataset. The former standalone LaunchDesk Worker was deleted on 2026-09-18.
         verification:
-          observedAt: 2026-10-16T12:37:33.351678+00:00
-          createdOn: 2026-10-14T14:48:33.483214Z
-          deploymentId: 12db932c-9e31-47ab-9d26-290cf453c8fd
-          deploymentUrl: https://12db932c.saas-maker-home.pages.dev
-          sourceCommit: 05c666f5dd402071a27dbbfa2e830bd62716ed63
-          state: provider-identity-verified
-          scope: Read-only production Pages identity; Kinetic retirement projection not deployed.
-          evidencePath: .fleet-local/capture-qualification-167-20261016/current-release-rollback.json
+          observedAt: 2026-10-22T22:52:04.517636+00:00
+          sourceCommit: 28e1682c4fa700a2fdb0a231687303cd5bafe114
+          deploymentId: 727caa13-7d11-4bfe-a576-c8608a45beca
+          deploymentUrl: https://727caa13.saas-maker-home.pages.dev
+          providerSourceAbbreviated: "28e1682"
+          assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+          uiSourceCommit: 45222b86b022b57bcb420640d44f5c79445d2d2d
+          state: success-production-verified
+          scope: Retry-safe Studio footer adoption; three-width real response-loss, receipt and in-app alert acceptance
+          exactMainCi: 39866452249
+          evidence: PR288 is merged; exact-main CI and Tooling CI39866452257 pass, all six deploy gates and four directory smoke checks pass. Independent Pages production identity and exact footer asset SHA match UI LibraryPR22. Actual production390/768/1440 forms retain draft and consent when a201response is deliberately discarded after commit; each retry returns200with the original record ID. Six POSTs yield three distinct feedback rows, three append-only daily receipts, three unique ingest log IDs and three matching in-app feed entries. All six production screenshots are reviewed, with no page errors or horizontal overflow. All three strictly QA-tagged reserved-address records are identity-checked and recoverably dismissed through the normal owner API. This is synthetic QA; current-day receipts are not a completed-day reporting or organic-demand claim. API remains its independently verified218f57dd release; no cockpit deployment by this task. Other copied/embedded consumers remain separate adoption.
+          evidencePath: .fleet-local/feedback-retry-167-20261023/studio-production-summary.json
+          captureEvidencePaths:
+            - .fleet-local/feedback-retry-167-20261023/studio-production-browser.json
+            - .fleet-local/feedback-retry-167-20261023/studio-production-receipts.json
+            - .fleet-local/feedback-retry-167-20261023/freeai-production-outcomes.json
         verificationHistory:
           - observedAt: 2026-10-05T19:46:22.688Z
             sourceCommit: 00c3d7a761da28d44405ee6c670c35a94b0e81ec
@@ -761,6 +769,29 @@ deployment:
             deploymentUrl: https://92c9c86d.saas-maker-home.pages.dev
             scope: Showcase site release
             evidence: Production release recorded 2026-10-09 from the release report; not independently re-verified at recording time.
+          - observedAt: 2026-10-16T12:37:33.351678+00:00
+            createdOn: 2026-10-14T14:48:33.483214Z
+            deploymentId: 12db932c-9e31-47ab-9d26-290cf453c8fd
+            deploymentUrl: https://12db932c.saas-maker-home.pages.dev
+            sourceCommit: 05c666f5dd402071a27dbbfa2e830bd62716ed63
+            state: provider-identity-verified
+            scope: Read-only production Pages identity; Kinetic retirement projection not deployed.
+            evidencePath: .fleet-local/capture-qualification-167-20261016/current-release-rollback.json
+          - deploymentId: b998bda2-fd60-4ad7-b0fa-71e938c29b7c
+            deploymentUrl: https://b998bda2.saas-maker-home.pages.dev
+            providerSourceAbbreviated: 52a56f8
+            observedAt: 2026-10-22T21:54:45Z
+            state: provider-identity-verified
+            evidencePath: .fleet-local/feedback-retry-167-20261023/pages-before.json
+          - observedAt: 2026-10-22T22:23:42.431223+00:00
+            deploymentId: e7f2e5d3-9362-42a5-80df-39a1747786f9
+            deploymentUrl: https://e7f2e5d3.saas-maker-home.pages.dev
+            providerSourceAbbreviated: 218f57d
+            sourceCommit: 218f57dd4f4900ddc578b2d3a0fa008478656a58
+            state: success-production-verified
+            scope: Shared React feedback launcher retry identities; public directory artifact
+            evidence: Existing directory publisher built1162pages and all4directory smoke checks pass. Provider production branch/main identity matches the exact source; only one artifact changed during upload. Existing StudioFooter asset remains a separately owned UI Library client; its retry adoption is not claimed. No cockpit deployment.
+            evidencePath: .fleet-local/feedback-retry-167-20261023/pages-release-summary.json
       - provider: cloudflare
         kind: worker
         name: saasmaker-api
@@ -790,24 +821,53 @@ deployment:
               - /tmp/fleet-capture-positive-results-20261022.json
               - /tmp/fleet-capture-durable-32-unsubscribed-20261022.json
               - /tmp/fleet-capture-alert-summary-20261022.json
+          - observedAt: 2026-10-22T15:40:55.354036+00:00
+            createdOn: 2026-10-22T15:40:21.998747Z
+            deploymentId: a1832efe-5ae7-443a-aa93-21a55719a6d2
+            versionId: 2a3737c8-1e78-4a9e-9047-c798a539141e
+            sourceCommit: 8ff6168b58825ff6c6ebd234cc9200e2960c63fc
+            trafficPercent: 100
+            state: success-production-verified
+            scope: Hono/tooling and bounded capture labels; ISO feedback-date correction; 36-product synthetic capture proof
+            evidence: "Merged PRs #280/#281/#282. Exact-main push CI 39804454645 and Tooling CI 39804454608 passed; six deploy gates, required binding-name presence and all 11 production smoke checks passed. Independent latest-by-created-time deployment/version reads confirm the full source SHA at 100%. API-only date fix preserves cockpit at its separately qualified bfdc9f99 release: its source/dependency inputs did not change. All 72 API tests pass, including four real-SQLite date regressions (three fail before the fix), with typecheck and zero scoped API dependency advisories. No auth policy, schema, migration or provider configuration change. Original owner ISO since queries now return all 36 strictly source/email/title matched QA feedback records; each is owner-read back as recoverably dismissed. Tagged public-API acceptance covers 32 maintained newsletter-applicable non-MemeLab products in the frozen original55 cohort and four maintained newsletter-N/A feedback-only identities. Independent read-only D1 aggregates confirm 32 consented newsletter rows, 36 feedback rows, 68 append-only receipts and zero active QA subscriptions; verification writes zero rows. Owner event logs match all 68 unique receipt log ids to in-app alerts across bounded feed snapshots, with no duplicate event groups or unexpected log prop keys. Newsletter normalized duplicate input creates one row/receipt/alert; feedback was submitted once per product, so repeated feedback POST idempotency is not certified. Four feedback-only backend controls do not establish product UI applicability. This is synthetic QA, not organic demand or a positive browser-submit matrix on all sites. Meme Lab remains separate. October22 completed India-day reporting is ineligible until 2026-10-22T18:30:00Z; full-day visitor continuity and parent acceptance remain open."
+            evidencePath: /tmp/fleet-saasmaker-api-date-production-final-20261022.json
+            captureEvidencePaths:
+              - /tmp/fleet-capture-positive-results-20261022.json
+              - /tmp/fleet-capture-durable-32-unsubscribed-20261022.json
+              - /tmp/fleet-capture-feedback-only-results-20261022.json
+              - /tmp/fleet-capture-feedback-only-durable-20261022.json
+              - /tmp/fleet-capture-alert-summary-20261022.json
+              - /tmp/fleet-capture-feedback-dismiss-final-20261022.json
         verification:
-          observedAt: 2026-10-22T15:40:55.354036+00:00
-          createdOn: 2026-10-22T15:40:21.998747Z
-          deploymentId: a1832efe-5ae7-443a-aa93-21a55719a6d2
-          versionId: 2a3737c8-1e78-4a9e-9047-c798a539141e
-          sourceCommit: 8ff6168b58825ff6c6ebd234cc9200e2960c63fc
+          observedAt: 2026-10-22T22:14:36.517490+00:00
+          deploymentId: a8cea3aa-dbca-443d-a81f-655f5f50a7bf
+          createdOn: 2026-10-22T22:13:40.781517Z
+          sourceCommit: 218f57dd4f4900ddc578b2d3a0fa008478656a58
+          versionId: 2ba64f97-8a7f-42fb-9883-3dcbabdb4614
           trafficPercent: 100
           state: success-production-verified
-          scope: Hono/tooling and bounded capture labels; ISO feedback-date correction; 36-product synthetic capture proof
-          evidence: "Merged PRs #280/#281/#282. Exact-main push CI 39804454645 and Tooling CI 39804454608 passed; six deploy gates, required binding-name presence and all 11 production smoke checks passed. Independent latest-by-created-time deployment/version reads confirm the full source SHA at 100%. API-only date fix preserves cockpit at its separately qualified bfdc9f99 release: its source/dependency inputs did not change. All 72 API tests pass, including four real-SQLite date regressions (three fail before the fix), with typecheck and zero scoped API dependency advisories. No auth policy, schema, migration or provider configuration change. Original owner ISO since queries now return all 36 strictly source/email/title matched QA feedback records; each is owner-read back as recoverably dismissed. Tagged public-API acceptance covers 32 maintained newsletter-applicable non-MemeLab products in the frozen original55 cohort and four maintained newsletter-N/A feedback-only identities. Independent read-only D1 aggregates confirm 32 consented newsletter rows, 36 feedback rows, 68 append-only receipts and zero active QA subscriptions; verification writes zero rows. Owner event logs match all 68 unique receipt log ids to in-app alerts across bounded feed snapshots, with no duplicate event groups or unexpected log prop keys. Newsletter normalized duplicate input creates one row/receipt/alert; feedback was submitted once per product, so repeated feedback POST idempotency is not certified. Four feedback-only backend controls do not establish product UI applicability. This is synthetic QA, not organic demand or a positive browser-submit matrix on all sites. Meme Lab remains separate. October22 completed India-day reporting is ineligible until 2026-10-22T18:30:00Z; full-day visitor continuity and parent acceptance remain open."
-          evidencePath: /tmp/fleet-saasmaker-api-date-production-final-20261022.json
-          captureEvidencePaths:
-            - /tmp/fleet-capture-positive-results-20261022.json
-            - /tmp/fleet-capture-durable-32-unsubscribed-20261022.json
-            - /tmp/fleet-capture-feedback-only-results-20261022.json
-            - /tmp/fleet-capture-feedback-only-durable-20261022.json
-            - /tmp/fleet-capture-alert-summary-20261022.json
-            - /tmp/fleet-capture-feedback-dismiss-final-20261022.json
+          scope: Optional hosted feedback retry identities and additive migration0029
+          evidence: PR287 merged as218f57dd. Exact-main CI39861933346 and Tooling39861933220 attempt2 pass; six deploy gates and11production smokes pass. Independent provider source and100percent traffic readback; migration0029 applied as the only pending migration and its ledger/schema are read back.92focused API/client tests,7packaged checks and local3width response-loss fixture pass. Real production browser/client,receipt and alert identity qualification is separate. Current StudioFooter uses UI Library client, so the newly released React launcher is not evidence of StudioFooter retry adoption. No automatic alert outbox guarantee; retries are client-triggered.
+          evidencePath: .fleet-local/feedback-retry-167-20261023/api-production-summary.json
+          liveCaptureRetryVerification:
+            observedAt: 2026-10-22T22:51:11.084Z
+            products:
+              - free-ai
+              - saas-maker
+            widths:
+              - 390
+              - 768
+              - 1440
+            attempts: 12
+            feedbackRecords: 6
+            receipts: 6
+            uniqueIngestLogs: 6
+            uniqueInAppAlerts: 6
+            allQaFeedbackRecoverablyDismissed: true
+            evidencePaths:
+              - .fleet-local/feedback-retry-167-20261023/freeai-production-outcomes.json
+              - .fleet-local/feedback-retry-167-20261023/studio-production-summary.json
+            limits: Synthetic current-day React and Studio controls. Other consumers, full completed-day reporting, and automatic/outbox delivery are not inferred.
       - provider: cloudflare
         kind: worker
         name: saasmaker-dashboard

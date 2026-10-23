@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
-      infrastructureUpdatedAt: 2026-09-25
+      sha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=contextdaddy].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: bafe2dc9dfd353e716620483f1608fe37a7cfbcc9fe8a8e26090ea24468695a1
-      documentSha256: 64d525bf3b20a1fd25ef1f4cf194ebdf70619ebec0b80d3b88a5bbff28dabccf
+      documentSha256: ff71cc7ae4ad0335b441b1e78a00e7a8c2ec5c2ddee27226628e24711a22d327
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -252,7 +252,7 @@ deployment:
     - id: landing
       kind: pages
       name: contextdaddy-landing
-      sourcePath: ios-landings
+      sourcePath: ui-library/archives/ios-landings
     - id: site
       kind: worker
       name: contextdaddy-site
@@ -265,11 +265,25 @@ deployment:
         method: cloudflare-pages-api
         state: live
         verification:
-          observedAt: 2026-09-25
-          sourcePath: ios-landings
-          deploymentId: 6fd7438e
-          sourceState: dirty-working-tree
-          evidencePath: null
+          observedAt: 2026-10-22T23:11:43.705695+00:00
+          sourceCommit: 08e11bc304cf2118135749d55ed18f99e96f830e
+          sourcePath: ui-library/archives/ios-landings
+          deploymentId: 6a1bfc02-e4ac-4344-8245-cdd0f0119144
+          deploymentUrl: https://6a1bfc02.contextdaddy-landing.pages.dev
+          providerSourceAbbreviated: 08e11bc
+          previousDeploymentId: 573a5ee3-fb8e-4020-b359-b1442c83f91e
+          uiSourceCommit: 45222b86b022b57bcb420640d44f5c79445d2d2d
+          exactMainCi: 39868439680
+          state: success-production-verified
+          scope: Retained archived landing only; retry-safe shared footer and live capture acceptance
+          evidence: "UI LibraryPR23 merged, frozen nested install and42tests/11builds pass; exact-main CI green. Existing-only factory publisher updates the existing Pages resource. All six candidate page texts and stylesheet/image URLs match production before release. This product passes390/768/1440 real response-loss retry: six POSTs produce three feedback rows/receipts, three consented newsletter POSTs produce one subscription/receipt; unchecked consent blocked. All four events have unique matching App Health logs and feed entries; six production feedback screenshots manually reviewed, no overflow or page errors. QA feedback dismissed and subscription unsubscribed, receipts retained. Native app/download workers unchanged. Synthetic traffic does not qualify organic usage or completed-day reporting."
+          evidencePath: .fleet-local/feedback-retry-167-20261023/factory-production-summary.json
+        verificationHistory:
+          - observedAt: 2026-09-25
+            sourcePath: ios-landings
+            deploymentId: 6fd7438e
+            sourceState: dirty-working-tree
+            evidencePath: null
       - provider: cloudflare
         kind: worker
         name: contextdaddy-site
