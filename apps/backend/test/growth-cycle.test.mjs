@@ -167,7 +167,7 @@ test('the CLI works from a managed checkout with an explicit canonical registry 
   const directory = mkdtempSync(join(tmpdir(), 'growth-cli-'));
   const databasePath = join(directory, 'brand.sqlite');
   const registry = join(directory, 'operations.json');
-  writeFileSync(registry, JSON.stringify({ projects: [{ id: 'alpha', status: 'active' }] }));
+  writeFileSync(registry, JSON.stringify({ projects: [{ id: 'alpha', name: 'Alpha', family: 'alpha', status: 'active' }] }));
   const store = new BrandEvidenceStore({ databasePath });
   store.saveProfile('alpha', { brandName: 'Alpha' });
   store.close();
