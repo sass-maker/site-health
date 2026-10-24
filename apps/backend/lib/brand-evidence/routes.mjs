@@ -1,4 +1,5 @@
 import { assertKnownProject, runApiModelCheck } from './runner.mjs';
+import { GrowthCycleStore } from './growth-cycle.mjs';
 
 // Brand evidence is private local state. These routes are served only by the
 // loopback-bound Site Health backend; mutations sit behind the same owner
@@ -19,6 +20,7 @@ export function createBrandEvidenceRoutes({
   fetchImpl = fetch,
   now = () => new Date().toISOString(),
 }) {
+  const growth = store ? new GrowthCycleStore(store) : null;
   const unavailable = (json, response) => json(response, 503, { error: 'brand evidence store unavailable' });
 
   function read(url, projects, response, json) {
@@ -32,9 +34,10 @@ export function createBrandEvidenceRoutes({
       });
     }
     const match = projectMatch(url);
-    if (!match || match.rest !== '') return false;
+    if (!match || !['', 'growth'].includes(match.rest)) return false;
     if (!store) return unavailable(json, response);
     assertKnownProject(match.projectId, projects);
+    if (match.rest === 'growth') return json(response, 200, growth.view(match.projectId));
     const limit = Number(url.searchParams.get('limit') ?? 50);
     return json(response, 200, {
       generatedAt: now(),
@@ -48,6 +51,9 @@ export function createBrandEvidenceRoutes({
     if (!store) return unavailable(json, response);
     assertKnownProject(match.projectId, projects);
     const { projectId, rest } = match;
+    if (method === 'POST' && rest === 'growth') {
+      return json(response, 200, growth.mutate(projectId, await readBody(request), now()));
+    }
     if (method === 'PUT' && rest === 'profile') {
       const body = await readBody(request);
       return json(response, 200, store.saveProfile(projectId, body, { now: now() }));

@@ -995,6 +995,65 @@ function brandEvidenceProfile(profile: JsonRecord | null) {
   ]);
 }
 
+function brandGrowthTask(task: JsonRecord) {
+  const count = (input: unknown) => typeof input === "number" ? input.toLocaleString("en") : "Not measured";
+  const receiptUrl = safeHttpUrl(task.receipt?.url);
+  const measurementUrl = safeHttpUrl(task.measurement?.url);
+  const issueUrl = safeHttpUrl(task.issueUrl);
+  const failed = Object.entries(task.review?.checks ?? {}).filter(([, value]) => !(value as JsonRecord).passed);
+  return element("article", { class: "brand-evidence__item" }, [
+    element("header", { class: "brand-evidence__item-head" }, [state(task.status), element("span", {}, [task.kind]), element("small", {}, [task.week])]),
+    element("p", { class: "brand-evidence__prompt" }, [task.title]),
+    element("p", { class: "brand-evidence__verdict" }, [task.brief]),
+    task.keyword ? element("p", {}, [`Intent: ${task.intent} · Query: ${task.keyword}`]) : null,
+    task.baseline ? element("p", { class: "measurement-boundary-note" }, [`Baseline: ${task.baseline}`]) : null,
+    safeHttpUrl(task.targetUrl) ? element("p", {}, ["Mapped page: ", element("a", { href: safeHttpUrl(task.targetUrl)!, rel: "noreferrer noopener", target: "_blank" }, [task.targetUrl])]) : null,
+    issueUrl ? element("a", { href: issueUrl, rel: "noreferrer noopener", target: "_blank" }, ["Open delivery issue"]) : null,
+    task.draft ? element("details", { class: "brand-evidence__answer" }, [
+      element("summary", {}, ["Current draft"]), element("p", {}, [task.draft.content]),
+    ]) : null,
+    task.review ? element("p", { class: "measurement-boundary-note" }, [
+      `Reviewer: ${task.review.reviewer} · ${failed.length ? `${failed.length} checks need changes` : "All six checks passed"}. Reviewer attestation for this draft.`,
+    ]) : null,
+    task.review ? element("details", { class: "brand-evidence__answer" }, [
+      element("summary", {}, ["QA findings"]),
+      element("ul", {}, Object.entries(task.review.checks).map(([name, check]) =>
+        element("li", {}, [`${name}: ${(check as JsonRecord).passed ? "passed" : "needs changes"} · ${(check as JsonRecord).note}`]))),
+    ]) : null,
+    receiptUrl ? element("p", {}, ["Publication receipt: ", element("a", { href: receiptUrl, rel: "noreferrer noopener", target: "_blank" }, [receiptUrl]), ` · ${formatted(task.receipt.observedAt)} · supplied evidence`]) : null,
+    task.measurement ? element("div", {}, [
+      metricGrid([
+        { label: "Clicks", value: count(task.measurement.clicks) },
+        { label: "Visits", value: count(task.measurement.visits) },
+        { label: "Conversions", value: count(task.measurement.conversions) },
+      ]),
+      element("p", {}, [task.measurement.conclusion]),
+      element("p", { class: "measurement-boundary-note" }, [`Window: ${formatted(task.measurement.windowStart)} – ${formatted(task.measurement.windowEnd)}`]),
+      element("p", { class: "measurement-boundary-note" }, [task.measurement.attribution]),
+      measurementUrl ? element("a", { href: measurementUrl, rel: "noreferrer noopener", target: "_blank" }, ["Measurement source"]) : null,
+    ]) : null,
+    task.parkReason ? element("p", {}, [`Parked: ${task.parkReason}`]) : null,
+    task.completion ? element("p", { class: "measurement-boundary-note" }, [`Review completed: ${task.completion.note} · ${formatted(task.completion.observedAt)}. Execution evidence; growth remains unmeasured.`]) : null,
+  ]);
+}
+
+async function brandGrowth(projectId: string, refresh: () => Promise<void>) {
+  let growth: JsonRecord;
+  try { growth = await api(brandEvidencePath(projectId, "/growth")); }
+  catch { return empty("Growth cycle unavailable"); }
+  return element("div", { class: "brand-evidence__items", "data-growth-cycle": projectId }, [
+    element("p", {}, ["Turn observed search and AI gaps into researched briefs, reviewed changes and measured follow-ups. Delivery stays in the product’s own repository."]),
+    element("p", { class: "measurement-boundary-note" }, ["Planning creates local work only. Drafts, QA and publication receipts are supplied by your agent. Publication and outreach use the product’s existing workflow."]),
+    ...(growth.gaps ?? []).map((gap: string) => element("p", { class: "measurement-boundary-note" }, [gap])),
+    brandEvidenceButton("Plan this week", async () => {
+      await api(brandEvidencePath(projectId, "/growth"), { method: "POST", body: JSON.stringify({ revision: growth.revision, command: "plan" }) });
+      await refresh();
+    }),
+    element("small", {}, [`${growth.cycles?.length ?? 0} weekly cycles · ${growth.tasks?.length ?? 0} tasks`]),
+    ...(growth.tasks ?? []).map(brandGrowthTask),
+  ]);
+}
+
 async function renderBrandEvidence() {
   const select = document.querySelector<HTMLSelectElement>("[data-brand-evidence-project]");
   const checkButton = document.querySelector<HTMLButtonElement>("[data-brand-evidence-check]");
@@ -1029,10 +1088,13 @@ async function renderBrandEvidence() {
     window.history.replaceState(null, "", url);
     const view = await api(brandEvidencePath(projectId));
     const refresh = show;
+    const growth = await brandGrowth(projectId, refresh);
+    if (select.value !== projectId) return;
     if (checkButton) checkButton.disabled = !view.profile || !(view.prompts ?? []).length;
     replace("brand-evidence", element("div", { class: "brand-evidence" }, [
       brandEvidenceProfile(view.profile),
       brandEvidenceSummary(view),
+      element("section", { class: "brand-evidence__group" }, [element("h3", {}, ["Growth cycle"]), growth]),
       brandEvidenceGroup("Answers", (view.observations ?? []).length, (view.observations ?? []).length
         ? element("div", { class: "brand-evidence__items" }, view.observations.slice(0, 25).map((observation: JsonRecord) =>
             brandEvidenceObservation(projectId, observation, refresh)))
