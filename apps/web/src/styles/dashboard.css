@@ -129,6 +129,9 @@ main, .page-head > div { min-width: 0; }
 .sidebar-nav a.active { border-color: rgba(121, 220, 200, .34); background: rgba(121, 220, 200, .07); }
 .sidebar-nav a.active svg { color: var(--accent); }
 .sidebar-foot { display: grid; gap: 4px; padding: 14px 12px; border-top: 1px solid var(--line); }
+.usage-export { min-height: 40px; display: inline-flex; align-items: center; gap: 11px; padding: 8px 11px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; text-align: left; font: inherit; font-size: 11px; font-weight: 700; }
+.usage-export:hover { border-color: var(--accent); color: var(--text); }
+.usage-export svg { width: 20px; height: 20px; flex: 0 0 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .connection { min-height: 44px; display: inline-flex; align-items: center; gap: 11px; padding: 8px 11px; color: var(--quiet); font-size: 11px; font-weight: 720; }
 .connection i { width: 7px; height: 7px; border-radius: 50%; background: var(--warning); box-shadow: 0 0 0 4px rgba(242, 193, 78, .08); }
 .connection.online { color: var(--muted); }
@@ -149,6 +152,7 @@ main, .page-head > div { min-width: 0; }
 .sidebar-collapsed .sidebar-nav a { grid-template-columns: 1fr; place-items: center; padding-inline: 8px; }
 .sidebar-collapsed .connection { justify-content: center; padding-inline: 0; }
 .sidebar-collapsed .repo-link { justify-content: center; padding-inline: 0; }
+.sidebar-collapsed .usage-export { justify-content: center; padding-inline: 0; }
 
 .page-head { min-width: 0; display: flex; align-items: end; justify-content: space-between; gap: 32px; min-height: 176px; padding: 40px 0 28px; border-bottom: 1px solid var(--line); }
 .page-head--compact { min-height: 126px; padding: 28px 0 22px; }

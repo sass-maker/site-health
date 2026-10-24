@@ -11,7 +11,7 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
 >
   <div slot="meta" class="page-head__actions">
     <span class="snapshot-time" data-project-status-time>Reading project directory</span>
-    <button class="primary-action" type="button" data-project-refresh-all>
+    <button class="primary-action" type="button" data-project-refresh-all data-usage-event="refresh">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6v5h-5 M4 18v-5h5 M18.5 9A7 7 0 006 6.5L4 9 M5.5 15A7 7 0 0018 17.5l2-2.5" /></svg>
       <span>Refresh portfolio</span>
     </button>
@@ -24,11 +24,11 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
       <p>This private workspace stays useful even while a collector is unavailable: each area names the decision it supports and keeps missing evidence explicit.</p>
     </div>
     <nav class="owner-questions__grid" aria-label="Site Health product areas">
-      <a href="/projects"><span>01</span><strong>Projects</strong><small>What is active, retained, or missing a clear next action?</small></a>
-      <a href="/domains"><span>02</span><strong>Domains</strong><small>Which public identities and owned domains are healthy or drifting?</small></a>
-      <a href="/performance"><span>03</span><strong>Performance</strong><small>Which experiences are fast in repeated evidence, not one flattering run?</small></a>
-      <a href="/search"><span>04</span><strong>Google Search</strong><small>What is discoverable, earning impressions, or invisible to search?</small></a>
-      <a href="/ai-awareness"><span>05</span><strong>AI awareness</strong><small>Which products are understood and recommended by answer engines?</small></a>
+      <a href="/projects" data-usage-event="navigation"><span>01</span><strong>Projects</strong><small>What is active, retained, or missing a clear next action?</small></a>
+      <a href="/domains" data-usage-event="navigation"><span>02</span><strong>Domains</strong><small>Which public identities and owned domains are healthy or drifting?</small></a>
+      <a href="/performance" data-usage-event="navigation"><span>03</span><strong>Performance</strong><small>Which experiences are fast in repeated evidence, not one flattering run?</small></a>
+      <a href="/search" data-usage-event="navigation"><span>04</span><strong>Google Search</strong><small>What is discoverable, earning impressions, or invisible to search?</small></a>
+      <a href="/ai-awareness" data-usage-event="navigation"><span>05</span><strong>AI awareness</strong><small>Which products are understood and recommended by answer engines?</small></a>
     </nav>
   </section>
   <section class="portfolio-summary" aria-label="Portfolio summary" data-dashboard-slot="project-summary">
@@ -37,11 +37,11 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
   <section class="directory-controls" aria-label="Project filters">
     <label class="directory-search">
       <span>Find a product</span>
-      <input type="search" placeholder="Search name or domain" autocomplete="off" data-project-search />
+      <input type="search" placeholder="Search name or domain" autocomplete="off" data-project-search data-usage-event="filter" />
     </label>
     <label>
       <span>Priority</span>
-      <select data-project-priority>
+      <select data-project-priority data-usage-event="filter">
         <option value="">All priorities</option>
         <option value="P1">P1</option>
         <option value="P2">P2</option>
@@ -50,7 +50,7 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
     </label>
     <label>
       <span>Evidence state</span>
-      <select data-project-health>
+      <select data-project-health data-usage-event="filter">
         <option value="">All states</option>
         <option value="attention">Needs attention</option>
         <option value="measured">Has evidence</option>
@@ -60,7 +60,7 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
     </label>
     <label>
       <span>Sharing</span>
-      <select data-project-sharing>
+      <select data-project-sharing data-usage-event="filter">
         <option value="">All sharing states</option>
         <option value="shareable">Shareable</option>
         <option value="not-shareable">Not shareable</option>
@@ -68,7 +68,7 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
     </label>
     <label>
       <span>Lifecycle</span>
-      <select data-project-lifecycle>
+      <select data-project-lifecycle data-usage-event="filter">
         <option value="">All lifecycles</option>
         <option value="primary">Primary</option>
         <option value="active">Active</option>
@@ -77,13 +77,13 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
     </label>
     <label>
       <span>Resume condition</span>
-      <select data-project-resume>
+      <select data-project-resume data-usage-event="filter">
         <option value="">All conditions</option>
         <option value="defined">Defined</option>
         <option value="not-defined">Not defined</option>
       </select>
     </label>
-    <button class="directory-reset" type="button" data-project-filter-reset>Clear filters</button>
+    <button class="directory-reset" type="button" data-project-filter-reset data-usage-event="action">Clear filters</button>
     <span class="directory-result-count" data-project-result-count aria-live="polite"></span>
   </section>
   <section class="owner-section owner-section--directory" aria-labelledby="project-directory-title">
