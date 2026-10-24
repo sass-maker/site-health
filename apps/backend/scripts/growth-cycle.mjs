@@ -7,13 +7,14 @@ import { assertKnownProject } from '../lib/brand-evidence/runner.mjs';
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 
 const { values, positionals } = parseArgs({ allowPositionals: true, options: {
-  input: { type: 'string' }, help: { type: 'boolean', short: 'h' },
+  input: { type: 'string' }, registry: { type: 'string' }, help: { type: 'boolean', short: 'h' },
 } });
 const [command, projectId] = positionals;
 if (values.help || !command) {
   console.log(`Site Health growth cycle (private local state)
   growth-cycle.mjs view <project>
   growth-cycle.mjs apply <project> --input change.json
+  Add --registry <operations.json> when a managed worktree's catalog link is unavailable.
 
 Read view.revision before each write. Input requires revision and command:
 plan, add, brief, draft, review, publish, measure, complete or park. No external calls occur.
@@ -23,7 +24,7 @@ See apps/backend/docs/growth-cycle.md for the input contract.`);
 } else {
   let store;
   try {
-    assertKnownProject(projectId, loadDashboardProjects());
+    assertKnownProject(projectId, loadDashboardProjects(values.registry));
     if (!['view', 'apply'].includes(command)) throw new Error('Use view or apply');
     const input = command === 'apply' ? JSON.parse(readFileSync(values.input, 'utf8')) : null;
     store = new BrandEvidenceStore({ databasePath: process.env.SITE_HEALTH_BRAND_EVIDENCE_DB || defaultBrandEvidencePath() });

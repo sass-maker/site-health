@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync } from 'node:fs';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 import { GrowthCycleStore, GROWTH_QA, growthWeek } from '../lib/brand-evidence/growth-cycle.mjs';
 import { BrandEvidenceStore } from '../lib/brand-evidence/store.mjs';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
@@ -159,4 +161,31 @@ test('growth routes use the existing owner gate, catalog scope and conflict resp
   assert.equal((await post('alpha', { command: 'plan', revision: 0 })).status, 409);
   const beta = await (await fetch(`${base}/beta/brand-evidence/growth`)).json();
   assert.equal(beta.tasks.length, 0);
+});
+
+test('the CLI works from a managed checkout with an explicit canonical registry and private database', () => {
+  const directory = mkdtempSync(join(tmpdir(), 'growth-cli-'));
+  const databasePath = join(directory, 'brand.sqlite');
+  const registry = join(directory, 'operations.json');
+  writeFileSync(registry, JSON.stringify({ projects: [{ id: 'alpha', status: 'active' }] }));
+  const store = new BrandEvidenceStore({ databasePath });
+  store.saveProfile('alpha', { brandName: 'Alpha' });
+  store.close();
+  const script = fileURLToPath(new URL('../scripts/growth-cycle.mjs', import.meta.url));
+  const cli = (...args) => spawnSync(process.execPath, [script, ...args, '--registry', registry], {
+    encoding: 'utf8', timeout: 10000, env: { ...process.env, SITE_HEALTH_BRAND_EVIDENCE_DB: databasePath },
+  });
+  const initial = cli('view', 'alpha');
+  assert.equal(initial.status, 0, initial.stderr);
+  assert.equal(JSON.parse(initial.stdout).revision, 0);
+  const input = join(directory, 'change.json');
+  writeFileSync(input, JSON.stringify({ command: 'plan', revision: 0 }));
+  const planned = cli('apply', 'alpha', '--input', input);
+  assert.equal(planned.status, 0, planned.stderr);
+  assert.equal(JSON.parse(planned.stdout).tasks.length, 5);
+  assert.equal(cli('apply', 'alpha', '--input', input).status, 1, 'stale CLI input must fail');
+  assert.equal(cli('view', 'outside-catalog').status, 1);
+  writeFileSync(input, 'null');
+  assert.equal(cli('apply', 'alpha', '--input', input).status, 1);
+  assert.equal(JSON.parse(cli('view', 'alpha').stdout).revision, 1, 'rejected input must not mutate state');
 });

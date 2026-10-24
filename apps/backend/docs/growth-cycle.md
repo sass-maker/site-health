@@ -20,6 +20,13 @@ node apps/backend/scripts/growth-cycle.mjs view <project>
 node apps/backend/scripts/growth-cycle.mjs apply <project> --input /private/change.json
 ```
 
+Use a current checkout containing the CLI. If the primary checkout is behind
+with other agents' dirty work, preserve it and inspect `git worktree list --porcelain`
+for a verified current checkout. Its relative catalog link may be unavailable;
+pass `--registry ~/Desktop/fleet/saas-maker/catalog/generated/operations.json`
+to growth commands to read the canonical generated project registry. This flag
+does not copy or edit catalog policy. Do not use a synthetic registry for real work.
+
 `view` returns schema `site-health.growth.v1`, revision, readiness gaps, cycles
 and tasks. Every change must include that exact `revision` and a `command`.
 On conflict, reload and inspect the result before retrying. `plan` records the
