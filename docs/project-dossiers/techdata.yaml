@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 8429c57473b6bbce7b34133eae2382f67f122dea172b575405a4405c6674812c
+      sha256: 5944e0265a06a1ae909846b527e86f513c7eb91ad697e442681cc132581d7946
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-09
       reviewSha256: 74ff7d1b3faf4c46efce30259833f4d7ada4cf4ee4452da388e1962b2ea5a029
-      documentSha256: 8429c57473b6bbce7b34133eae2382f67f122dea172b575405a4405c6674812c
+      documentSha256: 5944e0265a06a1ae909846b527e86f513c7eb91ad697e442681cc132581d7946
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -360,4 +360,4 @@ notes:
     2026-10-17: The owner requested one active Fleet identity for Nomad, PH Catalog, Research Papers and Reddit Insights: TechData. Their historical project rows, source repositories, local paths, collectors and live sites remain retained source components. High Signal Podcasts stays active as its distinct API/ingestion service. This membership change is not a source-site retirement or full operator-workflow parity claim.
     2026-10-17 local cleanup: Removed the four remote-backed source checkouts after verifying the bundled Nomad bytes and public/R2 adapter paths. Local-only data/evidence are retained in the private TechData source-components store; PH linked worktrees keep their Git metadata outside Fleet. Collectors and live source services remain source-owned.
     2026-10-22: Owner added High Signal Podcasts to the same consolidated Fleet identity. All five collections now share the TechData roadmap. Podcast ingestion, published API, retained website and repository remain source components; this membership change does not assert complete source-workflow parity or retire services.
-  infrastructure: Canonical public Worker at https://data.highsignal.app; workers.dev retained. Five source sites remain independent pending techdata#13. Previous Worker version remains in Cloudflare deployment history for rollback.
+  infrastructure: "Canonical public Worker at https://data.highsignal.app; workers.dev retained. Five source sites remain independent pending techdata#13. Previous Worker version remains in Cloudflare deployment history for rollback. 2026-10-24: PR31 browser logging passed production QA with sanitized trace delivery. The existing production App Health project is linked to the canonical techdata report-catalog identity. Its first linked 30-day export has no qualifying browser-analytics receipt and reports usage unknown; this establishes reporting linkage only, not audience or meaningful core use."
