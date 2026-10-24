@@ -24,6 +24,12 @@ const evidence = (value) => ({
   observedAt: normalizeTimestamp(value?.observedAt),
   note: text(value?.note, 'evidence note'),
 });
+function sourceList(input, now) {
+  if (!Array.isArray(input) || !input.length || input.length > 20) fail('Supply 1–20 source observations');
+  const sources = input.map(evidence);
+  if (sources.some((source) => Date.parse(source.observedAt) > Date.parse(now))) fail('Source observations cannot be in the future');
+  return sources;
+}
 
 export function growthWeek(now) {
   const date = new Date(normalizeTimestamp(now));
@@ -69,7 +75,16 @@ export class GrowthCycleStore {
       else {
         const task = doc.tasks.find((item) => item.id === input.taskId);
         if (!task) fail('Growth task not found in this project', 404);
-        if (command === 'draft') {
+        if (command === 'brief') {
+          if (task.receipt) fail('Published work needs a new refresh task');
+          task.brief = text(input.brief, 'brief', 10000);
+          if (input.baseline !== undefined) task.baseline = text(input.baseline, 'baseline or explicit unavailable state');
+          if (input.evidence !== undefined) task.evidence = sourceList(input.evidence, now);
+          if (input.issueUrl !== undefined) task.issueUrl = input.issueUrl === null ? null : url(input.issueUrl);
+          task.review = null;
+          delete task.completion;
+          task.status = task.draft ? 'draft' : 'open';
+        } else if (command === 'draft') {
           if (task.receipt) fail('Published work needs a new refresh task');
           task.draft = { content: text(input.content, 'draft content', 100000), author: text(input.author, 'author', 200), updatedAt: now };
           task.draft.digest = hash(task.draft.content);
@@ -96,6 +111,7 @@ export class GrowthCycleStore {
           ...(command === 'publish' ? { receipt: structuredClone(task.receipt) } : {}),
           ...(command === 'measure' ? { measurement: structuredClone(task.measurement) } : {}),
           ...(command === 'complete' ? { completion: structuredClone(task.completion) } : {}),
+          ...(command === 'brief' ? { brief: task.brief, baseline: task.baseline, evidence: structuredClone(task.evidence), issueUrl: task.issueUrl } : {}),
           ...(command === 'park' ? { reason: task.parkReason } : {}) });
       }
       doc.revision += 1;
@@ -138,14 +154,10 @@ export class GrowthCycleStore {
     const intent = text(input.intent, 'intent', 300).toLowerCase();
     const targetUrl = url(input.targetUrl);
     const mapped = doc.tasks.filter((task) => task.intent === intent && task.status !== 'parked');
-    if (input.refreshOf && !mapped.some((task) => task.id === input.refreshOf && task.status === 'measured' && task.targetUrl === targetUrl)) fail('refreshOf must reference measured work for this intent and URL in this project', 409);
-    const previous = mapped.find((task) => task.status !== 'measured') ?? mapped.find((task) => task.id === input.refreshOf) ?? mapped[0];
-    if (previous && !(previous.status === 'measured' && input.refreshOf === previous.id && previous.targetUrl === targetUrl)) {
-      fail('This intent already maps to a page; reuse it or cite measured work with refreshOf', 409);
-    }
-    if (!Array.isArray(input.evidence) || !input.evidence.length || input.evidence.length > 20) fail('Supply 1–20 source observations');
-    const sources = input.evidence.map(evidence);
-    if (sources.some((source) => Date.parse(source.observedAt) > Date.parse(now))) fail('Source observations cannot be in the future');
+    const previous = mapped.find((task) => task.id === input.refreshOf);
+    if (input.refreshOf && (!previous?.receipt || previous.targetUrl !== targetUrl)) fail('refreshOf must reference published work for this intent and URL in this project', 409);
+    if (mapped.length && (!previous || mapped.some((task) => !task.receipt))) fail('This intent already maps to a page; reuse open work or cite published work with refreshOf', 409);
+    const sources = sourceList(input.evidence, now);
     doc.tasks.push({ id: randomUUID(), kind, title: text(input.title, 'title', 300), intent, targetUrl,
       keyword: input.keyword ? text(input.keyword, 'keyword', 300) : null,
       brief: text(input.brief, 'brief', 10000), baseline: text(input.baseline, 'baseline or explicit unavailable state'),

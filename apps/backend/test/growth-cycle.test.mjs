@@ -67,6 +67,36 @@ test('research completion retains evidence and allows a new weekly review withou
   assert.throws(() => apply({ command: 'complete', taskId: articleId, evidence: source }), /reviewed draft/);
 });
 
+test('updating a brief reuses the task and invalidates its QA without changing its page mapping', (t) => {
+  const { growth, apply } = setup(t);
+  let task = apply(opportunity).tasks[0];
+  task = apply({ command: 'draft', taskId: task.id, content: 'Draft', author: 'writer' }).tasks[0];
+  apply({ command: 'review', taskId: task.id, digest: task.draft.digest, reviewer: 'qa', checks: checks() });
+  const view = apply({ command: 'brief', taskId: task.id, brief: 'Remove an unsupported pricing claim and verify the CTA.', baseline: 'Conversions unavailable.', evidence: [source], issueUrl: 'https://github.com/example/alpha/issues/1' });
+  assert.equal(view.tasks.length, 1);
+  assert.equal(view.tasks[0].targetUrl, opportunity.targetUrl);
+  assert.equal(view.tasks[0].review, null);
+  assert.equal(view.tasks[0].status, 'draft');
+  assert.equal(view.tasks[0].history.at(-1).brief, view.tasks[0].brief);
+  assert.throws(() => apply({ command: 'publish', taskId: task.id, digest: task.draft.digest, receipt: source }), /pass QA/);
+  assert.equal(growth.view('alpha').tasks[0].draft.digest, task.draft.digest);
+});
+
+test('a sourced urgent refresh can start before traffic data arrives, while the old publication stays immutable', (t) => {
+  const { apply } = setup(t);
+  let task = apply(opportunity).tasks[0];
+  task = apply({ command: 'draft', taskId: task.id, content: 'Draft', author: 'writer' }).tasks[0];
+  apply({ command: 'review', taskId: task.id, digest: task.draft.digest, reviewer: 'qa', checks: checks() });
+  task = apply({ command: 'publish', taskId: task.id, digest: task.draft.digest, receipt: { ...source, url: opportunity.targetUrl, revision: 'abc123' } }).tasks[0];
+  assert.equal(task.status, 'awaiting-evidence');
+  assert.throws(() => apply({ command: 'brief', taskId: task.id, brief: 'Overwrite published context' }), /refresh task/);
+  const view = apply({ ...opportunity, refreshOf: task.id, brief: 'Fix an observed factual error; search metrics remain unavailable.' });
+  assert.equal(view.tasks[0].status, 'awaiting-evidence');
+  assert.equal(view.tasks[1].refreshOf, task.id);
+  assert.equal(view.tasks[1].status, 'open');
+  assert.throws(() => apply({ ...opportunity, refreshOf: task.id }), /reuse open work/);
+});
+
 test('draft revisions invalidate QA and publication requires an independent exact-draft review', (t) => {
   const { apply } = setup(t);
   const taskId = apply(opportunity).tasks[0].id;

@@ -45,6 +45,7 @@ specific observation note. Source data, drafts and analytics belong outside Git.
 | `plan` | None. Creates local review tasks only. |
 | `add` | Strings `kind`, `title`, `intent`, `targetUrl`, `brief`, `baseline`; array `evidence` (1–20 evidence objects). Optional strings `keyword`, `issueUrl`, `refreshOf`. |
 | `draft` | `taskId`, `content`, `author`. Returns the content SHA-256 `draft.digest`; changing content clears its review. |
+| `brief` | `taskId`, string `brief`. Optional string `baseline`, evidence array `evidence`, and URL string/null `issueUrl`. Updates existing unpublished work without changing its intent/URL; invalidates QA. |
 | `review` | `taskId`, current `digest`, different `reviewer`, `checks` below. All pass → ready; any fail → changes-requested. |
 | `publish` | `taskId`, current `digest`, object `receipt: {url, observedAt, note, revision}`. `receipt.revision` is the published source revision string; top-level `revision` is the store revision integer. Ready work only; receipt time must follow review and cannot be future. |
 | `measure` | `taskId`, `measurement` below. Requires a publication receipt. |
@@ -54,8 +55,10 @@ specific observation note. Source data, drafts and analytics belong outside Git.
 Kinds: `research`, `keyword-map`, `article`, `comparison`, `free-tool`,
 `page-fix`, `index-check`, `fact-check`, `listicle-outreach`, `directory`,
 `social`, `report`. A researched intent maps to one page. Reuse existing work;
-after measurement, a refresh must cite its task id with `refreshOf` and keep the
-same URL. Park obsolete intent mappings before replacing them.
+after publication, a refresh must cite its task id with `refreshOf` and keep the
+same URL. A sourced urgent fact/technical fix need not wait for traffic metrics;
+retain unavailable baselines and the earlier task's pending measurements. Reuse
+any open refresh instead of duplicating it. Park obsolete mappings before replacing them.
 
 Briefs should name the audience, intent, existing/new/refresh rationale, sources,
 outline or exact fix, claim ledger, internal links, image plan, CTA/event and next
@@ -73,7 +76,7 @@ the existing authorized path and read the live result. It performs no CMS write,
 deployment, indexing submission, directory submission or outreach send. A URL
 and receipt do not establish indexing, ranking, editorial placement or AI uptake.
 Independent live verification is the agent's responsibility, not performed by
-this store. Published drafts are immutable here; make a measured refresh task.
+this store. Published drafts are immutable here; make a sourced refresh task.
 
 `measurement` is an object with evidence fields plus strings `windowStart`, `windowEnd`, `attribution`
 (property, page/filter scope, source and conversion event), and `conclusion`

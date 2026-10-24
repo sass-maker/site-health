@@ -998,6 +998,7 @@ function brandEvidenceProfile(profile: JsonRecord | null) {
 function brandGrowthTask(task: JsonRecord) {
   const count = (input: unknown) => typeof input === "number" ? input.toLocaleString("en") : "Not measured";
   const receiptUrl = safeHttpUrl(task.receipt?.url);
+  const measurementUrl = safeHttpUrl(task.measurement?.url);
   const issueUrl = safeHttpUrl(task.issueUrl);
   const failed = Object.entries(task.review?.checks ?? {}).filter(([, value]) => !(value as JsonRecord).passed);
   return element("article", { class: "brand-evidence__item" }, [
@@ -1014,6 +1015,11 @@ function brandGrowthTask(task: JsonRecord) {
     task.review ? element("p", { class: "measurement-boundary-note" }, [
       `Reviewer: ${task.review.reviewer} · ${failed.length ? `${failed.length} checks need changes` : "All six checks passed"}. Reviewer attestation for this draft.`,
     ]) : null,
+    task.review ? element("details", { class: "brand-evidence__answer" }, [
+      element("summary", {}, ["QA findings"]),
+      element("ul", {}, Object.entries(task.review.checks).map(([name, check]) =>
+        element("li", {}, [`${name}: ${(check as JsonRecord).passed ? "passed" : "needs changes"} · ${(check as JsonRecord).note}`]))),
+    ]) : null,
     receiptUrl ? element("p", {}, ["Publication receipt: ", element("a", { href: receiptUrl, rel: "noreferrer noopener", target: "_blank" }, [receiptUrl]), ` · ${formatted(task.receipt.observedAt)} · supplied evidence`]) : null,
     task.measurement ? element("div", {}, [
       metricGrid([
@@ -1022,7 +1028,9 @@ function brandGrowthTask(task: JsonRecord) {
         { label: "Conversions", value: count(task.measurement.conversions) },
       ]),
       element("p", {}, [task.measurement.conclusion]),
+      element("p", { class: "measurement-boundary-note" }, [`Window: ${formatted(task.measurement.windowStart)} – ${formatted(task.measurement.windowEnd)}`]),
       element("p", { class: "measurement-boundary-note" }, [task.measurement.attribution]),
+      measurementUrl ? element("a", { href: measurementUrl, rel: "noreferrer noopener", target: "_blank" }, ["Measurement source"]) : null,
     ]) : null,
     task.parkReason ? element("p", {}, [`Parked: ${task.parkReason}`]) : null,
     task.completion ? element("p", { class: "measurement-boundary-note" }, [`Review completed: ${task.completion.note} · ${formatted(task.completion.observedAt)}. Execution evidence; growth remains unmeasured.`]) : null,

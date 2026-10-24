@@ -16,7 +16,7 @@ if (values.help || !command) {
   growth-cycle.mjs apply <project> --input change.json
 
 Read view.revision before each write. Input requires revision and command:
-plan, add, draft, review, publish, measure, complete or park. No external calls occur.
+plan, add, brief, draft, review, publish, measure, complete or park. No external calls occur.
 Publish records a supplied receipt; it does not publish a page or send outreach.
 State shares SITE_HEALTH_BRAND_EVIDENCE_DB with brand-evidence.mjs.
 See apps/backend/docs/growth-cycle.md for the input contract.`);
