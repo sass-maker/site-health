@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 5944e0265a06a1ae909846b527e86f513c7eb91ad697e442681cc132581d7946
-      infrastructureUpdatedAt: 2026-10-23
+      sha256: 3ef347d7dc1b5eb644dfd9e3d6189b576fda69bc21e6ca1f30a2a98dda6a8ac2
+      infrastructureUpdatedAt: 2026-10-24
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=techdata].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-09
       reviewSha256: 74ff7d1b3faf4c46efce30259833f4d7ada4cf4ee4452da388e1962b2ea5a029
-      documentSha256: 5944e0265a06a1ae909846b527e86f513c7eb91ad697e442681cc132581d7946
+      documentSha256: 3ef347d7dc1b5eb644dfd9e3d6189b576fda69bc21e6ca1f30a2a98dda6a8ac2
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -281,29 +281,29 @@ deployment:
         state: live
         attributionReason: techdata owns the Worker, the data.highsignal.app custom domain and its retained workers.dev host; the source collection sites remain independent.
         verification:
-          observedAt: 2026-10-23T20:22:21Z
-          sourceCommit: d8a772fd27d9bdce720295ab53ef3bc031795926
-          deploymentId: 10c29381-9b0d-413f-9550-e6a13fbac449
-          versionId: def327a6-5f95-4082-b689-194551bff2c2
-          createdOn: 2026-10-23T20:04:19.427096Z
+          observedAt: 2026-10-24T18:42:09Z
+          sourceCommit: 9387c01e26a071642bc4796f3d2a020ffb482612
+          deploymentId: 5d01426f-16ea-4dec-85f9-f684e474cf52
+          versionId: 3017e8aa-d5d0-4733-9b5c-b9543af7d160
+          createdOn: 2026-10-24T18:42:04.017153Z
           trafficPercent: 100
           deploymentUrl: https://data.highsignal.app
-          exactMainCi: 40015849436
-          publisherRun: 40016235745
-          inspectionRun: 40018632287
-          inspectionWorkflowCommit: 1f42152e0775c6b644ded327c9d2de7e0c8348b3
+          exactMainCi: 40121697671
+          publisherRun: 40121803999
+          inspectionRun: 40121803999
+          inspectionWorkflowCommit: 9387c01e26a071642bc4796f3d2a020ffb482612
           previousVersion:
-            deploymentId: 06e0f1fb-03c7-4805-9778-38c94453be09
-            deploymentCreatedAt: 2026-10-22T10:44:35.355643Z
-            versionId: 6e1b2576-e332-408d-b5f5-435f8ca111af
-            versionCreatedAt: 2026-10-22T10:44:34.598033Z
-            sourceCommit: be0607d491061c263deee6683a272d6538d5a2c9
+            deploymentId: e3d7ffab-36b2-450a-a9e5-65fe1375876c
+            deploymentCreatedAt: 2026-10-24T14:02:25.358999Z
+            versionId: cbb6c8ee-da2c-481d-a4ab-b20baaf90256
+            versionCreatedAt: 2026-10-24T14:02:22.399108Z
+            sourceCommit: ed078677ab8ba065a4d64b56ee6995d287d63755
             trafficPercent: 100
-          state: provider-identity-verified
-          scope: Backward-compatible People and Episodes singular/plural count-label fix, PR27. Canonical custom domain and workers.dev retained. The workflow-only PR28 is a separate source identity and was not deployed.
-          evidence: Exact product-main CI and six release gates passed; the existing publisher successfully deployed the full-SHA-tagged version. Independent hosted read-only inspection confirms this single version at100% and the preceding be0607d version in deployment history. The inspection workflow deploy job was skipped. Fresh predeploy provider readback was missed because the local connection failed; the current/previous history proof was obtained after publication and does not retroactively close that gap. Broader route/account acceptance and the strict cold-navigation300ms target remain unqualified.
-          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/techdata-route-loading-244-20261023/release/provider-inspect-40018632287/techdata-provider-identity-inspect-40018632287/receipt.json
-        versionId: def327a6-5f95-4082-b689-194551bff2c2
+          state: production-release-verified-usage-unqualified
+          scope: "PR32: canonical-origin App Health browser analytics with a first-party browser ID, explicit disclosure and local/fleet_qa exclusion. PR31 categorical Logs remain separate. No natural audience or completed-core-use claim."
+          evidence: 169 tests/build and exact-main CI passed. The existing guarded manual deployment workflow reports full-SHA-tagged Worker version 3017e8aa-d5d0-4733-9b5c-b9543af7d160 at 100%. Independent static public-asset verification confirms collector wiring without executing analytics traffic. The refreshed normal-UI 30-day export still has no qualifying TechData browser receipt. Prior routing/cold-load/customer acceptance is not waived.
+          evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/usage-2026-10-24/techdata-browser-analytics-release.json
+        versionId: 3017e8aa-d5d0-4733-9b5c-b9543af7d160
         verificationHistory:
           - observedAt: 2026-10-10
             sourceCommit: 157ab9937834c45e451a7271cfb78207d80a00d3
@@ -327,6 +327,46 @@ deployment:
             deploymentUrl: https://data.highsignal.app
             scope: Owner-approved table recovery fix; canonical custom domain and workers.dev retained
             evidence: Owner-approved GitHub Actions manual deploy 39765261561 succeeded after six readiness gates and exact-main CI. Independent Wrangler deployment/version readback verifies full SHA tag and 100% traffic from 2026-10-22T10:44:35.355643Z. Live deployed CSS (no injection) passed six synthetic read-only error/empty recovery geometry cases and retry at exact 390/768/1440, with no horizontal overflow. This does not qualify the broader route/account matrix or strict cold-navigation 300ms target.
+          - observedAt: 2026-10-23T20:22:21Z
+            sourceCommit: d8a772fd27d9bdce720295ab53ef3bc031795926
+            deploymentId: 10c29381-9b0d-413f-9550-e6a13fbac449
+            versionId: def327a6-5f95-4082-b689-194551bff2c2
+            createdOn: 2026-10-23T20:04:19.427096Z
+            trafficPercent: 100
+            deploymentUrl: https://data.highsignal.app
+            exactMainCi: 40015849436
+            publisherRun: 40016235745
+            inspectionRun: 40018632287
+            inspectionWorkflowCommit: 1f42152e0775c6b644ded327c9d2de7e0c8348b3
+            previousVersion:
+              deploymentId: 06e0f1fb-03c7-4805-9778-38c94453be09
+              deploymentCreatedAt: 2026-10-22T10:44:35.355643Z
+              versionId: 6e1b2576-e332-408d-b5f5-435f8ca111af
+              versionCreatedAt: 2026-10-22T10:44:34.598033Z
+              sourceCommit: be0607d491061c263deee6683a272d6538d5a2c9
+              trafficPercent: 100
+            state: provider-identity-verified
+            scope: Backward-compatible People and Episodes singular/plural count-label fix, PR27. Canonical custom domain and workers.dev retained. The workflow-only PR28 is a separate source identity and was not deployed.
+            evidence: Exact product-main CI and six release gates passed; the existing publisher successfully deployed the full-SHA-tagged version. Independent hosted read-only inspection confirms this single version at100% and the preceding be0607d version in deployment history. The inspection workflow deploy job was skipped. Fresh predeploy provider readback was missed because the local connection failed; the current/previous history proof was obtained after publication and does not retroactively close that gap. Broader route/account acceptance and the strict cold-navigation300ms target remain unqualified.
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/techdata-route-loading-244-20261023/release/provider-inspect-40018632287/techdata-provider-identity-inspect-40018632287/receipt.json
+          - deploymentId: 16342ddb-b77e-44bb-9e2c-9ffc8948db6b
+            deploymentCreatedAt: 2026-10-24T11:47:34.043492Z
+            versionId: f4ae71b4-8d94-4ac7-ab3c-26b6a6077d87
+            versionCreatedAt: 2026-10-24T11:47:33.229273Z
+            sourceCommit: cda98da29d27e2bdfb62ca1ddf623eff8be8b68b
+            trafficPercent: 100
+            observedAt: 2026-10-24T18:41:04Z
+            state: provider-identity-verified
+            evidence: Retained normal deployment-workflow read-only current/previous identity receipt 40121803999; this proves source/version/traffic history, not natural product use.
+          - deploymentId: e3d7ffab-36b2-450a-a9e5-65fe1375876c
+            deploymentCreatedAt: 2026-10-24T14:02:25.358999Z
+            versionId: cbb6c8ee-da2c-481d-a4ab-b20baaf90256
+            versionCreatedAt: 2026-10-24T14:02:22.399108Z
+            sourceCommit: ed078677ab8ba065a4d64b56ee6995d287d63755
+            trafficPercent: 100
+            observedAt: 2026-10-24T18:41:04Z
+            state: provider-identity-verified
+            evidence: Retained normal deployment-workflow read-only current/previous identity receipt 40121803999; this proves source/version/traffic history, not natural product use.
     resources:
       - provider: cloudflare
         kind: r2
@@ -360,4 +400,4 @@ notes:
     2026-10-17: The owner requested one active Fleet identity for Nomad, PH Catalog, Research Papers and Reddit Insights: TechData. Their historical project rows, source repositories, local paths, collectors and live sites remain retained source components. High Signal Podcasts stays active as its distinct API/ingestion service. This membership change is not a source-site retirement or full operator-workflow parity claim.
     2026-10-17 local cleanup: Removed the four remote-backed source checkouts after verifying the bundled Nomad bytes and public/R2 adapter paths. Local-only data/evidence are retained in the private TechData source-components store; PH linked worktrees keep their Git metadata outside Fleet. Collectors and live source services remain source-owned.
     2026-10-22: Owner added High Signal Podcasts to the same consolidated Fleet identity. All five collections now share the TechData roadmap. Podcast ingestion, published API, retained website and repository remain source components; this membership change does not assert complete source-workflow parity or retire services.
-  infrastructure: "Canonical public Worker at https://data.highsignal.app; workers.dev retained. Five source sites remain independent pending techdata#13. Previous Worker version remains in Cloudflare deployment history for rollback. 2026-10-24: PR31 browser logging passed production QA with sanitized trace delivery. The existing production App Health project is linked to the canonical techdata report-catalog identity. Its first linked 30-day export has no qualifying browser-analytics receipt and reports usage unknown; this establishes reporting linkage only, not audience or meaningful core use."
+  infrastructure: "Canonical public Worker at https://data.highsignal.app; workers.dev retained. Five source sites remain independent pending techdata#13. Previous Worker version remains in Cloudflare deployment history for rollback. 2026-10-24: PR31 browser logging passed production QA with sanitized trace delivery. The existing production App Health project is linked to the canonical techdata report-catalog identity. Its first linked 30-day export has no qualifying browser-analytics receipt and reports usage unknown; this establishes reporting linkage only, not audience or meaningful core use. 2026-10-24: PR32 released canonical-origin App Health browser analytics at main 9387c01e26a071642bc4796f3d2a020ffb482612, Worker 3017e8aa-d5d0-4733-9b5c-b9543af7d160 at 100%. It reuses the existing origin-pinned public key, discloses the first-party browser ID, and excludes local/fleet_qa=1 traffic. The unused extra public key created during integration was revoked. The 18:57 UTC normal-UI export still has unknown audience; collector wiring is not natural usage or meaningful core use."
