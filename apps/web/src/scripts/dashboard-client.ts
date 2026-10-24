@@ -996,6 +996,7 @@ function brandEvidenceProfile(profile: JsonRecord | null) {
 }
 
 function brandGrowthTask(task: JsonRecord) {
+  const count = (input: unknown) => typeof input === "number" ? input.toLocaleString("en") : "Not measured";
   const receiptUrl = safeHttpUrl(task.receipt?.url);
   const issueUrl = safeHttpUrl(task.issueUrl);
   const failed = Object.entries(task.review?.checks ?? {}).filter(([, value]) => !(value as JsonRecord).passed);
@@ -1016,9 +1017,9 @@ function brandGrowthTask(task: JsonRecord) {
     receiptUrl ? element("p", {}, ["Publication receipt: ", element("a", { href: receiptUrl, rel: "noreferrer noopener", target: "_blank" }, [receiptUrl]), ` · ${formatted(task.receipt.observedAt)} · supplied evidence`]) : null,
     task.measurement ? element("div", {}, [
       metricGrid([
-        { label: "Clicks", value: value(task.measurement.clicks) },
-        { label: "Visits", value: value(task.measurement.visits) },
-        { label: "Conversions", value: value(task.measurement.conversions) },
+        { label: "Clicks", value: count(task.measurement.clicks) },
+        { label: "Visits", value: count(task.measurement.visits) },
+        { label: "Conversions", value: count(task.measurement.conversions) },
       ]),
       element("p", {}, [task.measurement.conclusion]),
       element("p", { class: "measurement-boundary-note" }, [task.measurement.attribution]),

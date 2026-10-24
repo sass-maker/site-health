@@ -43,12 +43,12 @@ specific observation note. Source data, drafts and analytics belong outside Git.
 | Command | Additional input |
 | --- | --- |
 | `plan` | None. Creates local review tasks only. |
-| `add` | `kind`, `title`, `intent`, `targetUrl`, `brief`, `baseline`, `evidence` (1–20). Optional `keyword`, `issueUrl`, `refreshOf`. |
+| `add` | Strings `kind`, `title`, `intent`, `targetUrl`, `brief`, `baseline`; array `evidence` (1–20 evidence objects). Optional strings `keyword`, `issueUrl`, `refreshOf`. |
 | `draft` | `taskId`, `content`, `author`. Returns the content SHA-256 `draft.digest`; changing content clears its review. |
 | `review` | `taskId`, current `digest`, different `reviewer`, `checks` below. All pass → ready; any fail → changes-requested. |
-| `publish` | `taskId`, current `digest`, `receipt` evidence plus source `revision`. Ready work only; receipt time must follow review and cannot be future. |
+| `publish` | `taskId`, current `digest`, object `receipt: {url, observedAt, note, revision}`. `receipt.revision` is the published source revision string; top-level `revision` is the store revision integer. Ready work only; receipt time must follow review and cannot be future. |
 | `measure` | `taskId`, `measurement` below. Requires a publication receipt. |
-| `complete` | `taskId`, `evidence`. Completes only research, mapping, index/fact checks and reports. Records work done, without claiming growth. |
+| `complete` | `taskId`, one object `evidence: {url, observedAt, note}`. Completes only research, mapping, index/fact checks and reports. Records work done, without claiming growth. |
 | `park` | `taskId`, specific `reason`. Retains prior evidence. |
 
 Kinds: `research`, `keyword-map`, `article`, `comparison`, `free-tool`,
@@ -75,7 +75,7 @@ and receipt do not establish indexing, ranking, editorial placement or AI uptake
 Independent live verification is the agent's responsibility, not performed by
 this store. Published drafts are immutable here; make a measured refresh task.
 
-`measurement` has evidence fields plus `windowStart`, `windowEnd`, `attribution`
+`measurement` is an object with evidence fields plus strings `windowStart`, `windowEnd`, `attribution`
 (property, page/filter scope, source and conversion event), and `conclusion`
 (observed result and comparison limits). Optional nonnegative counts are
 `impressions`, `clicks`, `visits`, `conversions`, `aiMentions`, `aiAnswers`.
