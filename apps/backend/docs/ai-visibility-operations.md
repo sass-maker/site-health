@@ -72,6 +72,9 @@ independent sibling services.
 
 ## Brand evidence (absorbed from MentionPilot)
 
+For the research, draft, QA, publication-evidence and measurement loop, see
+[growth cycle](growth-cycle.md). It uses the same private store and project scope.
+
 AI Awareness also holds per-project *brand evidence*, absorbed from MentionPilot
 (`High-Signal-App/mentionpilot` at `4d7a23e`). Unlike the aggregate panel above,
 it deliberately keeps the original prompt, answer, citations, provider, model,
