@@ -27,7 +27,10 @@ function titleize(value: string) {
 }
 
 export function getFleetProjects(): DashboardProject[] {
-  const registryPath = resolve(process.cwd(), "../backend/config/projects.json");
+  const configuredCatalogPath = process.env.SITE_HEALTH_CATALOG_PATH;
+  const registryPath = configuredCatalogPath
+    ? resolve(configuredCatalogPath)
+    : resolve(process.cwd(), "../backend/config/projects.json");
   const registry = JSON.parse(readFileSync(registryPath, "utf8")) as {
     projects?: RegistryProject[];
   };

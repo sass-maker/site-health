@@ -86,7 +86,7 @@ const footerArt = existsSync(join(process.cwd(), "public", footerArtFile))
             </div>
             <label>
               <span class="sr-only">Filter this page by project</span>
-              <select id="project-scope-select" name="project" data-project-scope-select>
+              <select id="project-scope-select" name="project" data-project-scope-select data-usage-event="filter">
                 <option value="">All projects</option>
               </select>
             </label>

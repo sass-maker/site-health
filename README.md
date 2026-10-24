@@ -40,6 +40,11 @@ pnpm run docs:projects:refresh-local
 pnpm run docs:projects:check
 ```
 
+Managed workspace builds can set `SITE_HEALTH_CATALOG_PATH` to the absolute
+path of the owner-local generated operations catalog when the adjacent SaaS
+Maker checkout is outside the managed workspace. Normal local builds keep
+using `apps/backend/config/projects.json`.
+
 Run `docs:projects:refresh` from the complete Fleet workspace after a project's
 repository, material tooling, GitHub Actions, domains, deployment targets, or
 provider resources change. It refreshes repository evidence and live Actions

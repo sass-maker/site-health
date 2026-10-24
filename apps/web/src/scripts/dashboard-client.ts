@@ -1,4 +1,5 @@
 import { evidenceStateLabel, refreshAttemptLabel } from "../lib/evidence-labels.mjs";
+import { downloadLocalUsageBundle, startLocalUsageTracking } from "../lib/local-usage.mjs";
 import {
   inactiveProjectState,
   isCurrentProject,
@@ -571,7 +572,12 @@ async function renderProjects() {
       ]),
       element("div", { class: "evidence-matrix", "aria-label": `${project.name} site evidence` },
         evidenceByProject.get(project.id)?.map(evidenceCell) ?? []),
-      element("a", { class: "project-row-action", href: projectHref(project.id), "aria-label": `View ${project.name} details` }, ["View"]),
+      element("a", {
+        class: "project-row-action",
+        href: projectHref(project.id),
+        "aria-label": `View ${project.name} details`,
+        "data-usage-event": "navigation",
+      }, ["View"]),
     ])));
   const currentSection = element("section", {
     class: "project-directory-section",
@@ -1556,6 +1562,10 @@ function bindPortfolioRefresh() {
 async function start() {
   const view = document.body.dataset.dashboardView;
   if (!view) return;
+  startLocalUsageTracking({ document, window });
+  document.querySelector<HTMLButtonElement>("[data-usage-export]")?.addEventListener("click", () => {
+    downloadLocalUsageBundle(document, window);
+  });
   try {
     bindPortfolioRefresh();
     bindProjectRefreshAll();

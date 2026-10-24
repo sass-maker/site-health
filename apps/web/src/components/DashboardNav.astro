@@ -19,7 +19,7 @@ const secondaryLinks = [
 
 <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Site Health navigation">
   <div class="sidebar-head">
-    <a class="brand" href="/domains" data-project-scope-link>
+    <a class="brand" href="/domains" data-project-scope-link data-usage-event="navigation">
       <span class="brand-mark" aria-hidden="true">S</span>
       <span class="sidebar-copy"><strong>Site Health</strong><small>Owner view</small></span>
     </a>
@@ -46,6 +46,7 @@ const secondaryLinks = [
         href={link.href}
         title={link.label}
         data-project-scope-link
+        data-usage-event="navigation"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d={link.icon} /></svg>
         <span class="sidebar-copy">{link.label}</span>
@@ -59,6 +60,7 @@ const secondaryLinks = [
         href={link.href}
         title={link.label}
         data-project-scope-link
+        data-usage-event="navigation"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d={link.icon} /></svg>
         <span class="sidebar-copy">{link.label}</span>
@@ -67,6 +69,10 @@ const secondaryLinks = [
   </nav>
 
   <div class="sidebar-foot">
+    <button class="usage-export" type="button" data-usage-export aria-label="Download local 30-day usage summary" title="Download local 30-day usage summary">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 17v3h14v-3" /></svg>
+      <span class="sidebar-copy">Export usage summary</span>
+    </button>
     <span class="connection" data-dashboard-connection role="status" aria-live="polite">
       <i aria-hidden="true"></i>
       <span class="sidebar-copy" data-dashboard-connection-label>Connecting</span>
