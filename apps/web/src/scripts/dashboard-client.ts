@@ -1189,7 +1189,7 @@ function brandCommunityComposer(projectId: string, view: JsonRecord, project: Js
   }
   if ((brief.threads ?? []).length) {
     section.append(element("h4", {}, ["Threads to contribute to"]));
-    section.append(element("ul", { class: "brand-evidence__list" }, brief.threads.map((thread: JsonRecord) => {
+    section.append(element("ul", { class: "brand-evidence__list brand-evidence__threads" }, brief.threads.map((thread: JsonRecord) => {
       const threadUrl = safeHttpUrl(thread.url);
       return element("li", {}, [
         element("span", {}, [threadUrl ? element("a", { href: threadUrl, target: "_blank", rel: "noreferrer noopener" }, [thread.title]) : thread.title]),
