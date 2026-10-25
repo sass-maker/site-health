@@ -6,8 +6,8 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 
 - Workflows: 196
 - Cron/scheduled workflows: 28
-- Attention: action-required 4, clear 152, ignored 17, missing-data 10, reconcile 10, review-history 3
-- Inventory sources: github-generated 16, remote-only 10, tracked 170
+- Attention: action-required 4, clear 151, ignored 17, missing-data 10, reconcile 10, review-history 3, unclassified 1
+- Inventory sources: github-generated 16, remote-only 10, tracked 169, unknown 1
 
 “Latest” is the latest run of any trigger. “Default branch” checks the latest push run against the exact current default-branch SHA. “Schedule” queries scheduled runs separately so a manual dispatch cannot hide a stopped cron.
 
@@ -132,7 +132,7 @@ Dossier contract: [`schema.json`](./schema.json). Verification means evidence wa
 | [mentionpilot](./mentionpilot.yaml) | [CI](https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37941452405) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-09) | healthy (2026-10-09) | not-applicable | ignored | ignored |
 | [mentionpilot](./mentionpilot.yaml) | [Deploy Mentionpilot Web](https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37768456116) | `.github/workflows/deploy-web.yml` | tracked | active | push, workflow_dispatch | — | healthy (2026-10-08) | missing (2026-10-08) | not-applicable | ignored | ignored |
 | [mentionpilot](./mentionpilot.yaml) | [Deploy Mentionpilot API Worker](https://github.com/sarthakagrawal927/mentionpilot/actions/runs/37046712662) | `.github/workflows/deploy-worker.yml` | tracked | active | pull_request, push, workflow_dispatch | — | healthy (2026-10-02) | missing (2026-10-02) | not-applicable | ignored | ignored |
-| [motion](./motion.yaml) | [CI](https://github.com/Significant-Hobbies/motion/actions/runs/37842756037) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-08) | healthy (2026-10-08) | not-applicable | active | clear |
+| [motion](./motion.yaml) | CI | `.github/workflows/ci.yml` | — | — | pull_request, push | — | unverified | unverified | unverified | — | — |
 | [nomad-data-adventure](./nomad-data-adventure.yaml) | [Static product checks](https://github.com/Significant-Hobbies/nomad-data-adventure/actions/runs/37202668442) | `.github/workflows/ci.yml` | tracked | active | pull_request, push | — | healthy (2026-10-04) | healthy (2026-10-04) | not-applicable | active | clear |
 | [nomad-data-adventure](./nomad-data-adventure.yaml) | [pages-build-deployment](https://github.com/Significant-Hobbies/nomad-data-adventure/actions/runs/34768583692) | `dynamic/pages/pages-build-deployment` | github-generated | active | unknown | — | cancelled (2026-09-13) | not-applicable | not-applicable | managed | clear |
 | [nutrition-formula-engine](./nutrition-formula-engine.yaml) | [CI](https://github.com/Significant-Hobbies/nutrition-formula-engine/actions/runs/37819781840) | `.github/workflows/ci.yml` | tracked | active | pull_request, push, workflow_dispatch | — | healthy (2026-10-08) | healthy (2026-10-08) | not-applicable | active | clear |

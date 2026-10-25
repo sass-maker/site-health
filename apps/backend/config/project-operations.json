@@ -11810,9 +11810,9 @@
     "motion": {
       "source": {
         "state": "available",
-        "path": "../fleet-archive/motion",
-        "revision": "11041e80c36cda28703a5f3e48b488f2fe07a4b8",
-        "repositorySlug": "Significant-Hobbies/motion",
+        "path": "motion",
+        "revision": "297a82fce15ccc61c3bcc8fda182912bc28c84f8",
+        "repositorySlug": "sarthakagrawal927/motion",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -11821,8 +11821,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-18",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 102,
+        "latestCommitAt": "2026-10-25",
+        "retainedCommitCount": 122,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11834,55 +11834,7 @@
             "pull_request",
             "push"
           ],
-          "schedules": [],
-          "inventory": {
-            "source": "tracked",
-            "local": true,
-            "remote": true
-          },
-          "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
-          },
-          "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
-            "apiState": "active",
-            "lastRun": {
-              "id": 37842756037,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "11041e80c36cda28703a5f3e48b488f2fe07a4b8",
-              "createdAt": "2026-10-08T20:53:05Z",
-              "updatedAt": "2026-10-08T20:54:59Z",
-              "url": "https://github.com/Significant-Hobbies/motion/actions/runs/37842756037"
-            },
-            "ageDays": 0
-          },
-          "schedule": {
-            "health": "not-applicable",
-            "reason": "workflow has no schedule trigger",
-            "lastRun": null
-          },
-          "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
-            "lastRun": {
-              "id": 37842756037,
-              "status": "completed",
-              "conclusion": "success",
-              "event": "push",
-              "branch": "main",
-              "headSha": "11041e80c36cda28703a5f3e48b488f2fe07a4b8",
-              "createdAt": "2026-10-08T20:53:05Z",
-              "updatedAt": "2026-10-08T20:54:59Z",
-              "url": "https://github.com/Significant-Hobbies/motion/actions/runs/37842756037"
-            },
-            "ageDays": 0
-          },
-          "attention": "clear"
+          "schedules": []
         }
       ],
       "toolingSignals": [
@@ -11946,17 +11898,7 @@
         "typecheck"
       ],
       "projectId": "motion",
-      "githubActionsMeta": {
-        "repository": "Significant-Hobbies/motion",
-        "defaultBranch": "main",
-        "defaultBranchSha": "11041e80c36cda28703a5f3e48b488f2fe07a4b8",
-        "homepage": "https://motion.significanthobbies.com",
-        "query": "verified",
-        "disposition": {
-          "disposition": "active",
-          "reason": "tracked project"
-        }
-      }
+      "observedAt": "2026-10-25"
     },
     "truehire": {
       "projectId": "truehire",

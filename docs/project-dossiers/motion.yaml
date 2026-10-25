@@ -1,21 +1,21 @@
 schemaVersion: 1
 projectId: motion
 verification:
-  status: verified
+  status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-16
+  generatedAt: 2026-10-25
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
-    githubActionsLiveState: verified
-    retainedGitHistory: catalog-drift
+    githubHomepage: unverified
+    githubActionsLiveState: partial
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: c29eaa984a58273e75b4b5d368912a7ea4b5df071d6fd0d3a56bd21bee7efc62
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,16 +28,16 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: af220eface4d514016425a923cadb8897ff3c6df28bd003ea9fdc4ca9a51da03
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-16
+      observedAt: 2026-10-25
       state: available
-      checkout: ../fleet-archive/motion
-      revision: 11041e80c36cda28703a5f3e48b488f2fe07a4b8
-      githubRepository: Significant-Hobbies/motion
+      checkout: motion
+      revision: 297a82fce15ccc61c3bcc8fda182912bc28c84f8
+      githubRepository: sarthakagrawal927/motion
       expectedHomepage: https://motion.significanthobbies.com
-      observedHomepage: https://motion.significanthobbies.com
+      observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
@@ -45,32 +45,33 @@ verification:
     retainedGitHistory:
       observedAt: 2026-10-16
       state: available
-      checkout: ../fleet-archive/motion
-      revision: 11041e80c36cda28703a5f3e48b488f2fe07a4b8
-      githubRepository: Significant-Hobbies/motion
+      checkout: motion
+      revision: 297a82fce15ccc61c3bcc8fda182912bc28c84f8
+      githubRepository: sarthakagrawal927/motion
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-18
-      catalogLatestCommitAt: 2026-09-07
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-10-25
+      catalogDrift: []
       reason: null
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      healthy: 1
+      unverifiable: 1
       attention: &a2
-        clear: 1
-  unknowns: []
+        unclassified: 1
+  unknowns:
+    - 1 workflow(s) could not be verified through GitHub.
+    - GitHub repository homepage metadata has not been observed.
 ownerVoice:
   whyVerbatim: Notion was another fancy thing that I wanted to build. Its purpose was to have mobile games playable on TV. For example you will set the mobile along with the TV. The mobile will record things and your actions will be transferred on the screen. You can play games like Subway while also getting a workout done. This is something I would definitely want to pursue in the future but for now it's on hold due to lack of time.
   fullReviewVerbatim: Notion was another fancy thing that I wanted to build. Its purpose was to have mobile games playable on TV. For example you will set the mobile along with the TV. The mobile will record things and your actions will be transferred on the screen. You can play games like Subway while also getting a workout done. This is something I would definitely want to pursue in the future but for now it's on hold due to lack of time.
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
-  whySummary: Turn body movement captured by a phone into games displayed on a TV.
-  currentState: Promising body-as-controller prototype, but physical play quality and distribution remain unproven.
-  nextDecision: Reopen for focused physical-device playtesting of one genuinely fun control loop.
+  classification: Active
+  whySummary: Turn body movement captured by an iPhone into games displayed on a TV.
+  currentState: Unreleased iPhone motion-control prototype restored to active work; physical-device control feel and gameplay remain unverified.
+  nextDecision: Playtest one control loop on a physical iPhone and assess whether it is fun.
 identity:
   name: Motion
   publicName: Motion
@@ -83,18 +84,18 @@ identity:
   moneyOrPersonalBrand: false
   unmetNeed: null
   kind: product
-  priority: P4
-  tier: out-of-fleet
-  attention: ignored
+  priority: P2
+  tier: secondary
+  attention: my-work
   lifecycle:
-    status: inactive
-    resumeCondition: Only resume after an explicit owner reactivation decision.
+    status: active
+    resumeCondition: null
     shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
   inRegistry: true
 product:
-  description: Use your body as the controller for an iPhone-hosted game that can mirror to a larger screen.
+  description: An unreleased iPhone motion-control game prototype that mirrors to a larger screen; physical-device control feel and gameplay remain unverified.
   publicMakerNote: I wanted body movement captured by a phone to become playful games on a television—and a workout without feeling like one.
   purposeContract:
     purpose: Motion turns body movement seen by an iPhone into the controls for playful games on a larger screen.
@@ -102,7 +103,7 @@ product:
     outcome: Move, play, and exercise through a game that responds directly to the body.
     mechanism: The iPhone performs body tracking and hosts the game while mirroring the experience to a television or larger display.
     proof: A promising native prototype exists, but physical control feel, fun, and distribution remain unproven on real devices.
-    nextAction: Archived by the owner; resume only after an explicit reactivation decision.
+    nextAction: Test one grab/toss control loop on a physical iPhone while mirroring to a larger screen.
   form: iOS game
   platforms:
     - iOS
@@ -115,15 +116,15 @@ product:
     - TypeScript
   retainedGitHistory:
     firstCommitAt: 2026-07-18
-    latestCommitAt: 2026-10-09
-    retainedCommitCount: 102
+    latestCommitAt: 2026-10-25
+    retainedCommitCount: 122
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: ../fleet-archive/motion
-  observedRevision: 11041e80c36cda28703a5f3e48b488f2fe07a4b8
-  githubRepository: Significant-Hobbies/motion
-  githubHomepageUrl: https://motion.significanthobbies.com
+  checkout: motion
+  observedRevision: 297a82fce15ccc61c3bcc8fda182912bc28c84f8
+  githubRepository: sarthakagrawal927/motion
+  githubHomepageUrl: null
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/motion
@@ -177,17 +178,9 @@ githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
   summary:
-    healthy: 1
+    unverifiable: 1
   attention: *a2
-  remote:
-    repository: Significant-Hobbies/motion
-    defaultBranch: main
-    defaultBranchSha: 11041e80c36cda28703a5f3e48b488f2fe07a4b8
-    homepage: https://motion.significanthobbies.com
-    query: verified
-    disposition:
-      disposition: active
-      reason: tracked project
+  remote: null
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -195,47 +188,6 @@ githubActions:
         - pull_request
         - push
       schedules: []
-      inventory:
-        source: tracked
-        local: true
-        remote: true
-      ownerDisposition:
-        status: active
-        reason: tracked workflow
-      live:
-        health: healthy
-        reason: latest run concluded success
-        apiState: active
-        lastRun:
-          id: 37842756037
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 11041e80c36cda28703a5f3e48b488f2fe07a4b8
-          createdAt: 2026-10-08T20:53:05Z
-          updatedAt: 2026-10-08T20:54:59Z
-          url: https://github.com/Significant-Hobbies/motion/actions/runs/37842756037
-        ageDays: 0
-      schedule:
-        health: not-applicable
-        reason: workflow has no schedule trigger
-        lastRun: null
-      currentDefaultBranch:
-        health: healthy
-        reason: current main push concluded success
-        lastRun:
-          id: 37842756037
-          status: completed
-          conclusion: success
-          event: push
-          branch: main
-          headSha: 11041e80c36cda28703a5f3e48b488f2fe07a4b8
-          createdAt: 2026-10-08T20:53:05Z
-          updatedAt: 2026-10-08T20:54:59Z
-          url: https://github.com/Significant-Hobbies/motion/actions/runs/37842756037
-        ageDays: 0
-      attention: clear
 deployment:
   kind: pages
   deployed: true
@@ -266,8 +218,8 @@ sharing:
   publicListing: hidden
   maturity: maintained
   ready: false
-  verifiedAt: 2026-10-16
-  reason: Owner archived Motion; no active qualification or release work.
+  verifiedAt: 2026-10-25
+  reason: Reactivated unreleased prototype; physical iPhone control feel and gameplay remain unverified.
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/motion/issues
   geoIdentity:
