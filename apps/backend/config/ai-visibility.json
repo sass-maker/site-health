@@ -820,59 +820,6 @@
       "attention": "toolbox"
     },
     {
-      "slug": "field-track",
-      "aliases": [
-        "Field Track"
-      ],
-      "competitors": [
-        {
-          "name": "Connecteam",
-          "url": "https://connecteam.com"
-        }
-      ],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "What software helps managers see whether field employees are active, stale, or offline on a live map?"
-            },
-            {
-              "id": "comparison",
-              "text": "Which field workforce dashboards combine location freshness, route gaps, and employee status without hiding stale data?"
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "field-operations-manager",
-          "label": "a manager coordinating a distributed field team"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "name": "Field Track",
-      "domain": "https://field-track.sassmaker.com",
-      "attention": "toolbox"
-    },
-    {
       "slug": "free-ai",
       "aliases": [
         "AI Gateway"
@@ -2260,52 +2207,6 @@
       "attention": "toolbox"
     },
     {
-      "slug": "ios-landings",
-      "name": "Significant Hobbies App Landings",
-      "domain": "https://apps.significanthobbies.com",
-      "aliases": [],
-      "competitors": [],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "Where can I find the Significant Hobbies app landing pages?"
-            },
-            {
-              "id": "comparison",
-              "text": "Which apps does the Significant Hobbies family include?"
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "visitor",
-          "label": "someone browsing the Significant Hobbies apps"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "attention": "toolbox"
-    },
-    {
       "slug": "ai-game",
       "name": "AliveVille",
       "domain": "https://aliveville.com",
@@ -2721,52 +2622,6 @@
         {
           "id": "visitor",
           "label": "a developer managing agent tooling"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "attention": "toolbox"
-    },
-    {
-      "slug": "war-chest",
-      "name": "War Chest",
-      "domain": "https://warchest.significanthobbies.com",
-      "aliases": [],
-      "competitors": [],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "What turn-based tactics games use spatial equipment builds?"
-            },
-            {
-              "id": "comparison",
-              "text": "Compare turn-based tactics games with packing-puzzle equipment systems."
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "player",
-          "label": "a tactics-game player"
         }
       ],
       "providerPolicy": {

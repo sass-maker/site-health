@@ -439,57 +439,6 @@
       ]
     },
     {
-      "id": "ios-landings",
-      "origin": "https://daddyrad.com",
-      "queries": [
-        {
-          "qid": "daddyrad-brand-2",
-          "kind": "brand",
-          "q": "DaddyRad mac apps",
-          "status": "active"
-        },
-        {
-          "qid": "daddyrad-brand",
-          "kind": "brand",
-          "q": "DaddyRad Mac utilities",
-          "status": "historical",
-          "supersededBy": "daddyrad-brand-2"
-        },
-        {
-          "qid": "daddyrad-exact-domain",
-          "kind": "exact-domain",
-          "q": "daddyrad.com",
-          "status": "active"
-        },
-        {
-          "qid": "daddyrad-category-2",
-          "kind": "category",
-          "q": "native macOS utility apps suite",
-          "status": "active"
-        },
-        {
-          "qid": "daddyrad-category",
-          "kind": "category",
-          "q": "native Mac utility apps for storage browsing performance",
-          "status": "historical",
-          "supersededBy": "daddyrad-category-2"
-        },
-        {
-          "qid": "daddyrad-problem-2",
-          "kind": "problem",
-          "q": "mac utilities for storage cleanup performance and browsing",
-          "status": "active"
-        },
-        {
-          "qid": "daddyrad-problem",
-          "kind": "problem",
-          "q": "free focused Mac utilities for developers",
-          "status": "historical",
-          "supersededBy": "daddyrad-problem-2"
-        }
-      ]
-    },
-    {
       "id": "ai-game",
       "origin": "https://aliveville.com",
       "queries": [
