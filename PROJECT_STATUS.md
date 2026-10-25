@@ -19,6 +19,24 @@ backend.
 
 ## Timeline
 
+- **2026-10-25:** Recreated the MentionPilot workflow natively in AI Awareness.
+  Brand setup, editable prompts, API checks, daily/weekly collection, website
+  evidence, and community review share the existing private project scope. A
+  pasted public website now produces subreddit suggestions and editable post
+  and comment drafts tied to real discussions. Collection uses SaaS Maker’s
+  packed `@saas-maker/collect` 0.3.0; AI SDK requests use free-ai `auto` with
+  Site Health attribution and the named Infisical connection in process memory.
+  Live SaaS Maker verification completed five API answers, and the URL workflow
+  returned three verified communities with post/comment drafts. Current Reddit
+  rules were unavailable; dated Reddit Insights snapshots retain capture,
+  revision and coverage instead. All original private transfer rows remained
+  unchanged. Checks: 161 backend tests, five usage tests, 11 AI-engine tests and
+  its packed-consumer check pass; the 84-page web build passes. The owner-local
+  dossier check needs the canonical adjacent catalog; the additional Astro
+  diagnostic still reports three existing Node-type errors in DashboardLayout.
+  Local LaunchAgent support keeps the owner backend and native scheduler open.
+
+
 - **2026-09-19:** Restored fleet IndexNow capability and completed the first
   all-domain submission. `scripts/indexnow-submit.mjs` was missing while
   `search-console-collect --discovery-cycle` still invoked it; a lean

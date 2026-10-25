@@ -55,8 +55,15 @@ export function refreshStaleEvidence({
       results.push({ family: source.family, action: 'unavailable', state: run.state, code: run.code });
       continue;
     }
-    const run = metricRunController.start({ family: source.family, scope: 'portfolio' });
-    results.push({ family: source.family, action: 'refresh', state: run.state, runId: run.runId });
+    try {
+      const run = metricRunController.start({ family: source.family, scope: 'portfolio' });
+      results.push({ family: source.family, action: 'refresh', state: run.state, runId: run.runId });
+    } catch (error) {
+      const run = unavailableRun(source.family, now, error.code ?? 'METRIC_RUNNER_UNAVAILABLE',
+        'Collector unavailable. Cached evidence remains available.');
+      recordRefreshReceipt(store, run);
+      results.push({ family: source.family, action: 'unavailable', state: run.state, code: run.code });
+    }
   }
   return results;
 }

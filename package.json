@@ -26,7 +26,9 @@
     "test:ai": "pnpm --dir apps/backend/packages/ai-visibility check",
     "test": "pnpm run test:backend && pnpm run test:usage && pnpm run test:ai",
     "check": "pnpm run docs:projects:check && pnpm run build && pnpm run test",
-    "check:ci": "pnpm run prepare:ci-catalog && pnpm run build && pnpm run test:backend:ci && pnpm run test:usage && pnpm run test:ai"
+    "check:ci": "pnpm run prepare:ci-catalog && pnpm run build && pnpm run test:backend:ci && pnpm run test:usage && pnpm run test:ai",
+    "brand": "node apps/backend/scripts/brand-evidence.mjs",
+    "owner:service": "node scripts/owner-service.mjs"
   },
   "engines": {
     "node": ">=22"
@@ -34,5 +36,15 @@
   "devDependencies": {
     "yaml": "^2.9.0"
   },
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@10.33.2",
+  "dependencies": {
+    "@saas-maker/collect": "file:vendor/saas-maker-collect-0.3.0.tgz",
+    "ai": "6.0.168",
+    "@ai-sdk/openai-compatible": "2.0.41"
+  },
+  "pnpm": {
+    "overrides": {
+      "@ai-sdk/provider-utils@4.0.23": "4.0.33"
+    }
+  }
 }

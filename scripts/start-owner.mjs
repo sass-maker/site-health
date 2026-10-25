@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const repositoryRoot = resolve(import.meta.dirname, '..');
-const workspaceRoot = resolve(repositoryRoot, '..');
+const workspaceRoot = resolve(process.env.SITE_HEALTH_OWNER_REPOSITORY ?? repositoryRoot, '..');
 const required = [
   ['Drank', resolve(workspaceRoot, 'drank/scripts/update-global-dr.mjs')],
   ['PSI Swarm', resolve(workspaceRoot, 'psi-swarm/cli/dist/cli.js')],
@@ -23,7 +23,7 @@ async function healthyBackend() {
   try {
     const response = await fetch('http://127.0.0.1:4187/health', { signal: AbortSignal.timeout(1_500) });
     const body = await response.json();
-    return response.ok && body.service === 'site-health-backend';
+    return response.ok && body.service === 'site-health-backend' && body.brandEvidence === 'native-v2';
   } catch {
     return false;
   }
@@ -31,9 +31,9 @@ async function healthyBackend() {
 
 async function healthyWeb() {
   try {
-    const response = await fetch('http://127.0.0.1:4321/', { signal: AbortSignal.timeout(1_500) });
+    const response = await fetch('http://127.0.0.1:4321/ai-awareness', { signal: AbortSignal.timeout(1_500) });
     const body = (await response.text()).slice(0, 20_000);
-    return response.ok && body.includes('dashboard-api-base') && body.includes('Site Health');
+    return response.ok && body.includes('data-brand-evidence-collect') && body.includes('Site Health');
   } catch {
     return false;
   }

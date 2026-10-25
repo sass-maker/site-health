@@ -480,7 +480,7 @@ function seoAuditProjection(catalog, dataRoot) {
 }
 
 export function buildDashboardProjection({
-  repositoryRoot = resolve(import.meta.dirname, '../../..'),
+  repositoryRoot = process.env.SITE_HEALTH_OWNER_REPOSITORY ?? resolve(import.meta.dirname, '../../..'),
   workspaceRoot = resolve(repositoryRoot, '..'),
   home = process.env.HOME ?? '',
   now = new Date().toISOString(),

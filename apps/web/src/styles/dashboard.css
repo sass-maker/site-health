@@ -577,6 +577,21 @@ dd { margin: 0; color: var(--muted); }
 @keyframes evidence-flow { from { transform: scaleY(.12); opacity: .3; } to { transform: scaleY(1); opacity: 1; } }
 @keyframes sheet-in { from { transform: translateX(-28px); opacity: .6; } to { transform: translateX(0); opacity: 1; } }
 /* Brand evidence (absorbed from MentionPilot). Reuses the ledger language: hairlines, no cards. */
+.brand-evidence__setup { border-block: 1px solid var(--line); padding: 16px 0; }
+.brand-evidence__setup > summary { cursor: pointer; font-weight: 650; }
+.brand-evidence__form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding-block: 20px; }
+.brand-evidence__form label, .brand-evidence__prompt-form label { display: grid; gap: 6px; min-width: 0; font-size: 13px; color: var(--muted); }
+.brand-evidence__form input, .brand-evidence__form textarea, .brand-evidence__form select, .brand-evidence__prompt-form textarea { box-sizing: border-box; width: 100%; min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--text); font: inherit; font-size: 16px; }
+.brand-evidence__form textarea, .brand-evidence__prompt-form textarea { resize: vertical; }
+.brand-evidence__form > p { grid-column: 1 / -1; margin: 0; }
+.brand-evidence__form button { justify-self: start; }
+.brand-evidence__prompt-form { display: grid; gap: 10px; padding-block: 16px; }
+.brand-evidence__prompt-form button { justify-self: start; }
+.brand-evidence__prompt-form input, .brand-evidence__draft input, .brand-evidence__draft textarea { box-sizing: border-box; width: 100%; min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--text); font: inherit; font-size: 16px; }
+.brand-evidence__draft { display: grid; gap: 12px; padding-block: 20px; border-top: 1px solid var(--line); }
+.brand-evidence__draft label { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.brand-evidence__draft textarea { resize: vertical; }
+@media (max-width: 640px) { .brand-evidence__form { grid-template-columns: minmax(0, 1fr); } }
 .state.error, .state.incomplete { color: var(--critical); }
 .state.new { color: var(--info); }
 .state.reviewed { color: var(--accent); }

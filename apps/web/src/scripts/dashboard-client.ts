@@ -799,6 +799,7 @@ async function renderSearch() {
 }
 
 async function renderAiAwareness() {
+  const brandWork = renderBrandEvidence().catch(() => replace("brand-evidence", empty("Brand evidence unavailable")));
   const [payload, geo] = await Promise.all([
     api("/v1/outcomes/ai-awareness"),
     optionalOutcome("/v1/outcomes/geo-awareness"),
@@ -819,7 +820,7 @@ async function renderAiAwareness() {
       : empty("No GEO Observatory evidence"));
   updateCoverage("geo-awareness", geo, ["not-measured", "not-configured"]);
   updateOutcomeTime(payload);
-  await renderBrandEvidence().catch(() => replace("brand-evidence", empty("Brand evidence unavailable")));
+  await brandWork;
 }
 
 // Brand evidence (absorbed from MentionPilot): one project at a time, original
@@ -1060,79 +1061,275 @@ async function brandGrowth(projectId: string, refresh: () => Promise<void>) {
   ]);
 }
 
+function brandEvidenceSetup(projectId: string, view: JsonRecord, project: JsonRecord, refresh: () => Promise<void>) {
+  const profile = view.profile ?? {};
+  const details = element("details", { class: "brand-evidence__setup" });
+  if (!view.profile) details.open = true;
+  details.append(element("summary", {}, [view.profile ? "Edit brand and prompts" : "Set up brand monitoring"]));
+  const form = element("form", { class: "brand-evidence__form" });
+  const inputs: Record<string, HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> = {};
+  const field = (name: string, label: string, value: string, multiline = false) => {
+    const input = multiline ? element("textarea", { name, rows: "3" }) : element("input", { name, type: name === "brandUrl" ? "url" : "text" });
+    input.value = value;
+    if (name === "brandName") input.required = true;
+    inputs[name] = input;
+    return element("label", {}, [element("span", {}, [label]), input]);
+  };
+  form.append(
+    field("brandName", "Brand name", profile.brandName ?? project.name ?? projectId),
+    field("brandUrl", "Website", profile.brandUrl ?? project.websiteUrl ?? ""),
+    field("aliases", "Other brand names · one per line", (profile.aliases ?? []).join("\n"), true),
+    field("keywords", "Topics to watch · one per line", (profile.keywords ?? []).join("\n"), true),
+    field("competitors", "Competitors · one per line", (profile.competitors ?? []).map((item: JsonRecord) => item.name).join("\n"), true),
+    field("communities", "Reddit communities · one per line", (profile.communities ?? []).join("\n"), true),
+  );
+  const schedule = element("select", { name: "schedule" }, [
+    element("option", { value: "" }, ["Manual"]), element("option", { value: "daily" }, ["Daily"]), element("option", { value: "weekly" }, ["Weekly · Mondays"]),
+  ]);
+  schedule.value = profile.schedule ?? ""; inputs.schedule = schedule;
+  form.append(element("label", {}, [element("span", {}, ["Refresh cadence"]), schedule]));
+  const message = element("p", { role: "status", class: "measurement-boundary-note" }, ["Scheduled refreshes run while Site Health’s backend is open. Community collection covers the latest 30 days; API checks need an available model connection."]);
+  const save = element("button", { type: "submit", class: "secondary-action" }, ["Save brand"]);
+  form.append(save, message);
+  const lines = (key: string) => inputs[key].value.split("\n").map((value) => value.trim()).filter(Boolean);
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault(); save.disabled = true;
+    try {
+      const existingCompetitors = new Map((profile.competitors ?? []).map((item: JsonRecord) => [item.name, item]));
+      await api(brandEvidencePath(projectId, "/profile"), { method: "PUT", body: JSON.stringify({
+        ...profile, brandName: inputs.brandName.value, brandUrl: inputs.brandUrl.value,
+        aliases: lines("aliases"), keywords: lines("keywords"), communities: lines("communities"),
+        competitors: lines("competitors").map((name) => existingCompetitors.get(name) ?? { name }), schedule: schedule.value || null,
+      }) });
+      await refresh();
+    } catch (error) { message.textContent = error instanceof Error ? error.message : "Could not save brand"; save.disabled = false; }
+  });
+  details.append(form);
+  const prompts = view.prompts ?? [];
+  details.append(element("h3", {}, ["Saved prompts"]));
+  details.append(element("ul", { class: "brand-evidence__list" }, prompts.map((prompt: JsonRecord) => element("li", {}, [
+    element("span", {}, [prompt.promptText]),
+    brandEvidenceButton("Remove prompt", async () => {
+      await api(brandEvidencePath(projectId, `/prompts/${encodeURIComponent(prompt.id)}/remove`), { method: "POST", body: "{}" });
+      await refresh();
+    }),
+  ]))));
+  const promptForm = element("form", { class: "brand-evidence__prompt-form" });
+  const prompt = element("textarea", { name: "promptText", rows: "2", required: "", maxlength: "2000" });
+  const add = element("button", { type: "submit", class: "secondary-action" }, ["Add prompt"]);
+  promptForm.append(element("label", {}, [element("span", {}, ["Question to ask AI models"]), prompt]), add);
+  promptForm.addEventListener("submit", async (event) => {
+    event.preventDefault(); add.disabled = true;
+    try {
+      await api(brandEvidencePath(projectId, "/prompts"), { method: "POST", body: JSON.stringify({ promptText: prompt.value }) });
+      await refresh();
+    } catch (error) { message.textContent = error instanceof Error ? error.message : "Could not save prompt"; add.disabled = false; }
+  });
+  details.append(promptForm);
+  return details;
+}
+
+function brandCollectionHistory(collections: JsonRecord[]) {
+  if (!collections.length) return element("p", { class: "brand-evidence__empty" }, ["No fresh collection yet. Refresh web evidence to inspect the brand website and look for community mentions."]);
+  return element("ul", { class: "brand-evidence__list" }, collections.slice(0, 12).map((run) => element("li", {}, [
+    state(run.status),
+    element("span", {}, [run.source === "hackernews" ? "Hacker News" : run.source === "reddit" ? "Reddit" : run.source === "reddit_insights" ? "Reddit Insights snapshot" : "Website",
+      ` · ${run.query} · `, run.status === "completed" ? (run.source === "website" ? (Number.isInteger(run.matched) ? `${run.matched} configured terms found` : "Page text extracted") : `${run.matched} matched / ${run.received} inspected`) : run.errorMessage ?? "Collecting…"]),
+    element("small", {}, [formatted(run.finishedAt ?? run.startedAt)]),
+  ])));
+}
+
+function brandCommunityComposer(projectId: string, view: JsonRecord, project: JsonRecord, refresh: () => Promise<void>) {
+  const section = element("section", { class: "brand-evidence__group" }, [
+    element("h3", {}, ["Find your communities"]),
+    element("p", { class: "measurement-boundary-note" }, ["Paste your product URL to find relevant subreddits, prepare post drafts, and find threads where you can contribute."]),
+  ]);
+  const form = element("form", { class: "brand-evidence__prompt-form" });
+  const url = element("input", { type: "url", name: "websiteUrl", required: "", placeholder: "https://your-product.com" });
+  url.value = view.profile?.brandUrl ?? project.websiteUrl ?? "";
+  const submit = element("button", { type: "submit", class: "secondary-action" }, ["Find communities and prepare drafts"]);
+  const message = element("p", { role: "status", class: "measurement-boundary-note" });
+  form.append(element("label", {}, [element("span", {}, ["Product website"]), url]), submit, message);
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault(); submit.disabled = true;
+    message.textContent = "Reading your website, checking communities and preparing drafts…";
+    try {
+      await api(brandEvidencePath(projectId, "/community-brief"), { method: "POST", body: JSON.stringify({ url: url.value }) });
+      await refresh();
+    } catch (error) {
+      message.textContent = error instanceof Error ? error.message : "Could not prepare community brief";
+      submit.disabled = false;
+    }
+  });
+  section.append(form);
+  const brief = (view.communityBriefs ?? [])[0];
+  if (!brief) return section;
+  section.append(element("p", { class: "measurement-boundary-note" }, [
+    brief.message ?? "Saved community brief", ` · ${formatted(brief.preparedAt)}`,
+  ]));
+  if (brief.product) section.append(element("p", {}, [brief.product.summary]));
+  if ((brief.communities ?? []).length) {
+    section.append(element("h4", {}, ["Subreddits"]));
+    section.append(element("div", { class: "brand-evidence__items" }, brief.communities.map((community: JsonRecord) => {
+      const communityUrl = safeHttpUrl(community.url);
+      return element("article", { class: "brand-evidence__item" }, [
+        element("header", { class: "brand-evidence__item-head" }, [
+          communityUrl ? element("a", { href: communityUrl, target: "_blank", rel: "noreferrer noopener" }, [`r/${community.name}`]) : community.name,
+          state(community.status), element("small", {}, [community.rulesStatus === "verified" ? "Rules retrieved" : "Rules unavailable"]),
+          community.capturedAt ? element("small", {}, [`Public capture ${formatted(community.capturedAt)}`]) : null,
+        ]),
+        element("p", {}, [community.reason]),
+        community.message ? element("p", { class: "measurement-boundary-note" }, [community.message]) : null,
+        (community.rules ?? []).length ? element("details", {}, [
+          element("summary", {}, ["Community rules"]),
+          element("ul", {}, community.rules.map((rule: JsonRecord) => element("li", {}, [`${rule.title}: ${rule.description}`]))),
+        ]) : null,
+      ]);
+    })));
+  }
+  if ((brief.threads ?? []).length) {
+    section.append(element("h4", {}, ["Threads to contribute to"]));
+    section.append(element("ul", { class: "brand-evidence__list" }, brief.threads.map((thread: JsonRecord) => {
+      const threadUrl = safeHttpUrl(thread.url);
+      return element("li", {}, [
+        element("span", {}, [threadUrl ? element("a", { href: threadUrl, target: "_blank", rel: "noreferrer noopener" }, [thread.title]) : thread.title]),
+        thread.fitReason ? element("span", { class: "measurement-boundary-note" }, [thread.fitReason]) : null,
+        element("small", {}, [`r/${thread.subreddit} · ${formatted(thread.publishedAt)} · ${thread.capturedAt ? `captured ${formatted(thread.capturedAt)}` : `checked ${formatted(thread.checkedAt)}`}`]),
+      ]);
+    })));
+  }
+  if ((brief.drafts ?? []).length) section.append(element("h4", {}, ["Post and comment drafts"]));
+  for (const draft of brief.drafts ?? []) {
+    const draftForm = element("form", { class: "brand-evidence__draft" });
+    const title = element("input", { name: "title", type: "text", maxlength: "300" }); title.value = draft.title ?? "";
+    const body = element("textarea", { name: "body", rows: "8", required: "", maxlength: "8000" }); body.value = draft.body;
+    const saved = element("span", { role: "status", class: "measurement-boundary-note" });
+    const save = element("button", { type: "submit", class: "secondary-action" }, ["Save edits"]);
+    const copy = element("button", { type: "button", class: "secondary-action" }, [draft.kind === "post" ? "Copy post" : "Copy comment"]);
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(draft.kind === "post" ? `${title.value}\n\n${body.value}` : body.value);
+        saved.textContent = "Copied";
+      } catch { saved.textContent = "Select the draft text to copy it."; }
+    });
+    const source = safeHttpUrl(draft.sourceUrl);
+    draftForm.append(
+      element("header", { class: "brand-evidence__item-head" }, [
+        element("strong", {}, [`${draft.kind === "post" ? "Post" : "Comment"} · r/${draft.subreddit}`]),
+        source ? element("a", { href: source, target: "_blank", rel: "noreferrer noopener" }, [draft.kind === "post" ? "Open subreddit" : "Open source thread"]) : null,
+        element("small", {}, [draft.rulesStatus === "verified" ? "Based on retrieved community rules" : "Community rules need review"]),
+      ]),
+    );
+    if (draft.kind === "post") draftForm.append(element("label", {}, [element("span", {}, ["Post title"]), title]));
+    draftForm.append(element("label", {}, [element("span", {}, [draft.kind === "post" ? "Post body" : "Comment"]), body]),
+      element("div", { class: "brand-evidence__buttons" }, [save, copy, saved]));
+    draftForm.addEventListener("submit", async (event) => {
+      event.preventDefault(); save.disabled = true;
+      try {
+        await api(brandEvidencePath(projectId, `/briefs/${encodeURIComponent(brief.id)}/drafts/${encodeURIComponent(draft.id)}`), {
+          method: "POST", body: JSON.stringify({ title: title.value, body: body.value }),
+        });
+        saved.textContent = "Saved"; save.disabled = false;
+      } catch (error) { saved.textContent = error instanceof Error ? error.message : "Could not save"; save.disabled = false; }
+    });
+    section.append(draftForm);
+  }
+  return section;
+}
+
+function brandWebsiteEvidence(collections: JsonRecord[]) {
+  const latest = collections.find((run) => run.source === "website" && run.status === "completed");
+  if (!latest?.payload) return null;
+  const page = latest.payload;
+  const url = safeHttpUrl(page.sourceUrl);
+  return element("section", { class: "brand-evidence__group" }, [
+    element("h3", {}, ["Website evidence"]),
+    element("p", { class: "measurement-boundary-note" }, [`Last successful read ${formatted(page.checkedAt)} · ${age(page.checkedAt)}`]),
+    element("strong", {}, [url ? element("a", { href: url, target: "_blank", rel: "noreferrer noopener" }, [page.title || url]) : page.title || "Website"]),
+    page.description ? element("p", {}, [page.description]) : null,
+    element("details", { class: "brand-evidence__answer" }, [
+      element("summary", {}, ["Extracted page text"]), element("p", {}, [page.textExcerpt || "No text extracted"]),
+    ]),
+  ]);
+}
+
 async function renderBrandEvidence() {
   const select = document.querySelector<HTMLSelectElement>("[data-brand-evidence-project]");
   const checkButton = document.querySelector<HTMLButtonElement>("[data-brand-evidence-check]");
+  const collectButton = document.querySelector<HTMLButtonElement>("[data-brand-evidence-collect]");
   const status = document.querySelector<HTMLElement>("[data-brand-evidence-status]");
   const count = document.querySelector<HTMLElement>('[data-dashboard-count="brand-evidence"]');
   if (!select) return;
   let listing: JsonRecord;
-  try {
-    listing = await api("/v1/brand-evidence/projects");
-  } catch {
-    replace("brand-evidence", empty("Brand evidence store unavailable"));
-    return;
-  }
+  try { listing = await api("/v1/brand-evidence/projects"); }
+  catch { replace("brand-evidence", empty("Brand evidence unavailable · start the Site Health backend to load private evidence.")); return; }
   const profiles: JsonRecord[] = listing.profiles ?? [];
+  const projects: JsonRecord[] = (listing.projects ?? []).filter((project: JsonRecord) => project.active || profiles.some((profile) => profile.projectId === project.projectId));
   if (count) count.textContent = String(profiles.length);
-  if (!profiles.length) {
-    replace("brand-evidence", element("div", { class: "empty-state" }, [
-      element("strong", {}, ["No brand profiles yet"]),
-      element("span", {}, ["Import MentionPilot history or save a profile with apps/backend/scripts/brand-evidence.mjs."]),
-    ]));
-    return;
-  }
+  if (!projects.length) { replace("brand-evidence", empty("No projects available for brand monitoring.")); return; }
   const requested = new URLSearchParams(window.location.search).get("project");
-  select.replaceChildren(...profiles.map((profile) =>
-    element("option", { value: profile.projectId }, [`${profile.brandName} · ${profile.projectId}`])));
-  select.value = profiles.some((profile) => profile.projectId === requested) ? requested! : profiles[0].projectId;
-
+  select.replaceChildren(...projects.map((project) => element("option", { value: project.projectId }, [
+    `${project.name}${profiles.some((profile) => profile.projectId === project.projectId) ? "" : " · set up"}${project.active ? "" : " · retained history"}`,
+  ])));
+  select.value = projects.some((project) => project.projectId === requested) ? requested! : (profiles.find((p) => projects.some((project) => project.projectId === p.projectId && project.active))?.projectId ?? projects[0].projectId);
+  let generation = 0;
+  let busy = false;
   const show = async () => {
+    const version = ++generation;
     const projectId = select.value;
-    const url = new URL(window.location.href);
-    url.searchParams.set("project", projectId);
-    window.history.replaceState(null, "", url);
+    const url = new URL(window.location.href); url.searchParams.set("project", projectId); window.history.replaceState(null, "", url);
     const view = await api(brandEvidencePath(projectId));
-    const refresh = show;
-    const growth = await brandGrowth(projectId, refresh);
-    if (select.value !== projectId) return;
-    if (checkButton) checkButton.disabled = !view.profile || !(view.prompts ?? []).length;
+    if (version !== generation || projectId !== select.value) return;
+    const project = projects.find((item) => item.projectId === projectId)!;
+    if (view.profile && !profiles.some((profile) => profile.projectId === projectId)) profiles.push(view.profile);
+    if (count) count.textContent = String(profiles.length);
+    const selectedOption = select.selectedOptions[0];
+    if (selectedOption) selectedOption.textContent = `${view.profile?.brandName ?? project.name}${view.profile ? "" : " · set up"}${project.active ? "" : " · retained history"}`;
+    if (checkButton) {
+      checkButton.disabled = busy || !view.readiness?.api?.ready || !(view.prompts ?? []).length || !project.active;
+      checkButton.title = view.readiness?.api?.reason ?? "Run saved prompts through the configured API model";
+    }
+    if (collectButton) collectButton.disabled = busy || !view.profile || !project.active;
+    const growthSlot = element("div", {}, ["Reading saved growth cycle…"]);
     replace("brand-evidence", element("div", { class: "brand-evidence" }, [
       brandEvidenceProfile(view.profile),
+      brandCommunityComposer(projectId, view, project, show),
+      brandEvidenceSetup(projectId, view, project, show),
+      view.profile && !view.readiness?.api?.ready ? element("p", { class: "measurement-boundary-note" }, ["API checks need an available model connection. Web evidence and saved history remain available."]) : null,
       brandEvidenceSummary(view),
-      element("section", { class: "brand-evidence__group" }, [element("h3", {}, ["Growth cycle"]), growth]),
+      brandEvidenceGroup("Collection history", (view.collections ?? []).length, brandCollectionHistory(view.collections ?? [])),
+      brandWebsiteEvidence(view.collections ?? []),
       brandEvidenceGroup("Answers", (view.observations ?? []).length, (view.observations ?? []).length
-        ? element("div", { class: "brand-evidence__items" }, view.observations.slice(0, 25).map((observation: JsonRecord) =>
-            brandEvidenceObservation(projectId, observation, refresh)))
+        ? element("div", { class: "brand-evidence__items" }, view.observations.slice(0, 25).map((observation: JsonRecord) => brandEvidenceObservation(projectId, observation, show)))
         : element("p", { class: "brand-evidence__empty" }, ["No answers recorded for this project."])),
-      brandEvidenceGroup("Follow-ups", (view.actions ?? []).length, brandEvidenceActions(projectId, view.actions ?? [], refresh)),
+      brandEvidenceGroup("Follow-ups", (view.actions ?? []).length, brandEvidenceActions(projectId, view.actions ?? [], show)),
       brandEvidenceGroup("Community findings", (view.findings ?? []).length, (view.findings ?? []).length
-        ? element("div", { class: "brand-evidence__items" }, view.findings.slice(0, 25).map((finding: JsonRecord) =>
-            brandEvidenceFinding(projectId, finding, refresh)))
-        : element("p", { class: "brand-evidence__empty" }, ["No Hacker News or Reddit findings recorded."])),
+        ? element("div", { class: "brand-evidence__items" }, view.findings.slice(0, 25).map((finding: JsonRecord) => brandEvidenceFinding(projectId, finding, show)))
+        : element("p", { class: "brand-evidence__empty" }, ["No matching Hacker News or Reddit findings recorded. Check collection history for source availability."])),
       brandEvidenceGroup("Check history", (view.checks ?? []).length, brandEvidenceChecks(view.checks ?? [])),
+      element("section", { class: "brand-evidence__group" }, [element("h3", {}, ["Growth cycle"]), growthSlot]),
     ]));
+    try {
+      const growth = await brandGrowth(projectId, show);
+      if (version === generation && projectId === select.value) growthSlot.replaceChildren(growth);
+    } catch { growthSlot.textContent = "Saved growth cycle unavailable."; }
   };
-  if (select.dataset.brandEvidenceBound !== "true") {
-    select.dataset.brandEvidenceBound = "true";
-    select.addEventListener("change", () => {
-      if (status) status.textContent = "";
-      void show().catch(() => replace("brand-evidence", empty("Brand evidence unavailable")));
-    });
-    checkButton?.addEventListener("click", async () => {
-      checkButton.disabled = true;
-      if (status) status.textContent = "Running API check…";
-      try {
-        const result = await api(brandEvidencePath(select.value, "/checks"), { method: "POST", body: "{}" });
-        if (status) status.textContent = result.status === "skipped" ? result.reason : result.summary ?? result.status;
-        await show();
-      } catch (error) {
-        if (status) status.textContent = error instanceof Error ? error.message : "Unavailable";
-      } finally {
-        checkButton.disabled = false;
-      }
-    });
-  }
+  select.onchange = () => { if (status) status.textContent = ""; void show().catch(() => replace("brand-evidence", empty("Brand evidence unavailable"))); };
+  const run = async (kind: "checks" | "collect") => {
+    const projectId = select.value; busy = true;
+    if (checkButton) checkButton.disabled = true;
+    if (collectButton) collectButton.disabled = true;
+    select.disabled = true;
+    if (status) status.textContent = kind === "checks" ? "Running API check…" : "Reading website and community sources…";
+    try {
+      const result = await api(brandEvidencePath(projectId, `/${kind}`), { method: "POST", body: "{}" });
+      if (status) status.textContent = kind === "checks" ? (result.reason ?? result.summary ?? result.status)
+        : `Collection ${result.status} · ${(result.results ?? []).filter((item: JsonRecord) => item.status === "completed").length} successful searches. See source details below.`;
+    } catch (error) { if (status) status.textContent = error instanceof Error ? error.message : "Unavailable"; }
+    finally { busy = false; select.disabled = false; await show(); }
+  };
+  if (checkButton) checkButton.onclick = () => { void run("checks"); };
+  if (collectButton) collectButton.onclick = () => { void run("collect"); };
   await show();
 }
 

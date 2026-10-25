@@ -271,7 +271,7 @@ export function createDashboardHandler({
   if (prewarmProjection) rebuildDashboardProjection();
   const handleEarlyRoutes = (url, method, response) => {
     if (method === 'GET' && url.pathname === '/health') {
-      return json(response, 200, { ok: true, service: 'site-health-backend', database: 'available' });
+      return json(response, 200, { ok: true, service: 'site-health-backend', database: 'available', brandEvidence: 'native-v2' });
     }
     const metricRunMatch = url.pathname.match(/^\/v1\/metric-runs\/([^/]+)$/);
     if (method === 'GET' && metricRunMatch) {
