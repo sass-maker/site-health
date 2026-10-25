@@ -1,7 +1,7 @@
 schemaVersion: 1
 projectId: motion
 verification:
-  status: partial
+  status: verified
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
   generatedAt: 2026-10-25
   checks:
@@ -9,8 +9,8 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: unverified
-    githubActionsLiveState: partial
+    githubHomepage: passed
+    githubActionsLiveState: verified
     retainedGitHistory: passed
   evidence:
     catalog:
@@ -37,13 +37,13 @@ verification:
       revision: 297a82fce15ccc61c3bcc8fda182912bc28c84f8
       githubRepository: sarthakagrawal927/motion
       expectedHomepage: https://motion.significanthobbies.com
-      observedHomepage: null
+      observedHomepage: https://motion.significanthobbies.com
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-10-16
+      observedAt: 2026-10-25
       state: available
       checkout: motion
       revision: 297a82fce15ccc61c3bcc8fda182912bc28c84f8
@@ -55,14 +55,12 @@ verification:
       catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-10-09T03:02:38.910Z
+      observedAt: 2026-10-25T09:31:21.354Z
       staleAfterDays: 30
-      unverifiable: 1
+      failing: 1
       attention: &a2
-        unclassified: 1
-  unknowns:
-    - 1 workflow(s) could not be verified through GitHub.
-    - GitHub repository homepage metadata has not been observed.
+        ignored: 1
+  unknowns: []
 ownerVoice:
   whyVerbatim: Notion was another fancy thing that I wanted to build. Its purpose was to have mobile games playable on TV. For example you will set the mobile along with the TV. The mobile will record things and your actions will be transferred on the screen. You can play games like Subway while also getting a workout done. This is something I would definitely want to pursue in the future but for now it's on hold due to lack of time.
   fullReviewVerbatim: Notion was another fancy thing that I wanted to build. Its purpose was to have mobile games playable on TV. For example you will set the mobile along with the TV. The mobile will record things and your actions will be transferred on the screen. You can play games like Subway while also getting a workout done. This is something I would definitely want to pursue in the future but for now it's on hold due to lack of time.
@@ -124,7 +122,7 @@ repository:
   checkout: motion
   observedRevision: 297a82fce15ccc61c3bcc8fda182912bc28c84f8
   githubRepository: sarthakagrawal927/motion
-  githubHomepageUrl: null
+  githubHomepageUrl: https://motion.significanthobbies.com
   worktree: *a1
   visibility: public
   url: https://github.com/sarthakagrawal927/motion
@@ -175,12 +173,20 @@ repository:
       - test:coverage
       - typecheck
 githubActions:
-  observedAt: 2026-10-09T03:02:38.910Z
+  observedAt: 2026-10-25T09:31:21.354Z
   staleAfterDays: 30
   summary:
-    unverifiable: 1
+    failing: 1
   attention: *a2
-  remote: null
+  remote:
+    repository: sarthakagrawal927/motion
+    defaultBranch: main
+    defaultBranchSha: 297a82fce15ccc61c3bcc8fda182912bc28c84f8
+    homepage: https://motion.significanthobbies.com
+    query: verified
+    disposition:
+      disposition: ignored
+      reason: Motion was reactivated on 2026-10-25; this system policy remains inactive pending explicit requalification. Prior policy is preserved in retainedFields.ownerRetirement.previousSystems.
   workflows:
     - name: CI
       file: .github/workflows/ci.yml
@@ -188,6 +194,47 @@ githubActions:
         - pull_request
         - push
       schedules: []
+      inventory:
+        source: tracked
+        local: true
+        remote: true
+      ownerDisposition:
+        status: ignored
+        reason: Motion was reactivated on 2026-10-25; this system policy remains inactive pending explicit requalification. Prior policy is preserved in retainedFields.ownerRetirement.previousSystems.
+      live:
+        health: failing
+        reason: latest run concluded failure
+        apiState: active
+        lastRun:
+          id: 40176822231
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 297a82fce15ccc61c3bcc8fda182912bc28c84f8
+          createdAt: 2026-10-25T08:29:31Z
+          updatedAt: 2026-10-25T08:38:15Z
+          url: https://github.com/sarthakagrawal927/motion/actions/runs/40176822231
+        ageDays: 0
+      schedule:
+        health: not-applicable
+        reason: workflow has no schedule trigger
+        lastRun: null
+      currentDefaultBranch:
+        health: failing
+        reason: current main push concluded failure
+        lastRun:
+          id: 40176822231
+          status: completed
+          conclusion: failure
+          event: push
+          branch: main
+          headSha: 297a82fce15ccc61c3bcc8fda182912bc28c84f8
+          createdAt: 2026-10-25T08:29:31Z
+          updatedAt: 2026-10-25T08:38:15Z
+          url: https://github.com/sarthakagrawal927/motion/actions/runs/40176822231
+        ageDays: 0
+      attention: ignored
 deployment:
   kind: pages
   deployed: true

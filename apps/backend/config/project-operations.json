@@ -11834,7 +11834,55 @@
             "pull_request",
             "push"
           ],
-          "schedules": []
+          "schedules": [],
+          "inventory": {
+            "source": "tracked",
+            "local": true,
+            "remote": true
+          },
+          "ownerDisposition": {
+            "status": "ignored",
+            "reason": "Motion was reactivated on 2026-10-25; this system policy remains inactive pending explicit requalification. Prior policy is preserved in retainedFields.ownerRetirement.previousSystems."
+          },
+          "live": {
+            "health": "failing",
+            "reason": "latest run concluded failure",
+            "apiState": "active",
+            "lastRun": {
+              "id": 40176822231,
+              "status": "completed",
+              "conclusion": "failure",
+              "event": "push",
+              "branch": "main",
+              "headSha": "297a82fce15ccc61c3bcc8fda182912bc28c84f8",
+              "createdAt": "2026-10-25T08:29:31Z",
+              "updatedAt": "2026-10-25T08:38:15Z",
+              "url": "https://github.com/sarthakagrawal927/motion/actions/runs/40176822231"
+            },
+            "ageDays": 0
+          },
+          "schedule": {
+            "health": "not-applicable",
+            "reason": "workflow has no schedule trigger",
+            "lastRun": null
+          },
+          "currentDefaultBranch": {
+            "health": "failing",
+            "reason": "current main push concluded failure",
+            "lastRun": {
+              "id": 40176822231,
+              "status": "completed",
+              "conclusion": "failure",
+              "event": "push",
+              "branch": "main",
+              "headSha": "297a82fce15ccc61c3bcc8fda182912bc28c84f8",
+              "createdAt": "2026-10-25T08:29:31Z",
+              "updatedAt": "2026-10-25T08:38:15Z",
+              "url": "https://github.com/sarthakagrawal927/motion/actions/runs/40176822231"
+            },
+            "ageDays": 0
+          },
+          "attention": "ignored"
         }
       ],
       "toolingSignals": [
@@ -11898,7 +11946,20 @@
         "typecheck"
       ],
       "projectId": "motion",
-      "observedAt": "2026-10-25"
+      "observedAt": "2026-10-25",
+      "githubActionsMeta": {
+        "repository": "sarthakagrawal927/motion",
+        "defaultBranch": "main",
+        "defaultBranchSha": "297a82fce15ccc61c3bcc8fda182912bc28c84f8",
+        "homepage": "https://motion.significanthobbies.com",
+        "query": "verified",
+        "disposition": {
+          "disposition": "ignored",
+          "reason": "Motion was reactivated on 2026-10-25; this system policy remains inactive pending explicit requalification. Prior policy is preserved in retainedFields.ownerRetirement.previousSystems."
+        }
+      },
+      "githubObservedAt": "2026-10-25T09:31:21.354Z",
+      "historyObservedAt": "2026-10-25"
     },
     "truehire": {
       "projectId": "truehire",
