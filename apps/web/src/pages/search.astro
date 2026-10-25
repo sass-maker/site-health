@@ -1,5 +1,6 @@
 ---
 import DashboardLayout from "../components/DashboardLayout.astro";
+import SeoNav from "../components/SeoNav.astro";
 ---
 
 <DashboardLayout
@@ -15,6 +16,7 @@ import DashboardLayout from "../components/DashboardLayout.astro";
     <strong class="search-reporting-period" data-search-period>Reading reporting period</strong>
     <span class="snapshot-time" data-outcome-time>Reading Search Console evidence</span>
   </div>
+  <SeoNav active="web" />
   <section class="owner-section owner-section--directory" aria-label="Google Search results by project">
     <div class="project-scope project-scope--compact">
       <label for="search-scope">Show</label>

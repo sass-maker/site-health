@@ -1,0 +1,13 @@
+---
+interface Props { active: 'web' | 'app-store' }
+const { active } = Astro.props;
+---
+<nav class="seo-source-nav" aria-label="SEO research">
+  <a href="/search" aria-current={active === 'web' ? 'page' : undefined}>Web SEO</a>
+  <a href="/search/app-store" aria-current={active === 'app-store' ? 'page' : undefined}>App Store SEO</a>
+</nav>
+<style>
+.seo-source-nav { display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:16px; margin:0 0 24px; }
+.seo-source-nav a { color:var(--muted); padding:10px 16px; border-radius:7px; text-decoration:none; }
+.seo-source-nav a[aria-current] { background:var(--surface-raised); color:var(--accent); }
+</style>

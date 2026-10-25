@@ -15,8 +15,8 @@ importers:
         specifier: 2.0.41
         version: 2.0.41(zod@4.6.7)
       '@saas-maker/collect':
-        specifier: file:vendor/saas-maker-collect-0.3.1.tgz
-        version: file:vendor/saas-maker-collect-0.3.1.tgz
+        specifier: file:vendor/saas-maker-collect-0.3.2.tgz
+        version: file:vendor/saas-maker-collect-0.3.2.tgz
       ai:
         specifier: 6.0.168
         version: 6.0.168(zod@4.6.7)
@@ -57,9 +57,9 @@ packages:
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
     engines: {node: '>=8.0.0'}
 
-  '@saas-maker/collect@file:vendor/saas-maker-collect-0.3.1.tgz':
-    resolution: {integrity: sha512-SqIF4p16NC7cDB2xi9vqtHf5xjNOLjuAHbJqkEHn70tUpkoMKM6YcR4cICwwuf3NxGvFmY8huKnjanw0y5cSlQ==, tarball: file:vendor/saas-maker-collect-0.3.1.tgz}
-    version: 0.3.1
+  '@saas-maker/collect@file:vendor/saas-maker-collect-0.3.2.tgz':
+    resolution: {integrity: sha512-72TT9gQBh9JEJKFPz3x9XpDe+86UaEL4UyawmvbtKZHIjNjVacAS9jzF/RK5N7cxa4yTaDCoy9C12K58KqhAlg==, tarball: file:vendor/saas-maker-collect-0.3.2.tgz}
+    version: 0.3.2
     engines: {node: '>=22'}
 
   '@standard-schema/spec@1.1.0':
@@ -207,7 +207,7 @@ snapshots:
 
   '@opentelemetry/api@1.9.0': {}
 
-  '@saas-maker/collect@file:vendor/saas-maker-collect-0.3.1.tgz':
+  '@saas-maker/collect@file:vendor/saas-maker-collect-0.3.2.tgz':
     dependencies:
       cheerio: 1.2.0
       playwright-core: 1.63.0

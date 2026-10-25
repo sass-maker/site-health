@@ -16,6 +16,7 @@ import {
 } from './ai-visibility-registry.mjs';
 import { loadClarityRegistry, readClarityProjection } from './clarity.mjs';
 import { readSpendSnapshot } from './spend.mjs';
+import { createAppStoreRoutes } from '../app-store/routes.mjs';
 import { createBrandEvidenceRoutes } from '../brand-evidence/routes.mjs';
 
 const MAX_REQUEST_BYTES = 32 * 1024;
@@ -67,12 +68,12 @@ function browserMutationError(request) {
   return null;
 }
 
-async function readBody(request) {
+async function readBody(request, maxBytes = MAX_REQUEST_BYTES) {
   const chunks = [];
   let size = 0;
   for await (const chunk of request) {
     size += chunk.length;
-    if (size > MAX_REQUEST_BYTES) throw Object.assign(new Error('request body too large'), { statusCode: 413 });
+    if (size > maxBytes) throw Object.assign(new Error('request body too large'), { statusCode: 413 });
     chunks.push(chunk);
   }
   if (chunks.length === 0) return {};
@@ -245,10 +246,12 @@ export function createDashboardHandler({
   prefillEvidence,
   projectsProvider = () => store.projects,
   clarityRegistryProvider = loadClarityRegistry,
+  appStoreStore = null,
   brandEvidenceStore = null,
   brandEvidenceEnv = process.env,
   brandEvidenceFetch = fetch,
 }) {
+  const appStoreRoutes = createAppStoreRoutes({ store: appStoreStore, env: brandEvidenceEnv, fetchImpl: brandEvidenceFetch });
   let projectionCache = null;
   const brandEvidenceRoutes = createBrandEvidenceRoutes({
     store: brandEvidenceStore,
@@ -283,7 +286,10 @@ export function createDashboardHandler({
     // happened to poll its run receipt to completion.
     return rebuildDashboardProjection(projections);
   };
-  if (prewarmProjection) rebuildDashboardProjection();
+  if (prewarmProjection) {
+    try { rebuildDashboardProjection(); }
+    catch (error) { console.error(`Dashboard projection prewarm unavailable: ${error.message}`); }
+  }
   const handleEarlyRoutes = (url, method, response) => {
     if (method === 'GET' && url.pathname === '/health') {
       return json(response, 200, { ok: true, service: 'site-health-backend', database: 'available', brandEvidence: 'native-v2' });
@@ -386,6 +392,13 @@ export function createDashboardHandler({
       const browserError = method !== 'GET' ? browserMutationError(request) : null;
       if (browserError) return json(response, browserError[0], { error: browserError[1] });
 
+      if (url.pathname.startsWith('/v1/seo/app-store/')) {
+        if (method !== 'GET' && !mutationAuthorized(request, { ownerToken, trustLoopback })) {
+          return json(response, 401, { error: 'owner authentication required' });
+        }
+        if (await appStoreRoutes.handle(url, method, request, response, { json, readBody })) return;
+        return json(response, 404, { error: 'route not found' });
+      }
       store.projects = projectsProvider();
       const projections = projectionFor(store);
       if (method === 'GET' && handleProjectionReadRoutes(url, projections, response)) return;
@@ -400,6 +413,7 @@ export function createDashboardHandler({
       ) {
         return json(response, 401, { error: 'owner authentication required' });
       }
+
 
       if (await handleMetricRunMutations(url, method, request, response)) return;
       if (await handleProjectionMutations(url, method, response)) return;
@@ -428,6 +442,7 @@ export function startDashboardService({
   prefillEvidence,
   projectsProvider,
   clarityRegistryProvider,
+  appStoreStore,
   brandEvidenceStore,
   brandEvidenceEnv,
   brandEvidenceFetch,
@@ -445,6 +460,7 @@ export function startDashboardService({
       ...(prefillEvidence ? { prefillEvidence } : {}),
       ...(projectsProvider ? { projectsProvider } : {}),
       ...(clarityRegistryProvider ? { clarityRegistryProvider } : {}),
+      ...(appStoreStore ? { appStoreStore } : {}),
       ...(brandEvidenceStore ? { brandEvidenceStore } : {}),
       ...(brandEvidenceEnv ? { brandEvidenceEnv } : {}),
       ...(brandEvidenceFetch ? { brandEvidenceFetch } : {}),

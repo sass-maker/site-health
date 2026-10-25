@@ -17,6 +17,7 @@ import {
   defaultDatabasePath,
   verifyBackup,
 } from '../lib/dashboard-backend/store.mjs';
+import { AppStoreStore } from '../lib/app-store/store.mjs';
 import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evidence/store.mjs';
 import { startBrandEvidenceScheduler } from '../lib/brand-evidence/scheduler.mjs';
 import { gatewayEnvironment } from '../lib/brand-evidence/gateway-environment.mjs';
@@ -123,11 +124,13 @@ if (command === 'status') {
   const brandEvidenceStore = new BrandEvidenceStore({
     databasePath: process.env.SITE_HEALTH_BRAND_EVIDENCE_DB || defaultBrandEvidencePath(),
   });
+  const appStoreStore = new AppStoreStore({ ...(process.env.SITE_HEALTH_APP_STORE_DB ? { databasePath: process.env.SITE_HEALTH_APP_STORE_DB } : {}) });
   const brandEvidenceEnv = gatewayEnvironment();
   const brandScheduler = startBrandEvidenceScheduler({ store: brandEvidenceStore, projectsProvider, env: brandEvidenceEnv });
   const server = await startDashboardService({
     store,
     brandEvidenceStore,
+    appStoreStore,
     brandEvidenceEnv,
     port,
     prewarmProjection: true,
@@ -163,6 +166,7 @@ if (command === 'status') {
       await brandsStopped;
       store.close();
       brandEvidenceStore.close();
+      appStoreStore.close();
     });
   };
   process.on('SIGINT', shutdown);

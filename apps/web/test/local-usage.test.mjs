@@ -73,7 +73,8 @@ test("malformed local state is preserved and never replaced by a fabricated coun
   assert.equal(record.tracking, "partial");
 });
 
-test("only trusted explicit controls count, and QA query sessions are excluded", () => {
+test("only trusted explicit controls count, and QA query sessions are excluded", (context) => {
+  context.mock.timers.enable({ apis: ["Date"], now: now.getTime() - 1000 });
   const storage = memoryStorage();
   const listeners = new Map();
   class ElementMock {

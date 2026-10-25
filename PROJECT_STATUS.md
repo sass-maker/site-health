@@ -3,7 +3,7 @@
 ## Why / What
 
 Site Health is the private owner view for projects, domain strength, web
-performance, Google Search, and AI awareness. It is one product with one local
+performance, SEO (web and App Store), and AI awareness. It is one product with one local
 backend.
 
 ## Dependencies
@@ -18,6 +18,17 @@ backend.
   and agent skills under `tooling/`.
 
 ## Timeline
+
+- **2026-10-25:** App Store SEO is integrated under the existing SEO area at
+  `/search/app-store`, alongside Web SEO. Its country-by-keyword matrix, source
+  observations, local history, JSON/CSV portability, localized listing drafts
+  and reviewed AI proposals use the Site Health shell. Research workspaces stay
+  browser-local. The existing loopback backend owns public Apple capture cache,
+  shared persistent request allowances and free-ai `site-health` attribution;
+  collection comes from the credential-free `@saas-maker/collect/apple` subpath.
+  Apple Ads popularity and App Store Connect publishing remain unconnected.
+  Integration verification is in progress; no standalone product is registered.
+
 
 - **2026-10-25:** Recreated the MentionPilot workflow natively in AI Awareness.
   Brand setup, editable prompts, API checks, daily/weekly collection, website

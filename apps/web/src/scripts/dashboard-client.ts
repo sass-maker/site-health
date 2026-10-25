@@ -1759,6 +1759,8 @@ async function start() {
   document.querySelector<HTMLButtonElement>("[data-usage-export]")?.addEventListener("click", () => {
     downloadLocalUsageBundle(document, window);
   });
+  // App Store SEO owns its browser-local workspace and service status.
+  if (view === "app-store") return;
   try {
     bindPortfolioRefresh();
     bindProjectRefreshAll();
