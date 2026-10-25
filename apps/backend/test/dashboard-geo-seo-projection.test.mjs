@@ -280,10 +280,10 @@ test('retired domainless root history cannot break current portfolio evidence or
   const rootBrands = { version: 1, brands: [{ rootDomain: 'retired.example', canonicalName: 'Retired', alternateNames: [] }] };
   const rootQueries = { version: 1, cadence: 'weekly', roots: [{ rootDomain: 'retired.example', projectId: 'retired', collision: { state: 'clear', note: 'Retained historical queries for a retired public product.' }, queries: ['brand', 'exact-domain', 'category', 'problem'].map((kind) => ({ id: `retired-${kind}`, kind, text: kind, status: 'active' })) }] };
   const original = JSON.stringify(rootQueries);
-  const outcomes = fixture({ projects: [retired, project('active')], rootBrands, rootQueries });
+  const outcomes = fixture({ projects: [retired, project('active', { domains: ['app.retired.example'] })], rootBrands, rootQueries });
   assert.ok(outcomes.search.some((row) => row.projectId === 'active'));
   assert.ok(!outcomes.search.some((row) => row.projectId === 'retired'));
   assert.equal(JSON.stringify(rootQueries), original);
   assert.throws(() => fixture({ projects: [retired, project('active', { domains: ['retired.example'] })], rootBrands, rootQueries }), /domain mismatch/);
-  assert.throws(() => fixture({ projects: [project('retired', { domains: [] })], rootBrands, rootQueries }), /domain mismatch/);
+  assert.throws(() => fixture({ projects: [project('retired', { domains: [] }), project('active', { domains: ['app.retired.example'] })], rootBrands, rootQueries }), /domain mismatch/);
 });
