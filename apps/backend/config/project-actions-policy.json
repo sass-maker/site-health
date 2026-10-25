@@ -141,6 +141,10 @@
       "disposition": "active",
       "reason": "Owner-approved techdata project; CI on push runs without secrets, deploy is workflow_dispatch only (the first release used the same wrangler deploy command locally, approved by the owner 2026-10-10)."
     },
+    "codevetter": {
+      "disposition": "active",
+      "reason": "Active product CI and security checks. Dependency snapshots may run on main dependency-file changes or manual dispatch, without a recurring graph refresh."
+    },
     "ios-landings": {
       "disposition": "active",
       "reason": "Retained landing factory runs inside UI Library; verify its operational CI without an independent product roadmap."
