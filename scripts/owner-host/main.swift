@@ -25,7 +25,8 @@ guard [paths.nodePath, paths.repositoryPath, paths.ownerRepositoryPath, paths.ca
 let requestAccess = CommandLine.arguments.contains("--request-access")
 if requestAccess {
     let app = NSApplication.shared
-    app.setActivationPolicy(.accessory)
+    app.setActivationPolicy(.regular)
+    app.finishLaunching()
     app.activate(ignoringOtherApps: true)
     let explanation = NSAlert()
     explanation.messageText = "Allow Site Health to read your Fleet files"
