@@ -98,3 +98,17 @@ test('pruning newer success never reveals an older provider failure as the lates
   assert.equal(domain.cell(retained, project, key).presence.kind, 'unobserved');
   assert.ok(!retained.attempts.some((a) => a.id === 'stale-failure'));
 });
+
+test('one full60-cell run retains all200-result captures without unused competitor descriptions', () => {
+  const observations = Array.from({ length: 60 }, (_, i) => ('compactObservation' in domain ? domain.compactObservation : domain.parseObservation)({
+    id: `matrix-${i}`, key: { ...key, term: `word${i}`, limit: 200 },
+    sourceUrl: domain.appleSearchUrl({ ...key, term: `word${i}`, limit: 200 }),
+    fetchedAt: project.createdAt,
+    apps: Array.from({ length: 200 }, (_, n) => ({ ...app, id: String(n + 1), description: 'Note editor with useful features. '.repeat(100) })),
+  }));
+  const compact = domain.retain({ ...domain.emptyWorkspace(), projects: [project], observations });
+  assert.equal(compact.observations.length, 60);
+  assert.equal(compact.projects[0].app.description, app.description);
+  assert.equal(compact.observations[0].apps[0].description, '');
+  assert.equal(domain.readBackup(domain.backupText(compact)).observations.length, 60);
+});

@@ -141,10 +141,15 @@ if (command === 'status') {
     projectsProvider,
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
-  const startupPrefill = process.env.SITE_HEALTH_STARTUP_PREFILL === '0'
-    ? { sources: [] } : prefillEvidence({ force: process.env.SITE_HEALTH_OWNER_HOST !== '1' });
-  const startupRefresh = startupPrefill.sources;
-  console.log(`Evidence startup: ${startupRefresh.map((item) => `${item.family}=${item.action}`).join(', ')}`);
+  try {
+    const startupPrefill = process.env.SITE_HEALTH_STARTUP_PREFILL === '0'
+      ? { sources: [] } : prefillEvidence({ force: process.env.SITE_HEALTH_OWNER_HOST !== '1' });
+    console.log(`Evidence startup: ${startupPrefill.sources.map((item) => `${item.family}=${item.action}`).join(', ')}`);
+  } catch (error) {
+    // An unavailable portfolio snapshot must not kill independent owner features.
+    // Projection routes keep their explicit errors and /health reports the gap.
+    console.error(`Evidence startup unavailable: ${error.message}`);
+  }
   // Idempotent, and never allowed to throw: it also runs on `exit`, by which
   // point the store may already be closed.
   const abandonInFlightRuns = () => {

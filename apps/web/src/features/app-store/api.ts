@@ -1,6 +1,6 @@
 import {
   parseApp,
-  parseObservation,
+  compactObservation,
   record,
   type App,
   type Observation,
@@ -67,7 +67,7 @@ export async function appleRequest(path: string, signal: AbortSignal): Promise<C
     notice: typeof data.notice === 'string' ? data.notice : undefined,
     cacheNotice: typeof data.cacheNotice === 'string' ? data.cacheNotice : undefined,
     cache: data.cache as 'hit' | 'miss',
-    observation: data.observation ? parseObservation(data.observation) : undefined,
+    observation: data.observation ? compactObservation(data.observation) : undefined,
   };
 }
 export function searchPath(key: SearchKey) {

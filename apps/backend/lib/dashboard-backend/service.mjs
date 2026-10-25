@@ -253,6 +253,7 @@ export function createDashboardHandler({
 }) {
   const appStoreRoutes = createAppStoreRoutes({ store: appStoreStore, env: brandEvidenceEnv, fetchImpl: brandEvidenceFetch });
   let projectionCache = null;
+  let projectionState = 'not-checked';
   const brandEvidenceRoutes = createBrandEvidenceRoutes({
     store: brandEvidenceStore,
     env: brandEvidenceEnv,
@@ -278,6 +279,7 @@ export function createDashboardHandler({
       now: now(),
     });
     projectionCache = { payload };
+    projectionState = 'available';
     return payload;
   };
   const cachedDashboardProjection = (projections) => {
@@ -288,11 +290,11 @@ export function createDashboardHandler({
   };
   if (prewarmProjection) {
     try { rebuildDashboardProjection(); }
-    catch (error) { console.error(`Dashboard projection prewarm unavailable: ${error.message}`); }
+    catch (error) { projectionState = 'unavailable'; console.error(`Dashboard projection prewarm unavailable: ${error.message}`); }
   }
   const handleEarlyRoutes = (url, method, response) => {
     if (method === 'GET' && url.pathname === '/health') {
-      return json(response, 200, { ok: true, service: 'site-health-backend', database: 'available', brandEvidence: 'native-v2' });
+      return json(response, 200, { ok: true, service: 'site-health-backend', database: 'available', projection: projectionState, brandEvidence: 'native-v2' });
     }
     const metricRunMatch = url.pathname.match(/^\/v1\/metric-runs\/([^/]+)$/);
     if (method === 'GET' && metricRunMatch) {

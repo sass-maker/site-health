@@ -13,7 +13,7 @@ export function createAppStoreRoutes({ store, env = process.env, fetchImpl = fet
     const route = url.pathname.slice(PREFIX.length);
     if (method === 'GET' && route === 'status') {
       const ai = source();
-      return json(response, 200, { apple: { enabled: true, limitPerMinute: 18, cacheMinutes: 15 }, ai: { enabled: ai.ready, reason: ai.ready ? 'Site Health free-ai gateway · proposals only, applied after your review.' : 'Site Health free-ai gateway is unavailable. Manual research and drafts remain available.', local: true }, connections: { appleAds: false, appStoreConnect: false } });
+      return json(response, 200, { apple: { enabled: true, limitPerMinute: 18, cacheMinutes: 15 }, ai: { enabled: ai.ready, reason: ai.ready ? 'Site Health free-ai gateway · proposals applied after review. Shared allowance:60 attempts/day,10 seconds between attempts, including failed proposals.' : 'Site Health free-ai gateway is unavailable. Manual research and drafts remain available.', local: true }, connections: { appleAds: false, appStoreConnect: false } });
     }
     if (method !== 'POST' || !['search', 'lookup', 'ai'].includes(route)) return json(response, 404, { error: 'route not found' });
     const controller = new AbortController();

@@ -253,6 +253,12 @@ export function parseObservation(value: unknown): Observation {
   if (apps.length > key.limit) throw new Error('Capture exceeds its result limit.');
   return { id: id(x.id), fetchedAt: date(x.fetchedAt), sourceUrl: expected, key, apps, ...(x.notice ? { notice: str(x.notice, 1000) } : {}) };
 }
+// New search observations keep fields used for positions and competitor comparison.
+// Legacy backups still round-trip their original metadata without changing capture identity.
+export function compactObservation(value: unknown): Observation {
+  const x = record(value);
+  return parseObservation({ ...x, apps: array(x.apps, 200).map((v) => ({ ...record(v), description: '' })) });
+}
 export function appleSearchUrl(key: SearchKey): string {
   const u = new URL('https://itunes.apple.com/search');
   u.search = new URLSearchParams({

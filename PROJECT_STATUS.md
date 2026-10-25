@@ -27,7 +27,14 @@ backend.
   shared persistent request allowances and free-ai `site-health` attribution;
   collection comes from the credential-free `@saas-maker/collect/apple` subpath.
   Apple Ads popularity and App Store Connect publishing remain unconnected.
-  Integration verification is in progress; no standalone product is registered.
+  Native App Store and backend checks, strict feature TypeScript, web build and
+  responsive browser checks pass. Independent review is resolving final findings;
+  no standalone product is registered. An existing root-search policy still maps
+  retired ios-landings to daddyrad.com despite both retired records having no
+  deployment domains. Current projections exclude that retired, domainless root
+  history without restoring collection or changing the catalog. Active ownership
+  mismatches still fail validation. Health explicitly reports any unavailable
+  projection, while independent routes and service startup remain usable.
 
 
 - **2026-10-25:** Recreated the MentionPilot workflow natively in AI Awareness.

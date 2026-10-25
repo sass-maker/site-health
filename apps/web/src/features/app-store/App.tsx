@@ -190,7 +190,11 @@ export default function ResearchApp() {
     setStatusError('');
     void requestJson('/api/dashboard/v1/seo/app-store/status')
       .then((v) => setStatus(v as Status))
-      .catch((e) => setStatusError(message(e)));
+      .catch((e) => {
+        const reason = `Service status unavailable. ${message(e)}`;
+        setStatusError(reason);
+        setStatus({ apple: { enabled: false, limitPerMinute: 18, cacheMinutes: 15 }, ai: { enabled: false, reason, local: true }, connections: { appleAds: false, appStoreConnect: false } });
+      });
   };
   useEffect(refreshStatus, []);
   const change = (update: (data: Workspace) => Workspace): Promise<void> => {
@@ -198,7 +202,13 @@ export default function ResearchApp() {
       if (store.current) {
         setStorageState('Saving…');
         try {
-          const result = await commitWorkspace(store.current, saved.current, update);
+          let requestedCaptures = 0;
+          const result = await commitWorkspace(store.current, saved.current, (data) => {
+            const proposed = update(data);
+            requestedCaptures = proposed.observations.length;
+            return proposed;
+          });
+          if (requestedCaptures > result.data.observations.length) setNotice(`${requestedCaptures - result.data.observations.length} oldest captures were trimmed to keep this workspace within120 captures /12 MB. Export a backup to keep a separate archive.`);
           saved.current = result;
           setWorkspace(result.data);
           setStorageState('Saved on this browser');
@@ -208,7 +218,9 @@ export default function ResearchApp() {
           throw error;
         }
       } else {
-        const next = retain(update(saved.current.data));
+        const proposed = update(saved.current.data);
+        const next = retain(proposed);
+        if (proposed.observations.length > next.observations.length) setNotice(`${proposed.observations.length - next.observations.length} oldest captures were trimmed to keep this workspace within120 captures /12 MB.`);
         saved.current = { revision: saved.current.revision + 1, data: next };
         setWorkspace(next);
       }
@@ -606,6 +618,7 @@ export default function ResearchApp() {
           </div>
         )}
 
+        {statusError && <div className="alert error" role="alert"><span>{statusError}</span><button onClick={refreshStatus}>Check service status</button></div>}
         {error && (
           <div className="alert error" role="alert">
             <span>{error}</span>
@@ -1254,7 +1267,7 @@ export default function ResearchApp() {
                     <span className="eyebrow">CAPTURE LOG</span>
                     <h2>A history you can inspect.</h2>
                   </div>
-                  <span className="pill">Latest 120 captures / 12 MB</span>
+                  <span className="pill">Up to 120 captures / 12 MB</span>
                 </div>
                 <p className="muted">
                   Trends compare successful evidence for the same keyword, country, platform and
@@ -1422,7 +1435,7 @@ export default function ResearchApp() {
                       <b>{status?.ai.enabled ? 'Connected' : 'Not connected'}</b>
                     </div>
                     <p className="caption">
-                      {status?.ai.reason ?? statusError ?? 'Checking service status…'}
+                      {status?.ai.reason || statusError || 'Checking service status…'}
                     </p>
                     <div className="connection">
                       <span>Apple Ads popularity</span>
@@ -1447,7 +1460,7 @@ export default function ResearchApp() {
                       original source time.
                     </p>
                     <p>
-                      Only public Apple captures enter the server cache. Your local keywords and
+                      Only public Apple captures enter the server cache. Competitor descriptions are omitted from local observation history; the selected app’s description remains available for listing drafts. Your local keywords and
                       drafts are sent to AI only when you request a proposal. No accounts, remote
                       workspace sync or background collection.
                     </p>

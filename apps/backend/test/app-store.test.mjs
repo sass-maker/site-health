@@ -59,6 +59,7 @@ test('AI uses existing Site Health gateway attribution and only returns validate
 
 test('unavailable portfolio projection does not block independent App Store SEO or disguise its failure',async t=>{
   const h=await host(t,{prewarmProjection:true,projectionProvider:()=>{throw new Error('catalog projection unavailable');}});
+  const health=await (await fetch(h.base.replace('/v1/seo/app-store','')+'/health')).json();assert.equal(health.projection,'unavailable');
   const status=await fetch(h.base+'/status');assert.equal(status.status,200);
   const r=await fetch(h.base+'/lookup?id=123&country=us&platform=ios',post());assert.equal(r.status,200);assert.equal((await r.json()).apps[0].id,'123');
   const search=await fetch(h.base.replace('/v1/seo/app-store','')+'/v1/outcomes/search');assert.equal(search.status,500);assert.match((await search.json()).error,/catalog projection unavailable/);

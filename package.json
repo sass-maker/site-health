@@ -26,12 +26,13 @@
     "test:owner:native": "node scripts/test-owner-native.mjs",
     "test:backend:ci": "node scripts/test-backend-ci.mjs",
     "test:ai": "pnpm --dir apps/backend/packages/ai-visibility check",
-    "test": "pnpm run test:backend && pnpm run test:app-store && pnpm run test:usage && pnpm run test:owner && pnpm run test:ai",
+    "test": "pnpm run test:backend && pnpm run test:app-store:web && pnpm --dir apps/web check:app-store && pnpm run test:usage && pnpm run test:owner && pnpm run test:ai",
     "check": "pnpm run docs:projects:check && pnpm run build && pnpm run test",
-    "check:ci": "pnpm run prepare:ci-catalog && pnpm run build && pnpm run test:backend:ci && pnpm run test:usage && pnpm run test:owner && pnpm run test:ai",
+    "check:ci": "pnpm run prepare:ci-catalog && pnpm run build && pnpm run test:backend:ci && pnpm run test:app-store:web && pnpm --dir apps/web check:app-store && pnpm run test:usage && pnpm run test:owner && pnpm run test:ai",
     "brand": "node apps/backend/scripts/brand-evidence.mjs",
     "owner:service": "node scripts/owner-service.mjs",
-    "test:app-store": "node --disable-warning=ExperimentalWarning --test apps/web/test/app-store/*.test.ts apps/backend/test/app-store*.test.mjs"
+    "test:app-store": "node --disable-warning=ExperimentalWarning --test apps/web/test/app-store/*.test.ts apps/backend/test/app-store*.test.mjs",
+    "test:app-store:web": "node --disable-warning=ExperimentalWarning --test apps/web/test/app-store/*.test.ts"
   },
   "engines": {
     "node": ">=22"
