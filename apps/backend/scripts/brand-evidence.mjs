@@ -12,7 +12,10 @@ import {
   revertTransfer,
   verifyTransfer,
 } from '../lib/brand-evidence/mentionpilot-transfer.mjs';
-import { assertKnownProject, dueProjects, runApiModelCheck } from '../lib/brand-evidence/runner.mjs';
+import { assertKnownProject, runApiModelCheck } from '../lib/brand-evidence/runner.mjs';
+import { dueBrandProjects, refreshBrandEvidence } from '../lib/brand-evidence/scheduler.mjs';
+import { gatewayEnvironment } from '../lib/brand-evidence/gateway-environment.mjs';
+import { prepareCommunityBrief } from '../lib/brand-evidence/community-brief.mjs';
 import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evidence/store.mjs';
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 
@@ -26,6 +29,8 @@ Usage:
   brand-evidence.mjs profile <project> [--input profile.json]
   brand-evidence.mjs prompt <project> <prompt text> [--category <name>]
   brand-evidence.mjs check <project>
+  brand-evidence.mjs collect <project>
+  brand-evidence.mjs brief <project> <https://product-website>
   brand-evidence.mjs due [--run]
   brand-evidence.mjs capture <project> --input captures.json
   brand-evidence.mjs transfer plan   --export <mentionpilot-d1.sql> --mapping <mapping.json>
@@ -37,7 +42,8 @@ Usage:
 The store defaults to:
   ${defaultBrandEvidencePath()}
 Override it with SITE_HEALTH_BRAND_EVIDENCE_DB. API model checks read
-AI_GATEWAY_API_KEY (free-ai gateway) from the environment at run time.
+AI_GATEWAY_API_KEY / GATEWAY_API_KEY at run time, or the named Free_ai
+secret from the existing Fleet Infisical Development root.
 Keep exports, mappings and captures outside Git: they hold raw evidence and,
 for exports, credentials that this tool deliberately never copies.`);
 }
@@ -66,6 +72,7 @@ const store = new BrandEvidenceStore({
   databasePath: process.env.SITE_HEALTH_BRAND_EVIDENCE_DB || defaultBrandEvidencePath(),
 });
 const projects = () => loadDashboardProjects();
+const modelEnv = ['check', 'due', 'brief'].includes(command) ? gatewayEnvironment() : process.env;
 
 try {
   if (command === 'profiles') {
@@ -81,15 +88,26 @@ try {
   } else if (command === 'check') {
     const [projectId] = args;
     assertKnownProject(projectId, projects());
-    print(await runApiModelCheck({ store, projectId, trigger: 'manual' }));
+    print(await runApiModelCheck({ store, projectId, trigger: 'manual', env: modelEnv }));
+  } else if (command === 'brief') {
+    const [projectId, url] = args;
+    assertKnownProject(projectId, projects());
+    print(await prepareCommunityBrief({ store, projectId, url, env: modelEnv }));
+  } else if (command === 'collect') {
+    const [projectId] = args;
+    assertKnownProject(projectId, projects());
+    print(await refreshBrandEvidence({ store, projectId, scope: 'community' }));
   } else if (command === 'due') {
-    const due = dueProjects(store);
+    const current = new Set(projects().filter((project) =>
+      ['active', 'primary'].includes(project.lifecycle?.status ?? project.status)).map((project) => project.id));
+    const scheduled = dueBrandProjects(store).filter(({ projectId }) => current.has(projectId));
+    const due = scheduled.map(({ projectId }) => projectId);
     if (!values.run) {
       print({ due });
     } else {
       const results = [];
-      for (const projectId of due) {
-        results.push({ projectId, ...(await runApiModelCheck({ store, projectId, trigger: 'scheduled' })) });
+      for (const { projectId, scope } of scheduled) {
+        results.push(await refreshBrandEvidence({ store, projectId, scope, trigger: 'scheduled', env: modelEnv }));
       }
       print({ due, results });
     }

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
       infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: 04b33167c82a9b23f28393d269ff865ed02940d455369c517c1e7ff2eee76c27
-      documentSha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
+      documentSha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -124,8 +124,8 @@ repository:
   githubRepository: Significant-Hobbies/war-chest
   githubHomepageUrl: null
   worktree: *a1
-  visibility: private
-  url: https://github.com/Significant-Hobbies/war-chest
+  visibility: public
+  url: https://github.com/sarthakagrawal927/war-chest
   aliases: []
   sourceOverride: null
   tooling:
@@ -224,7 +224,7 @@ sharing:
   verifiedAt: 2026-09-25
   reason: Unsigned local War Chest and Practice War Chest apps exist in the checkout. The repository retains five commits (2026-09-26 through 2026-09-28) and has no published release; native play acceptance remains open.
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/war-chest/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/war-chest/issues
   geoIdentity: null
 notes:
   catalog: |-

@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-09-10
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: What It Takes to Win
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -292,11 +292,23 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-09-09T23:02:39.600569+00:00
-          deploymentId: f2e3c29e-e26a-4436-8167-91f33212f359
-          sourceCommit: ac61e3ffb173aa00aed518ac0c13a0c68cd55313
-          sourcePath: what-it-takes-to-win
-          evidencePath: docs/qualification/flagged-deployment-resolution-2026-09-10.json
+          observedAt: 2026-10-23T05:56:33.507820+00:00
+          sourceCommit: 1383b156e96dcd9c12961e731ffa16b87f9bd972
+          deploymentId: dadc7e17-0780-4e7e-a44f-0361a696ebae
+          deploymentUrl: https://dadc7e17.success-by-26.pages.dev
+          environment: Production
+          branch: main
+          providerSourceAbbreviation: 1383b15
+          exactMainCi: 39907235349
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/paths-production-summary.json
+          scope: "PR96: Base-onlyv0.1.17 backport plus immutable native3f8 interiorcontroller; SSR/theme/CSS retained. Astro/Vite/fast-uri/smol-toml build-tool fixes give zero audit findings; CI resolves latestNode22patch matching engine minimum. Frozeninstall/fullquality,6candidatecases/12renders, exactmainCI/sixgates/existingpublisher pass. ProviderProduction/mainsource1383b15 matchesfullSHA; traffic not inferred. Real3width capture/retry/newsletter gives4receipts/events/feed,6liveforms reviewed, QAcleanup independentlystored. LiveinteriorClose/retry/reset/consent/style3width fixtures with6extra renders pass; asset3f8verified. No research/corpus/generated-data changes orleadresearch acceptance."
+        verificationHistory:
+          - observedAt: 2026-09-09T23:02:39.600569+00:00
+            deploymentId: f2e3c29e-e26a-4436-8167-91f33212f359
+            sourceCommit: ac61e3ffb173aa00aed518ac0c13a0c68cd55313
+            sourcePath: what-it-takes-to-win
+            evidencePath: docs/qualification/flagged-deployment-resolution-2026-09-10.json
     resources: []
   otherProviders:
     deployments: []

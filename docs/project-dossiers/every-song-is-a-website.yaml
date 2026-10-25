@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-10-05
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=every-song-is-a-website].ownerNarrative
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-22
       reviewSha256: 0684700280462b17979c8bbe3e8884e572dd6f7aabe3c5477dec3735cef24be6
-      documentSha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
+      documentSha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -223,16 +223,42 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-05T17:50:55.400103Z
-          sourceCommit: 21fb6c36d7c5b0c437bd9c8d92d351f89a47c574
-          deploymentId: 4aa22b04-8824-4ad0-857b-10cdcf441358
-          state: success-production-verified
-          scope: Selected Precise public closing-footer, public asset bytes and route boundaries; native release and unrelated backend capabilities excluded
-          evidencePath: every-song-is-a-website/.fleet-local/footer180-current-C-prep-20261005/production-release-proof-21fb6c36.json
-          versionId: 145ee6ef-a332-4785-872e-e7da1872e221
+          observedAt: 2026-10-22T23:43:01.559049+00:00
+          assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+          sourceCommit: 0fde3a7904385cbfd7e41c6d12279776bf9eeaad
+          deploymentId: 5d144ac7-dcb8-4ef2-bd7b-8abb58d386c5
+          versionId: e6c9d0bc-81ce-445d-b77f-96a362928e8c
           trafficPercent: 100
-          evidence: "Footer rollout #180: exact source/current CI, existing publisher/provider and bounded actual rendered public routes verified; historical operational evidence retained separately."
-        versionId: 145ee6ef-a332-4785-872e-e7da1872e221
+          exactMainCi: 39868724096
+          deployWorkflow: 39869602314
+          state: success-production-verified
+          uiSourceCommit: 45222b86b022b57bcb420640d44f5c79445d2d2d
+          scope: Retry-safe Studio footer; three-width real feedback/newsletter capture, receipts, alerts and QA cleanup
+          evidence: Merged PR20; exact-main CI and existing publisher succeed. Full source-tagged Worker version serves100percent traffic; live footer SHA matches UI LibraryPR22. Three widths retain draft and consent after201response loss, retry200returns same feedback ID. Six feedback POSTs produce three rows, three receipts and matching unique App Health events/feed. Three newsletter POSTs with normalized same address produce one active subscription, receipt and alert; unchecked consent makes no request. All six feedback screenshots reviewed with no page errors/overflow. Three QA feedback records dismissed; test subscription unsubscribed; four receipts retained. Synthetic QA only, not organic demand or completed-day reporting.
+          evidencePath: .fleet-local/feedback-retry-167-20261023/song-production-summary.json
+        versionId: e6c9d0bc-81ce-445d-b77f-96a362928e8c
+        verificationHistory:
+          - observedAt: 2026-10-05T17:50:55.400103Z
+            sourceCommit: 21fb6c36d7c5b0c437bd9c8d92d351f89a47c574
+            deploymentId: 4aa22b04-8824-4ad0-857b-10cdcf441358
+            state: success-production-verified
+            scope: Selected Precise public closing-footer, public asset bytes and route boundaries; native release and unrelated backend capabilities excluded
+            evidencePath: every-song-is-a-website/.fleet-local/footer180-current-C-prep-20261005/production-release-proof-21fb6c36.json
+            versionId: 145ee6ef-a332-4785-872e-e7da1872e221
+            trafficPercent: 100
+            evidence: "Footer rollout #180: exact source/current CI, existing publisher/provider and bounded actual rendered public routes verified; historical operational evidence retained separately."
+          - observedAt: 2026-10-22T17:14:07.038828+00:00
+            createdOn: 2026-10-22T17:12:15.936507Z
+            sourceCommit: cb14ce16a4c8840ec3faef7b034de5919711572b
+            deploymentId: 33edf77a-2d9a-4e18-80b7-333035dab833
+            versionId: 18bb86f1-40d6-479b-9ab2-d94a09b72c8c
+            trafficPercent: 100
+            state: provider-identity-and-reduced-motion-verified
+            exactMainCi: 39820246498
+            deployWorkflow: 39820503568
+            evidencePath: /tmp/fleet-design-seo-geo-20261022/every-song-release-proof.json
+            scope: PR19 reduced-motion specificity fix; all90 hearts stop with reduced motion while normal bobbing remains. Live390/768/1440 keyboard/search/nooverflow and exact CSS hash verified. No unrelated product or revenue claim.
+            assetSha256: e09ec6d89e03f0238475260865b6ef20c3229ba69056aef6dd558168495e7f9f
     resources:
       - provider: cloudflare
         kind: custom-domain

@@ -169,3 +169,30 @@ CREATE TABLE IF NOT EXISTS transfer_links (
   disposition TEXT NOT NULL CHECK (disposition IN ('inserted', 'linked-duplicate', 'already-present')),
   PRIMARY KEY (batch_id, entity, source_record_id)
 );
+
+-- Fresh collection attempts are retained even when a source is unavailable.
+-- Zero matches is meaningful only on a completed attempt.
+CREATE TABLE IF NOT EXISTS collection_runs (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL,
+  source TEXT NOT NULL,
+  query TEXT NOT NULL,
+  status TEXT NOT NULL CHECK (status IN ('running', 'completed', 'error')),
+  received INTEGER,
+  matched INTEGER,
+  error_message TEXT,
+  payload_json TEXT,
+  started_at TEXT NOT NULL,
+  finished_at TEXT
+);
+CREATE INDEX IF NOT EXISTS collection_runs_project ON collection_runs(project_id, started_at DESC);
+
+CREATE TABLE IF NOT EXISTS community_briefs (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL,
+  status TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS community_briefs_project ON community_briefs(project_id, created_at DESC);

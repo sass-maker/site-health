@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-10-16
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-24
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Meme Lab
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -349,24 +349,22 @@ deployment:
         name: meme-lab-play
         method: wrangler-direct
         state: live
-        versionId: c736b2ff-8a6c-4743-8286-91025767d3cc
-        notes: "2026-10-02: PRs #16 and #18 merged after successful PR and main CI. Worker release receipt: exact main 7b1fcf97f62ae6f275763705d91a6ce7d693e4d4 deployed as f488e596-b000-455f-91f8-f5b0d3ce37ae. Anna shortlist and client-reported interaction endpoints, private per-user Anna saved reactions, updated privacy, and approved ANNA_SEARCH_LIMITER 120/minute/IP/route/location. Existing shared free-ai-gateway budget admission and patched deployment tooling preserved. Installed Anna flow and public routes verified. Anna app 389/version 1.2.0/version ID 1027/bundle 962 is hosted-verified and pending Store review; personalized backend/privacy exact main ee329fd299c7e6be6f5bbf8ef69f70693acbe1c4 deployed as ee837165-3337-4776-aeae-a5a0c169f5ab after PR20 and main CI37009616570; no qualified MAU or earnings established. 2026-10-04: Public picker repair PRs28/29 deployed exact main 512eaafe4163092fbab71903e1cdbba380812c65 as c5c5795d-b9ca-4e16-8df2-2bf17094e452 at100percent; main CI37177790339 passed. Adapter30-label support, bounded15-second ranking, transient retry, honest retrieval fallback, browser/server degradation events and hourly production probe are active. Local live probe and browser passed; GitHub probe37178160043 detected a real perspective fallback and App Health received it. Gemini inference remains intermittent; issue30 tracks provider cause and notification delivery. No user-data/schema/resource/config/secret changes. 2026-10-04: PR31 merged as e2dfaff188a91bf239d468741c95f229d6c7b459. Hourly picker probe forwarding is active with a dedicated production-scoped GitHub ingest secret retained in the Fleet vault; existing Worker key was not rotated. Hosted probe37183254376 passed and App Health stored its matching synthetic production.probe.passed. Post-App-Health-release probe37184228733 detected perspective degradation despiteHTTP200, delivered production.probe.failed successfully, and the live Overview feed displayed it. Provider reliability remains unresolved in Meme Lab issue30; unattended delivery tracked in App Health issue166. Worker deployment remains512eaaf/c5c5795d. 2026-10-04: PR33/34 merged with green full and main CI; exact main9dfc40060a094145162b2646c1c15e68e8b88cb7 deployed as c736b2ff-8a6c-4743-8286-91025767d3cc at100percent from checksum-verified CI package. Managed perspectives now score all30 candidates independently per viewpoint before assignment. Live tail verified malformed provider category scores caused intermittent503; invalid answers now receive one bounded retry and explicitly degraded retrieval fallback. Final hosted probe37187437227 passed both fixtures and App Health accepted202. Live browser rendered five loaded previews; live fallback and serious-input abstention also verified. App Health website is the owner-selected alert destination. Draft GitHub notifications remain unpublished and no query key was created; optional external channels remain issue166. Provider availability can still degrade, tracked in issue30."
+        versionId: 1f57cc17-93e0-4bd8-a058-02f2e1e3394b
+        notes: "2026-10-02: PRs #16 and #18 merged after successful PR and main CI. Worker release receipt: exact main 7b1fcf97f62ae6f275763705d91a6ce7d693e4d4 deployed as f488e596-b000-455f-91f8-f5b0d3ce37ae. Anna shortlist and client-reported interaction endpoints, private per-user Anna saved reactions, updated privacy, and approved ANNA_SEARCH_LIMITER 120/minute/IP/route/location. Existing shared free-ai-gateway budget admission and patched deployment tooling preserved. Installed Anna flow and public routes verified. Anna app 389/version 1.2.0/version ID 1027/bundle 962 is hosted-verified and pending Store review; personalized backend/privacy exact main ee329fd299c7e6be6f5bbf8ef69f70693acbe1c4 deployed as ee837165-3337-4776-aeae-a5a0c169f5ab after PR20 and main CI37009616570; no qualified MAU or earnings established. 2026-10-04: Public picker repair PRs28/29 deployed exact main 512eaafe4163092fbab71903e1cdbba380812c65 as c5c5795d-b9ca-4e16-8df2-2bf17094e452 at100percent; main CI37177790339 passed. Adapter30-label support, bounded15-second ranking, transient retry, honest retrieval fallback, browser/server degradation events and hourly production probe are active. Local live probe and browser passed; GitHub probe37178160043 detected a real perspective fallback and App Health received it. Gemini inference remains intermittent; issue30 tracks provider cause and notification delivery. No user-data/schema/resource/config/secret changes. 2026-10-04: PR31 merged as e2dfaff188a91bf239d468741c95f229d6c7b459. Hourly picker probe forwarding is active with a dedicated production-scoped GitHub ingest secret retained in the Fleet vault; existing Worker key was not rotated. Hosted probe37183254376 passed and App Health stored its matching synthetic production.probe.passed. Post-App-Health-release probe37184228733 detected perspective degradation despiteHTTP200, delivered production.probe.failed successfully, and the live Overview feed displayed it. Provider reliability remains unresolved in Meme Lab issue30; unattended delivery tracked in App Health issue166. Worker deployment remains512eaaf/c5c5795d. 2026-10-04: PR33/34 merged with green full and main CI; exact main9dfc40060a094145162b2646c1c15e68e8b88cb7 deployed as c736b2ff-8a6c-4743-8286-91025767d3cc at100percent from checksum-verified CI package. Managed perspectives now score all30 candidates independently per viewpoint before assignment. Live tail verified malformed provider category scores caused intermittent503; invalid answers now receive one bounded retry and explicitly degraded retrieval fallback. Final hosted probe37187437227 passed both fixtures and App Health accepted202. Live browser rendered five loaded previews; live fallback and serious-input abstention also verified. App Health website is the owner-selected alert destination. Draft GitHub notifications remain unpublished and no query key was created; optional external channels remain issue166. Provider availability can still degrade, tracked in issue30. 2026-10-24: Meme Lab PR #85 released as Cloudflare Worker version 58 and was verified on production at 100% traffic. Main revision bb2848f8249cebe97e5cb2e21f2649940d38b2c3 is Worker version 1f57cc17-93e0-4bd8-a058-02f2e1e3394b in deployment e1cc55bf-14a5-43b0-be74-2dc7ad1cc468. The retained rollback is version 943fc357-c1d8-4d08-ad51-b8c81821246f, tag 36fb5c17a736a736ed4f5813c37f1d83244e83c8. Provider metadata was observed at 2026-10-24T18:26:41.445676Z."
         attributionReason: Restored 2026-09-26 after owner clarified repo had moved to an org (or is a game); D1 recreated from .fleet-local/deleted-backups SQL export, worker redeployed.
         verification:
-          sourceCommit: 82ea0a68b18113c00cd6e99e5f06dc6538a07590
-          deploymentId: 16152264-dde9-4a79-b310-143b47d77854
-          versionId: 31334ab5-4657-47d9-9d8d-2fd6b5c9525d
+          sourceCommit: bb2848f8249cebe97e5cb2e21f2649940d38b2c3
+          deploymentId: e1cc55bf-14a5-43b0-be74-2dc7ad1cc468
+          versionId: 1f57cc17-93e0-4bd8-a058-02f2e1e3394b
           trafficPercent: 100
-          state: production-picker-qualified
-          exactMainCi: 38905318315
-          productionProbe: 38906065805
-          gatewaySourceCommit: a32c046070b7bb8547c00ae0c327843a3f7c0e42
-          evidence: Final PR72 source:281tests/exact-main CI, six release gates and artifact12048151379 verified. ZIP9dc44b07ecb5068e91731c8459cb716bf561916d56c1f1bdaea3eebc791e1196 and Worker0e3a254b9edc614dee6d58855f8c70daf46ab5b331b69b128a29f3c93a776726. Exact full provider source tag100percent. Hosted38906065805 passed general7248ms and complete high-confidence perspectives10530ms, no degradation AppHealth202. All three later perspective repeats passed high-confidence/full-viewpoint/no-degradation18997/6027/11908ms. One invocation caught Mistral flat output then successful perspective repair. Rejected models are bounded to this recommendation and repair diversifies provider automatically; every30-candidate viewpoint remains scored. Low effort requested; two adapter attempts,2000tokens and25second shared deadline retained, strict validation unchanged. Earlier isolated passes and later failures remain in history. Bounded qualification does not prove sustained uptime or human humor/caption quality. Issue30 closed; Anna12 pending external review.
-          observedAt: 2026-10-16T13:17:26.344807+00:00
+          state: production-release-verified-usage-unqualified
+          exactMainCi: 40085773769
+          observedAt: 2026-10-24T18:26:41.445676+00:00
           serviceBindings:
             - name: FREE_AI
               service: free-ai-gateway
               entrypoint: FleetGateway
+          evidence: "2026-10-24: Meme Lab PR #85 release was verified from exact main revision bb2848f8249cebe97e5cb2e21f2649940d38b2c3. Main CI 40085773769 passed; Cloudflare reported Worker version 1f57cc17-93e0-4bd8-a058-02f2e1e3394b at 100% in deployment e1cc55bf-14a5-43b0-be74-2dc7ad1cc468. Production QA recorded one controlled recommendation, one shown event and one download-request event; recommend/create returned 200 and client log ingest returned 202. This is QA evidence only: it does not establish natural-user use, durable log processing, sharing, persisted downloads or humour quality."
         verificationHistory:
           - observedAt: 2026-10-04T08:04:06.184167+00:00
             deploymentId: a9cb2fb0-1f44-41f7-a8c7-d890fa7588be
@@ -475,6 +473,32 @@ deployment:
               - name: FREE_AI
                 service: free-ai-gateway
                 entrypoint: FleetGateway
+          - sourceCommit: 82ea0a68b18113c00cd6e99e5f06dc6538a07590
+            deploymentId: 16152264-dde9-4a79-b310-143b47d77854
+            versionId: 31334ab5-4657-47d9-9d8d-2fd6b5c9525d
+            trafficPercent: 100
+            state: production-picker-qualified
+            exactMainCi: 38905318315
+            productionProbe: 38906065805
+            gatewaySourceCommit: a32c046070b7bb8547c00ae0c327843a3f7c0e42
+            evidence: Final PR72 source:281tests/exact-main CI, six release gates and artifact12048151379 verified. ZIP9dc44b07ecb5068e91731c8459cb716bf561916d56c1f1bdaea3eebc791e1196 and Worker0e3a254b9edc614dee6d58855f8c70daf46ab5b331b69b128a29f3c93a776726. Exact full provider source tag100percent. Hosted38906065805 passed general7248ms and complete high-confidence perspectives10530ms, no degradation AppHealth202. All three later perspective repeats passed high-confidence/full-viewpoint/no-degradation18997/6027/11908ms. One invocation caught Mistral flat output then successful perspective repair. Rejected models are bounded to this recommendation and repair diversifies provider automatically; every30-candidate viewpoint remains scored. Low effort requested; two adapter attempts,2000tokens and25second shared deadline retained, strict validation unchanged. Earlier isolated passes and later failures remain in history. Bounded qualification does not prove sustained uptime or human humor/caption quality. Issue30 closed; Anna12 pending external review.
+            observedAt: 2026-10-16T13:17:26.344807+00:00
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+          - sourceCommit: 4c73b6e64319502575f303af4eac05ad4746aa2d
+            deploymentId: fe23cff0-2d6e-442f-8517-ee001dd544e2
+            versionId: 727692b4-e7b4-4b80-b6f9-af99427ba02a
+            trafficPercent: 100
+            state: gallery-export-qualified-caption-quality-pending
+            exactMainCi: 40031019637
+            observedAt: 2026-10-23T22:14:15.968876+00:00
+            serviceBindings:
+              - name: FREE_AI
+                service: free-ai-gateway
+                entrypoint: FleetGateway
+            evidence: Owner approved release24October2026. PR74/76 gallery and1309measured additions plus PR77 export fidelity correction deployed from exact green main.296tests and production package CI; local390/768/1440 actual-file H264 workflow passed after hosted optional tool setup stalled. Worker bundle SHA25624328539237ad30bea3ae16c50939491520e8d4047f989b7bb11e104b1858933. Live export asset matches tested8Mbps/min30fps candidate; catalogue has4309browse references/2504clips with automatic retrieval frozen3000. Actual browser vision-caption request and480x376H264download decoded and visually inspected. Existing general5494ms and full high-confidence perspective6040ms picker cases pass. Three direct live clip requests produced one503 and two generic-paraphrase successes; later browser generation succeeded. Humour/fit superiority and sustained reliability remain unqualified in issue75. Original120owner review labels unchanged. No new dependencies/resources/production configuration.
       - provider: cloudflare
         kind: worker
         name: meme-lab-catalogue-tool-stage-3000

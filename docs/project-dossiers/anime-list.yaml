@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Anime List
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -562,11 +562,34 @@ deployment:
         name: anime-list
         method: git-connected
         state: live
+        verification:
+          observedAt: 2026-10-23T01:15:29.332292+00:00
+          sourceCommit: 07cac3557981f7f85b6480e9cf2df1661d805160
+          deploymentId: 83c9495c-c5af-42ec-9008-5e5d56d0b15d
+          deploymentUrl: https://83c9495c.anime-list-9lk.pages.dev
+          exactMainCi: 39881887476
+          deployWorkflow: 39882317629
+          assetSha256: 3f8c09772d1262b16689487b3b2366d2f6dda7c487536238fd668c859593b39a
+          state: provider-identity-footer-retry-and-draft-preservation-verified
+          evidencePath: .fleet-local/feedback-retry-167-20261023/anime-production-summary.json
+          scope: PR140 adopts UI14712fdf native runtime and patches existing MCP SDK/Vite/DOMPurify high/critical advisories. Fresh lockfile audit0high/critical;18moderate remain. Full main quality CI and six gates pass. Live390/768/1440 controlled late catalog response preserves same open form/draft/consent; durable response-loss retries create3feedback from6POSTs and1newsletter from3POSTs,4receipts/4unique matching events.6renders reviewed; QA dismissed/unsubscribed, receipts retained. Synthetic QA is not customer demand or completed-day reporting.
       - provider: cloudflare
         kind: worker
         name: mal-api
         method: wrangler-direct
         state: live
+        verification:
+          deploymentId: 43a8d900-11be-4196-9b7d-c1123232ee0c
+          versionId: e8ff10e0-7ba9-44fd-bad5-bfe0bbf4eedb
+          trafficPercent: 100
+          createdOn: 2026-10-23T01:09:25.207634Z
+          observedAt: 2026-10-23T01:15:29.332292+00:00
+          sourceCommit: 07cac3557981f7f85b6480e9cf2df1661d805160
+          exactMainCi: 39881887476
+          deployWorkflow: 39882317629
+          state: provider-identity-and-patched-dependency-release-verified
+          evidencePath: .fleet-local/feedback-retry-167-20261023/anime-provider.json
+          scope: Existing publisher deploys API with MCP SDK1.32.0 at100percent full-SHA source after CI; normal read-only migration-list check and publisher both report no pending migrations. Production /api/last-updated smoke200. No config, data schema or binding changes; broad real-account/API acceptance excluded.
       - provider: cloudflare
         kind: worker
         name: anime-list-web

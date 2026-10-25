@@ -16,6 +16,7 @@ import {
 } from './ai-visibility-registry.mjs';
 import { loadClarityRegistry, readClarityProjection } from './clarity.mjs';
 import { readSpendSnapshot } from './spend.mjs';
+import { createAppStoreRoutes } from '../app-store/routes.mjs';
 import { createBrandEvidenceRoutes } from '../brand-evidence/routes.mjs';
 
 const MAX_REQUEST_BYTES = 32 * 1024;
@@ -52,12 +53,27 @@ function mutationAuthorized(
   return false;
 }
 
-async function readBody(request) {
+function browserMutationError(request) {
+  const origin = request.headers.origin;
+  const site = request.headers['sec-fetch-site'];
+  if (site && !['same-origin', 'same-site', 'none'].includes(site)) return [403, 'Cross-site mutations are not allowed'];
+  if (origin) {
+    let url;
+    try { url = new URL(origin); } catch { return [403, 'Unknown dashboard origin']; }
+    if (url.protocol !== 'http:' || !['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname)) return [403, 'Unknown dashboard origin'];
+  }
+  if ((origin || site) && request.headers['content-type']?.split(';')[0].trim().toLowerCase() !== 'application/json') {
+    return [415, 'Browser mutations require application/json'];
+  }
+  return null;
+}
+
+async function readBody(request, maxBytes = MAX_REQUEST_BYTES) {
   const chunks = [];
   let size = 0;
   for await (const chunk of request) {
     size += chunk.length;
-    if (size > MAX_REQUEST_BYTES) throw Object.assign(new Error('request body too large'), { statusCode: 413 });
+    if (size > maxBytes) throw Object.assign(new Error('request body too large'), { statusCode: 413 });
     chunks.push(chunk);
   }
   if (chunks.length === 0) return {};
@@ -230,11 +246,14 @@ export function createDashboardHandler({
   prefillEvidence,
   projectsProvider = () => store.projects,
   clarityRegistryProvider = loadClarityRegistry,
+  appStoreStore = null,
   brandEvidenceStore = null,
   brandEvidenceEnv = process.env,
   brandEvidenceFetch = fetch,
 }) {
+  const appStoreRoutes = createAppStoreRoutes({ store: appStoreStore, env: brandEvidenceEnv, fetchImpl: brandEvidenceFetch });
   let projectionCache = null;
+  let projectionState = 'not-checked';
   const brandEvidenceRoutes = createBrandEvidenceRoutes({
     store: brandEvidenceStore,
     env: brandEvidenceEnv,
@@ -249,18 +268,33 @@ export function createDashboardHandler({
       if (run.state !== 'running') projectionCache = null;
     },
   });
-  const rebuildDashboardProjection = (projections = projectionFor(store)) => {
-    const aiVisibility = buildAiVisibilityProjection(
-      projections,
-      visibilityPortfolio,
-      visibilityScheduleActivation,
-    );
-    const payload = projectionProvider({
-      aiVisibilityProjects: aiVisibility.aiVisibility.projects,
-      now: now(),
-    });
-    projectionCache = { payload };
-    return payload;
+  const readCurrentProjections = () => {
+    try {
+      store.projects = projectsProvider();
+      return projectionFor(store);
+    } catch (error) {
+      projectionState = 'unavailable';
+      throw error;
+    }
+  };
+  const rebuildDashboardProjection = (projections = readCurrentProjections()) => {
+    try {
+      const aiVisibility = buildAiVisibilityProjection(
+        projections,
+        visibilityPortfolio,
+        visibilityScheduleActivation,
+      );
+      const payload = projectionProvider({
+        aiVisibilityProjects: aiVisibility.aiVisibility.projects,
+        now: now(),
+      });
+      projectionCache = { payload };
+      projectionState = 'available';
+      return payload;
+    } catch (error) {
+      projectionState = 'unavailable';
+      throw error;
+    }
   };
   const cachedDashboardProjection = (projections) => {
     // Evidence is file/provider-backed and may be updated by sibling collectors.
@@ -268,10 +302,13 @@ export function createDashboardHandler({
     // happened to poll its run receipt to completion.
     return rebuildDashboardProjection(projections);
   };
-  if (prewarmProjection) rebuildDashboardProjection();
+  if (prewarmProjection) {
+    try { rebuildDashboardProjection(); }
+    catch (error) { projectionState = 'unavailable'; console.error(`Dashboard projection prewarm unavailable: ${error.message}`); }
+  }
   const handleEarlyRoutes = (url, method, response) => {
     if (method === 'GET' && url.pathname === '/health') {
-      return json(response, 200, { ok: true, service: 'site-health-backend', database: 'available' });
+      return json(response, 200, { ok: true, service: 'site-health-backend', database: 'available', projection: projectionState, brandEvidence: 'native-v2' });
     }
     const metricRunMatch = url.pathname.match(/^\/v1\/metric-runs\/([^/]+)$/);
     if (method === 'GET' && metricRunMatch) {
@@ -357,7 +394,7 @@ export function createDashboardHandler({
   };
   const handleProjectionMutations = async (url, method, response) => {
     if (method === 'POST' && url.pathname === '/v1/projections/rebuild') {
-      const rebuilt = projectionFor(store);
+      const rebuilt = readCurrentProjections();
       rebuildDashboardProjection(rebuilt);
       return json(response, 200, rebuilt);
     }
@@ -368,9 +405,17 @@ export function createDashboardHandler({
       const url = new URL(request.url, 'http://dashboard.local');
       const method = request.method ?? 'GET';
       if (handleEarlyRoutes(url, method, response)) return;
+      const browserError = method !== 'GET' ? browserMutationError(request) : null;
+      if (browserError) return json(response, browserError[0], { error: browserError[1] });
 
-      store.projects = projectsProvider();
-      const projections = projectionFor(store);
+      if (url.pathname.startsWith('/v1/seo/app-store/')) {
+        if (method !== 'GET' && !mutationAuthorized(request, { ownerToken, trustLoopback })) {
+          return json(response, 401, { error: 'owner authentication required' });
+        }
+        if (await appStoreRoutes.handle(url, method, request, response, { json, readBody })) return;
+        return json(response, 404, { error: 'route not found' });
+      }
+      const projections = readCurrentProjections();
       if (method === 'GET' && handleProjectionReadRoutes(url, projections, response)) return;
       if (method === 'GET' && brandEvidenceRoutes.read(url, store.projects ?? [], response, json)) return;
 
@@ -383,6 +428,7 @@ export function createDashboardHandler({
       ) {
         return json(response, 401, { error: 'owner authentication required' });
       }
+
 
       if (await handleMetricRunMutations(url, method, request, response)) return;
       if (await handleProjectionMutations(url, method, response)) return;
@@ -411,6 +457,7 @@ export function startDashboardService({
   prefillEvidence,
   projectsProvider,
   clarityRegistryProvider,
+  appStoreStore,
   brandEvidenceStore,
   brandEvidenceEnv,
   brandEvidenceFetch,
@@ -428,6 +475,7 @@ export function startDashboardService({
       ...(prefillEvidence ? { prefillEvidence } : {}),
       ...(projectsProvider ? { projectsProvider } : {}),
       ...(clarityRegistryProvider ? { clarityRegistryProvider } : {}),
+      ...(appStoreStore ? { appStoreStore } : {}),
       ...(brandEvidenceStore ? { brandEvidenceStore } : {}),
       ...(brandEvidenceEnv ? { brandEvidenceEnv } : {}),
       ...(brandEvidenceFetch ? { brandEvidenceFetch } : {}),

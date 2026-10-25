@@ -3,7 +3,7 @@
 ## Why / What
 
 Site Health is the private owner view for projects, domain strength, web
-performance, Google Search, and AI awareness. It is one product with one local
+performance, SEO (web and App Store), and AI awareness. It is one product with one local
 backend.
 
 ## Dependencies
@@ -18,6 +18,46 @@ backend.
   and agent skills under `tooling/`.
 
 ## Timeline
+
+- **2026-10-25:** App Store SEO is integrated under the existing SEO area at
+  `/search/app-store`, alongside Web SEO. Its country-by-keyword matrix, source
+  observations, local history, JSON/CSV portability, localized listing drafts
+  and reviewed AI proposals use the Site Health shell. Research workspaces stay
+  browser-local. The existing loopback backend owns public Apple capture cache,
+  shared persistent request allowances and free-ai `site-health` attribution;
+  collection comes from the credential-free `@saas-maker/collect/apple` subpath.
+  Apple Ads popularity and App Store Connect publishing remain unconnected.
+  Verification: 35 App Store checks, 181 backend checks, strict feature TypeScript,
+  the 85-page build, current-head CI and responsive browser checks pass. Independent
+  review covers the product source and the separately packed collector. No
+  standalone product is registered. An existing root-search policy still maps
+  retired ios-landings to daddyrad.com despite both retired records having no
+  deployment domains. Current projections exclude that retired, domainless root
+  history without restoring collection or changing the catalog. Active ownership
+  mismatches still fail validation. Projection health remains unavailable after
+  a failed catalog/snapshot/provider read until a successful full dashboard rebuild;
+  partial reads cannot certify composite outcomes. Independent routes stay usable.
+
+
+- **2026-10-25:** Recreated the MentionPilot workflow natively in AI Awareness.
+  Brand setup, editable prompts, API checks, daily/weekly collection, website
+  evidence, and community review share the existing private project scope. A
+  pasted public website now produces subreddit suggestions and editable post
+  and comment drafts tied to real discussions. Collection uses SaaS Maker’s
+  packed `@saas-maker/collect` 0.3.0; AI SDK requests use free-ai `auto` with
+  Site Health attribution and the named Infisical connection in process memory.
+  Live SaaS Maker verification completed five API answers, and the URL workflow
+  returned three verified communities with post/comment drafts. Current Reddit
+  rules were unavailable; dated Reddit Insights snapshots retain capture,
+  revision and coverage instead. All original private transfer rows remained
+  unchanged. Checks: 161 backend tests, five usage tests, 11 AI-engine tests and
+  its packed-consumer check pass; the 84-page web build passes. The owner-local
+  dossier check needs the canonical adjacent catalog; the additional Astro
+  diagnostic still reports three existing Node-type errors in DashboardLayout.
+  Local LaunchAgent startup was blocked by macOS while opening the Desktop-based
+  catalog; that agent is stopped. The authorized terminal runtime is live on
+  port 4321 with Infisical ready; scheduling runs while that backend stays open.
+
 
 - **2026-09-19:** Restored fleet IndexNow capability and completed the first
   all-domain submission. `scripts/indexnow-submit.mjs` was missing while

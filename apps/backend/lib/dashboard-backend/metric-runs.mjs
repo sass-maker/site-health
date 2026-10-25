@@ -204,7 +204,7 @@ function publicRun(run, { duplicate = false } = {}) {
 export function createMetricRunController({
   projects,
   projectsProvider,
-  repositoryRoot = resolve(import.meta.dirname, '../../../..'),
+  repositoryRoot = process.env.SITE_HEALTH_OWNER_REPOSITORY ?? resolve(import.meta.dirname, '../../../..'),
   workspaceRoot = resolve(repositoryRoot, '..'),
   spawnProcess = spawn,
   now = () => new Date().toISOString(),

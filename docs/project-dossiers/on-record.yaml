@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -125,7 +125,7 @@ repository:
   githubHomepageUrl: https://podcasts.highsignal.app
   worktree: *a1
   visibility: public
-  url: https://github.com/Significant-Hobbies/on-record
+  url: https://github.com/sarthakagrawal927/on-record
   aliases: []
   sourceOverride: null
   tooling:
@@ -398,7 +398,7 @@ sharing:
   verifiedAt: 2026-09-07
   reason: Bounded sample, not full corpus attribution audit. Home labels some counts cached; original publisher has paid content and browser appeared signed in there; no paid content bypassed.
   changelogUrl: null
-  roadmapUrl: https://github.com/Significant-Hobbies/on-record/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/on-record/issues
   geoIdentity:
     id: on-record
     name: High Signal Podcasts
@@ -408,12 +408,12 @@ sharing:
     origin: https://podcasts.highsignal.app
     source:
       state: public
-      url: https://github.com/Significant-Hobbies/on-record
+      url: https://github.com/sarthakagrawal927/on-record
     docs:
       state: repository-readme
       url: https://github.com/Significant-Hobbies/on-record#readme
     officialProfiles:
-      - https://github.com/Significant-Hobbies/on-record
+      - https://github.com/sarthakagrawal927/on-record
     availability:
       primary: web
       appStore: not-applicable

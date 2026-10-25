@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-09-25
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=browserdaddy].ownerNarrative
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-19
       reviewSha256: b941b690c830bf491de4c585bf6a8a302972bd81c56dea502b045e71f5b4c533
-      documentSha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
+      documentSha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -85,10 +85,11 @@ identity:
   family: browserdaddy
   category: utility
   purposeCategories:
+    - attention-money-grabber
     - personal-use
   audience: public
   personalUse: true
-  moneyOrPersonalBrand: false
+  moneyOrPersonalBrand: true
   unmetNeed: true
   kind: experiment
   priority: P2
@@ -265,7 +266,7 @@ deployment:
     - id: landing
       kind: pages
       name: browserdaddy-landing
-      sourcePath: ios-landings
+      sourcePath: ui-library/archives/ios-landings
     - id: updates
       kind: worker
       name: browserdaddy-updates
@@ -278,11 +279,25 @@ deployment:
         method: cloudflare-pages-api
         state: live
         verification:
-          observedAt: 2026-09-25
-          sourcePath: ios-landings
-          deploymentId: 9107675b
-          sourceState: dirty-working-tree
-          evidencePath: null
+          observedAt: 2026-10-22T23:11:43.705695+00:00
+          sourceCommit: 08e11bc304cf2118135749d55ed18f99e96f830e
+          sourcePath: ui-library/archives/ios-landings
+          deploymentId: 603ce005-4fa4-41a5-80d5-699807b50d05
+          deploymentUrl: https://603ce005.browserdaddy-landing.pages.dev
+          providerSourceAbbreviated: 08e11bc
+          previousDeploymentId: 28ad11fd-1a99-4ba7-b1b7-8409ca4369b3
+          uiSourceCommit: 45222b86b022b57bcb420640d44f5c79445d2d2d
+          exactMainCi: 39868439680
+          state: success-production-verified
+          scope: Retained archived landing only; retry-safe shared footer and live capture acceptance
+          evidence: "UI LibraryPR23 merged, frozen nested install and42tests/11builds pass; exact-main CI green. Existing-only factory publisher updates the existing Pages resource. All six candidate page texts and stylesheet/image URLs match production before release. This product passes390/768/1440 real response-loss retry: six POSTs produce three feedback rows/receipts, three consented newsletter POSTs produce one subscription/receipt; unchecked consent blocked. All four events have unique matching App Health logs and feed entries; six production feedback screenshots manually reviewed, no overflow or page errors. QA feedback dismissed and subscription unsubscribed, receipts retained. Native app/download workers unchanged. Synthetic traffic does not qualify organic usage or completed-day reporting."
+          evidencePath: .fleet-local/feedback-retry-167-20261023/factory-production-summary.json
+        verificationHistory:
+          - observedAt: 2026-09-25
+            sourcePath: ios-landings
+            deploymentId: 9107675b
+            sourceState: dirty-working-tree
+            evidencePath: null
       - provider: cloudflare
         kind: worker
         name: browserdaddy-updates

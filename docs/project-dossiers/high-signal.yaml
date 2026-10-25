@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-10-16
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: High Signal
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -1202,16 +1202,17 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-16T13:23:01.737979+00:00
-          createdOn: 2026-10-14T10:33:19.295222Z
-          deploymentId: 00c87053-6e9b-4c61-9c22-ce81232e7a39
-          versionId: b75a5b88-9a08-4bcb-9503-8c1d19df24fd
-          sourceCommit: 478122b1c3bc0a781117b575b970eda23382e86f
+          observedAt: 2026-10-25T08:22:47.375049+00:00
+          deploymentId: 9d7c5900-6eb8-4c33-a130-0796b66f3eea
+          versionId: 480c4cc0-0462-4f6d-be7b-02d719b89e3e
+          sourceCommit: 3734f8d31462e6472a8b22e36d96da802851631d
+          createdOn: 2026-10-25T08:16:57.531143Z
           trafficPercent: 100
-          state: provider-identity-verified
-          scope: Read-only current production identity and traffic verification; product acceptance remains in the owning open issues.
-          evidencePath: ../app-health/.fleet-local/visitor-qualification-20261016/current-release-refresh.json
-          evidence: Cloudflare production deployment and version metadata independently read on 2026-10-16; no deployment performed in this verification.
+          exactMainCi: 40174829660
+          deployWorkflow: 40175700118
+          state: provider-identity-and-tablet-source-layout-verified
+          evidencePath: ../high-signal/.fleet-local/issue-288-tablet-20261025/production-verification.json
+          scope: PR298 fixes provider/run-status flex sizing in the source directory. Exact PR/main CI and six release guards pass; existing web publisher and smoke checks pass. Independent provider reads confirm this full SHA at100%. Actual shipped57source rows fit390/640/767/768/820/1024/1440, phone/tablet/desktop renders reviewed; dated Digg navigation passes. Source delta against pre-release273df739 changes only apps/web/src/app/data/page.tsx. Previous61ce81f2 is retained for rollback. Source288 is closed after production acceptance. This is web-only bounded layout proof; ingestion/public-Signal, natural cache-hit/latency, user outcomes and Measurement acceptance remain separate.
         verificationHistory:
           - observedAt: 2026-10-02T09:48:55.244Z
             versionId: c340a1a0-8bba-4e76-bfe9-9da4e6e20f1b
@@ -1219,22 +1220,70 @@ deployment:
             trafficPercent: 100
             state: success-production-verified
             evidence: "Owner release receipt: exact-main CI and all six Fleet deployment gates passed; exact source/version tag verified; production web build passed. Public /, /signals, /data, and /case-studies returned HTTP 200. This is route availability, not published evidence or live AI proof."
+          - observedAt: 2026-10-16T13:23:01.737979+00:00
+            createdOn: 2026-10-14T10:33:19.295222Z
+            deploymentId: 00c87053-6e9b-4c61-9c22-ce81232e7a39
+            versionId: b75a5b88-9a08-4bcb-9503-8c1d19df24fd
+            sourceCommit: 478122b1c3bc0a781117b575b970eda23382e86f
+            trafficPercent: 100
+            state: provider-identity-verified
+            scope: Read-only current production identity and traffic verification; product acceptance remains in the owning open issues.
+            evidencePath: ../app-health/.fleet-local/visitor-qualification-20261016/current-release-refresh.json
+            evidence: Cloudflare production deployment and version metadata independently read on 2026-10-16; no deployment performed in this verification.
+          - observedAt: 2026-10-22T21:28:59.057653+00:00
+            createdOn: 2026-10-22T21:28:05.642452Z
+            deploymentId: 46803c58-a85b-4d03-999a-21446094f6b3
+            versionId: 5c1490d9-993b-4db8-84fc-7de09843f78d
+            sourceCommit: 3559990b2f1990ed48d96bae7bc8285df8dae5a0
+            trafficPercent: 100
+            state: provider-identity-and-reader-fallback-verified
+            exactMainCi: 39855864719
+            deployWorkflow: 39856948791
+            evidencePath: ../high-signal/.fleet-local/issue238-20261023/production-provider.json
+            scope: PR261 patches Next16.4.1 and existing DOMPurify3.4.17; OpenNext1.20.12 fixes the real preview-props manifest500. Exact-main CI, production publisher and compiled reader/fallback/restart gates pass. Public reader metadata identifies this exact source with12964profiles; two diagnostic live Next fallback reads are200, MISS then persisted HIT, with identical body bytes and no reader/outer-cache path. No forced production restart, universal latency or web95% qualification is claimed. The0high/critical dependency claim covers the root pnpm graph, not the separate docs build graph.
+          - observedAt: 2026-10-23T01:43:45.153915+00:00
+            sourceCommit: 34a1ec6f07e405aa5bbafd59abf5f4cd18b09db0
+            deploymentId: 89cf6ad5-bbc4-41ea-8385-65c3e9112604
+            versionId: e6e9be2c-37a7-40e7-b913-f500079cad14
+            createdOn: 2026-10-23T01:38:14.118667Z
+            trafficPercent: 100
+            exactMainCi: 39883396118
+            deployWorkflow: 39884550764
+            assetSha256: 3f8c09772d1262b16689487b3b2366d2f6dda7c487536238fd668c859593b39a
+            state: provider-identity-and-footer-capture-retry-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/highsignal-production-summary.json
+            scope: "PR262 publishes the reviewed footer retry/consent controller in both Next and Astro layouts, with a scoped Send hover foreground fix. Full exact-main CI and existing web publisher pass, including actual reader and persisted-ISR restart gates. Live390/768/1440 lost-response retries produce3feedback records plus1newsletter subscription,4receipts and4unique matching events/feed entries; all QA records cleaned, receipts retained. Six feedback renders reviewed; settled enabled-Send hover contrast12.39:1 at all3widths. Web only: no API/cache policy release or natural traffic95%/latency qualification. Complete final-source24h acceptance cannot end before2026-10-24T01:38:14.118667Z."
+          - observedAt: 2026-10-23T15:46:47.620266+00:00
+            sourceCommit: 1a8ec663337c1ed293590ecbea46e8c0d37d3da2
+            versionId: d3780b98-aad3-4ea2-9153-5885b32ebe35
+            exactMainCi: 39977907948
+            deployWorkflow: 39979101284
+            state: publisher-success-and-live-reader-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/fleet-release-final-20261023/highsignal-provider-final-20261023
+            scope: Separate owner-directed PR264 release. Exact-main CI and both production publishers pass; each version ID is reported by its successful publisher. The public reader-build endpoint identifies the full web source, and the current October 23/global Astro reader HTML returns 200. Reader publication 39979607806 initially withheld unavailable source data; one retry then captured, rendered and published all 20 variants before promoting the pointer. Independent provider traffic and deployment metadata could not be refreshed because non-interactive Wrangler authentication is unavailable; this record makes no 100 percent traffic claim. The last independent provider identity at 690cd63 is retained separately. Earlier footer and latency proofs remain historical. Full 24-hour final-source acceptance cannot end before October 24 at 15:37:07 UTC and still requires actual natural-traffic evidence.
+          - observedAt: 2026-10-25T08:11:13.262311+00:00
+            deploymentId: d018f44b-de5a-4c65-95dc-26e1ab4b0482
+            versionId: 61ce81f2-a1c3-464c-89bf-4efa4e276f58
+            sourceCommit: 273df73955591fe244e46d5f41f33de87e97e251
+            createdOn: 2026-10-24T14:51:49.012982Z
+            trafficPercent: 100
+            state: pre-release-provider-identity-verified
+            evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/priority-queue-2026-10-25/web-before-deployments.json
+            scope: Read-only pre-release Worker deployment/version verification; rollback retained.
       - provider: cloudflare
         kind: worker
         name: high-signal-api
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-16T13:22:59.235342+00:00
-          createdOn: 2026-10-15T14:55:07.975936Z
-          deploymentId: d3056338-b5b7-4af5-a390-247494df0c40
-          versionId: 139f54ac-897c-4b3f-83b5-a37452591925
-          sourceCommit: f434fc0f2935d22dfa1335549fbf3de764c107df
-          trafficPercent: 100
-          state: provider-identity-verified
-          scope: Read-only current production identity and traffic verification; product acceptance remains in the owning open issues.
-          evidencePath: ../app-health/.fleet-local/visitor-qualification-20261016/current-release-refresh.json
-          evidence: Cloudflare production deployment and version metadata independently read on 2026-10-16; no deployment performed in this verification.
+          observedAt: 2026-10-23T15:46:47.620266+00:00
+          sourceCommit: 1a8ec663337c1ed293590ecbea46e8c0d37d3da2
+          versionId: ae0ab9fe-13e8-46fe-a077-b66b10b153f4
+          exactMainCi: 39977907948
+          deployWorkflow: 39979101628
+          state: publisher-success-and-live-reader-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/fleet-release-final-20261023/highsignal-provider-final-20261023
+          scope: Separate owner-directed PR264 release. Exact-main CI and both production publishers pass; each version ID is reported by its successful publisher. The public reader-build endpoint identifies the full web source, and the current October 23/global Astro reader HTML returns 200. Reader publication 39979607806 initially withheld unavailable source data; one retry then captured, rendered and published all 20 variants before promoting the pointer. Independent provider traffic and deployment metadata could not be refreshed because non-interactive Wrangler authentication is unavailable; this record makes no 100 percent traffic claim. The last independent provider identity at 690cd63 is retained separately. Earlier footer and latency proofs remain historical. Full 24-hour final-source acceptance cannot end before October 24 at 15:37:07 UTC and still requires actual natural-traffic evidence.
         verificationHistory:
           - observedAt: 2026-10-02T10:50:42Z
             deploymentId: bbc81131-5951-41b6-b643-ebd8b66500b5
@@ -1247,6 +1296,27 @@ deployment:
               - name: FREE_AI
                 service: free-ai-gateway
                 entrypoint: FleetGateway
+          - observedAt: 2026-10-16T13:22:59.235342+00:00
+            createdOn: 2026-10-15T14:55:07.975936Z
+            deploymentId: d3056338-b5b7-4af5-a390-247494df0c40
+            versionId: 139f54ac-897c-4b3f-83b5-a37452591925
+            sourceCommit: f434fc0f2935d22dfa1335549fbf3de764c107df
+            trafficPercent: 100
+            state: provider-identity-verified
+            scope: Read-only current production identity and traffic verification; product acceptance remains in the owning open issues.
+            evidencePath: ../app-health/.fleet-local/visitor-qualification-20261016/current-release-refresh.json
+            evidence: Cloudflare production deployment and version metadata independently read on 2026-10-16; no deployment performed in this verification.
+          - observedAt: 2026-10-22T21:28:59.057653+00:00
+            createdOn: 2026-10-22T21:24:47.034234Z
+            deploymentId: f833d1f6-72b7-4fd9-ad55-235a9e8a3297
+            versionId: 1898608f-5536-4576-9060-3974827993e4
+            sourceCommit: 3559990b2f1990ed48d96bae7bc8285df8dae5a0
+            trafficPercent: 100
+            state: provider-identity-and-dated-brief-cache-verified
+            exactMainCi: 39855864719
+            deployWorkflow: 39856943645
+            evidencePath: ../high-signal/.fleet-local/issue238-20261023/production-provider.json
+            scope: "PR261 makes public dated briefs use the existing edition/region KV keys while protected history, future dates, pending editions and SQL diagnostics keep their boundaries.407 API regressions and exact-main CI pass. Same October22/global/SIN diagnostic body is byte-identical to the baseline: post-release misses1136/896ms then one KV hit5ms; baseline uncached801/730/868ms. These finite observations do not establish population latency or web Cache API95% acceptance."
     resources:
       - provider: cloudflare
         kind: d1

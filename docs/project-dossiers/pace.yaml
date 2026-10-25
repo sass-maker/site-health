@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-09-09
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Pace
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -78,10 +78,11 @@ identity:
   family: pace
   category: experimental
   purposeCategories:
+    - attention-money-grabber
     - personal-use
-  audience: internal
-  personalUse: null
-  moneyOrPersonalBrand: false
+  audience: public
+  personalUse: true
+  moneyOrPersonalBrand: true
   unmetNeed: false
   kind: product
   priority: P4
@@ -321,6 +322,17 @@ deployment:
         name: pace
         method: github-actions
         state: live
+        verification:
+          observedAt: 2026-10-23T01:58:31.059930+00:00
+          sourceCommit: ab5c57c35bcc06eafd0b963ef8cddf97c9ba7845
+          deploymentId: c3f52e05-5dd5-4555-b2c5-f2c49cc1b690
+          deploymentUrl: https://c3f52e05.pace-6xg.pages.dev
+          exactMainCi: 39885528560
+          deployWorkflow: 39886227162
+          assetSha256: 3f8c09772d1262b16689487b3b2366d2f6dda7c487536238fd668c859593b39a
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/pace-production-summary.json
+          scope: PR226 publishes the reviewed immutable native footer controller while preserving existing SSR markup and v0.1.18 styles. Main CI (including Mac tests), both cache-security suites, all six gates and existing website publisher pass. Existing MCP SDK/Vite/DOMPurify release prerequisites patched; docs0high/critical with20moderate/2low remain, website audit clear. Live390/768/1440 lost-response retries create3feedback records plus1newsletter subscription,4receipts and4unique matching events/feed entries. Six renders reviewed, QA dismissed/unsubscribed, receipts retained. Website/docs output only; no native binary or router experiment release.
     resources:
       - provider: cloudflare
         kind: zone

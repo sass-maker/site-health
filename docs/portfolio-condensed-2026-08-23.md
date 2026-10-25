@@ -1,6 +1,6 @@
 # Fleet portfolio: compressed owner intent
 
-Date: 2026-08-23 (lifecycle counts and purpose categories reconciled 2026-10-22)
+Date: 2026-08-23 (lifecycle counts reconciled 2026-10-22; owner purpose/scope corrected 2026-10-23)
 Scope: all 78 retained canonical identities; archived identities remain recorded for infrastructure ownership but are excluded from Fleet listings.
 
 This document preserves the meaning of the owner's project review in compact,
@@ -20,17 +20,23 @@ open issues. Those belong in the canonical catalog, each project's
 The owner's purpose categories are **attention/money grabber**,
 **learn/skill showoff**, and **personal use** (2026-10-22). They overlap:
 `classification.purposeCategories` is an array, not a primary-category choice.
-There are **39 unique primary/active applications**, with **13 attention/money**,
-**7 learning/showoff**, and **35 personal-use** memberships.
+There are **39 unique primary/active applications**, with **22 attention/money**,
+**7 learning/showoff**, and **36 personal-use** memberships.
 
-CodeVetter's three tags and the attention/money-only tags for Every Song Is a
-Website and Web Playables are explicit owner directions. The other assignments
-below are the current assessment from recorded owner intent and catalog purpose,
-ready for this portfolio re-discussion. iOS Landings is now a retained UI Library
-component and is excluded from these application totals. They describe intended value, not proven
-revenue or current usage. Public availability is insufficient evidence of a
-money motive; implementation complexity is insufficient evidence of a learning
-motive. Personal use includes private infrastructure.
+CodeVetter's three tags and Every Song Is a Website's attention/money-only tag
+are explicit owner directions. On 2026-10-23 the owner clarified that the four
+current Daddy-series apps, Calorie, Setline, Kith, Anchor, HeyPace, Live, RolePatch
+and Starboard are external commercial/attention bets as well as intended personal
+tools. Web Playables, App Health and Formula Composition Engine are internal
+personal tools; competitive SEO/GEO goals do not apply to them. Public pages may
+remain available. These directions supersede the earlier personal-only and
+commercial classifications for those products.
+
+There are 25 unique learning-or-commercial Focus products and 14 personal-only
+products. The tags describe intended value, not proven revenue or current usage.
+iOS Landings remains a UI Library component outside these application totals.
+Other assignments remain the current assessment of recorded owner intent.
+Personal use can overlap commercial intent and includes private infrastructure.
 
 Purpose does not grant development priority or change lifecycle. Useful finished
 tools can remain supported without becoming active feature bets. Descriptive
@@ -39,10 +45,10 @@ topic categories remain separate: see [topic categories](project-categories-2026
 | Application | Purposes | Reason |
 | --- | --- | --- |
 | CodeVetter | Attention / money, Learn / show skills, Personal use | Owner explicitly confirmed all three purposes. |
-| HeyPace | Personal use | Private Mac assistant for your own workflow. |
+| HeyPace | Attention / money, Personal use | A Mac assistant for your workflow, also explicitly intended for external users (owner correction, 2026-10-23). |
 | PostTrainLLM | Attention / money, Learn / show skills, Personal use | Flagship local-model product, sustained training experiments and useful specialist models. |
 | Site Health | Personal use | Private portfolio operations. |
-| Live | Personal use | Your own goals and bucket list. |
+| Live | Attention / money, Personal use | Your own goals and bucket list. Also an external commercial/attention bet (owner correction, 2026-10-23). |
 | ChatGPT Connections | Personal use | Private selective access to your tools and data. |
 | SaaS Maker | Attention / money, Personal use | Public Fleet presence plus the shared packages and tooling used to run it. |
 | Fleet Social | Personal use | Private Fleet publishing workflow. |
@@ -55,26 +61,26 @@ topic categories remain separate: see [topic categories](project-categories-2026
 | LoopTV | Personal use | Your controlled YouTube viewing experience; finished does not mean learning/showoff. |
 | Reader | Personal use | Intended personal reading workflow; current regular use is not established. |
 | SWE Interview Prep | Learn / show skills, Personal use | Your own learning-by-doing and interview practice. |
-| Calorie | Personal use | Your own food logging and health routine. |
-| Setline | Personal use | Your own workout planning and logging. |
-| Kith | Personal use | Your own relationship memory. |
-| RolePatch | Personal use | Intended resume tailoring for your own applications; current regular use is not established. |
+| Calorie | Attention / money, Personal use | Your own food logging and health routine. Also an external commercial/attention bet (owner correction, 2026-10-23). |
+| Setline | Attention / money, Personal use | Your own workout planning and logging. Also an external commercial/attention bet (owner correction, 2026-10-23). |
+| Kith | Attention / money, Personal use | Your own relationship memory. Also an external commercial/attention bet (owner correction, 2026-10-23). |
+| RolePatch | Attention / money, Personal use | Intended resume tailoring for your own applications; current regular use is not established. Also an external commercial/attention bet (owner correction, 2026-10-23). |
 | Karte | Attention / money, Personal use | Public personal/company presence and an assistant for your own inbound use. |
-| Starboard | Personal use | Find useful repositories in your own GitHub stars; public access alone is not a money motive. |
+| Starboard | Attention / money, Personal use | Find useful repositories in your GitHub stars and serve external users; commercial/attention intent confirmed by the owner on 2026-10-23. |
 | AliveVille | Learn / show skills | A technically ambitious persistent-agent world experiment; regular personal use is unproven. |
-| App Health | Attention / money, Personal use | A public observability product that replaces fragmented tools across your own apps. |
-| Web Playables | Attention / money | Owner explicitly specified attention/money only. |
+| App Health | Personal use | Internal observability across your apps; the owner removed competitive acquisition goals on 2026-10-23. |
+| Web Playables | Personal use | Internal shared browser-game playground; preserve the existing pause and require an explicit source-work restart. |
 | Paths | Attention / money, Learn / show skills, Personal use | Public essays, research into success and a personal response to comparison. |
 | Sarthak Agrawal | Attention / money, Learn / show skills | Public reputation and demonstration of your work. |
-| Anchor | Personal use | Your own day planning, focus and review. |
-| storagedaddy | Personal use | Solve your own Mac storage cleanup need. |
-| BrowserDaddy | Personal use | Your own local browsing archive. |
-| PerformanceDaddy | Personal use | Investigate slowdowns on your own Mac. |
+| Anchor | Attention / money, Personal use | Your own day planning, focus and review. Also an external commercial/attention bet (owner correction, 2026-10-23). |
+| storagedaddy | Attention / money, Personal use | Solve your own Mac storage cleanup need. Also an external commercial/attention bet (owner correction, 2026-10-23). |
+| BrowserDaddy | Attention / money, Personal use | Your own local browsing archive. Also an external commercial/attention bet (owner correction, 2026-10-23). |
+| PerformanceDaddy | Attention / money, Personal use | Investigate slowdowns on your own Mac. Also an external commercial/attention bet (owner correction, 2026-10-23). |
 | Unified Portfolio | Personal use | Your own investment dashboard. |
 | Meme Lab | Attention / money, Personal use | Personal meme playground plus the owner-approved consumer monetization pilot. |
-| Formula Composition Engine | Attention / money, Personal use | Your own formula workflow and a product explicitly intended to share with others. |
+| Formula Composition Engine | Personal use | Your internal formula workflow; public acquisition competition is outside the owner-approved scope (2026-10-23). |
 | Every Song Is a Website | Attention / money | Owner explicitly specified attention/money only. |
-| ContextDaddy | Personal use | Inspect and debug your local coding-agent workflow. |
+| ContextDaddy | Attention / money, Personal use | Inspect and debug your local coding-agent workflow. Also an external commercial/attention bet (owner correction, 2026-10-23). |
 | Agent Inbox | Personal use | Your own local coding-agent inbox. |
 | techdata | Attention / money, Personal use | One public data workbench for the collections you also explore yourself. |
 
@@ -139,7 +145,7 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | Materia | Inactive | Build an interactive anatomy and evidence-based remedies encyclopedia. | Paused experiment; no current work or obligation to resume. | Keep: A small, carefully sourced example of organizing evidence around one topic. Stop: A whole-body medical encyclopaedia or advice product without expert validation. |
 | Mobile Dev Cockpit | Inactive | Supervise desktop development workflows from a phone. | Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged. | Keep: The prototype and any genuinely reusable handoff ideas. Stop: A new mobile control plane for every developer workflow. |
 | Nomad Data Adventure (`nomad-data-adventure`) | Inactive / TechData source | Preserve the Nomads.com snapshot and its provenance. | Primary Fleet checkout removed on 2026-10-17 after its main matched remote; TechData keeps the published snapshot and model copy. | Maintain source compatibility under TechData; no independent product roadmap or provider retirement. |
-| Motion | Inactive | Turn body movement captured by a phone into games displayed on a TV. | Promising body-as-controller prototype, but physical play quality and distribution remain unproven. | Reopen for focused physical-device playtesting of one genuinely fun control loop. |
+| Motion | Active | Turn body movement captured by an iPhone into games displayed on a TV. | Unreleased iPhone motion-control prototype restored to active work; physical-device control feel and gameplay remain unverified. | Playtest one control loop on a physical iPhone and assess whether it is fun. |
 | Open Historia | Inactive / merged | Recreate an AI grand-strategy game locally and without credit limits. | Owner merged it into Web Playables on 2026-10-09 as networked-games/open-historia (web-playables#21, PR #22); repository moved to sarthakagrawal927 and checkout to ../fleet-archive/open-historia. The live Worker, D1 and historia.aliveville.com are attributed to Web Playables. | Keep: A small local campaign with meaningful decisions and consistent state, inside Web Playables. Stop: An unlimited world simulator, enormous map scope, content breadth and a separate product repository. |
 | PH Catalog (`ph-catalog`) | Inactive / TechData source | Preserve the resumable Product Hunt collector, private catalogue and reproducible exports. | Primary Fleet checkout removed on 2026-10-17 after its main matched remote; TechData keeps a separately published dated export. Collector and future source exports remain source-owned. | Maintain the source collector/export contract under TechData; verify the source-owned refresh before relying on a newer TechData copy. |
 | PerformanceDaddy (`performancedaddy`) | Active | Investigate local Mac performance through visible processes, ports, resource measurements, and reviewed actions. | Public 0.2.3 build 8, first-install download, GitHub release, and signed Sparkle feed are live; an earlier isolated build 3-to-5 update and native journey passed. | Use measured evidence before acting on a diagnosis; keep the landing and native release claims distinct. |

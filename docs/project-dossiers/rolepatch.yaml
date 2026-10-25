@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-10-22
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: RolePatch
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -78,10 +78,11 @@ identity:
   family: rolepatch
   category: utility
   purposeCategories:
+    - attention-money-grabber
     - personal-use
   audience: public
-  personalUse: false
-  moneyOrPersonalBrand: false
+  personalUse: true
+  moneyOrPersonalBrand: true
   unmetNeed: false
   kind: product
   priority: P2
@@ -352,15 +353,18 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-22T12:08:22.249Z
-          sourceCommit: 7ff25c036c867b1b1e0d35c240fe1ecc716aac33
-          deploymentId: ee3e8569-8c68-4e2b-bacc-caa8591541de
-          versionId: 2c8513b6-22f3-468a-8dd0-ed2b6a651faf
+          observedAt: 2026-10-23T02:04:46.447044+00:00
+          sourceCommit: 0dfa278345c1a24d755d518228505ce2d285fe41
+          deploymentId: b7f72166-14cc-46d8-9e9c-54236bb06c9e
+          versionId: 662a776b-f20e-403e-ad94-66c2590ade3d
+          createdOn: 2026-10-23T01:56:25.148945Z
           trafficPercent: 100
-          deploymentUrl: https://rolepatch.com
-          scope: Owner-approved loading and recovery fix
-          state: success-production-verified
-          evidence: Owner-approved manual GitHub Actions deploy 39774606627 succeeded after six deploy gates and exact-main CI. Independent Wrangler deployment/version readback confirms the full SHA tag at 100% traffic from 2026-10-22T12:00:40.528636Z. Deployed compiled assets passed nine pending-to-ready empty/populated/complete-resume transitions and three failed-read to in-page retry to retained-job checks at 390/768/1440 under Slow4G and CPU4; no overflow, observed CLS zero against the unchanged 0.05 target. Synthetic guest browser-local fixtures only; private account sync and broader route/performance acceptance remain unqualified.
+          exactMainCi: 39886052505
+          deployWorkflow: 39886593026
+          assetSha256: b9e76dc214f49bb509c6726fd7be35a6b3869944aaa163b2864453478ada205f
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/rolepatch-production-summary.json
+          scope: PR43 backports only the shared Base controller using standard pnpm patch; other v0.1.18 template bytes/theme remain unchanged. Next16.4.1, compatible OpenNext1.20.12/Wrangler4.149.0, DOMPurify3.4.17 and glob10.5.0 release prerequisites patched; exact HTTP-cache mitigation/guard and28 positive/negative regressions pass, no advisory exceptions. Audit0high/critical with4moderate/1low remain. Full main CI, six gates and existing100percent Worker publisher pass. Live390/768/1440 lost-response retries create3feedback records plus1newsletter subscription,4receipts and4unique matching events/feed entries. Six renders reviewed; QA dismissed/unsubscribed, receipts retained. Account/apply-agent acceptance and strict300ms remain separate.
         verificationHistory:
           - observedAt: 2026-10-02T14:08:04Z
             deploymentId: b2ef5475-1680-43cb-a0ca-6bb0590fb39f
@@ -374,7 +378,16 @@ deployment:
               - name: FREE_AI
                 service: free-ai-gateway
                 entrypoint: FleetGateway
-        versionId: 2c8513b6-22f3-468a-8dd0-ed2b6a651faf
+          - observedAt: 2026-10-22T12:08:22.249Z
+            sourceCommit: 7ff25c036c867b1b1e0d35c240fe1ecc716aac33
+            deploymentId: ee3e8569-8c68-4e2b-bacc-caa8591541de
+            versionId: 2c8513b6-22f3-468a-8dd0-ed2b6a651faf
+            trafficPercent: 100
+            deploymentUrl: https://rolepatch.com
+            scope: Owner-approved loading and recovery fix
+            state: success-production-verified
+            evidence: Owner-approved manual GitHub Actions deploy 39774606627 succeeded after six deploy gates and exact-main CI. Independent Wrangler deployment/version readback confirms the full SHA tag at 100% traffic from 2026-10-22T12:00:40.528636Z. Deployed compiled assets passed nine pending-to-ready empty/populated/complete-resume transitions and three failed-read to in-page retry to retained-job checks at 390/768/1440 under Slow4G and CPU4; no overflow, observed CLS zero against the unchanged 0.05 target. Synthetic guest browser-local fixtures only; private account sync and broader route/performance acceptance remain unqualified.
+        versionId: 662a776b-f20e-403e-ad94-66c2590ade3d
     resources:
       - provider: cloudflare
         kind: d1

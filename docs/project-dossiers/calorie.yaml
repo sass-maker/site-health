@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-09-23
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Calorie
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -88,10 +88,11 @@ identity:
   family: significanthobbies
   category: utility
   purposeCategories:
+    - attention-money-grabber
     - personal-use
   audience: public
   personalUse: true
-  moneyOrPersonalBrand: false
+  moneyOrPersonalBrand: true
   unmetNeed: false
   kind: product
   priority: P2
@@ -266,6 +267,17 @@ deployment:
         name: calorie
         method: wrangler-direct
         state: live
+        verification:
+          observedAt: 2026-10-23T05:33:06.427967+00:00
+          sourceCommit: 52b86aecabe48cfcf918050090aa12f2eec057ba
+          deploymentId: d7f8b99b-2c34-4735-bbe7-e1eb5cd047b4
+          versionId: 11e7be19-c414-4ec9-b257-306b7a898fdf
+          createdOn: 2026-10-23T05:32:03.603333Z
+          trafficPercent: 100
+          exactMainCi: 39904368144
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/calorie-production-summary.json
+          scope: "PR132: Base-onlyv0.1.20 backport and normal generated marketing snapshot. Root Vite8.3.5 security prerequisite; zero high/critical,10moderate remain. Frozen root/landing installs, full quality/native PR/main CI, six gates and existing publisher pass. Actual three-width captures yield three feedback and one subscription, four receipts/log events/feed entries; six screens reviewed, QA cleanup independently stored. No iOS release or private journal/device qualification."
     resources:
       - provider: cloudflare
         kind: d1

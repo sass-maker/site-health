@@ -1,5 +1,6 @@
 ---
 import DashboardLayout from "../components/DashboardLayout.astro";
+import SeoNav from "../components/SeoNav.astro";
 ---
 
 <DashboardLayout
@@ -9,16 +10,17 @@ import DashboardLayout from "../components/DashboardLayout.astro";
   view="search"
 >
   <div slot="meta" class="page-head__meta">
-    <button type="button" class="secondary-action" data-portfolio-refresh="search">Update</button>
+    <button type="button" class="secondary-action" data-portfolio-refresh="search" data-usage-event="refresh">Update</button>
     <a class="secondary-action" href="https://search.google.com/search-console" target="_blank" rel="noreferrer">Open Search Console ↗</a>
     <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="search"></span>
     <strong class="search-reporting-period" data-search-period>Reading reporting period</strong>
     <span class="snapshot-time" data-outcome-time>Reading Search Console evidence</span>
   </div>
+  <SeoNav active="web" />
   <section class="owner-section owner-section--directory" aria-label="Google Search results by project">
     <div class="project-scope project-scope--compact">
       <label for="search-scope">Show</label>
-      <select id="search-scope" data-search-scope>
+      <select id="search-scope" data-search-scope data-usage-event="filter">
         <option value="active">Active products</option>
         <option value="all">All maintained search properties</option>
       </select>

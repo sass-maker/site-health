@@ -3,7 +3,9 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
-const defaultRegistryPath = join(moduleDirectory, '..', '..', 'config', 'projects.json');
+const defaultRegistryPath = process.env.SITE_HEALTH_OWNER_REPOSITORY
+  ? join(process.env.SITE_HEALTH_OWNER_REPOSITORY, 'apps/backend/config/projects.json')
+  : join(moduleDirectory, '..', '..', 'config', 'projects.json');
 const siteHealthRepository = 'https://github.com/sass-maker/site-health';
 const canonicalNames = {
   'app-health': 'App Health',

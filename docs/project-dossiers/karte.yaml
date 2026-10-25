@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-10-05
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Karte
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -392,15 +392,17 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-05T18:01:13.555647Z
-          sourceCommit: e2a05d1681aa9416b9c8e08102154c613d5ba2cf
-          deploymentId: 63c21f01-2d99-49db-8317-9116b91c993e
-          state: success-production-verified
-          scope: Selected Precise public closing-footer, public asset bytes and route boundaries; native release and unrelated backend capabilities excluded
-          evidencePath: karte/.fleet-local/footer180-root-review-20261005/live-release-proof.json
-          versionId: 3b63fd70-19f1-4555-b050-929453ed7286
+          observedAt: 2026-10-23T05:33:06.428831+00:00
+          sourceCommit: ff3b83de40e4bb9958f10c4ff6fad31bd4ca7363
+          deploymentId: bb1d6533-645d-41ea-a8c3-3d23031ad5e4
+          versionId: 918d0097-1acc-49fb-8273-d044da207db9
+          createdOn: 2026-10-23T05:31:14.122957Z
           trafficPercent: 100
-          evidence: "Footer rollout #180: exact source/current CI, existing publisher/provider and bounded actual rendered public routes verified; historical operational evidence retained separately."
+          exactMainCi: 39905593358
+          state: provider-identity-and-footer-capture-retry-verified
+          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/karte-production-summary.json
+          scope: "PR137: Base-onlyv0.1.20 backport retains established Next/OpenNext/Astro overlay; compatible security prerequisites and27cache regressions clear high/critical findings (11moderate/4low remain). Independently locked email-worker gets same pnpm pin and own workspace boundary for existing typecheck only; not published. Full quality/cfbuild, three-width candidate/style review, exact PR/mainCI, six gates and existing publisher pass. Real three-width retry/newsletter captures give four receipts/log events/feed entries; six live screens reviewed and QA cleanup independently stored. No private profile/auth/RAG/data/schema/rate-limiter changes."
+          deployWorkflow: 39905959269
         verificationHistory:
           - observedAt: 2026-10-02T11:01:23Z
             deploymentId: d9904c5b-2c32-4b33-bc5b-3afd9eb1e840
@@ -413,7 +415,16 @@ deployment:
               - name: FREE_AI
                 service: free-ai-gateway
                 entrypoint: FleetGateway
-        versionId: 3b63fd70-19f1-4555-b050-929453ed7286
+          - observedAt: 2026-10-05T18:01:13.555647Z
+            sourceCommit: e2a05d1681aa9416b9c8e08102154c613d5ba2cf
+            deploymentId: 63c21f01-2d99-49db-8317-9116b91c993e
+            state: success-production-verified
+            scope: Selected Precise public closing-footer, public asset bytes and route boundaries; native release and unrelated backend capabilities excluded
+            evidencePath: karte/.fleet-local/footer180-root-review-20261005/live-release-proof.json
+            versionId: 3b63fd70-19f1-4555-b050-929453ed7286
+            trafficPercent: 100
+            evidence: "Footer rollout #180: exact source/current CI, existing publisher/provider and bounded actual rendered public routes verified; historical operational evidence retained separately."
+        versionId: 918d0097-1acc-49fb-8273-d044da207db9
       - provider: cloudflare
         kind: email-worker
         name: karte-email

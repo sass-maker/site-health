@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "target": "ES2023",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/features/app-store/**/*.ts",
+    "src/features/app-store/**/*.tsx"
+  ]
+}

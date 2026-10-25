@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
-      infrastructureUpdatedAt: 2026-10-09
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Web Playables
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -82,8 +82,8 @@ identity:
   family: web-playables
   category: experimental
   purposeCategories:
-    - attention-money-grabber
-  audience: public
+    - personal-use
+  audience: internal
   personalUse: true
   moneyOrPersonalBrand: false
   unmetNeed: false
@@ -340,15 +340,33 @@ deployment:
         method: git-connected
         state: live-retained
         verification:
-          observedAt: 2026-10-05T18:33:54.699802+00:00
-          sourceCommit: 5641fd9968307c10659b66b909ba0c3db43d78cc
-          deploymentId: 874a2bc6-414c-4904-9138-d36271a531e8
-          state: success-production-verified
-          scope: Selected Precise public closing-footer, public asset bytes and route boundaries; native release and unrelated backend capabilities excluded
-          evidencePath: web-playables/.fleet-local/footer180-live-review-20261005/web-playables-public-release-proof.json
-          providerSourceAbbreviated: 5641fd9
-          fullSourceProof: Explicit pinned publishercommit metadata and exact maintain tree equality
-          evidence: "Footer rollout #180: exact source/current CI, existing publisher/provider and bounded actual rendered public routes verified; historical operational evidence retained separately."
+          observedAt: 2026-10-23T00:41:05.991217+00:00
+          sourceCommit: fded64558ded41744ba67afac8dc5458b194b307
+          deploymentId: c55c35ae-764b-491f-8a21-b056d15ae651
+          deploymentUrl: https://c55c35ae.web-playables.pages.dev
+          state: provider-identity-and-clarity-initialization-verified
+          exactMainCi: 39878556717
+          evidencePath: .fleet-local/feedback-retry-167-20261023/web-playables-clarity-production.json
+          scope: PR28 initializes the standard Clarity queue before the existing project loader. Existing local publisher succeeds; provider production source fded645. Live390/768/1440 actual Clarity0.8.72-beta runtime200, function present, no page errors/nooverflow;3renders reviewed. Footer remains exact retry-qualified7f69cbbe bundle. Synthetic collection POSTs blocked; dashboard receipt and organic traffic not certified. Open Historia Worker excluded.
+        verificationHistory:
+          - observedAt: 2026-10-05T18:33:54.699802+00:00
+            sourceCommit: 5641fd9968307c10659b66b909ba0c3db43d78cc
+            deploymentId: 874a2bc6-414c-4904-9138-d36271a531e8
+            state: success-production-verified
+            scope: Selected Precise public closing-footer, public asset bytes and route boundaries; native release and unrelated backend capabilities excluded
+            evidencePath: web-playables/.fleet-local/footer180-live-review-20261005/web-playables-public-release-proof.json
+            providerSourceAbbreviated: 5641fd9
+            fullSourceProof: Explicit pinned publishercommit metadata and exact maintain tree equality
+            evidence: "Footer rollout #180: exact source/current CI, existing publisher/provider and bounded actual rendered public routes verified; historical operational evidence retained separately."
+          - observedAt: 2026-10-23T00:36:10.829614+00:00
+            sourceCommit: 27c8c370ee33a4bbb6c82d9d5a7ea2c6f798de51
+            deploymentId: 4692a691-fb6d-4841-b387-cb1809595f02
+            exactMainCi: 39874880007
+            assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+            deploymentUrl: https://4692a691.web-playables.pages.dev
+            state: footer-retry-verified-with-preexisting-clarity-error
+            evidencePath: .fleet-local/feedback-retry-167-20261023/web-playables-production-summary.json
+            scope: Live390/768/1440 lost-after-commit retries create3feedback rows from6POSTs; consent/duplicate handling yields1newsletter from3POSTs,4receipts and4matching in-app events.6screenshots reviewed. QA records dismissed/unsubscribed; receipts retained. Hosted publisher39875654579 failed existing Cloudflare credential; normal existing local publisher succeeded. Preexisting Clarity bootstrap exception retained as separate repair.
       - provider: cloudflare
         kind: worker
         name: open-historia

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
       infrastructureUpdatedAt: 2026-10-06
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -89,10 +89,11 @@ identity:
   family: storagedaddy
   category: utility
   purposeCategories:
+    - attention-money-grabber
     - personal-use
   audience: public
   personalUse: true
-  moneyOrPersonalBrand: false
+  moneyOrPersonalBrand: true
   unmetNeed: true
   kind: experiment
   priority: P2
@@ -281,21 +282,33 @@ deployment:
         name: storagedaddy
         method: wrangler-direct
         state: live
-        versionId: 6f87fd0e-8091-4248-85b3-9b5d8bb832cb
+        versionId: f98cd21a-3dcf-4c84-b6c5-b46a01cc8f78
         attributionReason: Dedicated StorageDaddy custom subdomain with legacy prefix redirects; Significant Hobbies owns the shared apex application.
         verificationHistory:
           - versionId: 5e5d4488-80d8-4e39-acd9-d197bb9d2a82
             state: previous-recorded-version
             qualification: Historical attribution retained; not newly verified by footer work
+          - observedAt: 2026-10-05T18:38:25Z
+            sourceCommit: 0b6e45deea7af566a4e92b9faaf25341cef9f541
+            versionId: 6f87fd0e-8091-4248-85b3-9b5d8bb832cb
+            trafficPercent: 100
+            evidencePath: storagedaddy/.fleet-local/footer180-current-C-prep-20261005/qualification/provider-release-20261006.md
+            scope: Website footer only; existing signed build113 download/feed preserved, no native release
+            state: success-production-verified
+            evidence: Selected C Precise source/current CI, existing provider, anonymous public byte matches and actual responsive/control review qualified. Numeric scanner remains unknown.
         verification:
-          observedAt: 2026-10-05T18:38:25Z
-          sourceCommit: 0b6e45deea7af566a4e92b9faaf25341cef9f541
-          versionId: 6f87fd0e-8091-4248-85b3-9b5d8bb832cb
+          observedAt: 2026-10-23T06:26:43.429108+00:00
+          sourceCommit: dce57be0a4280b214524d92d161f7dcc13dfb93e
+          deploymentId: b6155614-da71-498d-825d-07d3ec026056
+          versionId: f98cd21a-3dcf-4c84-b6c5-b46a01cc8f78
+          createdOn: 2026-10-23T06:25:24.653402Z
           trafficPercent: 100
-          evidencePath: storagedaddy/.fleet-local/footer180-current-C-prep-20261005/qualification/provider-release-20261006.md
-          scope: Website footer only; existing signed build113 download/feed preserved, no native release
+          tag: dce57be0a4280b214524d92d161f7dcc13dfb93e
           state: success-production-verified
-          evidence: Selected C Precise source/current CI, existing provider, anonymous public byte matches and actual responsive/control review qualified. Numeric scanner remains unknown.
+          exactMainCi: https://github.com/Significant-Hobbies/storagedaddy/actions/runs/39910097497
+          evidencePath: saas-maker/.fleet-local/feedback-retry-167-20261023/storagedaddy-production-summary.json
+          scope: Three-width public website feedback/retry/newsletter under unchanged production CSP. Existing build119 DMG/appcast/native bytes preserved; no native release or private-cleanup acceptance.
+          evidence: PR75 exact main CI and six deploy gates passed. Existing site publisher succeeded with full source tag and provider100% traffic. Actual live three-width lost-response captures retained draft/consent and reused the same records; newsletter consent and four durable receipts plus unique matching owner log/feed entries verified. All reserved QA feedback dismissed and newsletter unsubscribed with receipts retained; six form renders manually reviewed.
     resources:
       - provider: cloudflare
         kind: analytics-engine

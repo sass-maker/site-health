@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 2d8f91bf9b9d06030853b0e1968a1bba95a253172bf4aa623c39e91404e18917
+      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 9f1b5a509ca1a7074c8d9cded183a8c7e11a885267daa71a914c0ecb1ae68adb
+      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -124,7 +124,7 @@ repository:
   githubHomepageUrl: https://reddit-insights.highsignal.app
   worktree: *a1
   visibility: public
-  url: https://github.com/High-Signal-App/research-subreddit
+  url: https://github.com/sarthakagrawal927/research-subreddit
   aliases: []
   sourceOverride: null
   tooling:
@@ -244,13 +244,13 @@ deployment:
       kind: pages
       name: reddit-insights
       sourcePath: null
-      repositoryUrl: https://github.com/High-Signal-App/research-subreddit
+      repositoryUrl: https://github.com/sarthakagrawal927/research-subreddit
       repositoryRelativePath: .
     - id: proxy
       kind: worker
       name: reddit-proxy
       sourcePath: null
-      repositoryUrl: https://github.com/High-Signal-App/research-subreddit
+      repositoryUrl: https://github.com/sarthakagrawal927/research-subreddit
       repositoryRelativePath: scripts/reddit-proxy
   cloudflare:
     deployments:
@@ -292,7 +292,7 @@ sharing:
   verifiedAt: 2026-09-07
   reason: Hosted historical source-linked search/navigation and one original-source comparison pass. Incomplete capture provenance and full-corpus fidelity remain explicit; no live-monitoring claim.
   changelogUrl: null
-  roadmapUrl: https://github.com/High-Signal-App/research-subreddit/issues
+  roadmapUrl: https://github.com/sarthakagrawal927/research-subreddit/issues
   geoIdentity:
     id: reddit-insights
     name: Reddit Insights
@@ -302,12 +302,12 @@ sharing:
     origin: https://reddit-insights.highsignal.app
     source:
       state: public
-      url: https://github.com/High-Signal-App/research-subreddit
+      url: https://github.com/sarthakagrawal927/research-subreddit
     docs:
       state: landing-only
       url: https://reddit-insights.highsignal.app
     officialProfiles:
-      - https://github.com/High-Signal-App/research-subreddit
+      - https://github.com/sarthakagrawal927/research-subreddit
     availability:
       primary: web
       appStore: not-applicable
