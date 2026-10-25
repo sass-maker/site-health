@@ -29,7 +29,7 @@ export function dueCommunityProjects(store, { now = new Date().toISOString() } =
   return store.listProfiles().filter((profile) => {
     if (!profile.schedule) return false;
     if (profile.schedule === 'weekly' && new Date(now).getUTCDay() !== 1) return false;
-    const last = store.listCollections(profile.projectId)[0];
+    const last = store.listCollections(profile.projectId).find((run) => run.source !== 'website');
     const elapsed = last ? Date.parse(now) - Date.parse(last.startedAt) : Infinity;
     return elapsed >= (profile.schedule === 'daily' ? 23 * 3_600_000 : 6 * 86_400_000);
   }).map((profile) => profile.projectId);

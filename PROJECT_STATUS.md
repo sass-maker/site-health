@@ -34,7 +34,9 @@ backend.
   its packed-consumer check pass; the 84-page web build passes. The owner-local
   dossier check needs the canonical adjacent catalog; the additional Astro
   diagnostic still reports three existing Node-type errors in DashboardLayout.
-  Local LaunchAgent support keeps the owner backend and native scheduler open.
+  Local LaunchAgent startup was blocked by macOS while opening the Desktop-based
+  catalog; that agent is stopped. The authorized terminal runtime is live on
+  port 4321 with Infisical ready; scheduling runs while that backend stays open.
 
 
 - **2026-09-19:** Restored fleet IndexNow capability and completed the first

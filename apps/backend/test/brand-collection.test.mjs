@@ -88,6 +88,11 @@ test('scheduled collection respects current projects and cadence; manual double 
     await first;
     assert.equal(requests, 5);
     assert.deepEqual(dueCommunityProjects(store, { now: now() }), ['retired']);
+    // A URL-only page read must not postpone the next community refresh.
+    store.saveProfile('website-only', profile);
+    const pageRun = store.startCollection('website-only', 'website', profile.brandUrl, now());
+    store.finishCollection(pageRun, { status: 'completed', received: 1 }, now());
+    assert.deepEqual(dueCommunityProjects(store, { now: now() }), ['retired', 'website-only']);
     const scheduler = startBrandEvidenceScheduler({ store, projectsProvider: () => [
       { id: 'alpha', lifecycle: { status: 'active' } }, { id: 'retired', lifecycle: { status: 'inactive' } },
     ], now, collectorFactory, env: {}, intervalMs: 1_000_000 });

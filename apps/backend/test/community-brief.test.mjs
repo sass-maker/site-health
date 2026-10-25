@@ -19,7 +19,9 @@ const analysis = {
 };
 const factory = () => ({
   collect: async ({ url, extractor }) => {
-    if (extractor === 'page') return { fetchedAt: now(), finalUrl: url, data: { title: 'Alphatool', text: 'Alphatool helps small teams monitor uptime.' } };
+    if (extractor === 'page') return { fetchedAt: now(), finalUrl: url, data: { title: 'Alphatool',
+      description: 'Alphatool helps small teams monitor uptime and alert on availability changes.',
+      text: 'Alphatool helps small teams monitor uptime. Featured external product BetaVerifier charges $500 for AI code verification.' } };
     if (url.includes('about/rules')) return { data: { rules: [{ short_name: 'Be useful', description: 'Disclose affiliations.' }] } };
     if (url.includes('about.json')) return { data: { data: { display_name: 'SaaS', public_description: 'Software teams' } } };
     return { data: { data: { children: [
@@ -39,6 +41,9 @@ test('URL workflow creates verified communities, sourced threads and editable po
     assert.equal(request.model, 'auto');
     assert.equal(request.project_id, 'site-health');
     assert.equal(options.headers['x-gateway-project-id'], 'site-health');
+    const context = JSON.parse(request.messages.at(-1).content);
+    const primary = context.primaryProductEvidence ?? context.website;
+    assert.doesNotMatch(primary.textExcerpt, /BetaVerifier|\$500/);
     const content = requests++ === 0 ? analysis : {
       posts: [{ subreddit: 'SaaS', title: 'How do small teams handle uptime alerts?', body: 'I build Alphatool. I would like to compare how teams keep alerts useful.' },
         { subreddit: 'invented', title: 'Invented destination', body: 'Should not survive' }],
@@ -59,6 +64,7 @@ test('URL workflow creates verified communities, sourced threads and editable po
     assert.equal(brief.drafts.length, 2);
     assert.equal(brief.drafts[1].sourceUrl, brief.threads[0].url);
     assert.equal(brief.analysisModel, 'fixture-model');
+    assert.equal(brief.reviewModel, 'fixture-model');
     assert.equal(store.listPrompts('alpha').length, 1);
     assert.equal(store.getProfile('alpha').brandName, 'Alphatool');
     assert.equal(store.listCommunityBriefs('other').length, 0);
@@ -66,7 +72,7 @@ test('URL workflow creates verified communities, sourced threads and editable po
     assert.throws(() => store.updateCommunityDraft('other', brief.id, brief.drafts[0].id, 'Wrong project'), /not found/);
     store.updateCommunityDraft('alpha', brief.id, brief.drafts[0].id, 'Edited by the owner', 'Edited title', now());
     assert.equal(store.listCommunityBriefs('alpha')[0].drafts[0].body, 'Edited by the owner');
-    assert.equal(requests, 2);
+    assert.equal(requests, 3);
   } finally { store.close(); }
 });
 
