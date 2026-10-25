@@ -3,6 +3,7 @@ import { chmodSync, mkdirSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
+import { interruptionRecord, readInterruptionJournals, removeInterruptionJournal, writeInterruptionJournal } from './interruption-journal.mjs';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const schemaPath = join(moduleDirectory, 'schema.sql');
@@ -237,6 +238,8 @@ export class BrandEvidenceStore {
     this.activeCollections = new Set();
     this.activeChecks = new Set();
     this.stopping = false;
+    this.interruptAttempted = false;
+    this.shutdownController = new AbortController();
     this.databasePath = databasePath;
     if (databasePath !== ':memory:') mkdirSync(dirname(databasePath), { recursive: true, mode: 0o700 });
     this.database = new DatabaseSync(databasePath);
@@ -246,6 +249,7 @@ export class BrandEvidenceStore {
     this.database
       .prepare('INSERT OR IGNORE INTO brand_evidence_migrations(version, applied_at) VALUES (1, ?)')
       .run(new Date().toISOString());
+    this.recoverInterruptedWork();
   }
 
   close() {
@@ -256,12 +260,35 @@ export class BrandEvidenceStore {
 
   stopOwnedWork(now = new Date().toISOString()) {
     this.stopping = true;
+    this.shutdownController.abort();
+    if (this.interruptAttempted) return;
+    this.interruptAttempted = true;
     if (this.activeCollections.size === 0 && this.activeChecks.size === 0) return;
+    const record = interruptionRecord([...this.activeCollections], [...this.activeChecks], normalizeTimestamp(now));
+    try { this.interruptOwnedRecords([record]); }
+    catch (error) {
+      try { writeInterruptionJournal(this.databasePath, record); }
+      catch (journalError) { console.error(`Could not journal interrupted brand evidence: ${journalError.message}`); }
+      throw error;
+    }
+    this.activeCollections.clear();
+    this.activeChecks.clear();
+  }
+
+  recoverInterruptedWork() {
+    try {
+      const records = readInterruptionJournals(this.databasePath);
+      if (!records.length) return;
+      this.interruptOwnedRecords(records);
+      for (const record of records) removeInterruptionJournal(record);
+    } catch (error) { console.error(`Could not recover interrupted brand evidence: ${error.message}`); }
+  }
+
+  interruptOwnedRecords(records) {
     const previousTimeout = this.database.prepare('PRAGMA busy_timeout').get().timeout;
     this.database.exec('PRAGMA busy_timeout = 1000');
     try { this.transaction(() => {
       const collection = this.database.prepare("UPDATE collection_runs SET status = 'error', error_message = 'Interrupted during backend shutdown', finished_at = ? WHERE id = ? AND status = 'running'");
-      for (const id of this.activeCollections) collection.run(now, id);
       const counts = this.database.prepare(`SELECT COUNT(*) AS attempted,
         SUM(status = 'completed') AS completed, SUM(status != 'completed') AS failed,
         CASE WHEN SUM(status = 'completed') > 0 THEN CAST(SUM(status = 'completed' AND brand_mentioned = 1) AS REAL) / SUM(status = 'completed') ELSE NULL END AS mentionRate
@@ -269,14 +296,15 @@ export class BrandEvidenceStore {
       const check = this.database.prepare(`UPDATE evidence_checks SET status = 'failed',
         attempted = MAX(attempted, ?), completed = MAX(completed, ?), failed = MAX(failed, ?),
         mention_rate = COALESCE(?, mention_rate), summary = 'Interrupted during backend shutdown', finished_at = ?
-        WHERE id = ? AND status = 'running'`);
-      for (const id of this.activeChecks) {
-        const row = counts.get(id);
-        check.run(row.attempted, row.completed ?? 0, row.failed ?? 0, row.mentionRate, now, id);
+        WHERE id = ? AND status = 'running' AND trigger != 'imported' AND import_batch_id IS NULL`);
+      for (const record of records) {
+        for (const id of record.collections) collection.run(record.interruptedAt, id);
+        for (const id of record.checks) {
+          const row = counts.get(id);
+          check.run(row.attempted, row.completed ?? 0, row.failed ?? 0, row.mentionRate, record.interruptedAt, id);
+        }
       }
     }); } finally { this.database.exec(`PRAGMA busy_timeout = ${previousTimeout}`); }
-    this.activeCollections.clear();
-    this.activeChecks.clear();
   }
 
   transaction(work) {
@@ -421,6 +449,8 @@ export class BrandEvidenceStore {
   startCollection(projectId, source, query, now = new Date().toISOString()) {
     if (this.stopping) throw new BrandEvidenceError('Brand evidence is shutting down', 503);
     const id = randomUUID();
+    try { interruptionRecord([...this.activeCollections, id], [...this.activeChecks]); }
+    catch { throw new BrandEvidenceError('Too much active brand evidence work', 503); }
     this.database.prepare(`
       INSERT INTO collection_runs(id, project_id, source, query, status, started_at)
       VALUES (?, ?, ?, ?, 'running', ?)
@@ -479,6 +509,10 @@ export class BrandEvidenceStore {
 
   createCheck({ id = randomUUID(), projectId, channel = 'api-model', trigger = 'manual', status = 'running', sourceStatus = null, attempted = 0, completed = 0, failed = 0, mentionRate = null, summary = null, startedAt, finishedAt = null, source = 'site-health', sourceRecordId = null, importBatchId = null }) {
     if (this.stopping) throw new BrandEvidenceError('Brand evidence is shutting down', 503);
+    if (status === 'running' && trigger !== 'imported' && !importBatchId) {
+      try { interruptionRecord([...this.activeCollections], [...this.activeChecks, id]); }
+      catch { throw new BrandEvidenceError('Too much active brand evidence work', 503); }
+    }
     if (!CHANNELS.includes(channel)) throw new BrandEvidenceError('unknown evidence channel');
     this.database.prepare(`
       INSERT INTO evidence_checks(id, project_id, channel, trigger, status, source_status, attempted, completed, failed,

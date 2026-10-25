@@ -110,7 +110,7 @@ export async function prepareCommunityBrief({
       website: productEvidence, availableCapturedCommunities: [...catalog.values()].map((entry) => entry.subreddit).slice(0, 200),
       communitySelection: catalog.size ? 'Prefer relevant names from availableCapturedCommunities, which have actual public discussion captures. Never force a fit.' : 'Suggestions must be verified against source evidence.',
       ownerContext: existingProfile ? { brandName: existingProfile.brandName, targetCustomer: existingProfile.targetCustomer } : null,
-    }), fetchImpl, { maxTokens: 1800, systemPrompt: SYSTEM, json: true });
+    }), fetchImpl, { maxTokens: 1800, systemPrompt: SYSTEM, json: true, signal: store.shutdownController.signal });
     const product = normalizeProductAnalysis(parse(analysisResult.answer));
     if (website.description.length >= 40) product.summary = website.description;
     if (existingProfile?.brandUrl && new URL(existingProfile.brandUrl).hostname === url.hostname) product.brandName = existingProfile.brandName;
@@ -205,13 +205,13 @@ export async function prepareCommunityBrief({
       const generated = await askProvider(source, JSON.stringify({
         task: 'Prepare editable, useful contributions. Return {posts:[{subreddit,title,body}],comments:[{threadId,relevance,fitReason,body}]}. Prepare ONE substantive original post for the best-fit community. Select up to THREE relevant buyer/problem discussions from the supplied real threads and write a specific helpful comment for each. For each selected thread give relevance from 1 to 5 and a short fitReason linking a real product capability from the website to a need expressed in that thread. Return comments only for relevance 4 or 5. General startup/business chatter, unrelated industries and legal/IP discussions are not a fit merely because the product is software. Relevance is semantic, not an exact keyword requirement. Skip unrelated discussions. Do not invent personal anecdotes: avoid phrases such as when we built, we found, our users, or claims of past results. State I build/maintain the named product when the relationship matters. Respect the supplied rules. Avoid generic launch pitches, invented experiences or claims. Make comments useful even if the product is never clicked. Disclose affiliation if mentioning the owner product. Never invent a thread, community or URL.',
         product, website: productEvidence, communities: verified, threads: threads.slice(0, 30),
-      }), fetchImpl, { maxTokens: 2200, systemPrompt: SYSTEM, json: true });
+      }), fetchImpl, { maxTokens: 2200, systemPrompt: SYSTEM, json: true, signal: store.shutdownController.signal });
       const candidateDrafts = parse(generated.answer);
       const reviewed = await askProvider(source, JSON.stringify({
         task: 'Review and correct these candidate contributions against the primary product evidence and actual threads. Return the same JSON shape {posts:[{subreddit,title,body}],comments:[{threadId,relevance,fitReason,body}]}. Remove all unsupported feature, price, performance and experience claims. A listed or linked product is not this product. Keep one useful post and at most three comments. Each comment must answer the actual thread and have a direct fit, not an imagined connection. Drop weak matches. Do not introduce a product pitch where practical advice is more useful. Naturally disclose affiliation when mentioning the owner product. Do not add links unless supplied in primaryProductEvidence. Do not invent capabilities to make a match. If the evidence cannot support a useful contribution, omit it.',
         primaryProductEvidence: productEvidence, brandName: product.brandName,
         communities: verified, threads: threads.slice(0, 30), candidateDrafts,
-      }), fetchImpl, { maxTokens: 2200, systemPrompt: SYSTEM, json: true });
+      }), fetchImpl, { maxTokens: 2200, systemPrompt: SYSTEM, json: true, signal: store.shutdownController.signal });
       drafts = normalizeDrafts(parse(reviewed.answer), verified, threads, product.brandName);
       draftModel = generated.model;
       reviewModel = reviewed.model;

@@ -64,7 +64,7 @@ export function safeProviderError(error) {
   return 'Provider request failed';
 }
 
-export async function askProvider(source, promptText, fetchImpl, { maxTokens = 1024, systemPrompt = null, json = false } = {}) {
+export async function askProvider(source, promptText, fetchImpl, { maxTokens = 1024, systemPrompt = null, json = false, signal } = {}) {
   const started = Date.now();
   const provider = createOpenAICompatible({
     name: source.provider, baseURL: new URL(source.endpointUrl).origin,
@@ -82,7 +82,8 @@ export async function askProvider(source, promptText, fetchImpl, { maxTokens = 1
   const result = await generateText({
     model: provider.chatModel(source.model), prompt: promptText,
     ...(systemPrompt ? { system: systemPrompt } : {}),
-    maxOutputTokens: maxTokens, maxRetries: 0, abortSignal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    maxOutputTokens: maxTokens, maxRetries: 0,
+    abortSignal: signal ? AbortSignal.any([signal, AbortSignal.timeout(REQUEST_TIMEOUT_MS)]) : AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
   return {
     answer: result.text.slice(0, MAX_ANSWER_CHARS),
@@ -113,7 +114,7 @@ export async function runApiModelCheck({
     if (store.stopping) break;
     const observedAt = now();
     try {
-      const result = await askProvider(source, prompt.promptText, fetchImpl);
+      const result = await askProvider(source, prompt.promptText, fetchImpl, { signal: store.shutdownController.signal });
       if (store.stopping) break;
       if (!result.answer.trim()) {
         failed += 1;
@@ -149,6 +150,12 @@ export async function runApiModelCheck({
   }
   if (store.stopping) {
     const check = store.getCheck(checkId);
+    if (check.status === 'running') return {
+      status: 'failed', checkId, attempted: Math.max(check.attempted, completed + failed),
+      completed: Math.max(check.completed, completed), failed: Math.max(check.failed, failed),
+      mentionRate: completed ? mentioned / completed : check.mentionRate,
+      summary: 'Interrupted during backend shutdown; recovery journal pending',
+    };
     return { status: check.status, checkId, attempted: check.attempted, completed: check.completed,
       failed: check.failed, mentionRate: check.mentionRate, summary: check.summary };
   }
