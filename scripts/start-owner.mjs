@@ -32,7 +32,7 @@ async function healthyBackend() {
 async function healthyWeb() {
   try {
     const response = await fetch('http://127.0.0.1:4321/ai-awareness', { signal: AbortSignal.timeout(1_500) });
-    const body = (await response.text()).slice(0, 20_000);
+    const body = (await response.text()).slice(0, 1_000_000);
     return response.ok && body.includes('data-brand-evidence-collect') && body.includes('Site Health');
   } catch {
     return false;
