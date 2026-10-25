@@ -69,3 +69,16 @@ test('non-forced startup keeps fresh provider evidence cached', () => {
     store.close();
   }
 });
+
+test('an unavailable sibling collector cannot take the owner backend offline', () => {
+  const store = new DashboardStore({ databasePath: join(mkdtempSync(join(tmpdir(), 'refresh-unavailable-')), 'dashboard.sqlite') });
+  try {
+    const results = refreshStaleEvidence({
+      store, projection, force: true,
+      metricRunController: { start() { throw Object.assign(new Error('missing checkout'), { code: 'METRIC_RUNNER_UNAVAILABLE' }); } },
+    });
+    assert.equal(results.length, 4);
+    assert.ok(results.every((result) => result.action === 'unavailable'));
+    assert.equal(readRefreshReceipt(store, 'drank').failure.code, 'METRIC_RUNNER_UNAVAILABLE');
+  } finally { store.close(); }
+});

@@ -91,6 +91,7 @@ test('a failed provider call is stored as a failure, never as a negative mention
 test('provider settings refuse credentials', () => {
   const { store } = temporaryStore();
   assert.throws(() => store.saveProfile('alpha-site', { ...alphaProfile, provider: { mode: 'custom-endpoint', endpointUrl: 'https://x.example', model: 'm', apiKey: 'secret' } }), /credentials/);
+  assert.throws(() => store.saveProfile('alpha-site', { ...alphaProfile, provider: { mode: 'custom-endpoint', endpointUrl: 'https://user:password@x.example', model: 'm' } }), /credentials/);
   store.close();
 });
 
@@ -114,7 +115,8 @@ test('API model check records completed, errored and empty answers through the g
     fetchImpl: async (url, init) => {
       calls.push({ url, headers: init.headers, body: JSON.parse(init.body) });
       const reply = replies[calls.length - 1];
-      return new Response(JSON.stringify(reply.body), { status: reply.status });
+      const body = reply.status === 200 ? { id: 'fixture', object: 'chat.completion', created: 1, model: reply.body.model ?? 'auto', ...reply.body, choices: reply.body.choices.map((choice) => ({ index: 0, finish_reason: 'stop', ...choice, message: { role: 'assistant', ...choice.message } })) } : reply.body;
+      return new Response(JSON.stringify(body), { status: reply.status, headers: { 'content-type': 'application/json' } });
     },
   });
   assert.equal(result.status, 'partial');

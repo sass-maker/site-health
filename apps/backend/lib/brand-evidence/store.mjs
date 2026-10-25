@@ -92,6 +92,7 @@ export function normalizeProviderSettings(value = { mode: 'free-ai' }) {
     throw new BrandEvidenceError('endpointUrl must be a URL');
   }
   if (parsed.protocol !== 'https:') throw new BrandEvidenceError('endpointUrl must use https');
+  if (parsed.username || parsed.password) throw new BrandEvidenceError('endpointUrl must not contain credentials');
   return {
     mode,
     endpointUrl: parsed.href,
@@ -358,6 +359,89 @@ export class BrandEvidenceStore {
       .map((row) => ({ id: row.id, projectId: row.project_id, promptText: row.prompt_text, category: row.category, source: row.source }));
   }
 
+  removePrompt(projectId, promptId) {
+    const result = this.database.prepare('DELETE FROM evidence_prompts WHERE id = ? AND project_id = ?').run(promptId, projectId);
+    if (!result.changes) throw new BrandEvidenceError('prompt not found', 404);
+    // Original prompts stay in observations, preserving historical evidence.
+    return { removed: true };
+  }
+
+  upsertFinding(projectId, finding, now = new Date().toISOString()) {
+    const existing = this.database.prepare(
+      'SELECT id FROM community_findings WHERE project_id = ? AND source = ? AND source_record_id = ?',
+    ).get(projectId, finding.source, finding.sourceRecordId);
+    const id = existing?.id ?? randomUUID();
+    this.database.prepare(`
+      INSERT INTO community_findings(id, project_id, source, source_record_id, source_name,
+        title, content, url, author, published_at, first_seen_at, last_seen_at,
+        engagement_score, comment_count, relevance_score, intent, matched_keywords_json, status, origin)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', 'site-health')
+      ON CONFLICT(project_id, source, source_record_id) DO UPDATE SET
+        title = excluded.title, content = excluded.content, last_seen_at = excluded.last_seen_at,
+        engagement_score = excluded.engagement_score, comment_count = excluded.comment_count,
+        relevance_score = excluded.relevance_score, matched_keywords_json = excluded.matched_keywords_json
+    `).run(id, projectId, finding.source, finding.sourceRecordId, finding.sourceName,
+      finding.title, finding.content ?? null, finding.url, finding.author ?? null,
+      finding.publishedAt ?? null, now, now, finding.engagementScore ?? null,
+      finding.commentCount ?? null, finding.relevanceScore, finding.intent,
+      JSON.stringify(finding.matchedKeywords ?? []));
+    return id;
+  }
+
+  startCollection(projectId, source, query, now = new Date().toISOString()) {
+    const id = randomUUID();
+    this.database.prepare(`
+      INSERT INTO collection_runs(id, project_id, source, query, status, started_at)
+      VALUES (?, ?, ?, ?, 'running', ?)
+    `).run(id, projectId, source, query, now);
+    return id;
+  }
+
+  finishCollection(id, { status, received = null, matched = null, errorMessage = null, payload = null }, now = new Date().toISOString()) {
+    this.database.prepare(`
+      UPDATE collection_runs SET status = ?, received = ?, matched = ?, error_message = ?,
+        payload_json = ?, finished_at = ? WHERE id = ?
+    `).run(status, received, matched, errorMessage, payload ? JSON.stringify(payload) : null, now, id);
+  }
+
+  listCollections(projectId) {
+    return this.database.prepare(
+      'SELECT * FROM collection_runs WHERE project_id = ? ORDER BY started_at DESC, rowid DESC LIMIT 30',
+    ).all(projectId).map((row) => ({
+      id: row.id, source: row.source, query: row.query, status: row.status,
+      received: row.received, matched: row.matched, errorMessage: row.error_message,
+      payload: parseJson(row.payload_json, null), startedAt: row.started_at, finishedAt: row.finished_at,
+    }));
+  }
+
+  saveCommunityBrief(projectId, payload, now = new Date().toISOString()) {
+    const id = randomUUID();
+    this.database.prepare(`
+      INSERT INTO community_briefs(id, project_id, status, payload_json, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `).run(id, projectId, payload.status, JSON.stringify(payload), now, now);
+    return { id, ...payload, createdAt: now, updatedAt: now };
+  }
+
+  listCommunityBriefs(projectId) {
+    return this.database.prepare('SELECT * FROM community_briefs WHERE project_id = ? ORDER BY created_at DESC, rowid DESC LIMIT 5')
+      .all(projectId).map((row) => ({ id: row.id, ...parseJson(row.payload_json, {}), createdAt: row.created_at, updatedAt: row.updated_at }));
+  }
+
+  updateCommunityDraft(projectId, briefId, draftId, body, title = null, now = new Date().toISOString()) {
+    const row = this.database.prepare('SELECT * FROM community_briefs WHERE id = ? AND project_id = ?').get(briefId, projectId);
+    if (!row) throw new BrandEvidenceError('brief not found', 404);
+    const payload = parseJson(row.payload_json, {});
+    const draft = (payload.drafts ?? []).find((item) => item.id === draftId);
+    if (!draft) throw new BrandEvidenceError('draft not found', 404);
+    draft.body = text(body, 'draft body', { max: 8000, required: true });
+    if (title !== null && draft.kind === 'post') draft.title = text(title, 'post title', { max: 300, required: true });
+    draft.editedAt = now;
+    this.database.prepare('UPDATE community_briefs SET payload_json = ?, updated_at = ? WHERE id = ?')
+      .run(JSON.stringify(payload), now, briefId);
+    return draft;
+  }
+
   // Checks and observations ----------------------------------------------------
 
   createCheck({ id = randomUUID(), projectId, channel = 'api-model', trigger = 'manual', status = 'running', sourceStatus = null, attempted = 0, completed = 0, failed = 0, mentionRate = null, summary = null, startedAt, finishedAt = null, source = 'site-health', sourceRecordId = null, importBatchId = null }) {
@@ -603,6 +687,8 @@ export class BrandEvidenceStore {
       findings: this.listFindings(projectId, { limit: 50 }),
       actions: this.listActions(projectId, { limit: 50 }),
       history: this.listHistory(projectId, { limit: 30 }),
+      collections: this.listCollections(projectId),
+      communityBriefs: this.listCommunityBriefs(projectId),
     };
   }
 

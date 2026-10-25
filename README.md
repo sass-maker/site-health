@@ -28,6 +28,35 @@ Drank and PSI Swarm remain independent repositories. The backend reads or
 invokes them through explicit adapters. Reusable GitHub Actions, Fleet-owned
 scripts, and agent skills live under `sass-maker/saas-maker/tooling`.
 
+## Native brand awareness
+
+Open `http://127.0.0.1:4321/ai-awareness`, select a project and paste its public
+HTTPS website. Site Health reads the page, identifies relevant subreddits,
+retrieves discussion context, and saves editable post and comment drafts with
+source links. Drafts stay private; posting is manual. Current community rules
+and thread availability must be reviewed before posting. Dated public Reddit
+Insights captures retain their timestamp, revision and sampled coverage; missing
+or expired sources remain unavailable rather than zero mentions.
+
+The same area configures brand aliases, competitors, keywords, communities,
+buyer prompts and daily/weekly cadence. API model answers, consumer-assistant
+captures and community findings remain separate. Schedules run while the local
+backend is running. Imported MentionPilot evidence and review states are retained.
+
+The collection engine is the public `@saas-maker/collect` package from SaaS Maker;
+`vendor/README.md` records the reproducible source revision and packed artifact.
+AI requests use the AI SDK with free-ai model `auto` and project `site-health`.
+The backend reuses `AI_GATEWAY_API_KEY` / `GATEWAY_API_KEY`, or retrieves only
+`Free_ai` from the existing Fleet Infisical Development root into process memory.
+The local Infisical login must already be available; no key is saved in the app,
+LaunchAgent, source or logs.
+
+`pnpm dashboard` starts the owner app. `pnpm owner:service install` keeps it
+running through the macOS LaunchAgent; `status` and `stop` inspect or stop it.
+Managed checkouts can set `SITE_HEALTH_OWNER_REPOSITORY` to the canonical owner
+checkout so private databases, generated policy and sibling collectors retain
+their normal home. `pnpm brand --help` exposes the project-scoped CLI.
+
 ## Commands
 
 ```bash

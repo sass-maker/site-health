@@ -1,3 +1,5 @@
+import { generateText } from 'ai';
+import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { analyzeAnswer } from './analysis.mjs';
 import { BrandEvidenceError } from './store.mjs';
 
@@ -40,7 +42,7 @@ export function resolveCheckSource(profile, env = process.env) {
       gateway: false,
     };
   }
-  const apiKey = env.AI_GATEWAY_API_KEY;
+  const apiKey = env.AI_GATEWAY_API_KEY || env.GATEWAY_API_KEY;
   if (!apiKey) return { ready: false, reason: 'free-ai gateway key unavailable; provide AI_GATEWAY_API_KEY to the backend environment.' };
   const base = (env.AI_GATEWAY_URL || DEFAULT_GATEWAY_URL).replace(/\/$/, '');
   return {
@@ -53,39 +55,38 @@ export function resolveCheckSource(profile, env = process.env) {
   };
 }
 
-function safeProviderError(error) {
+export function safeProviderError(error) {
   if (error?.name === 'TimeoutError' || error?.name === 'AbortError') return 'Provider request timed out';
-  if (Number.isInteger(error?.status)) return `Provider returned an error (${error.status})`;
+  if (error?.statusCode >= 300 && error?.statusCode < 400) return 'Provider refused redirect';
+  const status = error?.statusCode ?? error?.status;
+  if (Number.isInteger(status)) return `Provider returned an error (${status})`;
   if (error?.code === 'redirect') return 'Provider refused redirect';
   return 'Provider request failed';
 }
 
-async function askProvider(source, promptText, fetchImpl) {
+export async function askProvider(source, promptText, fetchImpl, { maxTokens = 1024, systemPrompt = null, json = false } = {}) {
   const started = Date.now();
-  const response = await fetchImpl(source.endpointUrl, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      authorization: `Bearer ${source.apiKey}`,
-      ...(source.gateway ? { 'x-gateway-project-id': GATEWAY_PROJECT_ID } : {}),
+  const provider = createOpenAICompatible({
+    name: source.provider, baseURL: new URL(source.endpointUrl).origin,
+    apiKey: source.apiKey,
+    fetch: async (_url, init) => {
+      const headers = Object.fromEntries(new Headers(init.headers).entries());
+      const body = JSON.parse(init.body);
+      return fetchImpl(source.endpointUrl, {
+        ...init, redirect: 'manual',
+        headers: { ...headers, ...(source.gateway ? { 'x-gateway-project-id': GATEWAY_PROJECT_ID } : {}) },
+        body: JSON.stringify({ ...body, ...(json ? { response_format: { type: 'json_object' } } : {}), ...(source.gateway ? { project_id: GATEWAY_PROJECT_ID } : {}) }),
+      });
     },
-    body: JSON.stringify({
-      model: source.model,
-      messages: [{ role: 'user', content: promptText }],
-      max_tokens: 1024,
-      stream: false,
-      ...(source.gateway ? { project_id: GATEWAY_PROJECT_ID } : {}),
-    }),
-    redirect: 'manual',
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
-  if (response.status >= 300 && response.status < 400) throw Object.assign(new Error('redirect'), { code: 'redirect' });
-  if (!response.ok) throw Object.assign(new Error('provider error'), { status: response.status });
-  const body = await response.json();
-  const content = body?.choices?.[0]?.message?.content;
+  const result = await generateText({
+    model: provider.chatModel(source.model), prompt: promptText,
+    ...(systemPrompt ? { system: systemPrompt } : {}),
+    maxOutputTokens: maxTokens, maxRetries: 0, abortSignal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
   return {
-    answer: typeof content === 'string' ? content.slice(0, MAX_ANSWER_CHARS) : '',
-    model: typeof body?.model === 'string' && body.model.trim() ? body.model.trim() : source.model,
+    answer: result.text.slice(0, MAX_ANSWER_CHARS),
+    model: result.response.modelId || source.model,
     latencyMs: Date.now() - started,
   };
 }

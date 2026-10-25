@@ -18,6 +18,8 @@ import {
   verifyBackup,
 } from '../lib/dashboard-backend/store.mjs';
 import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evidence/store.mjs';
+import { startBrandEvidenceScheduler } from '../lib/brand-evidence/scheduler.mjs';
+import { gatewayEnvironment } from '../lib/brand-evidence/gateway-environment.mjs';
 
 function usage() {
   console.log(`Site Health backend
@@ -121,9 +123,12 @@ if (command === 'status') {
   const brandEvidenceStore = new BrandEvidenceStore({
     databasePath: process.env.SITE_HEALTH_BRAND_EVIDENCE_DB || defaultBrandEvidencePath(),
   });
+  const brandEvidenceEnv = gatewayEnvironment();
+  const brandScheduler = startBrandEvidenceScheduler({ store: brandEvidenceStore, projectsProvider, env: brandEvidenceEnv });
   const server = await startDashboardService({
     store,
     brandEvidenceStore,
+    brandEvidenceEnv,
     port,
     prewarmProjection: true,
     ownerToken: process.env.DASHBOARD_OWNER_TOKEN ?? process.env.FOUNDER_CONTROL_OWNER_TOKEN,
@@ -133,7 +138,8 @@ if (command === 'status') {
     projectsProvider,
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
-  const startupPrefill = prefillEvidence({ force: true });
+  const startupPrefill = process.env.SITE_HEALTH_STARTUP_PREFILL === '0'
+    ? { sources: [] } : prefillEvidence({ force: true });
   const startupRefresh = startupPrefill.sources;
   console.log(`Evidence startup: ${startupRefresh.map((item) => `${item.family}=${item.action}`).join(', ')}`);
   // Idempotent, and never allowed to throw: it also runs on `exit`, by which
@@ -146,8 +152,10 @@ if (command === 'status') {
     }
   };
   const shutdown = () => {
+    const brandsStopped = brandScheduler.stop();
     abandonInFlightRuns();
-    server.close(() => {
+    server.close(async () => {
+      await brandsStopped;
       store.close();
       brandEvidenceStore.close();
     });
