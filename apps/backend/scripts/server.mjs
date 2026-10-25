@@ -17,6 +17,7 @@ import {
   defaultDatabasePath,
   verifyBackup,
 } from '../lib/dashboard-backend/store.mjs';
+import { AppStoreStore } from '../lib/app-store/store.mjs';
 import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evidence/store.mjs';
 import { startBrandEvidenceScheduler } from '../lib/brand-evidence/scheduler.mjs';
 import { gatewayEnvironment } from '../lib/brand-evidence/gateway-environment.mjs';
@@ -123,11 +124,13 @@ if (command === 'status') {
   const brandEvidenceStore = new BrandEvidenceStore({
     databasePath: process.env.SITE_HEALTH_BRAND_EVIDENCE_DB || defaultBrandEvidencePath(),
   });
+  const appStoreStore = new AppStoreStore({ ...(process.env.SITE_HEALTH_APP_STORE_DB ? { databasePath: process.env.SITE_HEALTH_APP_STORE_DB } : {}) });
   const brandEvidenceEnv = gatewayEnvironment();
   const brandScheduler = startBrandEvidenceScheduler({ store: brandEvidenceStore, projectsProvider, env: brandEvidenceEnv });
   const server = await startDashboardService({
     store,
     brandEvidenceStore,
+    appStoreStore,
     brandEvidenceEnv,
     port,
     prewarmProjection: true,
@@ -138,10 +141,15 @@ if (command === 'status') {
     projectsProvider,
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
-  const startupPrefill = process.env.SITE_HEALTH_STARTUP_PREFILL === '0'
-    ? { sources: [] } : prefillEvidence({ force: process.env.SITE_HEALTH_OWNER_HOST !== '1' });
-  const startupRefresh = startupPrefill.sources;
-  console.log(`Evidence startup: ${startupRefresh.map((item) => `${item.family}=${item.action}`).join(', ')}`);
+  try {
+    const startupPrefill = process.env.SITE_HEALTH_STARTUP_PREFILL === '0'
+      ? { sources: [] } : prefillEvidence({ force: process.env.SITE_HEALTH_OWNER_HOST !== '1' });
+    console.log(`Evidence startup: ${startupPrefill.sources.map((item) => `${item.family}=${item.action}`).join(', ')}`);
+  } catch (error) {
+    // An unavailable portfolio snapshot must not kill independent owner features.
+    // A failed initial refresh is logged; projection health tracks snapshot rebuilds.
+    console.error(`Evidence startup unavailable: ${error.message}`);
+  }
   // Idempotent, and never allowed to throw: it also runs on `exit`, by which
   // point the store may already be closed.
   const abandonInFlightRuns = () => {
@@ -163,6 +171,7 @@ if (command === 'status') {
       await brandsStopped;
       store.close();
       brandEvidenceStore.close();
+      appStoreStore.close();
     });
   };
   process.on('SIGINT', shutdown);

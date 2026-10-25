@@ -4,7 +4,7 @@ This repository contains one product: Site Health and its backend.
 
 ## Product boundary
 
-- The five product areas are Projects, Domains, Performance, Google Search,
+- The five product areas are Projects, Domains, Performance, SEO (web and App Store),
   and AI Awareness.
 - Keep the UI under `apps/web/`.
 - Keep its backend, evidence adapters, storage, and internal AI engine under

@@ -1,0 +1,10 @@
+---
+import DashboardLayout from "../../components/DashboardLayout.astro";
+import SeoNav from "../../components/SeoNav.astro";
+import ResearchApp from "../../features/app-store/App.tsx";
+import "../../features/app-store/style.css";
+---
+<DashboardLayout title="App Store SEO" description="Compare keywords across Apple storefronts, inspect competitors and prepare localized listing drafts." active="search" view="app-store" showProjectScope={false} loadDashboardEvidence={false}>
+  <SeoNav active="app-store" />
+  <ResearchApp client:only="react"><p slot="fallback">Opening your local App Store SEO workspace…</p></ResearchApp>
+</DashboardLayout>

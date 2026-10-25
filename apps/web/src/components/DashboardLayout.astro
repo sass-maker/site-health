@@ -9,7 +9,7 @@ interface Props {
   description: string;
   active: "domains" | "search" | "ai-awareness" | "performance" | "projects";
   eyebrow?: string;
-  view?: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "project";
+  view?: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "project" | "app-store";
   projectId?: string;
   showProjectScope?: boolean;
   loadDashboardEvidence?: boolean;
@@ -17,7 +17,7 @@ interface Props {
 
 const { title, description, active, eyebrow = "Site Health evidence", view, projectId, showProjectScope = true, loadDashboardEvidence = true } = Astro.props;
 const filterable = showProjectScope && !["project", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
-const directoryView = ["domains", "search", "ai-awareness", "performance", "projects"].includes(view ?? "");
+const directoryView = ["domains", "search", "ai-awareness", "performance", "projects", "app-store"].includes(view ?? "");
 // The footer artwork is private-intended and never committed: it lives at the
 // gitignored apps/web/public/footer-art/site-health.webp on the owner's machine.
 // Fresh clones and CI build without it, so the footer renders its no-art layout

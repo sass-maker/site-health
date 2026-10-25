@@ -219,7 +219,17 @@ function searchProjectsFor(catalog, configRoot) {
   const queries = readJson(resolve(configRoot, 'root-search-queries.json'));
   if (!brands || !queries) return visibilityProjects(catalog);
   const brandMap = validateRootBrandContract(brands, catalog.projects ?? []);
-  const roots = validateRootSearchQueryContract(queries, brandMap, catalog.projects ?? []);
+  // Retired, domainless projects may keep historical query policy. Do not revive
+  // them as current targets or let that history prevent unrelated views loading.
+  const projects = catalog.projects ?? [];
+  const excluded = new Set((Array.isArray(queries.roots) ? queries.roots : []).filter((root) => {
+    const owner = projects.find((project) => project.id === root.projectId);
+    return owner?.status === 'retired' && owner.lifecycle?.status === 'inactive' &&
+      !(owner.domains ?? []).length && !projects.some((project) => (project.domains ?? []).includes(root.rootDomain));
+  }).map((root) => root.rootDomain));
+  const currentBrands = new Map([...brandMap].filter(([domain]) => !excluded.has(domain)));
+  const currentQueries = excluded.size ? { ...queries, roots: queries.roots.filter((root) => !excluded.has(root.rootDomain)) } : queries;
+  const roots = validateRootSearchQueryContract(currentQueries, currentBrands, projects);
   return searchConsoleProjects(catalog, roots);
 }
 
