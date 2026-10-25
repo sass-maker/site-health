@@ -14,7 +14,7 @@ async function host(t, options={}) {
   let calls=0;
   const server=await startDashboardService({store,appStoreStore,port:0,trustLoopback:true,visibilityPortfolio:{eligible:[],scheduleIntent:{enabled:false}},projectsProvider:()=>[],brandEvidenceEnv:{}, brandEvidenceFetch:async()=>{calls++; return Response.json({resultCount:1,results:[providerApp]});},...options});
   t.after(()=>new Promise(resolve=>server.close(()=>{store.close();appStoreStore.close();resolve();})));
-  return {base:`http://127.0.0.1:${server.address().port}/v1/seo/app-store`,appStoreStore,calls:()=>calls};
+  return {base:`http://127.0.0.1:${server.address().port}/v1/seo/app-store`,dashboardStore:store,appStoreStore,calls:()=>calls};
 }
 const post=(body={})=>({method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});
 test('host owner gate protects all provider requests before spending allowance',async t=>{
@@ -79,4 +79,29 @@ test('projection health follows later provider failure and successful recovery',
   failing = false;
   assert.equal((await fetch(base + '/v1/projections/rebuild', post())).status, 200);
   assert.equal((await (await fetch(base + '/health')).json()).projection, 'available');
+});
+
+test('projection health follows catalog and store snapshot failures without blocking independent SEO', async t => {
+  let missingCatalog = false;
+  const h = await host(t, { prewarmProjection: true, projectsProvider: () => {
+    if (missingCatalog) throw new Error('catalog unavailable');
+    return [];
+  }, projectionProvider: () => ({ schemaVersion: 'dashboard.projection.v1', outcomes: {} }) });
+  const base = h.base.replace('/v1/seo/app-store', '');
+  const health = async () => (await (await fetch(base + '/health')).json()).projection;
+  assert.equal(await health(), 'available');
+  missingCatalog = true;
+  assert.equal((await fetch(base + '/v1/projections/rebuild', post())).status, 500);
+  assert.equal(await health(), 'unavailable');
+  assert.equal((await fetch(h.base + '/status')).status, 200);
+  missingCatalog = false;
+  assert.equal((await fetch(base + '/v1/projections/rebuild', post())).status, 200);
+  assert.equal(await health(), 'available');
+  const rebuild = h.dashboardStore.rebuildProjections.bind(h.dashboardStore);
+  h.dashboardStore.rebuildProjections = () => { throw new Error('snapshot unavailable'); };
+  assert.equal((await fetch(base + '/v1/outcomes/search')).status, 500);
+  assert.equal(await health(), 'unavailable');
+  h.dashboardStore.rebuildProjections = rebuild;
+  assert.equal((await fetch(base + '/v1/projections/rebuild', post())).status, 200);
+  assert.equal(await health(), 'available');
 });

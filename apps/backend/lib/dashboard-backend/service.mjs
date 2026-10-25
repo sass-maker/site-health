@@ -268,7 +268,16 @@ export function createDashboardHandler({
       if (run.state !== 'running') projectionCache = null;
     },
   });
-  const rebuildDashboardProjection = (projections = projectionFor(store)) => {
+  const readCurrentProjections = () => {
+    try {
+      store.projects = projectsProvider();
+      return projectionFor(store);
+    } catch (error) {
+      projectionState = 'unavailable';
+      throw error;
+    }
+  };
+  const rebuildDashboardProjection = (projections = readCurrentProjections()) => {
     try {
       const aiVisibility = buildAiVisibilityProjection(
         projections,
@@ -385,7 +394,7 @@ export function createDashboardHandler({
   };
   const handleProjectionMutations = async (url, method, response) => {
     if (method === 'POST' && url.pathname === '/v1/projections/rebuild') {
-      const rebuilt = projectionFor(store);
+      const rebuilt = readCurrentProjections();
       rebuildDashboardProjection(rebuilt);
       return json(response, 200, rebuilt);
     }
@@ -406,8 +415,7 @@ export function createDashboardHandler({
         if (await appStoreRoutes.handle(url, method, request, response, { json, readBody })) return;
         return json(response, 404, { error: 'route not found' });
       }
-      store.projects = projectsProvider();
-      const projections = projectionFor(store);
+      const projections = readCurrentProjections();
       if (method === 'GET' && handleProjectionReadRoutes(url, projections, response)) return;
       if (method === 'GET' && brandEvidenceRoutes.read(url, store.projects ?? [], response, json)) return;
 
