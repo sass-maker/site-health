@@ -11810,9 +11810,9 @@
     "motion": {
       "source": {
         "state": "available",
-        "path": "../fleet-archive/motion",
-        "revision": "11041e80c36cda28703a5f3e48b488f2fe07a4b8",
-        "repositorySlug": "Significant-Hobbies/motion",
+        "path": "motion",
+        "revision": "297a82fce15ccc61c3bcc8fda182912bc28c84f8",
+        "repositorySlug": "sarthakagrawal927/motion",
         "worktree": {
           "state": "clean",
           "trackedChangeCount": 0,
@@ -11821,8 +11821,8 @@
       },
       "history": {
         "firstCommitAt": "2026-07-18",
-        "latestCommitAt": "2026-10-09",
-        "retainedCommitCount": 102,
+        "latestCommitAt": "2026-10-25",
+        "retainedCommitCount": 122,
         "historyCompleteness": "complete",
         "reason": null
       },
@@ -11841,23 +11841,23 @@
             "remote": true
           },
           "ownerDisposition": {
-            "status": "active",
-            "reason": "tracked workflow"
+            "status": "ignored",
+            "reason": "Motion was reactivated on 2026-10-25; this system policy remains inactive pending explicit requalification. Prior policy is preserved in retainedFields.ownerRetirement.previousSystems."
           },
           "live": {
-            "health": "healthy",
-            "reason": "latest run concluded success",
+            "health": "failing",
+            "reason": "latest run concluded failure",
             "apiState": "active",
             "lastRun": {
-              "id": 37842756037,
+              "id": 40176822231,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "failure",
               "event": "push",
               "branch": "main",
-              "headSha": "11041e80c36cda28703a5f3e48b488f2fe07a4b8",
-              "createdAt": "2026-10-08T20:53:05Z",
-              "updatedAt": "2026-10-08T20:54:59Z",
-              "url": "https://github.com/Significant-Hobbies/motion/actions/runs/37842756037"
+              "headSha": "297a82fce15ccc61c3bcc8fda182912bc28c84f8",
+              "createdAt": "2026-10-25T08:29:31Z",
+              "updatedAt": "2026-10-25T08:38:15Z",
+              "url": "https://github.com/sarthakagrawal927/motion/actions/runs/40176822231"
             },
             "ageDays": 0
           },
@@ -11867,22 +11867,22 @@
             "lastRun": null
           },
           "currentDefaultBranch": {
-            "health": "healthy",
-            "reason": "current main push concluded success",
+            "health": "failing",
+            "reason": "current main push concluded failure",
             "lastRun": {
-              "id": 37842756037,
+              "id": 40176822231,
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "failure",
               "event": "push",
               "branch": "main",
-              "headSha": "11041e80c36cda28703a5f3e48b488f2fe07a4b8",
-              "createdAt": "2026-10-08T20:53:05Z",
-              "updatedAt": "2026-10-08T20:54:59Z",
-              "url": "https://github.com/Significant-Hobbies/motion/actions/runs/37842756037"
+              "headSha": "297a82fce15ccc61c3bcc8fda182912bc28c84f8",
+              "createdAt": "2026-10-25T08:29:31Z",
+              "updatedAt": "2026-10-25T08:38:15Z",
+              "url": "https://github.com/sarthakagrawal927/motion/actions/runs/40176822231"
             },
             "ageDays": 0
           },
-          "attention": "clear"
+          "attention": "ignored"
         }
       ],
       "toolingSignals": [
@@ -11946,17 +11946,20 @@
         "typecheck"
       ],
       "projectId": "motion",
+      "observedAt": "2026-10-25",
       "githubActionsMeta": {
-        "repository": "Significant-Hobbies/motion",
+        "repository": "sarthakagrawal927/motion",
         "defaultBranch": "main",
-        "defaultBranchSha": "11041e80c36cda28703a5f3e48b488f2fe07a4b8",
+        "defaultBranchSha": "297a82fce15ccc61c3bcc8fda182912bc28c84f8",
         "homepage": "https://motion.significanthobbies.com",
         "query": "verified",
         "disposition": {
-          "disposition": "active",
-          "reason": "tracked project"
+          "disposition": "ignored",
+          "reason": "Motion was reactivated on 2026-10-25; this system policy remains inactive pending explicit requalification. Prior policy is preserved in retainedFields.ownerRetirement.previousSystems."
         }
-      }
+      },
+      "githubObservedAt": "2026-10-25T09:31:21.354Z",
+      "historyObservedAt": "2026-10-25"
     },
     "truehire": {
       "projectId": "truehire",
