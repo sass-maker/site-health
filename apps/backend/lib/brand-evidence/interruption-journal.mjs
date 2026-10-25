@@ -18,11 +18,12 @@ export function interruptionRecord(collections, checks, interruptedAt = new Date
 }
 
 export function writeInterruptionJournal(databasePath, record) {
-  if (databasePath === ':memory:') return;
+  if (databasePath === ':memory:') return false;
   const path = join(dirname(databasePath), `${prefix(databasePath)}${randomUUID()}.json`);
   const file = openSync(path, constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW, 0o600);
   try { writeFileSync(file, JSON.stringify(record)); fsyncSync(file); }
   finally { closeSync(file); }
+  return true;
 }
 
 export function readInterruptionJournals(databasePath) {

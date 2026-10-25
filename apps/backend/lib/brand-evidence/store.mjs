@@ -239,6 +239,7 @@ export class BrandEvidenceStore {
     this.activeChecks = new Set();
     this.stopping = false;
     this.interruptAttempted = false;
+    this.interruptJournaled = false;
     this.shutdownController = new AbortController();
     this.databasePath = databasePath;
     if (databasePath !== ':memory:') mkdirSync(dirname(databasePath), { recursive: true, mode: 0o700 });
@@ -267,7 +268,7 @@ export class BrandEvidenceStore {
     const record = interruptionRecord([...this.activeCollections], [...this.activeChecks], normalizeTimestamp(now));
     try { this.interruptOwnedRecords([record]); }
     catch (error) {
-      try { writeInterruptionJournal(this.databasePath, record); }
+      try { this.interruptJournaled = writeInterruptionJournal(this.databasePath, record); }
       catch (journalError) { console.error(`Could not journal interrupted brand evidence: ${journalError.message}`); }
       throw error;
     }

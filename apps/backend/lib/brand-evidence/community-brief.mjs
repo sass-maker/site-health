@@ -232,6 +232,8 @@ export async function prepareCommunityBrief({
     }, now());
   } catch (error) {
     return store.saveCommunityBrief(projectId, { ...progress, status: 'unavailable',
-      message: `${error instanceof SyntaxError ? 'Model returned invalid JSON' : safeProviderError(error)}. Website evidence is retained; retry when the model connection is available.` }, now());
+      message: store.stopping || store.shutdownController.signal.aborted
+        ? 'Interrupted during backend shutdown; retry. Website evidence is retained.'
+        : `${error instanceof SyntaxError ? 'Model returned invalid JSON' : safeProviderError(error)}. Website evidence is retained; retry when the model connection is available.` }, now());
   } finally { await collector.close(); }
 }

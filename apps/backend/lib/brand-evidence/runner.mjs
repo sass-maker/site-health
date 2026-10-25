@@ -154,7 +154,9 @@ export async function runApiModelCheck({
       status: 'failed', checkId, attempted: Math.max(check.attempted, completed + failed),
       completed: Math.max(check.completed, completed), failed: Math.max(check.failed, failed),
       mentionRate: completed ? mentioned / completed : check.mentionRate,
-      summary: 'Interrupted during backend shutdown; recovery journal pending',
+      summary: store.interruptJournaled
+        ? 'Interrupted during backend shutdown; recovery journal pending'
+        : 'Interrupted during backend shutdown; recovery could not be recorded',
     };
     return { status: check.status, checkId, attempted: check.attempted, completed: check.completed,
       failed: check.failed, mentionRate: check.mentionRate, summary: check.summary };

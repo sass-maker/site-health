@@ -105,6 +105,43 @@ test('missing model and blocked Reddit remain explicit and never produce invente
   } finally { store.close(); }
 });
 
+test('shutdown during analysis retains website evidence and labels the brief interrupted', { timeout: 5_000 }, async () => {
+  const store = new BrandEvidenceStore({ databasePath: ':memory:' });
+  let started;
+  const analyzing = new Promise((resolve) => { started = resolve; });
+  let requests = 0;
+  let aborted = false;
+  const running = prepareCommunityBrief({
+    store, projectId: 'alpha', url: 'https://alpha.example', env: { AI_GATEWAY_API_KEY: 'fixture' },
+    collectorFactory: factory, now,
+    fetchImpl: async (_url, options) => {
+      requests++;
+      started();
+      return new Promise((_resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error('Fixture provider did not abort')), 2_000);
+        const abort = () => { aborted = true; clearTimeout(timer); reject(new DOMException('Aborted', 'AbortError')); };
+        if (options.signal.aborted) abort(); else options.signal.addEventListener('abort', abort, { once: true });
+      });
+    },
+  });
+  try {
+    await analyzing;
+    assert.equal(store.activeCollections.size, 0);
+    store.stopOwnedWork(now());
+    const brief = await running;
+    assert.equal(aborted, true);
+    assert.equal(requests, 1);
+    assert.equal(brief.status, 'unavailable');
+    assert.equal(brief.message, 'Interrupted during backend shutdown; retry. Website evidence is retained.');
+    assert.equal(brief.website.title, 'Alphatool');
+    assert.equal(store.listCommunityBriefs('alpha')[0].message, brief.message);
+    assert.equal(store.listCollections('alpha')[0].status, 'completed');
+    assert.equal(store.getProfile('alpha'), null);
+    assert.equal(store.listPrompts('alpha').length, 0);
+    assert.equal(brief.drafts.length, 0);
+  } finally { store.close(); }
+});
+
 test('generated destinations and public website policies reject unrelated or private targets', async () => {
   assert.equal(normalizeProductAnalysis({ ...analysis, communities: [{ name: 'https://malicious.example', reason: 'x' }] }).communities.length, 0);
   assert.deepEqual(normalizeDrafts({ posts: [{ subreddit: 'unknown', title: 'x', body: 'x' }], comments: [{ threadId: 'x', body: 'x' }] }, [], []), []);

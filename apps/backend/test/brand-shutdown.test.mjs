@@ -192,7 +192,7 @@ test('ownership admission fits one bounded interruption journal', () => {
   } finally { store.close(); }
 });
 
-test('shutdown aborts an in-flight provider and reports failure while journal recovery is pending', { timeout: 10_000 }, async () => {
+for (const journalAvailable of [true, false]) test(`shutdown aborts an in-flight provider and reports whether recovery was journaled (${journalAvailable})`, { timeout: 10_000 }, async (t) => {
   const databasePath = join(mkdtempSync(join(tmpdir(), 'brand-abort-')), 'evidence.sqlite');
   const store = new BrandEvidenceStore({ databasePath });
   store.saveProfile('alpha', { brandName: 'Alpha', brandUrl: 'https://alpha.example' });
@@ -220,12 +220,26 @@ test('shutdown aborts an in-flight provider and reports failure while journal re
   const writer = new DatabaseSync(databasePath);
   writer.exec('BEGIN IMMEDIATE');
   try {
+    const errors = [];
+    if (!journalAvailable) {
+      t.mock.method(console, 'error', (message) => errors.push(message));
+      store.databasePath = join(databasePath, 'not-a-directory.sqlite'); // Force an actual journal open failure.
+    }
     assert.throws(() => store.stopOwnedWork(now), /locked/);
+    store.databasePath = databasePath;
     const result = await running;
     assert.equal(aborted, true);
     assert.equal(calls, 2);
     assert.equal(result.status, 'failed');
-    assert.match(result.summary, /Interrupted.*journal pending/);
+    assert.equal(store.interruptJournaled, journalAvailable);
+    if (journalAvailable) assert.match(result.summary, /Interrupted.*journal pending/);
+    else {
+      assert.match(result.summary, /Interrupted.*recovery could not be recorded/);
+      assert.doesNotMatch(result.summary, /journal pending/);
+      assert.equal(errors.length, 1);
+      assert.match(errors[0], /Could not journal interrupted brand evidence/);
+      assert.equal(readdirSync(join(databasePath, '..')).some((name) => name.startsWith('.evidence.sqlite.interrupted-')), false);
+    }
     assert.deepEqual([result.attempted, result.completed, result.failed, result.mentionRate], [1, 1, 0, 1]);
     assert.equal(store.getCheck(result.checkId).status, 'running');
     assert.equal(store.listObservations('alpha').length, 1);
@@ -234,8 +248,9 @@ test('shutdown aborts an in-flight provider and reports failure while journal re
     const recovered = new BrandEvidenceStore({ databasePath });
     try {
       const check = recovered.getCheck(result.checkId);
-      assert.equal(check.status, 'failed');
-      assert.deepEqual([check.attempted, check.completed, check.failed, check.mentionRate], [1, 1, 0, 1]);
+      assert.equal(check.status, journalAvailable ? 'failed' : 'running');
+      assert.deepEqual([check.attempted, check.completed, check.failed, check.mentionRate], journalAvailable ? [1, 1, 0, 1] : [0, 0, 0, null]);
+      assert.equal(recovered.listObservations('alpha').length, 1);
     }
     finally { recovered.close(); }
   } finally {
