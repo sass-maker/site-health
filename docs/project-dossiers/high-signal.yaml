@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 3ef347d7dc1b5eb644dfd9e3d6189b576fda69bc21e6ca1f30a2a98dda6a8ac2
-      infrastructureUpdatedAt: 2026-10-23
+      sha256: c29eaa984a58273e75b4b5d368912a7ea4b5df071d6fd0d3a56bd21bee7efc62
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: High Signal
@@ -1202,14 +1202,17 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-23T15:46:47.620266+00:00
-          sourceCommit: 1a8ec663337c1ed293590ecbea46e8c0d37d3da2
-          versionId: d3780b98-aad3-4ea2-9153-5885b32ebe35
-          exactMainCi: 39977907948
-          deployWorkflow: 39979101284
-          state: publisher-success-and-live-reader-verified
-          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/fleet-release-final-20261023/highsignal-provider-final-20261023
-          scope: Separate owner-directed PR264 release. Exact-main CI and both production publishers pass; each version ID is reported by its successful publisher. The public reader-build endpoint identifies the full web source, and the current October 23/global Astro reader HTML returns 200. Reader publication 39979607806 initially withheld unavailable source data; one retry then captured, rendered and published all 20 variants before promoting the pointer. Independent provider traffic and deployment metadata could not be refreshed because non-interactive Wrangler authentication is unavailable; this record makes no 100 percent traffic claim. The last independent provider identity at 690cd63 is retained separately. Earlier footer and latency proofs remain historical. Full 24-hour final-source acceptance cannot end before October 24 at 15:37:07 UTC and still requires actual natural-traffic evidence.
+          observedAt: 2026-10-25T08:22:47.375049+00:00
+          deploymentId: 9d7c5900-6eb8-4c33-a130-0796b66f3eea
+          versionId: 480c4cc0-0462-4f6d-be7b-02d719b89e3e
+          sourceCommit: 3734f8d31462e6472a8b22e36d96da802851631d
+          createdOn: 2026-10-25T08:16:57.531143Z
+          trafficPercent: 100
+          exactMainCi: 40174829660
+          deployWorkflow: 40175700118
+          state: provider-identity-and-tablet-source-layout-verified
+          evidencePath: ../high-signal/.fleet-local/issue-288-tablet-20261025/production-verification.json
+          scope: PR298 fixes provider/run-status flex sizing in the source directory. Exact PR/main CI and six release guards pass; existing web publisher and smoke checks pass. Independent provider reads confirm this full SHA at100%. Actual shipped57source rows fit390/640/767/768/820/1024/1440, phone/tablet/desktop renders reviewed; dated Digg navigation passes. Source delta against pre-release273df739 changes only apps/web/src/app/data/page.tsx. Previous61ce81f2 is retained for rollback. Source288 is closed after production acceptance. This is web-only bounded layout proof; ingestion/public-Signal, natural cache-hit/latency, user outcomes and Measurement acceptance remain separate.
         verificationHistory:
           - observedAt: 2026-10-02T09:48:55.244Z
             versionId: c340a1a0-8bba-4e76-bfe9-9da4e6e20f1b
@@ -1250,6 +1253,23 @@ deployment:
             state: provider-identity-and-footer-capture-retry-verified
             evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/highsignal-production-summary.json
             scope: "PR262 publishes the reviewed footer retry/consent controller in both Next and Astro layouts, with a scoped Send hover foreground fix. Full exact-main CI and existing web publisher pass, including actual reader and persisted-ISR restart gates. Live390/768/1440 lost-response retries produce3feedback records plus1newsletter subscription,4receipts and4unique matching events/feed entries; all QA records cleaned, receipts retained. Six feedback renders reviewed; settled enabled-Send hover contrast12.39:1 at all3widths. Web only: no API/cache policy release or natural traffic95%/latency qualification. Complete final-source24h acceptance cannot end before2026-10-24T01:38:14.118667Z."
+          - observedAt: 2026-10-23T15:46:47.620266+00:00
+            sourceCommit: 1a8ec663337c1ed293590ecbea46e8c0d37d3da2
+            versionId: d3780b98-aad3-4ea2-9153-5885b32ebe35
+            exactMainCi: 39977907948
+            deployWorkflow: 39979101284
+            state: publisher-success-and-live-reader-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/fleet-release-final-20261023/highsignal-provider-final-20261023
+            scope: Separate owner-directed PR264 release. Exact-main CI and both production publishers pass; each version ID is reported by its successful publisher. The public reader-build endpoint identifies the full web source, and the current October 23/global Astro reader HTML returns 200. Reader publication 39979607806 initially withheld unavailable source data; one retry then captured, rendered and published all 20 variants before promoting the pointer. Independent provider traffic and deployment metadata could not be refreshed because non-interactive Wrangler authentication is unavailable; this record makes no 100 percent traffic claim. The last independent provider identity at 690cd63 is retained separately. Earlier footer and latency proofs remain historical. Full 24-hour final-source acceptance cannot end before October 24 at 15:37:07 UTC and still requires actual natural-traffic evidence.
+          - observedAt: 2026-10-25T08:11:13.262311+00:00
+            deploymentId: d018f44b-de5a-4c65-95dc-26e1ab4b0482
+            versionId: 61ce81f2-a1c3-464c-89bf-4efa4e276f58
+            sourceCommit: 273df73955591fe244e46d5f41f33de87e97e251
+            createdOn: 2026-10-24T14:51:49.012982Z
+            trafficPercent: 100
+            state: pre-release-provider-identity-verified
+            evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/priority-queue-2026-10-25/web-before-deployments.json
+            scope: Read-only pre-release Worker deployment/version verification; rollback retained.
       - provider: cloudflare
         kind: worker
         name: high-signal-api
