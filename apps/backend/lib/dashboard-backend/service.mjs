@@ -52,6 +52,21 @@ function mutationAuthorized(
   return false;
 }
 
+function browserMutationError(request) {
+  const origin = request.headers.origin;
+  const site = request.headers['sec-fetch-site'];
+  if (site && !['same-origin', 'same-site', 'none'].includes(site)) return [403, 'Cross-site mutations are not allowed'];
+  if (origin) {
+    let url;
+    try { url = new URL(origin); } catch { return [403, 'Unknown dashboard origin']; }
+    if (url.protocol !== 'http:' || !['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname)) return [403, 'Unknown dashboard origin'];
+  }
+  if ((origin || site) && request.headers['content-type']?.split(';')[0].trim().toLowerCase() !== 'application/json') {
+    return [415, 'Browser mutations require application/json'];
+  }
+  return null;
+}
+
 async function readBody(request) {
   const chunks = [];
   let size = 0;
@@ -368,6 +383,8 @@ export function createDashboardHandler({
       const url = new URL(request.url, 'http://dashboard.local');
       const method = request.method ?? 'GET';
       if (handleEarlyRoutes(url, method, response)) return;
+      const browserError = method !== 'GET' ? browserMutationError(request) : null;
+      if (browserError) return json(response, browserError[0], { error: browserError[1] });
 
       store.projects = projectsProvider();
       const projections = projectionFor(store);

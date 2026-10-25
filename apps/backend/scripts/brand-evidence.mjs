@@ -12,8 +12,8 @@ import {
   revertTransfer,
   verifyTransfer,
 } from '../lib/brand-evidence/mentionpilot-transfer.mjs';
-import { assertKnownProject, dueProjects, runApiModelCheck } from '../lib/brand-evidence/runner.mjs';
-import { dueCommunityProjects, refreshBrandEvidence } from '../lib/brand-evidence/scheduler.mjs';
+import { assertKnownProject, runApiModelCheck } from '../lib/brand-evidence/runner.mjs';
+import { dueBrandProjects, refreshBrandEvidence } from '../lib/brand-evidence/scheduler.mjs';
 import { gatewayEnvironment } from '../lib/brand-evidence/gateway-environment.mjs';
 import { prepareCommunityBrief } from '../lib/brand-evidence/community-brief.mjs';
 import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evidence/store.mjs';
@@ -100,13 +100,14 @@ try {
   } else if (command === 'due') {
     const current = new Set(projects().filter((project) =>
       ['active', 'primary'].includes(project.lifecycle?.status ?? project.status)).map((project) => project.id));
-    const due = [...new Set([...dueProjects(store), ...dueCommunityProjects(store)])].filter((id) => current.has(id));
+    const scheduled = dueBrandProjects(store).filter(({ projectId }) => current.has(projectId));
+    const due = scheduled.map(({ projectId }) => projectId);
     if (!values.run) {
       print({ due });
     } else {
       const results = [];
-      for (const projectId of due) {
-        results.push(await refreshBrandEvidence({ store, projectId, trigger: 'scheduled', env: modelEnv }));
+      for (const { projectId, scope } of scheduled) {
+        results.push(await refreshBrandEvidence({ store, projectId, scope, trigger: 'scheduled', env: modelEnv }));
       }
       print({ due, results });
     }
