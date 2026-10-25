@@ -59,8 +59,7 @@ function browserMutationError(request) {
   if (origin) {
     let url;
     try { url = new URL(origin); } catch { return [403, 'Unknown dashboard origin']; }
-    if (url.protocol !== 'http:' || !['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname)
-      || !['4321', String(request.socket.localPort)].includes(url.port)) return [403, 'Unknown dashboard origin'];
+    if (url.protocol !== 'http:' || !['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname)) return [403, 'Unknown dashboard origin'];
   }
   if ((origin || site) && request.headers['content-type']?.split(';')[0].trim().toLowerCase() !== 'application/json') {
     return [415, 'Browser mutations require application/json'];

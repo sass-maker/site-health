@@ -249,18 +249,32 @@ export class BrandEvidenceStore {
   }
 
   close() {
-    this.stopOwnedWork();
-    this.database.close();
+    try { this.stopOwnedWork(); }
+    catch (error) { console.error(`Could not interrupt owned brand evidence: ${error.message}`); }
+    finally { this.database.close(); }
   }
 
   stopOwnedWork(now = new Date().toISOString()) {
     this.stopping = true;
-    this.transaction(() => {
+    if (this.activeCollections.size === 0 && this.activeChecks.size === 0) return;
+    const previousTimeout = this.database.prepare('PRAGMA busy_timeout').get().timeout;
+    this.database.exec('PRAGMA busy_timeout = 1000');
+    try { this.transaction(() => {
       const collection = this.database.prepare("UPDATE collection_runs SET status = 'error', error_message = 'Interrupted during backend shutdown', finished_at = ? WHERE id = ? AND status = 'running'");
       for (const id of this.activeCollections) collection.run(now, id);
-      const check = this.database.prepare("UPDATE evidence_checks SET status = 'failed', summary = 'Interrupted during backend shutdown', finished_at = ? WHERE id = ? AND status = 'running'");
-      for (const id of this.activeChecks) check.run(now, id);
-    });
+      const counts = this.database.prepare(`SELECT COUNT(*) AS attempted,
+        SUM(status = 'completed') AS completed, SUM(status != 'completed') AS failed,
+        CASE WHEN SUM(status = 'completed') > 0 THEN CAST(SUM(status = 'completed' AND brand_mentioned = 1) AS REAL) / SUM(status = 'completed') ELSE NULL END AS mentionRate
+        FROM evidence_observations WHERE check_id = ?`);
+      const check = this.database.prepare(`UPDATE evidence_checks SET status = 'failed',
+        attempted = MAX(attempted, ?), completed = MAX(completed, ?), failed = MAX(failed, ?),
+        mention_rate = COALESCE(?, mention_rate), summary = 'Interrupted during backend shutdown', finished_at = ?
+        WHERE id = ? AND status = 'running'`);
+      for (const id of this.activeChecks) {
+        const row = counts.get(id);
+        check.run(row.attempted, row.completed ?? 0, row.failed ?? 0, row.mentionRate, now, id);
+      }
+    }); } finally { this.database.exec(`PRAGMA busy_timeout = ${previousTimeout}`); }
     this.activeCollections.clear();
     this.activeChecks.clear();
   }
@@ -489,6 +503,11 @@ export class BrandEvidenceStore {
       .prepare('SELECT * FROM evidence_checks WHERE project_id = ? ORDER BY started_at DESC, id LIMIT ?')
       .all(projectId, boundedLimit(limit, 20, 200))
       .map(checkRow);
+  }
+
+  getCheck(id) {
+    const row = this.database.prepare('SELECT * FROM evidence_checks WHERE id = ?').get(id);
+    return row ? checkRow(row) : null;
   }
 
   lastCheck(projectId) {

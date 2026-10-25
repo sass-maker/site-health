@@ -155,7 +155,8 @@ if (command === 'status') {
   const shutdown = () => {
     if (stopping) return;
     stopping = true;
-    brandEvidenceStore.stopOwnedWork();
+    try { brandEvidenceStore.stopOwnedWork(); }
+    catch (error) { console.error(`Could not interrupt owned brand evidence: ${error.message}`); }
     const brandsStopped = brandScheduler.stop();
     abandonInFlightRuns();
     server.close(async () => {

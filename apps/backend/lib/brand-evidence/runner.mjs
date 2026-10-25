@@ -110,9 +110,11 @@ export async function runApiModelCheck({
   let failed = 0;
   let mentioned = 0;
   for (const prompt of prompts) {
+    if (store.stopping) break;
     const observedAt = now();
     try {
       const result = await askProvider(source, prompt.promptText, fetchImpl);
+      if (store.stopping) break;
       if (!result.answer.trim()) {
         failed += 1;
         store.recordObservation({
@@ -136,6 +138,7 @@ export async function runApiModelCheck({
       completed += 1;
       if (analysis.brandMentioned) mentioned += 1;
     } catch (error) {
+      if (store.stopping) break;
       failed += 1;
       store.recordObservation({
         projectId, checkId, channel: 'api-model', provider: source.provider, model: source.model,
@@ -143,6 +146,11 @@ export async function runApiModelCheck({
         errorMessage: safeProviderError(error), observedAt,
       });
     }
+  }
+  if (store.stopping) {
+    const check = store.getCheck(checkId);
+    return { status: check.status, checkId, attempted: check.attempted, completed: check.completed,
+      failed: check.failed, mentionRate: check.mentionRate, summary: check.summary };
   }
   const status = completed === 0 ? 'failed' : failed > 0 ? 'partial' : 'completed';
   const mentionRate = completed > 0 ? mentioned / completed : null;

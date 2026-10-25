@@ -117,13 +117,14 @@ test('loopback mutations reject cross-site browser requests and accept dashboard
     { origin: 'https://attacker.example', 'sec-fetch-site': 'cross-site', 'content-type': 'text/plain' },
     { origin: 'https://attacker.example', 'content-type': 'application/json', authorization: 'Bearer test-owner' },
     { 'sec-fetch-site': 'cross-site', 'content-type': 'text/plain' },
-    { origin: 'http://127.0.0.1:9999', 'sec-fetch-site': 'same-site', 'content-type': 'application/json' },
+    { origin: 'http://attacker.localhost.example:9999', 'sec-fetch-site': 'same-site', 'content-type': 'application/json' },
   ]) assert.equal((await fetch(endpoint, { method: 'POST', headers, body: '{}' })).status, 403);
   assert.equal(mutations, 0);
   assert.equal((await fetch(endpoint, { method: 'POST', headers: { origin: 'http://127.0.0.1:4321', 'sec-fetch-site': 'same-origin', 'content-type': 'text/plain' }, body: '{}' })).status, 415);
   assert.equal((await fetch(endpoint, { method: 'POST', headers: { origin: 'http://127.0.0.1:4321', 'sec-fetch-site': 'same-origin', 'content-type': 'application/json' }, body: '{}' })).status, 202);
   assert.equal((await fetch(endpoint, { method: 'POST', headers: { authorization: 'Bearer test-owner', 'content-type': 'application/json' }, body: '{}' })).status, 202);
-  assert.equal(mutations, 2);
+  assert.equal((await fetch(endpoint, { method: 'POST', headers: { origin: 'http://127.0.0.1:9999', 'sec-fetch-site': 'same-site', 'content-type': 'application/json' }, body: '{}' })).status, 202);
+  assert.equal(mutations, 3);
   const bearer = await startDashboardService({
     store, port: 0, trustLoopback: false, ownerToken: 'test-owner',
     projectionProvider: () => projection,

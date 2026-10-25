@@ -2,9 +2,11 @@ import assert from 'node:assert/strict';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { DatabaseSync } from 'node:sqlite';
 import test from 'node:test';
 import { BrandEvidenceStore } from '../lib/brand-evidence/store.mjs';
 import { dueBrandProjects } from '../lib/brand-evidence/scheduler.mjs';
+import { runApiModelCheck } from '../lib/brand-evidence/runner.mjs';
 
 const now = '2026-10-25T12:00:00.000Z';
 const completed = { status: 'completed', attempted: 1, completed: 1, failed: 0, mentionRate: 0, summary: 'Completed', finishedAt: now };
@@ -62,4 +64,65 @@ test('shared due-project plan separates API-only, community-only and both scopes
       api: 'api', both: 'all', community: 'community',
     });
   } finally { store.close(); }
+});
+
+for (const lateStatus of [200, 503]) test(`shutdown during a provider request (${lateStatus}) preserves prior results and stops later work`, async () => {
+  const store = new BrandEvidenceStore({ databasePath: ':memory:' });
+  store.saveProfile('alpha', { brandName: 'Alpha', brandUrl: 'https://alpha.example' });
+  for (const prompt of ['first', 'second', 'third']) store.addPrompt('alpha', prompt);
+  let started;
+  const secondStarted = new Promise((resolve) => { started = resolve; });
+  let release;
+  const pending = new Promise((resolve) => { release = resolve; });
+  let calls = 0;
+  const running = runApiModelCheck({
+    store, projectId: 'alpha', env: { AI_GATEWAY_API_KEY: 'synthetic-test-key' }, now: () => now,
+    fetchImpl: async () => {
+      calls++;
+      if (calls === 2) { started(); await pending; }
+      if (calls === 2 && lateStatus === 503) return new Response('{}', { status: 503, headers: { 'content-type': 'application/json' } });
+      return new Response(JSON.stringify({ id: 'fixture', object: 'chat.completion', created: 1, model: 'auto',
+        choices: [{ index: 0, finish_reason: 'stop', message: { role: 'assistant', content: 'Alpha https://alpha.example' } }],
+      }), { headers: { 'content-type': 'application/json' } });
+    },
+  });
+  try {
+    await secondStarted;
+    assert.equal(store.listObservations('alpha').length, 1);
+    store.stopOwnedWork(now);
+    release();
+    const result = await running;
+    const persisted = store.getCheck(result.checkId);
+    assert.equal(result.status, 'failed');
+    assert.equal(result.status, persisted.status);
+    assert.deepEqual([result.attempted, result.completed, result.failed, result.mentionRate], [1, 1, 0, 1]);
+    assert.match(result.summary, /Interrupted/);
+    assert.equal(calls, 2);
+    assert.equal(store.listObservations('alpha').length, 1);
+    assert.equal(persisted.finishedAt, now);
+  } finally { release(); await running; store.close(); }
+});
+
+test('shutdown avoids empty writes, bounds lock contention and always closes its connection', { timeout: 10_000 }, (t) => {
+  const databasePath = join(mkdtempSync(join(tmpdir(), 'brand-lock-')), 'evidence.sqlite');
+  const active = new BrandEvidenceStore({ databasePath });
+  active.saveProfile('alpha', { brandName: 'Alpha' });
+  active.startCollection('alpha', 'reddit', 'alpha', now);
+  const empty = new BrandEvidenceStore({ databasePath });
+  const writer = new DatabaseSync(databasePath);
+  const logs = [];
+  t.mock.method(console, 'error', (message) => logs.push(message));
+  writer.exec('BEGIN IMMEDIATE');
+  try {
+    const fast = Date.now();
+    empty.stopOwnedWork(now);
+    assert.ok(Date.now() - fast < 500, 'empty shutdown tried to acquire the other writer’s lock');
+    const started = Date.now();
+    assert.throws(() => active.stopOwnedWork(now), /locked/);
+    assert.ok(Date.now() - started < 2_500, 'shutdown write exceeded the supervisor grace budget');
+    assert.equal(active.database.prepare('PRAGMA busy_timeout').get().timeout, 5_000);
+    active.close();
+    assert.match(logs.join('\n'), /Could not interrupt owned brand evidence.*locked/);
+    assert.throws(() => active.database.prepare('SELECT 1'), /not open|closed/);
+  } finally { writer.exec('ROLLBACK'); writer.close(); empty.close(); }
 });
