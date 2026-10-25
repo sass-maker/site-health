@@ -64,3 +64,19 @@ test('unavailable portfolio projection does not block independent App Store SEO 
   const r=await fetch(h.base+'/lookup?id=123&country=us&platform=ios',post());assert.equal(r.status,200);assert.equal((await r.json()).apps[0].id,'123');
   const search=await fetch(h.base.replace('/v1/seo/app-store','')+'/v1/outcomes/search');assert.equal(search.status,500);assert.match((await search.json()).error,/catalog projection unavailable/);
 });
+
+test('projection health follows later provider failure and successful recovery', async t => {
+  let failing = false;
+  const h = await host(t, { prewarmProjection: true, projectionProvider: () => {
+    if (failing) throw new Error('provider unavailable');
+    return { schemaVersion: 'dashboard.projection.v1', outcomes: {} };
+  }});
+  const base = h.base.replace('/v1/seo/app-store', '');
+  assert.equal((await (await fetch(base + '/health')).json()).projection, 'available');
+  failing = true;
+  assert.equal((await fetch(base + '/v1/projections/rebuild', post())).status, 500);
+  assert.equal((await (await fetch(base + '/health')).json()).projection, 'unavailable');
+  failing = false;
+  assert.equal((await fetch(base + '/v1/projections/rebuild', post())).status, 200);
+  assert.equal((await (await fetch(base + '/health')).json()).projection, 'available');
+});

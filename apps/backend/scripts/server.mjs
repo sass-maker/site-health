@@ -147,7 +147,7 @@ if (command === 'status') {
     console.log(`Evidence startup: ${startupPrefill.sources.map((item) => `${item.family}=${item.action}`).join(', ')}`);
   } catch (error) {
     // An unavailable portfolio snapshot must not kill independent owner features.
-    // Projection routes keep their explicit errors and /health reports the gap.
+    // A failed initial refresh is logged; projection health tracks snapshot rebuilds.
     console.error(`Evidence startup unavailable: ${error.message}`);
   }
   // Idempotent, and never allowed to throw: it also runs on `exit`, by which

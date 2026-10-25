@@ -269,18 +269,23 @@ export function createDashboardHandler({
     },
   });
   const rebuildDashboardProjection = (projections = projectionFor(store)) => {
-    const aiVisibility = buildAiVisibilityProjection(
-      projections,
-      visibilityPortfolio,
-      visibilityScheduleActivation,
-    );
-    const payload = projectionProvider({
-      aiVisibilityProjects: aiVisibility.aiVisibility.projects,
-      now: now(),
-    });
-    projectionCache = { payload };
-    projectionState = 'available';
-    return payload;
+    try {
+      const aiVisibility = buildAiVisibilityProjection(
+        projections,
+        visibilityPortfolio,
+        visibilityScheduleActivation,
+      );
+      const payload = projectionProvider({
+        aiVisibilityProjects: aiVisibility.aiVisibility.projects,
+        now: now(),
+      });
+      projectionCache = { payload };
+      projectionState = 'available';
+      return payload;
+    } catch (error) {
+      projectionState = 'unavailable';
+      throw error;
+    }
   };
   const cachedDashboardProjection = (projections) => {
     // Evidence is file/provider-backed and may be updated by sibling collectors.

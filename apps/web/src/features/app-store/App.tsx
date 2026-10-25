@@ -100,6 +100,7 @@ export default function ResearchApp() {
   const [ready, setReady] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [retentionNotice, setRetentionNotice] = useState('');
   const [projectId, setProjectId] = useState('');
   const [tab, setTab] = useState('research');
   const [status, setStatus] = useState<Status | null>(null);
@@ -193,7 +194,7 @@ export default function ResearchApp() {
       .catch((e) => {
         const reason = `Service status unavailable. ${message(e)}`;
         setStatusError(reason);
-        setStatus({ apple: { enabled: false, limitPerMinute: 18, cacheMinutes: 15 }, ai: { enabled: false, reason, local: true }, connections: { appleAds: false, appStoreConnect: false } });
+        setStatus({ apple: { enabled: null, limitPerMinute: 18, cacheMinutes: 15 }, ai: { enabled: false, reason, local: true }, connections: { appleAds: false, appStoreConnect: false } });
       });
   };
   useEffect(refreshStatus, []);
@@ -208,7 +209,7 @@ export default function ResearchApp() {
             requestedCaptures = proposed.observations.length;
             return proposed;
           });
-          if (requestedCaptures > result.data.observations.length) setNotice(`${requestedCaptures - result.data.observations.length} oldest captures were trimmed to keep this workspace within120 captures /12 MB. Export a backup to keep a separate archive.`);
+          if (requestedCaptures > result.data.observations.length) setRetentionNotice(`${requestedCaptures - result.data.observations.length} oldest captures were trimmed to keep this workspace within 120 captures / 12 MB. Export a backup to keep a separate archive.`);
           saved.current = result;
           setWorkspace(result.data);
           setStorageState('Saved on this browser');
@@ -220,7 +221,7 @@ export default function ResearchApp() {
       } else {
         const proposed = update(saved.current.data);
         const next = retain(proposed);
-        if (proposed.observations.length > next.observations.length) setNotice(`${proposed.observations.length - next.observations.length} oldest captures were trimmed to keep this workspace within120 captures /12 MB.`);
+        if (proposed.observations.length > next.observations.length) setRetentionNotice(`${proposed.observations.length - next.observations.length} oldest captures were trimmed to keep this workspace within 120 captures / 12 MB.`);
         saved.current = { revision: saved.current.revision + 1, data: next };
         setWorkspace(next);
       }
@@ -627,6 +628,7 @@ export default function ResearchApp() {
             </button>
           </div>
         )}
+        {retentionNotice && <div className="alert notice" role="status"><span>{retentionNotice}</span><button aria-label="Dismiss retention notice" onClick={() => setRetentionNotice('')}>×</button></div>}
         {notice && (
           <div className="alert notice" role="status">
             <span>{notice}</span>
@@ -1427,7 +1429,7 @@ export default function ResearchApp() {
                     <div className="connection">
                       <span>Apple public search</span>
                       <b>
-                        {status?.apple.enabled ? 'Connected' : status ? 'Unavailable' : 'Checking…'}
+                        {status?.apple.enabled === true ? 'Connected' : status?.apple.enabled === false ? 'Unavailable' : statusError ? 'Not confirmed' : 'Checking…'}
                       </b>
                     </div>
                     <div className="connection">

@@ -8,7 +8,7 @@ import {
 } from './domain.ts';
 import type { AIInput, AIOutput } from './ai-types.ts';
 export type Status = {
-  apple: { enabled: boolean; limitPerMinute: number; cacheMinutes: number };
+  apple: { enabled: boolean | null; limitPerMinute: number; cacheMinutes: number };
   ai: { enabled: boolean; reason: string; local: boolean };
   connections: { appleAds: boolean; appStoreConnect: boolean };
 };
