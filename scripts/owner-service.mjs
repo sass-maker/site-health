@@ -20,6 +20,9 @@ const call = (args, optional = false) => {
 };
 
 if (command === 'install') {
+  let existingBackend = false;
+  try { existingBackend = (await fetch('http://127.0.0.1:4187/health', { signal: AbortSignal.timeout(1_000) })).ok; } catch {}
+  if (existingBackend) throw new Error('The owner backend is already running. Stop that dashboard process before installing its background replacement.');
   mkdirSync(dirname(plistPath), { recursive: true });
   mkdirSync(logs, { recursive: true, mode: 0o700 });
   const env = {
@@ -43,7 +46,22 @@ if (command === 'install') {
   writeFileSync(plistPath, plist, { mode: 0o600 }); chmodSync(plistPath, 0o600);
   execFileSync('/usr/bin/plutil', ['-lint', plistPath], { stdio: 'inherit' });
   call(['bootout', `${domain}/${label}`], true);
+  call(['enable', `${domain}/${label}`]);
   call(['bootstrap', domain, plistPath]);
+  let ready = false;
+  for (let attempt = 0; attempt < 25; attempt++) {
+    try {
+      const response = await fetch('http://127.0.0.1:4187/health', { signal: AbortSignal.timeout(1_000) });
+      const body = await response.json();
+      if (response.ok && body.brandEvidence === 'native-v2') { ready = true; break; }
+    } catch { /* Startup may still be resolving the model connection. */ }
+    await new Promise((resolve) => setTimeout(resolve, 1_000));
+  }
+  if (!ready) {
+    call(['bootout', `${domain}/${label}`], true);
+    call(['disable', `${domain}/${label}`], true);
+    throw new Error('Background startup did not become ready; the service was stopped. macOS may block a LaunchAgent from reading the Desktop-based catalog. Use pnpm dashboard in your authorized terminal. The plist is retained for recovery.');
+  }
   console.log('Installed Site Health owner service. Open http://127.0.0.1:4321/ai-awareness');
 } else if (command === 'status') {
   const result = call(['print', `${domain}/${label}`], true);
@@ -51,5 +69,6 @@ if (command === 'install') {
   process.exitCode = result.status ? 1 : 0;
 } else if (command === 'stop') {
   call(['bootout', `${domain}/${label}`], true);
+  call(['disable', `${domain}/${label}`], true);
   console.log('Site Health owner service stopped. The plist is retained for recovery.');
 } else throw new Error('Use owner-service.mjs install|status|stop');

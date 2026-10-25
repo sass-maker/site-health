@@ -53,6 +53,10 @@ LaunchAgent, source or logs.
 
 `pnpm dashboard` starts the owner app. `pnpm owner:service install` keeps it
 running through the macOS LaunchAgent; `status` and `stop` inspect or stop it.
+macOS must allow the background process to read the owner catalog and evidence.
+On this machine, Desktop access blocked LaunchAgent startup; it was stopped and
+the working owner app was started from the authorized terminal. Installation
+checks backend readiness and stops an unready agent instead of claiming success.
 Managed checkouts can set `SITE_HEALTH_OWNER_REPOSITORY` to the canonical owner
 checkout so private databases, generated policy and sibling collectors retain
 their normal home. `pnpm brand --help` exposes the project-scoped CLI.
