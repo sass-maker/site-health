@@ -234,6 +234,9 @@ function boundedLimit(value, fallback, max) {
 
 export class BrandEvidenceStore {
   constructor({ databasePath = defaultBrandEvidencePath() } = {}) {
+    this.activeCollections = new Set();
+    this.activeChecks = new Set();
+    this.stopping = false;
     this.databasePath = databasePath;
     if (databasePath !== ':memory:') mkdirSync(dirname(databasePath), { recursive: true, mode: 0o700 });
     this.database = new DatabaseSync(databasePath);
@@ -246,7 +249,20 @@ export class BrandEvidenceStore {
   }
 
   close() {
+    this.stopOwnedWork();
     this.database.close();
+  }
+
+  stopOwnedWork(now = new Date().toISOString()) {
+    this.stopping = true;
+    this.transaction(() => {
+      const collection = this.database.prepare("UPDATE collection_runs SET status = 'error', error_message = 'Interrupted during backend shutdown', finished_at = ? WHERE id = ? AND status = 'running'");
+      for (const id of this.activeCollections) collection.run(now, id);
+      const check = this.database.prepare("UPDATE evidence_checks SET status = 'failed', summary = 'Interrupted during backend shutdown', finished_at = ? WHERE id = ? AND status = 'running'");
+      for (const id of this.activeChecks) check.run(now, id);
+    });
+    this.activeCollections.clear();
+    this.activeChecks.clear();
   }
 
   transaction(work) {
@@ -389,19 +405,22 @@ export class BrandEvidenceStore {
   }
 
   startCollection(projectId, source, query, now = new Date().toISOString()) {
+    if (this.stopping) throw new BrandEvidenceError('Brand evidence is shutting down', 503);
     const id = randomUUID();
     this.database.prepare(`
       INSERT INTO collection_runs(id, project_id, source, query, status, started_at)
       VALUES (?, ?, ?, ?, 'running', ?)
     `).run(id, projectId, source, query, now);
+    this.activeCollections.add(id);
     return id;
   }
 
   finishCollection(id, { status, received = null, matched = null, errorMessage = null, payload = null }, now = new Date().toISOString()) {
     this.database.prepare(`
       UPDATE collection_runs SET status = ?, received = ?, matched = ?, error_message = ?,
-        payload_json = ?, finished_at = ? WHERE id = ?
+        payload_json = ?, finished_at = ? WHERE id = ? AND status = 'running'
     `).run(status, received, matched, errorMessage, payload ? JSON.stringify(payload) : null, now, id);
+    this.activeCollections.delete(id);
   }
 
   listCollections(projectId) {
@@ -445,6 +464,7 @@ export class BrandEvidenceStore {
   // Checks and observations ----------------------------------------------------
 
   createCheck({ id = randomUUID(), projectId, channel = 'api-model', trigger = 'manual', status = 'running', sourceStatus = null, attempted = 0, completed = 0, failed = 0, mentionRate = null, summary = null, startedAt, finishedAt = null, source = 'site-health', sourceRecordId = null, importBatchId = null }) {
+    if (this.stopping) throw new BrandEvidenceError('Brand evidence is shutting down', 503);
     if (!CHANNELS.includes(channel)) throw new BrandEvidenceError('unknown evidence channel');
     this.database.prepare(`
       INSERT INTO evidence_checks(id, project_id, channel, trigger, status, source_status, attempted, completed, failed,
@@ -452,14 +472,16 @@ export class BrandEvidenceStore {
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(id, projectId, channel, trigger, status, sourceStatus, attempted, completed, failed, mentionRate, summary,
       startedAt, finishedAt, source, sourceRecordId, importBatchId);
+    if (status === 'running' && trigger !== 'imported' && !importBatchId) this.activeChecks.add(id);
     return id;
   }
 
   finishCheck(id, { status, attempted, completed, failed, mentionRate, summary, finishedAt }) {
     this.database.prepare(`
       UPDATE evidence_checks SET status = ?, attempted = ?, completed = ?, failed = ?, mention_rate = ?, summary = ?, finished_at = ?
-      WHERE id = ?
+      WHERE id = ? AND status = 'running'
     `).run(status, attempted, completed, failed, mentionRate, summary, finishedAt, id);
+    this.activeChecks.delete(id);
   }
 
   listChecks(projectId, { limit = 20 } = {}) {

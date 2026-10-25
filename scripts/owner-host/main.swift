@@ -48,7 +48,7 @@ do {
     }
     fail("Site Health cannot read its canonical catalog: \(error.localizedDescription)")
 }
-if requestAccess || CommandLine.arguments.contains("--check-access") {
+if requestAccess {
     print("Site Health catalog access confirmed.")
     exit(0)
 }

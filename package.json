@@ -21,8 +21,9 @@
     "docs:purpose-contracts:check": "node scripts/generate-purpose-contract-report.mjs --check",
     "build": "pnpm --dir apps/web build",
     "test:backend": "node --disable-warning=ExperimentalWarning --test apps/backend/test/*.test.mjs",
-    "test:usage": "node --test apps/web/test/local-usage.test.mjs",
+    "test:usage": "node --test apps/web/test/*.test.mjs",
     "test:owner": "node --test scripts/test/owner-host.test.mjs",
+    "test:owner:native": "node scripts/test-owner-native.mjs",
     "test:backend:ci": "node scripts/test-backend-ci.mjs",
     "test:ai": "pnpm --dir apps/backend/packages/ai-visibility check",
     "test": "pnpm run test:backend && pnpm run test:usage && pnpm run test:owner && pnpm run test:ai",
@@ -39,7 +40,7 @@
   },
   "packageManager": "pnpm@10.33.2",
   "dependencies": {
-    "@saas-maker/collect": "file:vendor/saas-maker-collect-0.3.0.tgz",
+    "@saas-maker/collect": "file:vendor/saas-maker-collect-0.3.1.tgz",
     "ai": "6.0.168",
     "@ai-sdk/openai-compatible": "2.0.41"
   },

@@ -139,7 +139,7 @@ if (command === 'status') {
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
   const startupPrefill = process.env.SITE_HEALTH_STARTUP_PREFILL === '0'
-    ? { sources: [] } : prefillEvidence({ force: true });
+    ? { sources: [] } : prefillEvidence({ force: process.env.SITE_HEALTH_OWNER_HOST !== '1' });
   const startupRefresh = startupPrefill.sources;
   console.log(`Evidence startup: ${startupRefresh.map((item) => `${item.family}=${item.action}`).join(', ')}`);
   // Idempotent, and never allowed to throw: it also runs on `exit`, by which
@@ -151,7 +151,11 @@ if (command === 'status') {
       console.error(`Could not retire in-flight refreshes: ${error.message}`);
     }
   };
+  let stopping = false;
   const shutdown = () => {
+    if (stopping) return;
+    stopping = true;
+    brandEvidenceStore.stopOwnedWork();
     const brandsStopped = brandScheduler.stop();
     abandonInFlightRuns();
     server.close(async () => {

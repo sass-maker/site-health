@@ -10,6 +10,7 @@ export async function startOwner({
   backendUrl = 'http://127.0.0.1:4187',
   webUrl = 'http://127.0.0.1:4321',
   startupTimeout = 60_000,
+  healthInterval = 5_000,
 } = {}) {
   const workspaceRoot = resolve(env.SITE_HEALTH_OWNER_REPOSITORY ?? repositoryRoot, '..');
   console.log('Site Health owner dashboard');
@@ -105,13 +106,15 @@ export async function startOwner({
     if (!closing) {
       console.log(`Site Health owner ready. Open ${webUrl}/ai-awareness`);
       let checking = false;
+      let misses = 0;
       monitor = setInterval(async () => {
         if (checking || closing) return;
         checking = true;
         const ready = await Promise.all(services.map((service) => healthy(service.url, service.name === 'backend')));
         checking = false;
-        if (!closing && !ready.every(Boolean)) { console.error('Site Health service became unavailable.'); close(1); }
-      }, 5_000);
+        misses = ready.every(Boolean) ? 0 : misses + 1;
+        if (!closing && misses >= 3) { console.error('Site Health service became unavailable after three consecutive probes.'); close(1); }
+      }, healthInterval);
     }
     return await finished;
   } catch (error) {

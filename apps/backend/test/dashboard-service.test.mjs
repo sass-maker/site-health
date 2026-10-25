@@ -101,3 +101,37 @@ test('does not trust spoofed Cloudflare Access headers', async (context) => {
   });
   assert.equal(response.status, 401);
 });
+
+test('loopback mutations reject cross-site browser requests and accept dashboard JSON and bearer CLI', async (context) => {
+  const store = new DashboardStore({ databasePath: join(mkdtempSync(join(tmpdir(), 'dashboard-browser-auth-')), 'dashboard.sqlite'), projects: [] });
+  let mutations = 0;
+  const server = await startDashboardService({
+    store, port: 0, trustLoopback: true, ownerToken: 'test-owner',
+    projectionProvider: () => projection,
+    visibilityPortfolio: { eligible: [], scheduleIntent: { enabled: false } },
+    prefillEvidence: () => { mutations++; return { sources: [] }; },
+  });
+  context.after(() => new Promise((resolve) => server.close(() => { store.close(); resolve(); })));
+  const endpoint = `http://127.0.0.1:${server.address().port}/v1/prefill`;
+  for (const headers of [
+    { origin: 'https://attacker.example', 'sec-fetch-site': 'cross-site', 'content-type': 'text/plain' },
+    { origin: 'https://attacker.example', 'content-type': 'application/json', authorization: 'Bearer test-owner' },
+    { 'sec-fetch-site': 'cross-site', 'content-type': 'text/plain' },
+    { origin: 'http://127.0.0.1:9999', 'sec-fetch-site': 'same-site', 'content-type': 'application/json' },
+  ]) assert.equal((await fetch(endpoint, { method: 'POST', headers, body: '{}' })).status, 403);
+  assert.equal(mutations, 0);
+  assert.equal((await fetch(endpoint, { method: 'POST', headers: { origin: 'http://127.0.0.1:4321', 'sec-fetch-site': 'same-origin', 'content-type': 'text/plain' }, body: '{}' })).status, 415);
+  assert.equal((await fetch(endpoint, { method: 'POST', headers: { origin: 'http://127.0.0.1:4321', 'sec-fetch-site': 'same-origin', 'content-type': 'application/json' }, body: '{}' })).status, 202);
+  assert.equal((await fetch(endpoint, { method: 'POST', headers: { authorization: 'Bearer test-owner', 'content-type': 'application/json' }, body: '{}' })).status, 202);
+  assert.equal(mutations, 2);
+  const bearer = await startDashboardService({
+    store, port: 0, trustLoopback: false, ownerToken: 'test-owner',
+    projectionProvider: () => projection,
+    visibilityPortfolio: { eligible: [], scheduleIntent: { enabled: false } },
+    prefillEvidence: () => ({ sources: [] }),
+  });
+  context.after(() => new Promise((resolve) => bearer.close(resolve)));
+  const bearerEndpoint = `http://127.0.0.1:${bearer.address().port}/v1/prefill`;
+  assert.equal((await fetch(bearerEndpoint, { method: 'POST', headers: { authorization: 'Bearer test-owner', 'content-type': 'application/json' }, body: '{}' })).status, 202);
+  assert.equal((await fetch(bearerEndpoint, { method: 'POST', headers: { authorization: 'Bearer wrong', 'content-type': 'application/json' }, body: '{}' })).status, 401);
+});

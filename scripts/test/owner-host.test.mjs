@@ -220,3 +220,51 @@ test('host reuses both external services without exiting or killing them on stop
   assert.equal((await exited)[0], 0);
   assert.ok(servers.every((server) => server.listening));
 });
+
+async function monitoredOwner(t) {
+  let pattern = [];
+  let probes = 0;
+  const servers = [];
+  const ports = [];
+  for (const backend of [true, false]) {
+    const server = createServer((req, res) => {
+      if (!backend && pattern.length) {
+        probes++;
+        if (!pattern.shift()) { res.statusCode = 503; res.end('Compiling'); return; }
+      }
+      res.end(backend ? JSON.stringify({ service: 'site-health-backend', brandEvidence: 'native-v2' }) : 'Site Health data-brand-evidence-collect');
+    });
+    server.listen(0, '127.0.0.1');
+    await once(server, 'listening');
+    servers.push(server);
+    ports.push(server.address().port);
+    t.after(() => new Promise((resolve) => server.close(resolve)));
+  }
+  const config = { backendUrl: `http://127.0.0.1:${ports[0]}`, webUrl: `http://127.0.0.1:${ports[1]}`, healthInterval: 30 };
+  const child = spawn(process.execPath, ['--input-type=module', '-e', `import { startOwner } from ${JSON.stringify(new URL(`file://${entry}`).href)}; process.exitCode = await startOwner(${JSON.stringify(config)});`], { env: { ...process.env, SITE_HEALTH_OWNER_HOST: '1' }, stdio: ['ignore', 'pipe', 'pipe'] });
+  let output = '';
+  child.stdout.on('data', (chunk) => { output += chunk; });
+  child.stderr.on('data', (chunk) => { output += chunk; });
+  const exited = once(child, 'exit');
+  t.after(() => { if (child.exitCode === null) child.kill('SIGTERM'); });
+  await until(() => output.includes('owner ready.'), () => output);
+  return { child, exited, servers, probes: () => probes, setPattern: (value) => { pattern = value; }, output: () => output };
+}
+
+test('health monitoring tolerates two misses and resets the count after recovery', { timeout: 5_000 }, async (t) => {
+  const f = await monitoredOwner(t);
+  f.setPattern([false, false, true, false, false, true]);
+  await until(() => f.probes() === 6, f.output);
+  assert.equal(f.child.exitCode, null);
+  f.child.kill('SIGTERM');
+  assert.equal((await f.exited)[0], 0);
+});
+
+test('three consecutive health misses fail the host without stopping reused services', { timeout: 5_000 }, async (t) => {
+  const f = await monitoredOwner(t);
+  f.setPattern([false, false, false, false]);
+  assert.equal((await f.exited)[0], 1);
+  assert.equal(f.probes(), 3);
+  assert.match(f.output(), /three consecutive probes/);
+  assert.ok(f.servers.every((server) => server.listening));
+});

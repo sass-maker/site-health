@@ -1,5 +1,6 @@
 import { evidenceStateLabel, refreshAttemptLabel } from "../lib/evidence-labels.mjs";
 import { downloadLocalUsageBundle, startLocalUsageTracking } from "../lib/local-usage.mjs";
+import { dashboardApi } from "../lib/dashboard-api.mjs";
 import {
   inactiveProjectState,
   isCurrentProject,
@@ -92,12 +93,7 @@ function value(signal?: JsonRecord | null, suffix = "") {
 }
 
 async function api(path: string, options?: RequestInit) {
-  const response = await fetch(`${base}${path}`, {
-    ...options,
-    headers: { accept: "application/json", "content-type": "application/json", ...options?.headers },
-  });
-  if (!response.ok) throw new Error("Site Health backend is unavailable.");
-  return response.json();
+  return dashboardApi(base, path, options);
 }
 
 async function optionalOutcome(path: string) {

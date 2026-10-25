@@ -35,6 +35,14 @@ export function dueCommunityProjects(store, { now = new Date().toISOString() } =
   }).map((profile) => profile.projectId);
 }
 
+export function dueBrandProjects(store, options = {}) {
+  const api = new Set(dueProjects(store, options));
+  const community = new Set(dueCommunityProjects(store, options));
+  return [...new Set([...api, ...community])].map((projectId) => ({
+    projectId, scope: api.has(projectId) && community.has(projectId) ? 'all' : api.has(projectId) ? 'api' : 'community',
+  }));
+}
+
 export function startBrandEvidenceScheduler({
   store, projectsProvider, intervalMs = 60_000, now = () => new Date().toISOString(), ...options
 }) {
@@ -45,15 +53,11 @@ export function startBrandEvidenceScheduler({
     {
       const current = new Set(projectsProvider().filter((p) =>
         ['primary', 'active'].includes(p.lifecycle?.status ?? p.status)).map((p) => p.id));
-      const apiDue = new Set(dueProjects(store, { now: now() }));
-      const communityDue = new Set(dueCommunityProjects(store, { now: now() }));
-      for (const projectId of new Set([...apiDue, ...communityDue])) {
+      for (const { projectId, scope } of dueBrandProjects(store, { now: now() })) {
         if (stopped || !current.has(projectId)) continue;
         // Missing AI credentials are skipped, with a bounded hourly retry.
         if (Date.parse(now()) - (attempted.get(projectId) ?? 0) < 3_600_000) continue;
         attempted.set(projectId, Date.parse(now()));
-        const scope = apiDue.has(projectId) && communityDue.has(projectId) ? 'all'
-          : apiDue.has(projectId) ? 'api' : 'community';
         try { await refreshBrandEvidence({ store, projectId, scope, trigger: 'scheduled', now, ...options }); }
         catch { /* Source/check failures are retained by their runners. */ }
       }

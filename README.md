@@ -72,6 +72,11 @@ for Site Health. This grants access to the Desktop folder, including the Fleet
 catalog and evidence there. Do not grant Full Disk Access to Node. This step
 starts no services. An existing staged app is backed up before replacement.
 
+Before activation, run `pnpm test:owner:native` through the managed workspace.
+It compiles a temporary Swift host and exercises native signal forwarding,
+catalog failure, and the actual foreground Astro server. It requests no macOS
+permissions and starts no owner service.
+
 `install` requires both service ports to be free, retains the previous plist,
 and starts the native host through launchd. It confirms the host is running and
 both backend and dashboard are ready; a failed activation is stopped and

@@ -107,11 +107,10 @@ async function main() {
     cpSync(prepared, installed, { recursive: true });
     run('/usr/bin/codesign', ['--verify', '--strict', installed]);
     run('/usr/bin/open', ['-W', '-n', installed, '--args', '--request-access']);
-    console.log('Permission window closed. No service was started. Activation independently checks access and both services.');
+    console.log('Permission window closed. No service was started. Activation verifies the launchd host and both services using the app’s own macOS access.');
   } else if (command === 'install') {
     run('/usr/bin/codesign', ['--verify', '--strict', installed]);
     await assertPortsFree();
-    execFileSync(binary(installed), ['--check-access'], { stdio: 'inherit', timeout: 10_000 });
     mkdirSync(dirname(plistPath), { recursive: true });
     mkdirSync(logs, { recursive: true, mode: 0o700 });
     if (existsSync(plistPath)) {
@@ -134,7 +133,7 @@ async function main() {
     if (!ready) {
       call(['bootout', `${domain}/${label}`], true);
       call(['disable', `${domain}/${label}`], true);
-      throw new Error('Owner host, backend and dashboard did not become ready; the LaunchAgent was stopped and disabled. Retained app/plist backups and pnpm dashboard remain available for recovery.');
+      throw new Error(`The launchd host, backend and dashboard did not become ready; the LaunchAgent was stopped and disabled. Confirm Site Health has Desktop access in System Settings → Privacy & Security → Files and Folders. Inspect ${join(logs, 'service-error.log')} for the startup failure. Retained app/plist backups and pnpm dashboard remain available for recovery.`);
     }
     console.log('Installed Site Health owner service. Open http://127.0.0.1:4321/ai-awareness');
   } else if (command === 'status') {
