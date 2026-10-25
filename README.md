@@ -51,12 +51,35 @@ The backend reuses `AI_GATEWAY_API_KEY` / `GATEWAY_API_KEY`, or retrieves only
 The local Infisical login must already be available; no key is saved in the app,
 LaunchAgent, source or logs.
 
-`pnpm dashboard` starts the owner app. `pnpm owner:service install` keeps it
-running through the macOS LaunchAgent; `status` and `stop` inspect or stop it.
-macOS must allow the background process to read the owner catalog and evidence.
-On this machine, Desktop access blocked LaunchAgent startup; it was stopped and
-the working owner app was started from the authorized terminal. Installation
-checks backend readiness and stops an unready agent instead of claiming success.
+`pnpm dashboard` starts the owner app from the authorized terminal. Background
+startup uses a signed native Site Health app so macOS can attribute Desktop
+folder access to this app. The canonical catalog stays at its existing symlink.
+Prepare from the reviewed source and keep that checkout available at the same
+path while the service runs.
+
+```bash
+pnpm owner:service prepare 'Developer ID Application: YOUR IDENTITY'
+pnpm owner:service permission
+# Stop the manual dashboard only when ready to switch.
+pnpm owner:service install
+```
+
+`prepare` compiles and signs an app under `.fleet-local/owner-host`, records its
+source revision and host-source digest, and prepares the LaunchAgent plist.
+`permission` stages it at `~/Applications/Fleet/Site Health.app` and opens a
+standard native consent window. Continue requests macOS Desktop folder access
+for Site Health. This grants access to the Desktop folder, including the Fleet
+catalog and evidence there. Do not grant Full Disk Access to Node. This step
+starts no services. An existing staged app is backed up before replacement.
+
+`install` requires both service ports to be free, retains the previous plist,
+and starts the native host through launchd. It confirms the host is running and
+both backend and dashboard are ready; a failed activation is stopped and
+disabled. `status` and `stop` inspect or stop the agent. Logs and retained
+recovery plists live under `~/Library/Logs/Fleet/Site Health` and
+`~/Library/LaunchAgents` respectively. `pnpm dashboard` remains the manual
+recovery path. Only the host's own child processes are stopped; reused services
+remain owned by their original launcher.
 Managed checkouts can set `SITE_HEALTH_OWNER_REPOSITORY` to the canonical owner
 checkout so private databases, generated policy and sibling collectors retain
 their normal home. `pnpm brand --help` exposes the project-scoped CLI.
