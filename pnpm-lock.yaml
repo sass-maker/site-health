@@ -58,7 +58,7 @@ packages:
     engines: {node: '>=8.0.0'}
 
   '@saas-maker/collect@file:vendor/saas-maker-collect-0.3.2.tgz':
-    resolution: {integrity: sha512-72TT9gQBh9JEJKFPz3x9XpDe+86UaEL4UyawmvbtKZHIjNjVacAS9jzF/RK5N7cxa4yTaDCoy9C12K58KqhAlg==, tarball: file:vendor/saas-maker-collect-0.3.2.tgz}
+    resolution: {integrity: sha512-jMnzYaXDRbvJxukh1Uyqv/ZoRm80UbU1tEqfeCF1JUrfi/6CysdaOtT2hGhAzabLSuQ1EoxjzTdNrOOQPDW1yA==, tarball: file:vendor/saas-maker-collect-0.3.2.tgz}
     version: 0.3.2
     engines: {node: '>=22'}
 
