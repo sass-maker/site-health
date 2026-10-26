@@ -2,6 +2,7 @@ import { evidenceStateLabel, refreshAttemptLabel } from "../lib/evidence-labels.
 import { downloadLocalUsageBundle, startLocalUsageTracking } from "../lib/local-usage.mjs";
 import { dashboardApi } from "../lib/dashboard-api.mjs";
 import { createOutcomeScope } from "../lib/cohort-scope.mjs";
+import { bindProjectDisclosureCount, updateProjectResultCount } from "../lib/project-disclosure.mjs";
 import {
   inactiveProjectState,
   isCurrentProject,
@@ -679,7 +680,7 @@ function bindProjectFilters(projects: JsonRecord[]) {
   const lifecycle = document.querySelector<HTMLSelectElement>("[data-project-lifecycle]");
   const resume = document.querySelector<HTMLSelectElement>("[data-project-resume]");
   const reset = document.querySelector<HTMLButtonElement>("[data-project-filter-reset]");
-  const result = document.querySelector<HTMLElement>("[data-project-result-count]");
+  bindProjectDisclosureCount(document);
   const projectById = new Map(projects.map((project) => [project.id, project]));
   const apply = () => {
     const query = searchInput?.value.trim().toLowerCase() ?? "";
@@ -726,14 +727,11 @@ function bindProjectFilters(projects: JsonRecord[]) {
     const count = currentCount + inactiveCount;
     const emptyResult = document.querySelector<HTMLElement>("[data-project-filter-empty]");
     if (emptyResult) emptyResult.hidden = count !== 0;
-    if (result) result.textContent = inactiveDetails?.open
-      ? `${currentCount} current products · ${inactiveCount} inactive identities`
-      : `${currentCount} current products`;
+    updateProjectResultCount(document);
   };
   if (searchInput && searchInput.dataset.projectFilterBound !== "true") {
     searchInput.dataset.projectFilterBound = "true";
     searchInput.addEventListener("input", apply);
-    document.querySelector("[data-inactive-projects]")?.addEventListener("toggle", apply);
     priority?.addEventListener("change", apply);
     health?.addEventListener("change", apply);
     sharing?.addEventListener("change", apply);

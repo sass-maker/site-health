@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { dirname, isAbsolute, relative, resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { requirePrivateDestination } from './private-review-output.mjs';
 import { fileURLToPath } from 'node:url';
 import { validateSnapshot, SCORE_CATEGORIES } from '../apps/web/src/features/readiness/scoreboard.ts';
 
@@ -15,14 +16,9 @@ function option(name) {
 const reviewDir = resolve(option('--review-dir'));
 const output = resolve(option('--output'));
 const repository = resolve(fileURLToPath(new URL('..', import.meta.url)));
-function requirePrivateDestination(path) {
-  const child = relative(repository, path);
-  if (!child.startsWith('..') && !isAbsolute(child))
-    throw new Error('Private review output must stay outside the repository.');
-}
-requirePrivateDestination(output);
+requirePrivateDestination(repository, output);
 const markdownPath = resolve(dirname(output), 'scoreboard-levers.md');
-requirePrivateDestination(markdownPath);
+requirePrivateDestination(repository, markdownPath);
 const read = async (name) => JSON.parse(await readFile(resolve(reviewDir, name), 'utf8'));
 const ratings = await read('ratings-all-active.json');
 const policy = await read('scoreboard-policy.json');

@@ -22,7 +22,7 @@
     "build": "pnpm --dir apps/web build",
     "test:backend": "node --disable-warning=ExperimentalWarning --test apps/backend/test/*.test.mjs",
     "test:usage": "node --test apps/web/test/*.test.mjs",
-    "test:owner": "node --test scripts/test/owner-host.test.mjs",
+    "test:owner": "node --test scripts/test/*.test.mjs",
     "test:owner:native": "node scripts/test-owner-native.mjs",
     "test:backend:ci": "node scripts/test-backend-ci.mjs",
     "test:ai": "pnpm --dir apps/backend/packages/ai-visibility check",
