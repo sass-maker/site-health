@@ -488,3 +488,7 @@
 .portfolioTable .score { font-size: 17px; }
 .portfolioTable .exempt, .portfolioTable .delta, .newReading,
 .sheetTotal small, .sheetTotal .pendingTotal { font-size: 11px; }
+
+.aiNativeChecklist .distributionColumns h4 { color: var(--foreground); font-size: 13px; text-transform: none; letter-spacing: 0; }
+.aiNativeChecklist .distributionColumns p { color: var(--quiet); font-size: 13px; line-height: 1.65; margin: 0; }
+.aiNativeChecklist header > p:last-child, .aiNativeChecklist .checklistBoundary { font-size: 12px; }

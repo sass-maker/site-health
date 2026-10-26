@@ -314,14 +314,43 @@ also applies; technical eligibility does not guarantee visibility or growth.
       action. Keep prior assessments/progress, validate the import, refresh the
       live workspace and export a backup as the scoreboard guide describes
 
-## AI and agent readiness
+## AI-native workflows
 
-- [ ] Declare core workflows and promised CLI, API, MCP, agent and browser surfaces; justify N/A, treat missing promised coverage as a gap, and require only interfaces the core job benefits from.
-- [ ] For each promised CLI, verify installed version/help, noninteractive stable JSON schemas, exit codes, bounded timeouts and errors.
-- [ ] For each promised API/MCP surface, verify documented request/response contracts and end-to-end calls; for MCP, verify real tool discovery/calls, scoped revocable auth and explicit read/write boundaries.
-- [ ] Keep agent instructions, skills, examples and capability discovery aligned with shipped behavior.
-- [ ] Verify least privilege, private prompt/data handling, untrusted-input defenses, preview, idempotence, cancellation and recovery.
-- [ ] Have a fresh agent complete a shipped core task and negative case end to end; retain dated, permission-scoped results/receipts and observed useful completion/recovery, separating QA from real use. This applies to internal tools and is cross-category Product/Engineering/Measurement evidence, not GEO or a new score formula.
+Review **every current application**, including internal tools, private products and
+native apps. Scope follows the current catalog, independently of which products
+already have a score assessment. Missing assessments do not exempt an application.
+Choose interfaces that benefit its core job; do not require every app to ship a
+CLI, API and MCP server. For each application, retain applicability, dated proof,
+remaining gaps, a reason for each exemption and the next bounded improvement.
+
+1. **Appropriate entry point.** Declare the core task, intended operator and the
+   CLI, API, MCP, agent workflow, browser or native automation that serves it.
+   Include platform permissions and installation. A missing promised interface is
+   a gap, not an exemption; explain why an excluded interface does not help the job.
+2. **Discoverable instructions.** Align capability discovery, installed version/help,
+   setup, scoped authentication, instructions, skills and runnable examples with
+   shipped behavior. A fresh agent must find the starting point and limits without
+   hidden owner context. Public indexing is separate from operational usability.
+3. **Dependable contract.** Verify structured inputs/outputs, schema and version
+   expectations, errors and exit codes, bounded timeouts and cancellation. Exercise
+   real API/MCP discovery and end-to-end calls. For native or browser workflows,
+   document the result and recovery contract appropriate to the platform.
+4. **Safe, scoped actions.** Verify least privilege, revocable access, explicit
+   read/write boundaries, previews or confirmation where appropriate, idempotent
+   mutations, bounded retries, private prompt/data handling, untrusted-input defenses
+   and recovery from interrupted actions. Preserve owner data and recovery paths.
+5. **Shipped workflow proof.** Have a fresh agent complete a core task and a negative
+   or recovery case in the actual shipped runtime. Retain replayable steps, version,
+   date, permission scope, useful output and observed failure/recovery behavior.
+   Interface presence, a screenshot or passing source tests alone is insufficient.
+6. **Useful use and follow-up.** Measure core completions and successful recovery
+   over a stated window. Keep QA, background activity and real agent-assisted use
+   separate; missing tracking stays unknown. Record work completed separately from
+   its observed result and compare evidence after the next bounded improvement.
+
+This is cross-category Product, Engineering and Measurement evidence, not GEO or
+a seventh category. It does not change the six-category formula, imported ratings
+or backup schema. An applicable check without evidence remains unverified.
 
 ## Conditional branches
 

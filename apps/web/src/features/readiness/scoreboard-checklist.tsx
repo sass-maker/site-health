@@ -88,6 +88,70 @@ export function ScoreboardChecklist() {
         ))}
       </div>
 
+      <section className={`${styles.distributionChecklist} ${styles.aiNativeChecklist}`} aria-labelledby="ai-native-title">
+        <header>
+          <p className={styles.eyebrow}>Every current application · public, private and native</p>
+          <h3 id="ai-native-title">AI-native workflows</h3>
+          <p>
+            An agent should be able to discover, complete and recover the core job through an
+            appropriate interface. Review every current application, including internal tools and
+            native apps. Choose interfaces that serve the job; record a reason for each exemption.
+          </p>
+        </header>
+        <div className={styles.distributionColumns}>
+          <div>
+            <h4>1. An appropriate entry point</h4>
+            <p>
+              Declare the core task and intended operator. Choose the CLI, API, MCP, agent workflow
+              or native automation the task benefits from, including platform permissions. A
+              missing promised interface remains a gap; every app does not need every interface.
+            </p>
+            <h4>2. Discoverable instructions</h4>
+            <p>
+              Keep capability discovery, installed help, setup, scoped authentication, skills and
+              runnable examples aligned with the shipped version. A fresh agent should find the
+              starting point and know the limits without hidden owner context.
+            </p>
+            <h4>3. A dependable contract</h4>
+            <p>
+              Verify structured inputs and outputs, schema/version expectations, errors and exit
+              codes, timeouts and cancellation. Exercise actual API or MCP discovery and calls;
+              document the result and recovery contract for native or browser workflows.
+            </p>
+          </div>
+          <div>
+            <h4>4. Safe, scoped actions</h4>
+            <p>
+              Use least privilege and revocable access; separate reads from writes. Verify previews
+              or confirmation where appropriate, idempotence, bounded retries, private-data handling,
+              untrusted-input defenses and recovery from interrupted mutations.
+            </p>
+            <h4>5. Shipped workflow proof</h4>
+            <p>
+              Have a fresh agent complete a core task plus a negative or recovery case in the actual
+              shipped runtime. Retain replayable steps, version, date, permission scope, useful
+              output and failure behavior. Interface presence or a passing source test is insufficient.
+            </p>
+            <h4>6. Useful use and follow-up</h4>
+            <p>
+              Record successful core completions and recovery over a stated window. Separate QA and
+              background activity from real agent-assisted use. Keep tracking gaps unknown, then
+              compare the observed result after the next bounded improvement.
+            </p>
+          </div>
+        </div>
+        <p className={styles.checklistBoundary}>
+          Record applicable checks, dated evidence, remaining gaps and justified exemptions for each
+          current application. These checks inform Product, Engineering and Measurement; they do not
+          add a score category or change imported ratings. Unassessed products still need coverage.
+        </p>
+        <div className={styles.checklistResources}>
+          <EvidenceLink href="https://github.com/sass-maker/site-health/blob/main/docs/product-readiness-checklist.md#ai-native-workflows">
+            Canonical AI-native checklist
+          </EvidenceLink>
+        </div>
+      </section>
+
       <section className={styles.distributionChecklist} aria-labelledby="distribution-title">
         <header>
           <p className={styles.eyebrow}>Public growth where intended</p>
@@ -190,7 +254,7 @@ export function ScoreboardChecklist() {
             SEO research workflow
           </EvidenceLink>
           <EvidenceLink href="https://github.com/sass-maker/saas-maker/blob/main/tooling/skills/agent-ready/SKILL.md">
-            AI and agent readiness
+            AI discovery and indexing
           </EvidenceLink>
         </div>
       </section>
