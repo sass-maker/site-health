@@ -550,7 +550,7 @@
   align-items: center;
   gap: 16px;
 }
-.app-store-seo .workspace-title h1 {
+.app-store-seo .workspace-title h2 {
   font-size: 32px;
   margin: 13px 0 10px;
   letter-spacing: -1px;
@@ -1555,7 +1555,7 @@
     flex-wrap: wrap;
     gap: 0 14px;
   }
-  .app-store-seo .workspace-title h1 {
+  .app-store-seo .workspace-title h2 {
     font-size: 28px;
   }
   .app-store-seo .workspace-title .pill {
@@ -1862,7 +1862,7 @@
   .app-store-seo .workspace-head {
     padding: 27px 20px;
   }
-  .app-store-seo .workspace-title h1 {
+  .app-store-seo .workspace-title h2 {
     font-size: 27px;
   }
   .app-store-seo .workspace-title .pill {
@@ -2068,7 +2068,7 @@
 .app-store-seo .search-panel { margin:0 0 28px; background:var(--base); }
 .app-store-seo .workspace { min-width:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
 .app-store-seo .workspace-head { padding:28px; }
-.app-store-seo .workspace-title h1 { font-family:inherit; font-size:28px; }
+.app-store-seo .workspace-title h2 { font-family:inherit; font-size:28px; }
 .app-store-seo .research-footer { padding:24px 0; }
 .app-store-seo .how-it-works { padding:20px 0; }
 .app-store-seo .saved-projects { padding:24px 0; }
@@ -2086,7 +2086,7 @@
 .app-store-seo .feature-toolbar { padding: 12px 0 16px; }
 .app-store-seo .workspace { background: #11191b; min-height: 0; }
 .app-store-seo .workspace-head { padding: 20px 24px; }
-.app-store-seo .workspace-title h1 { font-size: 24px; margin: 6px 0; }
+.app-store-seo .workspace-title h2 { font-size: 24px; margin: 6px 0; }
 .app-store-seo .workspace-nav { padding: 0 24px; gap: 8px; flex-wrap: wrap; overflow: visible; }
 .app-store-seo .workspace-nav button { padding: 12px 14px; font-size: 13px; min-height: 44px; color: #b8c7c4; }
 .app-store-seo .workspace-nav button.active { color: #93e0d0; border-color: #79dcc8; background: #17302b; }

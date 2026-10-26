@@ -643,7 +643,7 @@ export default function ResearchApp() {
         {!ready ? (
           <div className="empty">
             <span className="eyebrow">LOCAL WORKSPACE</span>
-            <h1>Opening your research…</h1>
+            <h2>Opening your research…</h2>
             <p>Your saved observations stay on this device.</p>
           </div>
         ) : !active ? (
@@ -829,12 +829,12 @@ export default function ResearchApp() {
                   YOUR RESEARCH / {active.platform === 'mac' ? 'MAC APP STORE' : 'IPHONE & IPAD'}
                 </div>
                 <div className="workspace-title">
-                  <h1>Words, across borders.</h1>
+                  <h2>{active.name}</h2>
                   <span className="pill">
                     {active.keywords.length * active.countries.length} cells
                   </span>
                 </div>
-                <p>One app. Different storefronts. Evidence for your next listing decision.</p>
+                <p>{active.keywords.length} keywords · {active.countries.length} storefronts · {lastCapture ? `Evidence ${time(lastCapture)}` : 'No observations yet'}</p>
               </div>
               <div className="app-identity">
                 <Icon app={active.app} />
