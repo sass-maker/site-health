@@ -5,22 +5,29 @@
 @source "../../node_modules/@saas-maker/ui/src/lib/surface-motion.ts";
 @source "../";
 
-/* Shared component tokens retain Site Health's charcoal and mint identity. */
-html[data-theme="ink"][data-mode="dark"] {
-  --background: #0b1012;
-  --foreground: #f3f6f4;
-  --surface: #151a1c;
-  --card: #11181a;
-  --popover: #192225;
-  --primary: #79dcc8;
-  --primary-foreground: #09251f;
-  --brand: #79dcc8;
-  --brand-soft: #17332e;
-  --muted: #1b2427;
-  --muted-foreground: #abb8b8;
-  --border: #2b383c;
-  --input: #3b4b4c;
-  --ring: #79dcc8;
+/* Direction A: quiet light surfaces with a forest-green action color. */
+html[data-theme="ink"][data-mode="light"] {
+  --background: #ffffff;
+  --foreground: #202b2a;
+  --surface: #f7f9f6;
+  --card: #ffffff;
+  --card-foreground: #202b2a;
+  --popover: #ffffff;
+  --popover-foreground: #202b2a;
+  --primary: #235d47;
+  --primary-foreground: #ffffff;
+  --brand: #235d47;
+  --brand-soft: #eaf1e9;
+  --secondary: #f0f4ef;
+  --secondary-foreground: #254a34;
+  --accent: #eaf1e9;
+  --accent-foreground: #254a34;
+  --muted: #f4f7f4;
+  --muted-foreground: #63716a;
+  --border: #e0e7e1;
+  --input: #d0dbd2;
+  --ring: #4b8061;
+  --destructive: #a83c35;
   --ui-case: none;
   --display-case: none;
 }

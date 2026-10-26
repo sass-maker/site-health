@@ -2104,3 +2104,7 @@
   .app-store-seo .workspace-tools, .app-store-seo .workspace-head, .app-store-seo .panel { padding: 18px 16px; }
   .app-store-seo .country-picker label, .app-store-seo .matrix-legend, .app-store-seo .caption { font-size: 12px; }
 }
+
+/* The research workspace retains its established contrast inside the light owner shell. */
+.app-store-seo { background: #101416; padding: 20px; border-radius: 12px; }
+@media (max-width: 600px) { .app-store-seo { padding: 12px; } }

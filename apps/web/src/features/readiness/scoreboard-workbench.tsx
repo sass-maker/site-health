@@ -11,15 +11,16 @@ import {
   Check,
   ChevronRight,
   Download,
-  FileText,
   Link,
   RotateCcw,
-  Search,
   Upload,
 } from 'lucide-react';
 import { type DataColumn, type DataSort } from '@saas-maker/ui/components/data-table';
 import { Button } from '@saas-maker/ui/components/button';
-import { PageHeader } from './page-header';
+import { Badge } from '@saas-maker/ui/components/badge';
+import { Input } from '@saas-maker/ui/components/input';
+import { PortfolioOverview } from './portfolio-overview';
+import { isReadyLever, productQueueLever } from './portfolio-presentation';
 import {
   Sheet,
   SheetContent,
@@ -107,6 +108,8 @@ export function ScoreboardWorkbench({
   const infoProject = snapshot.projects.find((p) => p.id === infoId);
   const [query, setQuery] = useState(() => searchParams.get('q') ?? '');
   const [scope, setScope] = useState('all');
+  const [showFilters, setShowFilters] = useState(false);
+  const [showMatrix, setShowMatrix] = useState(false);
   const [purpose, setPurpose] = useState('all');
   const [priorityFilter, setPriorityFilter] = useState('all');
   const [area, setArea] = useState('all');
@@ -149,12 +152,7 @@ export function ScoreboardWorkbench({
       ),
     [snapshot, byProject]
   );
-  const firstReady = orderedLevers.find(
-    (l) =>
-      l.kind === 'action' &&
-      (!workspace.progress[l.id] || workspace.progress[l.id]?.status === 'parked') &&
-      l.dependencies.every((id) => prerequisiteSatisfied(workspace, id))
-  );
+  const firstReady = orderedLevers.find((lever) => isReadyLever(workspace, lever));
   const fallback = active?.leverId ?? firstReady?.id ?? snapshot.projects[0].bestNextLeverId;
 
   useEffect(() => {
@@ -448,6 +446,20 @@ export function ScoreboardWorkbench({
       },
     })),
   ];
+  const portfolioColumns: DataColumn<ScoreProject>[] = [
+    { ...columns[0], cell: (project) => <span className={styles.portfolioProduct}>
+      <span className={styles.monogram} aria-hidden="true">{project.name.slice(0, 2)}</span>
+      <span><NextLink href={`/readiness?product=${encodeURIComponent(project.id)}`} onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>{project.name}</NextLink><small>{project.internal ? 'Internal tool' : project.domains[0] ?? 'No public domain'}</small></span>
+    </span> },
+    { id: 'purpose', header: 'Purpose', sortable: false, value: (project) => project.purposeCategories?.map((purpose) => PURPOSE_LABELS[purpose]).join(', ') ?? 'Unclassified', cell: (project) => <span className={styles.portfolioPurposes}>{project.purposeCategories?.length ? project.purposeCategories.map((purpose) => <Badge variant="outline" key={purpose}>{PURPOSE_LABELS[purpose]}</Badge>) : <Badge variant="outline">Unclassified</Badge>}</span> },
+    columns.find((column) => column.id === 'priority')!,
+    ...columns.filter((column) => column.id.startsWith('total:')).map((column) => ({ ...column, group: undefined })),
+    { id: 'next-lever', header: 'Next lever', sortable: false, value: (project) => productQueueLever(workspace, orderedLevers, project.id)?.title ?? 'No ready lever', cell: (project) => {
+      const next = productQueueLever(workspace, orderedLevers, project.id);
+      const state = next ? workspace.progress[next.id]?.status ?? 'queued' : null;
+      return next ? <button className={styles.portfolioLever} onKeyDown={(event) => event.stopPropagation()} onClick={(event) => { event.stopPropagation(); setSelected(next.id); setSheet('action'); }}><span>{workspace.progress[next.id]?.plan.title ?? next.title}</span><small>{state === 'parked' ? 'Parked · resumable' : state === 'active' ? 'Active' : 'Ready'} <ArrowUpRight size={12} /></small></button> : <span className={styles.noReadyLever}>No ready lever · open product for context</span>;
+    } },
+  ];
   const actionColumns: DataColumn<Lever>[] = [
     {
       id: 'priority',
@@ -534,86 +546,18 @@ export function ScoreboardWorkbench({
         </section>
       ) : (
         <>
-          <div className="mb-6">
-            <PageHeader
-              className={styles.workbenchHeader}
-              title="Product scoreboard"
-              description="Compare the work with the result. Open a number for its evidence."
-              action={
-                <Button
-                  variant="outline"
-                  onClick={() => setSheet('review')}
-                  aria-label="Review details, import and export"
-                >
-                  <FileText />
-                  Review & backup
-                  <span className="hidden text-xs text-muted-foreground sm:inline">
-                    {dateLabel(snapshot.assessedAt)} · {snapshot.projects.length} assessed products
-                  </span>
-                </Button>
-              }
-            />
-          </div>
-          <ScoreboardGuide target={snapshot.target} />
-          <div className={styles.coverage} aria-label="Assessment coverage">
-            <span>
-              <strong>{effortScores.filter((s) => s.status === 'estimated').length}</strong> effort
-              scores
-            </span>
-            <span>
-              <strong>{resultScores.filter((s) => s.status === 'estimated').length}</strong> result
-              scores
-            </span>
-            <span>
-              <strong>{resultScores.filter((s) => s.status === 'unknown').length}</strong> outcomes
-              unknown
-            </span>
-            <span>
-              <strong>
-                {
-                  resultScores.filter((s) => s.status === 'estimated' && s.confidence === 'low')
-                    .length
-                }
-              </strong>{' '}
-              provisional results
-            </span>
-          </div>
-          {(active || waiting.length > 0) && (
-            <div className={styles.cadence} aria-label="One lever cadence">
-              {active ? (
-                <button
-                  onClick={() => {
-                    setSelected(active.leverId);
-                    setSheet('action');
-                  }}
-                >
-                  <span className={styles.activeDot} />
-                  Active · {byProject.get(byLever.get(active.leverId)!.projectId)!.name}
-                  <strong>{active.plan.title}</strong>
-                  <ArrowUpRight size={14} />
-                </button>
-              ) : (
-                <span>No active lever. Choose the next ready change.</span>
-              )}
-              {waiting.length > 0 && (
-                <button
-                  onClick={() => {
-                    setView('actions');
-                    setStatus('awaiting_evidence');
-                    setQuery('');
-                    setScope('all');
-                    setPurpose('all');
-                    setPriorityFilter('all');
-                    setDomain('all');
-                    setArea('all');
-                    setProjectFilter('');
-                  }}
-                >
-                  {waiting.length} awaiting evidence
-                </button>
-              )}
-            </div>
-          )}
+          <PortfolioOverview
+            workspace={workspace}
+            queue={active ? byLever.get(active.leverId) : firstReady}
+            waiting={waiting.length}
+            onReview={() => setSheet('review')}
+            onOpenLever={(id) => { setSelected(id); setSheet('action'); }}
+            onWaiting={() => {
+              setView('actions'); setStatus('awaiting_evidence'); setQuery('');
+              setScope('all'); setPurpose('all'); setPriorityFilter('all');
+              setDomain('all'); setArea('all'); setProjectFilter('');
+            }}
+          />
           <div className={styles.tabs}>
             <div>
               <button
@@ -623,7 +567,7 @@ export function ScoreboardWorkbench({
                   setStatus('all');
                 }}
               >
-                Scores <span>{projects.length}</span>
+                Portfolio <span>{projects.length}</span>
               </button>
               <button aria-pressed={view === 'actions'} onClick={() => setView('actions')}>
                 Next levers <span>{actions.length}</span>
@@ -635,27 +579,18 @@ export function ScoreboardWorkbench({
                 Checklist <span>6</span>
               </button>
             </div>
-            <span>Effort /10 · Result /10 · two totals /60</span>
+            <span>Effort = work quality · Result = observed outcome</span>
           </div>
           {view !== 'history' && view !== 'checklist' && (
             <>
-              <div className={styles.tools}>
-                <label className={styles.search}>
-                  <Search size={15} />
-                  <input
-                    aria-label="Search products or domains"
-                    placeholder={
-                      view === 'actions'
-                        ? 'Find a product, domain or fix…'
-                        : 'Find a product or domain…'
-                    }
-                    value={query}
-                    onChange={(e) => {
-                      setQuery(e.target.value);
-                      setSelected('');
-                    }}
-                  />
-                </label>
+              <div className={styles.portfolioTools}>
+                <div className={styles.purposeFilters} aria-label="Filter by purpose">
+                  {[['all', 'All products'], ['attention-money-grabber', 'Commercial'], ['learn-skill-showoff', 'Learning'], ['personal-use', 'Owner use']].map(([id, label]) => <Button key={id} variant="ghost" aria-pressed={purpose === id} onClick={() => { setPurpose(id); setSelected(''); }}>{label}</Button>)}
+                </div>
+                <Input aria-label="Search products or domains" placeholder={view === 'actions' ? 'Find a product, domain or fix…' : 'Search products…'} value={query} onChange={(event) => { setQuery(event.target.value); setSelected(''); }} />
+                <Button variant="outline" aria-expanded={showFilters} aria-controls="portfolio-filters" onClick={() => setShowFilters(!showFilters)}>Filters</Button>
+              </div>
+              <div className={styles.tools} id="portfolio-filters" hidden={!showFilters}>
                 <select
                   aria-label="Purpose"
                   value={purpose}
@@ -701,6 +636,7 @@ export function ScoreboardWorkbench({
                   value={area}
                   onChange={(e) => {
                     setArea(e.target.value);
+                    setShowMatrix(true);
                     setSelected('');
                     setSort([
                       {
@@ -796,6 +732,10 @@ export function ScoreboardWorkbench({
                   className={`${styles.tablePane} ${view === 'actions' ? styles.actionTable : ''}`}
                 >
                   <div className={styles.comparisonContext}>
+                    {view === 'scores' && <div className={styles.metricSwitch} aria-label="Portfolio view">
+                      <Button variant="ghost" aria-pressed={!showMatrix} onClick={() => { setShowMatrix(false); setSort([{ id: 'priority', desc: false }]); }}>Portfolio sheet</Button>
+                      <Button variant="ghost" aria-pressed={showMatrix} onClick={() => setShowMatrix(true)}>Full score matrix</Button>
+                    </div>}
                     {view === 'actions' && (
                       <div className={styles.metricSwitch} aria-label="Sort score">
                         <span>Sort score</span>
@@ -806,7 +746,7 @@ export function ScoreboardWorkbench({
                         ))}
                       </div>
                     )}
-                    {view === 'scores' &&
+                    {view === 'scores' && showMatrix &&
                       (reviews.length > 1 ? (
                         <label>
                           Change since{' '}
@@ -834,9 +774,9 @@ export function ScoreboardWorkbench({
                   {view === 'scores' ? (
                     <ScoreboardTable
                       key={`scores:${area}`}
-                      className={styles.portfolioTable}
+                      className={showMatrix ? styles.portfolioTable : styles.portfolioSheet}
                       data={projects}
-                      columns={columns}
+                      columns={showMatrix ? columns : portfolioColumns}
                       getRowId={(p) => p.id}
                       label="Compare product scores"
                       onRowClick={(p) => {
@@ -944,6 +884,10 @@ export function ScoreboardWorkbench({
               </details>
             </>
           )}
+          <details className={styles.guideDisclosure}>
+            <summary>How to read scores and evidence</summary>
+            <ScoreboardGuide target={snapshot.target} />
+          </details>
           <footer className={styles.workspaceFooter}>
             <button onClick={() => setSheet('review')}>
               {saved ? 'Saved on this device' : 'Unsaved · export now'} · review & backup

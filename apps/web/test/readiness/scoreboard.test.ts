@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { isReadyLever, productQueueLever } from '../../src/features/readiness/portfolio-presentation';
 import {
   SCORE_CATEGORIES,
   addAssessmentHistory,
@@ -871,5 +872,26 @@ describe('one-lever cadence', () => {
       (l) => l.projectId !== 'example-one'
     );
     expect(() => importSnapshot(current, incoming)).toThrow(/removes your active/);
+  });
+});
+
+
+describe('portfolio queue presentation', () => {
+  it('presents resumable ready work, excludes waiting and completed work, and prefers the active lever', () => {
+    const workspace = createWorkspace(fixture());
+    const [first, second] = workspace.snapshot.levers;
+    expect(isReadyLever(workspace, first)).toBe(true);
+    const started = transitionLever(workspace, first.id, 'active');
+    const parked = transitionLever(started, first.id, 'parked', { result: 'Resume after review.' });
+    expect(isReadyLever(parked, first)).toBe(true);
+    const active = transitionLever(parked, second.id, 'active');
+    expect(productQueueLever(active, workspace.snapshot.levers, first.projectId)?.id).toBe(second.id);
+    for (const status of ['awaiting_evidence', 'verified'] as const) {
+      const presented = structuredClone(parked);
+      presented.progress[first.id]!.status = status;
+      expect(isReadyLever(presented, first)).toBe(false);
+    }
+    const blocked = { ...first, dependencies: [second.id] };
+    expect(isReadyLever(parked, blocked)).toBe(false);
   });
 });

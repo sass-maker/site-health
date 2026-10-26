@@ -13,14 +13,14 @@ const links = [
   { id: "performance", href: "/performance", label: "Performance", icon: "M4 17a8 8 0 1116 0 M12 17l4-5 M7 17h10" },
 ] as const;
 const secondaryLinks = [
-  { id: "readiness", href: "/readiness", label: "Readiness", icon: "M8 4h8v3H8z M6 6H4v15h16V6h-2 M8 12l2 2 5-5 M8 18h8" },
+  { id: "readiness", href: "/readiness", label: "Portfolio", icon: "M8 4h8v3H8z M6 6H4v15h16V6h-2 M8 12l2 2 5-5 M8 18h8" },
   { id: "projects", href: "/projects", label: "Projects", icon: "M4 6h7v5H4z M13 6h7v5h-7z M4 13h7v5H4z M13 13h7v5h-7z" },
 ] as const;
 ---
 
 <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Site Health navigation">
   <div class="sidebar-head">
-    <a class="brand" href="/domains" data-project-scope-link data-usage-event="navigation">
+    <a class="brand" href="/readiness" data-project-scope-link data-usage-event="navigation">
       <span class="brand-mark" aria-hidden="true">S</span>
       <span class="sidebar-copy"><strong>Site Health</strong><small>Owner view</small></span>
     </a>
@@ -39,8 +39,8 @@ const secondaryLinks = [
   </div>
 
   <nav class="sidebar-nav" aria-label="Primary">
-    <span class="sidebar-group-label sidebar-copy">Metrics</span>
-    {links.map((link) => (
+    <span class="sidebar-group-label sidebar-copy">Your workspace</span>
+    {secondaryLinks.map((link) => (
       <a
         aria-current={active === link.id ? "page" : undefined}
         class:list={{ active: active === link.id }}
@@ -54,7 +54,7 @@ const secondaryLinks = [
       </a>
     ))}
     <span class="sidebar-group-divider" aria-hidden="true"></span>
-    {secondaryLinks.map((link) => (
+    {links.map((link) => (
       <a
         aria-current={active === link.id ? "page" : undefined}
         class:list={{ active: active === link.id }}
