@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -273,12 +273,18 @@ deployment:
         kind: worker
         name: reddit-insights-daily-collector
         method: wrangler-direct
-        state: configured-not-deployed
+        state: live
+        verification:
+          observedAt: 2026-10-25
+          evidence: Authenticated provider inventory confirms existence; retained TechData component unchanged.
     resources:
       - provider: cloudflare
         kind: r2
         name: reddit-insights-archive
-        state: configured-not-provisioned
+        state: live
+        verification:
+          observedAt: 2026-10-25
+          evidence: Authenticated provider inventory confirms existence; retained TechData component unchanged.
         scope: project
         operationalOwner: reddit-insights
         attributionReason: "Canonical project owner: reddit-insights"

@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -563,33 +563,55 @@ deployment:
         method: git-connected
         state: live
         verification:
-          observedAt: 2026-10-23T01:15:29.332292+00:00
-          sourceCommit: 07cac3557981f7f85b6480e9cf2df1661d805160
-          deploymentId: 83c9495c-c5af-42ec-9008-5e5d56d0b15d
-          deploymentUrl: https://83c9495c.anime-list-9lk.pages.dev
-          exactMainCi: 39881887476
-          deployWorkflow: 39882317629
-          assetSha256: 3f8c09772d1262b16689487b3b2366d2f6dda7c487536238fd668c859593b39a
-          state: provider-identity-footer-retry-and-draft-preservation-verified
-          evidencePath: .fleet-local/feedback-retry-167-20261023/anime-production-summary.json
-          scope: PR140 adopts UI14712fdf native runtime and patches existing MCP SDK/Vite/DOMPurify high/critical advisories. Fresh lockfile audit0high/critical;18moderate remain. Full main quality CI and six gates pass. Live390/768/1440 controlled late catalog response preserves same open form/draft/consent; durable response-loss retries create3feedback from6POSTs and1newsletter from3POSTs,4receipts/4unique matching events.6renders reviewed; QA dismissed/unsubscribed, receipts retained. Synthetic QA is not customer demand or completed-day reporting.
+          observedAt: 2026-10-25T18:45:13.922710+00:00
+          sourceCommit: a3f2e6d1a2489c9cc663a6e74a27e48e9015891b
+          exactMainCi: 40222179056
+          deployWorkflow: 40222411158
+          state: provider-identity-and-bounded-discovery-qa-verified
+          evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/finish-remaining-2026-10-25/ops/anime/release-current.json
+          scope: PR142-144 preserve parsed Anime search constraints through choice, Back, revisit and recommendation branches, clarify selected List controls, and add fixed name-only discovery events; audited existing dependency patches. One agent-operated production QA trace only, not natural adoption, real-user design or recommendation usefulness. No schema/configuration changes or pending migrations.
+          deploymentId: 8b864086-2191-4516-aa6f-c54ed641b22a
+          deploymentUrl: https://8b864086.anime-list-9lk.pages.dev
+        verificationHistory:
+          - observedAt: 2026-10-23T01:15:29.332292+00:00
+            sourceCommit: 07cac3557981f7f85b6480e9cf2df1661d805160
+            deploymentId: 83c9495c-c5af-42ec-9008-5e5d56d0b15d
+            deploymentUrl: https://83c9495c.anime-list-9lk.pages.dev
+            exactMainCi: 39881887476
+            deployWorkflow: 39882317629
+            assetSha256: 3f8c09772d1262b16689487b3b2366d2f6dda7c487536238fd668c859593b39a
+            state: provider-identity-footer-retry-and-draft-preservation-verified
+            evidencePath: .fleet-local/feedback-retry-167-20261023/anime-production-summary.json
+            scope: PR140 adopts UI14712fdf native runtime and patches existing MCP SDK/Vite/DOMPurify high/critical advisories. Fresh lockfile audit0high/critical;18moderate remain. Full main quality CI and six gates pass. Live390/768/1440 controlled late catalog response preserves same open form/draft/consent; durable response-loss retries create3feedback from6POSTs and1newsletter from3POSTs,4receipts/4unique matching events.6renders reviewed; QA dismissed/unsubscribed, receipts retained. Synthetic QA is not customer demand or completed-day reporting.
       - provider: cloudflare
         kind: worker
         name: mal-api
         method: wrangler-direct
         state: live
         verification:
-          deploymentId: 43a8d900-11be-4196-9b7d-c1123232ee0c
-          versionId: e8ff10e0-7ba9-44fd-bad5-bfe0bbf4eedb
+          observedAt: 2026-10-25T18:45:13.922710+00:00
+          sourceCommit: a3f2e6d1a2489c9cc663a6e74a27e48e9015891b
+          exactMainCi: 40222179056
+          deployWorkflow: 40222411158
+          state: provider-identity-and-bounded-discovery-qa-verified
+          evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/finish-remaining-2026-10-25/ops/anime/release-current.json
+          scope: PR142-144 preserve parsed Anime search constraints through choice, Back, revisit and recommendation branches, clarify selected List controls, and add fixed name-only discovery events; audited existing dependency patches. One agent-operated production QA trace only, not natural adoption, real-user design or recommendation usefulness. No schema/configuration changes or pending migrations.
+          deploymentId: e9e02c52-a0d0-49d7-86a4-13b30521fa1c
+          versionId: c6c6317b-5c53-4458-ab1d-9d0a17501789
           trafficPercent: 100
-          createdOn: 2026-10-23T01:09:25.207634Z
-          observedAt: 2026-10-23T01:15:29.332292+00:00
-          sourceCommit: 07cac3557981f7f85b6480e9cf2df1661d805160
-          exactMainCi: 39881887476
-          deployWorkflow: 39882317629
-          state: provider-identity-and-patched-dependency-release-verified
-          evidencePath: .fleet-local/feedback-retry-167-20261023/anime-provider.json
-          scope: Existing publisher deploys API with MCP SDK1.32.0 at100percent full-SHA source after CI; normal read-only migration-list check and publisher both report no pending migrations. Production /api/last-updated smoke200. No config, data schema or binding changes; broad real-account/API acceptance excluded.
+          createdOn: 2026-10-25T18:41:40.579708Z
+        verificationHistory:
+          - deploymentId: 43a8d900-11be-4196-9b7d-c1123232ee0c
+            versionId: e8ff10e0-7ba9-44fd-bad5-bfe0bbf4eedb
+            trafficPercent: 100
+            createdOn: 2026-10-23T01:09:25.207634Z
+            observedAt: 2026-10-23T01:15:29.332292+00:00
+            sourceCommit: 07cac3557981f7f85b6480e9cf2df1661d805160
+            exactMainCi: 39881887476
+            deployWorkflow: 39882317629
+            state: provider-identity-and-patched-dependency-release-verified
+            evidencePath: .fleet-local/feedback-retry-167-20261023/anime-provider.json
+            scope: Existing publisher deploys API with MCP SDK1.32.0 at100percent full-SHA source after CI; normal read-only migration-list check and publisher both report no pending migrations. Production /api/last-updated smoke200. No config, data schema or binding changes; broad real-account/API acceptance excluded.
       - provider: cloudflare
         kind: worker
         name: anime-list-web

@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-10-09
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=mentionpilot].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: ae3ff03bb973a0027691fdad911c271ef2c6c2488b735c10088a42895f991b6d
-      documentSha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      documentSha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -375,14 +375,15 @@ deployment:
         kind: d1
         name: mentionpilot-db
         id: 50564400-a892-48b5-a2f9-1357fa409e0a
-        state: retained-backup
+        state: deleted
         consumerRepository: sarthakagrawal927/mentionpilot
         scope: shared-fleet-account
-        attributionReason: "Retained as a backup after the 2026-10-09 retirement cutover; no Worker binds it. Steward: site-health. Exported to a private owner-local file and transferred into Site Health brand evidence (batch 72429df9-836f-4a14-a117-26a40455b1bb)."
+        attributionReason: "Retained as a backup after the 2026-10-09 retirement cutover; no Worker binds it. Steward: site-health. Exported to a private owner-local file and transferred into Site Health brand evidence (batch 72429df9-836f-4a14-a117-26a40455b1bb). Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
         verification:
           observedAt: 2026-10-09
           state: provider-id-confirmed
           evidence: "wrangler d1 info mentionpilot-db after Worker deletion: 23 tables, 639 kB."
+        deletedAt: 2026-10-25
         operationalOwner: mentionpilot
       - provider: cloudflare
         kind: service-binding
@@ -406,8 +407,8 @@ sharing:
   publicListing: hidden
   maturity: in-progress
   ready: false
-  verifiedAt: 2026-09-25
-  reason: Owner reactivated the product. The API health endpoint returned HTTP 200, while the repository-listed Pages web URL did not resolve in this check. Public product usability and ownership of similarly named external domains remain unverified.
+  verifiedAt: 2026-10-25
+  reason: "Hosted resources retired with owner approval on 2026-10-25. Source and previous evidence retained. Historical qualification: Owner reactivated the product. The API health endpoint returned HTTP 200, while the repository-listed Pages web URL did not resolve in this check. Public product usability and ownership of similarly named external domains remain unverified."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/mentionpilot/issues
   geoIdentity: null
@@ -417,4 +418,7 @@ notes:
     Owner ended the independent product on 2026-10-09; merged into Site Health AI Awareness (sass-maker/site-health PR #520, squash 1e18dfb; issue site-health#518). Live Workers, Pages, D1 and mention.highsignal.app remain attributed here as retained infrastructure, stewarded by site-health, until the owner data transfer and retirement cutover.
     2026-10-09: GitHub repository transferred to sarthakagrawal927 (not GitHub-archived); local checkout moved intact to ../fleet-archive/mentionpilot.
     2026-10-09: Retirement cutover done (site-health#518). D1 exported to a private owner-local path; transferred into Site Health brand evidence (batch 72429df9-836f-4a14-a117-26a40455b1bb, verify passed). Pages mentionpilot-domain (custom domains detached) and Workers mentionpilot-web and mentionpilot-api (daily cron) deleted. D1 mentionpilot-db kept as a backup. mention.highsignal.app DNS/registration left untouched.
-  infrastructure: "Owner reactivated MentionPilot. The API health route returned HTTP 200 on 2026-09-25. The listed Pages web hostname did not resolve; web availability and any similarly named external domains remain unverified. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features. 2026-10-09: Product merged into Site Health AI Awareness. These live resources are retained infrastructure pending the owner data transfer and retirement cutover; steward: site-health. 2026-10-09: Cutover done; Workers and Pages deleted, D1 retained as a backup; steward: site-health."
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.
+  infrastructure: |-
+    Owner reactivated MentionPilot. The API health route returned HTTP 200 on 2026-09-25. The listed Pages web hostname did not resolve; web availability and any similarly named external domains remain unverified. 2026-09-26: Cloudflare resources deleted per personal-profile cleanup rule; D1 exports retained in .fleet-local/deleted-backups/. 2026-09-26: Restored. Worker secrets were lost on deletion and must be re-set for auth/AI features. 2026-10-09: Product merged into Site Health AI Awareness. These live resources are retained infrastructure pending the owner data transfer and retirement cutover; steward: site-health. 2026-10-09: Cutover done; Workers and Pages deleted, D1 retained as a backup; steward: site-health.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.

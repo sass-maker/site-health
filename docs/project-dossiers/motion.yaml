@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
       infrastructureUpdatedAt: 2026-09-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -125,8 +125,9 @@ repository:
   githubHomepageUrl: https://motion.significanthobbies.com
   worktree: *a1
   visibility: public
-  url: https://github.com/sarthakagrawal927/motion
-  aliases: []
+  url: https://github.com/Significant-Hobbies/motion
+  aliases:
+    - https://github.com/sarthakagrawal927/motion
   sourceOverride: ios-landings
   tooling:
     declaredPackageManager: pnpm@10.33.2
@@ -268,7 +269,7 @@ sharing:
   verifiedAt: 2026-10-25
   reason: Reactivated unreleased prototype; physical iPhone control feel and gameplay remain unverified.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/motion/issues
+  roadmapUrl: https://github.com/Significant-Hobbies/motion/issues
   geoIdentity:
     id: motion
     name: Motion
@@ -277,12 +278,12 @@ sharing:
     origin: https://motion.significanthobbies.com
     source:
       state: public
-      url: https://github.com/sarthakagrawal927/motion
+      url: https://github.com/Significant-Hobbies/motion
     docs:
       state: repository-readme
       url: https://github.com/Significant-Hobbies/motion#readme
     officialProfiles:
-      - https://github.com/sarthakagrawal927/motion
+      - https://github.com/Significant-Hobbies/motion
     availability:
       primary: internal-only
       appStore: not-applicable

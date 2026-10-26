@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: not-applicable
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-09-12
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: GitStat
@@ -36,7 +36,7 @@ verification:
       checkout: ../fleet-archive/gitstat
       revision: ff78cd743a7574296ee9bf45a9b454fed4de1cfe
       githubRepository: sarthakagrawal927/gitstat
-      expectedHomepage: https://git.significanthobbies.com
+      expectedHomepage: null
       observedHomepage: https://git.significanthobbies.com
       worktree: &a1
         state: clean
@@ -90,7 +90,7 @@ identity:
     status: inactive
     resumeCondition: Only resume as an independent product after an explicit new owner decision.
     shareable: false
-  operationalStatus: live
+  operationalStatus: retired
   authenticationModel: public-persistent
   inRegistry: false
 product:
@@ -210,11 +210,10 @@ githubActions:
         ageDays: 0
       attention: clear
 deployment:
-  kind: pages
-  deployed: true
-  domains:
-    - git.significanthobbies.com
-  primaryUrl: https://git.significanthobbies.com
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
   targets: []
   cloudflare:
@@ -223,12 +222,14 @@ deployment:
         kind: pages
         name: gitstat
         method: git-connected
-        state: live
+        state: deleted
         verification:
           observedAt: 2026-09-11T20:01:17.602Z
           deploymentId: effcff98-77df-443e-a4d6-3a67632dadda
           sourceCommit: 9bcb8d01f88d4a2618e9652d300203674f118da9
           evidencePath: ../saas-maker/.fleet-local/gitstat-repository-icon-release-20260912.json
+        deletedAt: 2026-10-25
+        attributionReason: "Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
     resources: []
   otherProviders:
     deployments: []
@@ -237,8 +238,8 @@ sharing:
   publicListing: hidden
   maturity: experiment
   ready: false
-  verifiedAt: 2026-09-07
-  reason: One public profile; private repositories untested.
+  verifiedAt: 2026-10-25
+  reason: "Hosted resources retired with owner approval on 2026-10-25. Source and previous evidence retained. Historical qualification: One public profile; private repositories untested."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/gitstat/issues
   geoIdentity: null
@@ -247,4 +248,7 @@ notes:
     Fleet-owned GitHub analytics product. Cloudflare Pages and the custom domain were live on 2026-08-22; anonymous public analysis works, while the optional browser OAuth connection flow still needs repair.
     Owner ended the independent product on 2026-10-09; retained destination: saas-maker. Existing source, data and infrastructure are preserved; no provider decommission or remote repository archival.
     2026-10-09: GitHub repository transferred to sarthakagrawal927 and archived; API readback verified the new owner and archived flag. Existing local checkout, source history and hosted resources retained.
-  infrastructure: Live Cloudflare deployment owned by the Fleet GitStat product. Repository icon release 9bcb8d01f88d4a2618e9652d300203674f118da9 verified on existing gitstat deployment effcff98-77df-443e-a4d6-3a67632dadda. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.
+  infrastructure: |-
+    Live Cloudflare deployment owned by the Fleet GitStat product. Repository icon release 9bcb8d01f88d4a2618e9652d300203674f118da9 verified on existing gitstat deployment effcff98-77df-443e-a4d6-3a67632dadda. Exact source CI and six release gates passed; rendered guest browser homepage checks passed at 390px and 1440px.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.

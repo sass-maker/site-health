@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-10-23
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SaaS Maker
@@ -895,6 +895,31 @@ deployment:
           evidencePath: /tmp/fleet-saasmaker-dashboard-production-final-20261022.json
           journeyEvidencePath: /tmp/fleet-design-seo-geo-20261022/client-loading-next/cockpit-production-verification.md
           assetEvidencePath: /tmp/fleet-design-seo-geo-20261022/client-loading-next/cockpit-production-assets.json
+      - provider: cloudflare
+        kind: worker
+        name: daddyrad
+        method: wrangler-direct
+        state: live
+        versionId: 7b4aebf3-ff56-4d12-9ed1-83d3ac8742f8
+        attributionReason: Existing DaddyRad brand endpoint retained for the four active Daddy apps; source lives in UI Library archives/ios-landings/sites/daddyrad. SaaS Maker is the shared operational steward after 2026-10-25 cleanup; no duplicate endpoint or new deployment.
+        transferredFrom: ios-landings
+        verification:
+          observedAt: 2026-10-09T14:50:00Z
+          sourceCommit: ab3e1d988581c2237d2dd14498c12b09318c0531
+          versionId: 7b4aebf3-ff56-4d12-9ed1-83d3ac8742f8
+          trafficPercent: 100
+          state: success-production-verified
+          scope: Cutover of the unchanged DaddyRad site from the daddyrad repo to ios-landings sites/daddyrad
+          evidence: pnpm run deploy:daddyrad from ios-landings main ab3e1d9; 21 routes/methods re-probed with identical bodies and headers (CSP, nosniff, Referrer-Policy, www 301 with path+query, 404 guide, body-free HEAD, 405 Allow GET, HEAD); Chrome renders at 390/768/1440 unchanged apart from the randomized studio footer list. Rollback version 09722320-7fb7-4468-b72b-2327430285de. Evidence on Significant-Hobbies/ios-landings#42.
+        verificationHistory:
+          - versionId: 09722320-7fb7-4468-b72b-2327430285de
+            state: previous-deployed-version
+            qualification: Deployed 2026-10-04 from the daddyrad repo (tag 80087ee); catalog had recorded c535bcdd.
+        attributionHistory:
+          - project: ios-landings
+            transferredFrom: daddyrad
+            reason: "Transferred 2026-10-09 from daddyrad after the owner merged the DaddyRad site into ios-landings (PR #43); source now ios-landings sites/daddyrad, deployed with pnpm run deploy:daddyrad. Owner-registered daddy-series umbrella domain; Worker serves the landing on the apex and redirects www to it."
+        operationalOwner: saas-maker
     resources:
       - provider: cloudflare
         kind: zone
@@ -1020,6 +1045,42 @@ deployment:
           httpStatus: 200
           checks: Standalone CI, lint, Next build and OpenNext Worker bundle passed. Six deploy gates passed. Live server renders the Clash Royale Meta heading with HTTP 200. GitHub homepage corrected to the Worker URL.
         operationalOwner: saas-maker
+      - provider: cloudflare
+        kind: custom-domain
+        name: daddyrad.com
+        state: active
+        attributionReason: Existing DaddyRad brand endpoint retained for the four active Daddy apps; source lives in UI Library archives/ios-landings/sites/daddyrad. SaaS Maker is the shared operational steward after 2026-10-25 cleanup; no duplicate endpoint or new deployment.
+        transferredFrom: ios-landings
+        attributionHistory:
+          - project: ios-landings
+            transferredFrom: daddyrad
+            reason: "Transferred 2026-10-09 from daddyrad after the owner merged the DaddyRad site into ios-landings (PR #43); source now ios-landings sites/daddyrad, deployed with pnpm run deploy:daddyrad. Registered via Cloudflare Registrar 2026-09-25; umbrella landing apex."
+        operationalOwner: saas-maker
+        scope: project
+      - provider: cloudflare
+        kind: custom-domain
+        name: www.daddyrad.com
+        state: active
+        attributionReason: Existing DaddyRad brand endpoint retained for the four active Daddy apps; source lives in UI Library archives/ios-landings/sites/daddyrad. SaaS Maker is the shared operational steward after 2026-10-25 cleanup; no duplicate endpoint or new deployment.
+        transferredFrom: ios-landings
+        attributionHistory:
+          - project: ios-landings
+            transferredFrom: daddyrad
+            reason: "Transferred 2026-10-09 from daddyrad after the owner merged the DaddyRad site into ios-landings (PR #43); source now ios-landings sites/daddyrad, deployed with pnpm run deploy:daddyrad. 301 redirect to the apex."
+        operationalOwner: saas-maker
+        scope: project
+      - provider: cloudflare
+        kind: email-routing
+        name: daddyrad.com
+        state: enabled-catch-all
+        attributionReason: Existing DaddyRad brand endpoint retained for the four active Daddy apps; source lives in UI Library archives/ios-landings/sites/daddyrad. SaaS Maker is the shared operational steward after 2026-10-25 cleanup; no duplicate endpoint or new deployment.
+        transferredFrom: ios-landings
+        attributionHistory:
+          - project: ios-landings
+            transferredFrom: daddyrad
+            reason: "Transferred 2026-10-09 from daddyrad after the owner merged the DaddyRad site into ios-landings (PR #43); source now ios-landings sites/daddyrad, deployed with pnpm run deploy:daddyrad. Owner-requested catch-all forwarding configured 2026-10-09; Cloudflare dashboard confirms active forwarding to the existing verified owner destination and locked mail DNS records."
+        operationalOwner: saas-maker
+        scope: project
   otherProviders:
     deployments: []
     resources:
@@ -1061,4 +1122,6 @@ sharing:
       state: not-applicable
 notes:
   catalog: Standalone public product directory, launch-destination catalog, Feedback API and private inbox. LaunchDesk was absorbed into the native /launchdesk feature on 2026-09-20; it is no longer a separate product or infrastructure owner. Live Cloudflare reconciliation on 2026-08-23 confirmed the saas-maker-home Pages project, both Workers, both R2 buckets, and sassmaker.com; there is no separate SaaS Maker docs Pages project.
-  infrastructure: Public directory release 60393eac from exact main 51bcbdf0 passed both CI workflows, all six deployment gates and four production smokes. The public /projects.json feed has 21 entries and the verified Live local/account-save description. The native /launchdesk catalog and its checked-in source snapshot are SaaS Maker features, not a separate product or infrastructure identity. API and cockpit runtimes were not redeployed. SaaS Maker Tooling remains the operational steward for existing shared Fleet account objects.
+  infrastructure: |-
+    Public directory release 60393eac from exact main 51bcbdf0 passed both CI workflows, all six deployment gates and four production smokes. The public /projects.json feed has 21 entries and the verified Live local/account-save description. The native /launchdesk catalog and its checked-in source snapshot are SaaS Maker features, not a separate product or infrastructure identity. API and cockpit runtimes were not redeployed. SaaS Maker Tooling remains the operational steward for existing shared Fleet account objects.
+    2026-10-25: Stewards the existing DaddyRad Worker, brand hosts and email routing after ios-landings archival. No app, download, update or brand endpoint changed.
