@@ -9,7 +9,7 @@ function readConfig(repositoryRoot) {
 }
 
 export function buildCapabilityProjection({
-  repositoryRoot = resolve(import.meta.dirname, '../../../..'),
+  repositoryRoot = process.env.SITE_HEALTH_OWNER_REPOSITORY ?? resolve(import.meta.dirname, '../../../..'),
   workspaceRoot = resolve(repositoryRoot, '..'),
   now = new Date().toISOString(),
 } = {}) {
