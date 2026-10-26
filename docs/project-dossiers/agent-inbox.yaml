@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
       infrastructureUpdatedAt: 2026-10-08
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-08
       reviewSha256: 158aa596ddfc1efc580b3cf49b34a106ac93ff2d213dcd3138f5760ad56c77b2
-      documentSha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      documentSha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -133,8 +133,9 @@ repository:
   githubHomepageUrl: null
   worktree: *a1
   visibility: public
-  url: https://github.com/sarthakagrawal927/agentbox
-  aliases: []
+  url: https://github.com/sass-maker/agentbox
+  aliases:
+    - https://github.com/sarthakagrawal927/agentbox
   sourceOverride: null
   tooling:
     declaredPackageManager: null
@@ -256,7 +257,7 @@ sharing:
   verifiedAt: 2026-10-08
   reason: Local unsigned development fork. The 2026-10-07 qualification report records live-thread linking and acknowledged replies; physical sleep/wake, OS notification delivery, external-session parity and release qualification remain open.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/agentbox/issues
+  roadmapUrl: https://github.com/sass-maker/agentbox/issues
   geoIdentity: null
 notes:
   catalog: Owner added Agent Inbox to Fleet on 2026-10-08. Agentbox is the upstream implementation baseline; the local project scope is Agent Inbox. Existing provider accounts are used; inbox state stays local.

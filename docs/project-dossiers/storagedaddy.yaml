@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-10-06
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      infrastructureUpdatedAt: 2026-10-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: StorageDaddy
@@ -282,7 +282,7 @@ deployment:
         name: storagedaddy
         method: wrangler-direct
         state: live
-        versionId: f98cd21a-3dcf-4c84-b6c5-b46a01cc8f78
+        versionId: c3d59cde-d0af-4874-905b-d53bb4aea788
         attributionReason: Dedicated StorageDaddy custom subdomain with legacy prefix redirects; Significant Hobbies owns the shared apex application.
         verificationHistory:
           - versionId: 5e5d4488-80d8-4e39-acd9-d197bb9d2a82
@@ -296,19 +296,47 @@ deployment:
             scope: Website footer only; existing signed build113 download/feed preserved, no native release
             state: success-production-verified
             evidence: Selected C Precise source/current CI, existing provider, anonymous public byte matches and actual responsive/control review qualified. Numeric scanner remains unknown.
+          - observedAt: 2026-10-23T06:26:43.429108+00:00
+            sourceCommit: dce57be0a4280b214524d92d161f7dcc13dfb93e
+            deploymentId: b6155614-da71-498d-825d-07d3ec026056
+            versionId: f98cd21a-3dcf-4c84-b6c5-b46a01cc8f78
+            createdOn: 2026-10-23T06:25:24.653402Z
+            trafficPercent: 100
+            tag: dce57be0a4280b214524d92d161f7dcc13dfb93e
+            state: success-production-verified
+            exactMainCi: https://github.com/Significant-Hobbies/storagedaddy/actions/runs/39910097497
+            evidencePath: saas-maker/.fleet-local/feedback-retry-167-20261023/storagedaddy-production-summary.json
+            scope: Three-width public website feedback/retry/newsletter under unchanged production CSP. Existing build119 DMG/appcast/native bytes preserved; no native release or private-cleanup acceptance.
+            evidence: PR75 exact main CI and six deploy gates passed. Existing site publisher succeeded with full source tag and provider100% traffic. Actual live three-width lost-response captures retained draft/consent and reused the same records; newsletter consent and four durable receipts plus unique matching owner log/feed entries verified. All reserved QA feedback dismissed and newsletter unsubscribed with receipts retained; six form renders manually reviewed.
         verification:
-          observedAt: 2026-10-23T06:26:43.429108+00:00
-          sourceCommit: dce57be0a4280b214524d92d161f7dcc13dfb93e
-          deploymentId: b6155614-da71-498d-825d-07d3ec026056
-          versionId: f98cd21a-3dcf-4c84-b6c5-b46a01cc8f78
-          createdOn: 2026-10-23T06:25:24.653402Z
+          observedAt: 2026-10-26T10:10:35.528376+00:00
+          provider: cloudflare
+          accountId: 7d048325699a5acddb44d3be31cf6ba9
+          sourceCommit: 3fb5f23f61a07353255d63ef4e78894ad431beff
+          sourcePullRequest: https://github.com/Significant-Hobbies/storagedaddy/pull/77
+          deploymentId: 9c40405d-8eb6-4d76-bd96-fdde650f0049
+          versionId: c3d59cde-d0af-4874-905b-d53bb4aea788
+          versionNumber: 59
+          createdOn: 2026-10-26T10:07:54.214258Z
           trafficPercent: 100
-          tag: dce57be0a4280b214524d92d161f7dcc13dfb93e
+          tag: 3fb5f23f61a07353255d63ef4e78894ad431beff
           state: success-production-verified
-          exactMainCi: https://github.com/Significant-Hobbies/storagedaddy/actions/runs/39910097497
-          evidencePath: saas-maker/.fleet-local/feedback-retry-167-20261023/storagedaddy-production-summary.json
-          scope: Three-width public website feedback/retry/newsletter under unchanged production CSP. Existing build119 DMG/appcast/native bytes preserved; no native release or private-cleanup acceptance.
-          evidence: PR75 exact main CI and six deploy gates passed. Existing site publisher succeeded with full source tag and provider100% traffic. Actual live three-width lost-response captures retained draft/consent and reused the same records; newsletter consent and four durable receipts plus unique matching owner log/feed entries verified. All reserved QA feedback dismissed and newsletter unsubscribed with receipts retained; six form renders manually reviewed.
+          exactMainCi: https://github.com/Significant-Hobbies/storagedaddy/actions/runs/40217829773
+          evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/approved-levers/storagedaddy-geo-change.json
+          evidencePaths:
+            - /Users/sarthak/.fleet/reviews/portfolio-current/evidence/approved-levers/storagedaddy-production-after-2026-10-26.json
+            - /Users/sarthak/.fleet/reviews/portfolio-current/evidence/approved-levers/storagedaddy-version-after-2026-10-26.json
+            - /Users/sarthak/.fleet/reviews/portfolio-current/evidence/approved-levers/storagedaddy-live-release.json-2026-10-26.txt
+            - /Users/sarthak/.fleet/reviews/portfolio-current/evidence/approved-levers/storagedaddy-live-api-ai.json-2026-10-26.txt
+            - /Users/sarthak/.fleet/reviews/portfolio-current/evidence/approved-levers/storagedaddy-live-faq-2026-10-26.png
+          bindings:
+            - ASSETS
+            - DOWNLOADS:storagedaddy_launch
+          sourceChecks: "PR #77: 32 site tests, TypeScript, rebuilt landing factory, Wrangler dry run, unchanged release manifest and DMG bytes/hash, six release gates passed."
+          publicProof: Normal Chrome content capture at the deployed public proof URL semantically matches the cited source. Public release metadata still identifies notarized 0.1.9-beta build 119 with unchanged DMG bytes and SHA-256.
+          scope: Website-only publication. Native app, signed build119 and appcast are unchanged; live Markdown fetch was client-blocked; no GEO recommendation outcome or native cleanup acceptance is claimed.
+          configurationChanged: false
+          rollbackVersionId: f98cd21a-3dcf-4c84-b6c5-b46a01cc8f78
     resources:
       - provider: cloudflare
         kind: analytics-engine
@@ -345,4 +373,4 @@ sharing:
   geoIdentity: null
 notes:
   catalog: "2026-09-25 release: public 0.1.3 build108 at https://storage.daddyrad.com/download with qualified DMG SHA-256 682a50d04b3574cbd153666c5ccf29f9cd3f40b7a9ff2aaa527ee6dc2ce0dee0. Sparkle feed and update enclosure verified; installed update and native journey remain open."
-  infrastructure: "2026-09-25: 0.1.3 build108 public at https://storage.daddyrad.com/download; qualified DMG SHA-256 682a50d04b3574cbd153666c5ccf29f9cd3f40b7a9ff2aaa527ee6dc2ce0dee0. Live signed Sparkle feed and enclosure match. 2026-10-02 web-only #49/#51 fixes: exact source 915c566010e119777ad9a61a72a6adcadd1123b8 deployed as Worker 5e5d4488-80d8-4e39-acd9-d197bb9d2a82 at 100%. Native build110 DMG, signed feed and checksum bytes are unchanged; native PR50 acceptance remains open. Source/release evidence: https://github.com/Significant-Hobbies/storagedaddy/pull/53."
+  infrastructure: "2026-09-25: 0.1.3 build108 public at https://storage.daddyrad.com/download; qualified DMG SHA-256 682a50d04b3574cbd153666c5ccf29f9cd3f40b7a9ff2aaa527ee6dc2ce0dee0. Live signed Sparkle feed and enclosure match. 2026-10-02 web-only #49/#51 fixes: exact source 915c566010e119777ad9a61a72a6adcadd1123b8 deployed as Worker 5e5d4488-80d8-4e39-acd9-d197bb9d2a82 at 100%. Native build110 DMG, signed feed and checksum bytes are unchanged; native PR50 acceptance remains open. Source/release evidence: https://github.com/Significant-Hobbies/storagedaddy/pull/53. 2026-10-26 website-only PR77 publication: source 3fb5f23f61a07353255d63ef4e78894ad431beff, Worker version c3d59cde-d0af-4874-905b-d53bb4aea788 (deployment 9c40405d-8eb6-4d76-bd96-fdde650f0049) at 100% in Cloudflare account 7d048325699a5acddb44d3be31cf6ba9. Exact-main CI passed; public proof content matched its source. Notarized 0.1.9-beta build119 release metadata and artifact bytes remain unchanged. No native change or GEO outcome claim."

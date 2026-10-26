@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: unset
+    githubHomepage: not-applicable
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-09-27
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=war-chest].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-25
       reviewSha256: 04b33167c82a9b23f28393d269ff865ed02940d455369c517c1e7ff2eee76c27
-      documentSha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      documentSha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -37,7 +37,7 @@ verification:
       checkout: ../fleet-archive/war-chest
       revision: f4c9f48646d706a28afb9ed89cb307b0cb321947
       githubRepository: Significant-Hobbies/war-chest
-      expectedHomepage: https://warchest.significanthobbies.com
+      expectedHomepage: null
       observedHomepage: null
       worktree: &a1
         state: clean
@@ -92,9 +92,9 @@ identity:
     status: inactive
     resumeCondition: Only resume after an explicit new owner decision.
     shareable: false
-  operationalStatus: live
+  operationalStatus: retired
   authenticationModel: local-only
-  inRegistry: true
+  inRegistry: false
 product:
   description: An experimental local tactical war game.
   publicMakerNote: War chest is an experimental war game
@@ -196,11 +196,10 @@ githubActions:
         ageDays: 5
       attention: ignored
 deployment:
-  kind: pages
-  deployed: true
-  domains:
-    - warchest.significanthobbies.com
-  primaryUrl: https://warchest.significanthobbies.com
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
   targets: []
   cloudflare:
@@ -209,10 +208,12 @@ deployment:
         kind: pages
         name: war-chest
         method: direct-upload
-        state: live
+        state: deleted
         verification:
           observedAt: 2026-09-27
           evidencePath: null
+        deletedAt: 2026-10-25
+        attributionReason: "Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
     resources: []
   otherProviders:
     deployments: []
@@ -221,8 +222,8 @@ sharing:
   publicListing: hidden
   maturity: experiment
   ready: false
-  verifiedAt: 2026-09-25
-  reason: Unsigned local War Chest and Practice War Chest apps exist in the checkout. The repository retains five commits (2026-09-26 through 2026-09-28) and has no published release; native play acceptance remains open.
+  verifiedAt: 2026-10-25
+  reason: "Hosted resources retired with owner approval on 2026-10-25. Source and previous evidence retained. Historical qualification: Unsigned local War Chest and Practice War Chest apps exist in the checkout. The repository retains five commits (2026-09-26 through 2026-09-28) and has no published release; native play acceptance remains open."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/war-chest/issues
   geoIdentity: null
@@ -230,4 +231,7 @@ notes:
   catalog: |-
     Owner registered the experimental local war game on 2026-09-25.
     Owner retired this project from active Fleet on 2026-10-08. Preserve source, data and infrastructure attribution; no provider decommission or repository archival was performed.
-  infrastructure: Static teaser page (site/index.html + existing artifacts art) deployed to Pages war-chest at warchest.significanthobbies.com on 2026-09-27. Unsigned local game apps; no production resources claimed.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.
+  infrastructure: |-
+    Static teaser page (site/index.html + existing artifacts art) deployed to Pages war-chest at warchest.significanthobbies.com on 2026-09-27. Unsigned local game apps; no production resources claimed.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.

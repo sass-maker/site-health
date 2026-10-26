@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: not-applicable
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-10-06
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Field Track
@@ -36,7 +36,7 @@ verification:
       checkout: ../fleet-archive/field-track
       revision: 23e0687dee82b351a95cb39a166d9bcecec6f374
       githubRepository: sass-maker/field-track
-      expectedHomepage: https://field-track.sassmaker.com
+      expectedHomepage: null
       observedHomepage: https://field-track.sassmaker.com
       worktree: &a1
         state: dirty
@@ -90,9 +90,9 @@ identity:
     status: inactive
     resumeCondition: Only resume after an explicit new owner decision.
     shareable: false
-  operationalStatus: live
+  operationalStatus: retired
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: A labelled synthetic field-team demo for exploring routes, visits and agent summaries; Android tracking is not qualified.
   publicMakerNote: "I started Field Track for my father: a lower-cost way for managers to locate employees carrying administrator-enrolled Android devices and review retained routes."
@@ -217,11 +217,10 @@ githubActions:
         ageDays: 3
       attention: ignored
 deployment:
-  kind: worker
-  deployed: true
-  domains:
-    - field-track.sassmaker.com
-  primaryUrl: https://field-track.sassmaker.com
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
   targets: []
   cloudflare:
@@ -230,7 +229,7 @@ deployment:
         kind: worker
         name: field-track
         method: wrangler-direct
-        state: live
+        state: deleted
         verification:
           observedAt: 2026-10-06
           sourceCommit: 829fb0406e4892bf9a64504f5153ce4b16aaf32e
@@ -241,6 +240,8 @@ deployment:
           state: success-production-verified
           evidence: Exact source/current owning CI, existing publisher/provider and anonymous bytes plus root actual runtime/render proof. Numeric slop scanner remains unknown.
         versionId: 643d426e-d8c6-45c9-94ca-d9fa26926f1a
+        deletedAt: 2026-10-25
+        attributionReason: "Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
     resources: []
   otherProviders:
     deployments: []
@@ -248,9 +249,9 @@ deployment:
 sharing:
   publicListing: hidden
   maturity: experiment
-  ready: true
-  verifiedAt: 2026-09-07
-  reason: Demo only; no Android/device/real workforce qualification.
+  ready: false
+  verifiedAt: 2026-10-25
+  reason: "Hosted resources retired with owner approval on 2026-10-25. Source and previous evidence retained. Historical qualification: Demo only; no Android/device/real workforce qualification."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/field-track/issues
   geoIdentity:
@@ -276,4 +277,5 @@ notes:
   catalog: |-
     The public Cloudflare Worker serves the actual manager dashboard as a clearly labeled synthetic demo. Production employee data, authenticated operations, and physical-device Android pilot validation remain unreleased.
     Owner retired this project from active Fleet on 2026-10-08. Preserve source, data and infrastructure attribution; no provider decommission or repository archival was performed.
-  infrastructure: null
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.
+  infrastructure: "2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated."

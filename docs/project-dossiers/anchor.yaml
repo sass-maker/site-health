@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
       infrastructureUpdatedAt: 2026-10-23
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -244,7 +244,10 @@ deployment:
         kind: pages
         name: habits
         method: wrangler-direct
-        state: live-compatibility
+        state: absent-provider-verified
+        verification:
+          observedAt: 2026-10-25
+          evidence: Complete authenticated Pages inventory omits habits; source archive marks it source-only. This task did not delete a habits Pages project.
     resources: []
   otherProviders:
     deployments:

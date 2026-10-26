@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: not-applicable
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-09-09
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Email Manager
@@ -36,7 +36,7 @@ verification:
       checkout: ../fleet-archive/email-manager
       revision: c55d6d4348b3bd0631c7784e5ddc02d14b41ee4a
       githubRepository: Significant-Hobbies/email-manager
-      expectedHomepage: https://mail.significanthobbies.com
+      expectedHomepage: null
       observedHomepage: https://mail.significanthobbies.com
       worktree: &a1
         state: clean
@@ -91,7 +91,7 @@ identity:
     status: inactive
     resumeCondition: Only resume after an explicit owner reactivation decision.
     shareable: false
-  operationalStatus: live
+  operationalStatus: retired
   authenticationModel: required-user
   inRegistry: false
 product:
@@ -324,11 +324,10 @@ githubActions:
         lastRun: null
       attention: clear
 deployment:
-  kind: worker
-  deployed: true
-  domains:
-    - mail.significanthobbies.com
-  primaryUrl: https://mail.significanthobbies.com
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
   targets: []
   cloudflare:
@@ -337,15 +336,18 @@ deployment:
         kind: worker
         name: email-manager
         method: wrangler-direct
-        state: live
+        state: deleted
+        deletedAt: 2026-10-25
+        attributionReason: "Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
     resources:
       - provider: cloudflare
         kind: d1
         name: email-manager-auth
-        state: active
+        state: deleted
+        deletedAt: 2026-10-25
+        attributionReason: "Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
         scope: project
         operationalOwner: email-manager
-        attributionReason: "Canonical project owner: email-manager"
   otherProviders:
     deployments: []
     resources: []
@@ -353,8 +355,8 @@ sharing:
   publicListing: hidden
   maturity: maintained
   ready: false
-  verifiedAt: 2026-09-11
-  reason: "September 11 ordinary existing-account Google OAuth completed with the requested gmail.readonly and identity scopes. 500 messages cached and indexed to 100%; sender search returned 25 results and a generic semantic query returned 50. After reload the mailbox remained connected and indexed, and the same query returned 50 results. No email write actions or message contents retained. Personal use is qualified; broad public sharing remains false. Account switching and a forced expired-token refresh were not separately exercised. Existing historical broader permissions were displayed as already granted; the current request was Gmail read-only plus identity. Receipt: docs/qualification/kinetic-owner-core-2026-09-11.json."
+  verifiedAt: 2026-10-25
+  reason: "Hosted resources retired with owner approval on 2026-10-25. Source and previous evidence retained. Historical qualification: September 11 ordinary existing-account Google OAuth completed with the requested gmail.readonly and identity scopes. 500 messages cached and indexed to 100%; sender search returned 25 results and a generic semantic query returned 50. After reload the mailbox remained connected and indexed, and the same query returned 50 results. No email write actions or message contents retained. Personal use is qualified; broad public sharing remains false. Account switching and a forced expired-token refresh were not separately exercised. Existing historical broader permissions were displayed as already granted; the current request was Gmail read-only plus identity. Receipt: docs/qualification/kinetic-owner-core-2026-09-11.json."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/email-manager/issues
   geoIdentity:
@@ -378,5 +380,9 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: Runtime 24142fee is deployed at 100%; exact CI 34323190467 passed 124 tests. Search accepts only dense finite normalized 384-dimensional vectors with the pinned MiniLM identity. Stale or untagged vectors remain pending explicit reindexing; mail is preserved. Real IndexedDB migration/reload and public 390px landing/login checks pass. A 16-message synthetic diagnostic scored MiniLM 16/18 versus BGE 17/18; this is not real-mailbox acceptance. Owner OAuth, account switching and real mailbox workflows remain issue 54. Documentation-only fc460af8 has green CI 34323671625.
-  infrastructure: Worker 9ad4e473-50cb-4cfb-8735-895e4a909941 / deployment 5df53469-9e8c-40fa-b4bb-59febc65be2d carries runtime 24142fee34c39a2f941e4c8855b5926c24a62255 at 100%. Exact CI 34323190467 passed. Deployed /app asset matched the local build byte-for-byte; public mobile page had no overflow or page errors. Documentation-only fc460af8 was not separately deployed. Existing D1/auth configuration retained; real-account acceptance remains open.
+  catalog: |-
+    Runtime 24142fee is deployed at 100%; exact CI 34323190467 passed 124 tests. Search accepts only dense finite normalized 384-dimensional vectors with the pinned MiniLM identity. Stale or untagged vectors remain pending explicit reindexing; mail is preserved. Real IndexedDB migration/reload and public 390px landing/login checks pass. A 16-message synthetic diagnostic scored MiniLM 16/18 versus BGE 17/18; this is not real-mailbox acceptance. Owner OAuth, account switching and real mailbox workflows remain issue 54. Documentation-only fc460af8 has green CI 34323671625.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.
+  infrastructure: |-
+    Worker 9ad4e473-50cb-4cfb-8735-895e4a909941 / deployment 5df53469-9e8c-40fa-b4bb-59febc65be2d carries runtime 24142fee34c39a2f941e4c8855b5926c24a62255 at 100%. Exact CI 34323190467 passed. Deployed /app asset matched the local build byte-for-byte; public mobile page had no overflow or page errors. Documentation-only fc460af8 was not separately deployed. Existing D1/auth configuration retained; real-account acceptance remains open.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.

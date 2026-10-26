@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: not-applicable
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-10-05
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=agent-testing].ownerNarrative
@@ -24,7 +24,7 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-09-20
       reviewSha256: 716a47374fe4e6e2eacab74e5e06fad025d095c8254bc4d9691d1bb6edbb99a0
-      documentSha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
+      documentSha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
@@ -37,7 +37,7 @@ verification:
       checkout: ../fleet-archive/agent-testing
       revision: 7c0cfb2809ef244dbe2ac4936587eb5334fb5f13
       githubRepository: sarthakagrawal927/agent-testing
-      expectedHomepage: https://browser-agents.sarthakagrawal.dev/
+      expectedHomepage: null
       observedHomepage: https://browser-agents.sarthakagrawal.dev
       worktree: &a1
         state: clean
@@ -91,7 +91,7 @@ identity:
     status: inactive
     resumeCondition: Only resume after an explicit new owner decision.
     shareable: false
-  operationalStatus: live
+  operationalStatus: retired
   authenticationModel: public-persistent
   inRegistry: false
 product:
@@ -215,24 +215,19 @@ githubActions:
         ageDays: 0
       attention: clear
 deployment:
-  kind: worker
-  deployed: true
-  domains:
-    - browser-agents.sarthakagrawal.dev
-  primaryUrl: https://browser-agents.sarthakagrawal.dev/
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
-  targets:
-    - id: guide
-      kind: worker
-      name: map-of-agent-testing
-      sourcePath: site
+  targets: []
   cloudflare:
     deployments:
       - provider: cloudflare
         kind: worker
         name: map-of-agent-testing
         method: wrangler-direct
-        state: live
+        state: deleted
         versionId: 0c2e0230-3c12-455a-9145-27b9761d214d
         notes: "Historical 2026-09-20 qualification: Static-assets-only completed Browser Agent Testing experiment at browser-agents.sarthakagrawal.dev with the workers.dev fallback retained, deployed from merged main commit 0942a20eb8dbbf3b7acf25705b8e65d22afa9561 and tagged with that full SHA. Root, tools, experiments, JSON and llms.txt routes return HTTP 200; unknown routes return the supplied 404 page. The live 26-arm matrix, 118/129 verified-attempt total and all 26 rendered rows were verified at desktop and mobile widths on 2026-09-20."
         verification:
@@ -241,6 +236,8 @@ deployment:
           versionId: 0c2e0230-3c12-455a-9145-27b9761d214d
           state: success-production-verified
           evidence: "AgentTesting #23/PR24: local18tests/check/dry-run and exact-head CI37234746913/exact-main CI37234785656 passed. Existing deploy script published exactmain. Independent public sitemap/root/tools/experiments all200 with matching canonicals; legacy .html307 aliases preserved. Fresh Ahrefs10205901 crawl225URLs/3m16 shows sitemapredirect0, previous2 aliases missing/lost from current crawl. Footer work remains separately owned; no new dependencies or resource/config changes."
+        deletedAt: 2026-10-25
+        attributionReason: "Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
     resources: []
   otherProviders:
     deployments: []
@@ -249,8 +246,8 @@ sharing:
   publicListing: hidden
   maturity: experiment
   ready: false
-  verifiedAt: 2026-09-20
-  reason: The completed Browser Agent Testing experiment and reusable source repository are public. Its 79-tool catalogue, 26-arm quantitative journey matrix, seven additional probes, ten experiment records, exact observed version pins, agent JSON surfaces, security headers and live routes were verified on 2026-09-20.
+  verifiedAt: 2026-10-25
+  reason: "Hosted resources retired with owner approval on 2026-10-25. Source and previous evidence retained. Historical qualification: The completed Browser Agent Testing experiment and reusable source repository are public. Its 79-tool catalogue, 26-arm quantitative journey matrix, seven additional probes, ten experiment records, exact observed version pins, agent JSON surfaces, security headers and live routes were verified on 2026-09-20."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/agent-testing/issues
   geoIdentity: null
@@ -259,4 +256,7 @@ notes:
     Owner marked Browser Agent Testing a completed experiment on 2026-09-20. It compares saved baselines and agent-driven web/iOS candidates against independent product verifiers without claiming a winner before qualification. Keep the live read-only evidence map and public reproducibility artifacts; there is no active framework or catalogue-expansion roadmap.
     Owner retired Browser Agent Testing from active Fleet on 2026-10-09: this could have been a blog. Preserve source, evidence and infrastructure attribution; no blog conversion, provider decommission or remote repository archival was performed.
     2026-10-09: GitHub repository transferred to sarthakagrawal927 and archived; API readback verified the new owner and archived flag. Existing local checkout, source history and hosted resources retained.
-  infrastructure: Public read-only guide for the public reusable benchmark runner. Cloudflare manages the custom-domain DNS record and TLS certificate. No bindings, persistent data, production credentials or model API calls.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.
+  infrastructure: |-
+    Public read-only guide for the public reusable benchmark runner. Cloudflare manages the custom-domain DNS record and TLS certificate. No bindings, persistent data, production credentials or model API calls.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.

@@ -9,14 +9,14 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: passed
+    githubHomepage: not-applicable
     githubActionsLiveState: verified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-10-05
+      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      infrastructureUpdatedAt: 2026-10-25
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: IssuePages
@@ -36,7 +36,7 @@ verification:
       checkout: ../fleet-archive/issue-pages
       revision: c81211be6b9b1a0b6ff195767f2ee75da148a59f
       githubRepository: sarthakagrawal927/issue-pages
-      expectedHomepage: https://issues.sarthakagrawal.dev
+      expectedHomepage: null
       observedHomepage: https://issues.sarthakagrawal.dev
       worktree: &a1
         state: clean
@@ -94,9 +94,9 @@ identity:
     status: inactive
     resumeCondition: Only resume as an independent product after an explicit new owner decision.
     shareable: false
-  operationalStatus: live
+  operationalStatus: retired
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
   description: Read public GitHub issues as focused articles; publishing requires repository-owner access.
   publicMakerNote: I wanted publishing a public page to be as simple as opening a GitHub issue.
@@ -233,25 +233,20 @@ githubActions:
         ageDays: 0
       attention: clear
 deployment:
-  kind: worker
-  deployed: true
-  domains:
-    - issues.sarthakagrawal.dev
-  primaryUrl: https://issues.sarthakagrawal.dev
+  kind: none
+  deployed: false
+  domains: []
+  primaryUrl: null
   domainProbePaths: {}
-  targets:
-    - id: web
-      kind: worker
-      name: issue-pages-production
-      sourcePath: issue-pages
+  targets: []
   cloudflare:
     deployments:
       - provider: cloudflare
         kind: worker
         name: issue-pages-production
         method: wrangler-direct
-        state: live
-        attributionReason: Restored 2026-09-26 at owner request; redeployed from fleet-archive/issue-pages with all cron triggers removed. Worker secrets (GITHUB_*, ADMIN_REVIEW_SECRET) were dropped by the earlier deletion and are not re-set — GitHub-backed features and moderation are degraded until secrets are re-added.
+        state: deleted
+        attributionReason: "Restored 2026-09-26 at owner request; redeployed from fleet-archive/issue-pages with all cron triggers removed. Worker secrets (GITHUB_*, ADMIN_REVIEW_SECRET) were dropped by the earlier deletion and are not re-set — GitHub-backed features and moderation are degraded until secrets are re-added. Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
         versionId: 1508d76f-ffc1-45a2-9410-7688c3a1d41c
         verification:
           observedAt: 2026-10-05T16:59:01.722727Z
@@ -272,21 +267,24 @@ deployment:
             state: success-production-verified
             evidencePath: known-closure-runs/issuepages29-release.json
             evidence: "PR #29 exact-main CI 37242358602 passed; production sitemap omits /embed and includes canonical articles 4 and 8. Live /embed is noindex; both canonical pages and expected GitHub source/comment links returned 200. Fresh Ahrefs recrawl accepted 225 URLs at 2026-10-04T23:33:18Z; issue #27 closed by comment 5985625567."
+        deletedAt: 2026-10-25
     resources:
       - provider: cloudflare
         kind: d1
         name: issue-pages
-        state: active
+        state: deleted
+        deletedAt: 2026-10-25
+        attributionReason: "Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
         scope: project
         operationalOwner: issue-pages
-        attributionReason: "Canonical project owner: issue-pages"
       - provider: cloudflare
         kind: custom-domain
         name: issues.sarthakagrawal.dev
-        state: active
+        state: deleted
+        deletedAt: 2026-10-25
+        attributionReason: "Owner-authorized retirement on 2026-10-25; deletion and fresh provider inventory verified. Private D1 recovery exports: saas-maker/.fleet-local/cloudflare-cleanup-2026-10-25/backups/."
         scope: project
         operationalOwner: issue-pages
-        attributionReason: "Canonical project owner: issue-pages"
   otherProviders:
     deployments: []
     resources: []
@@ -294,8 +292,8 @@ sharing:
   publicListing: hidden
   maturity: experiment
   ready: false
-  verifiedAt: 2026-09-07
-  reason: New issue publication not tested or required for retained read-only surface.
+  verifiedAt: 2026-10-25
+  reason: "Hosted resources retired with owner approval on 2026-10-25. Source and previous evidence retained. Historical qualification: New issue publication not tested or required for retained read-only surface."
   changelogUrl: null
   roadmapUrl: https://github.com/sarthakagrawal927/issue-pages/issues
   geoIdentity: null
@@ -304,4 +302,7 @@ notes:
     Owner-only production pilot at issues.sarthakagrawal.dev, with the workers.dev hostname retained as provider fallback. Worker issue-pages-production and D1 issue-pages are live. Public moderation remains disabled pending an OpenAI key; GitHub rendering needs a read-only token before stranger publishing.
     Owner ended the independent product on 2026-10-09; retained destination: sarthakagrawal-personal. Existing source, data and infrastructure are preserved; no provider decommission or remote repository archival.
     2026-10-09: GitHub repository transferred to sarthakagrawal927 and archived; API readback verified the new owner and archived flag. Existing local checkout, source history and hosted resources retained.
-  infrastructure: " 2026-09-26: issue-pages-production Worker deleted with owner approval; D1 retained, custom domain unrouted. Restored same day without cron after owner reversal; secrets need re-adding for GitHub features. 2026-10-05: PR #29 source e3870ad0c0c4f7bc593431a2e3752c7ef99257c5 is live at 100% as version 1b8489d9-f667-43f0-ae3a-30a1c647f5fb; fresh Ahrefs acceptance closed issue #27. See known-closure-runs/issuepages29-release.json."
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.
+  infrastructure: |2-
+     2026-09-26: issue-pages-production Worker deleted with owner approval; D1 retained, custom domain unrouted. Restored same day without cron after owner reversal; secrets need re-adding for GitHub features. 2026-10-05: PR #29 source e3870ad0c0c4f7bc593431a2e3752c7ef99257c5 is live at 100% as version 1b8489d9-f667-43f0-ae3a-30a1c647f5fb; fresh Ahrefs acceptance closed issue #27. See known-closure-runs/issuepages29-release.json.
+    2026-10-25: Owner-authorized Cloudflare retirement completed; source, Git history and local evidence retained. No independent product is reactivated.
