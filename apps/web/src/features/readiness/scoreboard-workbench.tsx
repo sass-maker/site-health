@@ -548,7 +548,7 @@ export function ScoreboardWorkbench({
                   <FileText />
                   Review & backup
                   <span className="hidden text-xs text-muted-foreground sm:inline">
-                    {dateLabel(snapshot.assessedAt)} · {snapshot.projects.length} products
+                    {dateLabel(snapshot.assessedAt)} · {snapshot.projects.length} assessed products
                   </span>
                 </Button>
               }
@@ -992,7 +992,7 @@ export function ScoreboardWorkbench({
                   {resultScores.filter((s) => s.status === 'estimated').length} result scores.
                 </h2>
                 <p>
-                  {snapshot.projects.length} products · {snapshot.levers.length} category
+                  {snapshot.projects.length} assessed products · {snapshot.levers.length} category
                   recommendations · assessed {dateLabel(snapshot.assessedAt)}.
                 </p>
                 <p>

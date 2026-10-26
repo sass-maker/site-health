@@ -34,7 +34,7 @@ test('Search Console covers current root owners without changing public metric e
   const publicProjects = visibilityProjects(catalog);
   const searchProjects = searchConsoleProjects(catalog, roots);
   const currentRoots = [...roots.values()].filter((root) =>
-    projects.find((project) => project.id === root.projectId)?.lifecycle?.status !== 'inactive');
+    projects.find((project) => project.id === root.projectId)?.domains?.includes(root.rootDomain));
 
   assert.deepEqual(
     [...new Set(searchProjects.map((project) => project.id))].sort(),

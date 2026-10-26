@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Upload } from 'lucide-react';
+import { protectUnsavedWorkspace } from './navigation-state';
 import { Button } from '@saas-maker/ui/components/button';
 import { Badge } from '@saas-maker/ui/components/badge';
 import { PageHeader } from './page-header';
@@ -43,6 +44,10 @@ export function ProductScoreboard() {
     typeof parsePortfolioUsageBundle
   > | null>(null);
   const input = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!saved) return protectUnsavedWorkspace(window);
+  }, [saved]);
 
   useEffect(() => {
     let cancelled = false;
@@ -233,7 +238,7 @@ export function ProductScoreboard() {
         >
           <h2 className="font-semibold">Import {pending.snapshot.label}?</h2>
           <p className="text-sm text-muted-foreground">
-            {pending.snapshot.projects.length} products · {pending.snapshot.levers.length}{' '}
+            {pending.snapshot.projects.length} assessed products · {pending.snapshot.levers.length}{' '}
             recommendations. A baseline update keeps score history and matching progress. “Add to
             score history only” retains the current scores and lever progress. Restoring a backup or
             replacing the workspace replaces current progress; export it first if needed.

@@ -77,7 +77,7 @@ The Fleet root is unversioned; the catalog in phase 2 is the project list.
 
 ## 2. Register in the portfolio
 
-- [ ] `catalog/projects.json` entry in SaaS Maker: classification, purpose,
+- [ ] `catalog/projects.json` entry in Site Health: classification, purpose,
       lifecycle, repositories, deployment
 - [ ] `pnpm catalog:sync` in saas-maker, then `pnpm --dir ../site-health
       docs:projects` so the project dossier generates

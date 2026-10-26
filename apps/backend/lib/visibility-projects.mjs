@@ -37,10 +37,10 @@ export function searchConsoleProjects(catalog, rootsByDomain = new Map()) {
     const project = catalogById.get(projectId);
     if (!project) throw new Error(`Unknown Search Console root project: ${projectId || '(empty)'}`);
 
-    // Retained root contracts remain history, never a collection target.
-    if (project.lifecycle?.status === 'inactive') continue;
-
     const ownedDomains = (project.domains ?? []).map(normalizedDomain);
+    // Keep measuring still-owned inactive domains. A historical identity that
+    // gave up this root must not be revived as a collector or IndexNow target.
+    if (project.lifecycle?.status === 'inactive' && !ownedDomains.includes(rootDomain)) continue;
     if (!rootDomain || !ownedDomains.includes(rootDomain)) {
       throw new Error(`Search Console root project domain mismatch: ${projectId} does not own ${rootDomain || '(empty)'}`);
     }

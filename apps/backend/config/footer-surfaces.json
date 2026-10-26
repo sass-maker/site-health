@@ -27,14 +27,6 @@
       ]
     },
     {
-      "id": "site-health",
-      "kind": "visual",
-      "state": "required",
-      "files": [
-        "site-health/apps/web/src/components/DashboardLayout.astro"
-      ]
-    },
-    {
       "id": "live",
       "kind": "visual",
       "state": "required",

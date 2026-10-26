@@ -1,13 +1,13 @@
 import { evidenceStateLabel, refreshAttemptLabel } from "../lib/evidence-labels.mjs";
 import { downloadLocalUsageBundle, startLocalUsageTracking } from "../lib/local-usage.mjs";
 import { dashboardApi } from "../lib/dashboard-api.mjs";
+import { createOutcomeScope } from "../lib/cohort-scope.mjs";
 import {
   inactiveProjectState,
   isCurrentProject,
   matchesProjectFilters,
   partitionProjects,
   projectSharingLabel,
-  scopeOutcomeRows,
 } from "../lib/project-directory.mjs";
 
 type JsonRecord = Record<string, any>;
@@ -93,20 +93,19 @@ function value(signal?: JsonRecord | null, suffix = "") {
   return signalValue(signal, suffix);
 }
 
-let cohortProjects: Promise<JsonRecord[]> | undefined;
 const scopedView = ["domains", "search", "ai-awareness", "performance"].includes(document.body.dataset.dashboardView ?? "");
 const includeInactive = new URLSearchParams(window.location.search).get("scope") === "all";
-function currentCohort() {
-  return cohortProjects ??= dashboardApi(base, "/v1/projects");
-}
+const scopeOutcome = createOutcomeScope(
+  () => dashboardApi(base, "/v1/projects"),
+  (message: string) => {
+    const label = document.querySelector<HTMLElement>("[data-cohort-count]");
+    if (label) label.textContent = message;
+  },
+);
 async function api(path: string, options?: RequestInit) {
   const payload = await dashboardApi(base, path, options);
   if (scopedView && path.startsWith("/v1/outcomes/") && Array.isArray(payload.rows)) {
-    const projects = await currentCohort();
-    const rows = scopeOutcomeRows(payload.rows, projects, includeInactive);
-    const label = document.querySelector<HTMLElement>("[data-cohort-count]");
-    if (label) label.textContent = `${projects.filter(isCurrentProject).length} current products · primary and active`;
-    return { ...payload, rows };
+    return scopeOutcome(payload, includeInactive);
   }
   return payload;
 }
@@ -727,11 +726,14 @@ function bindProjectFilters(projects: JsonRecord[]) {
     const count = currentCount + inactiveCount;
     const emptyResult = document.querySelector<HTMLElement>("[data-project-filter-empty]");
     if (emptyResult) emptyResult.hidden = count !== 0;
-    if (result) result.textContent = `${currentCount} current · ${inactiveCount} inactive`;
+    if (result) result.textContent = inactiveDetails?.open
+      ? `${currentCount} current products · ${inactiveCount} inactive identities`
+      : `${currentCount} current products`;
   };
   if (searchInput && searchInput.dataset.projectFilterBound !== "true") {
     searchInput.dataset.projectFilterBound = "true";
     searchInput.addEventListener("input", apply);
+    document.querySelector("[data-inactive-projects]")?.addEventListener("toggle", apply);
     priority?.addEventListener("change", apply);
     health?.addEventListener("change", apply);
     sharing?.addEventListener("change", apply);
@@ -1769,8 +1771,8 @@ async function start() {
   document.querySelector<HTMLButtonElement>("[data-usage-export]")?.addEventListener("click", () => {
     downloadLocalUsageBundle(document, window);
   });
-  // App Store SEO owns its browser-local workspace and service status.
-  if (view === "app-store") return;
+  // Local workspaces own their state; no provider evidence was loaded here.
+  if (document.body.dataset.dashboardEvidence === "false") return;
   try {
     bindPortfolioRefresh();
     bindProjectRefreshAll();
