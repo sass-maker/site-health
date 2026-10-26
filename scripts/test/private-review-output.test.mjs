@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -23,4 +23,24 @@ test('private review destinations reject checkout paths and symlink aliases, inc
     join(external, 'dangling-directory/sub/out.json'), join(external, 'scoreboard-levers.md'),
   ]) assert.throws(() => requirePrivateDestination(repository, destination), /outside the repository/);
   assert.doesNotThrow(() => requirePrivateDestination(repository, join(external, 'new/sub/out.json')));
+});
+
+test('case variants cannot disguise a checkout child on case-insensitive volumes', (context) => {
+  const root = mkdtempSync(join(tmpdir(), 'private-review-case-'));
+  context.after(() => rmSync(root, { recursive: true, force: true }));
+  const repository = join(root, 'repository');
+  const alternateCase = join(root, 'REPOSITORY');
+  mkdirSync(repository);
+  if (!existsSync(alternateCase)) {
+    context.skip('This volume has case-sensitive paths.');
+    return;
+  }
+  assert.throws(
+    () => requirePrivateDestination(repository, join(alternateCase, 'new/sub/out.json')),
+    /outside the repository/,
+  );
+  assert.throws(
+    () => requirePrivateDestination(alternateCase, join(repository, 'new/sub/scoreboard-levers.md')),
+    /outside the repository/,
+  );
 });

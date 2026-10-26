@@ -6,7 +6,7 @@ function destinationRealpath(path, depth = 0) {
   let ancestor = resolve(path);
   for (;;) {
     try {
-      return resolve(realpathSync(ancestor), relative(ancestor, resolve(path)));
+      return resolve(realpathSync.native(ancestor), relative(ancestor, resolve(path)));
     } catch (error) {
       if (error.code !== 'ENOENT') throw error;
       // realpath also rejects a dangling symlink, which a later write can follow.
@@ -26,7 +26,7 @@ function destinationRealpath(path, depth = 0) {
 }
 
 export function requirePrivateDestination(repository, path) {
-  const child = relative(realpathSync(repository), destinationRealpath(path));
+  const child = relative(realpathSync.native(repository), destinationRealpath(path));
   const outside = child === '..' || child.startsWith(`..${sep}`) || isAbsolute(child);
   if (!outside) throw new Error('Private review output must stay outside the repository.');
 }
