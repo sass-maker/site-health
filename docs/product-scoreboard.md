@@ -282,7 +282,7 @@ The optional Node 24+ assembler reads an existing private review directory.
 It never runs during a public build and refuses output inside this repository.
 
 ```bash
-node ../saas-maker/scripts/create-scoreboard-review.mjs \
+node scripts/create-scoreboard-review.mjs \
   --review-dir /absolute/path/to/private-review \
   --output /absolute/path/to/private-review/scoreboard-review.json
 ```
