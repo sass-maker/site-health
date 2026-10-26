@@ -1270,7 +1270,7 @@ async function renderBrandEvidence() {
   try { listing = await api("/v1/brand-evidence/projects"); }
   catch { replace("brand-evidence", empty("Brand evidence unavailable · start the Site Health backend to load private evidence.")); return; }
   const profiles: JsonRecord[] = listing.profiles ?? [];
-  const projects: JsonRecord[] = (listing.projects ?? []).filter((project: JsonRecord) => project.active || profiles.some((profile) => profile.projectId === project.projectId));
+  const projects: JsonRecord[] = (listing.projects ?? []).filter((project: JsonRecord) => includeInactive || project.active);
   if (count) count.textContent = String(profiles.length);
   if (!projects.length) { replace("brand-evidence", empty("No projects available for brand monitoring.")); return; }
   const requested = new URLSearchParams(window.location.search).get("project");
