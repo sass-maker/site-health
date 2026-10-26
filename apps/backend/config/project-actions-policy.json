@@ -145,6 +145,10 @@
       "disposition": "active",
       "reason": "Active product CI and security checks. Dependency snapshots may run on main dependency-file changes or manual dispatch, without a recurring graph refresh."
     },
+    "significanthobbies": {
+      "disposition": "active",
+      "reason": "Retained PersonalSyncKit and compatibility backend still serve independent apps. CI/security maintenance remains applicable; no Hub product roadmap."
+    },
     "ios-landings": {
       "disposition": "active",
       "reason": "Retained landing factory runs inside UI Library; verify its operational CI without an independent product roadmap."

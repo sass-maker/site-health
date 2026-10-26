@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
-      infrastructureUpdatedAt: 2026-10-23
+      sha256: c86d336355e2693e457b9191ceb4ae0faaeb3de649cb573b8948bcc39ca35575
+      infrastructureUpdatedAt: 2026-10-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Significant Hobbies
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
+      sha256: 320cf971c2187fb4051a20f4864e42795a6715f09b6ddc2e0820fc642d295923
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
@@ -71,10 +71,10 @@ ownerVoice:
     So hub backend is the backend for seven applications and its purpose is to join the applications and show it on a UI. It is currently being built and it would be an important project for future
   relatedHistoricalReviews: []
 decision:
-  classification: Active
-  whySummary: Join retained personal applications in one Hub while each retains ownership of its data.
-  currentState: Hub UI, backend, typed sync package, and extracted product boundaries are canonical. Journal is removed from the lineup; historical data and compatibility domains remain attributable.
-  nextDecision: Finish unified authentication and complete privacy-safe summaries/actions for the maintained apps without breaking retained domains.
+  classification: Inactive
+  whySummary: Preserve the shared sync and compatibility layer for standalone personal apps.
+  currentState: The owner retired the cross-app Hub on 2026-10-26 because combined use was not wanted. PersonalSyncKit, its backend, stored data, and compatibility services remain for the independent apps; no Hub integration roadmap is active.
+  nextDecision: Keep the shared dependencies working for their current app consumers; do not rebuild or expand the Hub product.
 identity:
   name: Significant Hobbies
   publicName: Significant Hobbies
@@ -90,25 +90,25 @@ identity:
   unmetNeed: false
   kind: product
   priority: P2
-  tier: secondary
-  attention: toolbox
+  tier: out-of-fleet
+  attention: ignored
   lifecycle:
-    status: active
-    resumeCondition: null
-    shareable: true
+    status: inactive
+    resumeCondition: Only resume the cross-app Hub product after an explicit new owner decision grounded in actual use. Shared dependency/security maintenance may continue.
+    shareable: false
   operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: true
+  inRegistry: false
 product:
-  description: The shared Hub for Live, Calorie, Setline, Kith, and Anchor, backed by one privacy-aware control plane.
-  publicMakerNote: I wanted one Hub for my maintained personal apps while letting every app keep ownership of its own data.
+  description: Retired cross-app Hub. Shared sync package and compatibility services are retained for the standalone apps.
+  publicMakerNote: Retired because I was not using the applications together. The individual apps remain independent.
   purposeContract:
-    purpose: Significant Hobbies is the shared home and privacy-aware control plane for five independently owned personal applications.
-    audience: One person using Live, Calorie, Setline, Kith, and Anchor as a connected personal system.
-    outcome: See and act across the five apps without collapsing their data ownership or product identities.
-    mechanism: A Hub, backend, and typed sync contracts exchange privacy-safe summaries and semantic actions while each app keeps its own source and data.
-    proof: The canonical Hub lists five maintained apps. Journal is removed from the product lineup; Journal and Habits source/data compatibility history remains retained. Private cross-app use still needs hosted qualification.
-    nextAction: Open the Hub to reach the five apps; current work focuses on unified authentication and safe cross-app summaries.
+    purpose: Historical cross-app Hub, retired by the owner.
+    audience: Historical project; no independent product is being offered.
+    outcome: Retain recovery and shared dependency continuity while keeping each application independent.
+    mechanism: The retained repository still supplies PersonalSyncKit and compatibility services used by standalone applications.
+    proof: Owner retirement decision2026-10-26. Source dependency checks find all four native apps import PersonalSyncKit and Live delegates Hub-compatible routes. No stored data or provider resources were deleted.
+    nextAction: Use the standalone apps; do not resume the cross-app Hub without a new owner decision.
   form: Personal-app Hub
   platforms:
     - Web
@@ -312,12 +312,12 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: maintained
+  publicListing: past
   maturity: public-ready
   ready: false
-  verifiedAt: 2026-09-11
-  reason: "The existing Google OAuth client now includes the Live callback while preserving existing callbacks. Personal Google login returns to the private Hub and its authenticated five-app summaries; Anchor shows 35 existing records. Public directory includes exactly Live, Calorie, Setline, Kith and Anchor without Journal. Hub navigation and owner summary core passed. This does not certify fresh cross-device writes for every native app. Receipt: docs/qualification/live-hub-owner-core-2026-09-11.json. Sharing remains limited to the personal Hub; broader native sync claims are not certified by this check."
-  changelogUrl: https://significanthobbies.com/changelog
+  verifiedAt: 2026-10-26
+  reason: Owner retired the unused cross-app Hub product on2026-10-26. Shared PersonalSyncKit source, authentication/sync compatibility backend and stored data remain retained for independently owned applications. No replacement Hub or automatic integration roadmap.
+  changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/significanthobbies/issues
   geoIdentity:
     id: significanthobbies
@@ -339,5 +339,9 @@ sharing:
     pricing:
       state: not-declared
 notes:
-  catalog: "The existing Google OAuth client now includes the Live callback while preserving existing callbacks. Personal Google login returns to the private Hub and its authenticated five-app summaries; Anchor shows 35 existing records. Public directory includes exactly Live, Calorie, Setline, Kith and Anchor without Journal. Hub navigation and owner summary core passed. This does not certify fresh cross-device writes for every native app. Receipt: docs/qualification/live-hub-owner-core-2026-09-11.json. Sharing remains limited to the personal Hub; broader native sync claims are not certified by this check."
-  infrastructure: Worker personal-platform version 8549fc16-e9dd-4ed8-864f-363c6cfde642 carries 629d8e7be44295044e60c950395ec3232541a373 at 100%. Prior rollback version d9b6ea57-7b9c-4a75-8f25-db62bd6d4db8 is tagged c821abfde26550c6adac9bce4213845ae37fd255. Existing D1 and service bindings unchanged. Issue154 comment5598004640 records release and browser proof.
+  catalog: |-
+    The existing Google OAuth client now includes the Live callback while preserving existing callbacks. Personal Google login returns to the private Hub and its authenticated five-app summaries; Anchor shows 35 existing records. Public directory includes exactly Live, Calorie, Setline, Kith and Anchor without Journal. Hub navigation and owner summary core passed. This does not certify fresh cross-device writes for every native app. Receipt: docs/qualification/live-hub-owner-core-2026-09-11.json. Sharing remains limited to the personal Hub; broader native sync claims are not certified by this check.
+    2026-10-26: Owner retired the unused cross-app Hub product on2026-10-26. Shared PersonalSyncKit source, authentication/sync compatibility backend and stored data remain retained for independently owned applications. No replacement Hub or automatic integration roadmap.
+  infrastructure: |-
+    Worker personal-platform version 8549fc16-e9dd-4ed8-864f-363c6cfde642 carries 629d8e7be44295044e60c950395ec3232541a373 at 100%. Prior rollback version d9b6ea57-7b9c-4a75-8f25-db62bd6d4db8 is tagged c821abfde26550c6adac9bce4213845ae37fd255. Existing D1 and service bindings unchanged. Issue154 comment5598004640 records release and browser proof.
+    2026-10-26: Owner retired the unused cross-app Hub product on2026-10-26. Shared PersonalSyncKit source, authentication/sync compatibility backend and stored data remain retained for independently owned applications. No replacement Hub or automatic integration roadmap. Worker/D1/bindings remain live compatibility dependencies; this is product retirement, not resource deletion.

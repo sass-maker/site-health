@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      sha256: c86d336355e2693e457b9191ceb4ae0faaeb3de649cb573b8948bcc39ca35575
       infrastructureUpdatedAt: 2026-10-24
     ownerVoice:
       path: apps/backend/config/projects.json
@@ -24,12 +24,12 @@ verification:
       sourceKind: verbatim-owner-message
       capturedAt: 2026-10-09
       reviewSha256: 74ff7d1b3faf4c46efce30259833f4d7ada4cf4ee4452da388e1962b2ea5a029
-      documentSha256: d32eb02a3cddf93eebd766628e166d1f3e292bdca3ec790d43878f4316545523
+      documentSha256: c86d336355e2693e457b9191ceb4ae0faaeb3de649cb573b8948bcc39ca35575
       restoredFromCommit: null
       restoredBlob: null
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: a7867c71720bd81ae261495092fb3013f633ee59fd1812d3dd86c81893b99b74
+      sha256: 320cf971c2187fb4051a20f4864e42795a6715f09b6ddc2e0820fc642d295923
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-10-16
