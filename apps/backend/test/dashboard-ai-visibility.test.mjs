@@ -125,13 +125,14 @@ test('the retained AI visibility baseline has product-specific fixture coverage'
   const catalog = JSON.parse(
     readFileSync(new URL('../config/projects.json', import.meta.url), 'utf8'),
   );
-  // This frozen research panel is not the public directory or current work scope.
-  // Retired identities remain in its historical fixtures, without earning promotion.
+  // Current eligibility follows the canonical catalog. The frozen panel below
+  // retains its historical Hub surface, but retirement removes it from current work.
   const canonicalIds = new Set(catalog.projects.map((project) => project.id));
   const portfolio = loadAiVisibilityPortfolio();
   assert.equal(portfolio.excluded.length, 0);
   assert.equal(portfolio.eligible.every((project) => canonicalIds.has(project.slug)), true);
-  assert.equal(portfolio.eligible.length, 55);
+  assert.equal(portfolio.eligible.length, 38);
+  assert.equal(portfolio.eligible.some((project) => project.slug === 'significanthobbies'), false);
   for (const project of portfolio.eligible) {
     // Every identity keeps its own two-prompt buyer-discovery fixture set.
     const buyerDiscovery = project.promptSets.filter((set) => set.id === 'buyer-discovery');
@@ -160,17 +161,23 @@ test('the frozen baseline AI-visibility panel stays intact and append-only', () 
   }
 
   const portfolio = loadAiVisibilityPortfolio();
+  const historicalOnlySurfaces = panel.surfaces.filter(
+    (slug) => !portfolio.eligible.some((candidate) => candidate.slug === slug),
+  );
+  assert.deepEqual(historicalOnlySurfaces, ['on-record', 'significanthobbies']);
+  assert.equal(portfolio.eligible.some((project) => project.slug === 'significanthobbies'), false);
   const promptIds = [];
   for (const slug of panel.surfaces) {
     const project = portfolio.eligible.find((candidate) => candidate.slug === slug);
-    assert.ok(project, `panel surface ${slug} must stay an eligible identity`);
+    if (historicalOnlySurfaces.includes(slug)) continue;
+    assert.ok(project, `current panel surface ${slug} must stay an eligible identity`);
     const frozen = project.promptSets.find((set) => set.id === panel.id);
     assert.ok(frozen, `panel surface ${slug} must carry ${panel.id}`);
     assert.equal(frozen.frozen, true);
     for (const prompt of frozen.prompts) promptIds.push(prompt.id);
   }
-  assert.equal(promptIds.length, panel.promptCount);
-  assert.equal(new Set(promptIds).size, panel.promptCount);
+  assert.equal(promptIds.length, 34);
+  assert.equal(new Set(promptIds).size, promptIds.length);
 });
 
 test('the frozen engine set stays declared, budgeted, and honestly attributed', () => {
@@ -197,6 +204,7 @@ test('the frozen engine set stays declared, budgeted, and honestly attributed', 
   const portfolio = loadAiVisibilityPortfolio();
   for (const slug of panel.surfaces) {
     const project = portfolio.eligible.find((candidate) => candidate.slug === slug);
+    if (!project) continue; // Frozen historical coverage is not current eligibility.
     const expanded = expandVisibilityPrompts(project, panel.id).prompts.length;
     assert.ok(
       project.runBudget.maxCalls >= expanded * engines.length,
@@ -411,9 +419,9 @@ test('provider observation ingestion rejects incomplete provenance and unknown p
   );
 });
 
-test('provider observation all-project gate requires the exact canonical 55', () => {
+test('provider observation all-project gate requires the exact canonical 38', () => {
   const portfolio = loadAiVisibilityPortfolio();
-  assert.equal(portfolio.eligible.length, 55);
+  assert.equal(portfolio.eligible.length, 38);
   assert.throws(
     () => prepareProviderObservationRuns({
       bundle: {
@@ -424,7 +432,7 @@ test('provider observation all-project gate requires the exact canonical 55', ()
       engine,
       requireAll: true,
     }),
-    /do not cover the canonical 55/,
+    /do not cover the canonical 38/,
   );
 
   const prepared = prepareProviderObservationRuns({
@@ -436,7 +444,7 @@ test('provider observation all-project gate requires the exact canonical 55', ()
     engine,
     requireAll: true,
   });
-  assert.equal(prepared.length, 55);
+  assert.equal(prepared.length, 38);
 });
 
 test('offline observations do not enable direct live provider execution', async () => {
