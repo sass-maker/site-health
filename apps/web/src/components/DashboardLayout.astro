@@ -1,4 +1,5 @@
 ---
+import { themeBootstrap } from "../scripts/theme.mjs";
 import DashboardNav from "./DashboardNav.astro";
 import "../styles/shared-ui.css";
 import "../styles/dashboard.css";
@@ -24,7 +25,8 @@ const directoryView = ["domains", "search", "ai-awareness", "performance", "proj
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light" />
+    <script is:inline set:html={themeBootstrap} />
+    <meta name="color-scheme" content="light dark" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="dashboard-api-base" content="/api/dashboard" />
     <title>{title} · Site Health</title>

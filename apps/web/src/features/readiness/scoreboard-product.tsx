@@ -87,6 +87,10 @@ export function ScoreboardProduct({
           action={<Badge variant="outline">{productPriorityLabel(project)}</Badge>}
         />
       </div>
+      <nav className="section-jumps" aria-label="Product views">
+        <a href="#product-scores">Scores & next tasks</a><a href="#product-usage">Usage</a>
+        <a href={`/projects/${encodeURIComponent(project.id)}`}>Operational evidence</a>
+      </nav>
       <section className={styles.productOverview} aria-label="Product purpose and scope">
         <div>
           <h2>Why we keep it</h2>
@@ -132,7 +136,7 @@ export function ScoreboardProduct({
           })}
         </div>
       </section>
-      <section className={styles.usagePanel} aria-label="Rolling 30-day usage">
+      <section id="product-usage" className={styles.usagePanel} aria-label="Rolling 30-day usage">
         <div className={styles.usageHeading}>
           <div>
             <h2>Rolling 30-day usage</h2>
@@ -201,6 +205,8 @@ export function ScoreboardProduct({
             ))}
           </details>
         ) : null}
+        <details className={styles.usageEvidence}>
+          <summary>Usage sources, limitations and optional owner report</summary>
         {record?.evidence.map((evidence, index) => (
           <p className={styles.usageEvidenceLine} key={`${evidence.source}:${index}`}>
             {evidence.source} · {evidence.date}: {evidence.note}
@@ -250,8 +256,9 @@ export function ScoreboardProduct({
             ))}
           </details>
         ) : null}
+        </details>
       </section>
-      <section aria-label="Scores and next tasks">
+      <section id="product-scores" aria-label="Scores and next tasks">
         <h2>Six areas · evidence and next tasks</h2>
         <div className={styles.productAreas}>
           {SCORE_CATEGORIES.map((category) => {

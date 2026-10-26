@@ -7,7 +7,7 @@ const { active } = Astro.props;
   <a href="/search/app-store" aria-current={active === 'app-store' ? 'page' : undefined}>App Store SEO</a>
 </nav>
 <style>
-.seo-source-nav { display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:16px; margin:0 0 24px; }
-.seo-source-nav a { color:var(--dashboard-muted); padding:10px 16px; border-radius:7px; text-decoration:none; }
+.seo-source-nav { display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-block:6px; margin:0; }
+.seo-source-nav a { color:var(--dashboard-muted); padding:8px 12px; font-size:13px; border-radius:7px; text-decoration:none; }
 .seo-source-nav a[aria-current] { background:var(--raised); color:var(--dashboard-accent); }
 </style>

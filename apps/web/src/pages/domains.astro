@@ -9,11 +9,12 @@ import DashboardLayout from "../components/DashboardLayout.astro";
   view="domains"
 >
   <div slot="meta" class="page-head__meta">
-    <button type="button" class="secondary-action" data-portfolio-refresh="drank" data-usage-event="refresh">Re-run</button>
+    <button type="button" class="secondary-action" data-portfolio-refresh="drank" data-usage-event="refresh">Refresh ratings</button>
     <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="drank"></span>
     <span class="snapshot-time" data-outcome-time>Reading domain evidence</span>
   </div>
   <section class="owner-section owner-section--directory" aria-label="Domain directory">
+    <div class="section-head"><div><h2>Domain ratings</h2><p data-dashboard-coverage="domains">Reading coverage</p></div></div>
     <div class="loading-state" data-dashboard-slot="domains">Building domain directory…</div>
   </section>
 </DashboardLayout>
