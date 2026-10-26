@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-10-23
+      sha256: 1894c0cea5ecb50aad0cc7b7725177e92c38ba31aa7f3142e00f29ba245e8f51
+      infrastructureUpdatedAt: 2026-10-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: What It Takes to Win
@@ -292,23 +292,36 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-23T05:56:33.507820+00:00
-          sourceCommit: 1383b156e96dcd9c12961e731ffa16b87f9bd972
-          deploymentId: dadc7e17-0780-4e7e-a44f-0361a696ebae
-          deploymentUrl: https://dadc7e17.success-by-26.pages.dev
+          observedAt: 2026-10-26T08:47:45Z
+          sourceCommit: 06ddb2b3deb1abb2a82dfbba41e084d1fac618a7
+          deploymentId: 5040f3ea-ce52-4d4c-a243-381e7ad46f20
+          deploymentUrl: https://5040f3ea.success-by-26.pages.dev
           environment: Production
           branch: main
-          providerSourceAbbreviation: 1383b15
-          exactMainCi: 39907235349
-          state: provider-identity-and-footer-capture-retry-verified
-          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/paths-production-summary.json
-          scope: "PR96: Base-onlyv0.1.17 backport plus immutable native3f8 interiorcontroller; SSR/theme/CSS retained. Astro/Vite/fast-uri/smol-toml build-tool fixes give zero audit findings; CI resolves latestNode22patch matching engine minimum. Frozeninstall/fullquality,6candidatecases/12renders, exactmainCI/sixgates/existingpublisher pass. ProviderProduction/mainsource1383b15 matchesfullSHA; traffic not inferred. Real3width capture/retry/newsletter gives4receipts/events/feed,6liveforms reviewed, QAcleanup independentlystored. LiveinteriorClose/retry/reset/consent/style3width fixtures with6extra renders pass; asset3f8verified. No research/corpus/generated-data changes orleadresearch acceptance."
+          providerSourceAbbreviation: 06ddb2b
+          providerBuildUrl: https://dash.cloudflare.com/7d048325699a5acddb44d3be31cf6ba9/pages/view/success-by-26/5040f3ea-ce52-4d4c-a243-381e7ad46f20
+          exactMainCi: 40283982227
+          state: provider-identity-and-anonymous-exposure-runtime-verified
+          evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/execution-fixes-2026-10-26/paths-runtime-proof.json
+          providerReadbackPath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/execution-fixes-2026-10-26/pages-provider-readback-2026-10-26.json
+          scope: Production Pages listing identifies this exact main deployment and full source SHA. Existing production runtime proof accepted the two anonymous comprehension-exposure events with HTTP 202 and opened all six explanations. QA exposure only; it does not prove downstream persistence, participant comprehension, or natural audience use.
         verificationHistory:
           - observedAt: 2026-09-09T23:02:39.600569+00:00
             deploymentId: f2e3c29e-e26a-4436-8167-91f33212f359
             sourceCommit: ac61e3ffb173aa00aed518ac0c13a0c68cd55313
             sourcePath: what-it-takes-to-win
             evidencePath: docs/qualification/flagged-deployment-resolution-2026-09-10.json
+          - observedAt: 2026-10-23T05:56:33.507820+00:00
+            sourceCommit: 1383b156e96dcd9c12961e731ffa16b87f9bd972
+            deploymentId: dadc7e17-0780-4e7e-a44f-0361a696ebae
+            deploymentUrl: https://dadc7e17.success-by-26.pages.dev
+            environment: Production
+            branch: main
+            providerSourceAbbreviation: 1383b15
+            exactMainCi: 39907235349
+            state: provider-identity-and-footer-capture-retry-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/feedback-retry-167-20261023/paths-production-summary.json
+            scope: "PR96: Base-onlyv0.1.17 backport plus immutable native3f8 interiorcontroller; SSR/theme/CSS retained. Astro/Vite/fast-uri/smol-toml build-tool fixes give zero audit findings; CI resolves latestNode22patch matching engine minimum. Frozeninstall/fullquality,6candidatecases/12renders, exactmainCI/sixgates/existingpublisher pass. ProviderProduction/mainsource1383b15 matchesfullSHA; traffic not inferred. Real3width capture/retry/newsletter gives4receipts/events/feed,6liveforms reviewed, QAcleanup independentlystored. LiveinteriorClose/retry/reset/consent/style3width fixtures with6extra renders pass; asset3f8verified. No research/corpus/generated-data changes orleadresearch acceptance."
     resources: []
   otherProviders:
     deployments: []
