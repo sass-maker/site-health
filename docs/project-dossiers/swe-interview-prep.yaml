@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-10-23
+      sha256: 1894c0cea5ecb50aad0cc7b7725177e92c38ba31aa7f3142e00f29ba245e8f51
+      infrastructureUpdatedAt: 2026-10-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: SWE Interview Prep
@@ -453,16 +453,20 @@ deployment:
         method: github-actions-wrangler
         state: live
         verification:
-          observedAt: 2026-10-23T00:36:10.828812+00:00
-          sourceCommit: 3b28e92ab0fb937e194e16c85a00ac03d9c48215
-          deploymentId: 0e8d204f-ba44-45cb-8ced-7a3a4297c6d6
-          exactMainCi: 39876837445
-          deployWorkflow: 39877472921
-          assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
-          deploymentUrl: https://0e8d204f.swe-interview-prep.pages.dev
-          state: provider-identity-and-footer-retry-verified
-          evidencePath: .fleet-local/feedback-retry-167-20261023/swe-production-summary.json
-          scope: PR149 exact shared footer bundle. Live390/768/1440 response-loss retry preserves submission identity/draft/consent and creates3records from6POSTs; one newsletter subscription from3consentedPOSTs with unchecked consent blocked.4durable receipts and4matching logs/feed;6feedback screenshots reviewed. QA feedback dismissed and newsletter unsubscribed; receipts retained. Synthetic controls do not certify customer demand or completed-day reporting.
+          observedAt: 2026-10-26T08:47:45Z
+          sourceCommit: 6f87ca54c8bf0c25df87e0eb2917640b7caecd9a
+          deploymentId: 2d7dbad6-684d-40f6-a1ce-dccdfdde4d5a
+          deploymentUrl: https://2d7dbad6.swe-interview-prep.pages.dev
+          environment: Production
+          branch: main
+          providerSourceAbbreviation: 6f87ca5
+          providerBuildUrl: https://dash.cloudflare.com/7d048325699a5acddb44d3be31cf6ba9/pages/view/swe-interview-prep/2d7dbad6-684d-40f6-a1ce-dccdfdde4d5a
+          exactMainCi: 40290048869
+          deployWorkflow: 40290068202
+          state: provider-identity-and-question-backed-receipt-setup-verified
+          evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/execution-fixes-2026-10-26/swe/swe150-delayed-outcome-delivery-current.json
+          providerReadbackPath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/execution-fixes-2026-10-26/pages-provider-readback-2026-10-26.json
+          scope: Exact main CI and Pages deployment workflow succeeded for the merged question-backed delayed-review receipt setup; production smoke passed and no migrations were applied. Controlled QA and source checks do not establish delayed no-hint learner transfer; the original study remains open.
         verificationHistory:
           - observedAt: 2026-10-16T13:37:51.957253+00:00
             createdOn: 2026-10-14T10:29:19.275467Z
@@ -496,6 +500,25 @@ deployment:
             evidencePath: /tmp/fleet-design-seo-geo-20261022/swe-canvas-release-proof.json
             scope: PR147 raises metadata contrast to6.1986:1; PR148 fixes Monaco AMD versus bundled CommonJS font-pool initialization while preserving standalone AMD/global fallbacks. Actual UMD regression red-to-green3tests; live390/768/1440 Excalifont, text entry/persistence/reopen, no page errors/nooverflow, and exact loader chunk hash pass. Scoped DOMPurify3.4.17 prerequisite clears high/critical installed-graph advisories; CDN-hosted code, account save/export and full product quality are not certified.
             assetSha256: ff8b9cdeb673a150a4ca94e9bd75d3b4c524c3c13ba9c4d4c534c80783b31475
+          - observedAt: 2026-10-23T00:36:10.828812+00:00
+            sourceCommit: 3b28e92ab0fb937e194e16c85a00ac03d9c48215
+            deploymentId: 0e8d204f-ba44-45cb-8ced-7a3a4297c6d6
+            exactMainCi: 39876837445
+            deployWorkflow: 39877472921
+            assetSha256: 7f69cbbe61377715e2c626124e8bbd20e11c7489f92fbfb5c7b57fbbdc936cc3
+            deploymentUrl: https://0e8d204f.swe-interview-prep.pages.dev
+            state: provider-identity-and-footer-retry-verified
+            evidencePath: .fleet-local/feedback-retry-167-20261023/swe-production-summary.json
+            scope: PR149 exact shared footer bundle. Live390/768/1440 response-loss retry preserves submission identity/draft/consent and creates3records from6POSTs; one newsletter subscription from3consentedPOSTs with unchecked consent blocked.4durable receipts and4matching logs/feed;6feedback screenshots reviewed. QA feedback dismissed and newsletter unsubscribed; receipts retained. Synthetic controls do not certify customer demand or completed-day reporting.
+          - observedAt: 2026-10-25T18:03:16.492335+00:00
+            sourceCommit: f02d30926ec6759e7e541a5e8c6f7158023531b8
+            deploymentId: 10602f1c-10ec-4ae6-9786-7e5d6d3ac83e
+            deploymentUrl: https://10602f1c.swe-interview-prep.pages.dev
+            exactMainCi: 40218460743
+            deployWorkflow: 40218645690
+            state: provider-identity-and-unverified-credit-repair-verified
+            evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/finish-remaining-2026-10-25/ops/swe/release-current.json
+            scope: PR151 prevents self-reported external drill solves from granting mastery, roadmap ELO, review scheduling or unsuspension; activity/status retained. Same-major Zod4 and Undici7 patches plus dev Happy DOM21 clear high/critical audit gate. Exact-head/main quality and1043tests pass;6deploy gates and existing publisher pass without migrations. Provider production source and retained rollback verified; normal signed-in external drill copy readable at390/768/1440 with no overflow or owner progress/hint writes. Controlled agent QA; genuinely delayed no-hint learner transfer remains unmeasured under issue150.
       - provider: cloudflare
         kind: worker
         name: swe-interview-prep-wars

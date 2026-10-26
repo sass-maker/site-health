@@ -15,8 +15,8 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: b769a5bbca4632a30bc69609c627d30f1758a2b0384d540940353eacca4ee379
-      infrastructureUpdatedAt: 2026-10-25
+      sha256: 1894c0cea5ecb50aad0cc7b7725177e92c38ba31aa7f3142e00f29ba245e8f51
+      infrastructureUpdatedAt: 2026-10-26
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: High Signal
@@ -1276,14 +1276,23 @@ deployment:
         method: wrangler-direct
         state: live
         verification:
-          observedAt: 2026-10-23T15:46:47.620266+00:00
-          sourceCommit: 1a8ec663337c1ed293590ecbea46e8c0d37d3da2
-          versionId: ae0ab9fe-13e8-46fe-a077-b66b10b153f4
-          exactMainCi: 39977907948
-          deployWorkflow: 39979101628
-          state: publisher-success-and-live-reader-verified
-          evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/fleet-release-final-20261023/highsignal-provider-final-20261023
-          scope: Separate owner-directed PR264 release. Exact-main CI and both production publishers pass; each version ID is reported by its successful publisher. The public reader-build endpoint identifies the full web source, and the current October 23/global Astro reader HTML returns 200. Reader publication 39979607806 initially withheld unavailable source data; one retry then captured, rendered and published all 20 variants before promoting the pointer. Independent provider traffic and deployment metadata could not be refreshed because non-interactive Wrangler authentication is unavailable; this record makes no 100 percent traffic claim. The last independent provider identity at 690cd63 is retained separately. Earlier footer and latency proofs remain historical. Full 24-hour final-source acceptance cannot end before October 24 at 15:37:07 UTC and still requires actual natural-traffic evidence.
+          observedAt: 2026-10-26T08:54:42Z
+          sourceCommit: f056abe3619f2fbede537929d9fbc1dbd80e7f9c
+          deploymentId: 98c2a948-0eb5-4827-b13c-8d649bcee9e4
+          versionId: da7cc457-5a82-4879-a64d-6168de16af9d
+          versionNumber: 396
+          trafficPercent: 100
+          exactMainCi: 40290606498
+          deployWorkflow: 40295104339
+          releaseTag: release/high-signal-api-20261026-f056abe
+          state: provider-identity-schema-migration-and-aggregate-endpoint-verified
+          evidencePath: /Users/sarthak/.fleet/reviews/portfolio-current/evidence/finish-remaining-2026-10-26/web-analytics/high-signal/release-ready-current.json
+          scope: Owner-approved API-only release f056abe. Worker version396 serves100% traffic with the exact immutable source tag; health and aggregate cohort endpoint returned HTTP200. Migration0032 is applied with measurement_eligible default0 and nullable first-publication timestamp; no migrations remain pending. The public aggregate denominator and pending/resolved/unresolved/unscorable counts are all0. No eligible cohort or outcome is claimed; original pre-outcome and baseline/window criteria remain in the linked open study.
+          migration: 0032_first_publication_measurement_eligibility.sql
+          migrationState: applied and verified; Wrangler reports no migrations pending
+          measurementDenominator: 0
+          rollbackVersionId: 102eccb1-5606-40dc-a132-e7ca98f6aca1
+          rollbackSourceCommit: 689398a84a0c15c240d2bc8f2e1ec6abb63691a3
         verificationHistory:
           - observedAt: 2026-10-02T10:50:42Z
             deploymentId: bbc81131-5951-41b6-b643-ebd8b66500b5
@@ -1317,6 +1326,14 @@ deployment:
             deployWorkflow: 39856943645
             evidencePath: ../high-signal/.fleet-local/issue238-20261023/production-provider.json
             scope: "PR261 makes public dated briefs use the existing edition/region KV keys while protected history, future dates, pending editions and SQL diagnostics keep their boundaries.407 API regressions and exact-main CI pass. Same October22/global/SIN diagnostic body is byte-identical to the baseline: post-release misses1136/896ms then one KV hit5ms; baseline uncached801/730/868ms. These finite observations do not establish population latency or web Cache API95% acceptance."
+          - observedAt: 2026-10-23T15:46:47.620266+00:00
+            sourceCommit: 1a8ec663337c1ed293590ecbea46e8c0d37d3da2
+            versionId: ae0ab9fe-13e8-46fe-a077-b66b10b153f4
+            exactMainCi: 39977907948
+            deployWorkflow: 39979101628
+            state: publisher-success-and-live-reader-verified
+            evidencePath: /Users/sarthak/Desktop/fleet/saas-maker/.fleet-local/fleet-release-final-20261023/highsignal-provider-final-20261023
+            scope: Separate owner-directed PR264 release. Exact-main CI and both production publishers pass; each version ID is reported by its successful publisher. The public reader-build endpoint identifies the full web source, and the current October 23/global Astro reader HTML returns 200. Reader publication 39979607806 initially withheld unavailable source data; one retry then captured, rendered and published all 20 variants before promoting the pointer. Independent provider traffic and deployment metadata could not be refreshed because non-interactive Wrangler authentication is unavailable; this record makes no 100 percent traffic claim. The last independent provider identity at 690cd63 is retained separately. Earlier footer and latency proofs remain historical. Full 24-hour final-source acceptance cannot end before October 24 at 15:37:07 UTC and still requires actual natural-traffic evidence.
     resources:
       - provider: cloudflare
         kind: d1
