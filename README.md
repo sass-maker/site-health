@@ -8,10 +8,14 @@ Private portfolio health dashboard for answering five owner questions:
 4. How are they performing in Google Search?
 5. Are they visible in AI answers?
 
+The private readiness workspace at `/readiness` adds six-category effort/result
+scores, evidence, improvement history and the product checklist. See
+[ownership](docs/ownership.md) and the [scoreboard guide](docs/product-scoreboard.md).
+
 This repository contains one product and its backend:
 
 - `apps/web/` — Astro UI.
-- `../saas-maker/catalog/projects.json` — the single editable owner-local project,
+- `catalog/projects.json` — the single editable owner-local project,
   repository classification and infrastructure catalog. The local
   `apps/backend/config/projects.json` path links to the generated private
   `catalog/generated/operations.json` compatibility view. Never edit that output.
@@ -112,12 +116,12 @@ provider resources change. It refreshes repository evidence and live Actions
 health. Every Cloudflare object must remain attributed to a canonical project
 or an explicit shared operational steward.
 
-Edit classifications in SaaS Maker's `catalog/projects.json` only. The original
+Edit classifications in Site Health's `catalog/projects.json` only. The original
 82-repository review is `repositoryReview.repositories` in that same file; rows
 linked to products inherit their classifications. Generate the full table with
 `pnpm catalog:sync` in SaaS Maker; this also refreshes the compatibility view. Historical review documents and dossiers are
 read-only evidence/views, not independent decision stores. The raw catalog is
-gitignored in SaaS Maker and required locally; only its filtered public export
+gitignored in Site Health and required locally; only its filtered public export
 is intended for public repositories and sites.
 
 The repository preserves the historical Fleet Workspace Git history, but owns

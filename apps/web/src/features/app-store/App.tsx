@@ -1,3 +1,5 @@
+import { Button } from '@saas-maker/ui/components/button';
+import { Input } from '@saas-maker/ui/components/input';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   appleId,
@@ -329,6 +331,7 @@ export default function ResearchApp() {
   async function collect(only?: SearchKey[]) {
     if (!active || busy) return;
     setError('');
+    setNotice('');
     const p = active;
     const keys =
       only ??
@@ -585,9 +588,9 @@ export default function ResearchApp() {
     <div className="app-store-seo">
       <header className="feature-toolbar">
         <span className="save-status" role="status"><i />{storageState}</span>
-        <button className="quiet" disabled={busy} onClick={() => void go(() => {
+        <Button className="quiet" disabled={busy} onClick={() => void go(() => {
           setChoosing(true); setResults(null); setSearched(false);
-        })}>＋ New research</button>
+        })}>＋ New research</Button>
       </header>
       <div className="research-content">
         {rawRecovery !== null && (
@@ -596,13 +599,13 @@ export default function ResearchApp() {
               Stored data could not be validated. It has not been overwritten. Download the raw
               record for recovery.
             </span>
-            <button
+            <Button
               onClick={() =>
                 download('raw-workspace-recovery.json', JSON.stringify(rawRecovery, null, 2))
               }
             >
               Download raw recovery
-            </button>
+            </Button>
           </div>
         )}
         {saveRecovery && (
@@ -611,36 +614,36 @@ export default function ResearchApp() {
               A local write failed. The proposed workspace, including fetched evidence, is held in
               this tab. Download it before leaving.
             </span>
-            <button
+            <Button
               onClick={() => download('unsaved-workspace-recovery.json', backupText(saveRecovery))}
             >
               Download unsaved recovery
-            </button>
+            </Button>
           </div>
         )}
 
-        {statusError && <div className="alert error" role="alert"><span>{statusError}</span><button onClick={refreshStatus}>Check service status</button></div>}
+        {statusError && <div className="alert error" role="alert"><span>{statusError}</span><Button onClick={refreshStatus}>Check service status</Button></div>}
         {error && (
           <div className="alert error" role="alert">
             <span>{error}</span>
-            <button aria-label="Dismiss error" onClick={() => setError('')}>
+            <Button aria-label="Dismiss error" onClick={() => setError('')}>
               ×
-            </button>
+            </Button>
           </div>
         )}
-        {retentionNotice && <div className="alert notice" role="status"><span>{retentionNotice}</span><button aria-label="Dismiss retention notice" onClick={() => setRetentionNotice('')}>×</button></div>}
+        {retentionNotice && <div className="alert notice" role="status"><span>{retentionNotice}</span><Button aria-label="Dismiss retention notice" onClick={() => setRetentionNotice('')}>×</Button></div>}
         {notice && (
           <div className="alert notice" role="status">
             <span>{notice}</span>
-            <button aria-label="Dismiss notification" onClick={() => setNotice('')}>
+            <Button aria-label="Dismiss notification" onClick={() => setNotice('')}>
               ×
-            </button>
+            </Button>
           </div>
         )}
         {!ready ? (
           <div className="empty">
             <span className="eyebrow">LOCAL WORKSPACE</span>
-            <h1>Opening your research…</h1>
+            <h2>Opening your research…</h2>
             <p>Your saved observations stay on this device.</p>
           </div>
         ) : !active ? (
@@ -662,7 +665,7 @@ export default function ResearchApp() {
               <form className="app-search" onSubmit={findApp}>
                 <label className="search-field">
                   App name, Apple ID or App Store URL
-                  <input
+                  <Input
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search for your app…"
@@ -701,13 +704,13 @@ export default function ResearchApp() {
                     ))}
                   </select>
                 </label>
-                <button className="primary" disabled={searching || !search.trim()}>
+                <Button className="primary" disabled={searching || !search.trim()}>
                   {searching ? 'Searching…' : 'Find app →'}
-                </button>
+                </Button>
                 {searching && (
-                  <button type="button" onClick={() => searchAbort.current?.abort()}>
+                  <Button type="button" onClick={() => searchAbort.current?.abort()}>
                     Cancel
-                  </button>
+                  </Button>
                 )}
               </form>
               <p className="caption">
@@ -752,12 +755,12 @@ export default function ResearchApp() {
                               : `${app.ratings.toLocaleString()} ratings`}
                           </small>
                         </div>
-                        <button
+                        <Button
                           disabled={workspace.projects.length >= 20}
                           onClick={() => void chooseApp(app)}
                         >
                           Research app ↗
-                        </button>
+                        </Button>
                       </article>
                     ))}
                   </div>
@@ -772,7 +775,7 @@ export default function ResearchApp() {
                 </div>
                 <div className="project-cards">
                   {workspace.projects.map((p) => (
-                    <button
+                    <Button
                       key={p.id}
                       onClick={() => {
                         setProjectId(p.id);
@@ -790,7 +793,7 @@ export default function ResearchApp() {
                         </small>
                       </span>
                       <span>↗</span>
-                    </button>
+                    </Button>
                   ))}
                 </div>
               </section>
@@ -826,12 +829,12 @@ export default function ResearchApp() {
                   YOUR RESEARCH / {active.platform === 'mac' ? 'MAC APP STORE' : 'IPHONE & IPAD'}
                 </div>
                 <div className="workspace-title">
-                  <h1>Words, across borders.</h1>
+                  <h2>{active.name}</h2>
                   <span className="pill">
                     {active.keywords.length * active.countries.length} cells
                   </span>
                 </div>
-                <p>One app. Different storefronts. Evidence for your next listing decision.</p>
+                <p>{active.keywords.length} keywords · {active.countries.length} storefronts · {lastCapture ? `Evidence ${time(lastCapture)}` : 'No observations yet'}</p>
               </div>
               <div className="app-identity">
                 <Icon app={active.app} />
@@ -871,14 +874,14 @@ export default function ResearchApp() {
                 ['listing', 'Listing studio'],
                 ['data', 'Data & connections'],
               ].map(([id, label]) => (
-                <button
+                <Button
                   key={id}
                   className={tab === id ? 'active' : ''}
                   onClick={() => void go(() => setTab(id))}
                   aria-current={tab === id ? 'page' : undefined}
                 >
                   {label}
-                </button>
+                </Button>
               ))}
             </nav>
             {tab === 'research' && (
@@ -907,12 +910,12 @@ export default function ResearchApp() {
                           disabled={busy}
                         />
                         <div className="button-row">
-                          <button disabled={busy || !keywords.trim()} onClick={() => addKeywords()}>
+                          <Button disabled={busy || !keywords.trim()} onClick={() => addKeywords()}>
                             Add keywords
-                          </button>
+                          </Button>
                           <label className="file-button">
                             Import .txt / .csv
-                            <input
+                            <Input
                               type="file"
                               accept=".txt,.csv,text/plain,text/csv"
                               disabled={busy}
@@ -931,7 +934,7 @@ export default function ResearchApp() {
                         </div>
                         <div className="keyword-chips">
                           {active.keywords.map((term) => (
-                            <button
+                            <Button
                               key={term}
                               disabled={busy}
                               aria-label={`Remove ${term}`}
@@ -943,7 +946,7 @@ export default function ResearchApp() {
                             >
                               {term}
                               <span>×</span>
-                            </button>
+                            </Button>
                           ))}
                         </div>
                         <p className="caption">
@@ -955,7 +958,7 @@ export default function ResearchApp() {
                         <div className="country-picker">
                           {COUNTRIES.map(([code, name]) => (
                             <label key={code}>
-                              <input
+                              <Input
                                 type="checkbox"
                                 checked={active.countries.includes(code)}
                                 disabled={
@@ -979,7 +982,7 @@ export default function ResearchApp() {
                         <div className="button-row custom-country">
                           <label>
                             Another Apple storefront code
-                            <input
+                            <Input
                               value={extraCountry}
                               onChange={(e) => setExtraCountry(e.target.value.toLowerCase())}
                               maxLength={2}
@@ -987,7 +990,7 @@ export default function ResearchApp() {
                               disabled={busy}
                             />
                           </label>
-                          <button
+                          <Button
                             disabled={busy || active.countries.length >= 10}
                             onClick={() => {
                               if (!/^[a-z]{2}$/u.test(extraCountry)) {
@@ -1001,13 +1004,13 @@ export default function ResearchApp() {
                             }}
                           >
                             Add storefront
-                          </button>
+                          </Button>
                         </div>
                         <div className="extra-countries">
                           {active.countries
                             .filter((c) => !COUNTRIES.some(([code]) => code === c))
                             .map((c) => (
-                              <button
+                              <Button
                                 key={c}
                                 disabled={busy}
                                 onClick={() =>
@@ -1017,7 +1020,7 @@ export default function ResearchApp() {
                                 }
                               >
                                 {c.toUpperCase()} ×
-                              </button>
+                              </Button>
                             ))}
                         </div>
                         <div className="button-row">
@@ -1055,7 +1058,7 @@ export default function ResearchApp() {
                           </label>
                         </div>
                         <label className="auto-refresh">
-                          <input
+                          <Input
                             type="checkbox"
                             checked={active.autoRefresh}
                             disabled={busy || !active.cadenceHours || !navigator.locks}
@@ -1087,16 +1090,16 @@ export default function ResearchApp() {
                     </div>
                     <div className="button-row">
                       {!!failedKeys.length && (
-                        <button disabled={busy} onClick={() => void collect(failedKeys)}>
+                        <Button disabled={busy} onClick={() => void collect(failedKeys)}>
                           Retry {failedKeys.length} unavailable
-                        </button>
+                        </Button>
                       )}
                       {busy ? (
-                        <button className="primary" onClick={() => runAbort.current?.abort()}>
+                        <Button className="primary" onClick={() => runAbort.current?.abort()}>
                           Cancel collection
-                        </button>
+                        </Button>
                       ) : (
-                        <button
+                        <Button
                           className="primary"
                           disabled={
                             !active.keywords.length ||
@@ -1106,7 +1109,7 @@ export default function ResearchApp() {
                           onClick={() => void collect()}
                         >
                           ↻ Collect matrix
-                        </button>
+                        </Button>
                       )}
                     </div>
                   </div>
@@ -1132,14 +1135,14 @@ export default function ResearchApp() {
                       Add keywords and choose storefronts in Research setup, then collect the
                       matrix.
                     </p>
-                    <button
+                    <Button
                       onClick={() => {
                         document.querySelector<HTMLDetailsElement>('.setup')!.open = true;
                         document.getElementById('keywords')?.focus();
                       }}
                     >
                       Add your first keywords →
-                    </button>
+                    </Button>
                   </div>
                 ) : (
                   <>
@@ -1181,7 +1184,7 @@ export default function ResearchApp() {
                                   selection?.term === term && selection.country === country;
                                 return (
                                   <td key={country}>
-                                    <button
+                                    <Button
                                       className={`${selected ? 'selected' : ''} ${c.presence.kind}`}
                                       onClick={() => setSelection(key)}
                                       aria-label={`${term}, ${country.toUpperCase()}: ${c.presence.kind === 'found' ? `position ${c.presence.position}` : c.presence.kind}`}
@@ -1206,7 +1209,7 @@ export default function ResearchApp() {
                                               : 'not observed'}
                                         <span>{shortTime(c.observation?.fetchedAt)}</span>
                                       </small>
-                                    </button>
+                                    </Button>
                                   </td>
                                 );
                               })}
@@ -1248,7 +1251,7 @@ export default function ResearchApp() {
                 )}
                 <div className="workspace-foot">
                   <span>Source-backed observations. No invented search volume.</span>
-                  <button
+                  <Button
                     onClick={() =>
                       download(
                         `${active.app.id}-matrix.csv`,
@@ -1258,7 +1261,7 @@ export default function ResearchApp() {
                     }
                   >
                     Export this matrix ↗
-                  </button>
+                  </Button>
                 </div>
               </>
             )}
@@ -1279,7 +1282,7 @@ export default function ResearchApp() {
                   <div className="empty small">
                     <h3>No collection attempts yet.</h3>
                     <p>Your first matrix collection will appear here.</p>
-                    <button onClick={() => void go(() => setTab('research'))}>Open matrix →</button>
+                    <Button onClick={() => void go(() => setTab('research'))}>Open matrix →</Button>
                   </div>
                 ) : (
                   <div className="history-list">
@@ -1315,14 +1318,14 @@ export default function ResearchApp() {
                                 Source ↗
                               </a>
                             )}
-                            <button
+                            <Button
                               onClick={() => {
                                 setSelection(a.key);
                                 setTab('research');
                               }}
                             >
                               Inspect cell
-                            </button>
+                            </Button>
                           </article>
                         );
                       })}
@@ -1362,12 +1365,12 @@ export default function ResearchApp() {
                       recover your work.
                     </p>
                     <div className="button-row">
-                      <button className="primary" onClick={() => void exportBackup()}>
+                      <Button className="primary" onClick={() => void exportBackup()}>
                         Download JSON backup
-                      </button>
+                      </Button>
                       <label className="file-button">
                         Preview JSON import
-                        <input
+                        <Input
                           type="file"
                           accept=".json,application/json"
                           disabled={busy}
@@ -1392,7 +1395,7 @@ export default function ResearchApp() {
                       estimates. Missing and failed results stay distinct. CSV is for analysis; JSON
                       restores the full workspace.
                     </p>
-                    <button
+                    <Button
                       onClick={() =>
                         download(
                           `${active.app.id}-matrix.csv`,
@@ -1402,13 +1405,13 @@ export default function ResearchApp() {
                       }
                     >
                       Export matrix CSV ↗
-                    </button>
+                    </Button>
                     <h4>Remove this local project</h4>
                     <p>
                       Back up first. Deletion removes this project’s attempts and drafts. Captures
                       referenced by another project are preserved.
                     </p>
-                    <button
+                    <Button
                       disabled={busy}
                       onClick={() =>
                         void go(() => {
@@ -1418,7 +1421,7 @@ export default function ResearchApp() {
                       }
                     >
                       Review project deletion
-                    </button>
+                    </Button>
                     <h4>Storage status</h4>
                     <p>
                       {storageState}. Cross-tab writes use revision checks and atomic transactions.
@@ -1451,7 +1454,7 @@ export default function ResearchApp() {
                       No popularity metric or publishing is available. Copy or export listing drafts
                       manually. No developer account is required for public observations.
                     </p>
-                    <button onClick={refreshStatus}>Check service status</button>
+                    <Button onClick={refreshStatus}>Check service status</Button>
                     {statusError && <p role="alert">{statusError}</p>}
                   </article>
                   <article className="data-card">
@@ -1482,11 +1485,11 @@ export default function ResearchApp() {
         </span>
         <span>Apple data belongs to its respective owners. Unaffiliated with Apple.</span>
         <div>
-          <button onClick={() => privacyDialog.current?.showModal()}>Privacy & methods</button>
-          <button onClick={() => void exportBackup()}>Back up workspace</button>
+          <Button onClick={() => privacyDialog.current?.showModal()}>Privacy & methods</Button>
+          <Button onClick={() => void exportBackup()}>Back up workspace</Button>
           <label className="file-button">
             Restore backup
-            <input
+            <Input
               type="file"
               accept=".json"
               disabled={busy}
@@ -1509,7 +1512,7 @@ export default function ResearchApp() {
               for this project from this browser. Shared captures stay available to other projects.
             </p>
             <label className="radio-choice">
-              <input
+              <Input
                 type="checkbox"
                 checked={deleteReady}
                 onChange={(e) => setDeleteReady(e.target.checked)}
@@ -1517,10 +1520,10 @@ export default function ResearchApp() {
               I have reviewed this local deletion and want to remove this project.
             </label>
             <div className="button-row">
-              <button onClick={() => void exportBackup('before-project-deletion.json')}>
+              <Button onClick={() => void exportBackup('before-project-deletion.json')}>
                 Back up workspace
-              </button>
-              <button
+              </Button>
+              <Button
                 className="primary"
                 disabled={!deleteReady}
                 onClick={() =>
@@ -1540,8 +1543,8 @@ export default function ResearchApp() {
                 }
               >
                 Delete local project
-              </button>
-              <button onClick={() => deleteDialog.current?.close()}>Cancel</button>
+              </Button>
+              <Button onClick={() => deleteDialog.current?.close()}>Cancel</Button>
             </div>
           </>
         )}
@@ -1580,9 +1583,9 @@ export default function ResearchApp() {
           Server observability samples requests with query strings redacted. This application does
           not log draft bodies or API keys.
         </p>
-        <button className="primary" onClick={() => privacyDialog.current?.close()}>
+        <Button className="primary" onClick={() => privacyDialog.current?.close()}>
           Close
-        </button>
+        </Button>
       </dialog>
       <dialog ref={importDialog} className="import-dialog" onCancel={() => setImported(null)}>
         <span className="eyebrow">VALIDATED BACKUP PREVIEW</span>
@@ -1601,7 +1604,7 @@ export default function ResearchApp() {
               ))}
             </ul>
             <label className="radio-choice">
-              <input
+              <Input
                 type="radio"
                 checked={importMode === 'merge'}
                 onChange={() => setImportMode('merge')}
@@ -1609,7 +1612,7 @@ export default function ResearchApp() {
               Merge new records. Conflicting existing IDs reject the entire import.
             </label>
             <label className="radio-choice">
-              <input
+              <Input
                 type="radio"
                 checked={importMode === 'replace'}
                 onChange={() => setImportMode('replace')}
@@ -1632,24 +1635,24 @@ export default function ResearchApp() {
               previous workspace intact.
             </p>
             <div className="button-row">
-              <button onClick={() => void exportBackup('before-import-backup.json')}>
+              <Button onClick={() => void exportBackup('before-import-backup.json')}>
                 Back up current
-              </button>
-              <button
+              </Button>
+              <Button
                 className="primary"
                 disabled={!importPreview}
                 onClick={() => void applyImport()}
               >
                 Confirm {importMode}
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={() => {
                   setImported(null);
                   importDialog.current?.close();
                 }}
               >
                 Cancel
-              </button>
+              </Button>
             </div>
           </>
         )}
@@ -1684,9 +1687,9 @@ function Evidence({
         <span className="pill">
           {keyValue.platform.toUpperCase()} · up to {keyValue.limit} results
         </span>
-        <button disabled={busy} onClick={onRefresh}>
+        <Button disabled={busy} onClick={onRefresh}>
           ↻ {presence.kind === 'unavailable' ? 'Retry cell' : 'Refresh cell'}
-        </button>
+        </Button>
       </div>
       {presence.kind === 'unavailable' && (
         <div className="alert error" role="status">
@@ -1924,7 +1927,7 @@ function Ideas({
           </label>
           <label>
             Target language / locale
-            <input
+            <Input
               value={locale}
               onChange={(e) => setLocale(e.target.value)}
               maxLength={40}
@@ -1936,7 +1939,7 @@ function Ideas({
             seed and target locale are sent when you ask for ideas.
           </p>
           <div className="button-row">
-            <button
+            <Button
               className="primary"
               disabled={
                 !status?.ai.enabled || pending || !seed.trim()
@@ -1948,13 +1951,13 @@ function Ideas({
                 : mode === 'localize'
                   ? 'Suggest localized ideas'
                   : 'Suggest keyword ideas'}
-            </button>
-            {pending && <button onClick={() => controller.current?.abort()}>Cancel</button>}
+            </Button>
+            {pending && <Button onClick={() => controller.current?.abort()}>Cancel</Button>}
           </div>
           <hr />
           <h4>Work directly from your own ideas</h4>
           <p className="caption">Add comma-separated terms below. No AI connection required.</p>
-          <button
+          <Button
             disabled={!seed.trim()}
             onClick={() => {
               try {
@@ -1965,7 +1968,7 @@ function Ideas({
             }}
           >
             Add seed terms to matrix →
-          </button>
+          </Button>
         </div>
         <div className="idea-results">
           {output?.kind === 'keywords' ? (
@@ -1976,7 +1979,7 @@ function Ideas({
               </div>
               {output.keywords.map((k) => (
                 <label className="idea" key={k.term}>
-                  <input
+                  <Input
                     type="checkbox"
                     checked={chosen.includes(k.term)}
                     onChange={(e) =>
@@ -1991,9 +1994,9 @@ function Ideas({
                   </span>
                 </label>
               ))}
-              <button className="primary" disabled={!chosen.length} onClick={() => add(chosen)}>
+              <Button className="primary" disabled={!chosen.length} onClick={() => add(chosen)}>
                 Add {chosen.length} selected to matrix →
-              </button>
+              </Button>
               <p className="caption">
                 Locale words are hypotheses, distinct from storefront metadata. Validate language
                 quality and intent before a collection.
@@ -2199,7 +2202,7 @@ function Listing({
         <div className="alert error" role="alert">
           <span>This locale changed in another tab. Your text is still on screen.</span>
           <div className="button-row">
-            <button
+            <Button
               onClick={() => {
                 draftBases.current.set(`${project.id}/${locale}`, draftConflict.updatedAt);
                 pendingDraft.current = draft;
@@ -2207,8 +2210,8 @@ function Listing({
               }}
             >
               Keep my on-screen text
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => {
                 if (draftTimer.current) clearTimeout(draftTimer.current);
                 pendingDraft.current = null;
@@ -2219,14 +2222,14 @@ function Listing({
               }}
             >
               Load saved text
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() =>
                 download(`${project.app.id}-${locale}-unsaved.json`, JSON.stringify(draft, null, 2))
               }
             >
               Export on-screen text
-            </button>
+            </Button>
           </div>
         </div>
       )}
@@ -2241,14 +2244,14 @@ function Listing({
         </label>
         <label>
           Another locale
-          <input
+          <Input
             value={localeInput}
             onChange={(e) => setLocaleInput(e.target.value)}
             placeholder="e.g. pt-BR"
             maxLength={40}
           />
         </label>
-        <button
+        <Button
           onClick={() => {
             if (!/^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/u.test(localeInput)) {
               onError('Use a locale such as pt-BR or en-GB.');
@@ -2259,7 +2262,7 @@ function Listing({
           }}
         >
           Open locale
-        </button>
+        </Button>
       </div>
       <div className="listing-columns">
         <section className="listing-original">
@@ -2356,7 +2359,7 @@ function Listing({
                     maxLength={max}
                   />
                 ) : (
-                  <input
+                  <Input
                     aria-label={label}
                     value={draft[field]}
                     onChange={(e) => edit(field, e.target.value)}
@@ -2367,16 +2370,16 @@ function Listing({
             );
           })}
           <div className="button-row">
-            <button onClick={() => void copy()}>{copied || 'Copy listing'}</button>
-            <button
+            <Button onClick={() => void copy()}>{copied || 'Copy listing'}</Button>
+            <Button
               onClick={() => {
                 flushDraft();
                 download(`${project.app.id}-${locale}-draft.json`, JSON.stringify(draft, null, 2));
               }}
             >
               Export draft ↗
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => {
                 save({ ...draft, updatedAt: new Date().toISOString() });
                 flushDraft();
@@ -2384,7 +2387,7 @@ function Listing({
               }}
             >
               Save draft
-            </button>
+            </Button>
           </div>
           <p className="caption">
             App Store Connect is not connected. Review and copy your approved text manually.
@@ -2401,13 +2404,13 @@ function Listing({
           </p>
         </div>
         <div className="button-row">
-          <button
+          <Button
             disabled={!status?.ai.enabled || pending}
             onClick={() => void generate()}
           >
             {pending ? 'Preparing proposal…' : 'Propose a listing draft'}
-          </button>
-          {pending && <button onClick={() => controller.current?.abort()}>Cancel</button>}
+          </Button>
+          {pending && <Button onClick={() => controller.current?.abort()}>Cancel</Button>}
         </div>
       </div>
       {proposal && (
@@ -2427,7 +2430,7 @@ function Listing({
           </div>
           <p>{proposal.notes}</p>
           <div className="button-row">
-            <button
+            <Button
               className="primary"
               onClick={() => {
                 save({
@@ -2443,8 +2446,8 @@ function Listing({
               }}
             >
               Apply proposal to local draft
-            </button>
-            <button onClick={() => setProposal(null)}>Discard proposal</button>
+            </Button>
+            <Button onClick={() => setProposal(null)}>Discard proposal</Button>
           </div>
         </section>
       )}

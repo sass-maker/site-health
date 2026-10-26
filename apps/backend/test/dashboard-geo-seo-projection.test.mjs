@@ -284,6 +284,7 @@ test('retired domainless root history cannot break current portfolio evidence or
   assert.ok(outcomes.search.some((row) => row.projectId === 'active'));
   assert.ok(!outcomes.search.some((row) => row.projectId === 'retired'));
   assert.equal(JSON.stringify(rootQueries), original);
-  assert.throws(() => fixture({ projects: [retired, project('active', { domains: ['retired.example'] })], rootBrands, rootQueries }), /domain mismatch/);
+  const reassigned = fixture({ projects: [retired, project('active', { domains: ['retired.example'] })], rootBrands, rootQueries });
+  assert.deepEqual(reassigned.search.map((row) => row.projectId), ['active']);
   assert.throws(() => fixture({ projects: [project('retired', { domains: [] }), project('active', { domains: ['app.retired.example'] })], rootBrands, rootQueries }), /domain mismatch/);
 });

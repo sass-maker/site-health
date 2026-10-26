@@ -60,7 +60,7 @@ test('visibilityProjects preserves catalog order', () => {
   );
 });
 
-test('Search Console targets add contracted roots without changing visibility eligibility', () => {
+test('Search Console targets retain owned active and inactive contracted roots', () => {
   const catalog = {
     projects: [
       project({ id: 'first', domains: ['first.example'] }),
@@ -102,6 +102,17 @@ test('Search Console targets retain primary and owned root surfaces while reject
   assert.throws(() => searchConsoleProjects(catalog, new Map([
     ['unowned.com', { rootDomain: 'unowned.com', projectId: 'first' }],
   ])), /does not own/);
+});
+
+test('retired identities with released domains do not block owned targets', () => {
+  const catalog = { projects: [
+    project({ id: 'current' }),
+    project({ id: 'retired', lifecycle: { status: 'inactive' }, domains: [] }),
+  ] };
+  const targets = searchConsoleProjects(catalog, new Map([
+    ['released.example', { rootDomain: 'released.example', projectId: 'retired' }],
+  ]));
+  assert.deepEqual(targets.map((target) => target.id), ['current']);
 });
 
 test('search domain identity uses inspected URL before shared property scope', () => {

@@ -58,6 +58,9 @@ function assertProjectDomain(projectId, rootDomain, projectsById) {
   if (projectsById.size === 0) return;
   const project = projectsById.get(projectId);
   if (!project) throw new Error(`unknown root search project: ${projectId || '(empty)'}`);
+  // Historical identities keep their query contract after giving up domains.
+  // Only an explicitly inactive lifecycle opts out of current ownership.
+  if (project.lifecycle?.status === 'inactive') return;
   if (!(project.domains ?? []).includes(rootDomain)) {
     throw new Error(`root search project domain mismatch: ${projectId} does not own ${rootDomain}`);
   }

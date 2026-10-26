@@ -33,14 +33,16 @@ test('Search Console covers current root owners without changing public metric e
   const roots = validateRootSearchQueryContract(contract, brands, projects);
   const publicProjects = visibilityProjects(catalog);
   const searchProjects = searchConsoleProjects(catalog, roots);
+  const currentRoots = [...roots.values()].filter((root) =>
+    projects.find((project) => project.id === root.projectId)?.domains?.includes(root.rootDomain));
 
   assert.deepEqual(
     [...new Set(searchProjects.map((project) => project.id))].sort(),
-    [...new Set([...publicProjects.map((project) => project.id), ...[...roots.values()].map((root) => root.projectId)])].sort(),
+    [...new Set([...publicProjects.map((project) => project.id), ...currentRoots.map((root) => root.projectId)])].sort(),
   );
   assert.equal(publicProjects.some((project) => project.id === 'site-health'), false);
   assert.deepEqual(visibilityProjects(catalog), publicProjects);
-  for (const root of roots.values()) {
+  for (const root of currentRoots) {
     const target = searchProjects.find((project) => project.id === root.projectId && project.domains[0] === root.rootDomain);
     assert.ok(target, `missing Search Console target for ${root.rootDomain}`);
     assert.equal(target.domains[0], root.rootDomain);

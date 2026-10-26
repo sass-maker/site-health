@@ -550,7 +550,7 @@
   align-items: center;
   gap: 16px;
 }
-.app-store-seo .workspace-title h1 {
+.app-store-seo .workspace-title h2 {
   font-size: 32px;
   margin: 13px 0 10px;
   letter-spacing: -1px;
@@ -1555,7 +1555,7 @@
     flex-wrap: wrap;
     gap: 0 14px;
   }
-  .app-store-seo .workspace-title h1 {
+  .app-store-seo .workspace-title h2 {
     font-size: 28px;
   }
   .app-store-seo .workspace-title .pill {
@@ -1862,7 +1862,7 @@
   .app-store-seo .workspace-head {
     padding: 27px 20px;
   }
-  .app-store-seo .workspace-title h1 {
+  .app-store-seo .workspace-title h2 {
     font-size: 27px;
   }
   .app-store-seo .workspace-title .pill {
@@ -2068,7 +2068,7 @@
 .app-store-seo .search-panel { margin:0 0 28px; background:var(--base); }
 .app-store-seo .workspace { min-width:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
 .app-store-seo .workspace-head { padding:28px; }
-.app-store-seo .workspace-title h1 { font-family:inherit; font-size:28px; }
+.app-store-seo .workspace-title h2 { font-family:inherit; font-size:28px; }
 .app-store-seo .research-footer { padding:24px 0; }
 .app-store-seo .how-it-works { padding:20px 0; }
 .app-store-seo .saved-projects { padding:24px 0; }
@@ -2081,3 +2081,26 @@
 .app-store-seo .matrix td button { background:#162823; }
 .app-store-seo .matrix td button.selected { background:#294b40; border-color:#79dcc8; }
 @media(max-width:600px) { .app-store-seo .search-panel { padding:20px 16px; } .app-store-seo .feature-toolbar { flex-wrap:wrap; } .app-store-seo .research-footer { display:block; } .app-store-seo .workspace-head { padding:20px; } }
+
+/* Compact research controls share the parent product's identity. */
+.app-store-seo .feature-toolbar { padding: 12px 0 16px; }
+.app-store-seo .workspace { background: #11191b; min-height: 0; }
+.app-store-seo .workspace-head { padding: 20px 24px; }
+.app-store-seo .workspace-title h2 { font-size: 24px; margin: 6px 0; }
+.app-store-seo .workspace-nav { padding: 0 24px; gap: 8px; flex-wrap: wrap; overflow: visible; }
+.app-store-seo .workspace-nav button { padding: 12px 14px; font-size: 13px; min-height: 44px; color: #b8c7c4; }
+.app-store-seo .workspace-nav button.active { color: #93e0d0; border-color: #79dcc8; background: #17302b; }
+.app-store-seo .workspace-tools { padding: 18px 24px; }
+.app-store-seo .setup, .app-store-seo .data-card, .app-store-seo .project-cards button { background: #172223; border-color: #344742; }
+.app-store-seo .save-status, .app-store-seo label, .app-store-seo small, .app-store-seo .caption,
+.app-store-seo .collection-bar, .app-store-seo .matrix-legend, .app-store-seo .setup > summary { font-size: 12px; }
+.app-store-seo button { font-size: 13px; white-space: normal; }
+.app-store-seo .panel { padding: 24px; }
+.app-store-seo .alert { margin: 12px 0; }
+.app-store-seo .research-footer { border-top: 1px solid var(--line); font-size: 12px; }
+@media (max-width: 600px) {
+  .app-store-seo .workspace-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 8px 12px; }
+  .app-store-seo .workspace-nav button { text-align: center; justify-content: center; padding: 10px 8px; }
+  .app-store-seo .workspace-tools, .app-store-seo .workspace-head, .app-store-seo .panel { padding: 18px 16px; }
+  .app-store-seo .country-picker label, .app-store-seo .matrix-legend, .app-store-seo .caption { font-size: 12px; }
+}

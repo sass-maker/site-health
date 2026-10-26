@@ -41,3 +41,15 @@ export function matchesProjectFilters(project, { query = "", priority = "", heal
 export function projectSharingLabel(project) {
   return project.lifecycle?.shareable === true ? "Shareable" : "Not shareable";
 }
+
+// Shared domain rows can belong to several identities. Current scope keeps only
+// current owners in both the row and its displayed owner count.
+export function scopeOutcomeRows(rows, projects, includeInactive = false) {
+  if (includeInactive) return rows;
+  const currentIds = new Set(projects.filter(isCurrentProject).map((project) => project.id));
+  return rows.flatMap((row) => {
+    if (row.projectId) return currentIds.has(row.projectId) ? [row] : [];
+    const owners = (row.projects ?? []).filter((owner) => currentIds.has(owner.projectId));
+    return owners.length ? [{ ...row, projects: owners }] : [];
+  });
+}
