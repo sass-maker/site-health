@@ -547,6 +547,8 @@ export function ScoreboardWorkbench({
       ) : (
         <>
           <PortfolioOverview
+            compact={view !== 'scores'}
+            title={view === 'actions' ? 'Next levers' : view === 'history' ? 'Improvement history' : 'Product checklist'}
             workspace={workspace}
             queue={active ? byLever.get(active.leverId) : firstReady}
             waiting={waiting.length}

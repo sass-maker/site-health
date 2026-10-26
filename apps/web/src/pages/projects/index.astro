@@ -34,6 +34,9 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
         <option value="P4">P4</option>
       </select>
     </label>
+    <details class="directory-advanced">
+      <summary>Filters <span data-project-filter-count></span></summary>
+      <div class="directory-advanced__fields">
     <label>
       <span>Evidence state</span>
       <select data-project-health data-usage-event="filter">
@@ -69,6 +72,8 @@ import DashboardLayout from "../../components/DashboardLayout.astro";
         <option value="not-defined">Not defined</option>
       </select>
     </label>
+      </div>
+    </details>
     <button class="directory-reset" type="button" data-project-filter-reset data-usage-event="action">Clear filters</button>
     <span class="directory-result-count" data-project-result-count aria-live="polite"></span>
   </section>

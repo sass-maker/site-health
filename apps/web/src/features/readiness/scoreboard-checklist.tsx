@@ -56,10 +56,13 @@ function EvidenceLink({ href, children }: { href: string; children: string }) {
 export function ScoreboardChecklist() {
   return (
     <section className={styles.checklist} aria-labelledby="scoreboard-checklist-title">
+      <nav className="section-jumps" aria-label="Checklist sections">
+        <a href="#scoreboard-checklist-title">Six areas</a><a href="#ai-native-title">AI-native workflows</a><a href="#distribution-title">Distribution & indexing</a>
+      </nav>
       <header className={styles.checklistHeader}>
         <div>
           <p className={styles.eyebrow}>Guidance · no automatic scoring</p>
-          <h2 id="scoreboard-checklist-title">Product checklist</h2>
+          <h2 id="scoreboard-checklist-title">Six areas</h2>
           <p>
             Keep Effort and Result separate in all six categories. This reference does not tick
             readiness, change imported scores, or turn missing evidence into zero.

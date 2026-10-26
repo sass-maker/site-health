@@ -1,3 +1,4 @@
+import { filterOutcomeRows, outcomeTitle } from "../lib/outcome-list.mjs";
 import { evidenceStateLabel, refreshAttemptLabel } from "../lib/evidence-labels.mjs";
 import { downloadLocalUsageBundle, startLocalUsageTracking } from "../lib/local-usage.mjs";
 import { dashboardApi } from "../lib/dashboard-api.mjs";
@@ -282,7 +283,7 @@ function evidenceCell(item: JsonRecord) {
 
 function metricGrid(items: Array<{ label: string; value: string; detail?: string }>) {
   return element("dl", { class: "outcome-metric-grid" }, items.map((item) =>
-    element("div", { class: "outcome-metric" }, [
+    element("div", { class: `outcome-metric${/^(?:[$~≥+-]?\d|—$)/.test(item.value) ? "" : " outcome-metric--text"}` }, [
       element("dt", {}, [item.label]),
       element("dd", {}, [item.value]),
       item.detail ? element("small", {}, [item.detail]) : null,
@@ -407,17 +408,20 @@ function searchResult(row: JsonRecord) {
       ]),
       state(row.status),
     ]),
-    element("div", { class: "search-result__body" }, [
+    element("div", { class: "search-result__summary" }, [
       metricGrid([
         { label: "Impressions", value: value(row.impressions), detail: comparison("Search impressions", row.impressions) },
         { label: "Clicks", value: value(row.clicks), detail: comparison("Search clicks", row.clicks) },
         { label: "CTR", value: value(row.ctr, "%"), detail: comparison("Search CTR", row.ctr) },
         { label: "Position", value: value(row.averagePosition), detail: comparison("Search average position", row.averagePosition) },
       ]),
-      searchTrend(row.impressions),
     ]),
-    searchIndexStatus(row),
-    searchKeywordVisibility(row),
+    element("details", { class: "search-result__details" }, [
+      element("summary", {}, ["Trend, indexing and keyword evidence"]),
+      searchTrend(row.impressions),
+      searchIndexStatus(row),
+      searchKeywordVisibility(row),
+    ]),
     element("footer", {}, [
       element("span", {}, [`Collected ${formatted(row.observedAt)}`]),
       providerUrl
@@ -520,11 +524,11 @@ function outcomeRows(rows: JsonRecord[], renderMetrics: (row: JsonRecord) => Nod
   return element("div", { class: "project-directory" }, rows.map((row) =>
     element("article", { class: "project-directory__row" }, [
       element("div", { class: "project-directory__identity" }, [
-        element("span", {}, [row.domain ?? row.scope ?? "Portfolio evidence"]),
-        element("h3", {}, [row.name ?? row.projectName ?? row.projectId ?? row.domain]),
-        element("small", { class: "project-directory__domain" }, [formatted(row.observedAt)]),
+        row.domain && row.domain !== outcomeTitle(row) ? element("span", {}, [row.domain]) : null,
+        element("h3", {}, [outcomeTitle(row)]),
+        row.observedAt ? element("small", { class: "project-directory__domain" }, [formatted(row.observedAt)]) : null,
       ]),
-      state(row.status),
+      ["not-measured", "not-collected"].includes(row.status) ? element("span", { "aria-hidden": "true" }) : state(row.status),
       renderMetrics(row),
     ])));
 }
@@ -728,6 +732,9 @@ function bindProjectFilters(projects: JsonRecord[]) {
     const emptyResult = document.querySelector<HTMLElement>("[data-project-filter-empty]");
     if (emptyResult) emptyResult.hidden = count !== 0;
     updateProjectResultCount(document);
+    const activeFilters = [priority, health, sharing, lifecycle, resume].filter((control) => control?.value).length + (searchInput?.value.trim() ? 1 : 0);
+    const filterCount = document.querySelector<HTMLElement>("[data-project-filter-count]");
+    if (filterCount) filterCount.textContent = activeFilters ? `· ${activeFilters} active` : "";
   };
   if (searchInput && searchInput.dataset.projectFilterBound !== "true") {
     searchInput.dataset.projectFilterBound = "true";
@@ -751,13 +758,30 @@ function bindProjectFilters(projects: JsonRecord[]) {
   apply();
 }
 
+function outcomeBrowser(rows: JsonRecord[], render: (rows: JsonRecord[]) => Node, orders: Array<[string, string]> = [["name", "Name"]]) {
+  const input = element("input", { type: "search", placeholder: "Find product or domain…", "aria-label": "Find product or domain" });
+  const select = element("select", { "aria-label": "Order evidence" }, orders.map(([value, label]) => element("option", { value }, [label])));
+  const count = element("span", { class: "outcome-browser__count", "aria-live": "polite" });
+  const content = element("div");
+  const update = () => {
+    const visible = filterOutcomeRows(rows, input.value, select.value);
+    count.textContent = `${visible.length} of ${rows.length}`;
+    content.replaceChildren(visible.length ? render(visible) : empty("No products or domains match this search."));
+  };
+  input.addEventListener("input", update);
+  select.addEventListener("change", update);
+  update();
+  return element("div", { class: "outcome-browser" }, [element("div", { class: "outcome-browser__tools" }, [input, orders.length > 1 ? select : null, count]), content]);
+}
+
 async function renderDomains() {
   const payload = await api("/v1/outcomes/domains");
-  replace("domains", payload.rows.length ? outcomeRows(payload.rows, (row) => metricGrid([
-    { label: "DRANK", value: value(row.signal), detail: row.signal?.history ?? "Current rating" },
+  replace("domains", payload.rows.length ? outcomeBrowser(payload.rows, (rows) => outcomeRows(rows, (row) => metricGrid([
+    { label: "DRANK", value: value(row.signal), ...(row.signal?.history ? { detail: row.signal.history } : {}) },
     { label: "Projects", value: String(row.projects?.length ?? 0) },
-  ])) : empty("No domain evidence"));
+  ]))) : empty("No domain evidence"));
   updateOutcomeTime(payload);
+  updateCoverage("domains", payload, ["not-collected", "not-measured", "unknown"]);
 }
 
 // Coverage is the number the whole task exists to make visible: how many surfaces carry a
@@ -793,7 +817,7 @@ async function renderSearch() {
   const rows = payload.rows;
   if (scopeNote) scopeNote.textContent = `${rows.length} properties · ${rows.filter((row: JsonRecord) => row.observedAt).length} measured`;
   replace("search", rows.length
-    ? element("div", { class: "search-results" }, rows.map(searchResult))
+    ? outcomeBrowser(rows, (visible) => element("div", { class: "search-results" }, visible.map(searchResult)), [["name", "Name"], ["clicks", "Most clicks"], ["impressions", "Most impressions"]])
     : empty("No Google Search evidence for this scope"));
   replace("seo-audit", audit.unavailable
     ? empty("On-page SEO audit unavailable")
@@ -891,8 +915,8 @@ function brandEvidenceSummary(view: JsonRecord) {
 }
 
 function brandEvidenceGroup(title: string, count: number, body: Node) {
-  return element("section", { class: "brand-evidence__group" }, [
-    element("h3", {}, [title, element("span", { class: "brand-evidence__count" }, [String(count)])]),
+  return element("details", { class: "brand-evidence__group" }, [
+    element("summary", {}, [title, element("span", { class: "brand-evidence__count" }, [String(count)])]),
     body,
   ]);
 }
@@ -1298,11 +1322,11 @@ async function renderBrandEvidence() {
     if (collectButton) collectButton.disabled = busy || !view.profile || !project.active;
     const growthSlot = element("div", {}, ["Reading saved growth cycle…"]);
     replace("brand-evidence", element("div", { class: "brand-evidence" }, [
+      brandEvidenceSummary(view),
       brandEvidenceProfile(view.profile),
-      brandCommunityComposer(projectId, view, project, show),
+      element("details", { class: "brand-evidence__group" }, [element("summary", {}, ["Find communities and prepare a contribution"]), brandCommunityComposer(projectId, view, project, show)]),
       brandEvidenceSetup(projectId, view, project, show),
       view.profile && !view.readiness?.api?.ready ? element("p", { class: "measurement-boundary-note" }, ["API checks need an available model connection. Web evidence and saved history remain available."]) : null,
-      brandEvidenceSummary(view),
       brandEvidenceGroup("Collection history", (view.collections ?? []).length, brandCollectionHistory(view.collections ?? [])),
       brandWebsiteEvidence(view.collections ?? []),
       brandEvidenceGroup("Answers", (view.observations ?? []).length, (view.observations ?? []).length
@@ -1341,11 +1365,12 @@ async function renderBrandEvidence() {
 
 async function renderPerformance() {
   const payload = await api("/v1/outcomes/performance");
-  replace("performance", payload.rows.length ? outcomeRows(payload.rows, (row) => metricGrid([
+  replace("performance", payload.rows.length ? outcomeBrowser(payload.rows, (rows) => outcomeRows(rows, (row) => metricGrid([
     { label: "PSI", value: value(row.psi) },
     { label: "LCP", value: value(row.lcp, " ms") },
-  ])) : empty("No PSI evidence"));
+  ])), [["name", "Name"], ["psi-low", "Lowest PSI"], ["psi-high", "Highest PSI"], ["lcp-slow", "Slowest LCP"]]) : empty("No PSI evidence"));
   updateOutcomeTime(payload);
+  updateCoverage("performance", payload, ["not-collected", "not-measured", "unknown"]);
 }
 
 function updateOutcomeTime(payload?: JsonRecord) {
@@ -1468,13 +1493,14 @@ async function renderProject() {
       { label: "Development", value: lifecycleLabel(project.lifecycle) },
       { label: "Sharing", value: projectSharingLabel(project) },
     ]),
-    element("p", {}, [project.sharingReadiness?.reason ?? "No sharing assessment is recorded."]),
+    element("details", { class: "evidence-details" }, [element("summary", {}, ["Sharing assessment and release conditions"]), element("p", {}, [project.sharingReadiness?.reason ?? "No sharing assessment is recorded."])]),
     project.sharingReadiness?.verifiedAt
       ? element("small", {}, [`Assessed ${shortDate.format(new Date(project.sharingReadiness.verifiedAt))}`]) : null,
     project.lifecycle?.resumeCondition
       ? element("p", {}, [element("strong", {}, ["Resume condition: "]), project.lifecycle.resumeCondition]) : null,
   ]);
   const profileLinks = element("div", { class: "project-profile__links" }, [
+    element("a", { href: `/readiness?q=${encodeURIComponent(project.name)}` }, ["Find in readiness"]),
     project.websiteUrl ? element("a", { href: project.websiteUrl, target: "_blank", rel: "noreferrer" }, ["Open website ↗"]) : null,
     project.repositoryUrl ? element("a", { href: project.repositoryUrl, target: "_blank", rel: "noreferrer" }, ["Source ↗"]) : null,
     project.changelogUrl ? element("a", { href: project.changelogUrl, target: "_blank", rel: "noreferrer" }, ["Changelog ↗"]) : null,
@@ -1488,9 +1514,14 @@ async function renderProject() {
   ) => element("section", { class: "outcome-panel" }, [
     element("header", {}, [element("div", {}, [element("h3", {}, [label]), element("small", {}, [formatted(observedAt)])]), state(statusValue)]),
     metricGrid(metrics),
-    element("p", { class: "outcome-panel__note" }, [note]),
+    element("details", { class: "evidence-details" }, [element("summary", {}, ["Source and methodology"]), element("p", { class: "outcome-panel__note" }, [note])]),
   ]);
   replace("project-detail", element("div", { class: "project-profile" }, [
+    element("nav", { class: "section-jumps", "aria-label": "Product sections" }, [
+      element("a", { href: "/projects" }, ["← Projects"]),
+      element("a", { href: "#site-evidence-title" }, ["Site evidence"]),
+      element("a", { href: "#capabilities-title" }, ["Fleet skills"]),
+    ]),
     element("section", { class: "project-profile__identity" }, [
       element("div", {}, [
         element("div", { class: "project-directory__kicker" }, [

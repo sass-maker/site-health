@@ -1,16 +1,16 @@
 .app-store-seo {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #e1eae2;
-  background: #11221b;
+  font-family: inherit;
+  color: var(--foreground);
+  background: var(--aso-surface);
   font-synthesis: none;
   font-size: 14px;
-  --base: #172b22;
-  --surface: #1d3329;
-  --line: #354e40;
-  --muted: #a3b5a8;
-  --accent: #c6dfb7;
-  --green: #a7d3ad;
-  --red: #f3c2a5;
+  --base: var(--background);
+  --aso-surface: var(--card);
+  --line: var(--border);
+  --aso-muted: var(--muted-foreground);
+  --aso-accent: var(--primary);
+  --green: var(--success);
+  --red: var(--critical);
 }
 .app-store-seo * {
   box-sizing: border-box;
@@ -38,11 +38,11 @@
   cursor: pointer;
 }
 .app-store-seo button {
-  border: 1px solid #4b6651;
+  border: 1px solid var(--border);
   border-radius: 5px;
   padding: 10px 15px;
-  background: #233a2c;
-  color: #d5e3d3;
+  background: var(--aso-surface);
+  color: var(--foreground);
   font-size: 12px;
   font-weight: 600;
   transition:
@@ -51,43 +51,43 @@
 }
 .app-store-seo button:hover:not(:disabled),
 .app-store-seo .file-button:hover {
-  background: #334d37;
-  border-color: #7f9f77;
+  background: var(--aso-surface);
+  border-color: var(--border);
 }
 .app-store-seo button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
 .app-store-seo .primary {
-  background: #c4dfb4;
-  color: #173120;
-  border-color: #c4dfb4;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
 }
 .app-store-seo .primary:hover:not(:disabled) {
-  background: #dfefcc;
-  border-color: #dfefcc;
+  background: var(--primary-hover);
+  border-color: var(--primary);
 }
 .app-store-seo .quiet {
   background: transparent;
   border-color: transparent;
 }
 .app-store-seo a {
-  color: #b9dbaf;
+  color: var(--primary);
   text-underline-offset: 4px;
 }
 .app-store-seo a:hover {
-  color: #e3efcf;
+  color: var(--primary);
 }
 .app-store-seo :focus-visible {
-  outline: 2px solid #d4ecb5;
+  outline: 2px solid var(--primary);
   outline-offset: 4px;
 }
 .app-store-seo input,
 .app-store-seo select,
 .app-store-seo textarea {
-  color: #e1e9dd;
-  background: #152a20;
-  border: 1px solid #415b47;
+  color: var(--foreground);
+  background: var(--aso-surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 11px 12px;
   width: 100%;
@@ -99,14 +99,14 @@
 }
 .app-store-seo input::placeholder,
 .app-store-seo textarea::placeholder {
-  color: #849b89;
+  color: var(--muted-foreground);
 }
 .app-store-seo input[type='checkbox'],
 .app-store-seo input[type='radio'] {
   width: 16px;
   height: 16px;
   margin: 0;
-  accent-color: #c4dfb4;
+  accent-color: var(--primary);
   flex-shrink: 0;
 }
 .app-store-seo label {
@@ -114,7 +114,7 @@
   font-weight: 500;
   display: grid;
   gap: 8px;
-  color: #b7c8b9;
+  color: var(--muted-foreground);
 }
 .app-store-seo h1,
 .app-store-seo h2,
@@ -126,7 +126,7 @@
 .app-store-seo h1,
 .app-store-seo h2,
 .app-store-seo h3 {
-  color: #e4edde;
+  color: var(--foreground);
   letter-spacing: -0.035em;
 }
 .app-store-seo h1 {
@@ -168,22 +168,22 @@
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 1.8px;
-  color: #a8bda7;
+  color: var(--muted-foreground);
   display: block;
 }
 .app-store-seo .caption {
   font-size: 11px;
-  color: var(--muted);
+  color: var(--aso-muted);
   line-height: 1.8;
 }
 .app-store-seo .muted {
-  color: var(--muted);
+  color: var(--aso-muted);
 }
 .app-store-seo .pill {
   display: inline-block;
-  border: 1px solid #4b664a;
-  background: #233c2a;
-  color: #c0d3b4;
+  border: 1px solid var(--border);
+  background: var(--aso-surface);
+  color: var(--muted-foreground);
   border-radius: 4px;
   font-size: 10px;
   padding: 7px 10px;
@@ -218,8 +218,8 @@
   left: 15px;
   top: -100px;
   padding: 10px;
-  background: #c4dfb4;
-  color: #173120;
+  background: var(--primary);
+  color: var(--primary-foreground);
   z-index: 99;
 }
 .app-store-seo .skip:focus {
@@ -240,7 +240,7 @@
   gap: 12px;
   align-items: center;
   text-decoration: none;
-  color: #dce8d7;
+  color: var(--foreground);
   font-size: 15px;
   letter-spacing: -0.4px;
 }
@@ -248,19 +248,19 @@
   font-weight: 600;
 }
 .app-store-seo .brand-mark {
-  color: #d2e8b8;
+  color: var(--foreground);
   display: grid;
   place-items: center;
   width: 32px;
   height: 32px;
-  background: #304930;
-  border: 1px solid #56734a;
+  background: var(--accent);
+  border: 1px solid var(--border);
   border-radius: 5px;
   font-size: 24px;
 }
 .app-store-seo .header-note {
   font-size: 10px;
-  color: #98ac9b;
+  color: var(--muted-foreground);
   letter-spacing: 0.5px;
 }
 .app-store-seo .header-actions {
@@ -271,7 +271,7 @@
 }
 .app-store-seo .save-status {
   font-size: 10px;
-  color: #a6bea7;
+  color: var(--muted-foreground);
   display: flex;
   gap: 7px;
   align-items: center;
@@ -280,7 +280,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #abc989;
+  background: var(--primary);
 }
 .app-store-seo main {
   max-width: 1600px;
@@ -289,7 +289,7 @@
 }
 .app-store-seo .alert {
   margin: 16px 4.2%;
-  border: 1px solid #526644;
+  border: 1px solid var(--border);
   padding: 13px 17px;
   display: flex;
   align-items: center;
@@ -307,13 +307,13 @@
   flex-shrink: 0;
 }
 .app-store-seo .error {
-  background: #392e20;
-  color: #f3d0b2;
-  border-color: #82694b;
+  background: color-mix(in srgb, var(--warning) 12%, var(--background));
+  color: var(--warning);
+  border-color: var(--border);
 }
 .app-store-seo .notice {
-  background: #283c28;
-  color: #d0e2bf;
+  background: var(--accent);
+  color: var(--foreground);
 }
 .app-store-seo .hero {
   padding: 75px 7% 42px;
@@ -327,10 +327,10 @@
 }
 .app-store-seo .hero h1 em {
   font-style: normal;
-  color: #b8d7a3;
+  color: var(--muted-foreground);
 }
 .app-store-seo .hero p {
-  color: #adbeac;
+  color: var(--muted-foreground);
   max-width: 620px;
   font-size: 16px;
   line-height: 1.8;
@@ -340,13 +340,13 @@
   gap: 26px;
   flex-wrap: wrap;
   font-size: 11px;
-  color: #b1c3ac;
+  color: var(--muted-foreground);
   margin: 28px 0 0;
 }
 .app-store-seo .search-panel {
   margin: 10px 7% 40px;
-  background: #1c3227;
-  border: 1px solid #405c44;
+  background: var(--aso-surface);
+  border: 1px solid var(--border);
   padding: 30px;
   border-radius: 7px;
 }
@@ -397,8 +397,8 @@
 .app-store-seo .spinner {
   width: 14px;
   height: 14px;
-  border: 1.5px solid #6e956c;
-  border-top-color: #e0efca;
+  border: 1.5px solid var(--border);
+  border-top-color: var(--border);
   border-radius: 50%;
   display: inline-block;
   animation: spin 0.9s linear infinite;
@@ -412,7 +412,7 @@
 }
 .app-store-seo .source-line {
   font-size: 10px;
-  color: #a6b9a4;
+  color: var(--muted-foreground);
   padding: 20px 0;
   border-top: 1px solid var(--line);
   display: flex;
@@ -450,13 +450,13 @@
 }
 .app-store-seo .app-result p {
   font-size: 11px;
-  color: #aabcaa;
+  color: var(--muted-foreground);
   line-height: 1.5;
   margin: 0 0 4px;
 }
 .app-store-seo .app-result small {
   font-size: 10px;
-  color: #8fa38c;
+  color: var(--muted-foreground);
 }
 .app-store-seo .app-result button {
   font-size: 10px;
@@ -467,15 +467,15 @@
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  border: 1px solid #ffffff17;
+  border: 1px solid var(--border);
   object-fit: cover;
   flex-shrink: 0;
-  background: #c0d2b1;
+  background: var(--primary);
 }
 .app-store-seo .fallback {
   display: grid;
   place-items: center;
-  color: #1d3022;
+  color: var(--primary-foreground);
   font-size: 24px;
 }
 .app-store-seo .saved-projects {
@@ -492,7 +492,7 @@
   text-align: left;
   align-items: center;
   padding: 20px;
-  background: #192f23;
+  background: var(--aso-surface);
 }
 .app-store-seo .project-cards strong,
 .app-store-seo .project-cards small {
@@ -502,7 +502,7 @@
   line-height: 1.5;
 }
 .app-store-seo .project-cards small {
-  color: #a3b89d;
+  color: var(--muted-foreground);
   margin-top: 6px;
   font-size: 10px;
   line-height: 1.5;
@@ -518,7 +518,7 @@
 }
 .app-store-seo .how-it-works .mono {
   font-size: 11px;
-  color: #91ac8a;
+  color: var(--muted-foreground);
   display: block;
   margin-bottom: 20px;
 }
@@ -527,16 +527,16 @@
   font-weight: 500;
 }
 .app-store-seo .how-it-works p {
-  color: #a5b8a1;
+  color: var(--muted-foreground);
   font-size: 12px;
 }
 .app-store-seo .workspace {
   max-width: 1500px;
   margin: auto;
-  background: #192e23;
+  background: var(--aso-surface);
   min-height: 800px;
-  border-left: 1px solid #2f4939;
-  border-right: 1px solid #2f4939;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
 }
 .app-store-seo .workspace-head {
   padding: 37px 38px 30px;
@@ -556,7 +556,7 @@
   letter-spacing: -1px;
 }
 .app-store-seo .workspace-head p {
-  color: #a2b59c;
+  color: var(--muted-foreground);
   font-size: 12px;
   margin: 0;
 }
@@ -575,7 +575,7 @@
 }
 .app-store-seo .app-identity small {
   font-size: 10px;
-  color: #a7b69c;
+  color: var(--muted-foreground);
   line-height: 1.5;
   display: block;
   margin-top: 7px;
@@ -594,33 +594,33 @@
   background: none;
   white-space: nowrap;
   padding: 14px 0 16px;
-  color: #9db196;
+  color: var(--muted-foreground);
   border-bottom: 2px solid transparent;
 }
 .app-store-seo .workspace-nav button:hover {
   background: none !important;
-  color: #e0ecd3;
+  color: var(--foreground);
 }
 .app-store-seo .workspace-nav button.active {
-  color: #d6e5c6;
-  border-color: #c2d6a4;
+  color: var(--foreground);
+  border-color: var(--border);
 }
 .app-store-seo .workspace-tools {
   padding: 22px 38px;
 }
 .app-store-seo .setup {
-  border: 1px solid #3f5941;
+  border: 1px solid var(--border);
   border-radius: 5px;
-  background: #1b3225;
+  background: var(--aso-surface);
 }
 .app-store-seo .setup > summary {
   padding: 13px 16px;
-  color: #d1dfc5;
+  color: var(--foreground);
   font-size: 12px;
 }
 .app-store-seo .setup > summary span {
   float: right;
-  color: #9db293;
+  color: var(--muted-foreground);
   font-size: 11px;
 }
 .app-store-seo .setup-body {
@@ -653,7 +653,7 @@
 }
 .app-store-seo .country-picker span {
   font-size: 10px;
-  color: #d0e1be;
+  color: var(--foreground);
 }
 .app-store-seo .keyword-chips {
   display: flex;
@@ -664,18 +664,18 @@
 .app-store-seo .keyword-chips button {
   font-size: 10px;
   padding: 6px 8px;
-  background: #2a412c;
-  border-color: #49613f;
+  background: var(--aso-surface);
+  border-color: var(--border);
 }
 .app-store-seo .keyword-chips span {
   margin-left: 10px;
-  color: #9fb390;
+  color: var(--muted-foreground);
 }
 .app-store-seo .file-button {
   display: inline-block;
-  border: 1px solid #4b6651;
-  background: #233a2c;
-  color: #d5e3d3;
+  border: 1px solid var(--border);
+  background: var(--aso-surface);
+  color: var(--foreground);
   border-radius: 5px;
   padding: 10px 15px;
   font-size: 12px;
@@ -693,7 +693,7 @@
   padding: 0;
 }
 .app-store-seo .file-button:focus-within {
-  outline: 2px solid #d4ecb5;
+  outline: 2px solid var(--primary);
   outline-offset: 4px;
 }
 .app-store-seo .file-button:has(input:disabled) {
@@ -707,7 +707,7 @@
   gap: 15px;
   padding: 20px 0 0;
   font-size: 10px;
-  color: #a5b99d;
+  color: var(--muted-foreground);
 }
 .app-store-seo .collection-bar > div:first-child {
   display: flex;
@@ -719,21 +719,21 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #9eba8d;
+  background: var(--aso-surface);
   display: inline-block;
 }
 .app-store-seo .status-dot.due {
-  background: #d0b56f;
+  background: color-mix(in srgb, var(--warning) 12%, var(--background));
 }
 .app-store-seo .due-label {
-  color: #dcc38c;
+  color: var(--warning);
   padding-left: 5px;
 }
 .app-store-seo .run-status {
   margin: 0 38px 20px;
   padding: 15px 18px;
-  background: #2a422e;
-  border: 1px solid #62784b;
+  background: var(--aso-surface);
+  border: 1px solid var(--border);
   border-radius: 4px;
   display: flex;
   gap: 15px;
@@ -753,17 +753,17 @@
 .app-store-seo progress {
   width: 100%;
   height: 3px;
-  accent-color: #b6d59a;
+  accent-color: var(--primary);
 }
 .app-store-seo .partial {
-  border-color: #8e7b47;
-  background: #383a23;
+  border-color: var(--border);
+  background: color-mix(in srgb, var(--warning) 12%, var(--background));
 }
 .app-store-seo .matrix-scroll {
   overflow: auto;
   max-height: 650px;
   padding: 0 38px;
-  scrollbar-color: #4b6644 #1b3022;
+  scrollbar-color: var(--border-strong) var(--surface);
 }
 .app-store-seo .matrix {
   width: 100%;
@@ -778,7 +778,7 @@
   z-index: 2;
 }
 .app-store-seo .matrix thead th {
-  background: #1b3124;
+  background: var(--aso-surface);
   padding: 18px 15px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -796,7 +796,7 @@
 .app-store-seo .matrix th span {
   font-size: 8px;
   letter-spacing: 0.8px;
-  color: #8fa687;
+  color: var(--muted-foreground);
   margin-left: 18px;
 }
 .app-store-seo .matrix thead small {
@@ -804,7 +804,7 @@
   font-family: inherit;
   font-size: 8px;
   letter-spacing: 0;
-  color: #99ae91;
+  color: var(--muted-foreground);
   font-weight: 400;
   margin-top: 8px;
 }
@@ -823,7 +823,7 @@
 .app-store-seo .matrix tbody th small {
   display: block;
   font-size: 9px;
-  color: #7f9977;
+  color: var(--muted-foreground);
   margin-top: 7px;
 }
 .app-store-seo .matrix td {
@@ -845,12 +845,12 @@
   padding: 10px;
 }
 .app-store-seo .matrix td button:hover:not(:disabled) {
-  background: #2b4530;
+  background: var(--accent);
 }
 .app-store-seo .matrix td button.selected {
-  background: #3a5837 !important;
-  box-shadow: inset 0 0 0 1px #9bb580;
-  color: #e5f0cf;
+  background: var(--accent) !important;
+  box-shadow: inset 0 0 0 1px var(--primary);
+  color: var(--foreground);
 }
 .app-store-seo .matrix td button strong {
   font:
@@ -862,7 +862,7 @@
 .app-store-seo .matrix td button small {
   font-size: 8px;
   line-height: 1.6;
-  color: #a4b99a;
+  color: var(--muted-foreground);
   max-width: 60px;
 }
 .app-store-seo .matrix td button small span {
@@ -871,34 +871,34 @@
   opacity: 0.75;
 }
 .app-store-seo .matrix td button.unobserved {
-  color: #768f6d;
+  color: var(--muted-foreground);
 }
 .app-store-seo .matrix td button.unavailable {
-  color: #e2b68d;
+  color: var(--warning);
 }
 .app-store-seo .matrix td button.not-in-returned-results strong {
   font-size: 16px;
-  color: #c1c69c;
+  color: var(--muted-foreground);
 }
 .app-store-seo .matrix-legend {
   display: flex;
   gap: 26px;
   font-size: 9px;
-  color: #96ad8c;
+  color: var(--muted-foreground);
   flex-wrap: wrap;
   padding: 17px 38px;
 }
 .app-store-seo .matrix-legend b {
   font-family: Consolas, monospace;
-  color: #bfcea8;
+  color: var(--muted-foreground);
   margin-right: 5px;
 }
 .app-store-seo .evidence {
   margin-top: 22px;
-  border-top: 1px solid #758a5f;
+  border-top: 1px solid var(--border);
 }
 .app-store-seo .evidence-top {
-  background: #253e2b;
+  background: var(--aso-surface);
   padding: 21px 38px;
   border-bottom: 1px solid var(--line);
   display: flex;
@@ -914,7 +914,7 @@
   letter-spacing: -0.3px;
 }
 .app-store-seo .evidence-top h2 span {
-  color: #a9bd98;
+  color: var(--muted-foreground);
   font-weight: 400;
 }
 .app-store-seo .evidence-top .eyebrow {
@@ -935,7 +935,7 @@
 }
 .app-store-seo .evidence-grid p {
   font-size: 11px;
-  color: #adbea3;
+  color: var(--muted-foreground);
   line-height: 1.8;
 }
 .app-store-seo .evidence-grid .eyebrow {
@@ -945,13 +945,13 @@
   font:
     52px Georgia,
     serif;
-  color: #c8deab;
+  color: var(--muted-foreground);
   margin: 22px 0 9px;
   letter-spacing: -2px;
 }
 .app-store-seo .trend {
   font-size: 12px;
-  color: #c3d7aa;
+  color: var(--muted-foreground);
   padding: 12px 0;
 }
 .app-store-seo .evidence-facts {
@@ -962,16 +962,16 @@
   display: flex;
   justify-content: space-between;
   gap: 15px;
-  border-top: 1px solid #354f39;
+  border-top: 1px solid var(--border);
   padding: 10px 0;
 }
 .app-store-seo .evidence-facts dt {
-  color: #91a887;
+  color: var(--muted-foreground);
 }
 .app-store-seo .evidence-facts dd {
   margin: 0;
   text-align: right;
-  color: #c4d0b4;
+  color: var(--muted-foreground);
 }
 .app-store-seo .source-link {
   font-size: 11px;
@@ -979,7 +979,7 @@
 .app-store-seo .source-details {
   margin: 18px 0;
   font-size: 10px;
-  color: #a4b899;
+  color: var(--muted-foreground);
 }
 .app-store-seo .source-details code {
   display: block;
@@ -1000,11 +1000,11 @@
   gap: 10px;
   align-items: center;
   padding: 13px 0;
-  border-bottom: 1px solid #334e37;
+  border-bottom: 1px solid var(--border);
 }
 .app-store-seo .competitors .rank {
   font-size: 9px;
-  color: #8fa784;
+  color: var(--muted-foreground);
   width: 17px;
   flex-shrink: 0;
 }
@@ -1026,13 +1026,13 @@
 .app-store-seo .competitors small {
   display: block;
   font-size: 9px;
-  color: #8fa984;
+  color: var(--muted-foreground);
   margin-top: 5px;
   line-height: 1.5;
 }
 .app-store-seo .competitors .your-app {
-  background: #29422d;
-  box-shadow: inset 2px 0 #a0bd80;
+  background: var(--accent);
+  box-shadow: inset 2px 0 var(--primary);
   padding-left: 8px;
 }
 .app-store-seo .estimate {
@@ -1052,11 +1052,11 @@
 .app-store-seo .estimate b {
   font-weight: 400;
   font-size: 22px;
-  color: #c3d8a7;
+  color: var(--muted-foreground);
 }
 .app-store-seo .estimate b small {
   font-size: 9px;
-  color: #859e79;
+  color: var(--muted-foreground);
   margin-left: 4px;
 }
 .app-store-seo .estimate p {
@@ -1065,7 +1065,7 @@
 }
 .app-store-seo .estimate code {
   font-size: 8px;
-  color: #8ea782;
+  color: var(--muted-foreground);
 }
 .app-store-seo .estimates h3 {
   font-size: 17px;
@@ -1077,19 +1077,19 @@
   padding: 40px 38px;
   border-top: 1px solid var(--line);
   font-size: 12px;
-  color: #9cb493;
+  color: var(--muted-foreground);
 }
 .app-store-seo .evidence-empty span {
   display: inline-block;
   font-size: 20px;
   margin-right: 14px;
-  color: #bcce9e;
+  color: var(--muted-foreground);
 }
 .app-store-seo .workspace-foot {
   padding: 18px 38px;
   border-top: 1px solid var(--line);
   font-size: 9px;
-  color: #8da783;
+  color: var(--muted-foreground);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1102,7 +1102,7 @@
 .app-store-seo .empty {
   text-align: center;
   padding: 70px 25px;
-  color: #9bb18f;
+  color: var(--muted-foreground);
   max-width: 620px;
   margin: auto;
 }
@@ -1129,7 +1129,7 @@
 .app-store-seo .matrix-symbol {
   font-size: 48px;
   line-height: 1.4;
-  color: #92b078;
+  color: var(--primary);
 }
 .app-store-seo .panel {
   padding: 38px;
@@ -1150,12 +1150,12 @@
 }
 .app-store-seo .history-state {
   font-size: 20px;
-  color: #b7d199;
+  color: var(--primary);
   width: 26px;
   flex-shrink: 0;
 }
 .app-store-seo .history-state.failure {
-  color: #d7ad83;
+  color: var(--warning);
 }
 .app-store-seo .history-list article > div {
   flex: 1;
@@ -1169,13 +1169,13 @@
 .app-store-seo .history-list small {
   display: block;
   font-size: 9px;
-  color: #8fa787;
+  color: var(--muted-foreground);
   line-height: 1.7;
   margin-top: 7px;
 }
 .app-store-seo .history-list p {
   font-size: 10px;
-  color: #b6c8a8;
+  color: var(--muted-foreground);
   margin: 7px 0 0;
   overflow-wrap: anywhere;
 }
@@ -1190,8 +1190,8 @@
   margin-top: 30px;
 }
 .app-store-seo .data-card {
-  border: 1px solid #405d42;
-  background: #1d3526;
+  border: 1px solid var(--border);
+  background: var(--aso-surface);
   border-radius: 6px;
   padding: 25px;
 }
@@ -1201,7 +1201,7 @@
 }
 .app-store-seo .data-card p {
   font-size: 12px;
-  color: #a8be9e;
+  color: var(--muted-foreground);
 }
 .app-store-seo .data-card label {
   margin-bottom: 18px;
@@ -1217,7 +1217,7 @@
 .app-store-seo .connection b {
   font-size: 10px;
   font-weight: 500;
-  color: #b9d3a4;
+  color: var(--muted-foreground);
 }
 .app-store-seo .ideas-layout {
   display: grid;
@@ -1242,11 +1242,11 @@
   font-size: 13px;
   font-weight: 500;
   display: block;
-  color: #d2e2c3;
+  color: var(--foreground);
 }
 .app-store-seo .idea small {
   display: block;
-  color: #98b08c;
+  color: var(--muted-foreground);
   font-size: 11px;
   font-weight: 400;
   line-height: 1.8;
@@ -1288,7 +1288,7 @@
 }
 .app-store-seo .listing-app p {
   font-size: 11px;
-  color: #97af8b;
+  color: var(--muted-foreground);
   line-height: 1.5;
   margin: 5px 0;
 }
@@ -1303,12 +1303,12 @@
 .app-store-seo .unavailable-field {
   padding: 20px 0;
   border-top: 1px solid var(--line);
-  color: #b7c8a7;
+  color: var(--muted-foreground);
   font-size: 12px;
 }
 .app-store-seo .unavailable-field span {
   display: block;
-  color: #819c76;
+  color: var(--muted-foreground);
   font-size: 10px;
   margin-top: 8px;
 }
@@ -1316,12 +1316,12 @@
   padding: 20px 0;
   border-top: 1px solid var(--line);
   font-size: 12px;
-  color: #b5c7a4;
+  color: var(--muted-foreground);
 }
 .app-store-seo .description {
   white-space: pre-wrap;
   font-size: 11px;
-  color: #98b089;
+  color: var(--muted-foreground);
   margin-top: 20px;
   max-height: 400px;
   overflow: auto;
@@ -1340,10 +1340,10 @@
   font:
     9px Consolas,
     monospace;
-  color: #9bb48c;
+  color: var(--muted-foreground);
 }
 .app-store-seo .draft-field small.over {
-  color: #f2bf91;
+  color: var(--warning);
 }
 .app-store-seo .draft-field input {
   font-size: 16px;
@@ -1353,8 +1353,8 @@
   font-size: 12px;
 }
 .app-store-seo .audit {
-  border: 1px solid #4b6341;
-  background: #253c28;
+  border: 1px solid var(--border);
+  background: var(--aso-surface);
   border-radius: 5px;
   padding: 20px;
   margin-top: 30px;
@@ -1367,7 +1367,7 @@
 .app-store-seo .audit ul {
   padding-left: 15px;
   font-size: 11px;
-  color: #b4c6a2;
+  color: var(--muted-foreground);
   line-height: 1.8;
 }
 .app-store-seo .audit li {
@@ -1393,8 +1393,8 @@
   margin-bottom: 0;
 }
 .app-store-seo .proposal {
-  border: 1px solid #6c8452;
-  background: #253d29;
+  border: 1px solid var(--border);
+  background: var(--aso-surface);
   border-radius: 5px;
   padding: 27px;
 }
@@ -1421,10 +1421,10 @@
   overflow: auto;
   font-size: 10px;
   line-height: 1.8;
-  color: #8ea77d;
+  color: var(--muted-foreground);
 }
 .app-store-seo .proposal > p {
-  color: #b7c9a3;
+  color: var(--muted-foreground);
   font-size: 11px;
   margin-top: 25px;
 }
@@ -1436,13 +1436,13 @@
   justify-content: space-between;
   gap: 20px;
   font-size: 9px;
-  color: #8fa582;
+  color: var(--muted-foreground);
   line-height: 1.8;
   align-items: center;
 }
 .app-store-seo .research-footer b {
   font-weight: 500;
-  color: #bdcdae;
+  color: var(--muted-foreground);
 }
 .app-store-seo .research-footer > div {
   display: flex;
@@ -1455,17 +1455,17 @@
   white-space: nowrap;
 }
 .app-store-seo dialog {
-  background: #1d3426;
-  color: #ccdfbd;
-  border: 1px solid #6f8857;
+  background: var(--aso-surface);
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
   border-radius: 8px;
   max-width: 650px;
   width: calc(100% - 32px);
   padding: 32px;
-  box-shadow: 0 25px 100px #0005;
+  box-shadow: 0 25px 100px var(--shadow);
 }
 .app-store-seo dialog::backdrop {
-  background: #08130ed9;
+  background: var(--overlay);
   backdrop-filter: blur(5px);
 }
 .app-store-seo dialog h2 {
@@ -1475,7 +1475,7 @@
 .app-store-seo dialog p,
 .app-store-seo dialog li {
   font-size: 12px;
-  color: #b5c9a5;
+  color: var(--muted-foreground);
 }
 .app-store-seo dialog ul {
   padding-left: 20px;
@@ -2062,7 +2062,7 @@
 }
 
 /* Site Health owns the shell, palette and typography. */
-.app-store-seo { --base:#101416; --surface:#151a1c; --line:#2b3437; --muted:#a0aeae; --accent:#79dcc8; --green:#79dcc8; --red:#f3c2a5; background:transparent; color:#f3f6f4; font-family:inherit; font-size:14px; min-width:0; }
+.app-store-seo { --base: var(--background); --aso-surface: var(--card); --line: var(--border); --aso-muted: var(--muted-foreground); --aso-accent: var(--primary); --green: var(--success); --red: var(--critical); background:transparent; color:var(--foreground); font-family:inherit; font-size:14px; min-width:0; }
 .app-store-seo .feature-toolbar { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:12px 0 24px; }
 .app-store-seo .save-status { display:flex; }
 .app-store-seo .search-panel { margin:0 0 28px; background:var(--base); }
@@ -2073,25 +2073,25 @@
 .app-store-seo .how-it-works { padding:20px 0; }
 .app-store-seo .saved-projects { padding:24px 0; }
 .app-store-seo button, .app-store-seo .file-button { min-height:40px; }
-.app-store-seo input, .app-store-seo select, .app-store-seo textarea { font-size:16px; background:#101a1b; color:#f3f6f4; border-color:#3b4b4c; }
-.app-store-seo .primary { background:#79dcc8; border-color:#79dcc8; color:#09251f; }
-.app-store-seo .primary:hover:not(:disabled) { background:#9be9d9; border-color:#9be9d9; }
-.app-store-seo a { color:#93e0d0; }
-.app-store-seo .matrix thead th, .app-store-seo .matrix tbody th { background:#151f20; }
-.app-store-seo .matrix td button { background:#162823; }
-.app-store-seo .matrix td button.selected { background:#294b40; border-color:#79dcc8; }
+.app-store-seo input, .app-store-seo select, .app-store-seo textarea { font-size:16px; background:var(--aso-surface); color:var(--foreground); border-color:var(--border); }
+.app-store-seo .primary { background:var(--primary); border-color:var(--primary); color:var(--primary-foreground); }
+.app-store-seo .primary:hover:not(:disabled) { background:var(--primary-hover); border-color:var(--primary); }
+.app-store-seo a { color:var(--primary); }
+.app-store-seo .matrix thead th, .app-store-seo .matrix tbody th { background:var(--aso-surface); }
+.app-store-seo .matrix td button { background:var(--aso-surface); }
+.app-store-seo .matrix td button.selected { background:var(--accent); border-color:var(--primary); }
 @media(max-width:600px) { .app-store-seo .search-panel { padding:20px 16px; } .app-store-seo .feature-toolbar { flex-wrap:wrap; } .app-store-seo .research-footer { display:block; } .app-store-seo .workspace-head { padding:20px; } }
 
 /* Compact research controls share the parent product's identity. */
 .app-store-seo .feature-toolbar { padding: 12px 0 16px; }
-.app-store-seo .workspace { background: #11191b; min-height: 0; }
+.app-store-seo .workspace { background: var(--aso-surface); min-height: 0; }
 .app-store-seo .workspace-head { padding: 20px 24px; }
 .app-store-seo .workspace-title h2 { font-size: 24px; margin: 6px 0; }
 .app-store-seo .workspace-nav { padding: 0 24px; gap: 8px; flex-wrap: wrap; overflow: visible; }
-.app-store-seo .workspace-nav button { padding: 12px 14px; font-size: 13px; min-height: 44px; color: #b8c7c4; }
-.app-store-seo .workspace-nav button.active { color: #93e0d0; border-color: #79dcc8; background: #17302b; }
+.app-store-seo .workspace-nav button { padding: 12px 14px; font-size: 13px; min-height: 44px; color: var(--muted-foreground); }
+.app-store-seo .workspace-nav button.active { color: var(--primary); border-color: var(--primary); background: var(--accent); }
 .app-store-seo .workspace-tools { padding: 18px 24px; }
-.app-store-seo .setup, .app-store-seo .data-card, .app-store-seo .project-cards button { background: #172223; border-color: #344742; }
+.app-store-seo .setup, .app-store-seo .data-card, .app-store-seo .project-cards button { background: var(--aso-surface); border-color: var(--border); }
 .app-store-seo .save-status, .app-store-seo label, .app-store-seo small, .app-store-seo .caption,
 .app-store-seo .collection-bar, .app-store-seo .matrix-legend, .app-store-seo .setup > summary { font-size: 12px; }
 .app-store-seo button { font-size: 13px; white-space: normal; }
@@ -2105,6 +2105,13 @@
   .app-store-seo .country-picker label, .app-store-seo .matrix-legend, .app-store-seo .caption { font-size: 12px; }
 }
 
-/* The research workspace retains its established contrast inside the light owner shell. */
-.app-store-seo { background: #101416; padding: 20px; border-radius: 12px; }
-@media (max-width: 600px) { .app-store-seo { padding: 12px; } }
+/* Research uses the owner shell's semantic surfaces in both appearances. */
+.app-store-seo { background:transparent; color:var(--foreground); }
+.app-store-seo .workspace { background:var(--card); }
+.app-store-seo .primary { background:var(--primary); color:var(--primary-foreground); border-color:var(--primary); }
+.app-store-seo .primary:hover:not(:disabled) { background:var(--primary-hover); border-color:var(--primary-hover); }
+.app-store-seo input, .app-store-seo select, .app-store-seo textarea { background:var(--background); color:var(--foreground); border-color:var(--input); }
+.app-store-seo .workspace-nav button.active { background:var(--accent); color:var(--accent-foreground); border-color:var(--primary); }
+.app-store-seo .caption, .app-store-seo .matrix-legend, .app-store-seo label { color:var(--muted-foreground); }
+.app-store-seo button { font-weight:500; }
+.app-store-seo .matrix td button.selected { background:var(--accent); color:var(--accent-foreground); }

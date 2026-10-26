@@ -10,8 +10,10 @@ const dateLabel = (date: string) => new Date(date).toLocaleDateString(undefined,
   day: 'numeric', month: 'short', year: 'numeric',
 });
 
-export function PortfolioOverview({ workspace, queue, waiting, onReview, onOpenLever, onWaiting }: {
+export function PortfolioOverview({ workspace, queue, waiting, onReview, onOpenLever, onWaiting, compact = false, title }: {
   workspace: ScoreWorkspace;
+  compact?: boolean;
+  title?: string;
   queue?: Lever;
   waiting: number;
   onReview: () => void;
@@ -39,13 +41,14 @@ export function PortfolioOverview({ workspace, queue, waiting, onReview, onOpenL
     <header className={styles.portfolioHeading}>
       <div>
         <p className={styles.eyebrow}>Portfolio / readiness</p>
-        <h1>See the work. Find the next move.</h1>
-        <p>Your products, their evidence, and the work that matters next.</p>
+        <h1>{compact ? title : "See the work. Find the next move."}</h1>
+        <p>{compact ? `${workspace.snapshot.projects.length} assessed products · ${dateLabel(workspace.snapshot.assessedAt)}` : "Your products, their evidence, and the work that matters next."}</p>
       </div>
       <Button variant="outline" onClick={onReview} aria-label="Review details, import and export">
         <FileText size={15} /> Review & backup
       </Button>
     </header>
+    {!compact && <>
     <section className={styles.portfolioSummary} aria-label="Assessment coverage">
       <a href="/projects"><strong>{inventory?.length ?? '—'}</strong><span>{inventory ? 'current products' : 'Inventory unavailable'}</span></a>
       <div><strong>{currentAssessed ?? workspace.snapshot.projects.length}{inventory && <small> / {inventory.length}</small>}</strong><span>assessed{inventory && currentAssessed !== inventory.length ? ` · ${inventory.length - (currentAssessed ?? 0)} pending` : ''}</span></div>
@@ -60,5 +63,6 @@ export function PortfolioOverview({ workspace, queue, waiting, onReview, onOpenL
       <div className={styles.queueAction}><h2>{plan?.title ?? queue.title}</h2><Button variant="outline" onClick={() => onOpenLever(queue.id)}>Open lever <ArrowUpRight size={15} /></Button></div>
       <details><summary>{CATEGORY_LABELS[queue.category]} · change and finish line</summary><p>{plan?.action ?? queue.action}</p><p><strong>Done when:</strong> {plan?.proof ?? queue.proof}</p></details>
     </section> : <p className={styles.queueEmpty}>No ready lever. Review the queue for awaiting evidence, completed work or prerequisites.</p>}
+    </>}
   </>;
 }

@@ -70,6 +70,12 @@ const secondaryLinks = [
   </nav>
 
   <div class="sidebar-foot">
+    <label class="appearance-control">
+      <span class="sidebar-copy">Appearance</span>
+      <select aria-label="Appearance" data-theme-select>
+        <option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option>
+      </select>
+    </label>
     <button class="usage-export" type="button" data-usage-export aria-label="Download local 30-day usage summary" title="Download local 30-day usage summary">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 17v3h14v-3" /></svg>
       <span class="sidebar-copy">Export usage summary</span>
@@ -92,6 +98,11 @@ const secondaryLinks = [
 </aside>
 
 <script>
+  const appearance = document.querySelector<HTMLSelectElement>("[data-theme-select]");
+  if (appearance) {
+    appearance.value = document.documentElement.dataset.appearance ?? "system";
+    appearance.addEventListener("change", () => window.dispatchEvent(new CustomEvent("site-health:appearance", { detail: appearance.value })));
+  }
   const shell = document.querySelector<HTMLElement>("[data-sidebar-shell]");
   const collapse = document.querySelector<HTMLButtonElement>("[data-sidebar-collapse]");
   const opener = document.querySelector<HTMLButtonElement>("[data-sidebar-open]");
@@ -115,6 +126,7 @@ const secondaryLinks = [
     const isMobile = mobile.matches;
     const shouldOpen = isMobile && open;
     shell?.classList.toggle("sidebar-open", shouldOpen);
+    document.body.classList.toggle("navigation-open", shouldOpen);
     opener?.setAttribute("aria-expanded", String(shouldOpen));
     if (isMobile) {
       document.querySelector<HTMLElement>("#dashboard-sidebar")?.toggleAttribute("inert", !shouldOpen);
@@ -146,7 +158,7 @@ const secondaryLinks = [
     if (event.key !== "Tab" || !shell?.classList.contains("sidebar-open") || !sidebar) return;
     const focusable = [...sidebar.querySelectorAll<HTMLElement>(
       'a[href], button:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
-    )].filter((item) => !item.hasAttribute("inert"));
+    )].filter((item) => !item.hasAttribute("inert") && item.getClientRects().length > 0);
     const first = focusable[0];
     const last = focusable.at(-1);
     if (!first || !last) return;
