@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.app-store.json",
+  "include": [
+    "src/features/readiness/**/*.ts",
+    "src/features/readiness/**/*.tsx"
+  ]
+}

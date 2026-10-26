@@ -1,0 +1,7 @@
+---
+import DashboardLayout from "../components/DashboardLayout.astro";
+import { ProductScoreboard } from "../features/readiness/product-scoreboard";
+---
+<DashboardLayout title="Product readiness" description="Private scores, evidence, checklist and improvement history." active="readiness" view="readiness" showProjectScope={false} loadDashboardEvidence={false}>
+  <ProductScoreboard client:only="react"><p slot="fallback">Opening your private readiness workspace…</p></ProductScoreboard>
+</DashboardLayout>

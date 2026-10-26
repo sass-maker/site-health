@@ -4,13 +4,13 @@ This repository contains one product: Site Health and its backend.
 
 ## Product boundary
 
-- The five product areas are Projects, Domains, Performance, SEO (web and App Store),
-  and AI Awareness.
+- The five evidence areas are Projects, Domains, Performance, SEO (web and App Store),
+  and AI Awareness. Readiness owns the private product scoreboard and checklist.
 - Keep the UI under `apps/web/`.
 - Keep its backend, evidence adapters, storage, and internal AI engine under
   `apps/backend/`. The single editable catalog lives at
-  `../saas-maker/catalog/projects.json`; `apps/backend/config/projects.json`
-  must remain a symlink to SaaS Maker's generated `catalog/generated/operations.json`.
+  `catalog/projects.json`; `apps/backend/config/projects.json`
+  must remain a symlink to Site Health's generated `catalog/generated/operations.json`.
   This is a read-only compatibility output, never an editable classification source.
   The same generated-output rule covers the policy manifests `catalog:sync` emits
   here — `footer-surfaces`, `geo-observatory`, `project-actions-policy`,
@@ -19,7 +19,7 @@ This repository contains one product: Site Health and its backend.
   `projects[].systems` or top-level `systems` in the catalog.
   (`project-operations.json` stays generated observation state, not catalog policy.)
   Run `pnpm --dir ../saas-maker catalog:sync` before refreshing derived views.
-- Edit classification only in that SaaS Maker source. Historical reviews,
+- Edit classification only in that Site Health source. Historical reviews,
   generated dossiers and generated repository tables are not classification inputs.
 - Drank and PSI Swarm are independent repositories. Fleet-owned reusable workflows,
   skills, and operator scripts live under `saas-maker/tooling/`.
@@ -58,3 +58,9 @@ This repository contains one product: Site Health and its backend.
 - Prefer small diffs and existing scripts.
 - Run `pnpm run check` before handoff when the complete dependency toolchain is
   available; otherwise run the smallest affected command and report omissions.
+
+## Ownership
+
+Site Health owns all private portfolio data, readiness scores, progress, usage,
+and the detailed product checklist. SaaS Maker owns the public showcase and
+reusable tooling. See [the canonical ownership note](docs/ownership.md).

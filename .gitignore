@@ -25,3 +25,8 @@ apps/backend/*.sqlite-*
 # Private-intended footer artwork (#505): served locally from this path, never
 # committed or uploaded. Builds without it render the footer's no-art layout.
 apps/web/public/footer-art/
+
+# Owner-private catalog and generated compatibility data.
+/catalog/projects.json
+/catalog/generated/
+/catalog/backups/

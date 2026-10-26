@@ -18,14 +18,7 @@ import SeoNav from "../components/SeoNav.astro";
   </div>
   <SeoNav active="web" />
   <section class="owner-section owner-section--directory" aria-label="Google Search results by project">
-    <div class="project-scope project-scope--compact">
-      <label for="search-scope">Show</label>
-      <select id="search-scope" data-search-scope data-usage-event="filter">
-        <option value="active">Active products</option>
-        <option value="all">All maintained search properties</option>
-      </select>
-      <span class="measurement-boundary-note" data-search-scope-note></span>
-    </div>
+    <p class="measurement-boundary-note" data-search-scope-note></p>
     <div class="loading-state" data-dashboard-slot="search">Building Google Search ledger…</div>
   </section>
   <section class="owner-section owner-section--directory" aria-labelledby="seo-audit-title">

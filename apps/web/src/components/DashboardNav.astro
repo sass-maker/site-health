@@ -2,7 +2,7 @@
 import "../styles/dashboard.css";
 
 interface Props {
-  active: "domains" | "search" | "ai-awareness" | "performance" | "projects";
+  active: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "readiness";
 }
 
 const { active } = Astro.props;
@@ -13,6 +13,7 @@ const links = [
   { id: "performance", href: "/performance", label: "Performance", icon: "M4 17a8 8 0 1116 0 M12 17l4-5 M7 17h10" },
 ] as const;
 const secondaryLinks = [
+  { id: "readiness", href: "/readiness", label: "Readiness", icon: "M8 4h8v3H8z M6 6H4v15h16V6h-2 M8 12l2 2 5-5 M8 18h8" },
   { id: "projects", href: "/projects", label: "Projects", icon: "M4 6h7v5H4z M13 6h7v5h-7z M4 13h7v5H4z M13 13h7v5h-7z" },
 ] as const;
 ---
@@ -159,7 +160,7 @@ const secondaryLinks = [
   });
 
   if (document.body.dataset.dashboardEvidence === "false" && document.body.dataset.dashboardView !== "app-store") {
-    if (label) label.textContent = "Local gallery";
+    if (label) label.textContent = "Private workspace";
   } else {
     fetch("/api/dashboard/health", { headers: { accept: "application/json" } })
       .then(async (response) => {

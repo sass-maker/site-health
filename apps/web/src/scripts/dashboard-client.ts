@@ -7,6 +7,7 @@ import {
   matchesProjectFilters,
   partitionProjects,
   projectSharingLabel,
+  scopeOutcomeRows,
 } from "../lib/project-directory.mjs";
 
 type JsonRecord = Record<string, any>;
@@ -92,8 +93,31 @@ function value(signal?: JsonRecord | null, suffix = "") {
   return signalValue(signal, suffix);
 }
 
+let cohortProjects: Promise<JsonRecord[]> | undefined;
+const scopedView = ["domains", "search", "ai-awareness", "performance"].includes(document.body.dataset.dashboardView ?? "");
+const includeInactive = new URLSearchParams(window.location.search).get("scope") === "all";
+function currentCohort() {
+  return cohortProjects ??= dashboardApi(base, "/v1/projects");
+}
 async function api(path: string, options?: RequestInit) {
-  return dashboardApi(base, path, options);
+  const payload = await dashboardApi(base, path, options);
+  if (scopedView && path.startsWith("/v1/outcomes/") && Array.isArray(payload.rows)) {
+    const projects = await currentCohort();
+    const rows = scopeOutcomeRows(payload.rows, projects, includeInactive);
+    const label = document.querySelector<HTMLElement>("[data-cohort-count]");
+    if (label) label.textContent = `${projects.filter(isCurrentProject).length} current products · primary and active`;
+    return { ...payload, rows };
+  }
+  return payload;
+}
+const cohortSelect = document.querySelector<HTMLSelectElement>("[data-cohort-select]");
+if (cohortSelect) {
+  cohortSelect.value = includeInactive ? "all" : "active";
+  cohortSelect.addEventListener("change", () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("scope", cohortSelect.value);
+    window.location.assign(url);
+  });
 }
 
 async function optionalOutcome(path: string) {
@@ -765,26 +789,12 @@ async function renderSearch() {
   const period = payload.rows.find((row: JsonRecord) => row.period)?.period;
   const periodTarget = document.querySelector<HTMLElement>("[data-search-period]");
   if (periodTarget) periodTarget.textContent = `Google data: ${reportingPeriod(period)}`;
-  const scope = document.querySelector<HTMLSelectElement>("[data-search-scope]");
   const scopeNote = document.querySelector<HTMLElement>("[data-search-scope-note]");
-  const requested = new URLSearchParams(window.location.search).get("scope");
-  if (scope) scope.value = requested === "all" || !payload.rows.some((row: JsonRecord) => row.futureForm === "active-product") ? "all" : "active";
-  const show = () => {
-    const rows = scope?.value === "active"
-      ? payload.rows.filter((row: JsonRecord) => row.futureForm === "active-product")
-      : payload.rows;
-    if (scopeNote) scopeNote.textContent = `${rows.length} properties · ${rows.filter((row: JsonRecord) => row.observedAt).length} measured${scope?.value === "active" ? " · paused experiments excluded" : ""}`;
-    replace("search", rows.length
-      ? element("div", { class: "search-results" }, rows.map(searchResult))
-      : empty("No Google Search evidence for this scope"));
-  };
-  if (scope) scope.onchange = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set("scope", scope.value);
-    window.history.replaceState(null, "", url);
-    show();
-  };
-  show();
+  const rows = payload.rows;
+  if (scopeNote) scopeNote.textContent = `${rows.length} properties · ${rows.filter((row: JsonRecord) => row.observedAt).length} measured`;
+  replace("search", rows.length
+    ? element("div", { class: "search-results" }, rows.map(searchResult))
+    : empty("No Google Search evidence for this scope"));
   replace("seo-audit", audit.unavailable
     ? empty("On-page SEO audit unavailable")
     : audit.rows.length
