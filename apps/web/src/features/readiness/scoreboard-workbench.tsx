@@ -1034,9 +1034,9 @@ export function ScoreboardWorkbench({
                     ? 'Saved on this device.'
                     : 'Changes are only in this tab. Export before closing it.'}{' '}
                   Review data is not uploaded. Dated assessments and their evidence are saved in
-                  browser history storage and included in every backup. This browser and signed-in
-                  account have their own workspace; other devices do not sync. Export after a review
-                  session.
+                  browser storage and included in every backup. This browser profile and Site Health
+                  address have their own workspace; other devices do not sync. Export a backup after
+                  a review session or to move your workspace.
                 </p>
                 <div className={styles.backupActions}>
                   <Button
