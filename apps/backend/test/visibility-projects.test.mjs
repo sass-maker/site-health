@@ -60,7 +60,7 @@ test('visibilityProjects preserves catalog order', () => {
   );
 });
 
-test('Search Console targets add contracted roots without changing visibility eligibility', () => {
+test('Search Console targets retain active roots and exclude inactive historical identities', () => {
   const catalog = {
     projects: [
       project({ id: 'first', domains: ['first.example'] }),
@@ -79,8 +79,6 @@ test('Search Console targets add contracted roots without changing visibility el
     searchConsoleProjects(catalog, roots).map((entry) => [entry.id, entry.domains]),
     [
       ['first', ['first.example']],
-      ['past-root', ['past.example']],
-      ['personal-root', ['person.dev']],
     ],
   );
   assert.deepEqual(visibilityProjects(catalog).map((entry) => entry.id), ['first']);
