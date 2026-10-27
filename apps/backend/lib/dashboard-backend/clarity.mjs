@@ -49,19 +49,19 @@ const PROVIDER_EXCEPTION_CODES = new Set([
   'rendered-evidence-required',
 ]);
 
-export const defaultClarityRegistryPath = resolve(
-  import.meta.dirname,
-  '../../../../../saas-maker/tooling/config/clarity-projects.json',
-);
+const clarityFleetRoot = process.env.SITE_HEALTH_OWNER_REPOSITORY
+  ? resolve(process.env.SITE_HEALTH_OWNER_REPOSITORY, '..')
+  : resolve(import.meta.dirname, '../../../../../');
+export const defaultClarityRegistryPath = resolve(clarityFleetRoot, 'saas-maker/tooling/config/clarity-projects.json');
 export const defaultClarityCapabilitiesPath = resolve(
-  import.meta.dirname,
-  '../../../../../saas-maker/tooling/config/clarity-capabilities.json',
+  clarityFleetRoot,
+  'saas-maker/tooling/config/clarity-capabilities.json',
 );
 export const defaultClarityJourneysPath = resolve(
-  import.meta.dirname,
-  '../../../../../saas-maker/tooling/config/clarity-journeys.json',
+  clarityFleetRoot,
+  'saas-maker/tooling/config/clarity-journeys.json',
 );
-export const defaultClarityInfisicalRoot = resolve(import.meta.dirname, '../../../../../');
+export const defaultClarityInfisicalRoot = clarityFleetRoot;
 
 function fail(code, message, statusCode = 422) {
   throw Object.assign(new Error(message), { code, statusCode });

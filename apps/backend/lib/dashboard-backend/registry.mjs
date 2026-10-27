@@ -70,6 +70,8 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         name: displayName(project),
         description: project.public?.description ?? null,
         category: project.category ?? null,
+        audience: project.audience ?? 'unknown',
+        purposeCategories: project.portfolio?.purposeCategories ?? [],
         family: project.family,
         familyName: familyNames.get(project.family) ?? displayName({ id: project.family }),
         attention: project.attention ?? project.tier,

@@ -5,7 +5,7 @@ const FAMILIES = {
   performance: [['psi', 'PSI performance', '/100'], ['lcp', 'Largest contentful paint', 'ms']],
   search: [['impressions', 'Search impressions', 'impressions'], ['clicks', 'Search clicks', 'clicks'], ['averagePosition', 'Google average position', 'position']],
   seoAudit: [['pass', 'SEO checks passed', 'checks'], ['fail', 'SEO checks failed', 'checks']],
-  geoAwareness: [['topThree', 'Google top-three coverage', '%'], ['pageOne', 'Google page-one coverage', '%']],
+  geoAwareness: [['topThree', 'Web search top-three coverage', '%'], ['pageOne', 'Web search page-one coverage', '%']],
   aiAwareness: [['mention', 'AI mentions', '%'], ['recommendation', 'AI recommendations', '%'], ['citation', 'AI citations', '%']],
 };
 export function readinessObservations(projects, projection = {}, clarityByProject = {}) {

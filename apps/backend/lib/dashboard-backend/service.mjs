@@ -328,7 +328,12 @@ export function createDashboardHandler({
   };
   const handleProjectionReadRoutes = (url, projections, response) => {
     if (url.pathname === '/v1/readiness') {
-      const currentEvidence = readinessObservations(projections.projects, cachedDashboardProjection(projections), Object.fromEntries(projections.projects.map(project => [project.id, readClarityProjection(store, project.id, clarityRegistryProvider())])));
+      let clarity = {};
+      try {
+        const registry = clarityRegistryProvider();
+        clarity = Object.fromEntries(projections.projects.map(project => [project.id, readClarityProjection(store, project.id, registry)]));
+      } catch { /* Missing Clarity configuration must not hide independent evidence. */ }
+      const currentEvidence = readinessObservations(projections.projects, cachedDashboardProjection(projections), clarity);
       return json(response, 200, buildReadinessProjection({ ...projections, generatedAt: now(), observations: [...currentEvidence, ...readinessObservationProvider(projections.projects)] }));
     }
     if (url.pathname === '/v1/projects') return json(response, 200, projections.projects);
