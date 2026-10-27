@@ -1,3 +1,5 @@
+import { LocalLink } from './navigation';
+import { SCORE_CATEGORIES } from './scoreboard';
 import { ArrowUpRight } from 'lucide-react';
 import styles from './scoreboard-workbench.module.css';
 
@@ -74,9 +76,10 @@ export function ScoreboardChecklist() {
       </header>
 
       <div className={styles.checklistGrid}>
-        {categoryGuidance.map((category) => (
+        {categoryGuidance.map((category, index) => (
           <article className={styles.checklistCard} key={category.title}>
             <h3>{category.title}</h3>
+            <LocalLink className={styles.checklistLink} href={`/readiness?page=category&category=${SCORE_CATEGORIES[index]}`}>Open category workspace →</LocalLink>
             <dl>
               <div>
                 <dt>Effort</dt>

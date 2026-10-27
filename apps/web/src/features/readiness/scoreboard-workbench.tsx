@@ -19,6 +19,7 @@ import { type DataColumn, type DataSort } from '@saas-maker/ui/components/data-t
 import { Button } from '@saas-maker/ui/components/button';
 import { Badge } from '@saas-maker/ui/components/badge';
 import { Input } from '@saas-maker/ui/components/input';
+import { CategoryWorkspace } from './category-workspace';
 import { PortfolioOverview } from './portfolio-overview';
 import { isReadyLever, productQueueLever } from './portfolio-presentation';
 import {
@@ -104,6 +105,8 @@ export function ScoreboardWorkbench({
   const { snapshot } = workspace;
   const router = useRouter();
   const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category');
+  const categoryPage = searchParams.get('page') === 'category' && isCategory(categoryParam) ? categoryParam : null;
   const infoId = searchParams.get('product');
   const infoProject = snapshot.projects.find((p) => p.id === infoId);
   const [query, setQuery] = useState(() => searchParams.get('q') ?? '');
@@ -165,7 +168,7 @@ export function ScoreboardWorkbench({
         isCategory(category) ? `${project}:${category}` : byProject.get(project)!.bestNextLeverId
       );
     }
-    if (isCategory(category)) setArea(category);
+    if (params.get('page') !== 'category' && isCategory(category)) setArea(category);
     const focusDomain = params.get('domain');
     if (focusDomain && snapshot.projects.some((p) => p.domains.includes(focusDomain)))
       setDomain(focusDomain);
@@ -526,7 +529,13 @@ export function ScoreboardWorkbench({
 
   return (
     <div className={styles.workbench}>
-      {infoProject ? (
+      {categoryPage && !infoId ? (
+        <CategoryWorkspace category={categoryPage} workspace={workspace}
+          orderedLevers={orderedLevers}
+          onEvidence={selectScore}
+          onLever={(id) => { setSelected(id); setSheet('action'); }}
+          onReview={() => setSheet('review')} />
+      ) : infoProject ? (
         <ScoreboardProduct
           key={infoProject.id}
           project={infoProject}

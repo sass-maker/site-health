@@ -1,5 +1,6 @@
 ---
 import "../styles/dashboard.css";
+import { CATEGORY_LABELS, SCORE_CATEGORIES } from "../features/readiness/scoreboard";
 
 interface Props {
   active: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "readiness";
@@ -20,7 +21,7 @@ const secondaryLinks = [
 
 <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Site Health navigation">
   <div class="sidebar-head">
-    <a class="brand" href="/readiness" data-project-scope-link data-usage-event="navigation">
+    <a class="brand" href="/readiness" data-readiness-link data-project-scope-link data-usage-event="navigation">
       <span class="brand-mark" aria-hidden="true">S</span>
       <span class="sidebar-copy"><strong>Site Health</strong><small>Owner view</small></span>
     </a>
@@ -47,6 +48,7 @@ const secondaryLinks = [
         href={link.href}
         title={link.label}
         data-project-scope-link
+        data-readiness-link={link.id === "readiness" ? "" : undefined}
         data-usage-event="navigation"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d={link.icon} /></svg>
@@ -54,6 +56,15 @@ const secondaryLinks = [
       </a>
     ))}
     <span class="sidebar-group-divider" aria-hidden="true"></span>
+    <span class="sidebar-group-label sidebar-copy">Readiness categories</span>
+    {SCORE_CATEGORIES.map((category) => (
+      <a href={`/readiness?page=category&category=${category}`} title={CATEGORY_LABELS[category]} data-readiness-link data-readiness-category={category} data-usage-event="navigation">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 4h14v16H5z M8 8h8 M8 12h8 M8 16h5" /></svg>
+        <span class="sidebar-copy">{CATEGORY_LABELS[category]}</span>
+      </a>
+    ))}
+    <span class="sidebar-group-divider" aria-hidden="true"></span>
+    <span class="sidebar-group-label sidebar-copy">Supporting evidence</span>
     {links.map((link) => (
       <a
         aria-current={active === link.id ? "page" : undefined}
@@ -98,6 +109,19 @@ const secondaryLinks = [
 </aside>
 
 <script>
+  const updateReadinessNavigation = () => {
+    if (window.location.pathname.replace(/\/$/, '') !== '/readiness') return;
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('page') === 'category' ? params.get('category') : null;
+    document.querySelectorAll<HTMLAnchorElement>('.sidebar-nav [data-readiness-link]').forEach((link) => {
+      const selected = (link.dataset.readinessCategory ?? null) === category;
+      link.classList.toggle('active', selected);
+      if (selected) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+    });
+  };
+  updateReadinessNavigation();
+  window.addEventListener('popstate', updateReadinessNavigation);
+
   const appearance = document.querySelector<HTMLSelectElement>("[data-theme-select]");
   if (appearance) {
     appearance.value = document.documentElement.dataset.appearance ?? "system";
@@ -153,6 +177,9 @@ const secondaryLinks = [
   close?.addEventListener("click", () => setOpen(false));
   backdrop?.addEventListener("click", () => setOpen(false));
   mobile.addEventListener("change", () => setOpen(false, false));
+  window.addEventListener("popstate", () => {
+    if (shell?.classList.contains("sidebar-open")) setOpen(false);
+  });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && shell?.classList.contains("sidebar-open")) setOpen(false);
     if (event.key !== "Tab" || !shell?.classList.contains("sidebar-open") || !sidebar) return;
