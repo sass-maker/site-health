@@ -5,15 +5,15 @@ import { Input } from '@saas-maker/ui/components/input';
 import type { DataColumn } from '@saas-maker/ui/components/data-table';
 import { CATEGORY_LABELS, productPriority, productPriorityLabel, scoreReading, type Lever, type ScoreCategory, type ScoreMetric, type ScoreProject, type ScoreWorkspace } from './scoreboard';
 import { CATEGORY_GUIDANCE } from './category-guidance';
-import { categoryProducts, type CategoryProduct, type CurrentProduct } from './category-model';
+import { categoryProducts, categoryQueue, type CategoryProduct, type CurrentProduct } from './category-model';
 import { ScoreboardTable } from './scoreboard-table';
 import { ScoreValue, ScorePair } from './scoreboard-evidence';
 import { LocalLink, useRouter, useSearchParams } from './navigation';
 import styles from './category-workspace.module.css';
 
 const statuses: Record<string, string> = { queued: 'Queued', active: 'Active', awaiting_evidence: 'Awaiting evidence', verified: 'Verified', parked: 'Parked · resumable' };
-export function CategoryWorkspace({ category, workspace, queue, onEvidence, onLever, onReview }: {
-  category: ScoreCategory; workspace: ScoreWorkspace; queue?: Lever;
+export function CategoryWorkspace({ category, workspace, orderedLevers, onEvidence, onLever, onReview }: {
+  category: ScoreCategory; workspace: ScoreWorkspace; orderedLevers: Lever[];
   onEvidence: (project: ScoreProject, category: ScoreCategory, metric: ScoreMetric) => void;
   onLever: (id: string) => void; onReview: () => void;
 }) {
@@ -22,6 +22,7 @@ export function CategoryWorkspace({ category, workspace, queue, onEvidence, onLe
   const [inventoryError, setInventoryError] = useState(false);
   const [query, setQuery] = useState('');
   const [reload, setReload] = useState(0);
+  useEffect(() => { setQuery(''); }, [category]);
   const params = useSearchParams();
   const router = useRouter();
   const tab = ['checklist', 'evidence'].includes(params.get('tab') ?? '') ? params.get('tab') : 'products';
@@ -44,7 +45,9 @@ export function CategoryWorkspace({ category, workspace, queue, onEvidence, onLe
   const byLever = new Map(workspace.snapshot.levers.filter((l) => l.category === category).map((l) => [l.projectId, l]));
   const active = Object.values(workspace.progress).find((record) => record?.status === 'active');
   const activeLever = workspace.snapshot.levers.find((l) => l.id === active?.leverId);
-  const queueProject = all.find((p) => p.id === queue?.projectId)?.assessment;
+  const queue = categoryQueue(orderedLevers, workspace, category, inventory);
+  const queueProject = workspace.snapshot.projects.find((p) => p.id === queue?.projectId);
+  const activeInactive = inventory !== null && activeLever && !all.some((p) => p.id === activeLever.projectId);
   const queuePlan = queue ? workspace.progress[queue.id]?.plan : undefined;
   const reading = (p: CategoryProduct, metric: ScoreMetric) => p.assessment && scoreReading(p.assessment.scores[category], metric);
   const columns: DataColumn<CategoryProduct>[] = [
@@ -59,10 +62,10 @@ export function CategoryWorkspace({ category, workspace, queue, onEvidence, onLe
     <header className={styles.heading}><div><p className={styles.eyebrow}>Readiness / {CATEGORY_LABELS[category]}</p><h1>{CATEGORY_LABELS[category]}</h1><p>{guide.goal}</p></div><Button variant="outline" onClick={onReview}>Review & backup</Button></header>
     <div className={styles.meta}><span>{inventory ? `${all.length} current products` : inventoryError ? 'Current inventory unavailable' : 'Loading current inventory…'}</span><span>{assessed} assessed{inventory ? ` · ${all.length - assessed} unassessed` : ' in saved snapshot'}</span><span>Assessment: {new Date(workspace.snapshot.assessedAt).toLocaleDateString()}</span></div>
     {inventoryError && <p role="status">Showing saved assessment rows; current membership could not be verified. <Button variant="ghost" onClick={() => setReload((n) => n + 1)}>Retry inventory</Button></p>}
-    {activeLever && activeLever.category !== category && <p className={styles.active}>One lever is active in {CATEGORY_LABELS[activeLever.category]}. <Button variant="ghost" onClick={() => onLever(activeLever.id)}>Continue active lever</Button></p>}
+    {activeLever && activeLever.category !== category && <p className={styles.active}>One lever is active in {CATEGORY_LABELS[activeLever.category]}{activeInactive ? ' · inactive product' : ''}. <Button variant="ghost" onClick={() => onLever(activeLever.id)}>Continue active lever</Button></p>}
     <nav className={styles.tabs} aria-label="Category view">{[['products', 'Products'], ['checklist', 'Five-level checklist'], ['evidence', 'Evidence & sources']].map(([id, label]) => <LocalLink key={id} href={href(id)} aria-current={tab === id ? 'page' : undefined}>{label}</LocalLink>)}</nav>
     {tab === 'products' && <>
-      {queue && queueProject ? <section className={styles.queue} aria-label="Category next action"><div><p className={styles.eyebrow}>{workspace.progress[queue.id]?.status === 'active' ? 'Continue active lever' : 'Next ready in this category'} · {queueProject.name}</p><h2>{queuePlan?.title ?? queue.title}</h2><details><summary>Finish line and required proof</summary><p>{queuePlan?.proof ?? queue.proof}</p></details><Badge variant="outline">{statuses[workspace.progress[queue.id]?.status ?? 'queued']} · {queue.priority}</Badge></div><div className={styles.queueAside}><ScorePair score={queueProject.scores[category]} /><Button onClick={() => onLever(queue.id)}>Open lever</Button></div></section> : <p className={styles.muted}>No ready category lever. Recorded work may be awaiting evidence, verified, blocked or a scope decision.</p>}
+      {queue && queueProject ? <section className={styles.queue} aria-label="Category next action"><div><p className={styles.eyebrow}>{workspace.progress[queue.id]?.status === 'active' ? 'Continue active lever' : 'Next ready in this category'} · {queueProject.name}</p><h2>{queuePlan?.title ?? queue.title}</h2><details><summary>Finish line and required proof</summary><p>{queuePlan?.proof ?? queue.proof}</p></details><Badge variant="outline">{statuses[workspace.progress[queue.id]?.status ?? 'queued']}{activeInactive && queue.id === activeLever?.id ? ' · Inactive product' : ''} · {queue.priority}</Badge></div><div className={styles.queueAside}><ScorePair score={queueProject.scores[category]} /><Button onClick={() => onLever(queue.id)}>Open lever</Button></div></section> : <p className={styles.muted}>{inventory === null ? 'Current membership is unavailable; a new category lever cannot be selected from the saved snapshot alone.' : 'No ready current-product lever in this category. Recorded work may be awaiting evidence, verified, blocked or a scope decision.'}</p>}
       <div className={styles.toolbar}><Input aria-label="Find a category product" placeholder="Find a product or domain…" value={query} onChange={(e) => setQuery(e.target.value)} /><span>{rows.length} of {all.length} products</span></div>
       <p className={styles.explainer}>Effort = work quality · Result = demonstrated outcome · Each is out of 10. Open a score for its reason, confidence and dated evidence.</p>
       <ScoreboardTable key={category} data={rows} columns={columns} getRowId={(p) => p.id} label={`${CATEGORY_LABELS[category]} products`} onRowClick={(p) => { if (p.assessment) onEvidence(p.assessment, category, 'result'); else router.push(`/projects/${encodeURIComponent(p.id)}`); }} />

@@ -168,7 +168,7 @@ export function ScoreboardWorkbench({
         isCategory(category) ? `${project}:${category}` : byProject.get(project)!.bestNextLeverId
       );
     }
-    if (isCategory(category)) setArea(category);
+    if (params.get('page') !== 'category' && isCategory(category)) setArea(category);
     const focusDomain = params.get('domain');
     if (focusDomain && snapshot.projects.some((p) => p.domains.includes(focusDomain)))
       setDomain(focusDomain);
@@ -531,7 +531,7 @@ export function ScoreboardWorkbench({
     <div className={styles.workbench}>
       {categoryPage && !infoId ? (
         <CategoryWorkspace category={categoryPage} workspace={workspace}
-          queue={orderedLevers.find((l) => l.category === categoryPage && workspace.progress[l.id]?.status === 'active') ?? orderedLevers.find((l) => l.category === categoryPage && isReadyLever(workspace, l))}
+          orderedLevers={orderedLevers}
           onEvidence={selectScore}
           onLever={(id) => { setSelected(id); setSheet('action'); }}
           onReview={() => setSheet('review')} />
