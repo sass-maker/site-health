@@ -43,10 +43,10 @@ backoff; dates describe the observation rather than the failed attempt. A weekly
 review snapshots readiness, evidence and next levers with the prior week retained.
 Schedules do not run while the owner app is stopped.
 
-The App Health reader first uses `APP_HEALTH_READ_TOKEN`, then the approved
-read-only login Keychain item `com.sassmaker.site-health.app-health-read` (account
-`owner`), then the legacy owner-managed resolver. No token is stored in an export,
-source, logs or command arguments. Refresh with `node
+The App Health reader uses `APP_HEALTH_READ_TOKEN` or the approved read-only
+login Keychain item `com.sassmaker.site-health.app-health-read` (account
+`owner`). It does not fall back to broad owner credentials. No token is stored
+in an export, source, logs or command arguments. Refresh with `node
 apps/backend/scripts/usage-evidence.mjs collect`; output contains counts only.
 Browser/session proxies and unqualified event counts are separate from people,
 completed core actions, revenue and churn; unavailable measurements remain unknown.

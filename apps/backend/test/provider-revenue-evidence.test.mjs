@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
   collectProviderRevenueEvidence,
+  providerRevenueFailureSnapshot,
   providerRevenueObservations,
   readProviderRevenueEvidence,
   writeProviderRevenueEvidence,
@@ -30,11 +31,14 @@ test('keeps provider, account, live/test mode, and currency namespaces separate 
   assert.equal(rows.length, 3);
   assert.deepEqual(rows.map(({ provider, accountId, mode, currency, value, unit }) => ({ provider, accountId, mode, currency, value, unit })), [
     { provider: 'stripe', accountId: 'acct-one', mode: 'live', currency: 'USD', value: 1000, unit: 'USD minor units' },
-    { provider: 'polar', accountId: 'acct-two', mode: 'test', currency: 'EUR', value: 250, unit: 'EUR minor units' },
+    { provider: 'polar', accountId: 'acct-two', mode: 'test', currency: 'EUR', value: null, unit: 'EUR minor units' },
     { provider: 'custom', accountId: 'acct-three', mode: 'live', currency: 'CAD', value: 350, unit: 'CAD minor units' },
   ]);
-  assert.ok(rows.every((row) => row.qualification === 'proxy' && /no qualified financial score/.test(row.gap)));
+  assert.ok([rows[0], rows[2]].every((row) => row.qualification === 'proxy' && /no qualified financial score/.test(row.gap)));
   assert.match(rows[1].label, /polar · acct-two · test/);
+  assert.equal(rows[1].value, null);
+  assert.equal('netMinor' in rows[1], false);
+  assert.equal(rows[1].qualification, 'unknown');
 });
 
 test('empty provider result stays unknown rather than becoming zero', async () => {
@@ -100,4 +104,11 @@ test('successful empty and unmapped results replace old totals with unknown evid
     assert.equal(providerRevenueObservations(projects, snapshot)[0].value, null);
     assert.doesNotMatch(snapshot.records.one.gap, /Refresh unavailable/);
   }
+});
+
+test('first lane-wide failure stays unknown without claiming an observation was retained', () => {
+  const snapshot = providerRevenueFailureSnapshot(projects, () => '2026-10-27T00:00:00.000Z');
+  assert.equal(snapshot.records.one.status, 'failed');
+  assert.equal(providerRevenueObservations(projects, snapshot)[0].value, null);
+  assert.doesNotMatch(snapshot.records.one.gap, /retained/);
 });

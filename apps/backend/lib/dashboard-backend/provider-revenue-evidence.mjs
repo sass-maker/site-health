@@ -16,6 +16,18 @@ export function readProviderRevenueEvidence(path = defaultProviderRevenueEvidenc
   try { return JSON.parse(readFileSync(path, 'utf8')); } catch { return null; }
 }
 
+export function providerRevenueFailureSnapshot(projects, now = () => new Date().toISOString()) {
+  const observedAt = now();
+  return {
+    schemaVersion: 1,
+    observedAt,
+    records: Object.fromEntries(projects.filter(isCurrentPortfolioProject).map((project) => [project.id, {
+      status: 'failed', totals: null, observedAt: null, lastAttemptAt: observedAt,
+      gap: 'Provider aggregate refresh failed; source remains unknown.',
+    }])),
+  };
+}
+
 // Only normalized report aggregates are retained. Each namespace remains a
 // separate row, and daily snapshots make observations reproducible.
 export function writeProviderRevenueEvidence(snapshot, path = defaultProviderRevenueEvidencePath()) {
@@ -56,14 +68,11 @@ export function providerRevenueObservations(projects, snapshot) {
     return row.totals.map((total, index) => ({
       projectId: project.id, id: `provider-revenue:${index}`,
       label: `Connected provider net revenue · ${total.provider} · ${total.account_id} · ${total.mode}`,
-      value: total.net_minor, unit: `${total.currency} minor units`, observedAt: row.observedAt,
-      qualification: 'proxy', source: 'app-health.provider-revenue', window: row.window,
+      value: total.mode === 'live' ? total.net_minor : null, unit: `${total.currency} minor units`, observedAt: row.observedAt,
+      qualification: total.mode === 'live' ? 'proxy' : 'unknown', source: 'app-health.provider-revenue', window: row.window,
       provider: total.provider, accountId: total.account_id, mode: total.mode, currency: total.currency,
-      grossMinor: total.gross_minor, refundsMinor: total.refunds_minor,
-      payments: total.payments, refunds: total.refunds,
-      attributedPayments: total.attributed_payments, pendingRefunds: total.pending_refunds,
-      pendingRefundsMinor: total.pending_refunds_minor,
-      gap: [row.gap, 'Provider-object-created aggregate; namespaces and currencies are separate. Minor units are not converted; no qualified financial score.'].filter(Boolean).join(' '),
+      gap: [row.gap, total.mode === 'test' ? 'Test-mode amount is retained in the private snapshot and is not counted as revenue evidence.' : null,
+        'Provider-object-created aggregate; namespaces and currencies are separate. Minor units are not converted; no qualified financial score.'].filter(Boolean).join(' '),
     }));
   });
 }
@@ -124,7 +133,7 @@ export async function collectProviderRevenueEvidence({ projects, credential, fet
             : `Provider-object-created basis. ${report.coverage_note}`.slice(0, 1600),
         };
       } catch {
-        records[project.id] = { status: 'failed', totals: null, observedAt: null, lastAttemptAt: iso(now()), gap: 'Provider aggregate unavailable or invalid; last good observation is retained.' };
+        records[project.id] = { status: 'failed', totals: null, observedAt: null, lastAttemptAt: iso(now()), gap: 'Provider aggregate unavailable or invalid; source remains unknown unless a last-good observation exists.' };
       }
     }
   }));

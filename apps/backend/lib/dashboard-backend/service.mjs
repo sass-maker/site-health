@@ -55,6 +55,16 @@ function mutationAuthorized(
   return false;
 }
 
+function loopbackHostAllowed(request) {
+  const host = request.headers.host;
+  if (typeof host !== 'string') return false;
+  try {
+    const url = new URL(`http://${host}`);
+    return !url.username && !url.password && url.pathname === '/' && !url.search && !url.hash
+      && ['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname);
+  } catch { return false; }
+}
+
 function browserMutationError(request) {
   const origin = request.headers.origin;
   const site = request.headers['sec-fetch-site'];
@@ -416,6 +426,9 @@ export function createDashboardHandler({
     try {
       const url = new URL(request.url, 'http://dashboard.local');
       const method = request.method ?? 'GET';
+      if (method === 'GET' && url.pathname === '/v1/readiness' && !loopbackHostAllowed(request)) {
+        return json(response, 403, { error: 'Unknown dashboard host' });
+      }
       if (handleEarlyRoutes(url, method, response)) return;
       const browserError = method !== 'GET' ? browserMutationError(request) : null;
       if (browserError) return json(response, browserError[0], { error: browserError[1] });
@@ -440,8 +453,6 @@ export function createDashboardHandler({
       ) {
         return json(response, 401, { error: 'owner authentication required' });
       }
-
-
       const readinessMatch = url.pathname.match(/^\/v1\/readiness\/([^/]+)$/);
       if (method === 'PUT' && readinessMatch) {
         return json(response, 200, saveReadiness(store, decodeURIComponent(readinessMatch[1]), await readBody(request, 16 * 1024), now()));
