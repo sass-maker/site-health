@@ -9,6 +9,8 @@ import {
   domainStrengthRoots,
   isCurrentPortfolioProject,
   publicMetricTargets,
+  normalizedDomain,
+  registrableDomain,
 } from './domain-scope.mjs';
 
 const FAMILIES = new Set([
@@ -87,22 +89,26 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
     };
   }
   if (family === 'drank') {
-    const { root, path: script } = collectorScript(workspaceRoot, 'drank', 'scripts/update-global-dr.mjs', projects);
+    const allowedRoots = new Set(domainStrengthRoots(projects));
+    const root = (project.domains ?? [])
+      .map(normalizedDomain)
+      .filter(Boolean)
+      .map(registrableDomain)
+      .find((candidate) => allowedRoots.has(candidate));
+    if (!root) {
+      return {
+        unavailable: true,
+        code: 'METRIC_DOMAIN_INVALID',
+        label: 'Ahrefs Domain Rating',
+        summary: 'No in-scope public-provider root is configured for this project; cached evidence was not changed.',
+      };
+    }
+    const script = resolve(import.meta.dirname, '../../scripts/domain-rating-collect.mjs');
     return {
-      cwd: root,
+      cwd: resolve(import.meta.dirname, '../../../..'),
       command: process.execPath,
-      args: [
-        script,
-        '--sites',
-        'data/fleet-sites.json',
-        '--data',
-        'data/fleet-dr.json',
-        '--label',
-        'fleet',
-        '--only',
-        domain,
-      ],
-      label: 'D-Rank',
+      args: [script, '--target', root],
+      label: 'Ahrefs Domain Rating',
     };
   }
   if (family === 'ai') {
@@ -123,21 +129,12 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
     if (targets.length === 0) {
       fail('METRIC_DOMAIN_MISSING', 'No domain-strength targets are configured');
     }
-    const { root, path: script } = collectorScript(workspaceRoot, 'drank', 'scripts/update-global-dr.mjs', projects);
+    const script = resolve(import.meta.dirname, '../../scripts/domain-rating-collect.mjs');
     return {
-      cwd: root,
+      cwd: resolve(import.meta.dirname, '../../../..'),
       command: process.execPath,
-      args: [
-        script,
-        '--sites',
-        'data/fleet-sites.json',
-        '--data',
-        'data/fleet-dr.json',
-        '--label',
-        'fleet',
-        ...targets.flatMap((domain) => ['--target', domain]),
-      ],
-      label: 'Portfolio D-Rank',
+      args: [script, ...targets.flatMap((domain) => ['--target', domain])],
+      label: 'Portfolio Ahrefs Domain Rating',
     };
   }
   if (family === 'psi') {
@@ -288,6 +285,9 @@ export function createMetricRunController({
         run.summary = code === 0
           ? `${plan.label} completed.`
           : failureSummary(run.capture, `${plan.label} failed.`);
+        if (code !== 0 && family === 'drank' && /(?:^|\n)AHREFS_PARTIAL_RESPONSE:/.test(run.capture)) {
+          run.code = 'AHREFS_PARTIAL_RESPONSE';
+        }
         run.capture = '';
         active.delete(key);
         onRunChange(publicRun(run));
