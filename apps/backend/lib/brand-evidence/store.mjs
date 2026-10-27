@@ -553,7 +553,12 @@ export class BrandEvidenceStore {
   }
 
   lastCompletedApiModelCheck(projectId) {
-    const row = this.database.prepare("SELECT * FROM evidence_checks WHERE project_id = ? AND channel = 'api-model' AND status IN ('completed', 'partial') ORDER BY started_at DESC, id DESC LIMIT 1").get(projectId);
+    const row = this.database.prepare(`SELECT c.* FROM evidence_checks c WHERE c.project_id = ? AND c.channel = 'api-model'
+      AND c.status IN ('completed', 'partial') AND EXISTS (
+        SELECT 1 FROM evidence_observations e JOIN evidence_prompts p ON p.id = e.prompt_id AND p.project_id = e.project_id
+        WHERE e.check_id = c.id AND e.project_id = c.project_id AND e.channel = 'api-model' AND e.status = 'completed'
+          AND p.category IN ('panel-v1:brand', 'panel-v1:category', 'panel-v1:problem', 'panel-v1:comparison', 'panel-v1:use-case')
+      ) ORDER BY c.started_at DESC, c.id DESC LIMIT 1`).get(projectId);
     return row ? checkRow(row) : null;
   }
 

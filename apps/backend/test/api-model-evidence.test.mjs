@@ -35,6 +35,11 @@ test('real-store panel answers survive more than fifty newer cross-channel and f
       const id = store.createCheck({ projectId: 'one', channel: 'api-model', trigger: 'manual', startedAt: '2026-10-03T00:00:00Z' });
       store.finishCheck(id, { status: 'failed', attempted: 1, completed: 0, failed: 1, mentionRate: null, summary: 'fixture', finishedAt: '2026-10-03T00:01:00Z' });
     }
+    const legacy = store.addPrompt('one', 'Historical question', { category: 'legacy' });
+    const partial = store.createCheck({ projectId: 'one', channel: 'api-model', trigger: 'manual', startedAt: '2026-10-04T00:00:00Z' });
+    store.recordObservation({ projectId: 'one', checkId: partial, channel: 'api-model', provider: 'fixture', model: 'fixture', promptId: legacy.id, promptText: legacy.promptText, status: 'completed', answerText: 'private legacy answer', analysis: { brandMentioned: false }, observedAt: '2026-10-04T00:00:00Z' });
+    store.recordObservation({ projectId: 'one', checkId: partial, channel: 'api-model', provider: 'fixture', model: 'fixture', promptId: prompt.id, promptText: prompt.promptText, status: 'error', errorMessage: 'unavailable', observedAt: '2026-10-04T00:00:00Z' });
+    store.finishCheck(partial, { status: 'partial', attempted: 2, completed: 1, failed: 1, mentionRate: 0, summary: 'fixture', finishedAt: '2026-10-04T00:01:00Z' });
     const rows = apiModelObservations([{ id: 'one' }], store);
     const category = rows.find(row => row.id === 'api-model:category');
     assert.equal(category.value, 100); assert.equal(category.observedAt, '2026-10-01T00:01:00.000Z');

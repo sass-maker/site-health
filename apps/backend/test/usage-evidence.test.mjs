@@ -71,3 +71,17 @@ test('approved scoped Keychain token wins over broad owner credentials without c
   const fallback = await appHealthCredential({ env: { APP_HEALTH_OWNER_TOKEN: 'owner-fixture' }, readSecret: async () => { throw new Error('missing'); } });
   assert.equal(fallback, 'owner-fixture');
 });
+
+
+test('missing or empty scoped Keychain item reaches the legacy resolver asynchronously', async () => {
+  for (const missing of [true, false]) {
+    const executables = [];
+    const token = await appHealthCredential({ env: { SITE_HEALTH_OWNER_REPOSITORY: '/tmp/site-health' }, readSecret: async (executable) => {
+      executables.push(executable);
+      if (executable === '/usr/bin/security') { if (missing) throw new Error('missing'); return { stdout: '' }; }
+      return { stdout: 'legacy-fixture\n' };
+    } });
+    assert.equal(token, 'legacy-fixture');
+    assert.deepEqual(executables, ['/usr/bin/security', 'infisical']);
+  }
+});
