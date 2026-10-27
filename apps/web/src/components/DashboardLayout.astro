@@ -1,6 +1,7 @@
 ---
 import { themeBootstrap } from "../scripts/theme.mjs";
 import DashboardNav from "./DashboardNav.astro";
+import DashboardRuntime from "./DashboardRuntime";
 import "../styles/shared-ui.css";
 import "../styles/dashboard.css";
 
@@ -21,7 +22,7 @@ const directoryView = ["domains", "search", "ai-awareness", "performance", "proj
 ---
 
 <!doctype html>
-<html lang="en" data-theme="ink" data-mode="light">
+<html lang="en" data-theme="base" data-mode="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -88,8 +89,6 @@ const directoryView = ["domains", "search", "ai-awareness", "performance", "proj
 
       </main>
     </div>
-    <script>
-      import "../scripts/dashboard-client";
-    </script>
+    <DashboardRuntime client:load />
   </body>
 </html>
