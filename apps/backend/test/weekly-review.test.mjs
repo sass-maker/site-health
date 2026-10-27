@@ -25,4 +25,6 @@ test('weekly review counts individual checklist assessments without any legacy g
  const state=emptyReadinessState();state.checklist={'product-speed':{status:'in-progress',note:'Paired lab runs retained',completion:50,confidence:'medium',evidenceRefs:[{ref:'report:psi',observedAt:'2026-10-27T00:00:00Z'}]}};
  const store={rebuildProjections:()=>({projects,readiness:{one:{revision:1,state,updatedAt:'2026-10-27T00:00:00Z'}}})};
  assert.equal(createWeeklyReview({store,path,now:'2026-10-28T00:00:00Z'}).counts.assessedProducts,1);
+ state.checklist={'product-speed':{status:'not-started',note:'',evidenceRefs:[],confidence:'low'}};
+ assert.equal(createWeeklyReview({store,path,now:'2026-10-28T00:00:00Z'}).counts.assessedProducts,0);
 });

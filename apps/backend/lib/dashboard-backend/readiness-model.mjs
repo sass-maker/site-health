@@ -129,8 +129,11 @@ function proof(refs, label) {
     }
   }
 }
+export function hasRequirementAssessment(entry) {
+  return Boolean(entry && (entry.status !== 'not-started' || entry.note?.trim() || entry.evidenceRefs?.length || entry.completion != null));
+}
 export function validateReadinessState(state, { enforceSize = true } = {}) {
-  const maximumKB = Object.keys(state?.checklist ?? {}).length ? 24 : 12;
+  const maximumKB = Object.values(state?.checklist ?? {}).some(hasRequirementAssessment) ? 24 : 12;
   if (enforceSize && new TextEncoder().encode(JSON.stringify(state)).byteLength > maximumKB * 1024) fail(`Assessment exceeds ${maximumKB} KB. Shorten notes and proof references before saving.`);
   record(state, 'state', ['version', 'applicability', 'requirements', 'checklist', 'nextLevers', 'benchmarks']);
   if (state.version !== READINESS_VERSION) fail('Unsupported readiness framework version');
@@ -186,7 +189,7 @@ export function requirementCompletion(entry) {
 }
 export function effortSummary(state, area) {
   const applicability = state.applicability[area];
-  const useItems = CHECKLIST_ITEMS[area].some(item => state.checklist?.[item.id]);
+  const useItems = CHECKLIST_ITEMS[area].some(item => hasRequirementAssessment(state.checklist?.[item.id]));
   const definitions = useItems ? CHECKLIST_ITEMS[area] : GATES[area];
   const basis = useItems ? 'checklist-items' : 'legacy-gates';
   if (applicability.state !== 'applicable') return { basis, score: null, level: null, status: applicability.state, verified: 0, total: definitions.length, assessed: 0, applicable: 0, confidence: 'unknown', minimumScore: null, maximumScore: null };

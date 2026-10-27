@@ -231,6 +231,7 @@ test('editing one category never replaces the other category legacy effort or le
  for(const gate of GATES.growth)state.requirements[gate.id]={status:'verified',note:'Legacy proof',evidenceRefs:proof};
  const previous=effortSummary(state,'growth');
  state.checklist={};assert.deepEqual(effortSummary(state,'growth'),previous);
+ state.checklist['growth-research']={status:'not-started',note:'',evidenceRefs:[],confidence:'low'};validateReadinessState(state);assert.deepEqual(effortSummary(state,'growth'),previous);
  state.checklist['product-design']={status:'in-progress',note:'Rendered fixes remain',evidenceRefs:proof,completion:25,confidence:'low'};
  assert.deepEqual(effortSummary(state,'growth'),previous);assert.equal(effortSummary(state,'product').basis,'checklist-items');assert.equal(effortSummary(state,'product').level,2);
 });

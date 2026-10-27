@@ -1,3 +1,4 @@
+import {hasRequirementAssessment} from './readiness-model.mjs';
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
@@ -18,7 +19,7 @@ export function createWeeklyReview({ store, observations = [], now = new Date().
     changedSinceBaseline: baseline ? JSON.stringify(baseline.find(row => row.id === project.id)?.scores) !== JSON.stringify(project.scores) : null,
   }));
   const report = { schemaVersion: 1, week, generatedAt: now, baseline, projects,
-    counts: { currentProducts: projects.length, assessedProducts: projection.projects.filter(project => Object.keys(project.state.requirements).length || Object.keys(project.state.checklist ?? {}).length || Object.keys(project.state.benchmarks).length).length,
+    counts: { currentProducts: projects.length, assessedProducts: projection.projects.filter(project => Object.keys(project.state.requirements).length || Object.values(project.state.checklist ?? {}).some(hasRequirementAssessment) || Object.keys(project.state.benchmarks).length).length,
       productsWithNumericEvidence: projects.filter(project => project.evidence.some(row => typeof row.value === 'number')).length },
     policy: 'Complete one selected lever, attach dated proof, then compare the same definitions/windows. Unknown measurements are not zero; evidence collection alone is not score improvement.',
   };

@@ -14,6 +14,7 @@ export const CHECKLIST_ITEMS: Record<ReadinessArea, { id: string; title: string;
 export const GATES: Record<ReadinessArea, { id: string; level: number; title: string; detail: string }[]>;
 export function emptyReadinessState(): ReadinessState;
 export function validateReadinessState(state: ReadinessState, options?: { enforceSize?: boolean }): ReadinessState;
+export function hasRequirementAssessment(entry?: Requirement): boolean;
 export function requirementCompletion(entry?: Requirement): number | null;
 export function effortSummary(state: ReadinessState, area: ReadinessArea): { score: number | null; level: number | null; status: string; verified: number; total: number; assessed: number; applicable: number; confidence: string; basis: 'checklist-items' | 'legacy-gates'; minimumScore: number | null; maximumScore: number | null };
 export function metricScore(benchmark?: Benchmark): number | null;
