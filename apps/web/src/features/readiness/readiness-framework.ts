@@ -1,3 +1,4 @@
+import type { Requirement } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 import { GATES } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export { GATES, READINESS_VERSION, emptyReadinessState, effortSummary, requirementCompletion, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export type { ReadinessState, ReadinessProduct, ReadinessProjection, Requirement, Benchmark, ProofRef, Observation } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
@@ -74,4 +75,10 @@ export function frameworkHref(area: ReadinessArea, view: FrameworkView, project 
   const params = new URLSearchParams({ pillar: area, tab: view });
   if (project) params.set('project', project);
   return `/readiness?${params}`;
+}
+
+// Status is verification state, not a substitute for an explicit work estimate.
+export function requirementStatusChange(entry: Requirement, status: Requirement['status']): Requirement {
+  if (['verified', 'not-started', 'exempt'].includes(status)) return { ...entry, status, completion: null };
+  return { ...entry, status };
 }
