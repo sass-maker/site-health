@@ -43,8 +43,8 @@ function proof(refs, label) {
     }
   }
 }
-export function validateReadinessState(state) {
-  if (new TextEncoder().encode(JSON.stringify(state)).byteLength > 12 * 1024) fail('Assessment exceeds 12 KB. Shorten notes and proof references before saving.');
+export function validateReadinessState(state, { enforceSize = true } = {}) {
+  if (enforceSize && new TextEncoder().encode(JSON.stringify(state)).byteLength > 12 * 1024) fail('Assessment exceeds 12 KB. Shorten notes and proof references before saving.');
   record(state, 'state', ['version', 'applicability', 'requirements', 'nextLevers', 'benchmarks']);
   if (state.version !== READINESS_VERSION) fail('Unsupported readiness framework version');
   record(state.applicability, 'applicability', AREAS); record(state.nextLevers, 'nextLevers', AREAS);

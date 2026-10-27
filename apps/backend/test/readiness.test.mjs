@@ -7,12 +7,22 @@ import { DashboardStore, verifyBackup } from '../lib/dashboard-backend/store.mjs
 import { emptyReadinessState, validateReadinessState, effortSummary, resultSummary, metricScore, GATES } from '../lib/dashboard-backend/readiness-model.mjs';
 import { buildReadinessProjection, readinessObservations, saveReadiness } from '../lib/dashboard-backend/readiness.mjs';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
+import { normalizeBackupEvent, normalizeEvent } from '../lib/dashboard-backend/contracts.mjs';
 
 const now = '2026-10-27T10:00:00.000Z';
 const projects = [{ id: 'sample', name: 'Sample', lifecycle: { status: 'active' } }, { id: 'retired', name: 'Retired', lifecycle: { status: 'retired' } }];
 const proof = [{ ref: 'repo:sample@abc123/runtime-report', observedAt: now }];
 function store(path) { return new DashboardStore({ databasePath: path ?? join(mkdtempSync(join(tmpdir(), 'readiness-test-')), 'ledger.sqlite'), projects }); }
 const update = (state = emptyReadinessState(), expectedRevision = 0, idempotencyKey = 'readiness-test-1') => ({ expectedRevision, idempotencyKey, state });
+
+test('backup compatibility retains structurally valid older states above the new owner-write limit', () => {
+  const state = emptyReadinessState();
+  for (const gate of Object.values(GATES).flat().slice(0, 8)) state.requirements[gate.id] = { status: 'verified', note: 'n'.repeat(1000), evidenceRefs: [{ ref: 'r'.repeat(450), observedAt: now }] };
+  const event = { type: 'readiness.state-updated', projectId: 'sample', actor: { type: 'owner', id: 'owner' }, idempotencyKey: 'legacy-large', payload: { expectedRevision: 0, state } };
+  assert.ok(Buffer.byteLength(JSON.stringify(state)) > 12 * 1024);
+  assert.throws(() => normalizeEvent(event, { now }), /12 KB/);
+  assert.deepEqual(normalizeBackupEvent(event, { now }).payload.state, state);
+});
 function benchmark(patch = {}) { return { applicability: 'applicable', reason: '', definition: 'Meaningful daily actors, excluding QA', baseline: 0, target: 10, unit: 'actors', window: '2026-10-26 UTC', source: 'first-party qualified aggregate', direction: 'higher', thresholds: [1, 2, 3, 4, 5], value: 3, qualification: 'qualified', observedAt: now, evidenceRefs: proof, ...patch }; }
 
 test('durable owner state is idempotent, revision protected across connections and backup-replayable', () => {

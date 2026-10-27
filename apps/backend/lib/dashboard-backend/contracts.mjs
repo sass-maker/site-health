@@ -119,7 +119,7 @@ function normalizeEvidence(pointer) {
   };
 }
 
-function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventTypes = EVENT_TYPES } = {}) {
+function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventTypes = EVENT_TYPES, enforceReadinessSize = true } = {}) {
   assert(input && typeof input === 'object', 'EVENT_REQUIRED', 'event input is required');
   assert(eventTypes.has(input.type), 'INVALID_EVENT_TYPE', `unsupported event type: ${input.type}`);
   const eventId = input.id ?? randomUUID();
@@ -143,7 +143,7 @@ function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventT
     assert(input.projectId && input.actor?.type === 'owner' && visibility === 'private', 'INVALID_READINESS_ACTOR', 'Readiness state requires a project and private owner actor');
     assert(Object.keys(payload).every(key => ['expectedRevision', 'state'].includes(key)), 'INVALID_READINESS_PAYLOAD', 'Unsupported readiness payload field');
     assert(Number.isSafeInteger(payload.expectedRevision) && payload.expectedRevision >= 0, 'INVALID_READINESS_REVISION', 'expectedRevision must be a nonnegative integer');
-    validateReadinessState(payload.state);
+    validateReadinessState(payload.state, { enforceSize: enforceReadinessSize });
   }
   assertSafeValue(payload);
   const evidence = (input.evidence ?? []).map(normalizeEvidence);
@@ -169,7 +169,7 @@ function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventT
 }
 
 export function normalizeEvent(input, options = {}) {
-  return normalizeEventWithTypes(input, { ...options, eventTypes: EVENT_TYPES });
+  return normalizeEventWithTypes(input, { ...options, eventTypes: EVENT_TYPES, enforceReadinessSize: true });
 }
 
 // Retired recommendation events remain in owner backups created by the former
@@ -182,7 +182,7 @@ export function normalizeHistoricalEvent(input, options = {}) {
 export function normalizeBackupEvent(input, options = {}) {
   return input?.type === 'recommendation.created'
     ? normalizeHistoricalEvent(input, options)
-    : normalizeEvent(input, options);
+    : normalizeEventWithTypes(input, { ...options, eventTypes: EVENT_TYPES, enforceReadinessSize: false });
 }
 
 export function redactForExport(value) {
