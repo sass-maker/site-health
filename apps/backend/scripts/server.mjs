@@ -27,6 +27,7 @@ import { appHealthCredential, collectUsageEvidence, readUsageEvidence, usageObse
 import { createWeeklyReview } from '../lib/dashboard-backend/weekly-review.mjs';
 import { readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
 import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
+import { apiModelObservations } from '../lib/dashboard-backend/api-model-evidence.mjs';
 
 function usage() {
   console.log(`Site Health backend
@@ -145,7 +146,10 @@ if (command === 'status') {
     metricRunController,
     prefillEvidence,
     projectsProvider,
-    readinessObservationProvider: (currentProjects) => usageObservations(currentProjects, readUsageEvidence()),
+    readinessObservationProvider: (currentProjects) => [
+      ...usageObservations(currentProjects, readUsageEvidence()),
+      ...apiModelObservations(currentProjects, brandEvidenceStore),
+    ],
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
   const evidenceScheduler = startEvidenceScheduler({
@@ -166,6 +170,7 @@ if (command === 'status') {
         createWeeklyReview({ store, observations: [
           ...readinessObservations(store.projects, buildDashboardProjection()),
           ...usageObservations(store.projects, readUsageEvidence()),
+          ...apiModelObservations(store.projects, brandEvidenceStore),
         ] });
       } },
     ],

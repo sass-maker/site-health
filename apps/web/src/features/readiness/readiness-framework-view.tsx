@@ -59,7 +59,7 @@ function Effort({ state, area, update }: { state: ReadinessState; area: Readines
   })}</Accordion></div>;
 }
 function Results({ product, state, area }: { product: ReadinessProduct; state: ReadinessState; area: ReadinessArea }) {
-  const observations = product.evidence.filter(row => area === 'product' ? !['search', 'seoAudit', 'geoAwareness', 'aiAwareness', 'domains'].includes(row.source) : !['performance', 'psi-swarm.mobile'].includes(row.source));
+  const observations = product.evidence.filter(row => area === 'product' ? !['search', 'seoAudit', 'geoAwareness', 'aiAwareness', 'domains', 'free-ai.api-model'].includes(row.source) : !['performance', 'psi-swarm.mobile'].includes(row.source));
   const columns: DataColumn<Observation>[] = [
     { id: 'name', header: 'Observation', value: row => row.label, hideable: false, className: 'whitespace-normal' },
     { id: 'value', header: 'Reading', value: row => row.value, cell: row => row.value === null ? <span className="text-muted-foreground">Unknown</span> : <span className="tabular-nums">{row.value.toLocaleString()} {row.unit}</span> },
