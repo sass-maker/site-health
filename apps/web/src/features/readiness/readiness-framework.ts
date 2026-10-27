@@ -1,6 +1,6 @@
 import type { Requirement } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
-import { GATES } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
-export { GATES, READINESS_VERSION, emptyReadinessState, effortSummary, requirementCompletion, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
+import { GATES, CHECKLIST_ITEMS } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
+export { GATES, CHECKLIST_ITEMS, READINESS_VERSION, emptyReadinessState, effortSummary, requirementCompletion, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export type { ReadinessState, ReadinessProduct, ReadinessProjection, Requirement, Benchmark, ProofRef, Observation } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export const READINESS_AREAS = [
   { id: 'product', label: 'Product & design', description: 'Build a useful, understandable, polished and dependable product.' },
@@ -9,28 +9,7 @@ export const READINESS_AREAS = [
 export type ReadinessArea = typeof READINESS_AREAS[number]['id'];
 export type FrameworkView = 'effort' | 'results' | 'benchmarks';
 
-export const EFFORT_REQUIREMENTS: Record<ReadinessArea, { title: string; detail: string }[]> = {
-  product: [
-    { title: 'A complete value-adding loop', detail: 'Clear audience and core value; onboarding, authentication where needed, first useful output, save and return.' },
-    { title: 'Core and bonus features work', detail: 'Verify every promised feature end to end. Record intentional exclusions and relevant feature-parity gaps.' },
-    { title: 'Everything is understandable', detail: 'Clear labels, navigation and defaults; useful loading, empty, error, success, interruption and recovery states.' },
-    { title: 'Exceptional design and motion', detail: 'Aim for 9+/10 through a consistent rendered-product review: typography, hierarchy, accessibility, responsive layouts and purposeful animations with reduced-motion support.' },
-    { title: 'AI-executable workflows', detail: 'Most important jobs work through appropriate CLI, API and/or MCP interfaces, with discoverable contracts, structured outputs, scoped authorization and safe replayable actions.' },
-    { title: 'Technical delivery and recovery', detail: 'Meaningful tests, CI/CD, deployment and installed-version verification, security/privacy, dependency care, logs, backup, restore and rollback.' },
-    { title: 'Top-tier speed', detail: 'Use PSI Swarm to verify the landing page on mobile and desktop. Check core interactions against stated performance budgets and catch regressions.' },
-    { title: 'Measurement and maintenance', detail: 'Verify instrumentation and ongoing regression checks as part of the delivered product.' },
-  ],
-  growth: [
-    { title: 'Technical foundations and footer', detail: 'Metadata, canonicals, robots, sitemaps, redirects, appropriate structured data, internal links and the shared footer.' },
-    { title: 'Keyword and competitor research', detail: 'Research real audience needs and competing pages, then maintain a keyword/intent-to-page map.' },
-    { title: '100+ useful published pages', detail: 'Publish substantive, crawlable, intent-matched pages and verify live content. Generated URL volume alone does not pass. Indexing is a separate result.' },
-    { title: '1,000+ useful pages where applicable', detail: 'Expand comparisons, alternatives, guides, problems, use cases and long-tail coverage with distinct value and explicit scope decisions.' },
-    { title: 'AI-readable product coverage', detail: 'Provide clear product facts, crawlable content, useful sources and consistent identity. Actual recommendations and citations belong to Results.' },
-    { title: 'Backlinks and distribution', detail: 'Build relevant backlinks, profiles, directories and original third-party content; retain a dated distribution and link register.' },
-    { title: 'Passive and active action measurement', detail: 'Verify relevant events, acquisition attribution and product identity. Exclude bots, QA and background work.' },
-    { title: 'Keep coverage current', detail: 'Refresh content and check broken links, orphan pages, duplicate intent, indexing problems and measurement/performance regressions.' },
-  ],
-};
+export const EFFORT_REQUIREMENTS = CHECKLIST_ITEMS;
 
 export type ResultMetric = { id: string; name: string; definition: string; needs: string };
 export const RESULT_METRICS: Record<ReadinessArea, ResultMetric[]> = {

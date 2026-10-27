@@ -164,7 +164,8 @@ function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventT
     payload: structuredClone(payload),
     evidence,
   };
-  assert(Buffer.byteLength(JSON.stringify(event)) <= MAX_EVENT_BYTES, 'EVENT_TOO_LARGE', `event exceeds ${MAX_EVENT_BYTES} bytes`);
+  const maximumEventBytes = input.type === 'readiness.state-updated' && payload.state?.checklist ? 28 * 1024 : MAX_EVENT_BYTES;
+  assert(Buffer.byteLength(JSON.stringify(event)) <= maximumEventBytes, 'EVENT_TOO_LARGE', `event exceeds ${maximumEventBytes} bytes`);
   return event;
 }
 

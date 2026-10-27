@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 import { DashboardStore, verifyBackup } from '../lib/dashboard-backend/store.mjs';
-import { emptyReadinessState, validateReadinessState, effortSummary, requirementCompletion, resultSummary, metricScore, GATES } from '../lib/dashboard-backend/readiness-model.mjs';
+import { emptyReadinessState, validateReadinessState, effortSummary, requirementCompletion, resultSummary, metricScore, CHECKLIST_ITEMS, GATES } from '../lib/dashboard-backend/readiness-model.mjs';
 import { buildReadinessProjection, readinessObservations, saveReadiness } from '../lib/dashboard-backend/readiness.mjs';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
 import { normalizeBackupEvent, normalizeEvent } from '../lib/dashboard-backend/contracts.mjs';
@@ -184,4 +184,44 @@ test('HTTP saves enforce owner auth, browser origin, stale revisions and replaye
     assert.equal(data.projects[0].scores.product.effort.score, 9);
     assert.equal(data.projects[0].scores.product.effort.level, 2);
   } finally { await new Promise(resolve => server.close(resolve)); ledger.close(); }
+});
+
+function individualChecklist() {
+  const state = estimatedProduct();
+  state.checklist = {};
+  const values = [100,75,50,25,100,75,50,25];
+  for(const [index,item] of CHECKLIST_ITEMS.product.entries()) state.checklist[item.id] = {status: 'in-progress',note: 'Specific item work and remaining acceptance', evidenceRefs: proof,completion: values[index],confidence:'medium'};
+  return state;
+}
+test('all eight checklist items independently determine effort without copying old combined gates', () => {
+  const state = individualChecklist(); validateReadinessState(state);
+  const result = effortSummary(state,'product');
+  assert.equal(result.total,8); assert.equal(result.assessed,8);assert.equal(result.basis,'checklist-items');assert.equal(result.score,6.3);assert.equal(result.verified,0);
+  assert.equal(requirementCompletion(state.checklist['product-design']),25);
+  delete state.checklist['product-speed'];
+  assert.equal(effortSummary(state,'product').score,null);assert.equal(effortSummary(state,'product').assessed,7);
+  // Legacy delivery remains documented at75%, but cannot supply the missing speed item.
+  assert.equal(effortSummary(state,'product').minimumScore,5.6);assert.equal(effortSummary(state,'product').maximumScore,6.9);
+  state.checklist['product-speed']={status:'exempt',note:'Explicit scope has no interactive or landing surface',evidenceRefs:proof,completion:null,confidence:'high'};
+  assert.equal(effortSummary(state,'product').applicable,7);assert.equal(effortSummary(state,'product').score,6.4);
+  state.checklist['invented-item']={...state.checklist['product-core']};
+  assert.throws(()=>validateReadinessState(state),/not supported/);
+});
+
+test('full individual checklist persists over HTTP above legacy event size and restores exactly', async () => {
+  const ledger = store();
+  const server=await startDashboardService({store:ledger,port:0,ownerToken:'test-owner',visibilityPortfolio:{eligible:[]},projectionProvider:()=>({outcomes:{}}),clarityRegistryProvider:()=>new Map()});
+  const state=individualChecklist();
+  for(const item of Object.values(CHECKLIST_ITEMS).flat()) state.checklist[item.id]={status:'in-progress',note:'n'.repeat(600),evidenceRefs:[{ref:'r'.repeat(250),observedAt:now}],completion:50,confidence:'medium'};
+  assert.ok(Buffer.byteLength(JSON.stringify(state))>16*1024);validateReadinessState(state);
+  const base=`http://127.0.0.1:${server.address().port}`;
+  try {
+    const response=await fetch(`${base}/v1/readiness/sample`,{method:'PUT',headers:{'content-type':'application/json',authorization:'Bearer test-owner'},body:JSON.stringify(update(state))});
+    assert.equal(response.status,200,await response.text());
+    const data=await(await fetch(`${base}/v1/readiness`)).json();assert.deepEqual(data.projects[0].state,state);assert.equal(data.projects[0].scores.product.effort.score,5);
+    const restored=store();try {restored.restoreBackup(ledger.createBackup({now}));assert.deepEqual(restored.rebuildProjections({now}).readiness.sample.state,state);}finally{restored.close();}
+    for(const entry of Object.values(state.checklist))entry.evidenceRefs=Array.from({length:3},()=>({ref:'r'.repeat(500),observedAt:now}));
+    assert.throws(()=>validateReadinessState(state),/24 KB/);
+    state.checklist['product-core'].note='';assert.throws(()=>validateReadinessState(state,{enforceSize:false}),/needs a reason/);
+  }finally{await new Promise(resolve=>server.close(resolve));ledger.close();}
 });

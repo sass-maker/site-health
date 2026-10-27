@@ -27,29 +27,34 @@ design** and **SEO & growth**. Both have separate Effort and Result readings,
   specific buying intent. Keep Google position and AI mention, recommendation,
   citation and accuracy separate. Intent levels are not passed scoring gates.
 
-Effort completion and verified levels are independent. Each of the five gates
-has a documented 0–100% completion estimate, dated evidence and low/medium/high
-estimate confidence. Use 0 for checked absence, 25 for foundations, 50 for
-substantial implementation, 75 for most implementation, and 100 for all
-applicable work implemented. Estimates can use finer integer percentages when
-justified. Confidence describes evidence strength; it does not discount work.
+Each detailed effort item is scored individually, /10, for every current product.
+Product has eight items: core loop, promised features, understandable journeys,
+design/motion, AI workflows, technical delivery/recovery, speed, and measurement/
+maintenance. Growth has eight: foundations/footer, research,100 useful published
+pages,1,000 useful pages where applicable, AI-readable facts, distribution,
+acquisition measurement, and content upkeep. Do not collapse them into five
+compound gates or copy old gate scores into the new item records.
 
-The category effort score is the mean completion of applicable gates divided
-by ten, rounded to one decimal. All applicable estimates must be known; missing
-evidence is unknown rather than zero. With some estimates missing, show a
-possible score range with unknown gates bounded at 0–100%, not a completed
-score or an average that silently excludes them. Scoped exemptions need a reason and dated
-proof and are excluded from the denominator. Entire exempt categories remain
-unscored. Existing verified records imply 100% completion; old partial statuses
-without estimates never imply a made-up percentage.
+Every item retains completed/remaining work, confidence, verification status and
+dated evidence. Item score is completion percentage divided by ten. Anchors are
+0 checked absence,2.5 foundations,5 substantial implementation,7.5 most work and
+10 all applicable work. An absent review is unknown, not a made-up design score.
+Source files alone do not prove design quality or performance. Reuse retained
+observations with their dates and limits before running another audit.
 
-Verified levels still unlock in sequence, with dated proof of the full gate.
-A later gate contributes to effort even if an earlier gate blocks level progress.
-100% implementation can await runtime verification. Published useful coverage is
-effort; indexing, ranking and citations are results. Benchmarks, numeric targets
-and evaluation windows must be configured before qualified Result scoring.
-Internal growth exemptions stay explicit.
-Measurement setup and effort come first; Result assessment follows later.
+Category effort averages all applicable item scores, with one decimal. Unknown
+items widen a bounded range; they never disappear from the denominator or count
+as observed zero. Scope exemptions require reasons/proof and leave the denominator.
+Confidence describes support; it never discounts completion. Results and their
+benchmarks remain separate. Publishing is effort; indexing/rank/citations are results.
+
+The UI opens a checklist-item comparison across all39 products and supports a
+full product checklist with all eight item scores and visible work/evidence notes.
+Edit details and proof in a secondary panel. The optional state.checklist field
+is additive; previous combined requirements, six-category assessments and all
+ledger events are retained without conversion. Old gate verification levels
+remain historical context, not individual item proof. Detailed state permits24KB
+(legacy12KB), with bounded28KB readiness events/requests; other events retain16KB.
 
 The interface definitions live in
 [`readiness-framework.ts`](../apps/web/src/features/readiness/readiness-framework.ts).

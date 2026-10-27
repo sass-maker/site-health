@@ -460,7 +460,7 @@ export function createDashboardHandler({
       }
       const readinessMatch = url.pathname.match(/^\/v1\/readiness\/([^/]+)$/);
       if (method === 'PUT' && readinessMatch) {
-        return json(response, 200, saveReadiness(store, decodeURIComponent(readinessMatch[1]), await readBody(request, 16 * 1024), now()));
+        return json(response, 200, saveReadiness(store, decodeURIComponent(readinessMatch[1]), await readBody(request, 28 * 1024), now()));
       }
       if (await handleMetricRunMutations(url, method, request, response)) return;
       if (await handleProjectionMutations(url, method, response)) return;

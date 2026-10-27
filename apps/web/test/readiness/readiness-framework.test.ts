@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { frameworkHref, frameworkRoute, LEVEL_STRUCTURE, READINESS_AREAS, RESULT_METRICS, VISIBILITY_LEVELS, requirementStatusChange, emptyReadinessState, validateReadinessState, requirementCompletion } from '../../src/features/readiness/readiness-framework';
+import { frameworkHref, frameworkRoute, LEVEL_STRUCTURE, READINESS_AREAS, RESULT_METRICS, VISIBILITY_LEVELS, CHECKLIST_ITEMS, EFFORT_REQUIREMENTS, requirementStatusChange, emptyReadinessState, validateReadinessState, requirementCompletion } from '../../src/features/readiness/readiness-framework';
 
 describe('current readiness framework and historical routes', () => {
   it('keeps the agreed four Product and three Growth measures in exactly two areas', () => {
@@ -48,4 +48,10 @@ describe('independent work estimates and verification status edits', () => {
     expect(requirementStatusChange(entry, 'awaiting-evidence')).toEqual({...entry, status: 'awaiting-evidence'});
     expect(requirementCompletion(requirementStatusChange(entry, 'not-started'))).toBeNull();
   });
+});
+
+it('exposes every detailed owner checklist item rather than only five combined gates', () => {
+  expect(CHECKLIST_ITEMS.product.map(item=>item.id)).toEqual(['product-core','product-features','product-understandable','product-design','product-agent','product-delivery','product-speed','product-measurement']);
+  expect(CHECKLIST_ITEMS.growth.map(item=>item.id)).toEqual(['growth-foundations','growth-research','growth-hundred','growth-thousand','growth-ai','growth-distribution','growth-measurement','growth-maintenance']);
+  expect(EFFORT_REQUIREMENTS).toBe(CHECKLIST_ITEMS);
 });
