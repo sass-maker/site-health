@@ -45,7 +45,8 @@
   "dependencies": {
     "@saas-maker/collect": "file:vendor/saas-maker-collect-0.3.2.tgz",
     "ai": "6.0.168",
-    "@ai-sdk/openai-compatible": "2.0.41"
+    "@ai-sdk/openai-compatible": "2.0.41",
+    "jose": "6.2.13"
   },
   "pnpm": {
     "overrides": {

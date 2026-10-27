@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
+import { hostedConfiguration, startHostedDashboardService } from '../lib/dashboard-backend/hosted.mjs';
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
 import {
   recordRefreshReceipt,
@@ -53,6 +54,7 @@ if (!command || ['help', '--help', '-h'].includes(command)) {
   process.exit(0);
 }
 
+const hostedConfig = hostedConfiguration();
 const projectsProvider = () => loadDashboardProjects();
 const projects = projectsProvider();
 const store = new DashboardStore({
@@ -95,7 +97,7 @@ if (command === 'status') {
   console.log(JSON.stringify(store.restoreBackup(JSON.parse(readFileSync(resolve(args[0]), 'utf8'))), null, 2));
   store.close();
 } else if (command === 'serve') {
-  const port = Number(args[0] ?? 4187);
+  const port = Number(args[0] ?? (hostedConfig ? process.env.PORT : undefined) ?? 4187);
   const metricRunController = createMetricRunController({
     projectsProvider,
     onRunChange: (run) => recordRefreshReceipt(store, run),
@@ -134,8 +136,9 @@ if (command === 'status') {
   });
   const appStoreStore = new AppStoreStore({ ...(process.env.SITE_HEALTH_APP_STORE_DB ? { databasePath: process.env.SITE_HEALTH_APP_STORE_DB } : {}) });
   const brandEvidenceEnv = gatewayEnvironment();
-  const brandScheduler = startBrandEvidenceScheduler({ store: brandEvidenceStore, projectsProvider, env: brandEvidenceEnv });
-  const server = await startDashboardService({
+  const startService = hostedConfig ? startHostedDashboardService : startDashboardService;
+  const server = await startService({
+    ...(hostedConfig ? { config: hostedConfig, distDirectory: resolve(import.meta.dirname, '../../web/dist') } : {}),
     store,
     brandEvidenceStore,
     appStoreStore,
@@ -153,7 +156,10 @@ if (command === 'status') {
       ...apiModelObservations(currentProjects, brandEvidenceStore),
     ],
   });
-  console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
+  const brandScheduler = startBrandEvidenceScheduler({ store: brandEvidenceStore, projectsProvider, env: brandEvidenceEnv });
+  console.log(hostedConfig
+    ? `Site Health hosted dashboard listening on port ${port} for ${hostedConfig.origin}`
+    : `Site Health backend listening on http://127.0.0.1:${port}`);
   const evidenceScheduler = startEvidenceScheduler({
     lanes: process.env.SITE_HEALTH_SCHEDULED_REFRESH === '0' ? [] : [
       { id: 'provider-refresh', intervalMs: 10 * 60_000, run: () => prefillEvidence({ force: false }) },

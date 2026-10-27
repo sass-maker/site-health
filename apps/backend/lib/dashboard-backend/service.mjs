@@ -65,11 +65,12 @@ function loopbackHostAllowed(request) {
   } catch { return false; }
 }
 
-function browserMutationError(request) {
+function browserMutationError(request, allowedOrigin) {
   const origin = request.headers.origin;
   const site = request.headers['sec-fetch-site'];
   if (site && !['same-origin', 'same-site', 'none'].includes(site)) return [403, 'Cross-site mutations are not allowed'];
-  if (origin) {
+  if (allowedOrigin && origin !== allowedOrigin) return [403, 'Unknown dashboard origin'];
+  if (origin && !allowedOrigin) {
     let url;
     try { url = new URL(origin); } catch { return [403, 'Unknown dashboard origin']; }
     if (url.protocol !== 'http:' || !['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname)) return [403, 'Unknown dashboard origin'];
@@ -249,6 +250,8 @@ export function createDashboardHandler({
   store,
   ownerToken,
   trustLoopback = false,
+  requestAuthorizer,
+  allowedOrigin,
   now = () => new Date().toISOString(),
   visibilityPortfolio = loadAiVisibilityPortfolio(),
   visibilityScheduleActivation = {},
@@ -426,15 +429,17 @@ export function createDashboardHandler({
     try {
       const url = new URL(request.url, 'http://dashboard.local');
       const method = request.method ?? 'GET';
-      if (method === 'GET' && url.pathname === '/v1/readiness' && !loopbackHostAllowed(request)) {
+      const verifiedPrincipal = requestAuthorizer ? await requestAuthorizer(request) : null;
+      if (requestAuthorizer && !verifiedPrincipal) return json(response, 401, { error: 'owner authentication required' });
+      if (method === 'GET' && url.pathname === '/v1/readiness' && !verifiedPrincipal && !loopbackHostAllowed(request)) {
         return json(response, 403, { error: 'Unknown dashboard host' });
       }
       if (handleEarlyRoutes(url, method, response)) return;
-      const browserError = method !== 'GET' ? browserMutationError(request) : null;
+      const browserError = method !== 'GET' ? browserMutationError(request, allowedOrigin) : null;
       if (browserError) return json(response, browserError[0], { error: browserError[1] });
 
       if (url.pathname.startsWith('/v1/seo/app-store/')) {
-        if (method !== 'GET' && !mutationAuthorized(request, { ownerToken, trustLoopback })) {
+        if (method !== 'GET' && !verifiedPrincipal && !mutationAuthorized(request, { ownerToken, trustLoopback })) {
           return json(response, 401, { error: 'owner authentication required' });
         }
         if (await appStoreRoutes.handle(url, method, request, response, { json, readBody })) return;
@@ -445,7 +450,7 @@ export function createDashboardHandler({
       if (method === 'GET' && brandEvidenceRoutes.read(url, store.projects ?? [], response, json)) return;
 
       if (
-        method !== 'GET' &&
+        method !== 'GET' && !verifiedPrincipal &&
         !mutationAuthorized(request, {
           ownerToken,
           trustLoopback,

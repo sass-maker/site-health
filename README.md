@@ -34,6 +34,9 @@ Drank and PSI Swarm remain independent repositories. The backend reads or
 invokes them through explicit adapters. Reusable GitHub Actions, Fleet-owned
 scripts, and agent skills live under `sass-maker/saas-maker/tooling`.
 
+For the optional persistent Node host behind Cloudflare Access, see
+[Hosted Node runtime](docs/hosted-runtime.md). Local owner startup is unchanged.
+
 ## Evidence and review cadence
 
 While the owner backend is running, independent scheduled lanes refresh Search
