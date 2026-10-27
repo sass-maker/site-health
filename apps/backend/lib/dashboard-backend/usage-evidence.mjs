@@ -1,7 +1,7 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { isCurrentPortfolioProject } from './domain-scope.mjs';
 
@@ -21,8 +21,11 @@ export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) 
   const previous = readUsageEvidence(path);
   const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
     const old = previous?.records?.[id];
-    return [id, row.count === null && number(old?.count) !== null
-      ? { ...old, lastAttemptAt: snapshot.observedAt, gap: `Refresh unavailable; retained observation from ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
+    const failed = row.status === 'failed';
+    const legacyUnknown = row.status === undefined && row.count === null;
+    return [id, (failed || legacyUnknown) && number(old?.count) !== null
+      ? { ...old, status: 'retained', lastAttemptAt: snapshot.observedAt,
+        gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained last-known ${old.count} ${old.unit === 'sessions' ? 'sessions' : 'browsers'} observed ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
   snapshot = { ...snapshot, records };
@@ -45,17 +48,45 @@ export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) 
 export function usageObservations(projects, snapshot) {
   return projects.filter(isCurrentPortfolioProject).flatMap((project) => {
     const row = snapshot?.records?.[project.id];
+    const retained = row?.status === 'retained';
     return [
-      { id: 'monthly-browser-proxy', label: '30-day browser / session proxy', value: number(row?.count),
+      { id: 'monthly-browser-proxy', label: '30-day browser / session proxy', value: retained ? null : number(row?.count),
         unit: row?.unit === 'sessions' ? 'sessions' : 'browsers', observedAt: row?.observedAt ?? null,
-        window: row?.window ?? 'rolling 30 days', qualification: number(row?.count) === null ? 'unknown' : 'proxy',
+        window: row?.window ?? 'rolling 30 days', qualification: retained || number(row?.count) === null ? 'unknown' : 'proxy',
+        status: row?.status ?? (number(row?.count) === null ? 'unknown' : 'available'),
         gap: row?.gap ?? 'Browser identifiers are not people; QA and automation may remain. No qualified core-action or churn cohort.' },
-      { id: 'high-intent-events', metricId: 'high-intent', label: 'Named action events (unqualified)', value: number(row?.actionEvents),
+      { id: 'high-intent-events', metricId: 'high-intent', label: 'Named action events (unqualified)', value: retained ? null : number(row?.actionEvents),
         unit: 'events', observedAt: row?.observedAt ?? null, window: row?.window ?? 'rolling 30 days',
-        qualification: number(row?.actionEvents) === null ? 'unknown' : 'proxy',
-        gap: 'Event occurrences are not completed core workflows or distinct active people.' },
+        qualification: retained || number(row?.actionEvents) === null ? 'unknown' : 'proxy',
+        status: row?.status ?? (number(row?.actionEvents) === null ? 'unknown' : 'available'),
+        gap: [retained
+          ? number(row?.actionEvents) === null
+            ? `No last-known action-event count; this row remains unknown after the usage refresh at ${row.lastAttemptAt ?? 'an unknown date'}.`
+            : `Last-known ${row.actionEvents} events observed ${row.observedAt}; retained historical value, current refresh unavailable.`
+          : row?.gap,
+        'Event occurrences are not completed core workflows or distinct active people.'].filter(Boolean).join(' ') },
     ].map((observation) => ({ ...observation, projectId: project.id, source: 'app-health.browser-report' }));
   });
+}
+
+export function usageFailureSnapshot(projects, now = () => new Date().toISOString()) {
+  const observedAt = now();
+  return {
+    schemaVersion: 1, observedAt,
+    records: Object.fromEntries(projects.filter(isCurrentPortfolioProject).map((project) => [project.id, {
+      status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: observedAt,
+      gap: 'App Health usage refresh failed; source remains unknown unless a last-good observation exists.',
+    }])),
+  };
+}
+
+export function summarizeUsageSnapshot(snapshot) {
+  const rows = Object.values(snapshot.records);
+  const counts = Object.fromEntries(['available', 'unmapped', 'failed'].map((status) => [status, rows.filter((row) => row.status === status).length]));
+  return {
+    resultCount: rows.filter((row) => row.count !== null).length,
+    summary: `App Health usage refresh: ${counts.available} available, ${counts.unmapped} unmapped, ${counts.failed} failed.`,
+  };
 }
 
 export function importUsageExport(bundle, projects) {
@@ -86,15 +117,8 @@ export async function appHealthCredential({ env = process.env, readSecret = exec
     });
     const token = String(result.stdout ?? '').trim();
     if (token) return token;
-  } catch { /* Older installations may still use the owner-managed resolver. */ }
-  if (env.APP_HEALTH_OWNER_TOKEN) return env.APP_HEALTH_OWNER_TOKEN;
-  try {
-    const repository = env.SITE_HEALTH_OWNER_REPOSITORY ?? resolve(import.meta.dirname, '../../../..');
-    const result = await readSecret('infisical', ['secrets', 'get', 'APP_HEALTH_OWNER_TOKEN', '--plain', '--env', 'prod', '--path', '/', '--silent'], {
-      cwd: resolve(repository, '..'), encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 15_000,
-    });
-    return String(result.stdout ?? '').trim();
-  } catch { return null; }
+  } catch { /* The scoped connection is optional; unavailable stays unknown. */ }
+  return null;
 }
 
 export async function collectUsageEvidence({ projects, credential, fetcher = fetch, now = () => new Date().toISOString() }) {
@@ -116,7 +140,7 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
       const matches = apps.filter((row) => row.app?.id === project.id || normalize(row.app?.name) === normalize(project.name));
       const environments = matches.length === 1 ? matches[0].environments?.filter((entry) => entry.name === 'production') ?? [] : [];
       if (environments.length !== 1) {
-        records[project.id] = { count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'No unique exact product and production-environment mapping; source remains unknown.' };
+        records[project.id] = { status: 'unmapped', count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'No unique exact product and production-environment mapping; source remains unknown.' };
         continue;
       }
       try {
@@ -126,12 +150,13 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
         if (!start || !end || report.from >= report.to || typeof report.sampled !== 'boolean' || !['local', 'analytics-engine'].includes(report.source) || number(report.sessions) === null || !Array.isArray(report.events)) throw new Error('Invalid aggregate report');
         const browsers = number(report.audience?.visitors);
         records[project.id] = {
+          status: 'available',
           count: browsers ?? number(report.sessions), unit: browsers === null ? 'sessions' : 'browsers',
           actionEvents: report.events.reduce((sum, event) => sum + (number(event.count) ?? 0), 0),
           observedAt: now(), window: `${start} to ${end}`,
           gap: `${report.sampled ? 'Sampled lower-bound/estimated aggregates. ' : ''}Browser/session proxy only; named event counts do not qualify completed core use or human adoption.`,
         };
-      } catch { records[project.id] = { count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'Aggregate report unavailable or invalid; source remains unknown.' }; }
+      } catch { records[project.id] = { status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'Aggregate report unavailable or invalid; source remains unknown unless a last-good observation exists.' }; }
     }
   }));
   return { schemaVersion: 1, observedAt: now(), records };

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { request as httpRequest } from 'node:http';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -37,6 +38,7 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
     clarityRegistryProvider: () => new Map([
       ['retained', { projectId: 'retained', wired: true, hostname: 'example.com' }],
     ]),
+    readinessObservationProvider: () => [{ projectId: 'retained', id: 'private-revenue', label: 'Provider revenue', value: 12345, unit: 'USD minor units', qualification: 'proxy' }],
   });
   context.after(() => new Promise((resolve) => server.close(() => {
     store.close();
@@ -50,6 +52,17 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
   assert.deepEqual(await (await fetch(`${base}/v1/projects`)).json(), []);
   currentProjects = [{ id: 'retained', name: 'Retained', status: 'live', lifecycle: { status: 'inactive', shareable: false, resumeCondition: null } }];
   assert.equal((await (await fetch(`${base}/v1/projects`)).json())[0].id, 'retained');
+  assert.equal((await fetch(`${base}/v1/readiness`)).status, 200);
+  const rebound = await new Promise((resolve, reject) => {
+    const request = httpRequest({ hostname: '127.0.0.1', port: server.address().port, path: '/v1/readiness', headers: { host: 'attacker.example' } }, (response) => {
+      let body = '';
+      response.setEncoding('utf8'); response.on('data', (chunk) => { body += chunk; });
+      response.on('end', () => resolve({ status: response.statusCode, body }));
+    });
+    request.on('error', reject); request.end();
+  });
+  assert.equal(rebound.status, 403);
+  assert.doesNotMatch(rebound.body, /12345/);
   store.setMetadata(claritySnapshotKey('retained'), {
     projectId: 'retained',
     observedAt: '2026-09-01T08:00:00.000Z',

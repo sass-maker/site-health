@@ -23,11 +23,12 @@ import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evide
 import { startBrandEvidenceScheduler } from '../lib/brand-evidence/scheduler.mjs';
 import { gatewayEnvironment } from '../lib/brand-evidence/gateway-environment.mjs';
 import { startEvidenceScheduler } from '../lib/dashboard-backend/evidence-scheduler.mjs';
-import { appHealthCredential, collectUsageEvidence, readUsageEvidence, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
+import { appHealthCredential, collectUsageEvidence, readUsageEvidence, summarizeUsageSnapshot, usageFailureSnapshot, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
 import { createWeeklyReview } from '../lib/dashboard-backend/weekly-review.mjs';
 import { readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
 import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { apiModelObservations } from '../lib/dashboard-backend/api-model-evidence.mjs';
+import { collectProviderRevenueEvidence, providerRevenueFailureSnapshot, providerRevenueObservations, readProviderRevenueEvidence, summarizeProviderRevenueSnapshot, writeProviderRevenueEvidence } from '../lib/dashboard-backend/provider-revenue-evidence.mjs';
 
 function usage() {
   console.log(`Site Health backend
@@ -148,6 +149,7 @@ if (command === 'status') {
     projectsProvider,
     readinessObservationProvider: (currentProjects) => [
       ...usageObservations(currentProjects, readUsageEvidence()),
+      ...providerRevenueObservations(currentProjects, readProviderRevenueEvidence()),
       ...apiModelObservations(currentProjects, brandEvidenceStore),
     ],
   });
@@ -156,20 +158,54 @@ if (command === 'status') {
     lanes: process.env.SITE_HEALTH_SCHEDULED_REFRESH === '0' ? [] : [
       { id: 'provider-refresh', intervalMs: 10 * 60_000, run: () => prefillEvidence({ force: false }) },
       { id: 'usage', intervalMs: 24 * 60 * 60_000, run: async () => {
-        const attemptedAt = Date.parse(readRefreshReceipt(store, 'usage')?.lastAttemptAt ?? '');
-        if (Number.isFinite(attemptedAt) && Date.now() - attemptedAt < 24 * 60 * 60_000) return;
+        const receipt = readRefreshReceipt(store, 'usage');
+        const attemptedAt = Date.parse(receipt?.lastAttemptAt ?? '');
+        if (receipt?.state === 'succeeded' && Number.isFinite(attemptedAt) && Date.now() - attemptedAt < 24 * 60 * 60_000) return;
         return withRefreshReceipt(store, {
         family: 'usage', scope: 'portfolio', label: 'App Health aggregate usage', runId: `usage_${Date.now()}`,
       }, async () => {
-        const snapshot = await collectUsageEvidence({ projects: projectsProvider(), credential: await appHealthCredential() });
+        const currentProjects = projectsProvider();
+        let snapshot;
+        try {
+          snapshot = await collectUsageEvidence({ projects: currentProjects, credential: await appHealthCredential() });
+        } catch (error) {
+          writeUsageEvidence(usageFailureSnapshot(currentProjects));
+          throw error;
+        }
         writeUsageEvidence(snapshot);
+        const failures = Object.values(snapshot.records).filter((row) => row.status === 'failed').length;
+        const summary = summarizeUsageSnapshot(snapshot);
+        if (failures > 0) throw Object.assign(new Error(`${summary.summary} Prior good observations were retained where available.`), { code: 'APP_HEALTH_USAGE_REFRESH_FAILED' });
         return snapshot;
-      }, { signals: [], summarize: (snapshot) => ({ resultCount: Object.values(snapshot.records).filter(row => row.count !== null).length }) }); } },
+      }, { signals: [], summarize: summarizeUsageSnapshot }); } },
+      { id: 'provider-revenue', intervalMs: 24 * 60 * 60_000, run: async () => {
+        const receipt = readRefreshReceipt(store, 'provider-revenue');
+        const attemptedAt = Date.parse(receipt?.lastAttemptAt ?? '');
+        if (receipt?.state === 'succeeded' && Number.isFinite(attemptedAt) && Date.now() - attemptedAt < 24 * 60 * 60_000) return;
+        return withRefreshReceipt(store, {
+          family: 'provider-revenue', scope: 'portfolio', label: 'App Health provider revenue aggregates', runId: `provider_revenue_${Date.now()}`,
+        }, async () => {
+          const currentProjects = projectsProvider();
+          let snapshot;
+          try {
+            snapshot = await collectProviderRevenueEvidence({ projects: currentProjects, credential: await appHealthCredential() });
+          } catch (error) {
+            writeProviderRevenueEvidence(providerRevenueFailureSnapshot(currentProjects));
+            throw error;
+          }
+          writeProviderRevenueEvidence(snapshot);
+          const failures = Object.values(snapshot.records).filter((row) => row.status === 'failed').length;
+          const summary = summarizeProviderRevenueSnapshot(snapshot);
+          if (failures > 0) throw Object.assign(new Error(`${summary.summary} Prior good observations were retained where available.`), { code: 'PROVIDER_REVENUE_REFRESH_FAILED' });
+          return snapshot;
+        }, { signals: [], summarize: summarizeProviderRevenueSnapshot });
+      } },
       { id: 'weekly-review', intervalMs: 60 * 60_000, run: () => {
         store.projects = projectsProvider();
         createWeeklyReview({ store, observations: [
           ...readinessObservations(store.projects, buildDashboardProjection()),
           ...usageObservations(store.projects, readUsageEvidence()),
+          ...providerRevenueObservations(store.projects, readProviderRevenueEvidence()),
           ...apiModelObservations(store.projects, brandEvidenceStore),
         ] });
       } },
