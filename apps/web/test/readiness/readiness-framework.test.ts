@@ -8,7 +8,7 @@ describe('current readiness framework and historical routes', () => {
     expect(RESULT_METRICS.growth.map(m => m.name)).toEqual(['Discoverability', 'Visits', 'AI & Google answers']);
     expect(VISIBILITY_LEVELS.map(l => l.name)).toEqual(['Brand', 'Category', 'Problem', 'Alternatives & comparisons', 'Specific buying intent']);
     expect(LEVEL_STRUCTURE.reduce((sum, l) => sum + l.possiblePoints, 0)).toBe(10);
-    expect(LEVEL_STRUCTURE.every(l => l.gate === 'Pass conditions not defined')).toBe(true);
+    expect(LEVEL_STRUCTURE.every(l => l.gate.length > 20 && !l.gate.includes('not defined'))).toBe(true);
   });
   it('opens the unassessed current framework by default, including a product-scoped results link', () => {
     expect(frameworkRoute(new URLSearchParams())).toEqual({ historical: false, area: null, view: 'effort' });

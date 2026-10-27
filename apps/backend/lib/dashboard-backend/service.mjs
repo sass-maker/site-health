@@ -19,6 +19,8 @@ import { readSpendSnapshot } from './spend.mjs';
 import { createAppStoreRoutes } from '../app-store/routes.mjs';
 import { createBrandEvidenceRoutes } from '../brand-evidence/routes.mjs';
 
+import { buildReadinessProjection, readinessObservations, saveReadiness } from './readiness.mjs';
+
 const MAX_REQUEST_BYTES = 32 * 1024;
 
 function json(response, status, body) {
@@ -246,6 +248,7 @@ export function createDashboardHandler({
   prefillEvidence,
   projectsProvider = () => store.projects,
   clarityRegistryProvider = loadClarityRegistry,
+  readinessObservationProvider = () => [],
   appStoreStore = null,
   brandEvidenceStore = null,
   brandEvidenceEnv = process.env,
@@ -324,6 +327,10 @@ export function createDashboardHandler({
     return false;
   };
   const handleProjectionReadRoutes = (url, projections, response) => {
+    if (url.pathname === '/v1/readiness') {
+      const currentEvidence = readinessObservations(projections.projects, cachedDashboardProjection(projections), Object.fromEntries(projections.projects.map(project => [project.id, readClarityProjection(store, project.id, clarityRegistryProvider())])));
+      return json(response, 200, buildReadinessProjection({ ...projections, generatedAt: now(), observations: [...currentEvidence, ...readinessObservationProvider(projections.projects)] }));
+    }
     if (url.pathname === '/v1/projects') return json(response, 200, projections.projects);
     const clarityMatch = url.pathname.match(/^\/v1\/projects\/([^/]+)\/clarity$/);
     if (clarityMatch) {
@@ -430,6 +437,10 @@ export function createDashboardHandler({
       }
 
 
+      const readinessMatch = url.pathname.match(/^\/v1\/readiness\/([^/]+)$/);
+      if (method === 'PUT' && readinessMatch) {
+        return json(response, 200, saveReadiness(store, decodeURIComponent(readinessMatch[1]), await readBody(request, 16 * 1024), now()));
+      }
       if (await handleMetricRunMutations(url, method, request, response)) return;
       if (await handleProjectionMutations(url, method, response)) return;
       if (await brandEvidenceRoutes.mutate(url, method, request, store.projects ?? [], response, { json, readBody })) return;
@@ -457,6 +468,7 @@ export function startDashboardService({
   prefillEvidence,
   projectsProvider,
   clarityRegistryProvider,
+  readinessObservationProvider,
   appStoreStore,
   brandEvidenceStore,
   brandEvidenceEnv,
@@ -475,6 +487,7 @@ export function startDashboardService({
       ...(prefillEvidence ? { prefillEvidence } : {}),
       ...(projectsProvider ? { projectsProvider } : {}),
       ...(clarityRegistryProvider ? { clarityRegistryProvider } : {}),
+      ...(readinessObservationProvider ? { readinessObservationProvider } : {}),
       ...(appStoreStore ? { appStoreStore } : {}),
       ...(brandEvidenceStore ? { brandEvidenceStore } : {}),
       ...(brandEvidenceEnv ? { brandEvidenceEnv } : {}),

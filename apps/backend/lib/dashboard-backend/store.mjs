@@ -11,6 +11,7 @@ import {
   redactForExport,
 } from './contracts.mjs';
 import { buildProjections } from './projections.mjs';
+import { currentProjects, replayReadiness } from './readiness-model.mjs';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const migrationPath = join(moduleDirectory, 'migrations', '001-initial.sql');
@@ -133,6 +134,24 @@ export class DashboardStore {
     const event = normalize(input, { now });
     this.database.exec('BEGIN IMMEDIATE');
     try {
+      // Recheck after acquiring the writer lock: another connection may have
+      // committed the same retry while BEGIN IMMEDIATE waited.
+      const concurrent = this.getEventByIdempotencyKey(event.idempotencyKey);
+      if (concurrent) {
+        if (!sameRequest(concurrent, input)) throw new DashboardValidationError('IDEMPOTENCY_CONFLICT', 'Idempotency key belongs to another event');
+        this.database.exec('COMMIT');
+        return { event: concurrent, duplicate: true };
+      }
+      // Serialize the revision comparison with insertion across connections.
+      if (event.type === 'readiness.state-updated') {
+        if (normalize === normalizeEvent && !currentProjects(this.projects).some(p => p.id === event.projectId)) {
+          throw Object.assign(new DashboardValidationError('READINESS_PROJECT_NOT_CURRENT', 'Readiness updates require a current product'), { statusCode: 404 });
+        }
+        const revision = this.database.prepare("SELECT COUNT(*) AS count FROM events WHERE type = 'readiness.state-updated' AND project_id = ?").get(event.projectId).count;
+        if (revision !== event.payload.expectedRevision) {
+          throw Object.assign(new DashboardValidationError('READINESS_REVISION_CONFLICT', 'This product changed since you loaded it. Reload before saving.'), { statusCode: 409 });
+        }
+      }
       this.database
         .prepare(`
           INSERT INTO events (
@@ -167,7 +186,7 @@ export class DashboardStore {
     }
   }
 
-  listEvents({ afterSequence = 0, limit = 10_000 } = {}) {
+  listEvents({ afterSequence = 0, limit = -1 } = {}) {
     return this.database
       .prepare('SELECT * FROM events WHERE sequence > ? ORDER BY sequence LIMIT ?')
       .all(afterSequence, limit)
@@ -256,5 +275,6 @@ export function verifyBackup(backup) {
   for (const event of backup.events) {
     normalizeBackupEvent(event, { now: event.recordedAt });
   }
+  replayReadiness(backup.events);
   return { valid: true, eventCount: backup.eventCount, digest: backup.digest };
 }

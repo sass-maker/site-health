@@ -23,6 +23,7 @@ test('SQLite null metrics stay absent before performance aggregation and history
       CREATE TABLE runs (url TEXT, preset TEXT, started_at REAL, performance_score REAL, lcp REAL, error TEXT);
       INSERT INTO runs VALUES
         ('https://alpha.example/', 'desktop', 1790899200000, 92, 1800, NULL),
+        ('https://alpha.example/', 'mobile', 1790899260000, 44, 5000, NULL),
         ('https://alpha.example/', 'desktop', 1790899260000, 95, NULL, NULL),
         ('https://alpha.example/', 'desktop', 1790899320000, NULL, 900, NULL),
         ('https://beta.example/', 'desktop', 1790899200000, 95, NULL, NULL),
@@ -38,6 +39,10 @@ test('SQLite null metrics stay absent before performance aggregation and history
     assert.equal(alpha.psi.value, 92);
     assert.equal(alpha.lcp.value, 1800);
     assert.equal(alpha.lcp.series.length, 1);
+    assert.equal(alpha.preset, 'desktop');
+    assert.equal(alpha.mobile.psi.value, 44);
+    assert.equal(alpha.mobile.lcp.value, 5000);
+    assert.equal(alpha.mobile.status, 'needs-work');
     const beta = rows.find((row) => row.projectId === 'beta');
     assert.equal(beta.status, 'not-measured');
     assert.equal(beta.samples, 0);

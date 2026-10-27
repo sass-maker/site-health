@@ -1,3 +1,4 @@
+import { replayReadiness } from './readiness-model.mjs';
 function byTime(left, right) {
   if (Number.isInteger(left.sequence) && Number.isInteger(right.sequence)) {
     return left.sequence - right.sequence;
@@ -41,6 +42,7 @@ export function buildProjections(inputEvents, { now = new Date().toISOString(), 
 
   return {
     generatedAt: now,
+    readiness: replayReadiness([...inputEvents].sort(byTime)),
     projects: projects.map((project) => ({ ...project })),
     aiVisibility: {
       generatedAt: now,

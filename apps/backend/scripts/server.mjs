@@ -21,6 +21,11 @@ import { AppStoreStore } from '../lib/app-store/store.mjs';
 import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evidence/store.mjs';
 import { startBrandEvidenceScheduler } from '../lib/brand-evidence/scheduler.mjs';
 import { gatewayEnvironment } from '../lib/brand-evidence/gateway-environment.mjs';
+import { startEvidenceScheduler } from '../lib/dashboard-backend/evidence-scheduler.mjs';
+import { appHealthCredential, collectUsageEvidence, readUsageEvidence, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
+import { createWeeklyReview } from '../lib/dashboard-backend/weekly-review.mjs';
+import { readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
+import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 
 function usage() {
   console.log(`Site Health backend
@@ -139,8 +144,38 @@ if (command === 'status') {
     metricRunController,
     prefillEvidence,
     projectsProvider,
+    readinessObservationProvider: (currentProjects) => [
+      ...usageObservations(currentProjects, readUsageEvidence()),
+      ...buildDashboardProjection().outcomes.performance.flatMap(row => ['psi', 'lcp'].map(key => ({
+        projectId: row.projectId, id: `mobile:${key}`, label: key === 'psi' ? 'Mobile PSI performance' : 'Mobile LCP',
+        value: row.mobile?.[key]?.value ?? null, unit: key === 'psi' ? '/100' : 'ms',
+        observedAt: row.mobile?.observedAt ?? null, source: 'psi-swarm.mobile',
+        qualification: row.mobile?.[key]?.value == null ? 'unknown' : 'proxy',
+        gap: 'Mobile laboratory sample; field Core Web Vitals and core-workflow interaction budgets are separate.',
+      }))),
+    ],
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
+  const evidenceScheduler = startEvidenceScheduler({
+    lanes: process.env.SITE_HEALTH_SCHEDULED_REFRESH === '0' ? [] : [
+      { id: 'provider-refresh', intervalMs: 10 * 60_000, run: () => prefillEvidence({ force: false }) },
+      { id: 'usage', intervalMs: 24 * 60 * 60_000, run: () => withRefreshReceipt(store, {
+        family: 'usage', scope: 'portfolio', label: 'App Health aggregate usage', runId: `usage_${Date.now()}`,
+      }, async () => {
+        const snapshot = await collectUsageEvidence({ projects: projectsProvider(), credential: appHealthCredential() });
+        writeUsageEvidence(snapshot);
+        return snapshot;
+      }, { signals: [], summarize: (snapshot) => ({ resultCount: Object.values(snapshot.records).filter(row => row.count !== null).length }) }) },
+      { id: 'weekly-review', intervalMs: 60 * 60_000, run: () => {
+        store.projects = projectsProvider();
+        createWeeklyReview({ store, observations: [
+          ...readinessObservations(store.projects, buildDashboardProjection()),
+          ...usageObservations(store.projects, readUsageEvidence()),
+        ] });
+      } },
+    ],
+    onError: (id, error) => console.error(`Evidence ${id}: ${error.code ?? 'REFRESH_FAILED'}`),
+  });
   try {
     const startupPrefill = process.env.SITE_HEALTH_STARTUP_PREFILL === '0'
       ? { sources: [] } : prefillEvidence({ force: process.env.SITE_HEALTH_OWNER_HOST !== '1' });
@@ -166,9 +201,11 @@ if (command === 'status') {
     try { brandEvidenceStore.stopOwnedWork(); }
     catch (error) { console.error(`Could not interrupt owned brand evidence: ${error.message}`); }
     const brandsStopped = brandScheduler.stop();
+    const evidenceStopped = evidenceScheduler.stop();
     abandonInFlightRuns();
     server.close(async () => {
       await brandsStopped;
+      await evidenceStopped;
       store.close();
       brandEvidenceStore.close();
       appStoreStore.close();

@@ -201,14 +201,15 @@ function performanceProjection(projects, home) {
   return projects.map((project) => {
     const domain = normalizedDomain(project.domains?.[0]);
     const history = historyByDomain.get(domain) ?? [];
-    const batch = latestPerformanceBatch(history);
+    const batch = latestPerformanceBatch(history.filter(run => run.preset === 'desktop'));
+    const mobileBatch = latestPerformanceBatch(history.filter(run => run.preset === 'mobile'));
     const observedAt = batch?.observedAt ?? null;
     // The sparkline keeps every stored run; only the headline value collapses to the batch median.
-    const psi = signal('PSI performance', batch?.score, observedAt, history.map((item) => ({
+    const psi = signal('PSI performance', batch?.score, observedAt, history.filter(item => item.preset === 'desktop').map((item) => ({
       observedAt: item.observedAt,
       value: item.score,
     })));
-    const lcp = signal('PSI LCP', batch?.lcp, observedAt, history.map((item) => ({
+    const lcp = signal('PSI LCP', batch?.lcp, observedAt, history.filter(item => item.preset === 'desktop').map((item) => ({
       observedAt: item.observedAt,
       value: item.lcp,
     })));
@@ -219,6 +220,14 @@ function performanceProjection(projects, home) {
       status: psi && lcp ? performanceStatus(psi.value, lcp.value) : 'not-measured',
       observedAt,
       samples: batch?.sampleCount ?? 0,
+      preset: 'desktop',
+      mobile: {
+        observedAt: mobileBatch?.observedAt ?? null,
+        samples: mobileBatch?.sampleCount ?? 0,
+        status: mobileBatch ? performanceStatus(mobileBatch.score, mobileBatch.lcp) : 'not-measured',
+        psi: signal('Mobile PSI performance', mobileBatch?.score, mobileBatch?.observedAt ?? null),
+        lcp: signal('Mobile PSI LCP', mobileBatch?.lcp, mobileBatch?.observedAt ?? null),
+      },
       psi,
       lcp,
     };
@@ -308,9 +317,9 @@ function aiProjection(catalog, aiVisibilityProjects) {
         domain: normalizedDomain(projects.get(item.projectId)?.domains?.[0]),
         status: latest ? (Number(metrics.mentionRate) > 0 ? 'known' : 'not-known') : 'not-measured',
         observedAt,
-        mention: signal('AI mention rate', Number(metrics.mentionRate) * 100, observedAt),
-        recommendation: signal('AI recommendation rate', Number(metrics.recommendationRate) * 100, observedAt),
-        citation: signal('AI citation rate', Number(metrics.citationRate) * 100, observedAt),
+        mention: signal('AI mention rate', numeric(metrics.mentionRate) === null ? null : numeric(metrics.mentionRate) * 100, observedAt),
+        recommendation: signal('AI recommendation rate', numeric(metrics.recommendationRate) === null ? null : numeric(metrics.recommendationRate) * 100, observedAt),
+        citation: signal('AI citation rate', numeric(metrics.citationRate) === null ? null : numeric(metrics.citationRate) * 100, observedAt),
         averageRank: signal('AI average rank', metrics.averagePosition, observedAt),
         questions: item.questions ?? [],
         coverage: latest?.coverage ?? null,

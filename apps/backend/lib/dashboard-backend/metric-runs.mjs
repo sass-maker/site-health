@@ -74,7 +74,7 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
         '--runs',
         '2',
         '--presets',
-        'desktop',
+        'desktop,mobile',
         '--tag',
         'console-manual',
         '--output',
@@ -145,7 +145,7 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
     return {
       command: process.execPath,
       args: [
-        resolve(repositoryRoot, 'apps/backend/scripts/run-performance-portfolio.mjs'),
+        resolve(import.meta.dirname, '../../scripts/run-performance-portfolio.mjs'),
         ...targets.flatMap(({ projectId, domain }) => [
           '--target',
           `${projectId}=https://${domain}`,
@@ -158,7 +158,7 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
     return {
       command: process.execPath,
       args: [
-        resolve(repositoryRoot, 'apps/backend/scripts/search-console-collect.mjs'),
+        resolve(import.meta.dirname, '../../scripts/search-console-collect.mjs'),
       ],
       label: 'Portfolio Search Console evidence',
     };

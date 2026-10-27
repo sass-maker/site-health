@@ -1,11 +1,60 @@
 # Product scoreboard
 
-Site Health owns the private product scoreboard at `/readiness`, with six
-category assessments and one next recommendation for every project/category.
-The browser workspace stays on the owner's local Site Health origin. SaaS Maker
-owns public product presentation and reusable tooling, with no private scores.
+Site Health owns the private product scoreboard at `/readiness`. The current
+workspace uses **Product & design** and **SEO & growth**, with separate Effort
+and Results readings out of ten per category. SaaS Maker owns public product
+presentation and reusable tooling, with no private scores.
 
-## Assessment
+## Current two-category workspace
+
+The versioned rules live in
+`apps/backend/lib/dashboard-backend/readiness-model.mjs` and are shared with
+the web editor. Current membership comes from the catalog's `active` and
+`primary` lifecycle statuses; no fixed product count is embedded in scoring.
+Select a product to record applicability, requirement status, dated proof,
+next bounded lever, metric definitions and benchmarks. Unknown and exempt are
+explicit states. Internal growth exemptions require a reason.
+
+Effort has five ordered two-point gates. Product gates cover the deployed core
+loop, promised features and recovery, rendered design, appropriate AI/agent
+workflows, then technical delivery and performance budgets. Growth gates cover
+crawlable identity and instrumentation, researched useful indexed coverage,
+broad distinct intent coverage, relevant links/distribution, then recurring
+maintenance and learning. A later verified gate cannot skip an earlier gate.
+Verification needs dated proof of the full gate; a scoped gate exemption needs
+a reason and dated proof. No assessment remains unscored. Technical checks do
+not establish a design rating or meaningful product use.
+
+Results retain four Product measures (DAU, high-intent actions, revenue, churn)
+and three Growth measures (discoverability, visits, AI/Google answers). Each
+metric needs applicability, a qualifying definition, numeric baseline/target,
+unit, source, evaluation window, direction and five strictly improving
+thresholds. Only a qualified measured value with a date and proof can score.
+Category Results remain unscored until every applicable metric qualifies;
+explicitly exempt metrics are excluded. An actual zero remains a measured zero.
+
+`GET /v1/readiness` returns current products, saved state, read-only source
+observations, timestamps and coverage gaps. Existing domains, search, SEO,
+GEO/AI, performance and Clarity evidence is supporting evidence; it does not
+silently qualify a metric or pass a gate. The optional service observation
+provider adds first-party aggregates without coupling readiness to collector
+paths. Review the source definition/window before recording a measurement.
+
+`PUT /v1/readiness/:projectId` uses the existing owner-token/loopback mutation
+authorization and browser-origin protection. Saves include `expectedRevision`
+and an idempotency key, validate typed state and current membership, and append
+a private `readiness.state-updated` event within the 16 KiB event limit. The
+revision check and insertion share a database transaction. A stale editor must
+load the latest assessment before retrying. State replays from the event ledger
+and is included in digest-verified Dashboard backups and restores.
+
+The former six-category IndexedDB workspace and its imports/exports remain at
+**Previous assessments** (`/readiness?page=legacy&mode=history`). Its scores,
+usage bundles and historical estimates are never migrated or relabelled into
+the current framework automatically. The remaining sections describe that
+historical workspace and retained review evidence.
+
+## Historical six-category assessment
 
 The six categories are:
 
