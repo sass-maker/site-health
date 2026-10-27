@@ -6,6 +6,10 @@ import { createRemoteJWKSet, jwtVerify } from 'jose';
 
 import { createDashboardHandler } from './service.mjs';
 
+const CLOCK_TOLERANCE_SECONDS = 60;
+const KEY_AVAILABILITY_ERRORS = new Set(['ERR_JWKS_TIMEOUT', 'ERR_JWKS_INVALID', 'ERR_JOSE_GENERIC']);
+class AccessKeysUnavailable extends Error {}
+
 const CONTENT_TYPES = new Map(Object.entries({
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml',
@@ -44,32 +48,51 @@ export function hostedConfiguration(env = process.env) {
     audience: env.ACCESS_AUD, ownerEmail: env.ACCESS_OWNER_EMAIL.toLowerCase() });
 }
 
-function errorResponse(response, status, message) {
+export function hostedListenPort(value) {
+  const input = value === undefined ? '' : String(value).trim();
+  if (!input) return 4187;
+  if (!/^\d+$/.test(input) || !Number.isInteger(Number(input)) || Number(input) < 1 || Number(input) > 65535) {
+    throw new Error('PORT must be an integer from 1 to 65535');
+  }
+  return Number(input);
+}
+
+function errorResponse(response, status, message, code) {
   response.writeHead(status, {
     'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store',
     'x-content-type-options': 'nosniff',
   });
-  response.end(JSON.stringify({ error: message }));
+  response.end(JSON.stringify({ error: message, ...(code ? { code } : {}) }));
 }
 
 export function createAccessAuthorizer(config, { keyResolver } = {}) {
   const resolver = keyResolver ?? createRemoteJWKSet(new URL(`${config.issuer}/cdn-cgi/access/certs`), {
     timeoutDuration: 5000, cooldownDuration: 30_000, cacheMaxAge: 10 * 60_000,
   });
+  const resolveKeys = async (...args) => {
+    try { return await resolver(...args); }
+    catch (error) {
+      if (error instanceof TypeError || KEY_AVAILABILITY_ERRORS.has(error?.code)) throw new AccessKeysUnavailable();
+      throw error;
+    }
+  };
   return async (request) => {
     if (request.headers.host !== config.host) return null;
     const assertion = request.headers['cf-access-jwt-assertion'];
     if (typeof assertion !== 'string' || assertion.length > 16 * 1024) return null;
     try {
-      const { payload } = await jwtVerify(assertion, resolver, {
+      const { payload } = await jwtVerify(assertion, resolveKeys, {
         algorithms: ['RS256'], issuer: config.issuer, audience: config.audience,
-        requiredClaims: ['sub', 'iat', 'exp', 'email'],
+        requiredClaims: ['sub', 'iat', 'exp', 'email'], clockTolerance: CLOCK_TOLERANCE_SECONDS,
       });
       if (typeof payload.sub !== 'string' || !payload.sub.trim()
         || typeof payload.email !== 'string' || payload.email.toLowerCase() !== config.ownerEmail
-        || payload.iat > Math.floor(Date.now() / 1000)) return null;
+        || payload.iat > Math.floor(Date.now() / 1000) + CLOCK_TOLERANCE_SECONDS) return null;
       return { subject: payload.sub, email: payload.email };
-    } catch { return null; }
+    } catch (error) {
+      if (error instanceof AccessKeysUnavailable) throw error;
+      return null;
+    }
   };
 }
 
@@ -110,7 +133,11 @@ export async function createHostedHandler({ config, distDirectory, keyResolver, 
   return async (request, response) => {
     response.setHeader('cache-control', 'no-store');
     response.setHeader('x-content-type-options', 'nosniff');
-    const principal = await authorize(request);
+    let principal;
+    try { principal = await authorize(request); }
+    catch {
+      return errorResponse(response, 503, 'Authentication temporarily unavailable', 'ACCESS_KEYS_UNAVAILABLE');
+    }
     if (!principal) return errorResponse(response, 401, 'Owner authentication required');
     principals.set(request, principal);
     try {
@@ -135,8 +162,11 @@ export async function createHostedHandler({ config, distDirectory, keyResolver, 
       const stream = createReadStream(canonical);
       stream.on('error', () => response.destroy());
       stream.pipe(response);
-    } catch {
-      if (!response.headersSent) errorResponse(response, 400, 'Invalid request');
+    } catch (error) {
+      if (!response.headersSent) {
+        const missingAsset = ['ENOENT', 'ENOTDIR'].includes(error.code);
+        errorResponse(response, missingAsset ? 404 : 400, missingAsset ? 'Not found' : 'Invalid request');
+      }
       else response.destroy();
     } finally { principals.delete(request); }
   };

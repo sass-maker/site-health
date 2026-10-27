@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
-import { hostedConfiguration, startHostedDashboardService } from '../lib/dashboard-backend/hosted.mjs';
+import { hostedConfiguration, hostedListenPort, startHostedDashboardService } from '../lib/dashboard-backend/hosted.mjs';
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
 import {
   recordRefreshReceipt,
@@ -55,6 +55,7 @@ if (!command || ['help', '--help', '-h'].includes(command)) {
 }
 
 const hostedConfig = hostedConfiguration();
+const hostedPort = hostedConfig && command === 'serve' ? hostedListenPort(args[0] ?? process.env.PORT) : null;
 const projectsProvider = () => loadDashboardProjects();
 const projects = projectsProvider();
 const store = new DashboardStore({
@@ -97,7 +98,7 @@ if (command === 'status') {
   console.log(JSON.stringify(store.restoreBackup(JSON.parse(readFileSync(resolve(args[0]), 'utf8'))), null, 2));
   store.close();
 } else if (command === 'serve') {
-  const port = Number(args[0] ?? (hostedConfig ? process.env.PORT : undefined) ?? 4187);
+  const port = hostedConfig ? hostedPort : Number(args[0] ?? 4187);
   const metricRunController = createMetricRunController({
     projectsProvider,
     onRunChange: (run) => recordRefreshReceipt(store, run),
