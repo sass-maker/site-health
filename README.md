@@ -8,16 +8,18 @@ Private portfolio health dashboard for answering five owner questions:
 4. How are they performing in Google Search?
 5. Are they visible in AI answers?
 
-The private readiness workspace at `/readiness` adds six-category effort/result
-scores, evidence, improvement history and the product checklist. See
-[ownership](docs/ownership.md) and the [scoreboard guide](docs/product-scoreboard.md).
+The private readiness workspace at `/readiness` uses two categories, Product & design and SEO & growth, with separate Effort
+and Results scores. Assessments are revisioned in the private owner ledger;
+observations and next levers are shown alongside them. Historical six-category
+assessments remain under Previous assessments. See [ownership](docs/ownership.md)
+and the [current checklist](docs/product-readiness-checklist.md).
 
 This repository contains one product and its backend:
 
 - `apps/web/` — Astro UI.
-- `catalog/projects.json` — the single editable owner-local project,
+- `../saas-maker/catalog/projects.json` — the single editable owner-local project,
   repository classification and infrastructure catalog. The local
-  `apps/backend/config/projects.json` path links to the generated private
+  `apps/backend/config/projects.json` path links to its generated private
   `catalog/generated/operations.json` compatibility view. Never edit that output.
 - `docs/project-dossiers/` — one verified private YAML dossier per project,
   beginning with provenance and the owner's verbatim why, followed by decisions,
@@ -31,6 +33,39 @@ This repository contains one product and its backend:
 Drank and PSI Swarm remain independent repositories. The backend reads or
 invokes them through explicit adapters. Reusable GitHub Actions, Fleet-owned
 scripts, and agent skills live under `sass-maker/saas-maker/tooling`.
+
+## Evidence and review cadence
+
+While the owner backend is running, independent scheduled lanes refresh Search
+Console and App Health usage daily, and domain authority, desktop/mobile PSI and
+technical SEO weekly. Failed refreshes retain prior observations and retry with
+backoff; dates describe the observation rather than the failed attempt. A weekly
+review snapshots readiness, evidence and next levers with the prior week retained.
+Schedules do not run while the owner app is stopped.
+
+The App Health reader first uses `APP_HEALTH_READ_TOKEN`, then the approved
+read-only login Keychain item `com.sassmaker.site-health.app-health-read` (account
+`owner`), then the legacy owner-managed resolver. No token is stored in an export,
+source, logs or command arguments. Refresh with `node
+apps/backend/scripts/usage-evidence.mjs collect`; output contains counts only.
+Browser/session proxies and unqualified event counts are separate from people,
+completed core actions, revenue and churn; unavailable measurements remain unknown.
+
+API-model intent panels use the existing private brand store. Add versioned
+questions with `node apps/backend/scripts/brand-evidence.mjs prompt <project>
+"<question>" --category panel-v1:<intent>`, using `brand`, `category`, `problem`,
+`comparison` or `use-case`. Inspect the actual question against the product's
+market before adding it. Run `check <project>` and configure the profile's weekly
+cadence through AI Awareness. Readiness shows aggregates from the latest successful
+check, keeping unavailable answers and unconfigured panels explicit. Direct-name
+mentions do not prove factual recognition; these API checks are separate from
+consumer-assistant results, Google positions, demand validation and citations.
+
+New assessments are included in the backend ledger backup: `node
+apps/backend/scripts/server.mjs backup <private-output.json>` and `verify
+<private-output.json>`. Restore into an empty ledger only. The header's **Export
+previous assessments** exports the retained historical browser workspace, not
+the owner ledger. Preserve both when moving devices.
 
 ## Native brand awareness
 

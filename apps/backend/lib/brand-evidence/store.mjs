@@ -552,6 +552,22 @@ export class BrandEvidenceStore {
     return row ? checkRow(row) : null;
   }
 
+  lastCompletedApiModelCheck(projectId) {
+    const row = this.database.prepare("SELECT * FROM evidence_checks WHERE project_id = ? AND channel = 'api-model' AND status IN ('completed', 'partial') ORDER BY started_at DESC, id DESC LIMIT 1").get(projectId);
+    return row ? checkRow(row) : null;
+  }
+
+  apiModelPanelObservations(projectId, checkId) {
+    return this.database.prepare(`
+      SELECT e.prompt_id, e.status, e.brand_mentioned, e.model, e.observed_at
+      FROM evidence_observations e
+      JOIN evidence_prompts p ON p.id = e.prompt_id AND p.project_id = e.project_id
+      WHERE e.project_id = ? AND e.check_id = ? AND e.channel = 'api-model'
+        AND p.category IN ('panel-v1:brand', 'panel-v1:category', 'panel-v1:problem', 'panel-v1:comparison', 'panel-v1:use-case')
+    `).all(projectId, checkId).map(row => ({ promptId: row.prompt_id, status: row.status,
+      brandMentioned: boolOrNull(row.brand_mentioned), model: row.model, observedAt: row.observed_at }));
+  }
+
   findObservationByFingerprint(projectId, fingerprint) {
     return this.database
       .prepare('SELECT id FROM evidence_observations WHERE project_id = ? AND fingerprint = ? LIMIT 1')

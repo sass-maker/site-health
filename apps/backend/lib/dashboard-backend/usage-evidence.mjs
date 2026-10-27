@@ -76,10 +76,17 @@ export function importUsageExport(bundle, projects) {
   return { schemaVersion: 1, observedAt: iso(bundle.usage.updatedAt), records };
 }
 
-// Reuse the normal owner-managed credential resolver; never provision, rotate,
-// persist or print credentials. All outbound requests are fixed-origin GETs.
+// Resolve the approved read-only Keychain connection asynchronously. This code
+// never provisions, persists or prints credentials. Requests are fixed-origin GETs.
 export async function appHealthCredential({ env = process.env, readSecret = execFileAsync } = {}) {
   if (env.APP_HEALTH_READ_TOKEN) return env.APP_HEALTH_READ_TOKEN;
+  try {
+    const result = await readSecret('/usr/bin/security', ['find-generic-password', '-s', 'com.sassmaker.site-health.app-health-read', '-a', 'owner', '-w'], {
+      encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 15_000,
+    });
+    const token = String(result.stdout ?? '').trim();
+    if (token) return token;
+  } catch { /* Older installations may still use the owner-managed resolver. */ }
   if (env.APP_HEALTH_OWNER_TOKEN) return env.APP_HEALTH_OWNER_TOKEN;
   try {
     const repository = env.SITE_HEALTH_OWNER_REPOSITORY ?? resolve(import.meta.dirname, '../../../..');

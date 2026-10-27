@@ -56,3 +56,18 @@ test('credential resolution is asynchronous and never enters aggregate evidence'
   assert.ok(pending instanceof Promise);
   resolve({ stdout: 'fixture\n' }); assert.equal(await pending, 'fixture');
 });
+
+
+test('approved scoped Keychain token wins over broad owner credentials without command-line secrets', async () => {
+  const calls = [];
+  const token = await appHealthCredential({ env: { APP_HEALTH_OWNER_TOKEN: 'broad-fixture' }, readSecret: async (...args) => {
+    calls.push(args); return { stdout: 'scoped-fixture\n' };
+  } });
+  assert.equal(token, 'scoped-fixture');
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0][0], '/usr/bin/security');
+  assert.deepEqual(calls[0][1], ['find-generic-password', '-s', 'com.sassmaker.site-health.app-health-read', '-a', 'owner', '-w']);
+  assert.ok(!JSON.stringify(calls).includes('scoped-fixture'));
+  const fallback = await appHealthCredential({ env: { APP_HEALTH_OWNER_TOKEN: 'owner-fixture' }, readSecret: async () => { throw new Error('missing'); } });
+  assert.equal(fallback, 'owner-fixture');
+});
