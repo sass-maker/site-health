@@ -144,6 +144,8 @@ test('owner authentication tolerates modest issuer clock skew and rejects stale 
   const { server } = await fixture(t);
   const get = assertion => http(server, '/api/dashboard/v1/projects', { assertion });
   assert.equal((await get(await token({ iat: seconds() + 5 }))).status, 200);
+  assert.equal((await get(await token({ iat: seconds() + 55 }))).status, 200);
+  assert.equal((await get(await token({ exp: seconds() - 30 }))).status, 200);
   assert.equal((await get(await token({ iat: seconds() + 600 }))).status, 401);
   assert.equal((await get(await token({ exp: seconds() - 65 }))).status, 401);
 });
