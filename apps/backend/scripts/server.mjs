@@ -28,6 +28,7 @@ import { createWeeklyReview } from '../lib/dashboard-backend/weekly-review.mjs';
 import { readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
 import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { apiModelObservations } from '../lib/dashboard-backend/api-model-evidence.mjs';
+import { collectProviderRevenueEvidence, providerRevenueObservations, readProviderRevenueEvidence, writeProviderRevenueEvidence } from '../lib/dashboard-backend/provider-revenue-evidence.mjs';
 
 function usage() {
   console.log(`Site Health backend
@@ -148,6 +149,7 @@ if (command === 'status') {
     projectsProvider,
     readinessObservationProvider: (currentProjects) => [
       ...usageObservations(currentProjects, readUsageEvidence()),
+      ...providerRevenueObservations(currentProjects, readProviderRevenueEvidence()),
       ...apiModelObservations(currentProjects, brandEvidenceStore),
     ],
   });
@@ -165,11 +167,23 @@ if (command === 'status') {
         writeUsageEvidence(snapshot);
         return snapshot;
       }, { signals: [], summarize: (snapshot) => ({ resultCount: Object.values(snapshot.records).filter(row => row.count !== null).length }) }); } },
+      { id: 'provider-revenue', intervalMs: 24 * 60 * 60_000, run: async () => {
+        const attemptedAt = Date.parse(readRefreshReceipt(store, 'provider-revenue')?.lastAttemptAt ?? '');
+        if (Number.isFinite(attemptedAt) && Date.now() - attemptedAt < 24 * 60 * 60_000) return;
+        return withRefreshReceipt(store, {
+          family: 'provider-revenue', scope: 'portfolio', label: 'App Health provider revenue aggregates', runId: `provider_revenue_${Date.now()}`,
+        }, async () => {
+          const snapshot = await collectProviderRevenueEvidence({ projects: projectsProvider(), credential: await appHealthCredential() });
+          writeProviderRevenueEvidence(snapshot);
+          return snapshot;
+        }, { signals: [], summarize: (snapshot) => ({ resultCount: Object.values(snapshot.records).reduce((sum, row) => sum + (row.totals?.length ?? 0), 0) }) });
+      } },
       { id: 'weekly-review', intervalMs: 60 * 60_000, run: () => {
         store.projects = projectsProvider();
         createWeeklyReview({ store, observations: [
           ...readinessObservations(store.projects, buildDashboardProjection()),
           ...usageObservations(store.projects, readUsageEvidence()),
+          ...providerRevenueObservations(store.projects, readProviderRevenueEvidence()),
           ...apiModelObservations(store.projects, brandEvidenceStore),
         ] });
       } },
