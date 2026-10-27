@@ -23,7 +23,7 @@ test('SQLite null metrics stay absent before performance aggregation and history
       CREATE TABLE runs (url TEXT, preset TEXT, started_at REAL, performance_score REAL, lcp REAL, error TEXT);
       INSERT INTO runs VALUES
         ('https://alpha.example/', 'desktop', 1790899200000, 92, 1800, NULL),
-        ('https://alpha.example/', 'mobile', 1790899260000, 44, 5000, NULL),
+        ('https://alpha.example/', 'mobile-mid', 1790899260000, 44, 5000, NULL),
         ('https://alpha.example/', 'desktop', 1790899260000, 95, NULL, NULL),
         ('https://alpha.example/', 'desktop', 1790899320000, NULL, 900, NULL),
         ('https://beta.example/', 'desktop', 1790899200000, 95, NULL, NULL),

@@ -17,11 +17,13 @@ const FAMILIES = new Set([
   'psi',
   'drank',
   'search',
+  'seo',
   'ai',
 ]);
 
 const PORTFOLIO_ONLY_FAMILIES = Object.freeze({
   search: 'Google Search',
+  seo: 'Technical SEO',
 });
 const MAX_CAPTURE_CHARACTERS = 12_000;
 
@@ -74,7 +76,7 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
         '--runs',
         '2',
         '--presets',
-        'desktop,mobile',
+        'desktop,mobile-mid',
         '--tag',
         'console-manual',
         '--output',
@@ -161,6 +163,15 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
         resolve(import.meta.dirname, '../../scripts/search-console-collect.mjs'),
       ],
       label: 'Portfolio Search Console evidence',
+    };
+  }
+  if (family === 'seo') {
+    return {
+      command: process.execPath,
+      cwd: workspaceRoot,
+      args: [resolve(workspaceRoot, 'saas-maker/tooling/skills/seo-audit/scripts/seo-audit-fleet.mjs'),
+        '--all', '--artifact', resolve(repositoryRoot, 'apps/backend/data/seo-audit/latest.json')],
+      label: 'Portfolio technical SEO audit',
     };
   }
   fail('METRIC_SCOPE_INVALID', 'Unsupported portfolio metric family');

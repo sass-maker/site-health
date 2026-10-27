@@ -13,6 +13,7 @@ const projection = {
     domains: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
     performance: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
     search: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
+    seoAudit: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
     aiAwareness: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
   },
 };
@@ -39,11 +40,13 @@ test('forced prefill starts every free portfolio collector and records paid AI a
       { family: 'drank', scope: 'portfolio' },
       { family: 'psi', scope: 'portfolio' },
       { family: 'search', scope: 'portfolio' },
+      { family: 'seo', scope: 'portfolio' },
     ]);
     assert.deepEqual(results.map((item) => [item.family, item.action]), [
       ['drank', 'refresh'],
       ['psi', 'refresh'],
       ['search', 'refresh'],
+      ['seo', 'refresh'],
       ['ai', 'unavailable'],
     ]);
     assert.equal(readRefreshReceipt(store, 'ai').failure.code, 'AI_RECURRING_APPROVAL_REQUIRED');
@@ -77,7 +80,7 @@ test('an unavailable sibling collector cannot take the owner backend offline', (
       store, projection, force: true,
       metricRunController: { start() { throw Object.assign(new Error('missing checkout'), { code: 'METRIC_RUNNER_UNAVAILABLE' }); } },
     });
-    assert.equal(results.length, 4);
+    assert.equal(results.length, 5);
     assert.ok(results.every((result) => result.action === 'unavailable'));
     assert.equal(readRefreshReceipt(store, 'drank').failure.code, 'METRIC_RUNNER_UNAVAILABLE');
   } finally { store.close(); }

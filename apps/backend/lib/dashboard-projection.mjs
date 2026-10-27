@@ -202,7 +202,7 @@ function performanceProjection(projects, home) {
     const domain = normalizedDomain(project.domains?.[0]);
     const history = historyByDomain.get(domain) ?? [];
     const batch = latestPerformanceBatch(history.filter(run => run.preset === 'desktop'));
-    const mobileBatch = latestPerformanceBatch(history.filter(run => run.preset === 'mobile'));
+    const mobileBatch = latestPerformanceBatch(history.filter(run => run.preset === 'mobile-mid'));
     const observedAt = batch?.observedAt ?? null;
     // The sparkline keeps every stored run; only the headline value collapses to the batch median.
     const psi = signal('PSI performance', batch?.score, observedAt, history.filter(item => item.preset === 'desktop').map((item) => ({

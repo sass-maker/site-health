@@ -26,5 +26,11 @@ export function createWeeklyReview({ store, observations = [], now = new Date().
   const temporary = `${path}.${randomUUID()}.tmp`;
   writeFileSync(temporary, `${JSON.stringify(report, null, 2)}\n`, { mode: 0o600, flag: 'wx' });
   renameSync(temporary, path);
+  const history = join(dirname(path), 'weekly-reviews');
+  mkdirSync(history, { recursive: true, mode: 0o700 });
+  const historic = join(history, `${week}.json`);
+  const historyTemporary = `${historic}.${randomUUID()}.tmp`;
+  writeFileSync(historyTemporary, `${JSON.stringify(report, null, 2)}\n`, { mode: 0o600, flag: 'wx' });
+  renameSync(historyTemporary, historic);
   return report;
 }

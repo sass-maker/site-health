@@ -65,7 +65,7 @@ export function runPerformancePortfolio(
       '--runs',
       '2',
       '--presets',
-      'desktop,mobile',
+      'desktop,mobile-mid',
       '--tag',
       'console-portfolio',
       '--output',
