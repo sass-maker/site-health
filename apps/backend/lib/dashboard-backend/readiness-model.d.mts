@@ -1,7 +1,7 @@
 export type ReadinessArea = 'product' | 'growth';
 export type ProofRef = { ref: string; observedAt: string };
 export type Applicability = { state: 'applicable' | 'exempt' | 'unknown'; reason: string };
-export type Requirement = { status: 'not-started' | 'in-progress' | 'awaiting-evidence' | 'verified' | 'exempt'; note: string; evidenceRefs: ProofRef[] };
+export type Requirement = { status: 'not-started' | 'in-progress' | 'awaiting-evidence' | 'verified' | 'exempt'; note: string; evidenceRefs: ProofRef[]; completion?: number | null; confidence?: 'low' | 'medium' | 'high' };
 export type Benchmark = { applicability: Applicability['state']; reason: string; definition: string; baseline: number | null; target: number | null; unit: string; window: string; source: string; direction: 'higher' | 'lower'; thresholds: number[]; value: number | null; qualification: 'qualified' | 'proxy' | 'unknown'; observedAt: string; evidenceRefs: ProofRef[] };
 export type ReadinessState = { version: string; applicability: Record<ReadinessArea, Applicability>; requirements: Record<string, Requirement>; nextLevers: Record<ReadinessArea, string>; benchmarks: Record<string, Benchmark> };
 export type Observation = { metricId?: string; projectId: string; id: string; source: string; label: string; unit: string; value: number | null; observedAt: string | null; qualification: 'qualified' | 'proxy' | 'unknown' | 'exempt'; window?: string; gap?: string };
@@ -13,6 +13,7 @@ export const METRICS: Record<ReadinessArea, string[]>;
 export const GATES: Record<ReadinessArea, { id: string; level: number; title: string; detail: string }[]>;
 export function emptyReadinessState(): ReadinessState;
 export function validateReadinessState(state: ReadinessState, options?: { enforceSize?: boolean }): ReadinessState;
-export function effortSummary(state: ReadinessState, area: ReadinessArea): { score: number | null; level: number | null; status: string; verified: number; total: number };
+export function requirementCompletion(entry?: Requirement): number | null;
+export function effortSummary(state: ReadinessState, area: ReadinessArea): { score: number | null; level: number | null; status: string; verified: number; total: number; assessed: number; applicable: number; confidence: string; minimumScore: number | null; maximumScore: number | null };
 export function metricScore(benchmark?: Benchmark): number | null;
 export function resultSummary(state: ReadinessState, area: ReadinessArea): { score: number | null; qualified: number; total: number };

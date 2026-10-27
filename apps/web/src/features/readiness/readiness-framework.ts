@@ -1,5 +1,5 @@
 import { GATES } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
-export { GATES, READINESS_VERSION, emptyReadinessState, effortSummary, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
+export { GATES, READINESS_VERSION, emptyReadinessState, effortSummary, requirementCompletion, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export type { ReadinessState, ReadinessProduct, ReadinessProjection, Requirement, Benchmark, ProofRef, Observation } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export const READINESS_AREAS = [
   { id: 'product', label: 'Product & design', description: 'Build a useful, understandable, polished and dependable product.' },
@@ -22,7 +22,7 @@ export const EFFORT_REQUIREMENTS: Record<ReadinessArea, { title: string; detail:
   growth: [
     { title: 'Technical foundations and footer', detail: 'Metadata, canonicals, robots, sitemaps, redirects, appropriate structured data, internal links and the shared footer.' },
     { title: 'Keyword and competitor research', detail: 'Research real audience needs and competing pages, then maintain a keyword/intent-to-page map.' },
-    { title: '100+ useful indexed pages', detail: 'Publish substantive intent-matched pages and verify live content and indexing status. Generated URL volume alone does not pass.' },
+    { title: '100+ useful published pages', detail: 'Publish substantive, crawlable, intent-matched pages and verify live content. Generated URL volume alone does not pass. Indexing is a separate result.' },
     { title: '1,000+ useful pages where applicable', detail: 'Expand comparisons, alternatives, guides, problems, use cases and long-tail coverage with distinct value and explicit scope decisions.' },
     { title: 'AI-readable product coverage', detail: 'Provide clear product facts, crawlable content, useful sources and consistent identity. Actual recommendations and citations belong to Results.' },
     { title: 'Backlinks and distribution', detail: 'Build relevant backlinks, profiles, directories and original third-party content; retain a dated distribution and link register.' },

@@ -27,10 +27,28 @@ design** and **SEO & growth**. Both have separate Effort and Result readings,
   specific buying intent. Keep Google position and AI mention, recommendation,
   citation and accuracy separate. Intent levels are not passed scoring gates.
 
-Five progressive score levels offer two points each. Exact pass conditions,
-required proof, verified baselines, numeric targets and evaluation windows are
-not yet configured. No score or completed level is inferred from this structure.
-Done means shipped and verified. Internal growth exemptions stay explicit.
+Effort completion and verified levels are independent. Each of the five gates
+has a documented 0–100% completion estimate, dated evidence and low/medium/high
+estimate confidence. Use 0 for checked absence, 25 for foundations, 50 for
+substantial implementation, 75 for most implementation, and 100 for all
+applicable work implemented. Estimates can use finer integer percentages when
+justified. Confidence describes evidence strength; it does not discount work.
+
+The category effort score is the mean completion of applicable gates divided
+by ten, rounded to one decimal. All applicable estimates must be known; missing
+evidence is unknown rather than zero. With some estimates missing, show a
+possible score range with unknown gates bounded at 0–100%, not a completed
+score or an average that silently excludes them. Scoped exemptions need a reason and dated
+proof and are excluded from the denominator. Entire exempt categories remain
+unscored. Existing verified records imply 100% completion; old partial statuses
+without estimates never imply a made-up percentage.
+
+Verified levels still unlock in sequence, with dated proof of the full gate.
+A later gate contributes to effort even if an earlier gate blocks level progress.
+100% implementation can await runtime verification. Published useful coverage is
+effort; indexing, ranking and citations are results. Benchmarks, numeric targets
+and evaluation windows must be configured before qualified Result scoring.
+Internal growth exemptions stay explicit.
 Measurement setup and effort come first; Result assessment follows later.
 
 The interface definitions live in
