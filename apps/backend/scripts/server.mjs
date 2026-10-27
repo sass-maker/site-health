@@ -23,12 +23,12 @@ import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evide
 import { startBrandEvidenceScheduler } from '../lib/brand-evidence/scheduler.mjs';
 import { gatewayEnvironment } from '../lib/brand-evidence/gateway-environment.mjs';
 import { startEvidenceScheduler } from '../lib/dashboard-backend/evidence-scheduler.mjs';
-import { appHealthCredential, collectUsageEvidence, readUsageEvidence, usageFailureSnapshot, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
+import { appHealthCredential, collectUsageEvidence, readUsageEvidence, summarizeUsageSnapshot, usageFailureSnapshot, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
 import { createWeeklyReview } from '../lib/dashboard-backend/weekly-review.mjs';
 import { readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
 import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { apiModelObservations } from '../lib/dashboard-backend/api-model-evidence.mjs';
-import { collectProviderRevenueEvidence, providerRevenueFailureSnapshot, providerRevenueObservations, readProviderRevenueEvidence, writeProviderRevenueEvidence } from '../lib/dashboard-backend/provider-revenue-evidence.mjs';
+import { collectProviderRevenueEvidence, providerRevenueFailureSnapshot, providerRevenueObservations, readProviderRevenueEvidence, summarizeProviderRevenueSnapshot, writeProviderRevenueEvidence } from '../lib/dashboard-backend/provider-revenue-evidence.mjs';
 
 function usage() {
   console.log(`Site Health backend
@@ -174,13 +174,10 @@ if (command === 'status') {
         }
         writeUsageEvidence(snapshot);
         const failures = Object.values(snapshot.records).filter((row) => row.status === 'failed').length;
-        if (failures > 0) throw Object.assign(new Error(`${failures} App Health usage project refresh(es) failed; prior good observations were retained where available.`), { code: 'APP_HEALTH_USAGE_REFRESH_FAILED' });
+        const summary = summarizeUsageSnapshot(snapshot);
+        if (failures > 0) throw Object.assign(new Error(`${summary.summary} Prior good observations were retained where available.`), { code: 'APP_HEALTH_USAGE_REFRESH_FAILED' });
         return snapshot;
-      }, { signals: [], summarize: (snapshot) => {
-        const rows = Object.values(snapshot.records);
-        const counts = Object.fromEntries(['available', 'unmapped', 'failed'].map((status) => [status, rows.filter((row) => row.status === status).length]));
-        return { resultCount: rows.filter((row) => row.count !== null).length, summary: `App Health usage refresh: ${counts.available} available, ${counts.unmapped} unmapped, ${counts.failed} failed.` };
-      } }); } },
+      }, { signals: [], summarize: summarizeUsageSnapshot }); } },
       { id: 'provider-revenue', intervalMs: 24 * 60 * 60_000, run: async () => {
         const receipt = readRefreshReceipt(store, 'provider-revenue');
         const attemptedAt = Date.parse(receipt?.lastAttemptAt ?? '');
@@ -198,13 +195,10 @@ if (command === 'status') {
           }
           writeProviderRevenueEvidence(snapshot);
           const failures = Object.values(snapshot.records).filter((row) => row.status === 'failed').length;
-          if (failures > 0) throw Object.assign(new Error(`${failures} provider revenue project refresh(es) failed; prior good observations were retained where available.`), { code: 'PROVIDER_REVENUE_REFRESH_FAILED' });
+          const summary = summarizeProviderRevenueSnapshot(snapshot);
+          if (failures > 0) throw Object.assign(new Error(`${summary.summary} Prior good observations were retained where available.`), { code: 'PROVIDER_REVENUE_REFRESH_FAILED' });
           return snapshot;
-        }, { signals: [], summarize: (snapshot) => {
-          const rows = Object.values(snapshot.records);
-          const counts = Object.fromEntries(['available', 'empty', 'unmapped', 'failed'].map((status) => [status, rows.filter((row) => row.status === status).length]));
-          return { resultCount: rows.reduce((sum, row) => sum + (row.totals?.length ?? 0), 0), summary: `Provider revenue refresh: ${counts.available} available, ${counts.empty} empty, ${counts.unmapped} unmapped, ${counts.failed} failed.` };
-        } });
+        }, { signals: [], summarize: summarizeProviderRevenueSnapshot });
       } },
       { id: 'weekly-review', intervalMs: 60 * 60_000, run: () => {
         store.projects = projectsProvider();

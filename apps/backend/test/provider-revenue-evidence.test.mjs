@@ -8,6 +8,7 @@ import {
   providerRevenueFailureSnapshot,
   providerRevenueObservations,
   readProviderRevenueEvidence,
+  summarizeProviderRevenueSnapshot,
   writeProviderRevenueEvidence,
 } from '../lib/dashboard-backend/provider-revenue-evidence.mjs';
 
@@ -82,7 +83,11 @@ test('failed refresh keeps prior totals and observed date in private snapshot an
   assert.equal(snapshot.records.one.totals[0].net_minor, 1000);
   assert.equal(snapshot.records.one.observedAt, '2026-10-26T00:00:00.000Z');
   assert.match(snapshot.records.one.gap, /retained observation/);
-  assert.match(providerRevenueObservations(projects, snapshot)[0].gap, /retained observation/);
+  const observation = providerRevenueObservations(projects, snapshot)[0];
+  assert.match(observation.gap, /retained observation/);
+  assert.equal(observation.status, 'retained');
+  assert.equal(observation.value, null);
+  assert.equal(observation.observedAt, '2026-10-26T00:00:00.000Z');
   assert.equal(statSync(path).mode & 0o777, 0o600);
   const history = readFileSync(join(dir, 'provider-revenue-history', '2026-10-27.json'), 'utf8');
   assert.ok(history.includes('1000'));
@@ -111,4 +116,15 @@ test('first lane-wide failure stays unknown without claiming an observation was 
   assert.equal(snapshot.records.one.status, 'failed');
   assert.equal(providerRevenueObservations(projects, snapshot)[0].value, null);
   assert.doesNotMatch(snapshot.records.one.gap, /retained/);
+});
+
+test('first per-project failure has neutral unknown wording and partial receipt counts', async () => {
+  const snapshot = await collectProviderRevenueEvidence({ projects, credential: 'fixture', fetcher: fetchFixture({ invalid: true }) });
+  assert.equal(snapshot.records.one.status, 'failed');
+  assert.match(snapshot.records.one.gap, /source remains unknown\./);
+  assert.doesNotMatch(snapshot.records.one.gap, /retained/);
+  assert.equal(summarizeProviderRevenueSnapshot({ records: {
+    available: { status: 'available', totals: [total()] }, empty: { status: 'empty', totals: null },
+    unmapped: { status: 'unmapped', totals: null }, failed: { status: 'failed', totals: null },
+  } }).summary, 'Provider revenue refresh: 1 available, 1 empty, 1 unmapped, 1 failed.');
 });

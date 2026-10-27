@@ -3,7 +3,7 @@ import test from 'node:test';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { appHealthCredential, collectUsageEvidence, importUsageExport, readUsageEvidence, usageFailureSnapshot, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
+import { appHealthCredential, collectUsageEvidence, importUsageExport, readUsageEvidence, summarizeUsageSnapshot, usageFailureSnapshot, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
 const projects = [{ id: 'one', name: 'One', lifecycle: { status: 'active' }, status: 'active' }];
 
 test('import filters archived/foreign records, preserves zero, never promotes events to qualified use', () => {
@@ -58,11 +58,31 @@ test('failed refresh retains the original good value and observation date', () =
   assert.match(snapshot.records.one.gap, /Refresh failed; retained observation/);
 });
 
+test('null-count imported usage preserves a prior good observation', () => {
+  const path = join(mkdtempSync(join(tmpdir(), 'usage-import-retain-')), 'usage.json');
+  writeUsageEvidence({ observedAt: '2026-10-26T00:00:00Z', records: { one: { count: 7, observedAt: '2026-10-26T00:00:00Z', unit: 'browsers' } } }, path);
+  const imported = importUsageExport({ kind: 'portfolio-usage', schemaVersion: 1, usage: { updatedAt: '2026-10-27T00:00:00Z', records: {
+    one: { checkedAt: '2026-10-27T00:00:00Z', proxy: { count: null }, limitations: 'No browser proxy available.' },
+  } } }, projects);
+  writeUsageEvidence(imported, path);
+  const row = readUsageEvidence(path).records.one;
+  assert.equal(row.status, 'retained');
+  assert.equal(row.count, 7);
+  assert.equal(row.observedAt, '2026-10-26T00:00:00Z');
+  assert.match(row.gap, /Incoming row had no numeric count/);
+});
+
 test('lane-wide usage failure remains unknown without falsely retaining a prior value', () => {
   const snapshot = usageFailureSnapshot(projects, () => '2026-10-27T00:00:00Z');
   assert.equal(snapshot.records.one.status, 'failed');
   assert.equal(usageObservations(projects, snapshot)[0].value, null);
   assert.doesNotMatch(snapshot.records.one.gap, /retained/);
+});
+
+test('usage receipt summary preserves partial coverage counts', () => {
+  assert.equal(summarizeUsageSnapshot({ records: {
+    available: { status: 'available', count: 2 }, unmapped: { status: 'unmapped', count: null }, failed: { status: 'failed', count: null },
+  } }).summary, 'App Health usage refresh: 1 available, 1 unmapped, 1 failed.');
 });
 
 test('credential resolution is asynchronous and never enters aggregate evidence', async () => {

@@ -21,8 +21,11 @@ export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) 
   const previous = readUsageEvidence(path);
   const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
     const old = previous?.records?.[id];
-    return [id, row.status === 'failed' && number(old?.count) !== null
-      ? { ...old, status: 'retained', lastAttemptAt: snapshot.observedAt, gap: `Refresh failed; retained observation from ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
+    const failed = row.status === 'failed';
+    const legacyUnknown = row.status === undefined && row.count === null;
+    return [id, (failed || legacyUnknown) && number(old?.count) !== null
+      ? { ...old, status: 'retained', lastAttemptAt: snapshot.observedAt,
+        gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained observation from ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
   snapshot = { ...snapshot, records };
@@ -66,6 +69,15 @@ export function usageFailureSnapshot(projects, now = () => new Date().toISOStrin
       status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: observedAt,
       gap: 'App Health usage refresh failed; source remains unknown unless a last-good observation exists.',
     }])),
+  };
+}
+
+export function summarizeUsageSnapshot(snapshot) {
+  const rows = Object.values(snapshot.records);
+  const counts = Object.fromEntries(['available', 'unmapped', 'failed'].map((status) => [status, rows.filter((row) => row.status === status).length]));
+  return {
+    resultCount: rows.filter((row) => row.count !== null).length,
+    summary: `App Health usage refresh: ${counts.available} available, ${counts.unmapped} unmapped, ${counts.failed} failed.`,
   };
 }
 

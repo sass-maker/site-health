@@ -68,13 +68,23 @@ export function providerRevenueObservations(projects, snapshot) {
     return row.totals.map((total, index) => ({
       projectId: project.id, id: `provider-revenue:${index}`,
       label: `Connected provider net revenue · ${total.provider} · ${total.account_id} · ${total.mode}`,
-      value: total.mode === 'live' ? total.net_minor : null, unit: `${total.currency} minor units`, observedAt: row.observedAt,
-      qualification: total.mode === 'live' ? 'proxy' : 'unknown', source: 'app-health.provider-revenue', window: row.window,
+      value: total.mode === 'live' && row.status !== 'retained' ? total.net_minor : null, unit: `${total.currency} minor units`, observedAt: row.observedAt,
+      qualification: total.mode === 'live' && row.status !== 'retained' ? 'proxy' : 'unknown', source: 'app-health.provider-revenue', window: row.window,
+      status: row.status ?? 'available',
       provider: total.provider, accountId: total.account_id, mode: total.mode, currency: total.currency,
       gap: [row.gap, total.mode === 'test' ? 'Test-mode amount is retained in the private snapshot and is not counted as revenue evidence.' : null,
         'Provider-object-created aggregate; namespaces and currencies are separate. Minor units are not converted; no qualified financial score.'].filter(Boolean).join(' '),
     }));
   });
+}
+
+export function summarizeProviderRevenueSnapshot(snapshot) {
+  const rows = Object.values(snapshot.records);
+  const counts = Object.fromEntries(['available', 'empty', 'unmapped', 'failed'].map((status) => [status, rows.filter((row) => row.status === status).length]));
+  return {
+    resultCount: rows.reduce((sum, row) => sum + (row.totals?.length ?? 0), 0),
+    summary: `Provider revenue refresh: ${counts.available} available, ${counts.empty} empty, ${counts.unmapped} unmapped, ${counts.failed} failed.`,
+  };
 }
 
 function validTotal(total) {
@@ -133,7 +143,7 @@ export async function collectProviderRevenueEvidence({ projects, credential, fet
             : `Provider-object-created basis. ${report.coverage_note}`.slice(0, 1600),
         };
       } catch {
-        records[project.id] = { status: 'failed', totals: null, observedAt: null, lastAttemptAt: iso(now()), gap: 'Provider aggregate unavailable or invalid; source remains unknown unless a last-good observation exists.' };
+        records[project.id] = { status: 'failed', totals: null, observedAt: null, lastAttemptAt: iso(now()), gap: 'Provider aggregate unavailable or invalid; source remains unknown.' };
       }
     }
   }));
