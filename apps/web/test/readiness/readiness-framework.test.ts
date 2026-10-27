@@ -43,6 +43,8 @@ describe('independent work estimates and verification status edits', () => {
     state.requirements['product-core'] = requirementStatusChange(entry, 'verified');
     expect(() => validateReadinessState(state)).not.toThrow();
     expect(requirementCompletion(state.requirements['product-core'])).toBe(100);
+    expect(state.requirements['product-core'].confidence).toBe('medium');
+    expect(state.requirements['product-core'].completion).toBeNull();
     expect(requirementStatusChange(entry, 'awaiting-evidence')).toEqual({...entry, status: 'awaiting-evidence'});
     expect(requirementCompletion(requirementStatusChange(entry, 'not-started'))).toBeNull();
   });

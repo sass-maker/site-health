@@ -79,6 +79,6 @@ export function frameworkHref(area: ReadinessArea, view: FrameworkView, project 
 
 // Status is verification state, not a substitute for an explicit work estimate.
 export function requirementStatusChange(entry: Requirement, status: Requirement['status']): Requirement {
-  if (['verified', 'not-started', 'exempt'].includes(status)) return { ...entry, status, completion: null, confidence: undefined };
+  if (['verified', 'not-started', 'exempt'].includes(status)) return { ...entry, status, completion: null };
   return { ...entry, status };
 }
