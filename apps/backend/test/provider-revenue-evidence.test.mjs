@@ -88,6 +88,7 @@ test('failed refresh keeps prior totals and observed date in private snapshot an
   assert.equal(observation.status, 'retained');
   assert.equal(observation.value, null);
   assert.equal(observation.observedAt, '2026-10-26T00:00:00.000Z');
+  assert.match(observation.gap, /Last-known net 1000 USD minor units observed 2026-10-26T00:00:00.000Z; retained historical value/);
   assert.equal(statSync(path).mode & 0o777, 0o600);
   const history = readFileSync(join(dir, 'provider-revenue-history', '2026-10-27.json'), 'utf8');
   assert.ok(history.includes('1000'));

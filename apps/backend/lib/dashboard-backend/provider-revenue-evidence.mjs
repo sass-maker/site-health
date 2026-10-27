@@ -72,7 +72,8 @@ export function providerRevenueObservations(projects, snapshot) {
       qualification: total.mode === 'live' && row.status !== 'retained' ? 'proxy' : 'unknown', source: 'app-health.provider-revenue', window: row.window,
       status: row.status ?? 'available',
       provider: total.provider, accountId: total.account_id, mode: total.mode, currency: total.currency,
-      gap: [row.gap, total.mode === 'test' ? 'Test-mode amount is retained in the private snapshot and is not counted as revenue evidence.' : null,
+      gap: [row.gap, row.status === 'retained' ? `Last-known net ${total.net_minor} ${total.currency} minor units observed ${row.observedAt}; retained historical value, current refresh unavailable.` : null,
+        total.mode === 'test' ? 'Test-mode amount is retained in the private snapshot and is not counted as revenue evidence.' : null,
         'Provider-object-created aggregate; namespaces and currencies are separate. Minor units are not converted; no qualified financial score.'].filter(Boolean).join(' '),
     }));
   });

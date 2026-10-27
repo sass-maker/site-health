@@ -55,7 +55,10 @@ test('failed refresh retains the original good value and observation date', () =
   assert.equal(snapshot.records.one.status, 'retained');
   assert.equal(snapshot.records.one.count, 7);
   assert.equal(snapshot.records.one.observedAt, '2026-10-26T00:00:00Z');
-  assert.match(snapshot.records.one.gap, /Refresh failed; retained observation/);
+  assert.match(snapshot.records.one.gap, /Refresh failed; retained last-known 7 browsers observed 2026-10-26T00:00:00Z/);
+  const observations = usageObservations(projects, snapshot);
+  assert.ok(observations.every((observation) => observation.status === 'retained' && observation.value === null && observation.qualification === 'unknown'));
+  assert.ok(observations.every((observation) => observation.observedAt === '2026-10-26T00:00:00Z'));
 });
 
 test('null-count imported usage preserves a prior good observation', () => {
@@ -69,7 +72,7 @@ test('null-count imported usage preserves a prior good observation', () => {
   assert.equal(row.status, 'retained');
   assert.equal(row.count, 7);
   assert.equal(row.observedAt, '2026-10-26T00:00:00Z');
-  assert.match(row.gap, /Incoming row had no numeric count/);
+  assert.match(row.gap, /Incoming row had no numeric count; retained last-known 7 browsers observed 2026-10-26T00:00:00Z/);
 });
 
 test('lane-wide usage failure remains unknown without falsely retaining a prior value', () => {

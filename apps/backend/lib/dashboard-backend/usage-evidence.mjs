@@ -25,7 +25,7 @@ export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) 
     const legacyUnknown = row.status === undefined && row.count === null;
     return [id, (failed || legacyUnknown) && number(old?.count) !== null
       ? { ...old, status: 'retained', lastAttemptAt: snapshot.observedAt,
-        gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained observation from ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
+        gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained last-known ${old.count} ${old.unit === 'sessions' ? 'sessions' : 'browsers'} observed ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
   snapshot = { ...snapshot, records };
@@ -48,15 +48,17 @@ export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) 
 export function usageObservations(projects, snapshot) {
   return projects.filter(isCurrentPortfolioProject).flatMap((project) => {
     const row = snapshot?.records?.[project.id];
+    const retained = row?.status === 'retained';
     return [
-      { id: 'monthly-browser-proxy', label: '30-day browser / session proxy', value: number(row?.count),
+      { id: 'monthly-browser-proxy', label: '30-day browser / session proxy', value: retained ? null : number(row?.count),
         unit: row?.unit === 'sessions' ? 'sessions' : 'browsers', observedAt: row?.observedAt ?? null,
-        window: row?.window ?? 'rolling 30 days', qualification: number(row?.count) === null ? 'unknown' : 'proxy',
+        window: row?.window ?? 'rolling 30 days', qualification: retained || number(row?.count) === null ? 'unknown' : 'proxy',
+        status: row?.status ?? 'unknown',
         gap: row?.gap ?? 'Browser identifiers are not people; QA and automation may remain. No qualified core-action or churn cohort.' },
-      { id: 'high-intent-events', metricId: 'high-intent', label: 'Named action events (unqualified)', value: number(row?.actionEvents),
+      { id: 'high-intent-events', metricId: 'high-intent', label: 'Named action events (unqualified)', value: retained ? null : number(row?.actionEvents),
         unit: 'events', observedAt: row?.observedAt ?? null, window: row?.window ?? 'rolling 30 days',
-        qualification: number(row?.actionEvents) === null ? 'unknown' : 'proxy',
-        gap: 'Event occurrences are not completed core workflows or distinct active people.' },
+        qualification: retained || number(row?.actionEvents) === null ? 'unknown' : 'proxy', status: row?.status ?? 'unknown',
+        gap: [row?.gap, 'Event occurrences are not completed core workflows or distinct active people.'].filter(Boolean).join(' ') },
     ].map((observation) => ({ ...observation, projectId: project.id, source: 'app-health.browser-report' }));
   });
 }
