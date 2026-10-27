@@ -7,6 +7,9 @@ import { Button } from '@saas-maker/ui/components/button';
 import { Badge } from '@saas-maker/ui/components/badge';
 import { PageHeader } from './page-header';
 import { ScoreboardWorkbench } from './scoreboard-workbench';
+import { ReadinessFramework } from './readiness-framework-view';
+import { frameworkRoute } from './readiness-framework';
+import { LocalLink, useSearchParams } from './navigation';
 import {
   importSnapshot,
   addAssessmentHistory,
@@ -33,6 +36,7 @@ function saveFile(name: string, data: unknown) {
 }
 
 export function ProductScoreboard() {
+  const historical = frameworkRoute(useSearchParams()).historical;
   useEffect(() => bindReadinessNavigation(document, window), []);
   const storageKey = 'sitehealth.scoreboard.v1:owner';
   const [workspace, setWorkspace] = useState<ScoreWorkspace | null>(null);
@@ -319,7 +323,15 @@ export function ProductScoreboard() {
       )}
       {!loaded ? (
         <p role="status">Opening your saved scoreboard…</p>
+      ) : !historical ? (
+        <ReadinessFramework onImport={() => input.current?.click()} onExport={workspace ? () => saveFile(`sitehealth-scoreboard-${new Date().toISOString().slice(0, 10)}.json`, workspace) : undefined} />
       ) : workspace ? (
+        <>
+        <section className="mb-6 rounded-lg border border-border bg-muted/50 p-4 text-sm leading-6" aria-label="Historical assessment notice">
+          <strong>Previous six-category assessments</strong>
+          <p className="mt-1 text-muted-foreground">These scores, evidence and lever history retain their original structure. They have not been converted into the new two-category framework.</p>
+          <Button variant="ghost" asChild><LocalLink href="/readiness">Current framework →</LocalLink></Button>
+        </section>
         <ScoreboardWorkbench
           workspace={workspace}
           onChange={change}
@@ -332,11 +344,12 @@ export function ProductScoreboard() {
           }
           saved={saved}
         />
+        </>
       ) : (
         <div className="space-y-6">
           <PageHeader
-            title="Product scoreboard"
-            description="Compare the scores. Choose one useful change."
+            title="Previous assessments"
+            description="Earlier scores and evidence retain their original assessment structure."
           />
           <section className="rounded-lg border border-border bg-card p-6 sm:p-10">
             <Badge variant="outline">Private owner workspace</Badge>
@@ -344,7 +357,7 @@ export function ProductScoreboard() {
               Bring the review. Pick the next useful change.
             </h2>
             <p className="mt-3 max-w-2xl text-muted-foreground">
-              Import your review to compare six scores per product, inspect the evidence and pick
+              Import an earlier review to compare its original scores, inspect the evidence and pick
               the next lever. Your progress and outcomes stay with the review on this device.
             </p>
             <Button className="mt-6" onClick={() => input.current?.click()}>

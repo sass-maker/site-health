@@ -1,7 +1,8 @@
 @import "@saas-maker/ui/theme.css";
 @import "tailwindcss/utilities.css" layer(utilities);
-/* Shared primitives only; page templates and blocks are not scanned. */
+/* Scan the shared primitives and the complete page-header block used by readiness. */
 @source "../../node_modules/@saas-maker/ui/src/components";
+@source "../../node_modules/@saas-maker/ui/src/blocks/app.tsx";
 @source "../../node_modules/@saas-maker/ui/src/lib/surface-motion.ts";
 @source "../";
 

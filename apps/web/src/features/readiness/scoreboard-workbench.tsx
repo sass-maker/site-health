@@ -173,6 +173,7 @@ export function ScoreboardWorkbench({
     if (focusDomain && snapshot.projects.some((p) => p.domains.includes(focusDomain)))
       setDomain(focusDomain);
     if (params.get('mode') === 'levers') setView('actions');
+    if (params.get('mode') === 'history') setView('history');
   }, [byProject, snapshot.projects]);
 
   const projects = useMemo(
