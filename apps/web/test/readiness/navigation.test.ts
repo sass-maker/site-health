@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { navigateWithinReadiness, protectUnsavedWorkspace } from '../../src/features/readiness/navigation-state';
+import { bindReadinessNavigation, navigateWithinReadiness, protectUnsavedWorkspace } from '../../src/features/readiness/navigation-state';
 
 function browser() {
   const events = new EventTarget();
@@ -43,6 +43,41 @@ describe('readiness navigation with tab-only recovery', () => {
     const page = browser();
     expect(navigateWithinReadiness('/projects', page)).toBe(false);
     expect(navigateWithinReadiness('https://example.com/readiness', page)).toBe(false);
+    expect(page.history.pushState).not.toHaveBeenCalled();
+  });
+});
+
+describe('static sidebar navigation bridge', () => {
+  function click(root: EventTarget, href: string, overrides: Record<string, unknown> = {}, attributes: Record<string, string> = {}) {
+    const event = new Event('click', { cancelable: true });
+    const attrs = { href, ...attributes };
+    Object.defineProperties(event, Object.fromEntries(Object.entries({ button: 0, target: { closest: (selector: string) => selector === 'a[data-readiness-link]' ? { hasAttribute: (key: string) => key in attrs, getAttribute: (key: string) => attrs[key as keyof typeof attrs] ?? null } : null }, ...overrides }).map(([key, value]) => [key, { value }])));
+    root.dispatchEvent(event);
+    return event;
+  }
+  it('keeps all six sidebar destinations mounted and Back restores the prior category with the unsaved guard intact', () => {
+    const page = browser(); const root = new EventTarget(); const changes: string[] = [];
+    page.addEventListener('popstate', () => changes.push(page.location.search));
+    const unbind = bindReadinessNavigation(root as unknown as Document, page);
+    const unprotect = protectUnsavedWorkspace(page);
+    for (const category of ['product', 'design', 'seo', 'geo', 'measurement', 'engineering']) {
+      expect(click(root, `/readiness?page=category&category=${category}`).defaultPrevented).toBe(true);
+      expect(page.location.search).toContain(`category=${category}`);
+    }
+    expect(changes).toHaveLength(6);
+    page.back(); expect(page.location.search).toContain('category=measurement');
+    expect(page.dispatchEvent(new Event('beforeunload', { cancelable: true }))).toBe(false);
+    unbind(); expect(click(root, '/readiness').defaultPrevented).toBe(false);
+    unprotect();
+  });
+  it('preserves modifiers, new tabs, downloads, external destinations and already-handled clicks', () => {
+    const page = browser(); const root = new EventTarget();
+    bindReadinessNavigation(root as unknown as Document, page);
+    for (const override of [{ ctrlKey: true }, { metaKey: true }, { shiftKey: true }, { altKey: true }, { button: 1 }, { defaultPrevented: true }]) click(root, '/readiness?page=category&category=geo', override);
+    click(root, '/readiness', {}, { target: '_blank' });
+    click(root, '/readiness', {}, { download: '' });
+    expect(click(root, 'https://example.com/readiness').defaultPrevented).toBe(false);
+    expect(click(root, '/projects').defaultPrevented).toBe(false);
     expect(page.history.pushState).not.toHaveBeenCalled();
   });
 });

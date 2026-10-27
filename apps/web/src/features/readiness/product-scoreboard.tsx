@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Upload } from 'lucide-react';
-import { protectUnsavedWorkspace } from './navigation-state';
+import { bindReadinessNavigation, protectUnsavedWorkspace } from './navigation-state';
 import { Button } from '@saas-maker/ui/components/button';
 import { Badge } from '@saas-maker/ui/components/badge';
 import { PageHeader } from './page-header';
@@ -33,6 +33,7 @@ function saveFile(name: string, data: unknown) {
 }
 
 export function ProductScoreboard() {
+  useEffect(() => bindReadinessNavigation(document, window), []);
   const storageKey = 'sitehealth.scoreboard.v1:owner';
   const [workspace, setWorkspace] = useState<ScoreWorkspace | null>(null);
   const [loaded, setLoaded] = useState(false);
