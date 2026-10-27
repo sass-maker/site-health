@@ -5,71 +5,22 @@
 @source "../../node_modules/@saas-maker/ui/src/lib/surface-motion.ts";
 @source "../";
 
-/* Direction A: quiet light surfaces with a forest-green action color. */
-html[data-theme="ink"][data-mode="light"] {
-  --background: #ffffff;
-  --foreground: #202b2a;
-  --surface: #f7f9f6;
-  --card: #ffffff;
-  --card-foreground: #202b2a;
-  --popover: #ffffff;
-  --popover-foreground: #202b2a;
-  --primary: #235d47;
-  --primary-foreground: #ffffff;
-  --brand: #235d47;
-  --brand-soft: #eaf1e9;
-  --secondary: #f0f4ef;
-  --secondary-foreground: #254a34;
-  --accent: #eaf1e9;
-  --accent-foreground: #254a34;
-  --muted: #f4f7f4;
-  --muted-foreground: #63716a;
-  --border: #e0e7e1;
-  --input: #d0dbd2;
-  --ring: #4b8061;
-  --destructive: #a83c35;
-  --border-strong: #c4d1c7;
-  --primary-hover: #184b37;
-  --success: #2d7148;
-  --warning: #946322;
-  --critical: #a83c35;
-  --info: #455c96;
-  --overlay: rgb(15 25 20 / .42);
-  --shadow: rgb(15 25 20 / .14);
-  --ui-case: none;
-  --display-case: none;
-}
-
-html[data-theme="ink"][data-mode="dark"] {
-  --background: #111714;
-  --foreground: #e6eee8;
-  --surface: #171f1b;
-  --card: #19221d;
-  --card-foreground: #e6eee8;
-  --popover: #1c2620;
-  --popover-foreground: #e6eee8;
-  --primary: #a1d7b4;
-  --primary-foreground: #132c1c;
-  --primary-hover: #b6e4c6;
-  --brand: #a1d7b4;
-  --brand-soft: #263e2e;
-  --secondary: #25332b;
-  --secondary-foreground: #d3e5d8;
-  --accent: #263e2e;
-  --accent-foreground: #b8ddc4;
-  --muted: #1b261f;
-  --muted-foreground: #a8b9ac;
-  --border: #34453a;
-  --border-strong: #4b6052;
-  --input: #4b6052;
-  --ring: #a1d7b4;
-  --destructive: #f1a6a0;
-  --success: #a1d7b4;
-  --warning: #e3c284;
-  --critical: #f1a6a0;
-  --info: #b1c2ec;
-  --overlay: rgb(0 8 3 / .64);
-  --shadow: rgb(0 8 3 / .32);
+/* Use the library's neutral base surfaces in both modes. Legacy dashboard
+   roles are aliases, not a second palette. Status meaning remains in labels. */
+html[data-theme="base"][data-mode] {
+  --brand: var(--primary);
+  --brand-foreground: var(--primary-foreground);
+  --brand-soft: var(--secondary);
+  --ring: var(--primary);
+  --primary-hover: color-mix(in srgb, var(--primary) 88%, var(--background));
+  --border-strong: var(--input);
+  --overlay: var(--scrim);
+  --shadow: color-mix(in srgb, var(--foreground) 14%, transparent);
+  --success: var(--foreground);
+  --warning: var(--foreground);
+  --critical: var(--foreground);
+  --info: var(--foreground);
+  --destructive: var(--foreground);
   --ui-case: none;
   --display-case: none;
 }

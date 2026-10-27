@@ -1,4 +1,7 @@
-import { filterOutcomeRows, outcomeTitle } from "../lib/outcome-list.mjs";
+import { createElement } from "react";
+import { createRoot, type Root } from "react-dom/client";
+import EvidenceTable, { type EvidenceColumn } from "../components/EvidenceTable";
+import { numericEvidence } from "../lib/evidence-table.mjs";
 import { evidenceStateLabel, refreshAttemptLabel } from "../lib/evidence-labels.mjs";
 import { downloadLocalUsageBundle, startLocalUsageTracking } from "../lib/local-usage.mjs";
 import { dashboardApi } from "../lib/dashboard-api.mjs";
@@ -153,11 +156,15 @@ function empty(message: string) {
   ]);
 }
 
+const evidenceRoots = new WeakMap<HTMLElement, Root>();
+
 function replace(slot: string, content: Node) {
   const target = document.querySelector<HTMLElement>(`[data-dashboard-slot="${slot}"]`);
   if (!target) return;
   target.className = "";
   target.removeAttribute("aria-busy");
+  evidenceRoots.get(target)?.unmount();
+  evidenceRoots.delete(target);
   target.replaceChildren(content);
 }
 
@@ -180,8 +187,8 @@ const attentionStates = new Set([
 ]);
 
 function signalValue(signal?: JsonRecord | null, suffix = "") {
-  const numeric = Number(signal?.value);
-  return Number.isFinite(numeric)
+  const numeric = numericEvidence(signal?.value);
+  return numeric !== null
     ? `${numeric.toLocaleString("en", { maximumFractionDigits: 1 })}${suffix}`
     : "Not measured";
 }
@@ -434,7 +441,7 @@ function searchResult(row: JsonRecord) {
 // "0 of 12" is a measured zero and reads differently from an unmeasured surface, so the count
 // renderer only falls back to the absence label when the count itself is missing.
 function countOf(count: unknown, total: unknown, absence = "Not measured") {
-  return Number.isFinite(Number(count)) && Number.isFinite(Number(total))
+  return numericEvidence(count) !== null && numericEvidence(total) !== null
     ? `${Number(count)} of ${Number(total)}`
     : absence;
 }
@@ -477,7 +484,7 @@ function geoResult(row: JsonRecord) {
       {
         label: "Page one (A+B)",
         value: countOf(
-          Number.isFinite(Number(row.classes?.A)) ? Number(row.classes.A) + Number(row.classes.B) : null,
+          numericEvidence(row.classes?.A) !== null && numericEvidence(row.classes?.B) !== null ? row.classes.A + row.classes.B : null,
           row.queries,
         ),
         detail: GEO_CLASS_NOTES.B,
@@ -520,17 +527,22 @@ function seoAuditResult(row: JsonRecord) {
   ]);
 }
 
-function outcomeRows(rows: JsonRecord[], renderMetrics: (row: JsonRecord) => Node) {
-  return element("div", { class: "project-directory" }, rows.map((row) =>
-    element("article", { class: "project-directory__row" }, [
-      element("div", { class: "project-directory__identity" }, [
-        row.domain && row.domain !== outcomeTitle(row) ? element("span", {}, [row.domain]) : null,
-        element("h3", {}, [outcomeTitle(row)]),
-        row.observedAt ? element("small", { class: "project-directory__domain" }, [formatted(row.observedAt)]) : null,
-      ]),
-      ["not-measured", "not-collected"].includes(row.status) ? element("span", { "aria-hidden": "true" }) : state(row.status),
-      renderMetrics(row),
-    ])));
+function evidenceTable(slot: string, rows: JsonRecord[], label: string, columns: EvidenceColumn[], detail: (row: JsonRecord) => Node) {
+  const target = document.querySelector<HTMLElement>(`[data-dashboard-slot="${slot}"]`);
+  if (!target) return;
+  target.className = "";
+  target.removeAttribute("aria-busy");
+  let root = evidenceRoots.get(target);
+  if (!root) {
+    target.replaceChildren();
+    root = createRoot(target);
+    evidenceRoots.set(target, root);
+  }
+  root.render(createElement(EvidenceTable, { rows, label, columns, detail, projectHref, formatted }));
+}
+
+function signalColumn(id: string, label: string, suffix = ""): EvidenceColumn {
+  return { id, label, value: row => numericEvidence(row[id]?.value), display: row => value(row[id], suffix) };
 }
 
 async function renderProjects() {
@@ -758,28 +770,16 @@ function bindProjectFilters(projects: JsonRecord[]) {
   apply();
 }
 
-function outcomeBrowser(rows: JsonRecord[], render: (rows: JsonRecord[]) => Node, orders: Array<[string, string]> = [["name", "Name"]]) {
-  const input = element("input", { type: "search", placeholder: "Find product or domain…", "aria-label": "Find product or domain" });
-  const select = element("select", { "aria-label": "Order evidence" }, orders.map(([value, label]) => element("option", { value }, [label])));
-  const count = element("span", { class: "outcome-browser__count", "aria-live": "polite" });
-  const content = element("div");
-  const update = () => {
-    const visible = filterOutcomeRows(rows, input.value, select.value);
-    count.textContent = `${visible.length} of ${rows.length}`;
-    content.replaceChildren(visible.length ? render(visible) : empty("No products or domains match this search."));
-  };
-  input.addEventListener("input", update);
-  select.addEventListener("change", update);
-  update();
-  return element("div", { class: "outcome-browser" }, [element("div", { class: "outcome-browser__tools" }, [input, orders.length > 1 ? select : null, count]), content]);
-}
 
 async function renderDomains() {
   const payload = await api("/v1/outcomes/domains");
-  replace("domains", payload.rows.length ? outcomeBrowser(payload.rows, (rows) => outcomeRows(rows, (row) => metricGrid([
-    { label: "DRANK", value: value(row.signal), ...(row.signal?.history ? { detail: row.signal.history } : {}) },
-    { label: "Projects", value: String(row.projects?.length ?? 0) },
-  ]))) : empty("No domain evidence"));
+  evidenceTable("domains", payload.rows, "Domain evidence", [
+    signalColumn("signal", "DRANK"),
+    { id: "projects", label: "Projects", value: row => row.projects?.length ?? 0, display: row => String(row.projects?.length ?? 0) },
+  ], row => element("div", {}, [
+    metricGrid([{ label: "DRANK", value: value(row.signal), detail: row.signal?.history ?? "No recorded history" }]),
+    element("div", { class: "evidence-project-links" }, (row.projects ?? []).map((project: JsonRecord) => element("a", { href: projectHref(project.id) }, [project.name ?? project.id]))),
+  ]));
   updateOutcomeTime(payload);
   updateCoverage("domains", payload, ["not-collected", "not-measured", "unknown"]);
 }
@@ -816,14 +816,9 @@ async function renderSearch() {
   const scopeNote = document.querySelector<HTMLElement>("[data-search-scope-note]");
   const rows = payload.rows;
   if (scopeNote) scopeNote.textContent = `${rows.length} properties · ${rows.filter((row: JsonRecord) => row.observedAt).length} measured`;
-  replace("search", rows.length
-    ? outcomeBrowser(rows, (visible) => element("div", { class: "search-results" }, visible.map(searchResult)), [["name", "Name"], ["clicks", "Most clicks"], ["impressions", "Most impressions"]])
-    : empty("No Google Search evidence for this scope"));
-  replace("seo-audit", audit.unavailable
-    ? empty("On-page SEO audit unavailable")
-    : audit.rows.length
-      ? outcomeRows(audit.rows, seoAuditResult)
-      : empty("No on-page SEO audit evidence"));
+  evidenceTable("search", rows, "Google Search evidence", [signalColumn("clicks", "Clicks"), signalColumn("impressions", "Impressions"), signalColumn("ctr", "CTR", "%"), signalColumn("averagePosition", "Position")], searchResult);
+  if (audit.unavailable) replace("seo-audit", empty("On-page SEO audit unavailable"));
+  else evidenceTable("seo-audit", audit.rows, "On-page SEO audit", [signalColumn("pass", "Passed"), signalColumn("fail", "Failed"), signalColumn("warn", "Warnings"), { id: "reachable", label: "Reachable", value: row => row.reachable, display: row => row.reachable == null ? "Not audited" : row.reachable ? "Yes" : "No" }], seoAuditResult);
   updateCoverage("seo-audit", audit, ["not-audited"]);
   updateOutcomeTime(payload);
 }
@@ -834,20 +829,22 @@ async function renderAiAwareness() {
     api("/v1/outcomes/ai-awareness"),
     optionalOutcome("/v1/outcomes/geo-awareness"),
   ]);
-  replace("ai-awareness", payload.rows.length ? outcomeRows(payload.rows, (row) => metricGrid([
+  evidenceTable("ai-awareness", payload.rows, "Core AI awareness", [signalColumn("mention", "Mentioned", "%"), signalColumn("recommendation", "Recommended", "%"), signalColumn("citation", "Cited", "%"), signalColumn("averageRank", "Average rank")], row => metricGrid([
     { label: "Mentioned", value: value(row.mention, "%") },
     { label: "Recommended", value: value(row.recommendation, "%") },
     { label: "Cited", value: value(row.citation, "%") },
     { label: "Average rank", value: value(row.averageRank) },
-  ])) : empty("No provider-backed AI evidence"));
+  ]));
   updateCoverage("ai-awareness", payload, ["not-measured"]);
   const awarenessState = document.querySelector<HTMLElement>("[data-ai-awareness-state]");
   if (awarenessState) awarenessState.textContent = evidenceStateLabel(payload.source);
-  replace("geo-awareness", geo.unavailable
-    ? empty("GEO Observatory unavailable")
-    : geo.rows.length
-      ? outcomeRows(geo.rows, geoResult)
-      : empty("No GEO Observatory evidence"));
+  if (geo.unavailable) replace("geo-awareness", empty("GEO Observatory unavailable"));
+  else evidenceTable("geo-awareness", geo.rows, "Organic ranking evidence", [
+    { id: "topThreeCount", label: "Top three", value: row => numericEvidence(row.classes?.A), display: row => countOf(row.classes?.A, row.queries) },
+    { id: "pageOneCount", label: "Page one", value: row => numericEvidence(row.classes?.A) !== null && numericEvidence(row.classes?.B) !== null ? row.classes.A + row.classes.B : null, display: row => countOf(numericEvidence(row.classes?.A) !== null && numericEvidence(row.classes?.B) !== null ? row.classes.A + row.classes.B : null, row.queries) },
+    { id: "absent", label: "Absent", value: row => numericEvidence(row.classes?.C), display: row => countOf(row.classes?.C, row.queries) },
+    signalColumn("topThree", "Top-three rate", "%"),
+  ], geoResult);
   updateCoverage("geo-awareness", geo, ["not-measured", "not-configured"]);
   updateOutcomeTime(payload);
   await brandWork;
@@ -1365,10 +1362,10 @@ async function renderBrandEvidence() {
 
 async function renderPerformance() {
   const payload = await api("/v1/outcomes/performance");
-  replace("performance", payload.rows.length ? outcomeBrowser(payload.rows, (rows) => outcomeRows(rows, (row) => metricGrid([
-    { label: "PSI", value: value(row.psi) },
-    { label: "LCP", value: value(row.lcp, " ms") },
-  ])), [["name", "Name"], ["psi-low", "Lowest PSI"], ["psi-high", "Highest PSI"], ["lcp-slow", "Slowest LCP"]]) : empty("No PSI evidence"));
+  evidenceTable("performance", payload.rows, "Performance evidence", [signalColumn("psi", "PSI"), signalColumn("lcp", "LCP", " ms")], row => metricGrid([
+    { label: "PSI", value: value(row.psi), detail: row.psi?.history ?? "No recorded history" },
+    { label: "LCP", value: value(row.lcp, " ms"), detail: row.lcp?.history ?? "No recorded history" },
+  ]));
   updateOutcomeTime(payload);
   updateCoverage("performance", payload, ["not-collected", "not-measured", "unknown"]);
 }
