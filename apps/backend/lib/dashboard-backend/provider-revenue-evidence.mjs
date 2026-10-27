@@ -23,7 +23,7 @@ export function writeProviderRevenueEvidence(snapshot, path = defaultProviderRev
   const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
     const old = previous?.records?.[id];
     return [id, row.status === 'failed' && Array.isArray(old?.totals)
-      ? { ...old, lastAttemptAt: snapshot.observedAt, gap: `Refresh unavailable; retained observation from ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
+      ? { ...old, status: 'retained', lastAttemptAt: snapshot.observedAt, gap: `Refresh unavailable; retained observation from ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
   snapshot = { ...snapshot, records };

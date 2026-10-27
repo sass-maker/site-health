@@ -74,6 +74,7 @@ test('failed refresh keeps prior totals and observed date in private snapshot an
     status: 'failed', totals: null, observedAt: null, lastAttemptAt: '2026-10-27T00:00:00.000Z', gap: 'Invalid response',
   } } }, path);
   const snapshot = readProviderRevenueEvidence(path);
+  assert.equal(snapshot.records.one.status, 'retained');
   assert.equal(snapshot.records.one.totals[0].net_minor, 1000);
   assert.equal(snapshot.records.one.observedAt, '2026-10-26T00:00:00.000Z');
   assert.match(snapshot.records.one.gap, /retained observation/);
