@@ -65,7 +65,7 @@ export function ReadinessFramework({ onImport, onExport }: { onImport: () => voi
   }, [retry]);
   const project = products?.find(p => p.id === params.get('project'));
   const area = READINESS_AREAS.find(a => a.id === route.area);
-  const controls = <div className="flex flex-wrap gap-2">{onExport && <Button variant="outline" onClick={onExport}>Export saved workspace</Button>}<Button variant="ghost" onClick={onImport}>Import backup</Button></div>;
+  const controls = <div className="flex flex-wrap gap-2">{onExport && <Button variant="outline" onClick={onExport}>Export saved workspace</Button>}<Button variant="ghost" onClick={onImport}>Import previous data</Button></div>;
   return <section className="space-y-7" aria-label="Two-category readiness framework">
     <PageHeader title={area?.label ?? 'Product readiness'} description={area?.description ?? 'Two categories. Separate Effort and Results. Measure first, then assess.'} actions={controls} />
     <div className="mx-auto max-w-[1200px] space-y-7 px-1 pb-10 sm:px-3">

@@ -19,10 +19,11 @@ describe('current readiness framework and historical routes', () => {
     expect(frameworkRoute(new URLSearchParams('pillar=unknown&tab=unsupported'))).toEqual({ historical: false, area: null, view: 'effort' });
   });
   it('retains previous assessment, evidence and lever deep links without relabelling old scores as current', () => {
-    for (const query of ['page=legacy&mode=history', 'page=category&category=geo', 'product=codevetter', 'category=seo', 'domain=codevetter.com', 'mode=levers&project=codevetter']) {
+    for (const query of ['page=legacy&mode=history', 'page=category&category=geo', 'product=codevetter', 'category=seo', 'domain=codevetter.com', 'mode=levers&project=codevetter', 'q=CodeVetter']) {
       const params = new URLSearchParams(query);
+      const originalQuery = params.toString();
       expect(frameworkRoute(params).historical).toBe(true);
-      expect(params.toString()).toBe(new URLSearchParams(query).toString());
+      expect(params.toString()).toBe(originalQuery);
     }
   });
 });

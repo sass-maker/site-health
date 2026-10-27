@@ -59,7 +59,7 @@ export const LEVEL_STRUCTURE = Array.from({ length: 5 }, (_, i) => ({
 
 export function frameworkRoute(params: URLSearchParams) {
   const page = params.get('page');
-  const historical = page === 'legacy' || page === 'category' || params.has('product') || params.has('category') || params.has('domain') || params.get('mode') === 'levers' || params.get('mode') === 'history';
+  const historical = page === 'legacy' || page === 'category' || params.has('product') || params.has('category') || params.has('domain') || params.has('q') || params.get('mode') === 'levers' || params.get('mode') === 'history';
   const pillar = params.get('pillar');
   const area: ReadinessArea | null = pillar === 'product' || pillar === 'growth' ? pillar : null;
   const tab = params.get('tab');

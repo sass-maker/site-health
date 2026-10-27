@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Upload } from 'lucide-react';
-import { bindReadinessNavigation, protectUnsavedWorkspace } from './navigation-state';
+import { bindReadinessNavigation, protectUnsavedWorkspace, navigateWithinReadiness } from './navigation-state';
 import { Button } from '@saas-maker/ui/components/button';
 import { Badge } from '@saas-maker/ui/components/badge';
 import { PageHeader } from './page-header';
@@ -324,7 +324,7 @@ export function ProductScoreboard() {
       {!loaded ? (
         <p role="status">Opening your saved scoreboard…</p>
       ) : !historical ? (
-        <ReadinessFramework onImport={() => input.current?.click()} onExport={workspace ? () => saveFile(`sitehealth-scoreboard-${new Date().toISOString().slice(0, 10)}.json`, workspace) : undefined} />
+        <ReadinessFramework onImport={() => { navigateWithinReadiness('/readiness?page=legacy&mode=history', window); input.current?.click(); }} onExport={workspace ? () => saveFile(`sitehealth-scoreboard-${new Date().toISOString().slice(0, 10)}.json`, workspace) : undefined} />
       ) : workspace ? (
         <>
         <section className="mb-6 rounded-lg border border-border bg-muted/50 p-4 text-sm leading-6" aria-label="Historical assessment notice">

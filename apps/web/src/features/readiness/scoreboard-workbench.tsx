@@ -552,7 +552,7 @@ export function ScoreboardWorkbench({
         <section className={styles.empty}>
           <h1>Product not in this report</h1>
           <p>The saved report on this device does not contain this product.</p>
-          <NextLink href="/readiness">Back to all products</NextLink>
+          <NextLink href="/readiness?page=legacy">Back to all products</NextLink>
         </section>
       ) : (
         <>
