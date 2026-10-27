@@ -173,6 +173,7 @@ export function ScoreboardWorkbench({
     if (focusDomain && snapshot.projects.some((p) => p.domains.includes(focusDomain)))
       setDomain(focusDomain);
     if (params.get('mode') === 'levers') setView('actions');
+    if (params.get('mode') === 'history') setView('history');
   }, [byProject, snapshot.projects]);
 
   const projects = useMemo(
@@ -551,7 +552,7 @@ export function ScoreboardWorkbench({
         <section className={styles.empty}>
           <h1>Product not in this report</h1>
           <p>The saved report on this device does not contain this product.</p>
-          <NextLink href="/readiness">Back to all products</NextLink>
+          <NextLink href="/readiness?page=legacy">Back to all products</NextLink>
         </section>
       ) : (
         <>

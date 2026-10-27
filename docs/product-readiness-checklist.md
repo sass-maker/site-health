@@ -9,24 +9,37 @@ measure outcomes → decide the next action**. A collector, source audit or repo
 covers only part of that cycle. A review may justify leaving a surface alone,
 with a reason and next review date.
 
-## The six scored categories
+## Current two-category framework
 
-The phases feed the [product scoreboard's](product-scoreboard.md) six categories:
+Owner decision, 27 October 2026: keep the next review simple, with **Product &
+design** and **SEO & growth**. Both have separate Effort and Result readings,
+/10 per category and independent /20 totals before justified exemptions.
 
-| Category | Evidence of execution and outcomes |
-| --- | --- |
-| Product & feature parity | Complete promised workflows and useful results against relevant alternatives |
-| Design & delight | Rendered usability, recovery and uncoached comprehension/preference observations |
-| SEO & growth | Current intent-matched pages, qualified discovery and useful organic actions |
-| GEO & AI visibility | Answer-ready evidence and observed inclusion, citations and accurate recommendations |
-| Measurement & learning | Reliable collection plus a dated signal → decision → action → follow-up result |
-| Engineering & operations | Correctness, performance, privacy, reliability and recovery in intended runtimes |
+- Product effort covers the core loop, all promised features, understandable
+  workflows, exceptional design/motion, AI/CLI/API/MCP readiness, technical
+  delivery/recovery, PSI Swarm performance and ongoing measurement/maintenance.
+- Growth effort covers technical SEO/footer, keyword research, 100+ useful
+  pages and 1,000+ intent-matched coverage where applicable, indexing checks,
+  AI-readable facts, backlinks/distribution and measured passive/active actions.
+- Product Results: **DAU, high-intent actions, revenue and churn**.
+- Growth Results: **discoverability, visits and AI & Google answers**.
+- Question intent levels: brand, category, problem, alternatives/comparisons and
+  specific buying intent. Keep Google position and AI mention, recommendation,
+  citation and accuracy separate. Intent levels are not passed scoring gates.
 
-Each category has separate Effort and Result readings out of 10, with independent
-totals out of 60 before justified exemptions. Effort is execution quality and
-completeness; Result is demonstrated benefit. Keep evidence, dates, confidence
-and unknowns explicit. Use the guide's rubric and one-lever cadence; hours and
-tool presence do not earn points.
+Five progressive score levels offer two points each. Exact pass conditions,
+required proof, verified baselines, numeric targets and evaluation windows are
+not yet configured. No score or completed level is inferred from this structure.
+Done means shipped and verified. Internal growth exemptions stay explicit.
+Measurement setup and effort come first; Result assessment follows later.
+
+The interface definitions live in
+[`readiness-framework.ts`](../apps/web/src/features/readiness/readiness-framework.ts).
+Historical six-category assessments, evidence, usage and lever history remain
+unchanged under **Previous assessments**; they are not converted to the new
+framework. The detailed operational phases below remain supporting references,
+not additional top-level categories. The earlier [scoreboard guide](product-scoreboard.md)
+describes the retained historical scoring model.
 
 ## Scope and completion
 

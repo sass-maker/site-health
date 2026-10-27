@@ -131,9 +131,6 @@ main, .page-head > div { min-width: 0; }
 .connection.online { color: var(--dashboard-muted); }
 .connection.online i { background: var(--success); box-shadow: 0 0 0 4px color-mix(in srgb, var(--success) 8%, transparent); }
 .connection.offline i { background: var(--critical); box-shadow: 0 0 0 4px color-mix(in srgb, var(--critical) 8%, transparent); }
-.repo-link { min-height: 44px; display: inline-flex; align-items: center; gap: 11px; padding: 8px 11px; color: var(--quiet); text-decoration: none; }
-.repo-link:hover { color: var(--text); }
-.repo-link svg { width: 20px; height: 20px; fill: currentColor; }
 .sidebar-mobile-toggle,
 .sidebar-backdrop { display: none; }
 @media (min-width:851px) {
@@ -146,7 +143,6 @@ main, .page-head > div { min-width: 0; }
 .sidebar-collapsed .sidebar-foot { padding-inline: 10px; }
 .sidebar-collapsed .sidebar-nav a { grid-template-columns: 1fr; place-items: center; padding-inline: 8px; }
 .sidebar-collapsed .connection { justify-content: center; padding-inline: 0; }
-.sidebar-collapsed .repo-link { justify-content: center; padding-inline: 0; }
 .sidebar-collapsed .usage-export { justify-content: center; padding-inline: 0; }
 }
 

@@ -1,0 +1,29 @@
+import { describe, expect, it } from 'vitest';
+import { frameworkHref, frameworkRoute, LEVEL_STRUCTURE, READINESS_AREAS, RESULT_METRICS, VISIBILITY_LEVELS } from '../../src/features/readiness/readiness-framework';
+
+describe('current readiness framework and historical routes', () => {
+  it('keeps the agreed four Product and three Growth measures in exactly two areas', () => {
+    expect(READINESS_AREAS.map(a => a.label)).toEqual(['Product & design', 'SEO & growth']);
+    expect(RESULT_METRICS.product.map(m => m.name)).toEqual(['DAU', 'High-intent actions', 'Revenue', 'Churn']);
+    expect(RESULT_METRICS.growth.map(m => m.name)).toEqual(['Discoverability', 'Visits', 'AI & Google answers']);
+    expect(VISIBILITY_LEVELS.map(l => l.name)).toEqual(['Brand', 'Category', 'Problem', 'Alternatives & comparisons', 'Specific buying intent']);
+    expect(LEVEL_STRUCTURE.reduce((sum, l) => sum + l.possiblePoints, 0)).toBe(10);
+    expect(LEVEL_STRUCTURE.every(l => l.gate === 'Pass conditions not defined')).toBe(true);
+  });
+  it('opens the unassessed current framework by default, including a product-scoped results link', () => {
+    expect(frameworkRoute(new URLSearchParams())).toEqual({ historical: false, area: null, view: 'effort' });
+    const href = frameworkHref('growth', 'results', 'a product/one');
+    const params = new URL(href, 'http://local.test').searchParams;
+    expect(params.get('project')).toBe('a product/one');
+    expect(frameworkRoute(params)).toEqual({ historical: false, area: 'growth', view: 'results' });
+    expect(frameworkRoute(new URLSearchParams('pillar=unknown&tab=unsupported'))).toEqual({ historical: false, area: null, view: 'effort' });
+  });
+  it('retains previous assessment, evidence and lever deep links without relabelling old scores as current', () => {
+    for (const query of ['page=legacy&mode=history', 'page=category&category=geo', 'product=codevetter', 'category=seo', 'domain=codevetter.com', 'mode=levers&project=codevetter', 'q=CodeVetter']) {
+      const params = new URLSearchParams(query);
+      const originalQuery = params.toString();
+      expect(frameworkRoute(params).historical).toBe(true);
+      expect(params.toString()).toBe(originalQuery);
+    }
+  });
+});

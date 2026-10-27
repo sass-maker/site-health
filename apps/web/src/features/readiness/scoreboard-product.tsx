@@ -73,7 +73,7 @@ export function ScoreboardProduct({
   const checkedAgeDays = checkedAt === null ? null : Math.floor((now - checkedAt) / 86400000);
   return (
     <article className={styles.productInfo} aria-label={`${project.name} product information`}>
-      <NextLink className={styles.backLink} href="/readiness">
+      <NextLink className={styles.backLink} href="/readiness?page=legacy">
         <ArrowLeft size={15} /> All products
       </NextLink>
       <div className="mb-6 space-y-2">

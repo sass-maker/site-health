@@ -57,7 +57,7 @@ export const CATEGORY_GUIDANCE: Record<ScoreCategory, CategoryGuide> = {
   measurement: {
     goal: 'Know what happened, distinguish useful activity from noise and use the evidence to choose the next change.',
     boundary: 'Use a labelled proxy and meaningful core-use evidence for each product. Missing tracking is unknown, not zero; QA and background work are not owner use.',
-    sources: [{ label: 'Product usage and tracking coverage', href: '/readiness' }, { label: 'Product evidence inventory', href: '/projects' }],
+    sources: [{ label: 'Product usage and tracking coverage', href: '/readiness?page=legacy' }, { label: 'Product evidence inventory', href: '/projects' }],
     levels: [
       level('Scoped working collection', ['Choose appropriate first-party/local or provider collection for the product.', 'Verify project attribution, privacy scope and live delivery.'], 'A controlled event appears in the correct product ledger with its time, source and collection boundary.'),
       level('Meaningful funnel', ['Define the core action and steps leading to it.', 'Test delivery and separate QA, background work and interactive use.'], 'A real end-to-end event trace confirms the funnel and its exclusion rules; definitions are documented.'),
