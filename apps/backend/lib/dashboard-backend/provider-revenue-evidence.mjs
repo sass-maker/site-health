@@ -54,7 +54,8 @@ export function providerRevenueObservations(projects, snapshot) {
       gap: row?.gap ?? 'No provider totals returned; this does not establish that no sources or revenue exist.',
     }];
     return row.totals.map((total, index) => ({
-      projectId: project.id, id: `provider-revenue:${index}`, label: 'Connected provider net revenue (unqualified)',
+      projectId: project.id, id: `provider-revenue:${index}`,
+      label: `Connected provider net revenue · ${total.provider} · ${total.account_id} · ${total.mode}`,
       value: total.net_minor, unit: `${total.currency} minor units`, observedAt: row.observedAt,
       qualification: 'proxy', source: 'app-health.provider-revenue', window: row.window,
       provider: total.provider, accountId: total.account_id, mode: total.mode, currency: total.currency,
@@ -62,13 +63,13 @@ export function providerRevenueObservations(projects, snapshot) {
       payments: total.payments, refunds: total.refunds,
       attributedPayments: total.attributed_payments, pendingRefunds: total.pending_refunds,
       pendingRefundsMinor: total.pending_refunds_minor,
-      gap: 'Provider-object-created aggregate; namespaces and currencies are separate. Minor units are not converted; no qualified financial score.',
+      gap: [row.gap, 'Provider-object-created aggregate; namespaces and currencies are separate. Minor units are not converted; no qualified financial score.'].filter(Boolean).join(' '),
     }));
   });
 }
 
 function validTotal(total) {
-  return total && ['stripe', 'polar', 'dodo'].includes(total.provider)
+  return total && ['custom', 'stripe', 'polar', 'dodo'].includes(total.provider)
     && typeof total.account_id === 'string' && /^[a-zA-Z0-9_.:-]{1,128}$/.test(total.account_id)
     && ['live', 'test'].includes(total.mode)
     && typeof total.currency === 'string' && /^[A-Z]{3}$/.test(total.currency)
@@ -100,11 +101,12 @@ export async function collectProviderRevenueEvidence({ projects, credential, fet
       }
       try {
         const end = now();
-        const params = new URLSearchParams({ app_id: matches[0].app.id, environment_id: environments[0].id, from: String(end - 30 * DAY_MS), to: String(end) });
+        const from = end - 30 * DAY_MS;
+        const params = new URLSearchParams({ app_id: matches[0].app.id, environment_id: environments[0].id, from: String(from), to: String(end) });
         const report = await get(`/v1/analytics/provider-revenue?${params}`);
         if (report?.schema_version !== 1 || report.basis !== 'provider_object_created'
           || !['local', 'd1'].includes(report.source)
-          || !Number.isSafeInteger(report.from) || !Number.isSafeInteger(report.to) || report.to <= report.from
+          || !Number.isSafeInteger(report.from) || !Number.isSafeInteger(report.to) || report.from !== from || report.to !== end
           || !['source', 'page', 'country', 'campaign'].includes(report.breakdown)
           || !Array.isArray(report.totals) || report.totals.length > 200 || !report.totals.every(validTotal)
           || !Array.isArray(report.dimensions) || report.dimensions.length > 500

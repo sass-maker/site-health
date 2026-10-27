@@ -24,14 +24,17 @@ const fetchFixture = (body) => async (url, options) => ({ ok: true, json: async 
 test('keeps provider, account, live/test mode, and currency namespaces separate with explicit minor units', () => {
   const snapshot = { observedAt: '2026-10-27T00:00:00.000Z', records: { one: { observedAt: '2026-10-27T00:00:00.000Z', window: 'window', totals: [
     total(), total({ provider: 'polar', account_id: 'acct-two', mode: 'test', currency: 'EUR', net_minor: 250 }),
+    total({ provider: 'custom', account_id: 'acct-three', currency: 'CAD', net_minor: 350 }),
   ] } } };
   const rows = providerRevenueObservations(projects, snapshot);
-  assert.equal(rows.length, 2);
+  assert.equal(rows.length, 3);
   assert.deepEqual(rows.map(({ provider, accountId, mode, currency, value, unit }) => ({ provider, accountId, mode, currency, value, unit })), [
     { provider: 'stripe', accountId: 'acct-one', mode: 'live', currency: 'USD', value: 1000, unit: 'USD minor units' },
     { provider: 'polar', accountId: 'acct-two', mode: 'test', currency: 'EUR', value: 250, unit: 'EUR minor units' },
+    { provider: 'custom', accountId: 'acct-three', mode: 'live', currency: 'CAD', value: 350, unit: 'CAD minor units' },
   ]);
   assert.ok(rows.every((row) => row.qualification === 'proxy' && /no qualified financial score/.test(row.gap)));
+  assert.match(rows[1].label, /polar · acct-two · test/);
 });
 
 test('empty provider result stays unknown rather than becoming zero', async () => {
@@ -55,6 +58,8 @@ test('collector validates provider report and makes only fixed-origin GET reques
   const invalid = await collectProviderRevenueEvidence({ projects, credential: 'fixture', fetcher: fetchFixture(report([total({ currency: 'usd' })])), now: () => 1_792_592_000_000 });
   assert.equal(invalid.records.one.totals, null);
   assert.equal(invalid.records.one.observedAt, null);
+  const staleWindow = await collectProviderRevenueEvidence({ projects, credential: 'fixture', fetcher: fetchFixture({ ...report([total()]), from: 1_789_000_000_000 }), now: () => 1_792_592_000_000 });
+  assert.equal(staleWindow.records.one.totals, null);
 });
 
 test('failed refresh keeps prior totals and observed date in private snapshot and history', () => {
@@ -70,6 +75,7 @@ test('failed refresh keeps prior totals and observed date in private snapshot an
   assert.equal(snapshot.records.one.totals[0].net_minor, 1000);
   assert.equal(snapshot.records.one.observedAt, '2026-10-26T00:00:00.000Z');
   assert.match(snapshot.records.one.gap, /retained observation/);
+  assert.match(providerRevenueObservations(projects, snapshot)[0].gap, /retained observation/);
   assert.equal(statSync(path).mode & 0o777, 0o600);
   const history = readFileSync(join(dir, 'provider-revenue-history', '2026-10-27.json'), 'utf8');
   assert.ok(history.includes('1000'));
