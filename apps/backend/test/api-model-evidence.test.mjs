@@ -47,5 +47,21 @@ test('real-store panel answers survive more than fifty newer cross-channel and f
     assert.equal(rows.find(row => row.id === 'api-model:brand').observedAt, '2026-10-04T00:00:00.000Z');
     assert.equal(category.value, 100); assert.equal(category.observedAt, '2026-10-01T00:01:00.000Z');
     assert.ok(!JSON.stringify(rows).includes('private'));
+    const newest = store.createCheck({ projectId: 'one', channel: 'api-model', trigger: 'manual', startedAt: '2026-10-05T00:00:00Z' });
+    store.recordObservation({ projectId: 'one', checkId: newest, channel: 'api-model', provider: 'fixture', model: 'fixture', promptId: prompt.id, promptText: prompt.promptText, status: 'completed', answerText: 'private newest answer', analysis: { brandMentioned: false }, observedAt: '2026-10-05T00:00:00Z' });
+    store.finishCheck(newest, { status: 'completed', attempted: 1, completed: 1, failed: 0, mentionRate: 0, summary: 'fixture', finishedAt: '2026-10-05T00:01:00Z' });
+    const fresh = apiModelObservations([{ id: 'one' }], store).find(row => row.id === 'api-model:category');
+    assert.equal(fresh.value, 0); assert.equal(fresh.observedAt, '2026-10-05T00:00:00.000Z');
   } finally { store.close(); }
+});
+
+
+test('mixed-date intent aggregates retain the oldest date and disclose the full answer date range', () => {
+  const rows = apiModelObservations([{ id: 'one' }], {
+    listPrompts: () => [{ id: 'a', category: 'panel-v1:category' }, { id: 'b', category: 'panel-v1:category' }],
+    apiModelPanelObservations: () => [{ promptId: 'a', status: 'completed', brandMentioned: true, observedAt: '2026-10-01T00:00:00Z' }, { promptId: 'b', status: 'completed', brandMentioned: false, observedAt: '2026-10-04T00:00:00Z' }],
+  });
+  const category = rows.find(row => row.id === 'api-model:category');
+  assert.equal(category.value, 50); assert.equal(category.observedAt, '2026-10-01T00:00:00Z');
+  assert.match(category.window, /answers dated 2026-10-01 to 2026-10-04/);
 });
