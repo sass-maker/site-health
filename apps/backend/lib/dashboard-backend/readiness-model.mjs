@@ -134,7 +134,7 @@ export function hasRequirementAssessment(entry) {
 }
 export function validateReadinessState(state, { enforceSize = true } = {}) {
   const maximumKB = Object.values(state?.checklist ?? {}).some(hasRequirementAssessment) ? 24 : 12;
-  if (enforceSize && new TextEncoder().encode(JSON.stringify(state)).byteLength > maximumKB * 1024) fail(`Assessment exceeds ${maximumKB} KB. Shorten notes and proof references before saving.`);
+  if (enforceSize && new TextEncoder().encode(JSON.stringify(state)).byteLength > maximumKB * 1024) fail(`Assessment exceeds ${maximumKB} KB. Shorten notes/proof or clear unused individual draft assessments before saving.`);
   record(state, 'state', ['version', 'applicability', 'requirements', 'checklist', 'nextLevers', 'benchmarks']);
   if (state.version !== READINESS_VERSION) fail('Unsupported readiness framework version');
   record(state.applicability, 'applicability', AREAS); record(state.nextLevers, 'nextLevers', AREAS);

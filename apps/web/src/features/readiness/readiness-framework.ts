@@ -1,6 +1,6 @@
 import type { Requirement } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 import { GATES, CHECKLIST_ITEMS } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
-export { GATES, CHECKLIST_ITEMS, READINESS_VERSION, emptyReadinessState, effortSummary, requirementCompletion, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
+export { GATES, CHECKLIST_ITEMS, READINESS_VERSION, emptyReadinessState, effortSummary, hasRequirementAssessment, requirementCompletion, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export type { ReadinessState, ReadinessProduct, ReadinessProjection, Requirement, Benchmark, ProofRef, Observation } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export const READINESS_AREAS = [
   { id: 'product', label: 'Product & design', description: 'Build a useful, understandable, polished and dependable product.' },

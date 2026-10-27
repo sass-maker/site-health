@@ -12,7 +12,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@saas-maker/ui/components/sheet';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@saas-maker/ui/components/tabs';
 import { LocalLink, useRouter, useSearchParams } from './navigation';
-import { READINESS_AREAS, RESULT_METRICS, CHECKLIST_ITEMS, GATES, READINESS_VERSION, frameworkHref, frameworkRoute, effortSummary, requirementCompletion, requirementStatusChange, resultSummary, metricScore, validateReadinessState, type FrameworkView, type ReadinessArea, type ReadinessState, type ReadinessProduct, type ReadinessProjection, type Requirement, type Benchmark, type ProofRef, type Observation } from './readiness-framework';
+import { READINESS_AREAS, RESULT_METRICS, CHECKLIST_ITEMS, GATES, READINESS_VERSION, frameworkHref, frameworkRoute, effortSummary, hasRequirementAssessment, requirementCompletion, requirementStatusChange, resultSummary, metricScore, validateReadinessState, type FrameworkView, type ReadinessArea, type ReadinessState, type ReadinessProduct, type ReadinessProjection, type Requirement, type Benchmark, type ProofRef, type Observation } from './readiness-framework';
 
 const historicalHref = '/readiness?page=legacy&mode=history';
 function apiBase() { return document.querySelector<HTMLMetaElement>('meta[name="dashboard-api-base"]')?.content ?? '/api/dashboard'; }
@@ -55,9 +55,9 @@ function CategoryOverview({ products, area }: { products: ReadinessProduct[]; ar
 }
 const checklistTableClass = '[&_th:first-child]:w-[28%] [&_th:nth-child(2)]:w-[17%] [&_th:last-child]:w-[55%] [&_table]:table-fixed [&_td]:whitespace-normal [&_td]:break-words [&_th]:whitespace-normal [&_th_button]:h-auto [&_th_button]:min-h-10 [&_th_button]:whitespace-normal';
 type ChecklistItem = typeof CHECKLIST_ITEMS.product[number];
-const itemScore = (entry?: Requirement) => entry?.status === 'exempt' ? 'Exempt' : requirementCompletion(entry) === null ? (entry ? 'Evidence gap' : 'Not assessed') : `${requirementCompletion(entry)! / 10}/10`;
+const itemScore = (entry?: Requirement) => entry?.status === 'exempt' ? 'Exempt' : requirementCompletion(entry) === null ? (hasRequirementAssessment(entry) ? 'Evidence gap' : 'Not assessed') : `${requirementCompletion(entry)! / 10}/10`;
 function ItemEvidence({ entry }: { entry?: Requirement }) {
-  if (!entry) return <p className="text-sm text-muted-foreground">No individual assessment saved.</p>;
+  if (!entry || !hasRequirementAssessment(entry)) return <p className="text-sm text-muted-foreground">No individual assessment saved.</p>;
   const proof = entry.evidenceRefs[0];
   return <div className="space-y-2"><p className="text-sm leading-6">{entry.note || 'No supporting note recorded.'}</p><p className="text-xs text-muted-foreground">{entry.status.replaceAll('-', ' ')}{proof ? ` · Evidence ${dateText(proof.observedAt)}` : ' · No dated evidence'}{proof && /^https?:/.test(proof.ref) && <> · <a className="underline underline-offset-4" href={proof.ref} target="_blank" rel="noreferrer noopener">Source</a></>}</p></div>;
 }
