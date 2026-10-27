@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 import { DashboardStore, verifyBackup } from '../lib/dashboard-backend/store.mjs';
-import { emptyReadinessState, validateReadinessState, effortSummary, resultSummary, metricScore, GATES } from '../lib/dashboard-backend/readiness-model.mjs';
+import { emptyReadinessState, validateReadinessState, effortSummary, requirementCompletion, resultSummary, metricScore, GATES } from '../lib/dashboard-backend/readiness-model.mjs';
 import { buildReadinessProjection, readinessObservations, saveReadiness } from '../lib/dashboard-backend/readiness.mjs';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
 import { normalizeBackupEvent, normalizeEvent } from '../lib/dashboard-backend/contracts.mjs';
@@ -29,6 +29,7 @@ test('durable owner state is idempotent, revision protected across connections a
   const original = store(); const second = store(original.databasePath);
   try {
     const state = emptyReadinessState(); state.nextLevers.product = 'Verify the core workflow';
+    state.requirements['product-core'] = { status: 'in-progress', note: 'Core workflow implemented; recovery qualification remains', completion: 75, confidence: 'medium', evidenceRefs: proof };
     assert.equal(saveReadiness(original, 'sample', update(state), now).revision, 1);
     assert.equal(saveReadiness(second, 'sample', update(state), now).duplicate, true);
     assert.throws(() => saveReadiness(second, 'sample', update(emptyReadinessState(), 0, 'stale'), now), e => e.statusCode === 409);
@@ -61,16 +62,69 @@ test('current membership and bounded typed state reject invalid or private data'
   } finally { ledger.close(); }
 });
 
-test('ordered effort gates distinguish no assessment, work, proof and explicit exemptions', () => {
-  const state = emptyReadinessState(); assert.equal(effortSummary(state, 'product').score, null);
-  state.applicability.product.state = 'applicable'; assert.equal(effortSummary(state, 'product').score, null);
-  state.requirements['product-design'] = { status: 'verified', note: '', evidenceRefs: proof };
-  assert.equal(effortSummary(state, 'product').score, 0);
-  state.requirements['product-core'] = { status: 'verified', note: '', evidenceRefs: proof };
-  assert.equal(effortSummary(state, 'product').score, 2);
+function estimatedProduct(completions = [100, 100, 75, 100, 75]) {
+  const state = emptyReadinessState(); state.applicability.product.state = 'applicable';
+  for (const [index, gate] of GATES.product.entries()) state.requirements[gate.id] = {
+    status: [0, 1, 3].includes(index) ? 'verified' : 'in-progress',
+    note: 'Implemented work documented; remaining checks identified', evidenceRefs: proof,
+    completion: completions[index], confidence: index === 2 ? 'medium' : 'high',
+  };
+  return state;
+}
+
+test('implementation earns effort across all gates without bypassing ordered verification', () => {
+  const state = estimatedProduct(); validateReadinessState(state);
+  const summary = effortSummary(state, 'product');
+  assert.equal(summary.score, 9); // Previously 4: later verified work and partial implementation disappeared.
+  assert.equal(summary.level, 2); assert.equal(summary.verified, 3);
+  assert.equal(summary.assessed, 5); assert.equal(summary.applicable, 5); assert.equal(summary.confidence, 'medium');
+  state.requirements['product-design'].confidence = 'low';
+  assert.equal(effortSummary(state, 'product').score, 9); assert.equal(effortSummary(state, 'product').confidence, 'low');
+  state.requirements['product-design'].status = 'awaiting-evidence';
+  assert.equal(effortSummary(state, 'product').score, 9); assert.equal(effortSummary(state, 'product').level, 2);
+});
+
+test('unknown estimates never become zero or disappear from the denominator; zero is real', () => {
+  const state = estimatedProduct(); delete state.requirements['product-design'].completion;
+  assert.equal(effortSummary(state, 'product').score, null); assert.equal(effortSummary(state, 'product').assessed, 4);
+  assert.equal(effortSummary(state, 'product').confidence, 'unknown');
+  assert.equal(effortSummary(state, 'product').minimumScore, 7.5);
+  assert.equal(effortSummary(state, 'product').maximumScore, 9.5);
+  state.requirements['product-design'].completion = 0;
+  assert.equal(effortSummary(state, 'product').score, 7.5);
+  state.requirements['product-design'].evidenceRefs = [];
+  assert.equal(requirementCompletion(state.requirements['product-design']), null);
+  assert.equal(effortSummary(state, 'product').score, null);
+});
+
+test('legacy verified proof survives while scoped exemptions reweight completion', () => {
+  const state = estimatedProduct();
+  for (const entry of Object.values(state.requirements)) if (entry.status === 'verified') { delete entry.completion; delete entry.confidence; }
+  assert.equal(effortSummary(state, 'product').score, 9);
+  state.requirements['product-design'] = { status: 'exempt', note: 'No rendered surface in the agreed product scope', evidenceRefs: proof };
+  validateReadinessState(state);
+  assert.equal(effortSummary(state, 'product').score, 9.4); assert.equal(effortSummary(state, 'product').applicable, 4);
+  assert.equal(effortSummary(state, 'product').level, 4);
+  for (const gate of GATES.product) state.requirements[gate.id] = { status: 'exempt', note: 'Explicit bounded scope', evidenceRefs: proof };
+  assert.equal(effortSummary(state, 'product').score, null);
   state.applicability.growth = { state: 'exempt', reason: 'Private internal tool with no acquisition surface' };
-  assert.equal(effortSummary(state, 'growth').score, null);
-  assert.equal(effortSummary(state, 'growth').status, 'exempt');
+  assert.equal(effortSummary(state, 'growth').score, null); assert.equal(effortSummary(state, 'growth').status, 'exempt');
+  assert.equal(effortSummary(emptyReadinessState(), 'product').score, null);
+});
+
+test('completion contract rejects unsupported estimates and contradictory states', () => {
+  for (const completion of [-1, 101, 50.5, '75', false]) {
+    const state = estimatedProduct(); state.requirements['product-design'].completion = completion;
+    assert.throws(() => validateReadinessState(state), /integer/);
+  }
+  for (const patch of [{ note: '' }, { evidenceRefs: [] }, { confidence: undefined }]) {
+    const state = estimatedProduct(); Object.assign(state.requirements['product-design'], patch);
+    assert.throws(() => validateReadinessState(state), /needs a reason/);
+  }
+  for (const [status, completion, message] of [['verified', 75, /100%/], ['not-started', 25, /0%/], ['exempt', 0, /no completion/]]) {
+    const state = estimatedProduct(); Object.assign(state.requirements['product-design'], { status, completion });
+    assert.throws(() => validateReadinessState(state), message);
+  }
 });
 
 test('results require complete definitions and qualified proof; zero remains a measured value', () => {
@@ -121,9 +175,13 @@ test('HTTP saves enforce owner auth, browser origin, stale revisions and replaye
     const put = (body, headers = {}) => fetch(`${base}/v1/readiness/sample`, { method: 'PUT', headers: { 'content-type': 'application/json', ...headers }, body: JSON.stringify(body) });
     assert.equal((await put(update())).status, 401);
     assert.equal((await put(update(), { authorization: 'Bearer test-owner', origin: 'https://evil.example' })).status, 403);
-    assert.equal((await put(update(), { authorization: 'Bearer test-owner' })).status, 200);
+    const state = estimatedProduct();
+    assert.equal((await put(update(state), { authorization: 'Bearer test-owner' })).status, 200);
     assert.equal((await put(update(emptyReadinessState(), 0, 'stale-http'), { authorization: 'Bearer test-owner' })).status, 409);
     const response = await fetch(`${base}/v1/readiness`); assert.equal(response.status, 200);
     const data = await response.json(); assert.equal(data.projects.length, 1); assert.equal(data.projects[0].revision, 1); assert.equal(data.projects[0].evidence.at(-1).value, 2);
+    assert.deepEqual(data.projects[0].state, state);
+    assert.equal(data.projects[0].scores.product.effort.score, 9);
+    assert.equal(data.projects[0].scores.product.effort.level, 2);
   } finally { await new Promise(resolve => server.close(resolve)); ledger.close(); }
 });

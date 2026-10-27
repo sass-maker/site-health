@@ -12,7 +12,7 @@ export const GATES = {
   ],
   growth: [
     { id: 'growth-foundations', level: 1, title: 'Crawlable identity and measurement', detail: 'Verify technical SEO, metadata, canonicals, robots, sitemap, shared footer, clear crawlable identity and acquisition instrumentation.' },
-    { id: 'growth-hundred', level: 2, title: 'Research and useful indexed coverage', detail: 'Maintain a researched keyword/intent map and verify 100 useful indexed pages where applicable. URL counts alone do not pass; document a justified scope exemption.' },
+    { id: 'growth-hundred', level: 2, title: 'Research and useful published coverage', detail: 'Maintain a researched keyword/intent map and publish 100 useful, crawlable pages where applicable. URL counts alone do not pass; document a justified scope exemption. Indexing and rankings are separate results.' },
     { id: 'growth-thousand', level: 3, title: 'Broad, distinct intent coverage', detail: 'Verify 1,000 useful pages across relevant intents where applicable, including comparisons, problems and use cases. Preserve explicit scope exemptions.' },
     { id: 'growth-distribution', level: 4, title: 'Relevant links and distribution', detail: 'Maintain a dated register of relevant backlinks, profiles and original distribution, with evidence of relevance and live placement.' },
     { id: 'growth-maintenance', level: 5, title: 'Recurring growth and learning', detail: 'Prove recurring content, links, indexing and regression checks, and record what measured outcomes changed the next action.' },
@@ -56,11 +56,19 @@ export function validateReadinessState(state, { enforceSize = true } = {}) {
   }
   record(state.requirements, 'requirements', AREAS.flatMap(a => GATES[a].map(g => g.id)));
   for (const entry of Object.values(state.requirements)) {
-    record(entry, 'requirement', ['status', 'note', 'evidenceRefs']);
+    record(entry, 'requirement', ['status', 'note', 'evidenceRefs', 'completion', 'confidence']);
     choice(entry.status, ['not-started', 'in-progress', 'awaiting-evidence', 'verified', 'exempt'], 'Work status');
     text(entry.note, 'Requirement note'); proof(entry.evidenceRefs, 'Requirement evidence');
     if (entry.status === 'verified' && !entry.evidenceRefs.length) fail('Verified work needs dated proof');
     if (entry.status === 'exempt' && (!entry.note.trim() || !entry.evidenceRefs.length)) fail('Exempt work needs a reason and dated scope proof');
+    if (entry.confidence !== undefined) choice(entry.confidence, ['low', 'medium', 'high'], 'Effort estimate confidence');
+    if (entry.completion !== undefined && entry.completion !== null) {
+      if (!Number.isInteger(entry.completion) || entry.completion < 0 || entry.completion > 100) fail('Work completion must be an integer from 0 to 100, or unknown');
+      if (!entry.note.trim() || !entry.evidenceRefs.length || !entry.confidence) fail('Work completion needs a reason, dated proof and estimate confidence');
+      if (entry.status === 'verified' && entry.completion !== 100) fail('Verified work must be 100% complete');
+      if (entry.status === 'not-started' && entry.completion !== 0) fail('Work not started must have 0% completion');
+      if (entry.status === 'exempt') fail('Exempt work has no completion estimate');
+    }
   }
   record(state.benchmarks, 'benchmarks', Object.values(METRICS).flat());
   for (const entry of Object.values(state.benchmarks)) {
@@ -79,13 +87,33 @@ export function validateReadinessState(state, { enforceSize = true } = {}) {
   return state;
 }
 function hasProof(refs) { return refs?.length > 0 && refs.every(ref => ref.ref?.trim() && Number.isFinite(Date.parse(ref.observedAt))); }
+export function requirementCompletion(entry) {
+  if (!entry || !hasProof(entry.evidenceRefs) || entry.status === 'exempt') return null;
+  if (entry.completion !== undefined && entry.completion !== null) {
+    return Number.isInteger(entry.completion) && entry.completion >= 0 && entry.completion <= 100
+      && entry.note?.trim() && ['low', 'medium', 'high'].includes(entry.confidence) ? entry.completion : null;
+  }
+  // Older verified records remain usable; partial work never gets a made-up estimate.
+  return entry.status === 'verified' ? 100 : null;
+}
 export function effortSummary(state, area) {
   const applicability = state.applicability[area];
-  if (applicability.state !== 'applicable') return { score: null, level: null, status: applicability.state, verified: 0, total: 5 };
+  if (applicability.state !== 'applicable') return { score: null, level: null, status: applicability.state, verified: 0, total: 5, assessed: 0, applicable: 0, confidence: 'unknown', minimumScore: null, maximumScore: null };
   const entries = GATES[area].map(g => state.requirements[g.id]);
+  const applicable = entries.filter(entry => !(entry?.status === 'exempt' && entry.note?.trim() && hasProof(entry.evidenceRefs)));
+  const completions = applicable.map(requirementCompletion);
+  const assessed = completions.filter(value => value !== null).length;
   let level = 0;
   for (const entry of entries) { if (!entry || !['verified', 'exempt'].includes(entry.status) || !hasProof(entry.evidenceRefs)) break; level++; }
-  return { score: entries.some(Boolean) ? level * 2 : null, level: entries.some(Boolean) ? level : null, status: entries.some(Boolean) ? 'assessed' : 'not-assessed', verified: entries.filter(e => e?.status === 'verified' && hasProof(e.evidenceRefs)).length, total: 5 };
+  const complete = applicable.length > 0 && assessed === applicable.length;
+  const knownTotal = completions.reduce((sum, value) => sum + (value ?? 0), 0);
+  const minimumScore = assessed ? Math.floor(knownTotal / applicable.length) / 10 : null;
+  const maximumScore = assessed ? Math.ceil((knownTotal + (applicable.length - assessed) * 100) / applicable.length) / 10 : null;
+  const confidence = complete ? ['low', 'medium', 'high'].find(value => applicable.some(entry => (entry.confidence ?? 'high') === value)) : 'unknown';
+  return { score: complete ? Math.round(knownTotal / applicable.length) / 10 : null,
+    level: entries.some(Boolean) ? level : null, status: entries.some(Boolean) ? 'assessed' : 'not-assessed',
+    verified: entries.filter(e => e?.status === 'verified' && hasProof(e.evidenceRefs)).length, total: 5,
+    assessed, applicable: applicable.length, confidence, minimumScore, maximumScore };
 }
 export function metricScore(benchmark) {
   if (!benchmark || benchmark.applicability !== 'applicable' || benchmark.qualification !== 'qualified' || !Number.isFinite(benchmark.value) || !Number.isFinite(Date.parse(benchmark.observedAt)) || !hasProof(benchmark.evidenceRefs) || !Number.isFinite(benchmark.baseline) || !Number.isFinite(benchmark.target) || benchmark.thresholds.length !== 5 || benchmark.thresholds.some((n, i, all) => !Number.isFinite(n) || (i > 0 && (benchmark.direction === 'higher' ? n <= all[i - 1] : n >= all[i - 1]))) || !['definition', 'unit', 'window', 'source'].every(k => benchmark[k]?.trim())) return null;
