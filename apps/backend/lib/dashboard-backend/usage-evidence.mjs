@@ -53,12 +53,18 @@ export function usageObservations(projects, snapshot) {
       { id: 'monthly-browser-proxy', label: '30-day browser / session proxy', value: retained ? null : number(row?.count),
         unit: row?.unit === 'sessions' ? 'sessions' : 'browsers', observedAt: row?.observedAt ?? null,
         window: row?.window ?? 'rolling 30 days', qualification: retained || number(row?.count) === null ? 'unknown' : 'proxy',
-        status: row?.status ?? 'unknown',
+        status: row?.status ?? (number(row?.count) === null ? 'unknown' : 'available'),
         gap: row?.gap ?? 'Browser identifiers are not people; QA and automation may remain. No qualified core-action or churn cohort.' },
       { id: 'high-intent-events', metricId: 'high-intent', label: 'Named action events (unqualified)', value: retained ? null : number(row?.actionEvents),
         unit: 'events', observedAt: row?.observedAt ?? null, window: row?.window ?? 'rolling 30 days',
-        qualification: retained || number(row?.actionEvents) === null ? 'unknown' : 'proxy', status: row?.status ?? 'unknown',
-        gap: [row?.gap, 'Event occurrences are not completed core workflows or distinct active people.'].filter(Boolean).join(' ') },
+        qualification: retained || number(row?.actionEvents) === null ? 'unknown' : 'proxy',
+        status: row?.status ?? (number(row?.actionEvents) === null ? 'unknown' : 'available'),
+        gap: [retained
+          ? number(row?.actionEvents) === null
+            ? `No last-known action-event count; this row remains unknown after the usage refresh at ${row.lastAttemptAt ?? 'an unknown date'}.`
+            : `Last-known ${row.actionEvents} events observed ${row.observedAt}; retained historical value, current refresh unavailable.`
+          : row?.gap,
+        'Event occurrences are not completed core workflows or distinct active people.'].filter(Boolean).join(' ') },
     ].map((observation) => ({ ...observation, projectId: project.id, source: 'app-health.browser-report' }));
   });
 }

@@ -14,6 +14,7 @@ test('import filters archived/foreign records, preserves zero, never promotes ev
   const rows = usageObservations(projects, snapshot);
   assert.equal(rows[0].value, 0); assert.equal(rows[0].qualification, 'proxy');
   assert.equal(rows[1].value, 3); assert.equal(rows[1].qualification, 'proxy');
+  assert.ok(rows.every((row) => row.status === 'available'));
   assert.equal(usageObservations(projects, null)[0].value, null);
 });
 
@@ -49,7 +50,7 @@ test('collector rejects ambiguous mapping and redirects; only fixed-origin GET a
 
 test('failed refresh retains the original good value and observation date', () => {
   const path = join(mkdtempSync(join(tmpdir(), 'usage-retain-')), 'usage.json');
-  writeUsageEvidence({ observedAt: '2026-10-26T00:00:00Z', records: { one: { count: 7, observedAt: '2026-10-26T00:00:00Z', unit: 'browsers' } } }, path);
+  writeUsageEvidence({ observedAt: '2026-10-26T00:00:00Z', records: { one: { count: 7, actionEvents: 3, observedAt: '2026-10-26T00:00:00Z', unit: 'browsers' } } }, path);
   writeUsageEvidence({ observedAt: '2026-10-27T00:00:00Z', records: { one: { status: 'failed', count: null, observedAt: null, gap: 'HTTP failure' } } }, path);
   const snapshot = readUsageEvidence(path);
   assert.equal(snapshot.records.one.status, 'retained');
@@ -59,6 +60,8 @@ test('failed refresh retains the original good value and observation date', () =
   const observations = usageObservations(projects, snapshot);
   assert.ok(observations.every((observation) => observation.status === 'retained' && observation.value === null && observation.qualification === 'unknown'));
   assert.ok(observations.every((observation) => observation.observedAt === '2026-10-26T00:00:00Z'));
+  assert.match(observations[1].gap, /Last-known 3 events observed 2026-10-26T00:00:00Z; retained historical value/);
+  assert.doesNotMatch(observations[1].gap, /7 browsers/);
 });
 
 test('null-count imported usage preserves a prior good observation', () => {
