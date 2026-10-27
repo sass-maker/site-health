@@ -285,6 +285,9 @@ export function createMetricRunController({
         run.summary = code === 0
           ? `${plan.label} completed.`
           : failureSummary(run.capture, `${plan.label} failed.`);
+        if (code !== 0 && family === 'drank' && /(?:^|\n)AHREFS_PARTIAL_RESPONSE:/.test(run.capture)) {
+          run.code = 'AHREFS_PARTIAL_RESPONSE';
+        }
         run.capture = '';
         active.delete(key);
         onRunChange(publicRun(run));

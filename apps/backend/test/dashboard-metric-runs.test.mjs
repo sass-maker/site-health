@@ -243,6 +243,24 @@ test('portfolio and project refreshes exclude inactive identities', () => {
   );
 });
 
+test('retains a failed partial Domain Rating code through the child-process receipt', () => {
+  const child = fakeProcess();
+  const receipts = [];
+  const controller = createMetricRunController({
+    projects: [project()],
+    spawnProcess: () => child,
+    onRunChange: (receipt) => receipts.push(receipt),
+  });
+  const started = controller.start({ family: 'drank', projectId: 'pace' });
+  child.stderr.write('AHREFS_PARTIAL_RESPONSE: Valid ratings saved; missing targets retained.\n');
+  child.emit('close', 1);
+  const completed = controller.get(started.runId);
+  assert.equal(completed.state, 'failed');
+  assert.equal(completed.code, 'AHREFS_PARTIAL_RESPONSE');
+  assert.equal(receipts.at(-1).code, 'AHREFS_PARTIAL_RESPONSE');
+  assert.match(completed.summary, /missing targets retained/);
+});
+
 test('reports AI-awareness unavailable instead of projecting a fixture', () => {
   let invoked = false;
   const controller = createMetricRunController({
