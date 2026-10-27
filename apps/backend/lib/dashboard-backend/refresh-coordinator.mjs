@@ -42,7 +42,7 @@ export function refreshStaleEvidence({
       receipt: readRefreshReceipt(store, source.family),
       now,
     });
-    if (!force && !evidenceRefreshDue(envelope)) {
+    if (!force && !evidenceRefreshDue(envelope, now)) {
       results.push({ family: source.family, action: 'cached', state: envelope.state });
       continue;
     }

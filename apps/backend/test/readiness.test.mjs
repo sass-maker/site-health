@@ -46,7 +46,7 @@ test('current membership and bounded typed state reject invalid or private data'
     const oversized = emptyReadinessState();
     for (const gate of Object.values(GATES).flat()) oversized.requirements[gate.id] = { status: 'verified', note: 'n'.repeat(1000), evidenceRefs: [{ ref: 'r'.repeat(500), observedAt: now }] };
     oversized.nextLevers = { product: 'a'.repeat(1000), growth: 'a'.repeat(1000) };
-    assert.throws(() => saveReadiness(ledger, 'sample', update(oversized), now), e => e.code === 'EVENT_TOO_LARGE');
+    assert.throws(() => saveReadiness(ledger, 'sample', update(oversized), now), e => e.code === 'INVALID_READINESS_STATE' && /12 KB/.test(e.message));
     assert.equal(ledger.listEvents().length, 0);
   } finally { ledger.close(); }
 });
@@ -90,7 +90,7 @@ test('source adapters retain real projection signal shapes, domain membership an
   const signal = value => ({ value, observedAt: now, label: 'Observed', series: [] });
   const projection = { outcomes: {
     domains: [{ domain: 'sample.example', projects: [{ projectId: 'sample', name: 'Sample' }], signal: signal(12) }],
-    performance: [{ projectId: 'sample', psi: signal(95), lcp: signal(1200) }],
+    performance: [{ projectId: 'sample', psi: signal(95), lcp: signal(1200), mobile: { psi: signal(70), lcp: signal(3000) } }],
     search: [{ projectId: 'sample', impressions: signal(200), clicks: signal(0), averagePosition: signal(8), period: { start: '2026-10-01', end: '2026-10-26' } }],
     seoAudit: [{ projectId: 'sample', pass: signal(45), fail: signal(0) }],
     geoAwareness: [{ projectId: 'sample', topThree: signal(25), pageOne: signal(75), queries: 4 }],
@@ -99,7 +99,7 @@ test('source adapters retain real projection signal shapes, domain membership an
   const clarity = { sample: { state: 'fresh', snapshot: { observedAt: now, metrics: { sessions: 9, uniqueBrowsers: 4 } } } };
   const rows = readinessObservations(projects, projection, clarity).filter(row => row.projectId === 'sample');
   const readings = Object.fromEntries(rows.map(row => [row.id, row.value]));
-  assert.deepEqual(readings, { 'domains:signal:0': 12, 'performance:psi:0': 95, 'performance:lcp:0': 1200, 'search:impressions:0': 200, 'search:clicks:0': 0, 'search:averagePosition:0': 8, 'seoAudit:pass:0': 45, 'seoAudit:fail:0': 0, 'geoAwareness:topThree:0': 25, 'geoAwareness:pageOne:0': 75, 'aiAwareness:mention:0': 20, 'aiAwareness:recommendation:0': 10, 'aiAwareness:citation:0': 0, 'clarity:sessions': 9, 'clarity:uniqueBrowsers': 4 });
+  assert.deepEqual(readings, { 'domains:signal:0': 12, 'performance:psi:0': 95, 'performance:lcp:0': 1200, 'search:impressions:0': 200, 'search:clicks:0': 0, 'search:averagePosition:0': 8, 'seoAudit:pass:0': 45, 'seoAudit:fail:0': 0, 'geoAwareness:topThree:0': 25, 'geoAwareness:pageOne:0': 75, 'aiAwareness:mention:0': 20, 'aiAwareness:recommendation:0': 10, 'aiAwareness:citation:0': 0, 'mobile:psi': 70, 'mobile:lcp': 3000, 'clarity:sessions': 9, 'clarity:uniqueBrowsers': 4 });
   assert.ok(rows.every(row => row.observedAt === now && row.qualification === 'proxy'));
 });
 

@@ -7,6 +7,7 @@ import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
 import {
   recordRefreshReceipt,
+  readRefreshReceipt,
   reconcileAbandonedRefreshReceipts,
 } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { refreshStaleEvidence } from '../lib/dashboard-backend/refresh-coordinator.mjs';
@@ -144,28 +145,22 @@ if (command === 'status') {
     metricRunController,
     prefillEvidence,
     projectsProvider,
-    readinessObservationProvider: (currentProjects) => [
-      ...usageObservations(currentProjects, readUsageEvidence()),
-      ...buildDashboardProjection().outcomes.performance.flatMap(row => ['psi', 'lcp'].map(key => ({
-        projectId: row.projectId, id: `mobile:${key}`, label: key === 'psi' ? 'Mobile PSI performance' : 'Mobile LCP',
-        value: row.mobile?.[key]?.value ?? null, unit: key === 'psi' ? '/100' : 'ms',
-        observedAt: row.mobile?.observedAt ?? null, source: 'psi-swarm.mobile',
-        qualification: row.mobile?.[key]?.value == null ? 'unknown' : 'proxy',
-        gap: 'Mobile laboratory sample; field Core Web Vitals and core-workflow interaction budgets are separate.',
-      }))),
-    ],
+    readinessObservationProvider: (currentProjects) => usageObservations(currentProjects, readUsageEvidence()),
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
   const evidenceScheduler = startEvidenceScheduler({
     lanes: process.env.SITE_HEALTH_SCHEDULED_REFRESH === '0' ? [] : [
       { id: 'provider-refresh', intervalMs: 10 * 60_000, run: () => prefillEvidence({ force: false }) },
-      { id: 'usage', intervalMs: 24 * 60 * 60_000, run: () => withRefreshReceipt(store, {
+      { id: 'usage', intervalMs: 24 * 60 * 60_000, run: async () => {
+        const attemptedAt = Date.parse(readRefreshReceipt(store, 'usage')?.lastAttemptAt ?? '');
+        if (Number.isFinite(attemptedAt) && Date.now() - attemptedAt < 24 * 60 * 60_000) return;
+        return withRefreshReceipt(store, {
         family: 'usage', scope: 'portfolio', label: 'App Health aggregate usage', runId: `usage_${Date.now()}`,
       }, async () => {
-        const snapshot = await collectUsageEvidence({ projects: projectsProvider(), credential: appHealthCredential() });
+        const snapshot = await collectUsageEvidence({ projects: projectsProvider(), credential: await appHealthCredential() });
         writeUsageEvidence(snapshot);
         return snapshot;
-      }, { signals: [], summarize: (snapshot) => ({ resultCount: Object.values(snapshot.records).filter(row => row.count !== null).length }) }) },
+      }, { signals: [], summarize: (snapshot) => ({ resultCount: Object.values(snapshot.records).filter(row => row.count !== null).length }) }); } },
       { id: 'weekly-review', intervalMs: 60 * 60_000, run: () => {
         store.projects = projectsProvider();
         createWeeklyReview({ store, observations: [

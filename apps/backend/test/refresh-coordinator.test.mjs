@@ -6,6 +6,7 @@ import test from 'node:test';
 
 import { refreshStaleEvidence } from '../lib/dashboard-backend/refresh-coordinator.mjs';
 import { readRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
+import { evidenceRefreshDue } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { DashboardStore } from '../lib/dashboard-backend/store.mjs';
 
 const projection = {
@@ -17,6 +18,12 @@ const projection = {
     aiAwareness: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
   },
 };
+
+test('failed weekly collectors back off rather than retry on every ten-minute poll', () => {
+  const envelope = { source: 'psi', state: 'failed', lastAttemptAt: '2026-10-27T00:00:00Z' };
+  assert.equal(evidenceRefreshDue(envelope, '2026-10-27T00:10:00Z'), false);
+  assert.equal(evidenceRefreshDue(envelope, '2026-10-27T06:00:00Z'), true);
+});
 
 test('forced prefill starts every free portfolio collector and records paid AI approval', () => {
   const store = new DashboardStore({

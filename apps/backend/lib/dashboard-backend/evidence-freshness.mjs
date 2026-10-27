@@ -212,6 +212,10 @@ export async function withRefreshReceipt(store, run, task, {
   }
 }
 
-export function evidenceRefreshDue(envelope) {
-  return ['stale', 'failed'].includes(envelope?.state);
+export function evidenceRefreshDue(envelope, now = new Date().toISOString()) {
+  if (!['stale', 'failed'].includes(envelope?.state)) return false;
+  const attempted = Date.parse(envelope.lastAttemptAt ?? '');
+  const policy = EVIDENCE_POLICIES[envelope.source];
+  const retryMs = Math.min(6 * 60 * 60_000, Math.max(30 * 60_000, (policy?.maximumAgeMs ?? DAY_MS) / 4));
+  return !Number.isFinite(attempted) || Date.parse(now) - attempted >= retryMs;
 }

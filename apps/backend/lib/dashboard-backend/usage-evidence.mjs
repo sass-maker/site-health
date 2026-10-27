@@ -1,10 +1,12 @@
-import { execFileSync } from 'node:child_process';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { isCurrentPortfolioProject } from './domain-scope.mjs';
 
 const ORIGIN = 'https://health.sassmaker.com';
+const execFileAsync = promisify(execFile);
 const number = (value) => typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
 const iso = (value) => ['number', 'string'].includes(typeof value) && Number.isFinite(new Date(value).getTime()) ? new Date(value).toISOString() : null;
 export const defaultUsageEvidencePath = () => join(process.env.HOME, 'Library/Application Support/Fleet Ops/founder-control/app-health-usage.json');
@@ -16,6 +18,14 @@ export function readUsageEvidence(path = defaultUsageEvidencePath()) {
 // Persist aggregates only. No provider response, token, actor ID or URL query
 // is written to disk. Daily history makes comparisons reproducible.
 export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) {
+  const previous = readUsageEvidence(path);
+  const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
+    const old = previous?.records?.[id];
+    return [id, row.count === null && number(old?.count) !== null
+      ? { ...old, lastAttemptAt: snapshot.observedAt, gap: `Refresh unavailable; retained observation from ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
+      : row];
+  }));
+  snapshot = { ...snapshot, records };
   mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
   const temporary = `${path}.${randomUUID()}.tmp`;
   const data = `${JSON.stringify(snapshot, null, 2)}\n`;
@@ -68,14 +78,15 @@ export function importUsageExport(bundle, projects) {
 
 // Reuse the normal owner-managed credential resolver; never provision, rotate,
 // persist or print credentials. All outbound requests are fixed-origin GETs.
-export function appHealthCredential({ env = process.env, readSecret = execFileSync } = {}) {
+export async function appHealthCredential({ env = process.env, readSecret = execFileAsync } = {}) {
   if (env.APP_HEALTH_READ_TOKEN) return env.APP_HEALTH_READ_TOKEN;
   if (env.APP_HEALTH_OWNER_TOKEN) return env.APP_HEALTH_OWNER_TOKEN;
   try {
     const repository = env.SITE_HEALTH_OWNER_REPOSITORY ?? resolve(import.meta.dirname, '../../../..');
-    return String(readSecret('infisical', ['secrets', 'get', 'APP_HEALTH_OWNER_TOKEN', '--plain', '--env', 'prod', '--path', '/', '--silent'], {
+    const result = await readSecret('infisical', ['secrets', 'get', 'APP_HEALTH_OWNER_TOKEN', '--plain', '--env', 'prod', '--path', '/', '--silent'], {
       cwd: resolve(repository, '..'), encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 15_000,
-    })).trim();
+    });
+    return String(result.stdout ?? '').trim();
   } catch { return null; }
 }
 
@@ -98,7 +109,7 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
       const matches = apps.filter((row) => row.app?.id === project.id || normalize(row.app?.name) === normalize(project.name));
       const environments = matches.length === 1 ? matches[0].environments?.filter((entry) => entry.name === 'production') ?? [] : [];
       if (environments.length !== 1) {
-        records[project.id] = { count: null, actionEvents: null, observedAt: now(), gap: 'No unique exact product and production-environment mapping; source remains unknown.' };
+        records[project.id] = { count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'No unique exact product and production-environment mapping; source remains unknown.' };
         continue;
       }
       try {
@@ -113,7 +124,7 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
           observedAt: now(), window: `${start} to ${end}`,
           gap: `${report.sampled ? 'Sampled lower-bound/estimated aggregates. ' : ''}Browser/session proxy only; named event counts do not qualify completed core use or human adoption.`,
         };
-      } catch { records[project.id] = { count: null, actionEvents: null, observedAt: now(), gap: 'Aggregate report unavailable or invalid; source remains unknown.' }; }
+      } catch { records[project.id] = { count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'Aggregate report unavailable or invalid; source remains unknown.' }; }
     }
   }));
   return { schemaVersion: 1, observedAt: now(), records };

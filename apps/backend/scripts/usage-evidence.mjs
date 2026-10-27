@@ -12,7 +12,7 @@ if (!['collect', 'import'].includes(command) || (command === 'import' && !path))
   try {
     const snapshot = command === 'import'
       ? importUsageExport(JSON.parse(readFileSync(path, 'utf8')), projects)
-      : await collectUsageEvidence({ projects, credential: appHealthCredential() });
+      : await collectUsageEvidence({ projects, credential: await appHealthCredential() });
     writeUsageEvidence(snapshot);
     const observations = usageObservations(projects, snapshot);
     console.log(JSON.stringify({ observedAt: snapshot.observedAt, records: Object.keys(snapshot.records).length,

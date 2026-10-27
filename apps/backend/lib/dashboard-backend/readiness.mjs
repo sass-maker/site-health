@@ -2,7 +2,7 @@ import { currentProjects, emptyReadinessState, effortSummary, resultSummary, REA
 
 const FAMILIES = {
   domains: [['signal', 'Domain authority', 'score']],
-  performance: [['psi', 'PSI performance', '/100'], ['lcp', 'Largest contentful paint', 'ms']],
+  performance: [['psi', 'Desktop PSI performance', '/100'], ['lcp', 'Desktop largest contentful paint', 'ms']],
   search: [['impressions', 'Search impressions', 'impressions'], ['clicks', 'Search clicks', 'clicks'], ['averagePosition', 'Google average position', 'position']],
   seoAudit: [['pass', 'SEO checks passed', 'checks'], ['fail', 'SEO checks failed', 'checks']],
   geoAwareness: [['topThree', 'Web search top-three coverage', '%'], ['pageOne', 'Web search page-one coverage', '%']],
@@ -21,6 +21,14 @@ export function readinessObservations(projects, projection = {}, clarityByProjec
           rows.push({ projectId: project.id, id: `${family}:${key}:${index}`, source: family, label: `${label}${row.domain ? ` · ${row.domain}` : ''}`, unit, value, observedAt: signal?.observedAt ?? row.observedAt ?? null, qualification: value === null ? 'unknown' : 'proxy', window: typeof row.period === 'string' ? row.period : JSON.stringify(row.period ?? null), gap: value === null ? `Not measured${row.status ? ` (${row.status})` : ''}` : [row.status === 'stale' ? 'Source observation is stale' : null, row.coverage ? `Samples: ${row.coverage.completed ?? 'unknown'} completed / ${row.coverage.configured ?? 'unknown'} configured` : null, row.queries !== undefined ? `${row.queries} observed queries` : null, 'Source evidence; qualifying definition and benchmark still require review'].filter(Boolean).join(' · ') });
         }
       }
+    }
+    const performance = projection.outcomes?.performance?.find(row => row.projectId === project.id);
+    for (const key of ['psi', 'lcp']) {
+      const signal = performance?.mobile?.[key];
+      rows.push({ projectId: project.id, id: `mobile:${key}`, label: key === 'psi' ? 'Mobile PSI performance' : 'Mobile LCP',
+        value: signal?.value ?? null, unit: key === 'psi' ? '/100' : 'ms', observedAt: signal?.observedAt ?? null,
+        source: 'psi-swarm.mobile', qualification: signal?.value == null ? 'unknown' : 'proxy',
+        gap: 'Mobile-mid laboratory samples. Field Core Web Vitals and core-workflow interaction budgets are separate.' });
     }
     const clarity = clarityByProject[project.id];
     for (const [key, label] of [['sessions', 'Clarity sessions'], ['uniqueBrowsers', 'Clarity unique browsers']]) {

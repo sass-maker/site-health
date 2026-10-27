@@ -148,7 +148,7 @@ function psiHistory(home) {
         continue;
       }
       const history = byDomain.get(domain) ?? [];
-      if (history.length >= 30) continue;
+      if (history.filter(item => item.preset === (row.preset ?? null)).length >= 30) continue;
       history.push({
         observedAt: new Date(startedAt).toISOString(),
         preset: row.preset ?? null,

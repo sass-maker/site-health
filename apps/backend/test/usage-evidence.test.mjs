@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { collectUsageEvidence, importUsageExport, usageObservations } from '../lib/dashboard-backend/usage-evidence.mjs';
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { appHealthCredential, collectUsageEvidence, importUsageExport, readUsageEvidence, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
 const projects = [{ id: 'one', name: 'One', lifecycle: { status: 'active' }, status: 'active' }];
 
 test('import filters archived/foreign records, preserves zero, never promotes events to qualified use', () => {
@@ -34,4 +37,22 @@ test('collector rejects ambiguous mapping and redirects; only fixed-origin GET a
     { app: { name: 'One' }, environments: [{ name: 'production' }] }, { app: { name: 'One' }, environments: [{ name: 'production' }] },
   ] }) }) });
   assert.equal(ambiguous.records.one.count, null);
+  assert.equal(ambiguous.records.one.observedAt, null);
+});
+
+test('failed refresh retains the original good value and observation date', () => {
+  const path = join(mkdtempSync(join(tmpdir(), 'usage-retain-')), 'usage.json');
+  writeUsageEvidence({ observedAt: '2026-10-26T00:00:00Z', records: { one: { count: 7, observedAt: '2026-10-26T00:00:00Z', unit: 'browsers' } } }, path);
+  writeUsageEvidence({ observedAt: '2026-10-27T00:00:00Z', records: { one: { count: null, observedAt: null, gap: 'HTTP failure' } } }, path);
+  const snapshot = readUsageEvidence(path);
+  assert.equal(snapshot.records.one.count, 7);
+  assert.equal(snapshot.records.one.observedAt, '2026-10-26T00:00:00Z');
+  assert.match(snapshot.records.one.gap, /retained observation/);
+});
+
+test('credential resolution is asynchronous and never enters aggregate evidence', async () => {
+  let resolve;
+  const pending = appHealthCredential({ env: {}, readSecret: () => new Promise(done => { resolve = done; }) });
+  assert.ok(pending instanceof Promise);
+  resolve({ stdout: 'fixture\n' }); assert.equal(await pending, 'fixture');
 });
