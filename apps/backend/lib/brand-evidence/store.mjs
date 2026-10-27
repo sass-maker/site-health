@@ -552,6 +552,24 @@ export class BrandEvidenceStore {
     return row ? checkRow(row) : null;
   }
 
+  apiModelPanelObservations(projectId) {
+    // Keep the newest successful answer for each configured prompt. A partial
+    // refresh can update one intent without erasing another intent's evidence.
+    return this.database.prepare(`
+      WITH ranked AS (
+        SELECT e.prompt_id, e.status, e.brand_mentioned, e.model, e.observed_at,
+          ROW_NUMBER() OVER (PARTITION BY e.prompt_id ORDER BY c.started_at DESC, e.observed_at DESC, e.id DESC) AS rank
+        FROM evidence_observations e
+        JOIN evidence_checks c ON c.id = e.check_id AND c.project_id = e.project_id
+        JOIN evidence_prompts p ON p.id = e.prompt_id AND p.project_id = e.project_id
+        WHERE e.project_id = ? AND e.channel = 'api-model' AND e.status = 'completed'
+          AND c.channel = 'api-model' AND c.status IN ('completed', 'partial')
+          AND p.category IN ('panel-v1:brand', 'panel-v1:category', 'panel-v1:problem', 'panel-v1:comparison', 'panel-v1:use-case')
+      ) SELECT prompt_id, status, brand_mentioned, model, observed_at FROM ranked WHERE rank = 1
+    `).all(projectId).map(row => ({ promptId: row.prompt_id, status: row.status,
+      brandMentioned: boolOrNull(row.brand_mentioned), model: row.model, observedAt: row.observed_at }));
+  }
+
   findObservationByFingerprint(projectId, fingerprint) {
     return this.database
       .prepare('SELECT id FROM evidence_observations WHERE project_id = ? AND fingerprint = ? LIMIT 1')

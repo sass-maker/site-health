@@ -11,8 +11,8 @@ import { DashboardStore, defaultDatabasePath } from '../lib/dashboard-backend/st
 import { PSI_NODE_VERSION } from '../lib/dashboard-backend/psi-runtime.mjs';
 import { resolveCollectorRoot } from '../lib/dashboard-backend/collector-paths.mjs';
 
-export function resolveFleetRoot(directory = import.meta.dirname) {
-  return resolve(directory, '../../../..');
+export function resolveFleetRoot(directory = import.meta.dirname, ownerRepository = process.env.SITE_HEALTH_OWNER_REPOSITORY) {
+  return ownerRepository ? resolve(ownerRepository, '..') : resolve(directory, '../../../..');
 }
 
 const FLEET_ROOT = resolveFleetRoot();
@@ -65,7 +65,7 @@ export function runPerformancePortfolio(
       '--runs',
       '2',
       '--presets',
-      'desktop',
+      'desktop,mobile-mid',
       '--tag',
       'console-portfolio',
       '--output',

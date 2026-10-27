@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { validateReadinessState } from './readiness-model.mjs';
 
 const EVENT_SCHEMA_VERSION = 1;
 const MAX_EVENT_BYTES = 16 * 1024;
@@ -7,6 +8,7 @@ const MAX_STRING_LENGTH = 2_000;
 
 const EVENT_TYPES = new Set([
   'visibility.run-recorded',
+  'readiness.state-updated',
 ]);
 const HISTORICAL_EVENT_TYPES = new Set([
   'recommendation.created',
@@ -117,7 +119,7 @@ function normalizeEvidence(pointer) {
   };
 }
 
-function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventTypes = EVENT_TYPES } = {}) {
+function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventTypes = EVENT_TYPES, enforceReadinessSize = true } = {}) {
   assert(input && typeof input === 'object', 'EVENT_REQUIRED', 'event input is required');
   assert(eventTypes.has(input.type), 'INVALID_EVENT_TYPE', `unsupported event type: ${input.type}`);
   const eventId = input.id ?? randomUUID();
@@ -136,6 +138,12 @@ function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventT
   assert(payload && typeof payload === 'object' && !Array.isArray(payload), 'INVALID_PAYLOAD', 'payload must be an object');
   for (const field of requiredPayloadFields[input.type] ?? []) {
     assert(payload[field] !== undefined, 'MISSING_PAYLOAD_FIELD', `${input.type} requires payload.${field}`);
+  }
+  if (input.type === 'readiness.state-updated') {
+    assert(input.projectId && input.actor?.type === 'owner' && visibility === 'private', 'INVALID_READINESS_ACTOR', 'Readiness state requires a project and private owner actor');
+    assert(Object.keys(payload).every(key => ['expectedRevision', 'state'].includes(key)), 'INVALID_READINESS_PAYLOAD', 'Unsupported readiness payload field');
+    assert(Number.isSafeInteger(payload.expectedRevision) && payload.expectedRevision >= 0, 'INVALID_READINESS_REVISION', 'expectedRevision must be a nonnegative integer');
+    validateReadinessState(payload.state, { enforceSize: enforceReadinessSize });
   }
   assertSafeValue(payload);
   const evidence = (input.evidence ?? []).map(normalizeEvidence);
@@ -161,7 +169,7 @@ function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventT
 }
 
 export function normalizeEvent(input, options = {}) {
-  return normalizeEventWithTypes(input, { ...options, eventTypes: EVENT_TYPES });
+  return normalizeEventWithTypes(input, { ...options, eventTypes: EVENT_TYPES, enforceReadinessSize: true });
 }
 
 // Retired recommendation events remain in owner backups created by the former
@@ -174,7 +182,7 @@ export function normalizeHistoricalEvent(input, options = {}) {
 export function normalizeBackupEvent(input, options = {}) {
   return input?.type === 'recommendation.created'
     ? normalizeHistoricalEvent(input, options)
-    : normalizeEvent(input, options);
+    : normalizeEventWithTypes(input, { ...options, eventTypes: EVENT_TYPES, enforceReadinessSize: false });
 }
 
 export function redactForExport(value) {

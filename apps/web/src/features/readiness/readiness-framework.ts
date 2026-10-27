@@ -1,3 +1,6 @@
+import { GATES } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
+export { GATES, READINESS_VERSION, emptyReadinessState, effortSummary, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
+export type { ReadinessState, ReadinessProduct, ReadinessProjection, Requirement, Benchmark, ProofRef, Observation } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export const READINESS_AREAS = [
   { id: 'product', label: 'Product & design', description: 'Build a useful, understandable, polished and dependable product.' },
   { id: 'growth', label: 'SEO & growth', description: 'Build useful coverage, earn discovery and measure how people find us.' },
@@ -53,7 +56,7 @@ export const VISIBILITY_LEVELS = [
 
 export const LEVEL_STRUCTURE = Array.from({ length: 5 }, (_, i) => ({
   id: String(i + 1), name: `Level ${i + 1}`, possiblePoints: 2,
-  gate: 'Pass conditions not defined',
+  gate: `${GATES.product[i].title} / ${GATES.growth[i].title}`,
   unlock: i === 4 ? 'Category complete' : `Level ${i + 2} after a verified pass`,
 }));
 

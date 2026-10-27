@@ -6,6 +6,7 @@ import test from 'node:test';
 
 import { refreshStaleEvidence } from '../lib/dashboard-backend/refresh-coordinator.mjs';
 import { readRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
+import { evidenceRefreshDue } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { DashboardStore } from '../lib/dashboard-backend/store.mjs';
 
 const projection = {
@@ -13,9 +14,16 @@ const projection = {
     domains: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
     performance: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
     search: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
+    seoAudit: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
     aiAwareness: [{ observedAt: '2026-08-21T10:00:00.000Z' }],
   },
 };
+
+test('failed weekly collectors back off rather than retry on every ten-minute poll', () => {
+  const envelope = { source: 'psi', state: 'failed', lastAttemptAt: '2026-10-27T00:00:00Z' };
+  assert.equal(evidenceRefreshDue(envelope, '2026-10-27T00:10:00Z'), false);
+  assert.equal(evidenceRefreshDue(envelope, '2026-10-27T06:00:00Z'), true);
+});
 
 test('forced prefill starts every free portfolio collector and records paid AI approval', () => {
   const store = new DashboardStore({
@@ -39,11 +47,13 @@ test('forced prefill starts every free portfolio collector and records paid AI a
       { family: 'drank', scope: 'portfolio' },
       { family: 'psi', scope: 'portfolio' },
       { family: 'search', scope: 'portfolio' },
+      { family: 'seo', scope: 'portfolio' },
     ]);
     assert.deepEqual(results.map((item) => [item.family, item.action]), [
       ['drank', 'refresh'],
       ['psi', 'refresh'],
       ['search', 'refresh'],
+      ['seo', 'refresh'],
       ['ai', 'unavailable'],
     ]);
     assert.equal(readRefreshReceipt(store, 'ai').failure.code, 'AI_RECURRING_APPROVAL_REQUIRED');
@@ -77,7 +87,7 @@ test('an unavailable sibling collector cannot take the owner backend offline', (
       store, projection, force: true,
       metricRunController: { start() { throw Object.assign(new Error('missing checkout'), { code: 'METRIC_RUNNER_UNAVAILABLE' }); } },
     });
-    assert.equal(results.length, 4);
+    assert.equal(results.length, 5);
     assert.ok(results.every((result) => result.action === 'unavailable'));
     assert.equal(readRefreshReceipt(store, 'drank').failure.code, 'METRIC_RUNNER_UNAVAILABLE');
   } finally { store.close(); }

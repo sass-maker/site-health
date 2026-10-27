@@ -6,6 +6,7 @@ const SOURCES = Object.freeze([
   { family: 'drank', outcome: 'domains', auto: () => true },
   { family: 'psi', outcome: 'performance', auto: () => true },
   { family: 'search', outcome: 'search', auto: () => true },
+  { family: 'seo', outcome: 'seoAudit', auto: () => true },
   { family: 'ai', outcome: 'aiAwareness', auto: () => false },
 ]);
 
@@ -41,7 +42,7 @@ export function refreshStaleEvidence({
       receipt: readRefreshReceipt(store, source.family),
       now,
     });
-    if (!force && !evidenceRefreshDue(envelope)) {
+    if (!force && !evidenceRefreshDue(envelope, now)) {
       results.push({ family: source.family, action: 'cached', state: envelope.state });
       continue;
     }

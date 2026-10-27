@@ -7,6 +7,7 @@ import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
 import {
   recordRefreshReceipt,
+  readRefreshReceipt,
   reconcileAbandonedRefreshReceipts,
 } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { refreshStaleEvidence } from '../lib/dashboard-backend/refresh-coordinator.mjs';
@@ -21,6 +22,12 @@ import { AppStoreStore } from '../lib/app-store/store.mjs';
 import { BrandEvidenceStore, defaultBrandEvidencePath } from '../lib/brand-evidence/store.mjs';
 import { startBrandEvidenceScheduler } from '../lib/brand-evidence/scheduler.mjs';
 import { gatewayEnvironment } from '../lib/brand-evidence/gateway-environment.mjs';
+import { startEvidenceScheduler } from '../lib/dashboard-backend/evidence-scheduler.mjs';
+import { appHealthCredential, collectUsageEvidence, readUsageEvidence, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
+import { createWeeklyReview } from '../lib/dashboard-backend/weekly-review.mjs';
+import { readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
+import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
+import { apiModelObservations } from '../lib/dashboard-backend/api-model-evidence.mjs';
 
 function usage() {
   console.log(`Site Health backend
@@ -139,8 +146,36 @@ if (command === 'status') {
     metricRunController,
     prefillEvidence,
     projectsProvider,
+    readinessObservationProvider: (currentProjects) => [
+      ...usageObservations(currentProjects, readUsageEvidence()),
+      ...apiModelObservations(currentProjects, brandEvidenceStore),
+    ],
   });
   console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
+  const evidenceScheduler = startEvidenceScheduler({
+    lanes: process.env.SITE_HEALTH_SCHEDULED_REFRESH === '0' ? [] : [
+      { id: 'provider-refresh', intervalMs: 10 * 60_000, run: () => prefillEvidence({ force: false }) },
+      { id: 'usage', intervalMs: 24 * 60 * 60_000, run: async () => {
+        const attemptedAt = Date.parse(readRefreshReceipt(store, 'usage')?.lastAttemptAt ?? '');
+        if (Number.isFinite(attemptedAt) && Date.now() - attemptedAt < 24 * 60 * 60_000) return;
+        return withRefreshReceipt(store, {
+        family: 'usage', scope: 'portfolio', label: 'App Health aggregate usage', runId: `usage_${Date.now()}`,
+      }, async () => {
+        const snapshot = await collectUsageEvidence({ projects: projectsProvider(), credential: await appHealthCredential() });
+        writeUsageEvidence(snapshot);
+        return snapshot;
+      }, { signals: [], summarize: (snapshot) => ({ resultCount: Object.values(snapshot.records).filter(row => row.count !== null).length }) }); } },
+      { id: 'weekly-review', intervalMs: 60 * 60_000, run: () => {
+        store.projects = projectsProvider();
+        createWeeklyReview({ store, observations: [
+          ...readinessObservations(store.projects, buildDashboardProjection()),
+          ...usageObservations(store.projects, readUsageEvidence()),
+          ...apiModelObservations(store.projects, brandEvidenceStore),
+        ] });
+      } },
+    ],
+    onError: (id, error) => console.error(`Evidence ${id}: ${error.code ?? 'REFRESH_FAILED'}`),
+  });
   try {
     const startupPrefill = process.env.SITE_HEALTH_STARTUP_PREFILL === '0'
       ? { sources: [] } : prefillEvidence({ force: process.env.SITE_HEALTH_OWNER_HOST !== '1' });
@@ -166,9 +201,11 @@ if (command === 'status') {
     try { brandEvidenceStore.stopOwnedWork(); }
     catch (error) { console.error(`Could not interrupt owned brand evidence: ${error.message}`); }
     const brandsStopped = brandScheduler.stop();
+    const evidenceStopped = evidenceScheduler.stop();
     abandonInFlightRuns();
     server.close(async () => {
       await brandsStopped;
+      await evidenceStopped;
       store.close();
       brandEvidenceStore.close();
       appStoreStore.close();
