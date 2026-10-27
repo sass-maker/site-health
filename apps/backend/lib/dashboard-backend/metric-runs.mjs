@@ -89,9 +89,19 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
     };
   }
   if (family === 'drank') {
-    const root = registrableDomain(normalizedDomain(domain));
-    if (!domainStrengthRoots(projects).includes(root)) {
-      fail('METRIC_DOMAIN_INVALID', `${project.name} is outside the configured domain-rating scope`);
+    const allowedRoots = new Set(domainStrengthRoots(projects));
+    const root = (project.domains ?? [])
+      .map(normalizedDomain)
+      .filter(Boolean)
+      .map(registrableDomain)
+      .find((candidate) => allowedRoots.has(candidate));
+    if (!root) {
+      return {
+        unavailable: true,
+        code: 'METRIC_DOMAIN_INVALID',
+        label: 'Ahrefs Domain Rating',
+        summary: 'No in-scope public-provider root is configured for this project; cached evidence was not changed.',
+      };
     }
     const script = resolve(import.meta.dirname, '../../scripts/domain-rating-collect.mjs');
     return {

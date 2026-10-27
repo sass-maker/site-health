@@ -1553,7 +1553,11 @@ async function renderProject() {
         outcomePanel("Domain Rating", sourceStatus(domains, domain?.status), signalTime(domain?.signal), [
           { label: "Ahrefs DR", value: sourceValue(domains, signalValue(domain?.signal)), detail: domain?.signal?.history ?? "No history" },
           { label: "Domains", value: String(project.domains?.length ?? 0) },
-        ], domain?.provider === "Ahrefs" ? "Domain Rating by Ahrefs." : "Domain-rating history from the legacy Drank archive."),
+        ], domain?.provider === "Ahrefs"
+          ? "Domain Rating by Ahrefs."
+          : domain?.provider === "Drank archive"
+            ? "Domain-rating history from the legacy Drank archive."
+            : "No domain-rating observation yet."),
         outcomePanel("Performance", sourceStatus(performance, performanceRow?.status), signalTime(performanceRow?.psi, performanceRow?.lcp), [
           { label: "PSI", value: sourceValue(performance, signalValue(performanceRow?.psi)) },
           { label: "LCP", value: sourceValue(performance, signalValue(performanceRow?.lcp, " ms")) },

@@ -156,6 +156,37 @@ test('starts and deduplicates project Ahrefs Domain Rating runs without a shell'
   assert.deepEqual(invocation.args.slice(-2), ['--target', 'heypace.app']);
 });
 
+test('project Domain Rating chooses an in-scope root and returns unavailable for shared hosting only', () => {
+  const invocations = [];
+  const regularProject = {
+    ...project(),
+    domains: ['pace.github.io', 'www.blog.heypace.app/path'],
+  };
+  const hostedOnly = {
+    ...project(),
+    id: 'hosted-only',
+    name: 'Hosted only',
+    domains: ['pace.github.io'],
+  };
+  const controller = createMetricRunController({
+    projects: [regularProject, hostedOnly],
+    spawnProcess(command, args, options) {
+      invocations.push({ command, args, options });
+      return fakeProcess();
+    },
+  });
+
+  const measured = controller.start({ family: 'drank', projectId: 'pace' });
+  const unavailable = controller.start({ family: 'drank', projectId: 'hosted-only' });
+
+  assert.equal(measured.state, 'running');
+  assert.deepEqual(invocations[0].args.slice(-2), ['--target', 'heypace.app']);
+  assert.equal(unavailable.state, 'unavailable');
+  assert.equal(unavailable.code, 'METRIC_DOMAIN_INVALID');
+  assert.match(unavailable.summary, /No in-scope public-provider root/);
+  assert.equal(invocations.length, 1);
+});
+
 test('starts portfolio Ahrefs Domain Rating, PSI, and Search runs', () => {
   const invocations = [];
   const children = [];
