@@ -209,3 +209,24 @@ timestamp, state, and aggregate counts.
 candidate for each wired product. A candidate is shown as ready to configure,
 not enabled; surfaces with no stable server-rendered action remain marked for
 rendered discovery.
+
+### Free Ahrefs Domain Rating
+
+Run `node apps/backend/scripts/domain-rating-collect.mjs` for current configured
+roots, or pass `--target <root>` for an eligible root. The free public endpoint
+requires an Ahrefs API v3 key scoped to public endpoints. Store it in macOS
+Keychain, service `com.sassmaker.site-health.ahrefs-public`, account `owner`;
+never pass its value on argv or save it in repository configuration.
+
+Private daily history is `~/Library/Application Support/Fleet Ops/founder-control/domain-ratings.json`.
+Retries replace only the same UTC day's observation. Partial batches save valid
+ratings and retain missing targets; the refresh receipt remains failed/partial.
+Native Ahrefs and legacy Drank histories are never blended.
+
+Writes use a sibling `.lock` file and fail closed after a bounded wait. A crash
+can leave this file behind; it does not prove a refresh is still running. The
+CLI reports its path, recorded PID and creation time. For recovery, stop the
+collector/service, confirm the recorded PID is no longer the owning collector,
+and ensure no other refresh is starting. Move only the abandoned `.lock` file
+to Trash with `/usr/bin/trash <lock-path>`, then restart and retry. Never remove
+`domain-ratings.json`; never reclaim locks automatically by age or PID alone.

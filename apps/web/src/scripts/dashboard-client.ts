@@ -1694,6 +1694,8 @@ async function runRefreshPlans(
     const resultState = result.status === "fulfilled" ? result.value.state : "unavailable";
     const receipt = resultState === "succeeded"
       ? "refreshed"
+      : result.status === "fulfilled" && result.value.code === "AHREFS_PARTIAL_RESPONSE"
+        ? "partially refreshed; missing targets retained"
       : resultState === "running"
         ? "still running"
         : "unavailable";

@@ -178,7 +178,15 @@ async function acquireHistoryLock(path, {
       await pause(Math.min(100, Math.max(10, deadline - now())));
     }
   }
-  fail('DOMAIN_RATING_STORAGE_BUSY', 'Another domain-rating refresh is still writing local history.');
+  let ownerDetail = 'owner details unavailable';
+  try {
+    const recorded = JSON.parse(await readFile(lockPath, 'utf8'));
+    const pid = Number.isInteger(recorded.pid) && recorded.pid > 0 ? recorded.pid : 'unknown';
+    const createdAt = typeof recorded.createdAt === 'string' && Number.isFinite(Date.parse(recorded.createdAt))
+      ? new Date(recorded.createdAt).toISOString() : 'unknown';
+    ownerDetail = `recorded PID ${pid}, created ${createdAt}`;
+  } catch { /* A lock can disappear or be unreadable while reporting contention. */ }
+  fail('DOMAIN_RATING_STORAGE_BUSY', `Domain-rating history lock exists at ${lockPath} (${ownerDetail}). It may be active or abandoned. Retry, or follow the documented recovery after confirming its owner has stopped.`);
 }
 
 async function writeHistoryAtomically(path, history) {

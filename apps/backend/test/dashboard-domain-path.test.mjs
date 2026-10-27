@@ -70,6 +70,17 @@ test('uses native Ahrefs history by root and falls back to legacy only for roots
   assert.equal(beta.signal.series.length, 1);
 });
 
+test('missing HOME retains legacy domain evidence and the other projections', (t) => {
+  const { root, input } = fixture(t);
+  writeLegacy(root, {
+    'alpha.example': { history: [{ ts: Date.parse('2026-10-20T00:00:00Z'), dr: 17 }] },
+  });
+  const projection = buildDashboardProjection({ ...input, home: '' });
+  assert.equal(projection.outcomes.domains.find((row) => row.domain === 'alpha.example').signal.value, 17);
+  assert.ok(Array.isArray(projection.outcomes.search));
+  assert.ok(Array.isArray(projection.outcomes.performance));
+});
+
 test('empty or invalid native history falls back per domain without blending', (t) => {
   const { root, input } = fixture(t);
   writeLegacy(root, {

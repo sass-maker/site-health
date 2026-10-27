@@ -82,7 +82,7 @@ function drankProjection(fleetRoot, catalog, home, now) {
     registrableDomain(normalizedDomain(domain)),
     record,
   ]));
-  const nativePayloadRaw = readJson(defaultDomainRatingHistoryPath({ home }));
+  const nativePayloadRaw = home ? readJson(defaultDomainRatingHistoryPath({ home })) : null;
   let nativePayload = null;
   if (nativePayloadRaw) {
     try { nativePayload = parseDomainRatingHistory(nativePayloadRaw, { strict: false }); } catch {}
