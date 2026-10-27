@@ -252,4 +252,3 @@ Changes below are single-run observations, unconfirmed until they persist across
 - **contextdaddy / contextdaddy-brand** → B. Top: https://www.contextdaddy.com/, https://aisotools.com/tool/contextdaddy — Current merged config origin is https://context.daddyrad.com. That configured host is absent from the returned top 10. Results include contextdaddy.com at #1 and third-party listings at #2 (AISO Tools), #4 (SaaS Maker), and #5 (GitHubHelp), so aggregator visibility is partial, class B. SERP evidence only.
 - **contextdaddy / contextdaddy-category** → C. Top: https://prod.cursor.com/help/ai-features/agent, https://usemux.com/muxcode/ — Owned origin did not appear among first 10 returned URLs, class C.
 - **contextdaddy / contextdaddy-problem** → C. Top: https://openai.com/index/running-codex-safely/, https://learn.microsoft.com/en-us/microsoft-agent-365/developer/agent-365-skills — Owned origin did not appear among first 10 returned URLs, class C.
-
