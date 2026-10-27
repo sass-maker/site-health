@@ -8,6 +8,7 @@ import { defaultVisibilityOutcomePath, readVisibilityOutcomes } from './visibili
 import { searchConsoleProjects, searchObservationDomain, visibilityProjects } from './visibility-projects.mjs';
 import { domainStrengthRoots, registrableDomain } from './dashboard-backend/domain-scope.mjs';
 import { resolveCollectorRoot } from './dashboard-backend/collector-paths.mjs';
+import { defaultDomainRatingHistoryPath, parseDomainRatingHistory } from './domain-rating-collector.mjs';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 // The portfolio runner measures each target with `--runs 2` so lab noise averages out.
@@ -74,24 +75,34 @@ function signal(label, value, observedAt, series = []) {
     : { label, value: parsed, observedAt, series, history: series.length > 1 ? 'comparable' : 'baseline-only' };
 }
 
-function drankProjection(fleetRoot, catalog, now) {
+function drankProjection(fleetRoot, catalog, home, now) {
   const projects = catalog.projects ?? [];
-  const payload = readJson(resolve(resolveCollectorRoot(fleetRoot, 'drank', projects), 'data/fleet-dr.json'), { domains: {} });
-  const records = new Map(Object.entries(payload.domains ?? {}).map(([domain, record]) => [
-    normalizedDomain(domain),
+  const legacyPayload = readJson(resolve(resolveCollectorRoot(fleetRoot, 'drank', projects), 'data/fleet-dr.json'), { domains: {} });
+  const legacyRecords = new Map(Object.entries(legacyPayload.domains ?? {}).map(([domain, record]) => [
+    registrableDomain(normalizedDomain(domain)),
     record,
   ]));
+  const nativePayloadRaw = readJson(defaultDomainRatingHistoryPath({ home }));
+  let nativePayload = null;
+  if (nativePayloadRaw) {
+    try { nativePayload = parseDomainRatingHistory(nativePayloadRaw, { strict: false }); } catch {}
+  }
   return domainStrengthRoots(projects).map((domain) => {
-    const record = records.get(domain) ?? {};
+    const candidateNative = nativePayload?.domains[domain] ?? null;
+    const nativeRecord = candidateNative?.history?.length > 0 ? candidateNative : null;
+    const legacyRecord = legacyRecords.get(domain) ?? null;
+    const record = nativeRecord ?? legacyRecord ?? {};
     const history = [...(record.history ?? [])]
       .filter((item) => numeric(item.ts) !== null
         && Number.isFinite(new Date(Number(item.ts)).getTime())
         && numeric(item.dr) !== null)
       .sort((left, right) => Number(left.ts) - Number(right.ts));
     const latest = history.at(-1);
-    const observedAt = latest ? new Date(Number(latest.ts)).toISOString() : payload.lastUpdated ?? null;
+    const observedAt = latest ? new Date(Number(latest.ts)).toISOString() : legacyPayload.lastUpdated ?? null;
     return {
       domain,
+      provider: nativeRecord ? 'Ahrefs' : legacyRecord ? 'Drank archive' : null,
+      provenance: nativeRecord ? 'provider' : legacyRecord ? 'legacy' : null,
       projects: projects
         .filter((project) => (project.domains ?? []).some((item) =>
           registrableDomain(normalizedDomain(item)) === domain))
@@ -505,7 +516,7 @@ export function buildDashboardProjection({
     schemaVersion: 'dashboard.projection.v1',
     generatedAt: now,
     outcomes: {
-      domains: drankProjection(workspaceRoot, catalog, now),
+      domains: drankProjection(workspaceRoot, catalog, home, now),
       performance: performanceProjection(publicProjects, home),
       search: searchProjection(catalog, configRoot, home),
       seoAudit: seoAuditProjection(catalog, dataRoot),

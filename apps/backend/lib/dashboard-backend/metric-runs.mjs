@@ -9,6 +9,8 @@ import {
   domainStrengthRoots,
   isCurrentPortfolioProject,
   publicMetricTargets,
+  normalizedDomain,
+  registrableDomain,
 } from './domain-scope.mjs';
 
 const FAMILIES = new Set([
@@ -87,22 +89,16 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
     };
   }
   if (family === 'drank') {
-    const { root, path: script } = collectorScript(workspaceRoot, 'drank', 'scripts/update-global-dr.mjs', projects);
+    const root = registrableDomain(normalizedDomain(domain));
+    if (!domainStrengthRoots(projects).includes(root)) {
+      fail('METRIC_DOMAIN_INVALID', `${project.name} is outside the configured domain-rating scope`);
+    }
+    const script = resolve(import.meta.dirname, '../../scripts/domain-rating-collect.mjs');
     return {
-      cwd: root,
+      cwd: resolve(import.meta.dirname, '../../../..'),
       command: process.execPath,
-      args: [
-        script,
-        '--sites',
-        'data/fleet-sites.json',
-        '--data',
-        'data/fleet-dr.json',
-        '--label',
-        'fleet',
-        '--only',
-        domain,
-      ],
-      label: 'D-Rank',
+      args: [script, '--target', root],
+      label: 'Ahrefs Domain Rating',
     };
   }
   if (family === 'ai') {
@@ -123,21 +119,12 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
     if (targets.length === 0) {
       fail('METRIC_DOMAIN_MISSING', 'No domain-strength targets are configured');
     }
-    const { root, path: script } = collectorScript(workspaceRoot, 'drank', 'scripts/update-global-dr.mjs', projects);
+    const script = resolve(import.meta.dirname, '../../scripts/domain-rating-collect.mjs');
     return {
-      cwd: root,
+      cwd: resolve(import.meta.dirname, '../../../..'),
       command: process.execPath,
-      args: [
-        script,
-        '--sites',
-        'data/fleet-sites.json',
-        '--data',
-        'data/fleet-dr.json',
-        '--label',
-        'fleet',
-        ...targets.flatMap((domain) => ['--target', domain]),
-      ],
-      label: 'Portfolio D-Rank',
+      args: [script, ...targets.flatMap((domain) => ['--target', domain])],
+      label: 'Portfolio Ahrefs Domain Rating',
     };
   }
   if (family === 'psi') {

@@ -242,7 +242,7 @@ function projectEvidence(projectId: string, payloads: JsonRecord) {
   return [
     {
       id: "domains",
-      label: "DRANK",
+      label: "Ahrefs Domain Rating",
       status: sourceStatus(payloads.domains, outcomes.domains?.status),
       value: sourceValue(payloads.domains, signalValue(outcomes.domains?.signal)),
       observedAt: signalTime(outcomes.domains?.signal),
@@ -774,10 +774,15 @@ function bindProjectFilters(projects: JsonRecord[]) {
 async function renderDomains() {
   const payload = await api("/v1/outcomes/domains");
   evidenceTable("domains", payload.rows, "Domain evidence", [
-    signalColumn("signal", "DRANK"),
+    signalColumn("signal", "Ahrefs DR"),
     { id: "projects", label: "Projects", value: row => row.projects?.length ?? 0, display: row => String(row.projects?.length ?? 0) },
   ], row => element("div", {}, [
-    metricGrid([{ label: "DRANK", value: value(row.signal), detail: row.signal?.history ?? "No recorded history" }]),
+    metricGrid([{ label: "Ahrefs DR", value: value(row.signal), detail: row.signal?.history ?? "No recorded history" }]),
+    row.provider === "Ahrefs"
+      ? element("small", {}, [element("a", { href: "https://ahrefs.com/", rel: "noreferrer noopener", target: "_blank" }, ["Domain Rating by Ahrefs"]), " · provider observation"])
+      : row.provider === "Drank archive"
+        ? element("small", {}, ["Legacy Drank archive observation"])
+        : null,
     element("div", { class: "evidence-project-links" }, (row.projects ?? []).map((project: JsonRecord) => element("a", { href: projectHref(project.id) }, [project.name ?? project.id]))),
   ]));
   updateOutcomeTime(payload);
@@ -1545,10 +1550,10 @@ async function renderProject() {
         element("p", {}, ["Each source keeps its own status and timestamp; missing evidence does not erase the rest."]),
       ])]),
       element("div", { class: "outcome-panel-grid" }, [
-        outcomePanel("Domains / DRANK", sourceStatus(domains, domain?.status), signalTime(domain?.signal), [
-          { label: "DRANK", value: sourceValue(domains, signalValue(domain?.signal)), detail: domain?.signal?.history ?? "No history" },
+        outcomePanel("Domain Rating", sourceStatus(domains, domain?.status), signalTime(domain?.signal), [
+          { label: "Ahrefs DR", value: sourceValue(domains, signalValue(domain?.signal)), detail: domain?.signal?.history ?? "No history" },
           { label: "Domains", value: String(project.domains?.length ?? 0) },
-        ], "Domain-strength evidence is supplied by Drank."),
+        ], domain?.provider === "Ahrefs" ? "Domain Rating by Ahrefs." : "Domain-rating history from the legacy Drank archive."),
         outcomePanel("Performance", sourceStatus(performance, performanceRow?.status), signalTime(performanceRow?.psi, performanceRow?.lcp), [
           { label: "PSI", value: sourceValue(performance, signalValue(performanceRow?.psi)) },
           { label: "LCP", value: sourceValue(performance, signalValue(performanceRow?.lcp, " ms")) },
@@ -1657,7 +1662,7 @@ async function runRefreshPlans(
   plans: Array<{ family: string; projectId?: string; scope: "project" | "portfolio" }>,
   status: HTMLElement | null,
 ) {
-  const labels: Record<string, string> = { drank: "DRANK", psi: "Performance", search: "Search", ai: "AI awareness" };
+  const labels: Record<string, string> = { drank: "Domain Rating", psi: "Performance", search: "Search", ai: "AI awareness" };
   const progress = new Map(plans.map((plan) => [plan.family, "queued"]));
   const announce = () => {
     if (status) status.textContent = plans
@@ -1707,7 +1712,7 @@ function bindProjectRefresh(project: JsonRecord) {
   }
   button.disabled = false;
   if (status) status.textContent = project.domains?.length
-    ? "Product DRANK + Performance · portfolio Search"
+    ? "Product Domain Rating + Performance · portfolio Search"
     : "Portfolio Search · no product domain configured";
   button?.addEventListener("click", async () => {
     if (button.disabled) return;
@@ -1723,7 +1728,7 @@ function bindProjectRefresh(project: JsonRecord) {
     ];
     button.disabled = true;
     button.classList.add("running");
-    if (status) status.textContent = "Refreshing product DRANK and Performance; Search is portfolio-wide…";
+    if (status) status.textContent = "Refreshing product Domain Rating and Performance; Search is portfolio-wide…";
     try {
       await runRefreshPlans(plans, status);
       await renderProject();
@@ -1745,7 +1750,7 @@ function bindProjectRefreshAll() {
     if (button.disabled) return;
     button.disabled = true;
     button.classList.add("running");
-    if (status) status.textContent = "Refreshing DRANK, Performance, and Search…";
+    if (status) status.textContent = "Refreshing Domain Rating, Performance, and Search…";
     try {
       await runRefreshPlans([
         { family: "drank", scope: "portfolio" },

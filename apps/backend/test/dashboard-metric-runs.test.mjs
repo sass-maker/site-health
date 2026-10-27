@@ -1,16 +1,16 @@
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
-import { mkdtempSync, mkdirSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { PassThrough } from 'node:stream';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import test, { after } from 'node:test';
 
 import { createMetricRunController as createController } from '../lib/dashboard-backend/metric-runs.mjs';
 import { resolveFleetRoot, runPerformancePortfolio } from '../scripts/run-performance-portfolio.mjs';
 
 const fixtureRoot = mkdtempSync(join(tmpdir(), 'site-health-metric-runners-'));
-for (const file of ['drank/scripts/update-global-dr.mjs', 'psi-swarm/cli/dist/cli.js']) {
+for (const file of ['psi-swarm/cli/dist/cli.js']) {
   const path = join(fixtureRoot, file);
   mkdirSync(join(path, '..'), { recursive: true });
   writeFileSync(path, '');
@@ -20,7 +20,7 @@ function createMetricRunController(options) {
   return createController({ workspaceRoot: fixtureRoot, ...options });
 }
 
-test('uses the cataloged archive paths for both collectors and their working directories', () => {
+test('keeps PSI cataloged and runs domain rating from the executing Site Health checkout', () => {
   const root = realpathSync(mkdtempSync(join(tmpdir(), 'site-health-relocated-runners-')));
   const projects = [project(),
     { id: 'drank', repo: '../archive/drank', lifecycle: { status: 'inactive' } },
@@ -29,12 +29,12 @@ test('uses the cataloged archive paths for both collectors and their working dir
   const workspaceRoot = join(root, 'fleet');
   const invocations = [];
   try {
-    for (const file of ['drank/scripts/update-global-dr.mjs', 'psi-swarm/cli/dist/cli.js']) {
+    for (const file of ['psi-swarm/cli/dist/cli.js']) {
       const path = join(root, 'archive', file);
       mkdirSync(join(path, '..'), { recursive: true });
       writeFileSync(path, '');
     }
-    const controller = createMetricRunController({ projects, workspaceRoot,
+    const controller = createMetricRunController({ projects, workspaceRoot, repositoryRoot: join(root, 'stale-site-health'),
       spawnProcess: (command, args, options) => {
         invocations.push({ command, args, options });
         return fakeProcess();
@@ -43,11 +43,13 @@ test('uses the cataloged archive paths for both collectors and their working dir
     controller.start({ family: 'drank', projectId: 'pace' });
     controller.start({ family: 'psi', projectId: 'pace' });
     controller.start({ family: 'drank', scope: 'portfolio' });
-    assert.equal(invocations[0].args[0], join(root, 'archive/drank/scripts/update-global-dr.mjs'));
-    assert.equal(invocations[0].options.cwd, join(root, 'archive/drank'));
+    const nativeCollector = resolve(import.meta.dirname, '../scripts/domain-rating-collect.mjs');
+    assert.equal(invocations[0].args[0], nativeCollector);
+    assert.equal(invocations[0].options.cwd, resolve(import.meta.dirname, '../../..'));
+    assert.deepEqual(invocations[0].args.slice(1), ['--target', 'heypace.app']);
     assert.equal(invocations[1].args[4], join(root, 'archive/psi-swarm/cli/dist/cli.js'));
     assert.equal(invocations[1].options.cwd, join(root, 'archive/psi-swarm'));
-    assert.equal(invocations[2].options.cwd, join(root, 'archive/drank'));
+    assert.equal(invocations[2].options.cwd, resolve(import.meta.dirname, '../../..'));
     let performanceInvocation;
     runPerformancePortfolio([{ projectId: 'pace', url: 'https://heypace.app/' }], {
       projects, workspaceRoot, log() {},
@@ -60,17 +62,17 @@ test('uses the cataloged archive paths for both collectors and their working dir
   }
 });
 
-test('missing cataloged collectors fail before spawning instead of falling back to a stale checkout', () => {
-  let spawned = false;
+test('native domain-rating collection does not depend on a cataloged Drank checkout', () => {
+  const invocations = [];
   const controller = createMetricRunController({
     projects: [project(), { id: 'drank', repo: 'missing/drank' }, { id: 'psi-swarm', repo: 'missing/psi-swarm' }],
-    spawnProcess() { spawned = true; return fakeProcess(); },
+    spawnProcess(command, args, options) { invocations.push({ command, args, options }); return fakeProcess(); },
   });
-  for (const family of ['drank', 'psi']) {
-    assert.throws(() => controller.start({ family, projectId: 'pace' }), { code: 'METRIC_RUNNER_UNAVAILABLE' });
-  }
-  assert.throws(() => controller.start({ family: 'drank', scope: 'portfolio' }), { code: 'METRIC_RUNNER_UNAVAILABLE' });
-  assert.equal(spawned, false);
+  assert.throws(() => controller.start({ family: 'psi', projectId: 'pace' }), { code: 'METRIC_RUNNER_UNAVAILABLE' });
+  assert.equal(controller.start({ family: 'drank', projectId: 'pace' }).state, 'running');
+  assert.equal(controller.start({ family: 'drank', scope: 'portfolio' }).state, 'running');
+  assert.equal(invocations.length, 2);
+  assert.ok(invocations.every(({ args }) => args[0] === resolve(import.meta.dirname, '../scripts/domain-rating-collect.mjs')));
 });
 
 function fakeProcess() {
@@ -133,11 +135,11 @@ test('failed collector receipts show the error instead of its stack tail', () =>
   assert.equal(failed.summary, 'Error: No successful DR observations; history unchanged');
 });
 
-test('starts and deduplicates project D-Rank runs without a shell', () => {
+test('starts and deduplicates project Ahrefs Domain Rating runs without a shell', () => {
   let invocation;
   const child = fakeProcess();
   const controller = createMetricRunController({
-    projects: [project()],
+    projects: [{ ...project(), domains: ['www.blog.heypace.app/path'] }],
     spawnProcess: (command, args, options) => {
       invocation = { command, args, options };
       return child;
@@ -147,50 +149,14 @@ test('starts and deduplicates project D-Rank runs without a shell', () => {
   const started = controller.start({ family: 'drank', projectId: 'pace' });
   const duplicate = controller.start({ family: 'drank', projectId: 'pace' });
 
-  assert.equal(started.label, 'D-Rank');
+  assert.equal(started.label, 'Ahrefs Domain Rating');
   assert.equal(duplicate.runId, started.runId);
   assert.equal(duplicate.duplicate, true);
   assert.equal(invocation.options.shell, false);
-  assert.deepEqual(invocation.args.slice(-2), ['--only', 'heypace.app']);
+  assert.deepEqual(invocation.args.slice(-2), ['--target', 'heypace.app']);
 });
 
-test('executes a symlinked Drank script through its canonical path', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'site-health-drank-link-'));
-  const marker = join(root, 'executed.txt');
-  const archiveScript = join(root, 'archive', 'drank', 'scripts', 'update-global-dr.mjs');
-  const linkedScript = join(root, 'drank', 'scripts', 'update-global-dr.mjs');
-  mkdirSync(join(root, 'archive', 'drank', 'scripts'), { recursive: true });
-  mkdirSync(join(root, 'drank', 'scripts'), { recursive: true });
-  mkdirSync(join(root, 'pace'), { recursive: true });
-  writeFileSync(archiveScript, [
-    "import { resolve } from 'node:path';",
-    "import { fileURLToPath } from 'node:url';",
-    "import { writeFileSync } from 'node:fs';",
-    `if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) writeFileSync(${JSON.stringify(marker)}, 'executed');`,
-  ].join('\n'));
-  symlinkSync(archiveScript, linkedScript);
-
-  const terminal = new Promise((resolve) => {
-    const controller = createMetricRunController({
-      projects: [project()],
-      workspaceRoot: root,
-      repositoryRoot: join(root, 'site-health'),
-      onRunChange: (run) => {
-        if (run.state !== 'running') resolve(run);
-      },
-    });
-    controller.start({ family: 'drank', projectId: 'pace' });
-  });
-  try {
-    const run = await terminal;
-    assert.equal(run.state, 'succeeded');
-    assert.equal(readFileSync(marker, 'utf8'), 'executed');
-  } finally {
-    rmSync(root, { recursive: true, force: true });
-  }
-});
-
-test('starts portfolio D-Rank, PSI, and Search runs', () => {
+test('starts portfolio Ahrefs Domain Rating, PSI, and Search runs', () => {
   const invocations = [];
   const children = [];
   const controller = createMetricRunController({
@@ -203,11 +169,12 @@ test('starts portfolio D-Rank, PSI, and Search runs', () => {
     },
   });
 
-  assert.equal(controller.start({ family: 'drank', scope: 'portfolio' }).label, 'Portfolio D-Rank');
+  assert.equal(controller.start({ family: 'drank', scope: 'portfolio' }).label, 'Portfolio Ahrefs Domain Rating');
   assert.equal(controller.start({ family: 'psi', scope: 'portfolio' }).label, 'Portfolio PSI');
   assert.equal(controller.start({ family: 'search', scope: 'portfolio' }).label, 'Portfolio Search Console evidence');
   assert.equal(invocations.every(({ options }) => options.shell === false), true);
-  assert.equal(invocations[0].args.includes('--only'), false);
+  assert.equal(invocations[0].args[0], resolve(import.meta.dirname, '../scripts/domain-rating-collect.mjs'));
+  assert.equal(invocations[0].args.filter((argument) => argument === '--target').length, 1);
   assert.equal(invocations[1].args[0].endsWith('run-performance-portfolio.mjs'), true);
   assert.equal(invocations[2].args[0].endsWith('search-console-collect.mjs'), true);
 });
@@ -298,6 +265,6 @@ test('refreshes the project inventory before planning a metric run', () => {
   currentProjects = [project()];
   assert.equal(
     controller.start({ family: 'drank', projectId: 'pace' }).label,
-    'D-Rank',
+    'Ahrefs Domain Rating',
   );
 });
