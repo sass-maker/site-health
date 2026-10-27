@@ -130,7 +130,7 @@ function proof(refs, label) {
   }
 }
 export function validateReadinessState(state, { enforceSize = true } = {}) {
-  const maximumKB = state?.checklist ? 24 : 12;
+  const maximumKB = Object.keys(state?.checklist ?? {}).length ? 24 : 12;
   if (enforceSize && new TextEncoder().encode(JSON.stringify(state)).byteLength > maximumKB * 1024) fail(`Assessment exceeds ${maximumKB} KB. Shorten notes and proof references before saving.`);
   record(state, 'state', ['version', 'applicability', 'requirements', 'checklist', 'nextLevers', 'benchmarks']);
   if (state.version !== READINESS_VERSION) fail('Unsupported readiness framework version');
@@ -186,10 +186,11 @@ export function requirementCompletion(entry) {
 }
 export function effortSummary(state, area) {
   const applicability = state.applicability[area];
-  const definitions = state.checklist ? CHECKLIST_ITEMS[area] : GATES[area];
-  const basis = state.checklist ? 'checklist-items' : 'legacy-gates';
+  const useItems = CHECKLIST_ITEMS[area].some(item => state.checklist?.[item.id]);
+  const definitions = useItems ? CHECKLIST_ITEMS[area] : GATES[area];
+  const basis = useItems ? 'checklist-items' : 'legacy-gates';
   if (applicability.state !== 'applicable') return { basis, score: null, level: null, status: applicability.state, verified: 0, total: definitions.length, assessed: 0, applicable: 0, confidence: 'unknown', minimumScore: null, maximumScore: null };
-  const entries = definitions.map(item => (state.checklist ?? state.requirements)[item.id]);
+  const entries = definitions.map(item => (useItems ? state.checklist : state.requirements)[item.id]);
   const applicable = entries.filter(entry => !(entry?.status === 'exempt' && entry.note?.trim() && hasProof(entry.evidenceRefs)));
   const completions = applicable.map(requirementCompletion);
   const assessed = completions.filter(value => value !== null).length;
@@ -201,7 +202,7 @@ export function effortSummary(state, area) {
   const maximumScore = assessed ? Math.ceil((knownTotal + (applicable.length - assessed) * 100) / applicable.length) / 10 : null;
   const confidence = complete ? ['low', 'medium', 'high'].find(value => applicable.some(entry => (entry.confidence ?? 'high') === value)) : 'unknown';
   return { basis, score: complete ? Math.round(knownTotal / applicable.length) / 10 : null,
-    level: entries.some(Boolean) ? level : null, status: entries.some(Boolean) ? 'assessed' : 'not-assessed',
+    level: GATES[area].some(gate => state.requirements[gate.id]) ? level : null, status: entries.some(Boolean) ? 'assessed' : 'not-assessed',
     verified: entries.filter(e => e?.status === 'verified' && hasProof(e.evidenceRefs)).length, total: definitions.length,
     assessed, applicable: applicable.length, confidence, minimumScore, maximumScore };
 }
