@@ -2,6 +2,92 @@
 export const READINESS_VERSION = 'readiness.two-category.v1';
 export const AREAS = ['product', 'growth'];
 export const METRICS = { product: ['dau', 'high-intent', 'revenue', 'churn'], growth: ['discoverability', 'visits', 'answer-strength'] };
+export const CHECKLIST_ITEMS = {
+  "product": [
+    {
+      "id": "product-core",
+      "title": "Core value loop",
+      "detail": "Audience, onboarding/auth where needed, useful output, save and return."
+    },
+    {
+      "id": "product-features",
+      "title": "Core and bonus features",
+      "detail": "Every promised feature works; scoped parity and exclusions explicit."
+    },
+    {
+      "id": "product-understandable",
+      "title": "Understandable and dependable journeys",
+      "detail": "Labels, navigation, defaults, loading, empty, error, success and recovery."
+    },
+    {
+      "id": "product-design",
+      "title": "Design and motion",
+      "detail": "Rendered readability, hierarchy, responsive/a11y and purposeful/reduced motion; target quality9+/10 needs actual review."
+    },
+    {
+      "id": "product-agent",
+      "title": "AI / CLI / MCP readiness",
+      "detail": "Appropriate meaningful executable agent workflow, discovery, scoped auth, structured errors, safe replay."
+    },
+    {
+      "id": "product-delivery",
+      "title": "Technical delivery and recovery",
+      "detail": "Tests, CI/CD, deployment or install parity, security/privacy, backup/restore/rollback."
+    },
+    {
+      "id": "product-speed",
+      "title": "Speed and performance",
+      "detail": "Mobile/desktop PSI Swarm plus actual core-interaction budgets or applicable native performance."
+    },
+    {
+      "id": "product-measurement",
+      "title": "Product measurement and maintenance",
+      "detail": "Instrumentation verified, core events and actor scope, recurring regression checks."
+    }
+  ],
+  "growth": [
+    {
+      "id": "growth-foundations",
+      "title": "Basic SEO and footer",
+      "detail": "Metadata, canonicals, sitemap/robots, redirects, schema, links, shared footer."
+    },
+    {
+      "id": "growth-research",
+      "title": "Keyword and competitor research",
+      "detail": "Relevant keyword/intent-to-page mapping grounded in research; exact matching alone insufficient."
+    },
+    {
+      "id": "growth-hundred",
+      "title": "100+ useful published pages",
+      "detail": "Distinct useful intent-matched published crawlable pages; count alone insufficient; indexing is a result."
+    },
+    {
+      "id": "growth-thousand",
+      "title": "1,000+ useful pages where applicable",
+      "detail": "Useful distinct comparisons, guides, alternatives, problems and use cases; explicit scope exemptions."
+    },
+    {
+      "id": "growth-ai",
+      "title": "AI-readable coverage",
+      "detail": "Consistent identity, verifiable facts, sources and crawlable AI discovery surfaces; not AI mentions."
+    },
+    {
+      "id": "growth-distribution",
+      "title": "Backlinks and distribution",
+      "detail": "Actual relevant external profile, link or publication work; original third-party distribution, dated register. Owned-site publication is content coverage, not external distribution."
+    },
+    {
+      "id": "growth-measurement",
+      "title": "Passive and active acquisition measurement",
+      "detail": "Relevant acquisition/action events, attribution and project identity; excludeQA/bots."
+    },
+    {
+      "id": "growth-maintenance",
+      "title": "Keep content current",
+      "detail": "Proportionate recurring refresh, link/orphan/duplicate and indexing/measurement regression checks."
+    }
+  ]
+};
 export const GATES = {
   product: [
     { id: 'product-core', level: 1, title: 'A useful, deployed core loop', detail: 'Verify the audience, core value loop, appropriate authentication, basic instrumentation, privacy and deployed or installed behavior.' },
@@ -43,9 +129,13 @@ function proof(refs, label) {
     }
   }
 }
+export function hasRequirementAssessment(entry) {
+  return Boolean(entry && (entry.status !== 'not-started' || entry.note?.trim() || entry.evidenceRefs?.length || entry.completion != null));
+}
 export function validateReadinessState(state, { enforceSize = true } = {}) {
-  if (enforceSize && new TextEncoder().encode(JSON.stringify(state)).byteLength > 12 * 1024) fail('Assessment exceeds 12 KB. Shorten notes and proof references before saving.');
-  record(state, 'state', ['version', 'applicability', 'requirements', 'nextLevers', 'benchmarks']);
+  const maximumKB = Object.values(state?.checklist ?? {}).some(hasRequirementAssessment) ? 24 : 12;
+  if (enforceSize && new TextEncoder().encode(JSON.stringify(state)).byteLength > maximumKB * 1024) fail(`Assessment exceeds ${maximumKB} KB. Shorten notes/proof or clear unused individual draft assessments before saving.`);
+  record(state, 'state', ['version', 'applicability', 'requirements', 'checklist', 'nextLevers', 'benchmarks']);
   if (state.version !== READINESS_VERSION) fail('Unsupported readiness framework version');
   record(state.applicability, 'applicability', AREAS); record(state.nextLevers, 'nextLevers', AREAS);
   for (const area of AREAS) {
@@ -55,7 +145,8 @@ export function validateReadinessState(state, { enforceSize = true } = {}) {
     text(state.nextLevers[area], 'Next lever');
   }
   record(state.requirements, 'requirements', AREAS.flatMap(a => GATES[a].map(g => g.id)));
-  for (const entry of Object.values(state.requirements)) {
+  if (state.checklist !== undefined) record(state.checklist, 'checklist', Object.values(CHECKLIST_ITEMS).flat().map(item => item.id));
+  for (const entry of [...Object.values(state.requirements), ...Object.values(state.checklist ?? {})]) {
     record(entry, 'requirement', ['status', 'note', 'evidenceRefs', 'completion', 'confidence']);
     choice(entry.status, ['not-started', 'in-progress', 'awaiting-evidence', 'verified', 'exempt'], 'Work status');
     text(entry.note, 'Requirement note'); proof(entry.evidenceRefs, 'Requirement evidence');
@@ -98,21 +189,24 @@ export function requirementCompletion(entry) {
 }
 export function effortSummary(state, area) {
   const applicability = state.applicability[area];
-  if (applicability.state !== 'applicable') return { score: null, level: null, status: applicability.state, verified: 0, total: 5, assessed: 0, applicable: 0, confidence: 'unknown', minimumScore: null, maximumScore: null };
-  const entries = GATES[area].map(g => state.requirements[g.id]);
+  const useItems = CHECKLIST_ITEMS[area].some(item => hasRequirementAssessment(state.checklist?.[item.id]));
+  const definitions = useItems ? CHECKLIST_ITEMS[area] : GATES[area];
+  const basis = useItems ? 'checklist-items' : 'legacy-gates';
+  if (applicability.state !== 'applicable') return { basis, score: null, level: null, status: applicability.state, verified: 0, total: definitions.length, assessed: 0, applicable: 0, confidence: 'unknown', minimumScore: null, maximumScore: null };
+  const entries = definitions.map(item => (useItems ? state.checklist : state.requirements)[item.id]);
   const applicable = entries.filter(entry => !(entry?.status === 'exempt' && entry.note?.trim() && hasProof(entry.evidenceRefs)));
   const completions = applicable.map(requirementCompletion);
   const assessed = completions.filter(value => value !== null).length;
   let level = 0;
-  for (const entry of entries) { if (!entry || !['verified', 'exempt'].includes(entry.status) || !hasProof(entry.evidenceRefs)) break; level++; }
+  for (const gate of GATES[area]) { const entry = state.requirements[gate.id]; if (!entry || !['verified', 'exempt'].includes(entry.status) || !hasProof(entry.evidenceRefs)) break; level++; }
   const complete = applicable.length > 0 && assessed === applicable.length;
   const knownTotal = completions.reduce((sum, value) => sum + (value ?? 0), 0);
   const minimumScore = assessed ? Math.floor(knownTotal / applicable.length) / 10 : null;
   const maximumScore = assessed ? Math.ceil((knownTotal + (applicable.length - assessed) * 100) / applicable.length) / 10 : null;
   const confidence = complete ? ['low', 'medium', 'high'].find(value => applicable.some(entry => (entry.confidence ?? 'high') === value)) : 'unknown';
-  return { score: complete ? Math.round(knownTotal / applicable.length) / 10 : null,
-    level: entries.some(Boolean) ? level : null, status: entries.some(Boolean) ? 'assessed' : 'not-assessed',
-    verified: entries.filter(e => e?.status === 'verified' && hasProof(e.evidenceRefs)).length, total: 5,
+  return { basis, score: complete ? Math.round(knownTotal / applicable.length) / 10 : null,
+    level: GATES[area].some(gate => state.requirements[gate.id]) ? level : null, status: entries.some(Boolean) ? 'assessed' : 'not-assessed',
+    verified: entries.filter(e => e?.status === 'verified' && hasProof(e.evidenceRefs)).length, total: definitions.length,
     assessed, applicable: applicable.length, confidence, minimumScore, maximumScore };
 }
 export function metricScore(benchmark) {

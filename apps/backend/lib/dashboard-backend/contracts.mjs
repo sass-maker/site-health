@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { validateReadinessState } from './readiness-model.mjs';
+import { validateReadinessState, hasRequirementAssessment } from './readiness-model.mjs';
 
 const EVENT_SCHEMA_VERSION = 1;
 const MAX_EVENT_BYTES = 16 * 1024;
@@ -164,7 +164,8 @@ function normalizeEventWithTypes(input, { now = new Date().toISOString(), eventT
     payload: structuredClone(payload),
     evidence,
   };
-  assert(Buffer.byteLength(JSON.stringify(event)) <= MAX_EVENT_BYTES, 'EVENT_TOO_LARGE', `event exceeds ${MAX_EVENT_BYTES} bytes`);
+  const maximumEventBytes = input.type === 'readiness.state-updated' && Object.values(payload.state?.checklist ?? {}).some(hasRequirementAssessment) ? 28 * 1024 : MAX_EVENT_BYTES;
+  assert(Buffer.byteLength(JSON.stringify(event)) <= maximumEventBytes, 'EVENT_TOO_LARGE', `event exceeds ${maximumEventBytes} bytes`);
   return event;
 }
 
