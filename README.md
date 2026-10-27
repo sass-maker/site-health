@@ -56,8 +56,8 @@ questions with `node apps/backend/scripts/brand-evidence.mjs prompt <project>
 "<question>" --category panel-v1:<intent>`, using `brand`, `category`, `problem`,
 `comparison` or `use-case`. Inspect the actual question against the product's
 market before adding it. Run `check <project>` and configure the profile's weekly
-cadence through AI Awareness. Readiness shows aggregates from the latest successful
-check, keeping unavailable answers and unconfigured panels explicit. Direct-name
+cadence through AI Awareness. Readiness retains the latest successful answer for each configured prompt
+with its actual date, keeping unavailable answers and unconfigured panels explicit. Direct-name
 mentions do not prove factual recognition; these API checks are separate from
 consumer-assistant results, Google positions, demand validation and citations.
 

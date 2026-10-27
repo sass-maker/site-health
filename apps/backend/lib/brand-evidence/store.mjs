@@ -552,24 +552,21 @@ export class BrandEvidenceStore {
     return row ? checkRow(row) : null;
   }
 
-  lastCompletedApiModelCheck(projectId) {
-    const row = this.database.prepare(`SELECT c.* FROM evidence_checks c WHERE c.project_id = ? AND c.channel = 'api-model'
-      AND c.status IN ('completed', 'partial') AND EXISTS (
-        SELECT 1 FROM evidence_observations e JOIN evidence_prompts p ON p.id = e.prompt_id AND p.project_id = e.project_id
-        WHERE e.check_id = c.id AND e.project_id = c.project_id AND e.channel = 'api-model' AND e.status = 'completed'
-          AND p.category IN ('panel-v1:brand', 'panel-v1:category', 'panel-v1:problem', 'panel-v1:comparison', 'panel-v1:use-case')
-      ) ORDER BY c.started_at DESC, c.id DESC LIMIT 1`).get(projectId);
-    return row ? checkRow(row) : null;
-  }
-
-  apiModelPanelObservations(projectId, checkId) {
+  apiModelPanelObservations(projectId) {
+    // Keep the newest successful answer for each configured prompt. A partial
+    // refresh can update one intent without erasing another intent's evidence.
     return this.database.prepare(`
-      SELECT e.prompt_id, e.status, e.brand_mentioned, e.model, e.observed_at
-      FROM evidence_observations e
-      JOIN evidence_prompts p ON p.id = e.prompt_id AND p.project_id = e.project_id
-      WHERE e.project_id = ? AND e.check_id = ? AND e.channel = 'api-model'
-        AND p.category IN ('panel-v1:brand', 'panel-v1:category', 'panel-v1:problem', 'panel-v1:comparison', 'panel-v1:use-case')
-    `).all(projectId, checkId).map(row => ({ promptId: row.prompt_id, status: row.status,
+      WITH ranked AS (
+        SELECT e.prompt_id, e.status, e.brand_mentioned, e.model, e.observed_at,
+          ROW_NUMBER() OVER (PARTITION BY e.prompt_id ORDER BY c.started_at DESC, e.observed_at DESC, e.id DESC) AS rank
+        FROM evidence_observations e
+        JOIN evidence_checks c ON c.id = e.check_id AND c.project_id = e.project_id
+        JOIN evidence_prompts p ON p.id = e.prompt_id AND p.project_id = e.project_id
+        WHERE e.project_id = ? AND e.channel = 'api-model' AND e.status = 'completed'
+          AND c.channel = 'api-model' AND c.status IN ('completed', 'partial')
+          AND p.category IN ('panel-v1:brand', 'panel-v1:category', 'panel-v1:problem', 'panel-v1:comparison', 'panel-v1:use-case')
+      ) SELECT prompt_id, status, brand_mentioned, model, observed_at FROM ranked WHERE rank = 1
+    `).all(projectId).map(row => ({ promptId: row.prompt_id, status: row.status,
       brandMentioned: boolOrNull(row.brand_mentioned), model: row.model, observedAt: row.observed_at }));
   }
 

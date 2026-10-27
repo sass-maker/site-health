@@ -2,9 +2,8 @@
 // direct-name prompting with neutral discovery or consumer-assistant captures.
 export function apiModelObservations(projects, store) {
   return projects.flatMap(project => {
-    const check = store.lastCompletedApiModelCheck(project.id);
     const prompts = store.listPrompts(project.id);
-    const observations = check ? store.apiModelPanelObservations(project.id, check.id) : [];
+    const observations = store.apiModelPanelObservations(project.id);
     return ['brand', 'category', 'problem', 'comparison', 'use-case'].map(intent => {
       const ids = new Set(prompts.filter(row => row.category === `panel-v1:${intent}`).map(row => row.id));
       const available = observations.filter(row => ids.has(row.promptId) && row.status === 'completed');
