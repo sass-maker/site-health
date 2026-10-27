@@ -39,6 +39,7 @@ test('keeps provider, account, live/test mode, and currency namespaces separate 
 
 test('empty provider result stays unknown rather than becoming zero', async () => {
   const snapshot = await collectProviderRevenueEvidence({ projects, credential: 'fixture', fetcher: fetchFixture(report([])), now: () => 1_792_592_000_000 });
+  assert.equal(snapshot.records.one.status, 'empty');
   assert.equal(snapshot.records.one.totals, null);
   assert.equal(providerRevenueObservations(projects, snapshot)[0].value, null);
   assert.match(snapshot.records.one.gap, /does not establish that no connected sources or revenue exist/);
@@ -56,6 +57,7 @@ test('collector validates provider report and makes only fixed-origin GET reques
   }
   assert.ok(!JSON.stringify(snapshot).includes('fixture'));
   const invalid = await collectProviderRevenueEvidence({ projects, credential: 'fixture', fetcher: fetchFixture(report([total({ currency: 'usd' })])), now: () => 1_792_592_000_000 });
+  assert.equal(invalid.records.one.status, 'failed');
   assert.equal(invalid.records.one.totals, null);
   assert.equal(invalid.records.one.observedAt, null);
   const staleWindow = await collectProviderRevenueEvidence({ projects, credential: 'fixture', fetcher: fetchFixture({ ...report([total()]), from: 1_789_000_000_000 }), now: () => 1_792_592_000_000 });
@@ -66,10 +68,10 @@ test('failed refresh keeps prior totals and observed date in private snapshot an
   const dir = mkdtempSync(join(tmpdir(), 'provider-revenue-'));
   const path = join(dir, 'app-health-provider-revenue.json');
   writeProviderRevenueEvidence({ observedAt: '2026-10-26T00:00:00.000Z', records: { one: {
-    totals: [total()], observedAt: '2026-10-26T00:00:00.000Z', window: 'old window',
+    status: 'available', totals: [total()], observedAt: '2026-10-26T00:00:00.000Z', window: 'old window',
   } } }, path);
   writeProviderRevenueEvidence({ observedAt: '2026-10-27T00:00:00.000Z', records: { one: {
-    totals: null, observedAt: null, lastAttemptAt: '2026-10-27T00:00:00.000Z', gap: 'Invalid response',
+    status: 'failed', totals: null, observedAt: null, lastAttemptAt: '2026-10-27T00:00:00.000Z', gap: 'Invalid response',
   } } }, path);
   const snapshot = readProviderRevenueEvidence(path);
   assert.equal(snapshot.records.one.totals[0].net_minor, 1000);
@@ -79,4 +81,22 @@ test('failed refresh keeps prior totals and observed date in private snapshot an
   assert.equal(statSync(path).mode & 0o777, 0o600);
   const history = readFileSync(join(dir, 'provider-revenue-history', '2026-10-27.json'), 'utf8');
   assert.ok(history.includes('1000'));
+});
+
+test('successful empty and unmapped results replace old totals with unknown evidence', () => {
+  for (const status of ['empty', 'unmapped']) {
+    const dir = mkdtempSync(join(tmpdir(), `provider-revenue-${status}-`));
+    const path = join(dir, 'app-health-provider-revenue.json');
+    writeProviderRevenueEvidence({ observedAt: '2026-10-26T00:00:00.000Z', records: { one: {
+      status: 'available', totals: [total()], observedAt: '2026-10-26T00:00:00.000Z', window: 'old window',
+    } } }, path);
+    writeProviderRevenueEvidence({ observedAt: '2026-10-27T00:00:00.000Z', records: { one: {
+      status, totals: null, observedAt: null, gap: status === 'empty' ? 'No provider totals returned.' : 'Mapping is ambiguous.',
+    } } }, path);
+    const snapshot = readProviderRevenueEvidence(path);
+    assert.equal(snapshot.records.one.status, status);
+    assert.equal(snapshot.records.one.totals, null);
+    assert.equal(providerRevenueObservations(projects, snapshot)[0].value, null);
+    assert.doesNotMatch(snapshot.records.one.gap, /Refresh unavailable/);
+  }
 });

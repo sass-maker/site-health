@@ -22,7 +22,7 @@ export function writeProviderRevenueEvidence(snapshot, path = defaultProviderRev
   const previous = readProviderRevenueEvidence(path);
   const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
     const old = previous?.records?.[id];
-    return [id, row.totals === null && Array.isArray(old?.totals)
+    return [id, row.status === 'failed' && Array.isArray(old?.totals)
       ? { ...old, lastAttemptAt: snapshot.observedAt, gap: `Refresh unavailable; retained observation from ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
@@ -96,7 +96,7 @@ export async function collectProviderRevenueEvidence({ projects, credential, fet
       const matches = apps.filter((row) => row.app?.id === project.id || normalize(row.app?.name) === normalize(project.name));
       const environments = matches.length === 1 ? matches[0].environments?.filter((entry) => entry.name === 'production') ?? [] : [];
       if (environments.length !== 1) {
-        records[project.id] = { totals: null, observedAt: null, lastAttemptAt: iso(now()), gap: 'No unique exact product and production-environment mapping; source remains unknown.' };
+        records[project.id] = { status: 'unmapped', totals: null, observedAt: null, lastAttemptAt: iso(now()), gap: 'No unique exact product and production-environment mapping; source remains unknown.' };
         continue;
       }
       try {
@@ -116,6 +116,7 @@ export async function collectProviderRevenueEvidence({ projects, credential, fet
           || !report.unresolved.every((row) => typeof row.reason === 'string' && row.reason.length <= 100 && count(row.count))
           || typeof report.diagnostics_truncated !== 'boolean') throw new Error('Invalid provider revenue report');
         records[project.id] = {
+          status: report.totals.length === 0 ? 'empty' : 'available',
           totals: report.totals.length === 0 ? null : report.totals.map((total) => Object.fromEntries(['provider', 'account_id', 'mode', 'currency', ...FIELDS].map((key) => [key, total[key]]))),
           observedAt: iso(now()), window: `${iso(report.from)} to ${iso(report.to)}`,
           gap: report.totals.length === 0
@@ -123,7 +124,7 @@ export async function collectProviderRevenueEvidence({ projects, credential, fet
             : `Provider-object-created basis. ${report.coverage_note}`.slice(0, 1600),
         };
       } catch {
-        records[project.id] = { totals: null, observedAt: null, lastAttemptAt: iso(now()), gap: 'Provider aggregate unavailable or invalid; last good observation is retained.' };
+        records[project.id] = { status: 'failed', totals: null, observedAt: null, lastAttemptAt: iso(now()), gap: 'Provider aggregate unavailable or invalid; last good observation is retained.' };
       }
     }
   }));
