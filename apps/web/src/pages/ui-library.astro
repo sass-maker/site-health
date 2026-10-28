@@ -1,7 +1,4 @@
 ---
-import DashboardLayout from '../components/DashboardLayout.astro';
-import UiLibraryPage from '../features/projects/ui-library-page';
+// Preserve old bookmarks without a separate diagnostics page.
+return Astro.redirect("/projects", 302);
 ---
-<DashboardLayout title="UI Library coverage" description="Shared components, source evidence and rendered checks." active="ui-library" view="ui-library" showProjectScope={false} loadDashboardEvidence={false}>
-  <UiLibraryPage client:load/>
-</DashboardLayout>

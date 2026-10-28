@@ -9,9 +9,9 @@ import "../styles/dashboard.css";
 interface Props {
   title: string;
   description: string;
-  active: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "readiness" | "ui-library";
+  active: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "readiness";
   eyebrow?: string;
-  view?: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "project" | "app-store" | "readiness" | "ui-library";
+  view?: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "project" | "app-store" | "readiness";
   projectId?: string;
   showProjectScope?: boolean;
   loadDashboardEvidence?: boolean;
@@ -36,7 +36,7 @@ const { title, description, active, eyebrow = "Site Health evidence", view, proj
     <a class="skip-link" href="#main">Skip to content</a>
     <SiteHealthShell client:load active={active}>
       <div id="main" tabindex="-1">
-        {!["readiness", "projects", "ui-library"].includes(view ?? "") && <><DashboardHeader title={title} description={description}>{view==="project"&&<slot name="meta"/>}</DashboardHeader>{view!=="project"&&<div class="page-evidence-controls"><slot name="meta" /></div>}</>}
+        {!["readiness", "projects"].includes(view ?? "") && <><DashboardHeader title={title} description={description}>{view==="project"&&<slot name="meta"/>}</DashboardHeader>{view!=="project"&&<div class="page-evidence-controls"><slot name="meta" /></div>}</>}
         <div class="global-status" data-dashboard-global-status aria-live="assertive"></div>
         {["domains", "search", "ai-awareness", "performance"].includes(view ?? "") && <CohortControl />}
         <slot />

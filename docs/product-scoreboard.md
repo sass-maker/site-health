@@ -363,9 +363,12 @@ cadence transitions at desktop and phone widths.
 
 The owner selected the Projects comparison sheet. Reusable controls and the
 sidebar come from UI Library; Site Health still owns composition, evidence
-hierarchy and responsive reading. `/ui-library` shows reachable source reuse
-per page and the existing portfolio measurements. The sidebar links to that
-page and shows the current Site Health source percentage.
+hierarchy and responsive reading. Projects shows a sortable **UI Library %**
+for each current product. Open a percentage for its source evidence, or use
+**Library evidence** to compare all products in the existing readiness view.
+There is no standalone UI Library dashboard or Site Health-only sidebar metric;
+old `/ui-library` bookmarks redirect to Projects. Page-level source snapshots
+remain private verification artifacts.
 
 `pnpm --dir apps/web check:ui-library` rejects raw application controls and
 unqualified DOM/HTML construction. Native DOM forms use the library's actual
