@@ -64,6 +64,29 @@ framework. The detailed operational phases below remain supporting references,
 not additional top-level categories. The earlier [scoreboard guide](product-scoreboard.md)
 describes the retained historical scoring model.
 
+## Shared UI Library adoption
+
+Track this separately from design quality and the effort score. In Readiness,
+choose **UI Library adoption** in the checklist selector, or open a product's
+**UI Library** disclosure for web, landing and native source breakdowns.
+
+The percentage is shared controls divided by identified reusable controls in
+committed source. It is an estimate, not rendered area or current deployment
+coverage. Show exact counts, source revision/date, unmeasured cases and gaps.
+Shared shells/footer blocks and direct token-import files are separate counts;
+installed packages and unused imports earn no credit. Do not transfer adoption
+into design acceptance, joy, accessibility or outcome scores.
+
+Refresh with `node apps/backend/scripts/ui-library-coverage.mjs --fleet-root
+/absolute/fleet` after relevant UI work and at the existing weekly review. The
+collector reads SaaS Maker's shared `tooling/scripts/ui-library-coverage.mjs`
+from its exact local `origin/main` Git revision, preserving dirty checkouts;
+private output defaults to Application Support/Fleet Ops/ui-library-coverage.
+It scans39 current catalog identities and excludes nested product sources from
+their host product. Separate shared-factory landing sources stay explicitly
+outside the checkout estimate until scoped. Retain this observation separately
+from the readiness ledger when moving devices; it never changes saved scores.
+
 ## Scope and completion
 
 - [ ] Use the current catalog lifecycle, audience, and owner intent. Public

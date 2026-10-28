@@ -20,6 +20,7 @@ import { createAppStoreRoutes } from '../app-store/routes.mjs';
 import { createBrandEvidenceRoutes } from '../brand-evidence/routes.mjs';
 
 import { buildReadinessProjection, readinessObservations, saveReadiness } from './readiness.mjs';
+import { readUiLibraryCoverage } from './ui-library-coverage.mjs';
 
 const MAX_REQUEST_BYTES = 32 * 1024;
 
@@ -347,7 +348,7 @@ export function createDashboardHandler({
         clarity = Object.fromEntries(projections.projects.map(project => [project.id, readClarityProjection(store, project.id, registry)]));
       } catch { /* Missing Clarity configuration must not hide independent evidence. */ }
       const currentEvidence = readinessObservations(projections.projects, cachedDashboardProjection(projections), clarity);
-      return json(response, 200, buildReadinessProjection({ ...projections, generatedAt: now(), observations: [...currentEvidence, ...readinessObservationProvider(projections.projects)] }));
+      return json(response, 200, buildReadinessProjection({ ...projections, uiCoverage: readUiLibraryCoverage(), generatedAt: now(), observations: [...currentEvidence, ...readinessObservationProvider(projections.projects)] }));
     }
     if (url.pathname === '/v1/projects') return json(response, 200, projections.projects);
     const clarityMatch = url.pathname.match(/^\/v1\/projects\/([^/]+)\/clarity$/);

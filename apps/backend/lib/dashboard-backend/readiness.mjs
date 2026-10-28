@@ -1,4 +1,5 @@
 import { currentProjects, emptyReadinessState, effortSummary, resultSummary, READINESS_VERSION } from './readiness-model.mjs';
+import { uiLibraryCoverage } from './ui-library-coverage.mjs';
 
 const FAMILIES = {
   domains: [['signal', 'Domain authority', 'score']],
@@ -38,7 +39,7 @@ export function readinessObservations(projects, projection = {}, clarityByProjec
     return rows;
   });
 }
-export function buildReadinessProjection({ projects = [], readiness = {}, observations = [], generatedAt = new Date().toISOString() }) {
+export function buildReadinessProjection({ projects = [], readiness = {}, observations = [], uiCoverage = null, generatedAt = new Date().toISOString() }) {
   const current = currentProjects(projects);
   return {
     schemaVersion: READINESS_VERSION,
@@ -46,7 +47,7 @@ export function buildReadinessProjection({ projects = [], readiness = {}, observ
     projects: current.map(project => {
       const saved = readiness[project.id] ?? { revision: 0, updatedAt: null, state: emptyReadinessState() };
       const evidence = observations.filter(row => row.projectId === project.id).map(row => ({ ...row }));
-      return { id: project.id, name: project.name, ...saved, evidence,
+      return { id: project.id, name: project.name, ...saved, evidence, uiLibrary: uiLibraryCoverage(uiCoverage, project.id, Date.parse(generatedAt)),
         coverageGaps: [...new Set(evidence.filter(row => row.qualification !== 'qualified').map(row => row.gap).filter(Boolean))],
         scores: Object.fromEntries(['product', 'growth'].map(area => [area, { effort: effortSummary(saved.state, area), results: resultSummary(saved.state, area) }])),
       };
