@@ -25,3 +25,15 @@ html[data-theme="base"][data-mode] {
   --ui-case: none;
   --display-case: none;
 }
+
+/* Keep the shared rail control beside the brand when there is room for both. */
+body[data-dashboard-view] [data-slot="app-sidebar"][data-collapsed="false"] > div:first-child {
+  flex-shrink: 0;
+  padding-right: 3.5rem;
+}
+body[data-dashboard-view] [data-slot="app-sidebar"][data-collapsed="false"] > button[aria-controls] {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  margin: 0;
+}

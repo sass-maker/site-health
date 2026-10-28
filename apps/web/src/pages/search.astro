@@ -12,7 +12,7 @@ import SeoNav from "../components/SeoNav.astro";
 >
   <div slot="meta" class="page-head__meta">
     <Button variant="outline" type="button" className="secondary-action" data-portfolio-refresh="search" data-usage-event="refresh">Refresh search</Button>
-    <a class="secondary-action" href="https://search.google.com/search-console" target="_blank" rel="noreferrer">Open Search Console ↗</a>
+    <Button variant="outline" asChild><a href="https://search.google.com/search-console" target="_blank" rel="noreferrer">Open Search Console ↗</a></Button>
     <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="search"></span>
     <strong class="search-reporting-period" data-search-period>Reading reporting period</strong>
     <span class="snapshot-time" data-outcome-time>Reading Search Console evidence</span>

@@ -367,22 +367,24 @@ function searchKeywordVisibility(row: JsonRecord) {
   };
   return createUiControl("details", { class: "search-keywords" }, [
     createUiControl("summary", {}, [`Keyword visibility · ${terms.length} query/page rows`]),
-    element("p", { class: "measurement-boundary-note" }, [sampleNote]),
-    terms.length
-      ? element("div", { class: "search-keywords__scroll", tabindex: "0", "aria-label": "Search keywords and landing pages" }, [
-          createUiControl("table", {}, [
-            createUiControl("caption", { class: "sr-only" }, ["Observed Google queries and their landing pages"]),
-            createUiControl("thead", {}, [createUiControl("tr", {}, ["Keyword / page", "Impressions", "Clicks", "CTR", "Position"].map((label) => createUiControl("th", { scope: "col" }, [label])))]),
-            createUiControl("tbody", {}, terms.map((term) => createUiControl("tr", {}, [
-              createUiControl("th", { scope: "row" }, [element("strong", {}, [term.query]), landing(term) ?? element("small", {}, ["Landing page unavailable"])]),
-              createUiControl("td", {}, [number(term.impressions)]),
-              createUiControl("td", {}, [number(term.clicks)]),
-              createUiControl("td", {}, [number(term.ctr, "%")]),
-              createUiControl("td", {}, [number(term.position)]),
-            ]))),
-          ]),
-        ])
-      : element("p", { class: "measurement-boundary-note" }, ["No query/page rows were retained. This does not establish that the site has no keyword visibility."]),
+    element("div", { class: "disclosure-content" }, [
+      element("p", { class: "measurement-boundary-note" }, [sampleNote]),
+      terms.length
+        ? element("div", { class: "search-keywords__scroll", tabindex: "0", "aria-label": "Search keywords and landing pages" }, [
+            createUiControl("table", {}, [
+              createUiControl("caption", { class: "sr-only" }, ["Observed Google queries and their landing pages"]),
+              createUiControl("thead", {}, [createUiControl("tr", {}, ["Keyword / page", "Impressions", "Clicks", "CTR", "Position"].map((label) => createUiControl("th", { scope: "col" }, [label])))]),
+              createUiControl("tbody", {}, terms.map((term) => createUiControl("tr", {}, [
+                createUiControl("th", { scope: "row" }, [element("strong", {}, [term.query]), landing(term) ?? element("small", {}, ["Landing page unavailable"])]),
+                createUiControl("td", {}, [number(term.impressions)]),
+                createUiControl("td", {}, [number(term.clicks)]),
+                createUiControl("td", {}, [number(term.ctr, "%")]),
+                createUiControl("td", {}, [number(term.position)]),
+              ]))),
+            ]),
+          ])
+        : element("p", { class: "measurement-boundary-note" }, ["No query/page rows were retained. This does not establish that the site has no keyword visibility."]),
+    ]),
   ]);
 }
 
@@ -425,9 +427,11 @@ function searchResult(row: JsonRecord) {
     ]),
     createUiControl("details", { class: "search-result__details" }, [
       createUiControl("summary", {}, ["Trend, indexing and keyword evidence"]),
-      searchTrend(row.impressions),
-      searchIndexStatus(row),
-      searchKeywordVisibility(row),
+      element("div", { class: "disclosure-content" }, [
+        searchTrend(row.impressions),
+        searchIndexStatus(row),
+        searchKeywordVisibility(row),
+      ]),
     ]),
     element("footer", {}, [
       element("span", {}, [`Collected ${formatted(row.observedAt)}`]),
@@ -808,7 +812,7 @@ function brandEvidenceSummary(view: JsonRecord) {
 function brandEvidenceGroup(title: string, count: number, body: Node) {
   return createUiControl("details", { class: "brand-evidence__group" }, [
     createUiControl("summary", {}, [title, element("span", { class: "brand-evidence__count" }, [String(count)])]),
-    body,
+    element("div", { class: "disclosure-content" }, [body]),
   ]);
 }
 
@@ -987,6 +991,7 @@ function brandEvidenceSetup(projectId: string, view: JsonRecord, project: JsonRe
   const details = createUiControl("details", { class: "brand-evidence__setup" });
   if (!view.profile) details.open = true;
   details.append(createUiControl("summary", {}, [view.profile ? "Edit brand and prompts" : "Set up brand monitoring"]));
+  const content = element("div", { class: "disclosure-content" });
   const form = element("form", { class: "brand-evidence__form" });
   const inputs: Record<string, HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> = {};
   const field = (name: string, label: string, value: string, multiline = false) => {
@@ -1025,10 +1030,10 @@ function brandEvidenceSetup(projectId: string, view: JsonRecord, project: JsonRe
       await refresh();
     } catch (error) { message.textContent = error instanceof Error ? error.message : "Could not save brand"; save.disabled = false; }
   });
-  details.append(form);
+  content.append(form);
   const prompts = view.prompts ?? [];
-  details.append(element("h3", {}, ["Saved prompts"]));
-  details.append(element("ul", { class: "brand-evidence__list" }, prompts.map((prompt: JsonRecord) => element("li", {}, [
+  content.append(element("h3", {}, ["Saved prompts"]));
+  content.append(element("ul", { class: "brand-evidence__list brand-evidence__prompts" }, prompts.map((prompt: JsonRecord) => element("li", {}, [
     element("span", {}, [prompt.promptText]),
     brandEvidenceButton("Remove prompt", async () => {
       await api(brandEvidencePath(projectId, `/prompts/${encodeURIComponent(prompt.id)}/remove`), { method: "POST", body: "{}" });
@@ -1046,7 +1051,8 @@ function brandEvidenceSetup(projectId: string, view: JsonRecord, project: JsonRe
       await refresh();
     } catch (error) { message.textContent = error instanceof Error ? error.message : "Could not save prompt"; add.disabled = false; }
   });
-  details.append(promptForm);
+  content.append(promptForm);
+  details.append(content);
   return details;
 }
 
@@ -1062,7 +1068,6 @@ function brandCollectionHistory(collections: JsonRecord[]) {
 
 function brandCommunityComposer(projectId: string, view: JsonRecord, project: JsonRecord, refresh: () => Promise<void>) {
   const section = element("section", { class: "brand-evidence__group" }, [
-    element("h3", {}, ["Find your communities"]),
     element("p", { class: "measurement-boundary-note" }, ["Paste your product URL to find relevant subreddits, prepare post drafts, and find threads where you can contribute."]),
   ]);
   const form = element("form", { class: "brand-evidence__prompt-form" });
@@ -1103,7 +1108,7 @@ function brandCommunityComposer(projectId: string, view: JsonRecord, project: Js
         community.message ? element("p", { class: "measurement-boundary-note" }, [community.message]) : null,
         (community.rules ?? []).length ? createUiControl("details", {}, [
           createUiControl("summary", {}, ["Community rules"]),
-          element("ul", {}, community.rules.map((rule: JsonRecord) => element("li", {}, [`${rule.title}: ${rule.description}`]))),
+          element("div", { class: "disclosure-content" }, [element("ul", {}, community.rules.map((rule: JsonRecord) => element("li", {}, [`${rule.title}: ${rule.description}`])))]),
         ]) : null,
       ]);
     })));
@@ -1215,7 +1220,7 @@ async function renderBrandEvidence() {
     replace("brand-evidence", element("div", { class: "brand-evidence" }, [
       brandEvidenceSummary(view),
       brandEvidenceProfile(view.profile),
-      createUiControl("details", { class: "brand-evidence__group" }, [createUiControl("summary", {}, ["Find communities and prepare a contribution"]), brandCommunityComposer(projectId, view, project, show)]),
+      createUiControl("details", { class: "brand-evidence__group" }, [createUiControl("summary", {}, ["Find communities and prepare a contribution"]), element("div", { class: "disclosure-content" }, [brandCommunityComposer(projectId, view, project, show)])]),
       brandEvidenceSetup(projectId, view, project, show),
       view.profile && !view.readiness?.api?.ready ? element("p", { class: "measurement-boundary-note" }, ["API checks need an available model connection. Web evidence and saved history remain available."]) : null,
       brandEvidenceGroup("Collection history", (view.collections ?? []).length, brandCollectionHistory(view.collections ?? [])),
@@ -1385,17 +1390,17 @@ async function renderProject() {
       { label: "Development", value: lifecycleLabel(project.lifecycle) },
       { label: "Sharing", value: projectSharingLabel(project) },
     ]),
-    createUiControl("details", { class: "evidence-details" }, [createUiControl("summary", {}, ["Sharing assessment and release conditions"]), element("p", {}, [project.sharingReadiness?.reason ?? "No sharing assessment is recorded."])]),
+    createUiControl("details", { class: "evidence-details" }, [createUiControl("summary", {}, ["Sharing assessment and release conditions"]), element("div", { class: "disclosure-content" }, [element("p", {}, [project.sharingReadiness?.reason ?? "No sharing assessment is recorded."])])]),
     project.sharingReadiness?.verifiedAt
       ? element("small", {}, [`Assessed ${shortDate.format(new Date(project.sharingReadiness.verifiedAt))}`]) : null,
     project.lifecycle?.resumeCondition
       ? element("p", {}, [element("strong", {}, ["Resume condition: "]), project.lifecycle.resumeCondition]) : null,
   ]);
   const profileLinks = element("div", { class: "project-profile__links" }, [
-    element("a", { href: `/readiness?q=${encodeURIComponent(project.name)}` }, ["Find in readiness"]),
-    project.websiteUrl ? element("a", { href: project.websiteUrl, target: "_blank", rel: "noreferrer" }, ["Open website ↗"]) : null,
-    project.repositoryUrl ? element("a", { href: project.repositoryUrl, target: "_blank", rel: "noreferrer" }, ["Source ↗"]) : null,
-    project.changelogUrl ? element("a", { href: project.changelogUrl, target: "_blank", rel: "noreferrer" }, ["Changelog ↗"]) : null,
+    createUiControl("a", { href: `/readiness?q=${encodeURIComponent(project.name)}` }, ["Find in readiness"], { variant: "outline" }),
+    project.websiteUrl ? createUiControl("a", { href: project.websiteUrl, target: "_blank", rel: "noreferrer" }, ["Open website ↗"], { variant: "outline" }) : null,
+    project.repositoryUrl ? createUiControl("a", { href: project.repositoryUrl, target: "_blank", rel: "noreferrer" }, ["Source ↗"], { variant: "outline" }) : null,
+    project.changelogUrl ? createUiControl("a", { href: project.changelogUrl, target: "_blank", rel: "noreferrer" }, ["Changelog ↗"], { variant: "outline" }) : null,
   ]);
   const outcomePanel = (
     label: string,
@@ -1406,7 +1411,7 @@ async function renderProject() {
   ) => element("section", { class: "outcome-panel" }, [
     element("header", {}, [element("div", {}, [element("h3", {}, [label]), element("small", {}, [formatted(observedAt)])]), state(statusValue)]),
     metricGrid(metrics),
-    createUiControl("details", { class: "evidence-details" }, [createUiControl("summary", {}, ["Source and methodology"]), element("p", { class: "outcome-panel__note" }, [note])]),
+    createUiControl("details", { class: "evidence-details" }, [createUiControl("summary", {}, ["Source and methodology"]), element("div", { class: "disclosure-content" }, [element("p", { class: "outcome-panel__note" }, [note])])]),
   ]);
   replace("project-detail", element("div", { class: "project-profile" }, [
     element("nav", { class: "section-jumps", "aria-label": "Product sections" }, [
@@ -1531,7 +1536,7 @@ async function renderProject() {
             element("small", {}, [(capabilities.skills ?? []).map((item: JsonRecord) => item.id).join(" · ")]),
           ]),
           state(capabilities.sources?.skills?.state),
-          element("a", { href: "https://github.com/sass-maker/saas-maker/tree/main/tooling", target: "_blank", rel: "noreferrer" }, ["Open skill catalog ↗"]),
+          createUiControl("a", { href: "https://github.com/sass-maker/saas-maker/tree/main/tooling", target: "_blank", rel: "noreferrer" }, ["Open skill catalog ↗"], { variant: "outline" }),
         ]),
       ]),
     ]),
