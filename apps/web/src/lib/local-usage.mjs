@@ -148,8 +148,11 @@ export function startLocalUsageTracking({ document, window }) {
     const control = event.target.closest("[data-usage-event], nav[aria-label=App] a[href]");
     if (!control) return;
     const category = control.getAttribute("data-usage-event") ?? "navigation";
-    if (!new Set(["navigation", "filter", "refresh", "action"]).has(category)) return;
-    if (category === "filter" ? event.type !== "change" : event.type !== "click") return;
+    if (!new Set(["navigation", "filter", "refresh", "action", "select"]).has(category)) return;
+    // Radix opens on pointerdown/keydown and may consume the later click.
+    if(category === "select") {
+      if(event.type!=="pointerdown" && !(event.type==="keydown" && ["Enter"," ","ArrowDown","ArrowUp"].includes(event.key)))return;
+    } else if (category === "filter" ? event.type !== "change" : event.type !== "click") return;
     try {
       recordLocalInteraction(window.localStorage);
     } catch {
@@ -159,9 +162,13 @@ export function startLocalUsageTracking({ document, window }) {
 
   document.addEventListener("click", record, true);
   document.addEventListener("change", record, true);
+  document.addEventListener("pointerdown", record, true);
+  document.addEventListener("keydown", record, true);
   return () => {
     document.removeEventListener("click", record, true);
     document.removeEventListener("change", record, true);
+    document.removeEventListener("pointerdown", record, true);
+    document.removeEventListener("keydown", record, true);
   };
 }
 

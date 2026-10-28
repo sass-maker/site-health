@@ -54,7 +54,10 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
   assert.equal((await (await fetch(`${base}/v1/projects`)).json())[0].id, 'retained');
   assert.equal((await fetch(`${base}/v1/readiness`)).status, 200);
   assert.equal((await fetch(`${base}/v1/ui-library`)).status, 200);
-  for (const privatePath of ['/v1/readiness', '/v1/ui-library']) {
+  const uiSummary=await (await fetch(`${base}/v1/ui-library?summary=1`)).json();
+  assert.deepEqual(Object.keys(uiSummary),['siteHealth']);
+  if(uiSummary.siteHealth)assert.deepEqual(Object.keys(uiSummary.siteHealth).sort(),['current','stale','total']);
+  for (const privatePath of ['/v1/readiness', '/v1/ui-library','/v1/ui-library?summary=1']) {
   const rebound = await new Promise((resolve, reject) => {
     const request = httpRequest({ hostname: '127.0.0.1', port: server.address().port, path: privatePath, headers: { host: 'attacker.example' } }, (response) => {
       let body = '';
