@@ -13,8 +13,12 @@ export function projectPriorityLabel(project) {
   return project.priorityApplicable === false ? 'No priority' : project.priority || 'Awaiting review';
 }
 
+export function projectGrowthFocusLabel(project) {
+  return project.growthFocus?.level === 'high' ? 'SEO/GEO focus' : null;
+}
+
 export function projectAudiencePriorityLabel(project) {
-  return [project.audience === 'internal' ? 'Internal' : null, projectPriorityLabel(project)].filter(Boolean).join(' · ');
+  return [project.audience === 'internal' ? 'Internal' : null, projectPriorityLabel(project), projectGrowthFocusLabel(project)].filter(Boolean).join(' · ');
 }
 
 export function isCurrentProject(project) {
@@ -46,6 +50,7 @@ export function matchesProjectFilters(project, { query = "", priority = "", heal
     project.name,
     project.description,
     project.familyName,
+    projectGrowthFocusLabel(project),
     ...(project.domains ?? []),
   ].filter(Boolean).join(" ").toLowerCase();
 

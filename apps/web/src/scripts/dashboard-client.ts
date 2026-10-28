@@ -1432,7 +1432,7 @@ async function renderProject() {
       ]),
       profileLinks,
       metricGrid([
-        { label: "Primary domain", value: project.domains?.[0] ?? "No public domain" },
+        { label: "Domain / endpoints", value: project.domainLabel ?? project.domains?.[0] ?? "No public domain" },
         { label: "Repository", value: project.repo ?? "Not cataloged" },
         { label: "Deployment", value: project.deployKind ?? "Not configured" },
         { label: "Visibility", value: project.repositoryVisibility ?? "Unknown" },
