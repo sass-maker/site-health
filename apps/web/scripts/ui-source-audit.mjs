@@ -6,6 +6,23 @@ import { pathToFileURL } from 'node:url';
 const controls = new Set(['button','input','select','textarea','details','dialog','progress','table']);
 const supported = new Set([...controls,'a','summary','thead','tbody','tfoot','tr','th','td','caption']);
 const literals = node => ts.isStringLiteral(node) ? [node.text] : ts.isConditionalExpression(node) ? [...literals(node.whenTrue),...literals(node.whenFalse)] : ['?'];
+// Parse every JSX opening separately, including controls passed through props.
+// The shared classifier still determines which imported roots qualify.
+export function inspectJsxControls(text,path,inspectSource) {
+  const source=ts.createSourceFile(path,text,ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
+  const imports=source.statements.filter(ts.isImportDeclaration).map(node=>node.getText(source)).join('\n');
+  const result={shared:[],bespoke:[],blocks:[]};
+  function visit(node) {
+    if(ts.isJsxOpeningElement(node)||ts.isJsxSelfClosingElement(node)) {
+      const name=node.tagName.getText(source);
+      const reading=inspectSource(`${imports}\n<${name}/>`,path);
+      const line=source.getLineAndCharacterOfPosition(node.getStart(source)).line+1;
+      for(const kind of ['shared','bespoke','blocks'])for(const site of reading[kind])result[kind].push({...site,line});
+    }
+    ts.forEachChild(node,visit);
+  }
+  visit(source);return result;
+}
 export function unresolvedUiCalls(text,path) {
   if (path.endsWith('.astro')) return [...text.matchAll(/<(button|input|select|textarea|details|dialog|progress|table)\b/g)].map(match=>({line:text.slice(0,match.index).split('\n').length,reason:'Native Astro control has no library component owner'}));
   const source=ts.createSourceFile(path,text,ts.ScriptTarget.Latest,true,path.endsWith('x')?ts.ScriptKind.TSX:ts.ScriptKind.TS);

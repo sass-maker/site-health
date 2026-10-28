@@ -9,7 +9,7 @@ import { uiPagesPath,validateUiPages } from '../lib/dashboard-backend/ui-library
 const args=process.argv.slice(2), option=name=>{const i=args.indexOf(name);return i<0?null:args[i+1];};
 if (args.length%2 || args.some((a,i)=>i%2===0&&!['--repo','--collector-repo','--revision','--output'].includes(a))) throw Error('Usage: ui-library-pages.mjs [--repo path] [--collector-repo path] [--revision ref] [--output private.json]');
 const repo=resolve(option('--repo')??resolve(import.meta.dirname,'../../..'));
-const { unresolvedUiCalls }=await import(pathToFileURL(resolve(repo,'apps/web/scripts/ui-source-audit.mjs')).href);
+const { unresolvedUiCalls,inspectJsxControls }=await import(pathToFileURL(resolve(repo,'apps/web/scripts/ui-source-audit.mjs')).href);
 const git=(root,parameters)=>execFileSync('git',['-C',root,...parameters],{encoding:'utf8',maxBuffer:16*1024*1024,stdio:['ignore','pipe','pipe']});
 const revision=git(repo,['rev-parse',option('--revision')??'HEAD']).trim();
 const collectorRepo=resolve(option('--collector-repo')??resolve(repo,'../saas-maker'));
@@ -20,7 +20,7 @@ const tracked=git(repo,['ls-tree','-r','--name-only',revision]).trim().split('\n
 const production=tracked.filter(p=>p.startsWith('apps/web/src/')&&/\.(?:[cm]?[jt]sx?|astro)$/.test(p)&&!p.endsWith('.d.ts')&&!p.includes('/design-review/'));
 const texts=new Map(production.map(path=>[path,git(repo,['show',`${revision}:${path}`])]));
 const files=production.map(path=>{
-  const text=texts.get(path),reading=inspectSource(text,path);
+  const text=texts.get(path),reading=/\.[jt]sx$/.test(path)?inspectJsxControls(text,path,inspectSource):inspectSource(text,path);
   const unresolved=unresolvedUiCalls(text,path);
   return {path,sha256:createHash('sha256').update(text).digest('hex'),shared:reading.shared.length,bespoke:reading.bespoke.length,unresolved:unresolved.length,controls:{shared:reading.shared,bespoke:reading.bespoke,unresolved},sharedBlocks:reading.blocks};
 });
@@ -55,7 +55,7 @@ const routes=[
 const registered=new Set(routes.map(r=>`apps/web/src/${r[3]}`));
 const extraPages=production.filter(p=>p.startsWith('apps/web/src/pages/')&&p.endsWith('.astro')&&!registered.has(p)&&p!=='apps/web/src/pages/index.astro');
 if(extraPages.length)throw Error(`Unregistered UI pages: ${extraPages.join(', ')}`);
-const snapshot=validateUiPages({schemaVersion:'site-health-ui-pages.v1',observedAt:new Date().toISOString(),sourceRevision:revision,collectorRevision,method:'reachable-control-call-sites.v1',files,pages:routes.map(([id,label,route,entry])=>({id,label,route,files:closure(`apps/web/src/${entry}`)})),runtimeSamples:[],limits:['Reachable committed source, not rendered area or every possible state.','The shared dashboard renderer is conservatively reachable on each evidence page; its branches are not attributed to individual pages.','Ordinary content, product-specific SVG plots and layout composition are outside the reusable-control denominator.','Runtime ownership markers corroborate source imports; they cannot establish adoption alone.']});
+const snapshot=validateUiPages({schemaVersion:'site-health-ui-pages.v1',observedAt:new Date().toISOString(),sourceRevision:revision,collectorRevision,method:'reachable-control-call-sites.v2',files,pages:routes.map(([id,label,route,entry])=>({id,label,route,files:closure(`apps/web/src/${entry}`)})),runtimeSamples:[],limits:['Reachable committed source, with JSX AST traversal including controls passed through props; not rendered area or every possible state.','The shared dashboard renderer is conservatively reachable on each evidence page; its branches are not attributed to individual pages.','Ordinary content, product-specific SVG plots and layout composition are outside the reusable-control denominator.','Runtime ownership markers corroborate source imports; they cannot establish adoption alone.']});
 const output=resolve(option('--output')??uiPagesPath());
 if(output===repo||output.startsWith(`${repo}/`))throw Error('Keep private UI measurements outside the repository');
 mkdirSync(dirname(output),{recursive:true,mode:0o700});writeFileSync(`${output}.tmp`,JSON.stringify(snapshot,null,2)+'\n',{mode:0o600});renameSync(`${output}.tmp`,output);

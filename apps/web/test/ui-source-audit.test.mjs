@@ -19,3 +19,11 @@ test('only statically supported library constructor tags qualify',()=>{
   assert.equal(unresolvedUiCalls('createUiControl(flag?"button":unknown);','view.ts').length,1);
   assert.equal(unresolvedUiCalls('createUiControl("script");','view.ts').length,1);
 });
+
+// JSX controls in props must not disappear behind a shared shell.
+test('JSX traversal includes controls supplied as component props', async()=>{
+  const {inspectJsxControls}=await import('../scripts/ui-source-audit.mjs');
+  const seen=[];
+  inspectJsxControls('import {Button} from "@saas-maker/ui/components/button"; const x=<Shell secondary={<Button>Go</Button>}/>;', 'test.tsx',(text)=>{seen.push(text);return {shared:[],bespoke:[],blocks:[]};});
+  assert.equal(seen.length,2);assert.ok(seen.some(text=>text.endsWith('<Button/>')));
+});
