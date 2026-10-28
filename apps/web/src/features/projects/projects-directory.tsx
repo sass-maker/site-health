@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@saas-maker/ui/components/sheet';
 import { NativeDisclosure, NativeSummary } from '@saas-maker/ui/components/native-controls';
 import { SlidersHorizontal, RefreshCw } from 'lucide-react';
-import { matchesProjectFilters, projectSharingLabel, inactiveProjectState, projectPriorityValue, projectPrioritySortValue, projectPriorityLabel, projectAudiencePriorityLabel } from '../../lib/project-directory.mjs';
+import { matchesProjectFilters, projectSharingLabel, inactiveProjectState, projectPriorityValue, projectPrioritySortValue, projectPriorityLabel } from '../../lib/project-directory.mjs';
 
 export type DirectoryProject = { id: string; name: string; description?: string; domains?: string[]; priority?: string | null; audience?: string; priorityApplicable?: boolean | null; status?: string; familyName?: string; identityKind?: string; repositoryUrl?: string; repository?: string; lifecycle?: {status?: string; shareable?: boolean; resumeCondition?: unknown}; [key: string]: unknown };
 export type DirectoryEvidence = { id: string; label: string; status: string; value: string; numeric: number | null; observedAt?: string | null };
@@ -44,7 +44,7 @@ export default function ProjectsDirectory({ current, inactive, evidence, uiCover
     const label=coverage?.status==='no-eligible-controls'?'No eligible controls':coverage?.percent==null?'Not measured':`${coverage.percent}%`;
     return <a href={coverageHref(p)} aria-label={`${p.name} UI Library usage: ${label}. Open evidence`} className="tabular-nums font-medium hover:underline" title={coverage?`${coverage.shared} shared / ${coverage.eligible} identified controls · ${date(coverage.observedAt)}${coverage.stale?' · stale':''}`:'No source measurement available'}>{label}{coverage?.stale&&<small className="block text-[11px] text-muted-foreground">Stale</small>}</a>;
   };
-  const compact = (p:DirectoryProject) => <div className="space-y-4 py-2">{identity(p)}<p className="text-xs text-muted-foreground">{projectAudiencePriorityLabel(p)} · {projectSharingLabel(p)}</p><dl className="grid grid-cols-2 gap-x-5 gap-y-3">{Object.entries(metricNames).map(([id,name])=><div key={id}><dt className="text-xs text-muted-foreground">{name}</dt><dd className="mt-1">{reading(p,id)}</dd></div>)}<div><dt className="text-xs text-muted-foreground">UI Library</dt><dd className="mt-1">{coverageReading(p)}</dd></div></dl></div>;
+  const compact = (p:DirectoryProject) => <div className="space-y-4 py-2">{identity(p)}<p className="text-xs text-muted-foreground">{projectPriorityLabel(p)} · {projectSharingLabel(p)}</p><dl className="grid grid-cols-2 gap-x-5 gap-y-3">{Object.entries(metricNames).map(([id,name])=><div key={id}><dt className="text-xs text-muted-foreground">{name}</dt><dd className="mt-1">{reading(p,id)}</dd></div>)}<div><dt className="text-xs text-muted-foreground">UI Library</dt><dd className="mt-1">{coverageReading(p)}</dd></div></dl></div>;
   const columns:DataColumn<DirectoryProject>[] = [
     {id:'product',header:'Product',value:p=>p.name,hideable:false,cell:identity,compactCell:compact},
     {id:'priority',header:'Priority',value:p=>projectPrioritySortValue(p),collapseInCompact:true,cell:p=><span className="text-xs text-muted-foreground">{projectPriorityLabel(p)}</span>},
