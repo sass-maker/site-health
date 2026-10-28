@@ -3,13 +3,14 @@ import { readFileSync, mkdirSync, writeFileSync, renameSync, chmodSync } from 'n
 import { resolve, dirname, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { defaultUiCoveragePath, uiLibraryCoverage } from '../lib/dashboard-backend/ui-library-coverage.mjs';
+import { currentProjects } from '../lib/dashboard-backend/readiness-model.mjs';
 
 const args = process.argv.slice(2); const option = key => { const i = args.indexOf(key); return i < 0 ? null : args[i + 1]; };
 if (args.some((a, i) => i % 2 === 0 && !['--fleet-root', '--collector', '--catalog', '--output'].includes(a)) || args.length % 2) throw Error('Usage: ui-library-coverage.mjs [--fleet-root path] [--catalog path] [--collector path] [--output private.json]');
-const fleetRoot = resolve(option('--fleet-root') ?? resolve(import.meta.dirname, '../../../../..'));
+const fleetRoot = resolve(option('--fleet-root') ?? resolve(import.meta.dirname, '../../../..'));
 const catalogPath = resolve(option('--catalog') ?? resolve(fleetRoot, 'site-health/catalog/projects.json'));
 const catalog = JSON.parse(readFileSync(catalogPath, 'utf8'));
-const current = catalog.projects.filter(p => p.lifecycle?.portfolioStatus === 'active');
+const current = currentProjects(catalog.projects);
 const manifest = { schemaVersion: 1, projects: current.map(p => {
   const path = p.repositories?.localPath; if (typeof path !== 'string' || path.startsWith('/') || path.split('/').includes('..')) throw Error(`Invalid source path for ${p.id}`);
   const scope = p.repositories?.sourcePath;
