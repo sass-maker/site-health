@@ -1,3 +1,22 @@
+// Priority applicability comes from the canonical catalog, independently of sharing.
+export function projectPriorityValue(project) {
+  return project.priorityApplicable === false ? 'none' : project.priority || 'unranked';
+}
+
+export function projectPrioritySortValue(project) {
+  if (project.priorityApplicable === false) return 6;
+  const rank = /^P([1-4])$/.exec(project.priority ?? '');
+  return rank ? Number(rank[1]) : 5;
+}
+
+export function projectPriorityLabel(project) {
+  return project.priorityApplicable === false ? 'No priority' : project.priority || 'Awaiting review';
+}
+
+export function projectAudiencePriorityLabel(project) {
+  return [project.audience === 'internal' ? 'Internal' : null, projectPriorityLabel(project)].filter(Boolean).join(' · ');
+}
+
 export function isCurrentProject(project) {
   return ['primary', 'active'].includes(project.lifecycle?.status);
 }
@@ -6,7 +25,7 @@ export function partitionProjects(projects) {
   const current = projects
     .filter(isCurrentProject)
     .sort((left, right) =>
-      String(left.priority ?? "P9").localeCompare(String(right.priority ?? "P9"))
+      projectPrioritySortValue(left) - projectPrioritySortValue(right)
       || left.name.localeCompare(right.name));
   const inactive = projects.filter((project) => !isCurrentProject(project));
   return { current, inactive };
@@ -31,7 +50,7 @@ export function matchesProjectFilters(project, { query = "", priority = "", heal
   ].filter(Boolean).join(" ").toLowerCase();
 
   return (!normalizedQuery || searchText.includes(normalizedQuery))
-    && (!priority || project.priority === priority)
+    && (!priority || projectPriorityValue(project) === priority)
     && (!health || project.health === health)
     && (!lifecycle || project.lifecycle?.status === lifecycle)
     && (!resume || (resume === "defined" ? project.lifecycle?.resumeCondition != null : project.lifecycle?.resumeCondition == null))

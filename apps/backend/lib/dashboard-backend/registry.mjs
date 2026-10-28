@@ -65,6 +65,7 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
       const repositoryUrl = project.id === 'site-health'
         ? siteHealthRepository
         : historicalRepositoryUrl;
+      const priorityDecision = project.portfolio?.scopeDecision?.priorityDecision;
       return {
         id: project.id,
         name: displayName(project),
@@ -84,7 +85,9 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
           publicSite: project.metrics?.publicSite === true,
           domainCoverage: project.metrics?.domainCoverage === true,
         },
-        priority: project.portfolio?.priority ?? null,
+        priority: priorityDecision?.applicable === false ? null : project.portfolio?.priority ?? null,
+        priorityApplicable: priorityDecision?.applicable ?? null,
+        priorityReason: priorityDecision?.reason ?? null,
         status: project.status,
         repo: project.repo,
         sourcePath: project.sourcePath ?? null,
