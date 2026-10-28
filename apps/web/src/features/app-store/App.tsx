@@ -877,9 +877,8 @@ export default function ResearchApp() {
                 ['listing', 'Listing studio'],
                 ['data', 'Data & connections'],
               ].map(([id, label]) => (
-                <Button variant="ghost"
+                <Button variant={tab === id ? 'secondary' : 'ghost'}
                   key={id}
-                  className={tab === id ? 'active' : ''}
                   onClick={() => void go(() => setTab(id))}
                   aria-current={tab === id ? 'page' : undefined}
                 >

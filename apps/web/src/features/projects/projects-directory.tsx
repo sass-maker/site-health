@@ -15,7 +15,7 @@ export type DirectoryEvidence = { id: string; label: string; status: string; val
 type UiCoverage = ReadinessProduct['uiLibrary'];
 type Props = { uiCoverage: Record<string,UiCoverage>; current: DirectoryProject[]; inactive: DirectoryProject[]; evidence: Record<string, DirectoryEvidence[]>; observedAt: string | null; period?: { start?: string; end?: string }; onRefresh: (status: HTMLElement | null) => Promise<unknown>; projectHref: (id: string) => string };
 const emptyFilters = {query:'',priority:'',health:'',sharing:'',lifecycle:'',resume:''};
-const metricNames: Record<string,string> = { domains:'Domain rating', performance:'Desktop PSI', search:'Google impressions', awareness:'AI recs' };
+const metricNames: Record<string,string> = { performance:'Desktop PSI', search:'Google impressions', awareness:'AI recs' };
 const date = (value?: string | null) => value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleDateString('en-GB',{day:'numeric',month:'short',timeZone:'UTC'}) : 'No observation';
 
 function Filter({label,value,onChange,options}: {label:string;value:string;onChange:(value:string)=>void;options:[string,string][]}) {
