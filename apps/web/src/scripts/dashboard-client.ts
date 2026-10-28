@@ -15,6 +15,7 @@ import {
   matchesProjectFilters,
   partitionProjects,
   projectSharingLabel,
+  projectAudiencePriorityLabel,
 } from "../lib/project-directory.mjs";
 
 type JsonRecord = Record<string, any>;
@@ -1422,7 +1423,7 @@ async function renderProject() {
     element("section", { class: "project-profile__identity" }, [
       element("div", {}, [
         element("div", { class: "project-directory__kicker" }, [
-          element("span", {}, [project.priority ?? "Unranked"]),
+          element("span", {}, [projectAudiencePriorityLabel(project)]),
           state(project.status ?? lifecycleLabel(project.lifecycle)),
           element("span", {}, [projectSharingLabel(project)]),
           state(lifecycleLabel(project.lifecycle)),

@@ -20,12 +20,12 @@ test('Projects partitions the complete catalog without changing current scope', 
   assert.equal(current.every(isCurrentProject), true);
   assert.equal(current.some(project => project.id === 'kith'), true);
   assert.equal(inactive.every((project) => !isCurrentProject(project)), true);
-  assert.equal(current.findIndex((project) => project.priority === 'P2') > 0, true);
-  assert.equal(
-    current.slice(0, current.findIndex((project) => project.priority === 'P2'))
-      .every((project) => project.priority === 'P1'),
-    true,
-  );
+  const fixture = partitionProjects([
+    {id: 'pending', name: 'A', priority: null, lifecycle: {status: 'active'}},
+    {id: 'second', name: 'B', priority: 'P2', lifecycle: {status: 'active'}},
+    {id: 'first', name: 'C', priority: 'P1', lifecycle: {status: 'active'}},
+  ]);
+  assert.deepEqual(fixture.current.map(p => p.id), ['first', 'second', 'pending']);
 });
 
 test('shared project search finds retained identities without reclassifying them', () => {
