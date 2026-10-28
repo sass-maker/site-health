@@ -11,7 +11,10 @@
     "check": "pnpm run check:app-store && pnpm run check:readiness && pnpm run test:readiness && pnpm run build",
     "check:app-store": "tsc --project tsconfig.app-store.json",
     "test:readiness": "vitest run test/readiness",
-    "check:readiness": "tsc --project tsconfig.readiness.json"
+    "check:readiness": "tsc --project tsconfig.readiness.json",
+    "check:ui": "tsc --project tsconfig.ui.json",
+    "test:ui": "node --test test/ui-source-audit.test.mjs",
+    "check:ui-library": "node scripts/ui-source-audit.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -20,7 +23,7 @@
     "@astrojs/react": "7.1.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "@saas-maker/ui": "github:sass-maker/ui-library#v0.1.32&path:/packages/ui",
+    "@saas-maker/ui": "github:sass-maker/ui-library#v0.1.33&path:/packages/ui",
     "lucide-react": "0.577.0"
   },
   "pnpm": {

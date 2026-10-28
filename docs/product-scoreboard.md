@@ -358,3 +358,35 @@ evidence comparisons and safe history-only imports. The owner host owns local
 access boundaries; the readiness UI does not introduce a remote account service.
 Rendered checks cover populated scores, evidence, filters, import, reload and
 cadence transitions at desktop and phone widths.
+
+## Shared UI coverage
+
+The owner selected the Projects comparison sheet. Reusable controls and the
+sidebar come from UI Library; Site Health still owns composition, evidence
+hierarchy and responsive reading. `/ui-library` shows reachable source reuse
+per page and the existing portfolio measurements. The sidebar links to that
+page and shows the current Site Health source percentage.
+
+`pnpm --dir apps/web check:ui-library` rejects raw application controls and
+unqualified DOM/HTML construction. Native DOM forms use the library's actual
+`createUiControl` constructor; native React refs, selects, dialogs, disclosures
+and progress use the library's native controls. Tokens or copied ownership
+markers alone earn no coverage. Content, page arrangement and product-specific
+SVG plots remain outside the reusable-control denominator.
+
+After a UI change, commit the checked source and refresh the private snapshot:
+
+```bash
+node apps/backend/scripts/ui-library-pages.mjs \
+  --repo /absolute/site-health-checkout \
+  --collector-repo /absolute/saas-maker-checkout \
+  --output /absolute/private/dated-ui-pages.json
+```
+
+Retain the dated observation before activating the latest private snapshot.
+The API withholds current percentages if the source revision differs or local
+UI files have changed. Page scopes include reachable imports; the shared DOM
+renderer is conservatively attributed to every evidence route. Overall counts
+use a deduplicated source union. Rendered samples retain route, state, viewport,
+source revision and date separately. Source reuse is not a design score, a
+pixel-coverage score, or proof that every possible state has been exercised.

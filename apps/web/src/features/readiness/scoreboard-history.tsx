@@ -1,5 +1,6 @@
 'use client';
 
+import { NativeSelect, NativeInput, NativeDisclosure, NativeSummary } from '@saas-maker/ui/components/native-controls';
 import { SheetBody } from './sheet-body';
 
 import { useMemo, useState } from 'react';
@@ -199,7 +200,7 @@ export function ScoreHistory({
         <>
           <label className={styles.historyMetric}>
             Score view
-            <select
+            <NativeSelect
               aria-label="History score view"
               value={metric}
               onChange={(e) => setMetric(e.target.value as typeof metric)}
@@ -207,7 +208,7 @@ export function ScoreHistory({
               <option value="result">Result</option>
               <option value="effort">Effort</option>
               <option value="legacy">Previous combined score</option>
-            </select>
+            </NativeSelect>
           </label>
           <p className={styles.historyFoot}>
             Effort and Result have independent histories. Older combined estimates remain available
@@ -216,7 +217,7 @@ export function ScoreHistory({
           <div className={styles.reviewSelectors}>
             <label>
               Baseline assessment
-              <select
+              <NativeSelect
                 aria-label="Baseline assessment"
                 value={before.id}
                 onChange={(e) => setFromId(e.target.value)}
@@ -226,11 +227,11 @@ export function ScoreHistory({
                     {dateLabel(r.assessedAt)} · {i + 1}. {r.label}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
             </label>
             <label>
               Compared assessment
-              <select
+              <NativeSelect
                 aria-label="Compared assessment"
                 value={after.id}
                 onChange={(e) => setToId(e.target.value)}
@@ -241,7 +242,7 @@ export function ScoreHistory({
                     {r.id === current.id ? ' · current' : ''}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
             </label>
           </div>
           <p className={styles.historyCounts}>
@@ -251,14 +252,14 @@ export function ScoreHistory({
           <div className={styles.tools}>
             <label className={styles.search}>
               <Search size={15} />
-              <input
+              <NativeInput
                 aria-label="Search score history"
                 placeholder="Find a product or domain…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
             </label>
-            <select
+            <NativeSelect
               aria-label="History category"
               value={area}
               onChange={(e) => setArea(e.target.value)}
@@ -269,8 +270,8 @@ export function ScoreHistory({
                   {CATEGORY_LABELS[c]}
                 </option>
               ))}
-            </select>
-            <select
+            </NativeSelect>
+            <NativeSelect
               aria-label="History domain"
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
@@ -279,8 +280,8 @@ export function ScoreHistory({
               {domains.map((d) => (
                 <option key={d}>{d}</option>
               ))}
-            </select>
-            <select
+            </NativeSelect>
+            <NativeSelect
               aria-label="History scope"
               value={scope}
               onChange={(e) => setScope(e.target.value)}
@@ -288,10 +289,10 @@ export function ScoreHistory({
               <option value="all">All products</option>
               <option value="products">Public products</option>
               <option value="internal">Internal tools</option>
-            </select>
+            </NativeSelect>
           </div>
           <label className={styles.unchangedToggle}>
-            <input
+            <NativeInput
               type="checkbox"
               checked={showUnchanged}
               onChange={(e) => setShowUnchanged(e.target.checked)}
@@ -313,8 +314,8 @@ export function ScoreHistory({
           </p>
         </>
       )}
-      <details className={styles.assessmentList}>
-        <summary>Retained assessments · {reviews.length}</summary>
+      <NativeDisclosure className={styles.assessmentList}>
+        <NativeSummary>Retained assessments · {reviews.length}</NativeSummary>
         {reviews.map((r, i) => (
           <article key={r.id}>
             <strong>
@@ -327,7 +328,7 @@ export function ScoreHistory({
             <p>{r.note}</p>
           </article>
         ))}
-      </details>
+      </NativeDisclosure>
       <Sheet
         open={selected !== null}
         onOpenChange={(open) => {

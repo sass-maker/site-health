@@ -1,3 +1,4 @@
+import { NativeDisclosure, NativeSummary } from '@saas-maker/ui/components/native-controls';
 import { formatScore } from './scoreboard';
 import styles from './scoreboard-workbench.module.css';
 
@@ -9,8 +10,8 @@ export function ScoreboardGuide({ target }: { target: number }) {
         outcome achieved. Each category has both scores out of 10, with two separate totals out of
         60. Open any score for its reasoning, evidence and confidence.
       </p>
-      <details>
-        <summary>Scoring scale, priorities & weekly review</summary>
+      <NativeDisclosure>
+        <NativeSummary>Scoring scale, priorities & weekly review</NativeSummary>
         <div className={styles.guideGrid}>
           <div>
             <h3>The scale</h3>
@@ -67,7 +68,7 @@ export function ScoreboardGuide({ target }: { target: number }) {
             </p>
           </div>
         </div>
-      </details>
+      </NativeDisclosure>
     </section>
   );
 }

@@ -20,7 +20,8 @@ import { createAppStoreRoutes } from '../app-store/routes.mjs';
 import { createBrandEvidenceRoutes } from '../brand-evidence/routes.mjs';
 
 import { buildReadinessProjection, readinessObservations, saveReadiness } from './readiness.mjs';
-import { readUiLibraryCoverage } from './ui-library-coverage.mjs';
+import { readUiLibraryCoverage, uiLibraryCoverage } from './ui-library-coverage.mjs';
+import { readUiPages } from './ui-library-pages.mjs';
 
 const MAX_REQUEST_BYTES = 32 * 1024;
 
@@ -341,6 +342,13 @@ export function createDashboardHandler({
     return false;
   };
   const handleProjectionReadRoutes = (url, projections, response) => {
+    if (url.pathname === '/v1/ui-library') {
+      const snapshot = readUiLibraryCoverage();
+      return json(response, 200, { siteHealth: readUiPages(), projects: projections.projects.flatMap(project => {
+        const coverage = uiLibraryCoverage(snapshot, project.id);
+        return coverage ? [{ id: project.id, name: project.name, coverage }] : [];
+      }) });
+    }
     if (url.pathname === '/v1/readiness') {
       let clarity = {};
       try {
@@ -432,7 +440,7 @@ export function createDashboardHandler({
       const method = request.method ?? 'GET';
       const verifiedPrincipal = requestAuthorizer ? await requestAuthorizer(request) : null;
       if (requestAuthorizer && !verifiedPrincipal) return json(response, 401, { error: 'owner authentication required' });
-      if (method === 'GET' && url.pathname === '/v1/readiness' && !verifiedPrincipal && !loopbackHostAllowed(request)) {
+      if (method === 'GET' && ['/v1/readiness', '/v1/ui-library'].includes(url.pathname) && !verifiedPrincipal && !loopbackHostAllowed(request)) {
         return json(response, 403, { error: 'Unknown dashboard host' });
       }
       if (handleEarlyRoutes(url, method, response)) return;

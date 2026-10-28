@@ -1,4 +1,5 @@
 ---
+import { Button } from "@saas-maker/ui/components/button";
 import DashboardLayout from "../components/DashboardLayout.astro";
 import SeoNav from "../components/SeoNav.astro";
 ---
@@ -10,7 +11,7 @@ import SeoNav from "../components/SeoNav.astro";
   view="search"
 >
   <div slot="meta" class="page-head__meta">
-    <button type="button" class="secondary-action" data-portfolio-refresh="search" data-usage-event="refresh">Refresh search</button>
+    <Button variant="outline" type="button" className="secondary-action" data-portfolio-refresh="search" data-usage-event="refresh">Refresh search</Button>
     <a class="secondary-action" href="https://search.google.com/search-console" target="_blank" rel="noreferrer">Open Search Console ↗</a>
     <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="search"></span>
     <strong class="search-reporting-period" data-search-period>Reading reporting period</strong>

@@ -1,4 +1,5 @@
 ---
+import { BrandEvidenceControls } from "../components/DashboardControls";
 import DashboardLayout from "../components/DashboardLayout.astro";
 ---
 
@@ -19,17 +20,7 @@ import DashboardLayout from "../components/DashboardLayout.astro";
         <p>Monitor a brand, find relevant communities, and inspect original evidence.</p>
         <p class="measurement-boundary-note">API answers and consumer captures stay separate. Provider failures are never counted as missing mentions.</p>
       </div>
-      <div class="brand-evidence-controls">
-        <label>
-          <span class="sr-only">Brand evidence project</span>
-          <select data-brand-evidence-project>
-            <option value="">Reading profiles</option>
-          </select>
-        </label>
-        <button type="button" class="secondary-action" data-brand-evidence-check disabled>Run API check</button>
-        <button type="button" class="secondary-action" data-brand-evidence-collect disabled>Refresh web evidence</button>
-        <span class="portfolio-refresh-status" role="status" aria-live="polite" data-brand-evidence-status></span>
-      </div>
+      <BrandEvidenceControls />
 
     </div>
     <div class="loading-state" data-dashboard-slot="brand-evidence">Reading private brand evidence…</div>

@@ -1,4 +1,5 @@
 ---
+import { Button } from "@saas-maker/ui/components/button";
 import DashboardLayout from "../../components/DashboardLayout.astro";
 import { getFleetProjects } from "../../lib/fleet-data";
 
@@ -21,10 +22,10 @@ const { project } = Astro.props;
 >
   <div slot="meta" class="page-head__actions">
     <a class="quiet-link" href="/projects" data-usage-event="navigation">All projects</a>
-    <button class="primary-action" type="button" data-project-refresh disabled data-usage-event="refresh">
+    <Button variant="outline" className="primary-action" type="button" data-project-refresh disabled data-usage-event="refresh">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6v5h-5 M4 18v-5h5 M18.5 9A7 7 0 006 6.5L4 9 M5.5 15A7 7 0 0018 17.5l2-2.5" /></svg>
       <span>Refresh available</span>
-    </button>
+    </Button>
     <span class="refresh-status" data-project-refresh-status role="status" aria-live="polite">Product DRANK + Performance · portfolio Search</span>
   </div>
   <section class="owner-section owner-section--directory" aria-label="Product evidence">

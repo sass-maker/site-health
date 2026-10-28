@@ -1,5 +1,6 @@
 'use client';
 
+import { NativeInput } from '@saas-maker/ui/components/native-controls';
 import { useEffect, useRef, useState } from 'react';
 import { Upload } from 'lucide-react';
 import { bindReadinessNavigation, protectUnsavedWorkspace, navigateWithinReadiness } from './navigation-state';
@@ -220,7 +221,7 @@ export function ProductScoreboard() {
 
   return (
     <div data-clarity-mask="true">
-      <input
+      <NativeInput
         ref={input}
         type="file"
         accept=".json,application/json"

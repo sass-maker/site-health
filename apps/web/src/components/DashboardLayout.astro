@@ -1,6 +1,7 @@
 ---
 import { themeBootstrap } from "../scripts/theme.mjs";
-import DashboardNav from "./DashboardNav.astro";
+import { DashboardHeader, CohortControl } from "./DashboardControls";
+import SiteHealthShell from "./SiteHealthShell";
 import DashboardRuntime from "./DashboardRuntime";
 import "../styles/shared-ui.css";
 import "../styles/dashboard.css";
@@ -8,9 +9,9 @@ import "../styles/dashboard.css";
 interface Props {
   title: string;
   description: string;
-  active: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "readiness";
+  active: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "readiness" | "ui-library";
   eyebrow?: string;
-  view?: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "project" | "app-store" | "readiness";
+  view?: "domains" | "search" | "ai-awareness" | "performance" | "projects" | "project" | "app-store" | "readiness" | "ui-library";
   projectId?: string;
   showProjectScope?: boolean;
   loadDashboardEvidence?: boolean;
@@ -35,60 +36,15 @@ const directoryView = ["domains", "search", "ai-awareness", "performance", "proj
   </head>
   <body data-dashboard-view={view} data-project-id={projectId} data-dashboard-evidence={String(loadDashboardEvidence)}>
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="shell" data-sidebar-shell>
-      <DashboardNav active={active} />
-      <button
-        class="sidebar-backdrop"
-        type="button"
-        tabindex="-1"
-        aria-label="Close navigation"
-        data-sidebar-backdrop
-      ></button>
-      <main id="main" class:list={["main-shell", { "main-shell--directory": directoryView }]}>
-        <button
-          class="sidebar-mobile-toggle"
-          type="button"
-          aria-label="Menu"
-          aria-controls="dashboard-sidebar"
-          aria-expanded="false"
-          data-sidebar-open
-        >
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-          <span>Menu</span>
-        </button>
-        {view !== "readiness" && <header class:list={["page-head", { "page-head--compact": directoryView }]}>
-          <div>
-            <p class="eyebrow">{eyebrow}</p>
-            <h1>{title}</h1>
-            <p class="lede">{description}</p>
-          </div>
-          <slot name="meta" />
-        </header>}
+    <SiteHealthShell client:load active={active}>
+      <div id="main" tabindex="-1">
+        {!["readiness", "projects", "ui-library"].includes(view ?? "") && <DashboardHeader title={title} description={description}><slot name="meta" /></DashboardHeader>}
         <div class="global-status" data-dashboard-global-status aria-live="assertive"></div>
-        {filterable && (
-          <section class:list={["project-scope", { "project-scope--compact": directoryView }]} aria-label="Project scope" data-project-scope>
-            <div>
-              <span>Project scope</span>
-              <strong data-project-scope-label>All projects</strong>
-            </div>
-            <label>
-              <span class="sr-only">Filter this page by project</span>
-              <select id="project-scope-select" name="project" data-project-scope-select data-usage-event="filter">
-                <option value="">All projects</option>
-              </select>
-            </label>
-          </section>
-        )}
-        {["domains", "search", "ai-awareness", "performance"].includes(view ?? "") && (
-          <section class="cohort-control" aria-label="Portfolio scope">
-            <span data-cohort-count>Reading current portfolio…</span>
-            <label>Scope <select data-cohort-select aria-label="Portfolio scope"><option value="active">Current products</option><option value="all">Include inactive identities</option></select></label>
-          </section>
-        )}
+        {["domains", "search", "ai-awareness", "performance"].includes(view ?? "") && <CohortControl />}
         <slot />
 
-      </main>
-    </div>
+      </div>
+    </SiteHealthShell>
     <DashboardRuntime client:load />
   </body>
 </html>

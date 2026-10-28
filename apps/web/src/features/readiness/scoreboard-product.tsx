@@ -1,3 +1,5 @@
+import { NativeDisclosure, NativeSummary, NativeInput } from '@saas-maker/ui/components/native-controls';
+import { Button as UiButton } from '@saas-maker/ui/components/button';
 import { useState } from 'react';
 import { LocalLink as NextLink } from './navigation';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
@@ -193,8 +195,8 @@ export function ScoreboardProduct({
           </dl>
         )}
         {record?.events?.length ? (
-          <details className={styles.usageEvidence}>
-            <summary>Unqualified candidate event aggregates · {record.events.length}</summary>
+          <NativeDisclosure className={styles.usageEvidence}>
+            <NativeSummary>Unqualified candidate event aggregates · {record.events.length}</NativeSummary>
             {record.events.map((event) => (
               <p key={event.name}>
                 {event.name}: {formatUsageCount(event.count, event.precision)} · {event.precision}
@@ -203,10 +205,10 @@ export function ScoreboardProduct({
                   : ''}
               </p>
             ))}
-          </details>
+          </NativeDisclosure>
         ) : null}
-        <details className={styles.usageEvidence}>
-          <summary>Usage sources, limitations and optional owner report</summary>
+        <NativeDisclosure className={styles.usageEvidence}>
+          <NativeSummary>Usage sources, limitations and optional owner report</NativeSummary>
         {record?.evidence.map((evidence, index) => (
           <p className={styles.usageEvidenceLine} key={`${evidence.source}:${index}`}>
             {evidence.source} · {evidence.date}: {evidence.note}
@@ -224,7 +226,7 @@ export function ScoreboardProduct({
         >
           <label>
             Date of use
-            <input
+            <NativeInput
               type="date"
               value={ownerDate}
               max={localToday()}
@@ -234,7 +236,7 @@ export function ScoreboardProduct({
           </label>
           <label>
             Brief non-sensitive action note
-            <input
+            <NativeInput
               type="text"
               value={ownerNote}
               onChange={(event) => setOwnerNote(event.target.value)}
@@ -244,19 +246,19 @@ export function ScoreboardProduct({
             />
           </label>
           <p>Owner-reported, saved only in this browser, and not added to the audience proxy.</p>
-          <button type="submit">Record my use</button>
+          <UiButton variant="outline" type="submit">Record my use</UiButton>
         </form>
         {usage?.ownerReports?.[project.id]?.length ? (
-          <details className={styles.usageEvidence}>
-            <summary>Owner-reported use · {usage.ownerReports[project.id].length}</summary>
+          <NativeDisclosure className={styles.usageEvidence}>
+            <NativeSummary>Owner-reported use · {usage.ownerReports[project.id].length}</NativeSummary>
             {usage.ownerReports[project.id].map((report, index) => (
               <p key={`${report.date}:${index}`}>
                 {report.date}: {report.note}
               </p>
             ))}
-          </details>
+          </NativeDisclosure>
         ) : null}
-        </details>
+        </NativeDisclosure>
       </section>
       <section id="product-scores" aria-label="Scores and next tasks">
         <h2>Six areas · evidence and next tasks</h2>
@@ -270,7 +272,7 @@ export function ScoreboardProduct({
                 <h3>{CATEGORY_LABELS[category]}</h3>
                 <div className={styles.productReadings}>
                   {(['effort', 'result'] as const).map((metric) => (
-                    <button
+                    <UiButton variant="outline"
                       key={metric}
                       aria-label={`${CATEGORY_LABELS[category]} ${metric} evidence`}
                       onClick={() => onEvidence(category, metric)}
@@ -280,10 +282,10 @@ export function ScoreboardProduct({
                         score={scoreReading(project.scores[category], metric)}
                         unknownLabel="Unknown"
                       />
-                    </button>
+                    </UiButton>
                   ))}
                 </div>
-                <button className={styles.productTask} onClick={() => onLever(lever.id)}>
+                <UiButton variant="ghost" className={styles.productTask} onClick={() => onLever(lever.id)}>
                   <span>
                     {lever.id === next.id
                       ? 'Best next lever'
@@ -293,21 +295,21 @@ export function ScoreboardProduct({
                     <strong>{lever.title}</strong>
                   </span>
                   <ArrowUpRight size={16} />
-                </button>
+                </UiButton>
               </section>
             );
           })}
         </div>
       </section>
-      <details className={styles.scoringGuide}>
-        <summary>Assessment limits</summary>
+      <NativeDisclosure className={styles.scoringGuide}>
+        <NativeSummary>Assessment limits</NativeSummary>
         {project.limitations.map((limit, index) => (
           <p key={`${index}:${limit}`}>{limit}</p>
         ))}
         <p>
           Source revision: <code>{project.sourceRevision}</code>
         </p>
-      </details>
+      </NativeDisclosure>
     </article>
   );
 }

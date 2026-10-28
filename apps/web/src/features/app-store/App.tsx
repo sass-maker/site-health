@@ -1,3 +1,6 @@
+import { NativeSelect, NativeDisclosure, NativeSummary, NativeProgress, NativeDialog } from '@saas-maker/ui/components/native-controls';
+import { Textarea as UiTextarea } from '@saas-maker/ui/components/textarea';
+import { Table as UiTable, TableHeader as UiTableHeader, TableRow as UiTableRow, TableHead as UiTableHead, TableBody as UiTableBody, TableCell as UiTableCell } from '@saas-maker/ui/components/table';
 import { Button } from '@saas-maker/ui/components/button';
 import { Input } from '@saas-maker/ui/components/input';
 import React, { useEffect, useRef, useState } from 'react';
@@ -588,7 +591,7 @@ export default function ResearchApp() {
     <div className="app-store-seo">
       <header className="feature-toolbar">
         <span className="save-status" role="status"><i />{storageState}</span>
-        <Button className="quiet" disabled={busy} onClick={() => void go(() => {
+        <Button variant="ghost" className="quiet" disabled={busy} onClick={() => void go(() => {
           setChoosing(true); setResults(null); setSearched(false);
         })}>＋ New research</Button>
       </header>
@@ -599,7 +602,7 @@ export default function ResearchApp() {
               Stored data could not be validated. It has not been overwritten. Download the raw
               record for recovery.
             </span>
-            <Button
+            <Button variant="outline"
               onClick={() =>
                 download('raw-workspace-recovery.json', JSON.stringify(rawRecovery, null, 2))
               }
@@ -614,7 +617,7 @@ export default function ResearchApp() {
               A local write failed. The proposed workspace, including fetched evidence, is held in
               this tab. Download it before leaving.
             </span>
-            <Button
+            <Button variant="outline"
               onClick={() => download('unsaved-workspace-recovery.json', backupText(saveRecovery))}
             >
               Download unsaved recovery
@@ -622,20 +625,20 @@ export default function ResearchApp() {
           </div>
         )}
 
-        {statusError && <div className="alert error" role="alert"><span>{statusError}</span><Button onClick={refreshStatus}>Check service status</Button></div>}
+        {statusError && <div className="alert error" role="alert"><span>{statusError}</span><Button variant="outline" onClick={refreshStatus}>Check service status</Button></div>}
         {error && (
           <div className="alert error" role="alert">
             <span>{error}</span>
-            <Button aria-label="Dismiss error" onClick={() => setError('')}>
+            <Button variant="outline" aria-label="Dismiss error" onClick={() => setError('')}>
               ×
             </Button>
           </div>
         )}
-        {retentionNotice && <div className="alert notice" role="status"><span>{retentionNotice}</span><Button aria-label="Dismiss retention notice" onClick={() => setRetentionNotice('')}>×</Button></div>}
+        {retentionNotice && <div className="alert notice" role="status"><span>{retentionNotice}</span><Button variant="outline" aria-label="Dismiss retention notice" onClick={() => setRetentionNotice('')}>×</Button></div>}
         {notice && (
           <div className="alert notice" role="status">
             <span>{notice}</span>
-            <Button aria-label="Dismiss notification" onClick={() => setNotice('')}>
+            <Button variant="outline" aria-label="Dismiss notification" onClick={() => setNotice('')}>
               ×
             </Button>
           </div>
@@ -675,7 +678,7 @@ export default function ResearchApp() {
                 </label>
                 <label>
                   Platform
-                  <select
+                  <NativeSelect
                     disabled={searching}
                     value={platform}
                     onChange={(e) => {
@@ -685,11 +688,11 @@ export default function ResearchApp() {
                   >
                     <option value="ios">iPhone & iPad</option>
                     <option value="mac">Mac</option>
-                  </select>
+                  </NativeSelect>
                 </label>
                 <label>
                   Storefront
-                  <select
+                  <NativeSelect
                     disabled={searching}
                     value={country}
                     onChange={(e) => {
@@ -702,13 +705,13 @@ export default function ResearchApp() {
                         {name}
                       </option>
                     ))}
-                  </select>
+                  </NativeSelect>
                 </label>
-                <Button className="primary" disabled={searching || !search.trim()}>
+                <Button variant="default" className="primary" disabled={searching || !search.trim()}>
                   {searching ? 'Searching…' : 'Find app →'}
                 </Button>
                 {searching && (
-                  <Button type="button" onClick={() => searchAbort.current?.abort()}>
+                  <Button variant="outline" type="button" onClick={() => searchAbort.current?.abort()}>
                     Cancel
                   </Button>
                 )}
@@ -755,7 +758,7 @@ export default function ResearchApp() {
                               : `${app.ratings.toLocaleString()} ratings`}
                           </small>
                         </div>
-                        <Button
+                        <Button variant="outline"
                           disabled={workspace.projects.length >= 20}
                           onClick={() => void chooseApp(app)}
                         >
@@ -775,7 +778,7 @@ export default function ResearchApp() {
                 </div>
                 <div className="project-cards">
                   {workspace.projects.map((p) => (
-                    <Button
+                    <Button variant="outline"
                       key={p.id}
                       onClick={() => {
                         setProjectId(p.id);
@@ -842,7 +845,7 @@ export default function ResearchApp() {
                   <label className="sr-only" htmlFor="project">
                     Local project
                   </label>
-                  <select
+                  <NativeSelect
                     id="project"
                     disabled={busy}
                     value={active.id}
@@ -859,7 +862,7 @@ export default function ResearchApp() {
                         {p.name}
                       </option>
                     ))}
-                  </select>
+                  </NativeSelect>
                   <small>
                     {active.app.developer} · ID {active.app.id}
                   </small>
@@ -874,7 +877,7 @@ export default function ResearchApp() {
                 ['listing', 'Listing studio'],
                 ['data', 'Data & connections'],
               ].map(([id, label]) => (
-                <Button
+                <Button variant="ghost"
                   key={id}
                   className={tab === id ? 'active' : ''}
                   onClick={() => void go(() => setTab(id))}
@@ -887,20 +890,20 @@ export default function ResearchApp() {
             {tab === 'research' && (
               <>
                 <div className="workspace-tools">
-                  <details className="setup">
-                    <summary>
+                  <NativeDisclosure className="setup">
+                    <NativeSummary>
                       Research setup{' '}
                       <span>
                         {active.keywords.length} keywords · {active.countries.length} countries
                       </span>
-                    </summary>
+                    </NativeSummary>
                     <div className="setup-body">
                       <div>
                         <h3>Keywords to investigate</h3>
                         <label className="sr-only" htmlFor="keywords">
                           Add keywords
                         </label>
-                        <textarea
+                        <UiTextarea
                           id="keywords"
                           value={keywords}
                           onChange={(e) => setKeywords(e.target.value)}
@@ -910,10 +913,10 @@ export default function ResearchApp() {
                           disabled={busy}
                         />
                         <div className="button-row">
-                          <Button disabled={busy || !keywords.trim()} onClick={() => addKeywords()}>
+                          <Button variant="outline" disabled={busy || !keywords.trim()} onClick={() => addKeywords()}>
                             Add keywords
                           </Button>
-                          <label className="file-button">
+                          <Button asChild variant="outline"><label className="file-button">
                             Import .txt / .csv
                             <Input
                               type="file"
@@ -930,11 +933,11 @@ export default function ResearchApp() {
                                 e.target.value = '';
                               }}
                             />
-                          </label>
+                          </label></Button>
                         </div>
                         <div className="keyword-chips">
                           {active.keywords.map((term) => (
-                            <Button
+                            <Button variant="outline"
                               key={term}
                               disabled={busy}
                               aria-label={`Remove ${term}`}
@@ -990,7 +993,7 @@ export default function ResearchApp() {
                               disabled={busy}
                             />
                           </label>
-                          <Button
+                          <Button variant="outline"
                             disabled={busy || active.countries.length >= 10}
                             onClick={() => {
                               if (!/^[a-z]{2}$/u.test(extraCountry)) {
@@ -1010,7 +1013,7 @@ export default function ResearchApp() {
                           {active.countries
                             .filter((c) => !COUNTRIES.some(([code]) => code === c))
                             .map((c) => (
-                              <Button
+                              <Button variant="outline"
                                 key={c}
                                 disabled={busy}
                                 onClick={() =>
@@ -1026,7 +1029,7 @@ export default function ResearchApp() {
                         <div className="button-row">
                           <label>
                             Result coverage
-                            <select
+                            <NativeSelect
                               disabled={busy}
                               value={active.limit}
                               onChange={(e) => {
@@ -1039,11 +1042,11 @@ export default function ResearchApp() {
                                   {n} returned apps
                                 </option>
                               ))}
-                            </select>
+                            </NativeSelect>
                           </label>
                           <label>
                             Refresh reminder
-                            <select
+                            <NativeSelect
                               disabled={busy}
                               value={active.cadenceHours}
                               onChange={(e) =>
@@ -1054,7 +1057,7 @@ export default function ResearchApp() {
                               <option value={24}>After 1 day</option>
                               <option value={72}>After 3 days</option>
                               <option value={168}>After 1 week</option>
-                            </select>
+                            </NativeSelect>
                           </label>
                         </div>
                         <label className="auto-refresh">
@@ -1079,7 +1082,7 @@ export default function ResearchApp() {
                         </p>
                       </div>
                     </div>
-                  </details>
+                  </NativeDisclosure>
                   <div className="collection-bar">
                     <div>
                       <span className={`status-dot ${due ? 'due' : ''}`} />
@@ -1090,16 +1093,16 @@ export default function ResearchApp() {
                     </div>
                     <div className="button-row">
                       {!!failedKeys.length && (
-                        <Button disabled={busy} onClick={() => void collect(failedKeys)}>
+                        <Button variant="outline" disabled={busy} onClick={() => void collect(failedKeys)}>
                           Retry {failedKeys.length} unavailable
                         </Button>
                       )}
                       {busy ? (
-                        <Button className="primary" onClick={() => runAbort.current?.abort()}>
+                        <Button variant="default" className="primary" onClick={() => runAbort.current?.abort()}>
                           Cancel collection
                         </Button>
                       ) : (
-                        <Button
+                        <Button variant="default"
                           className="primary"
                           disabled={
                             !active.keywords.length ||
@@ -1124,7 +1127,7 @@ export default function ResearchApp() {
                       {run.done}/{run.total} complete
                       {run.failed ? ` · ${run.failed} unavailable` : ''}
                     </span>
-                    <progress value={run.done} max={run.total} />
+                    <NativeProgress value={run.done} max={run.total} />
                   </div>
                 )}
                 {!active.keywords.length || !active.countries.length ? (
@@ -1135,7 +1138,7 @@ export default function ResearchApp() {
                       Add keywords and choose storefronts in Research setup, then collect the
                       matrix.
                     </p>
-                    <Button
+                    <Button variant="outline"
                       onClick={() => {
                         document.querySelector<HTMLDetailsElement>('.setup')!.open = true;
                         document.getElementById('keywords')?.focus();
@@ -1151,27 +1154,27 @@ export default function ResearchApp() {
                       tabIndex={0}
                       aria-label="Keyword comparison table, scroll horizontally for more countries"
                     >
-                      <table className="matrix">
-                        <thead>
-                          <tr>
-                            <th scope="col">
+                      <UiTable className="matrix">
+                        <UiTableHeader>
+                          <UiTableRow>
+                            <UiTableHead scope="col">
                               KEYWORD <span>{active.keywords.length} TRACKED</span>
-                            </th>
+                            </UiTableHead>
                             {active.countries.map((c) => (
-                              <th scope="col" key={c}>
+                              <UiTableHead scope="col" key={c}>
                                 {c.toUpperCase()}
                                 <small>{COUNTRIES.find(([code]) => code === c)?.[1] ?? c}</small>
-                              </th>
+                              </UiTableHead>
                             ))}
-                          </tr>
-                        </thead>
-                        <tbody>
+                          </UiTableRow>
+                        </UiTableHeader>
+                        <UiTableBody>
                           {active.keywords.map((term) => (
-                            <tr key={term}>
-                              <th scope="row">
+                            <UiTableRow key={term}>
+                              <UiTableHead scope="row">
                                 <strong>{term}</strong>
                                 <small>{active.limit}-result coverage</small>
-                              </th>
+                              </UiTableHead>
                               {active.countries.map((country) => {
                                 const key = {
                                   term,
@@ -1183,8 +1186,8 @@ export default function ResearchApp() {
                                 const selected =
                                   selection?.term === term && selection.country === country;
                                 return (
-                                  <td key={country}>
-                                    <Button
+                                  <UiTableCell key={country}>
+                                    <Button variant="outline"
                                       className={`${selected ? 'selected' : ''} ${c.presence.kind}`}
                                       onClick={() => setSelection(key)}
                                       aria-label={`${term}, ${country.toUpperCase()}: ${c.presence.kind === 'found' ? `position ${c.presence.position}` : c.presence.kind}`}
@@ -1210,13 +1213,13 @@ export default function ResearchApp() {
                                         <span>{shortTime(c.observation?.fetchedAt)}</span>
                                       </small>
                                     </Button>
-                                  </td>
+                                  </UiTableCell>
                                 );
                               })}
-                            </tr>
+                            </UiTableRow>
                           ))}
-                        </tbody>
-                      </table>
+                        </UiTableBody>
+                      </UiTable>
                     </div>
                     <div className="matrix-legend">
                       <span>
@@ -1251,7 +1254,7 @@ export default function ResearchApp() {
                 )}
                 <div className="workspace-foot">
                   <span>Source-backed observations. No invented search volume.</span>
-                  <Button
+                  <Button variant="outline"
                     onClick={() =>
                       download(
                         `${active.app.id}-matrix.csv`,
@@ -1282,7 +1285,7 @@ export default function ResearchApp() {
                   <div className="empty small">
                     <h3>No collection attempts yet.</h3>
                     <p>Your first matrix collection will appear here.</p>
-                    <Button onClick={() => void go(() => setTab('research'))}>Open matrix →</Button>
+                    <Button variant="outline" onClick={() => void go(() => setTab('research'))}>Open matrix →</Button>
                   </div>
                 ) : (
                   <div className="history-list">
@@ -1318,7 +1321,7 @@ export default function ResearchApp() {
                                 Source ↗
                               </a>
                             )}
-                            <Button
+                            <Button variant="outline"
                               onClick={() => {
                                 setSelection(a.key);
                                 setTab('research');
@@ -1365,10 +1368,10 @@ export default function ResearchApp() {
                       recover your work.
                     </p>
                     <div className="button-row">
-                      <Button className="primary" onClick={() => void exportBackup()}>
+                      <Button variant="default" className="primary" onClick={() => void exportBackup()}>
                         Download JSON backup
                       </Button>
-                      <label className="file-button">
+                      <Button asChild variant="outline"><label className="file-button">
                         Preview JSON import
                         <Input
                           type="file"
@@ -1379,7 +1382,7 @@ export default function ResearchApp() {
                             e.target.value = '';
                           }}
                         />
-                      </label>
+                      </label></Button>
                     </div>
                     <p className="caption">
                       Version 1 · {workspace.projects.length}/20 projects ·{' '}
@@ -1395,7 +1398,7 @@ export default function ResearchApp() {
                       estimates. Missing and failed results stay distinct. CSV is for analysis; JSON
                       restores the full workspace.
                     </p>
-                    <Button
+                    <Button variant="outline"
                       onClick={() =>
                         download(
                           `${active.app.id}-matrix.csv`,
@@ -1411,7 +1414,7 @@ export default function ResearchApp() {
                       Back up first. Deletion removes this project’s attempts and drafts. Captures
                       referenced by another project are preserved.
                     </p>
-                    <Button
+                    <Button variant="outline"
                       disabled={busy}
                       onClick={() =>
                         void go(() => {
@@ -1454,7 +1457,7 @@ export default function ResearchApp() {
                       No popularity metric or publishing is available. Copy or export listing drafts
                       manually. No developer account is required for public observations.
                     </p>
-                    <Button onClick={refreshStatus}>Check service status</Button>
+                    <Button variant="outline" onClick={refreshStatus}>Check service status</Button>
                     {statusError && <p role="alert">{statusError}</p>}
                   </article>
                   <article className="data-card">
@@ -1485,9 +1488,9 @@ export default function ResearchApp() {
         </span>
         <span>Apple data belongs to its respective owners. Unaffiliated with Apple.</span>
         <div>
-          <Button onClick={() => privacyDialog.current?.showModal()}>Privacy & methods</Button>
-          <Button onClick={() => void exportBackup()}>Back up workspace</Button>
-          <label className="file-button">
+          <Button variant="outline" onClick={() => privacyDialog.current?.showModal()}>Privacy & methods</Button>
+          <Button variant="outline" onClick={() => void exportBackup()}>Back up workspace</Button>
+          <Button asChild variant="outline"><label className="file-button">
             Restore backup
             <Input
               type="file"
@@ -1498,10 +1501,10 @@ export default function ResearchApp() {
                 e.target.value = '';
               }}
             />
-          </label>
+          </label></Button>
         </div>
       </div>
-      <dialog ref={deleteDialog}>
+      <NativeDialog ref={deleteDialog}>
         {active && (
           <>
             <span className="eyebrow">LOCAL PROJECT DELETION</span>
@@ -1520,10 +1523,10 @@ export default function ResearchApp() {
               I have reviewed this local deletion and want to remove this project.
             </label>
             <div className="button-row">
-              <Button onClick={() => void exportBackup('before-project-deletion.json')}>
+              <Button variant="outline" onClick={() => void exportBackup('before-project-deletion.json')}>
                 Back up workspace
               </Button>
-              <Button
+              <Button variant="default"
                 className="primary"
                 disabled={!deleteReady}
                 onClick={() =>
@@ -1544,12 +1547,12 @@ export default function ResearchApp() {
               >
                 Delete local project
               </Button>
-              <Button onClick={() => deleteDialog.current?.close()}>Cancel</Button>
+              <Button variant="outline" onClick={() => deleteDialog.current?.close()}>Cancel</Button>
             </div>
           </>
         )}
-      </dialog>
-      <dialog ref={privacyDialog}>
+      </NativeDialog>
+      <NativeDialog ref={privacyDialog}>
         <span className="eyebrow">PRIVACY & METHODS</span>
         <h2>Keep the evidence. Keep control.</h2>
         <p>
@@ -1583,11 +1586,11 @@ export default function ResearchApp() {
           Server observability samples requests with query strings redacted. This application does
           not log draft bodies or API keys.
         </p>
-        <Button className="primary" onClick={() => privacyDialog.current?.close()}>
+        <Button variant="default" className="primary" onClick={() => privacyDialog.current?.close()}>
           Close
         </Button>
-      </dialog>
-      <dialog ref={importDialog} className="import-dialog" onCancel={() => setImported(null)}>
+      </NativeDialog>
+      <NativeDialog ref={importDialog} className="import-dialog" onCancel={() => setImported(null)}>
         <span className="eyebrow">VALIDATED BACKUP PREVIEW</span>
         <h2>Bring this research into your browser.</h2>
         {imported && (
@@ -1635,17 +1638,17 @@ export default function ResearchApp() {
               previous workspace intact.
             </p>
             <div className="button-row">
-              <Button onClick={() => void exportBackup('before-import-backup.json')}>
+              <Button variant="outline" onClick={() => void exportBackup('before-import-backup.json')}>
                 Back up current
               </Button>
-              <Button
+              <Button variant="default"
                 className="primary"
                 disabled={!importPreview}
                 onClick={() => void applyImport()}
               >
                 Confirm {importMode}
               </Button>
-              <Button
+              <Button variant="outline"
                 onClick={() => {
                   setImported(null);
                   importDialog.current?.close();
@@ -1656,7 +1659,7 @@ export default function ResearchApp() {
             </div>
           </>
         )}
-      </dialog>
+      </NativeDialog>
     </div>
   );
 }
@@ -1687,7 +1690,7 @@ function Evidence({
         <span className="pill">
           {keyValue.platform.toUpperCase()} · up to {keyValue.limit} results
         </span>
-        <Button disabled={busy} onClick={onRefresh}>
+        <Button variant="outline" disabled={busy} onClick={onRefresh}>
           ↻ {presence.kind === 'unavailable' ? 'Retry cell' : 'Refresh cell'}
         </Button>
       </div>
@@ -1764,11 +1767,11 @@ function Evidence({
               >
                 Inspect exact Apple source ↗
               </a>
-              <details className="source-details">
-                <summary>Source parameters & ID</summary>
+              <NativeDisclosure className="source-details">
+                <NativeSummary>Source parameters & ID</NativeSummary>
                 <code>{observation.sourceUrl}</code>
                 <code>Capture {observation.id}</code>
-              </details>
+              </NativeDisclosure>
             </>
           )}
           <p className="caption">
@@ -1910,14 +1913,14 @@ function Ideas({
           <h3>Start with intent.</h3>
           <label>
             Task
-            <select value={mode} onChange={(e) => setMode(e.target.value as typeof mode)}>
+            <NativeSelect value={mode} onChange={(e) => setMode(e.target.value as typeof mode)}>
               <option value="brainstorm">Brainstorm related keywords</option>
               <option value="localize">Localize keyword ideas</option>
-            </select>
+            </NativeSelect>
           </label>
           <label>
             Seed topics or keywords
-            <textarea
+            <UiTextarea
               value={seed}
               onChange={(e) => setSeed(e.target.value)}
               maxLength={600}
@@ -1939,7 +1942,7 @@ function Ideas({
             seed and target locale are sent when you ask for ideas.
           </p>
           <div className="button-row">
-            <Button
+            <Button variant="default"
               className="primary"
               disabled={
                 !status?.ai.enabled || pending || !seed.trim()
@@ -1952,12 +1955,12 @@ function Ideas({
                   ? 'Suggest localized ideas'
                   : 'Suggest keyword ideas'}
             </Button>
-            {pending && <Button onClick={() => controller.current?.abort()}>Cancel</Button>}
+            {pending && <Button variant="outline" onClick={() => controller.current?.abort()}>Cancel</Button>}
           </div>
           <hr />
           <h4>Work directly from your own ideas</h4>
           <p className="caption">Add comma-separated terms below. No AI connection required.</p>
-          <Button
+          <Button variant="outline"
             disabled={!seed.trim()}
             onClick={() => {
               try {
@@ -1994,7 +1997,7 @@ function Ideas({
                   </span>
                 </label>
               ))}
-              <Button className="primary" disabled={!chosen.length} onClick={() => add(chosen)}>
+              <Button variant="default" className="primary" disabled={!chosen.length} onClick={() => add(chosen)}>
                 Add {chosen.length} selected to matrix →
               </Button>
               <p className="caption">
@@ -2202,7 +2205,7 @@ function Listing({
         <div className="alert error" role="alert">
           <span>This locale changed in another tab. Your text is still on screen.</span>
           <div className="button-row">
-            <Button
+            <Button variant="outline"
               onClick={() => {
                 draftBases.current.set(`${project.id}/${locale}`, draftConflict.updatedAt);
                 pendingDraft.current = draft;
@@ -2211,7 +2214,7 @@ function Listing({
             >
               Keep my on-screen text
             </Button>
-            <Button
+            <Button variant="outline"
               onClick={() => {
                 if (draftTimer.current) clearTimeout(draftTimer.current);
                 pendingDraft.current = null;
@@ -2223,7 +2226,7 @@ function Listing({
             >
               Load saved text
             </Button>
-            <Button
+            <Button variant="outline"
               onClick={() =>
                 download(`${project.app.id}-${locale}-unsaved.json`, JSON.stringify(draft, null, 2))
               }
@@ -2236,11 +2239,11 @@ function Listing({
       <div className="locale-bar">
         <label>
           Draft locale
-          <select value={locale} onChange={(e) => void changeLocale(e.target.value)}>
+          <NativeSelect value={locale} onChange={(e) => void changeLocale(e.target.value)}>
             {locales.map((l) => (
               <option key={l}>{l}</option>
             ))}
-          </select>
+          </NativeSelect>
         </label>
         <label>
           Another locale
@@ -2251,7 +2254,7 @@ function Listing({
             maxLength={40}
           />
         </label>
-        <Button
+        <Button variant="outline"
           onClick={() => {
             if (!/^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/u.test(localeInput)) {
               onError('Use a locale such as pt-BR or en-GB.');
@@ -2290,10 +2293,10 @@ function Listing({
           <div className="unavailable-field">
             Keyword field <span>Private in App Store Connect</span>
           </div>
-          <details>
-            <summary>Returned public description</summary>
+          <NativeDisclosure>
+            <NativeSummary>Returned public description</NativeSummary>
             <p className="description">{project.app.description || 'Not supplied.'}</p>
-          </details>
+          </NativeDisclosure>
           <p className="caption">
             Metadata comes from the selected app’s public API response. A country lookup does not
             guarantee language-specific text. Use this as a reference, then verify the locale in App
@@ -2351,7 +2354,7 @@ function Listing({
                   </small>
                 </span>
                 {field === 'description' ? (
-                  <textarea
+                  <UiTextarea
                     aria-label={label}
                     value={draft[field]}
                     onChange={(e) => edit(field, e.target.value)}
@@ -2370,8 +2373,8 @@ function Listing({
             );
           })}
           <div className="button-row">
-            <Button onClick={() => void copy()}>{copied || 'Copy listing'}</Button>
-            <Button
+            <Button variant="outline" onClick={() => void copy()}>{copied || 'Copy listing'}</Button>
+            <Button variant="outline"
               onClick={() => {
                 flushDraft();
                 download(`${project.app.id}-${locale}-draft.json`, JSON.stringify(draft, null, 2));
@@ -2379,7 +2382,7 @@ function Listing({
             >
               Export draft ↗
             </Button>
-            <Button
+            <Button variant="outline"
               onClick={() => {
                 save({ ...draft, updatedAt: new Date().toISOString() });
                 flushDraft();
@@ -2404,13 +2407,13 @@ function Listing({
           </p>
         </div>
         <div className="button-row">
-          <Button
+          <Button variant="outline"
             disabled={!status?.ai.enabled || pending}
             onClick={() => void generate()}
           >
             {pending ? 'Preparing proposal…' : 'Propose a listing draft'}
           </Button>
-          {pending && <Button onClick={() => controller.current?.abort()}>Cancel</Button>}
+          {pending && <Button variant="outline" onClick={() => controller.current?.abort()}>Cancel</Button>}
         </div>
       </div>
       {proposal && (
@@ -2430,7 +2433,7 @@ function Listing({
           </div>
           <p>{proposal.notes}</p>
           <div className="button-row">
-            <Button
+            <Button variant="default"
               className="primary"
               onClick={() => {
                 save({
@@ -2447,7 +2450,7 @@ function Listing({
             >
               Apply proposal to local draft
             </Button>
-            <Button onClick={() => setProposal(null)}>Discard proposal</Button>
+            <Button variant="outline" onClick={() => setProposal(null)}>Discard proposal</Button>
           </div>
         </section>
       )}

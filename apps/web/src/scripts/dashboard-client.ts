@@ -1,5 +1,7 @@
+import { createUiControl } from '@saas-maker/ui/lib/dom-controls';
 import { createElement } from "react";
 import { createRoot, type Root } from "react-dom/client";
+import ProjectsDirectory from "../features/projects/projects-directory";
 import EvidenceTable, { type EvidenceColumn } from "../components/EvidenceTable";
 import { numericEvidence } from "../lib/evidence-table.mjs";
 import { evidenceStateLabel, refreshAttemptLabel } from "../lib/evidence-labels.mjs";
@@ -199,7 +201,7 @@ function signalTime(...signals: Array<JsonRecord | null | undefined>) {
 
 function latestTime(...timestamps: Array<string | null | undefined>) {
   return timestamps
-    .filter((timestamp): timestamp is string => Boolean(timestamp) && Number.isFinite(Date.parse(timestamp)))
+    .filter((timestamp): timestamp is string => typeof timestamp === "string" && Number.isFinite(Date.parse(timestamp)))
     .sort((left, right) => Date.parse(right) - Date.parse(left))[0] ?? null;
 }
 
@@ -365,20 +367,20 @@ function searchKeywordVisibility(row: JsonRecord) {
       return element("a", { href: url.href, target: "_blank", rel: "noreferrer" }, [url.pathname + url.search]);
     } catch { return null; }
   };
-  return element("details", { class: "search-keywords" }, [
-    element("summary", {}, [`Keyword visibility · ${terms.length} query/page rows`]),
+  return createUiControl("details", { class: "search-keywords" }, [
+    createUiControl("summary", {}, [`Keyword visibility · ${terms.length} query/page rows`]),
     element("p", { class: "measurement-boundary-note" }, [sampleNote]),
     terms.length
       ? element("div", { class: "search-keywords__scroll", tabindex: "0", "aria-label": "Search keywords and landing pages" }, [
-          element("table", {}, [
-            element("caption", { class: "sr-only" }, ["Observed Google queries and their landing pages"]),
-            element("thead", {}, [element("tr", {}, ["Keyword / page", "Impressions", "Clicks", "CTR", "Position"].map((label) => element("th", { scope: "col" }, [label])))]),
-            element("tbody", {}, terms.map((term) => element("tr", {}, [
-              element("th", { scope: "row" }, [element("strong", {}, [term.query]), landing(term) ?? element("small", {}, ["Landing page unavailable"])]),
-              element("td", {}, [number(term.impressions)]),
-              element("td", {}, [number(term.clicks)]),
-              element("td", {}, [number(term.ctr, "%")]),
-              element("td", {}, [number(term.position)]),
+          createUiControl("table", {}, [
+            createUiControl("caption", { class: "sr-only" }, ["Observed Google queries and their landing pages"]),
+            createUiControl("thead", {}, [createUiControl("tr", {}, ["Keyword / page", "Impressions", "Clicks", "CTR", "Position"].map((label) => createUiControl("th", { scope: "col" }, [label])))]),
+            createUiControl("tbody", {}, terms.map((term) => createUiControl("tr", {}, [
+              createUiControl("th", { scope: "row" }, [element("strong", {}, [term.query]), landing(term) ?? element("small", {}, ["Landing page unavailable"])]),
+              createUiControl("td", {}, [number(term.impressions)]),
+              createUiControl("td", {}, [number(term.clicks)]),
+              createUiControl("td", {}, [number(term.ctr, "%")]),
+              createUiControl("td", {}, [number(term.position)]),
             ]))),
           ]),
         ])
@@ -397,11 +399,11 @@ function searchIndexStatus(row: JsonRecord) {
 
 function searchResult(row: JsonRecord) {
   const providerUrl = safeSearchConsoleUrl(row.providerUrl);
-  const previous = new Map((row.previousPeriod?.metrics ?? []).map((metric: JsonRecord) => [metric.label, Number(metric.value)]));
+  const previous = new Map<string, number | null>((row.previousPeriod?.metrics ?? []).map((metric: JsonRecord) => [String(metric.label), numericEvidence(metric.value)]));
   const comparison = (label: string, current?: JsonRecord | null) => {
     const before = previous.get(label);
-    const after = Number(current?.value);
-    if (!Number.isFinite(before) || !Number.isFinite(after)) return "Previous period unavailable";
+    const after = numericEvidence(current?.value);
+    if (typeof before !== "number" || typeof after !== "number") return "Previous period unavailable";
     const delta = after - before;
     const sign = delta > 0 ? "+" : "";
     return `Previous ${before.toLocaleString("en", { maximumFractionDigits: 1 })} · ${sign}${delta.toLocaleString("en", { maximumFractionDigits: 1 })}`;
@@ -423,8 +425,8 @@ function searchResult(row: JsonRecord) {
         { label: "Position", value: value(row.averagePosition), detail: comparison("Search average position", row.averagePosition) },
       ]),
     ]),
-    element("details", { class: "search-result__details" }, [
-      element("summary", {}, ["Trend, indexing and keyword evidence"]),
+    createUiControl("details", { class: "search-result__details" }, [
+      createUiControl("summary", {}, ["Trend, indexing and keyword evidence"]),
       searchTrend(row.impressions),
       searchIndexStatus(row),
       searchKeywordVisibility(row),
@@ -545,147 +547,35 @@ function signalColumn(id: string, label: string, suffix = ""): EvidenceColumn {
   return { id, label, value: row => numericEvidence(row[id]?.value), display: row => value(row[id], suffix) };
 }
 
+let projectsDirectoryRoot: Root | null = null;
 async function renderProjects() {
-  const [projects, domains, search, awareness, performance, capabilities] = await Promise.all([
-    api("/v1/projects"),
-    optionalOutcome("/v1/outcomes/domains"),
-    optionalOutcome("/v1/outcomes/search"),
-    optionalOutcome("/v1/outcomes/ai-awareness"),
+  const [projects, domains, search, awareness, performance] = await Promise.all([
+    api("/v1/projects"), optionalOutcome("/v1/outcomes/domains"),
+    optionalOutcome("/v1/outcomes/search"), optionalOutcome("/v1/outcomes/ai-awareness"),
     optionalOutcome("/v1/outcomes/performance"),
-    optionalCapabilities(),
   ]);
-  const payloads = { domains, search, awareness, performance };
   const { current, inactive } = partitionProjects(projects);
-  const evidenceByProject = new Map(current.map((project: JsonRecord) => [
-    project.id,
-    projectEvidence(project.id, payloads),
-  ]));
-  const measured = current.filter((project: JsonRecord) =>
-    evidenceByProject.get(project.id)?.some((item: JsonRecord) => item.observedAt)).length;
-  const needsAttention = current.filter((project: JsonRecord) =>
-    evidenceByProject.get(project.id)?.some((item: JsonRecord) => attentionStates.has(item.status))).length;
-  const observedSignals = [...evidenceByProject.values()].flat()
-    .filter((item: JsonRecord) => item.observedAt).length;
-  const timestamp = document.querySelector<HTMLElement>("[data-project-status-time]");
-  if (timestamp) timestamp.textContent = `Latest cached evidence ${formatted(latestTime(
-    domains.generatedAt,
-    performance.generatedAt,
-    search.generatedAt,
-    awareness.generatedAt,
-  ))}`;
-  replace("project-summary", element("dl", { class: "portfolio-summary__grid" }, [
-    element("div", {}, [element("dt", {}, ["Current products"]), element("dd", {}, [String(current.length)]), element("small", {}, ["Primary and active lifecycle"])]),
-    element("div", {}, [element("dt", {}, ["With evidence"]), element("dd", {}, [`${measured} / ${current.length}`]), element("small", {}, [`${observedSignals} source observations`])]),
-    element("div", {}, [element("dt", {}, ["Needs attention"]), element("dd", {}, [String(needsAttention)]), element("small", {}, ["Measured regression or zero search"])]),
-    element("div", {}, [
-      element("dt", {}, ["Capabilities"]),
-      element("dd", {}, [String(capabilities.skills?.length ?? 0)]),
-      element("small", {}, [`Fleet skills ${capabilities.sources?.skills?.state ?? "unavailable"}`]),
-    ]),
-  ]));
-  const currentDirectory = element("div", { class: "project-directory" }, current.map((project: JsonRecord) =>
-    element("article", {
-      class: "project-directory__row project-health-row",
-      "data-project-id": project.id,
-      "data-project-section": "current",
-      "data-project-name": `${project.name} ${project.domains?.join(" ") ?? ""}`.toLowerCase(),
-      "data-project-priority-value": project.priority ?? "",
-      "data-project-health-value": evidenceByProject.get(project.id)?.some((item: JsonRecord) => attentionStates.has(item.status))
-        ? "attention"
-        : evidenceByProject.get(project.id)?.some((item: JsonRecord) => item.observedAt)
-          ? "measured"
-          : "missing",
-    }, [
-      element("div", { class: "project-directory__identity" }, [
-        element("div", { class: "project-directory__kicker" }, [
-          element("span", {}, [project.priority ?? "Unranked"]),
-          state(project.status ?? lifecycleLabel(project.lifecycle)),
-          element("span", {}, [projectSharingLabel(project)]),
-        ]),
-        element("h3", {}, [project.name]),
-        element("p", {}, [project.description ?? project.domains?.[0] ?? "Private project"]),
-        element("small", { class: "project-directory__domain" }, [project.domains?.[0] ?? "No public domain"]),
-      ]),
-      element("div", { class: "evidence-matrix", "aria-label": `${project.name} site evidence` },
-        evidenceByProject.get(project.id)?.map(evidenceCell) ?? []),
-      element("a", {
-        class: "project-row-action",
-        href: projectHref(project.id),
-        "aria-label": `View ${project.name} details`,
-        "data-usage-event": "navigation",
-      }, ["View"]),
-    ])));
-  const currentSection = element("section", {
-    class: "project-directory-section",
-    "aria-labelledby": "current-projects-title",
-    "data-current-projects": "",
-  }, [
-    element("div", { class: "directory-section-head" }, [
-      element("div", {}, [
-        element("h2", { id: "current-projects-title" }, ["Current products"]),
-        element("p", {}, ["Primary and active identities, independent of priority and shareability."]),
-      ]),
-      element("span", {}, [`${current.length} products`]),
-    ]),
-    element("div", { class: "project-directory__header", "aria-hidden": "true" }, [
-      element("span", {}, ["Product"]),
-      element("span", {}, ["Site evidence"]),
-      element("span"),
-    ]),
-    currentDirectory,
-  ]);
-  const inactiveDetails = element("details", {
-    class: "inactive-projects",
-    "data-inactive-projects": "",
-  }, [
-    element("summary", {}, [
-      element("span", { class: "inactive-projects__toggle", "aria-hidden": "true" }),
-      element("span", { class: "inactive-projects__title" }, [
-        element("strong", {}, ["Inactive and retained"]),
-        element("small", {}, ["Archived, parked, outside-Fleet, and resource-only identities"]),
-      ]),
-      element("span", { class: "inactive-projects__count", "data-inactive-visible-count": "" }, [`${inactive.length} identities`]),
-    ]),
-    element("p", { class: "inactive-projects__intro" }, [
-      "Kept for history and ownership. These identities do not affect current portfolio counts or refresh scope.",
-    ]),
-    element("div", { class: "project-directory inactive-project-directory" }, inactive.map((project: JsonRecord) =>
-      element("article", {
-        class: "project-directory__row project-health-row inactive-project-row",
-        "data-project-id": project.id,
-        "data-project-section": "inactive",
-        "data-project-name": `${project.name} ${project.domains?.join(" ") ?? ""}`.toLowerCase(),
-        "data-project-priority-value": project.priority ?? "",
-        "data-project-health-value": "inactive",
-      }, [
-        element("div", { class: "project-directory__identity" }, [
-          element("div", { class: "project-directory__kicker" }, [
-            element("span", {}, [project.identityKind === "repository" ? "Repository" : project.priority ?? "Unranked"]),
-            state(project.identityKind === "repository" ? project.futureForm ?? "retained" : inactiveProjectState(project)),
-            element("span", {}, [projectSharingLabel(project)]),
-          ]),
-          element("h3", {}, [project.name]),
-          element("p", {}, [project.description ?? "Historical Fleet identity retained in the canonical catalog."]),
-          element("small", { class: "project-directory__domain" }, [project.identityKind === "repository" ? project.repository : project.domains?.[0] ?? "No public domain"]),
-        ]),
-        project.identityKind === "repository"
-          ? element("a", { class: "project-row-action", href: project.repositoryUrl, rel: "noreferrer", "aria-label": `Open ${project.name} on GitHub` }, ["GitHub"])
-          : element("a", { class: "project-row-action", href: projectHref(project.id), "aria-label": `View retained identity ${project.name}` }, ["View"]),
-      ]))),
-  ]);
-  const directory = element("div", { class: "project-directory-groups" }, [currentSection, inactiveDetails]);
-  directory.append(element("div", {
-    class: "directory-filter-empty",
-    "data-project-filter-empty": "",
-    role: "status",
-    "aria-live": "polite",
-    hidden: "",
-  }, [
-    element("strong", {}, ["No projects match these filters."]),
-    element("span", {}, ["Clear the search or choose broader project filters."]),
-  ]));
-  replace("project-statuses", directory);
-  bindProjectFilters(projects);
+  const payloads = { domains, search, awareness, performance };
+  const evidence = Object.fromEntries(current.map((project: JsonRecord) => {
+    const outcomes = projectOutcomes(project.id, payloads);
+    const numbers = { domains: numericEvidence(outcomes.domains?.signal?.value), performance: numericEvidence(outcomes.performance?.psi?.value), search: numericEvidence(outcomes.search?.impressions?.value), awareness: numericEvidence(outcomes.awareness?.recommendation?.value) };
+    return [project.id, projectEvidence(project.id, payloads).map(item => ({ ...item, numeric: numbers[item.id as keyof typeof numbers] }))];
+  }));
+  const host = document.querySelector<HTMLElement>('[data-dashboard-slot="project-statuses"]');
+  if (!host) return;
+  host.removeAttribute('aria-busy');
+  host.removeAttribute('role');
+  host.removeAttribute('aria-live');
+  projectsDirectoryRoot ??= createRoot(host);
+  projectsDirectoryRoot.render(createElement(ProjectsDirectory, {
+    current, inactive, evidence, projectHref,
+    observedAt: latestTime(domains.generatedAt, performance.generatedAt, search.generatedAt, awareness.generatedAt),
+    period: search.source?.period,
+    onRefresh: async (status) => {
+      await runRefreshPlans([{ family: 'drank', scope: 'portfolio' }, { family: 'psi', scope: 'portfolio' }, { family: 'search', scope: 'portfolio' }], status);
+      await renderProjects();
+    },
+  }));
 }
 
 function bindProjectFilters(projects: JsonRecord[]) {
@@ -889,7 +779,7 @@ function brandEvidencePath(projectId: string, suffix = "") {
 }
 
 function brandEvidenceButton(label: string, onClick: () => Promise<void>) {
-  const button = element("button", { type: "button", class: "secondary-action brand-evidence__action" }, [label]);
+  const button = createUiControl("button", { type: "button", class: "secondary-action brand-evidence__action" }, [label], { variant: "outline" });
   button.addEventListener("click", async () => {
     button.disabled = true;
     try {
@@ -917,8 +807,8 @@ function brandEvidenceSummary(view: JsonRecord) {
 }
 
 function brandEvidenceGroup(title: string, count: number, body: Node) {
-  return element("details", { class: "brand-evidence__group" }, [
-    element("summary", {}, [title, element("span", { class: "brand-evidence__count" }, [String(count)])]),
+  return createUiControl("details", { class: "brand-evidence__group" }, [
+    createUiControl("summary", {}, [title, element("span", { class: "brand-evidence__count" }, [String(count)])]),
     body,
   ]);
 }
@@ -935,8 +825,8 @@ function brandEvidenceObservation(projectId: string, observation: JsonRecord, re
     element("p", { class: "brand-evidence__prompt" }, [observation.promptText]),
     element("p", { class: "brand-evidence__verdict" }, [observationVerdict(observation)]),
     observation.answerText
-      ? element("details", { class: "brand-evidence__answer" }, [
-          element("summary", {}, ["Original answer"]),
+      ? createUiControl("details", { class: "brand-evidence__answer" }, [
+          createUiControl("summary", {}, ["Original answer"]),
           element("p", {}, [observation.answerText]),
         ])
       : null,
@@ -1048,14 +938,14 @@ function brandGrowthTask(task: JsonRecord) {
     task.baseline ? element("p", { class: "measurement-boundary-note" }, [`Baseline: ${task.baseline}`]) : null,
     safeHttpUrl(task.targetUrl) ? element("p", {}, ["Mapped page: ", element("a", { href: safeHttpUrl(task.targetUrl)!, rel: "noreferrer noopener", target: "_blank" }, [task.targetUrl])]) : null,
     issueUrl ? element("a", { href: issueUrl, rel: "noreferrer noopener", target: "_blank" }, ["Open delivery issue"]) : null,
-    task.draft ? element("details", { class: "brand-evidence__answer" }, [
-      element("summary", {}, ["Current draft"]), element("p", {}, [task.draft.content]),
+    task.draft ? createUiControl("details", { class: "brand-evidence__answer" }, [
+      createUiControl("summary", {}, ["Current draft"]), element("p", {}, [task.draft.content]),
     ]) : null,
     task.review ? element("p", { class: "measurement-boundary-note" }, [
       `Reviewer: ${task.review.reviewer} · ${failed.length ? `${failed.length} checks need changes` : "All six checks passed"}. Reviewer attestation for this draft.`,
     ]) : null,
-    task.review ? element("details", { class: "brand-evidence__answer" }, [
-      element("summary", {}, ["QA findings"]),
+    task.review ? createUiControl("details", { class: "brand-evidence__answer" }, [
+      createUiControl("summary", {}, ["QA findings"]),
       element("ul", {}, Object.entries(task.review.checks).map(([name, check]) =>
         element("li", {}, [`${name}: ${(check as JsonRecord).passed ? "passed" : "needs changes"} · ${(check as JsonRecord).note}`]))),
     ]) : null,
@@ -1095,13 +985,13 @@ async function brandGrowth(projectId: string, refresh: () => Promise<void>) {
 
 function brandEvidenceSetup(projectId: string, view: JsonRecord, project: JsonRecord, refresh: () => Promise<void>) {
   const profile = view.profile ?? {};
-  const details = element("details", { class: "brand-evidence__setup" });
+  const details = createUiControl("details", { class: "brand-evidence__setup" });
   if (!view.profile) details.open = true;
-  details.append(element("summary", {}, [view.profile ? "Edit brand and prompts" : "Set up brand monitoring"]));
+  details.append(createUiControl("summary", {}, [view.profile ? "Edit brand and prompts" : "Set up brand monitoring"]));
   const form = element("form", { class: "brand-evidence__form" });
   const inputs: Record<string, HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> = {};
   const field = (name: string, label: string, value: string, multiline = false) => {
-    const input = multiline ? element("textarea", { name, rows: "3" }) : element("input", { name, type: name === "brandUrl" ? "url" : "text" });
+    const input = multiline ? createUiControl("textarea", { name, rows: "3" }) : createUiControl("input", { name, type: name === "brandUrl" ? "url" : "text" });
     input.value = value;
     if (name === "brandName") input.required = true;
     inputs[name] = input;
@@ -1115,13 +1005,13 @@ function brandEvidenceSetup(projectId: string, view: JsonRecord, project: JsonRe
     field("competitors", "Competitors · one per line", (profile.competitors ?? []).map((item: JsonRecord) => item.name).join("\n"), true),
     field("communities", "Reddit communities · one per line", (profile.communities ?? []).join("\n"), true),
   );
-  const schedule = element("select", { name: "schedule" }, [
+  const schedule = createUiControl("select", { name: "schedule" }, [
     element("option", { value: "" }, ["Manual"]), element("option", { value: "daily" }, ["Daily"]), element("option", { value: "weekly" }, ["Weekly · Mondays"]),
   ]);
   schedule.value = profile.schedule ?? ""; inputs.schedule = schedule;
   form.append(element("label", {}, [element("span", {}, ["Refresh cadence"]), schedule]));
   const message = element("p", { role: "status", class: "measurement-boundary-note" }, ["Scheduled refreshes run while Site Health’s backend is open. Community collection covers the latest 30 days; API checks need an available model connection."]);
-  const save = element("button", { type: "submit", class: "secondary-action" }, ["Save brand"]);
+  const save = createUiControl("button", { type: "submit", class: "secondary-action" }, ["Save brand"], { variant: "outline" });
   form.append(save, message);
   const lines = (key: string) => inputs[key].value.split("\n").map((value) => value.trim()).filter(Boolean);
   form.addEventListener("submit", async (event) => {
@@ -1147,8 +1037,8 @@ function brandEvidenceSetup(projectId: string, view: JsonRecord, project: JsonRe
     }),
   ]))));
   const promptForm = element("form", { class: "brand-evidence__prompt-form" });
-  const prompt = element("textarea", { name: "promptText", rows: "2", required: "", maxlength: "2000" });
-  const add = element("button", { type: "submit", class: "secondary-action" }, ["Add prompt"]);
+  const prompt = createUiControl("textarea", { name: "promptText", rows: "2", required: "", maxlength: "2000" });
+  const add = createUiControl("button", { type: "submit", class: "secondary-action" }, ["Add prompt"], { variant: "outline" });
   promptForm.append(element("label", {}, [element("span", {}, ["Question to ask AI models"]), prompt]), add);
   promptForm.addEventListener("submit", async (event) => {
     event.preventDefault(); add.disabled = true;
@@ -1177,9 +1067,9 @@ function brandCommunityComposer(projectId: string, view: JsonRecord, project: Js
     element("p", { class: "measurement-boundary-note" }, ["Paste your product URL to find relevant subreddits, prepare post drafts, and find threads where you can contribute."]),
   ]);
   const form = element("form", { class: "brand-evidence__prompt-form" });
-  const url = element("input", { type: "url", name: "websiteUrl", required: "", placeholder: "https://your-product.com" });
+  const url = createUiControl("input", { type: "url", name: "websiteUrl", required: "", placeholder: "https://your-product.com" });
   url.value = view.profile?.brandUrl ?? project.websiteUrl ?? "";
-  const submit = element("button", { type: "submit", class: "secondary-action" }, ["Find communities and prepare drafts"]);
+  const submit = createUiControl("button", { type: "submit", class: "secondary-action" }, ["Find communities and prepare drafts"], { variant: "outline" });
   const message = element("p", { role: "status", class: "measurement-boundary-note" });
   form.append(element("label", {}, [element("span", {}, ["Product website"]), url]), submit, message);
   form.addEventListener("submit", async (event) => {
@@ -1212,8 +1102,8 @@ function brandCommunityComposer(projectId: string, view: JsonRecord, project: Js
         ]),
         element("p", {}, [community.reason]),
         community.message ? element("p", { class: "measurement-boundary-note" }, [community.message]) : null,
-        (community.rules ?? []).length ? element("details", {}, [
-          element("summary", {}, ["Community rules"]),
+        (community.rules ?? []).length ? createUiControl("details", {}, [
+          createUiControl("summary", {}, ["Community rules"]),
           element("ul", {}, community.rules.map((rule: JsonRecord) => element("li", {}, [`${rule.title}: ${rule.description}`]))),
         ]) : null,
       ]);
@@ -1233,11 +1123,11 @@ function brandCommunityComposer(projectId: string, view: JsonRecord, project: Js
   if ((brief.drafts ?? []).length) section.append(element("h4", {}, ["Post and comment drafts"]));
   for (const draft of brief.drafts ?? []) {
     const draftForm = element("form", { class: "brand-evidence__draft" });
-    const title = element("input", { name: "title", type: "text", maxlength: "300" }); title.value = draft.title ?? "";
-    const body = element("textarea", { name: "body", rows: "8", required: "", maxlength: "8000" }); body.value = draft.body;
+    const title = createUiControl("input", { name: "title", type: "text", maxlength: "300" }); title.value = draft.title ?? "";
+    const body = createUiControl("textarea", { name: "body", rows: "8", required: "", maxlength: "8000" }); body.value = draft.body;
     const saved = element("span", { role: "status", class: "measurement-boundary-note" });
-    const save = element("button", { type: "submit", class: "secondary-action" }, ["Save edits"]);
-    const copy = element("button", { type: "button", class: "secondary-action" }, [draft.kind === "post" ? "Copy post" : "Copy comment"]);
+    const save = createUiControl("button", { type: "submit", class: "secondary-action" }, ["Save edits"], { variant: "outline" });
+    const copy = createUiControl("button", { type: "button", class: "secondary-action" }, [draft.kind === "post" ? "Copy post" : "Copy comment"], { variant: "outline" });
     copy.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(draft.kind === "post" ? `${title.value}\n\n${body.value}` : body.value);
@@ -1279,8 +1169,8 @@ function brandWebsiteEvidence(collections: JsonRecord[]) {
     element("p", { class: "measurement-boundary-note" }, [`Last successful read ${formatted(page.checkedAt)} · ${age(page.checkedAt)}`]),
     element("strong", {}, [url ? element("a", { href: url, target: "_blank", rel: "noreferrer noopener" }, [page.title || url]) : page.title || "Website"]),
     page.description ? element("p", {}, [page.description]) : null,
-    element("details", { class: "brand-evidence__answer" }, [
-      element("summary", {}, ["Extracted page text"]), element("p", {}, [page.textExcerpt || "No text extracted"]),
+    createUiControl("details", { class: "brand-evidence__answer" }, [
+      createUiControl("summary", {}, ["Extracted page text"]), element("p", {}, [page.textExcerpt || "No text extracted"]),
     ]),
   ]);
 }
@@ -1326,7 +1216,7 @@ async function renderBrandEvidence() {
     replace("brand-evidence", element("div", { class: "brand-evidence" }, [
       brandEvidenceSummary(view),
       brandEvidenceProfile(view.profile),
-      element("details", { class: "brand-evidence__group" }, [element("summary", {}, ["Find communities and prepare a contribution"]), brandCommunityComposer(projectId, view, project, show)]),
+      createUiControl("details", { class: "brand-evidence__group" }, [createUiControl("summary", {}, ["Find communities and prepare a contribution"]), brandCommunityComposer(projectId, view, project, show)]),
       brandEvidenceSetup(projectId, view, project, show),
       view.profile && !view.readiness?.api?.ready ? element("p", { class: "measurement-boundary-note" }, ["API checks need an available model connection. Web evidence and saved history remain available."]) : null,
       brandEvidenceGroup("Collection history", (view.collections ?? []).length, brandCollectionHistory(view.collections ?? [])),
@@ -1455,6 +1345,7 @@ function spendPanel(
 
 async function renderProject() {
   const projectId = catalogProjectId(document.body.dataset.projectId);
+  if (!projectId) throw new Error("Missing product identifier");
   const [projects, domains, search, awareness, performance, capabilities, clarity, seo, geo, spend] =
     await Promise.all([
       api("/v1/projects"),
@@ -1495,7 +1386,7 @@ async function renderProject() {
       { label: "Development", value: lifecycleLabel(project.lifecycle) },
       { label: "Sharing", value: projectSharingLabel(project) },
     ]),
-    element("details", { class: "evidence-details" }, [element("summary", {}, ["Sharing assessment and release conditions"]), element("p", {}, [project.sharingReadiness?.reason ?? "No sharing assessment is recorded."])]),
+    createUiControl("details", { class: "evidence-details" }, [createUiControl("summary", {}, ["Sharing assessment and release conditions"]), element("p", {}, [project.sharingReadiness?.reason ?? "No sharing assessment is recorded."])]),
     project.sharingReadiness?.verifiedAt
       ? element("small", {}, [`Assessed ${shortDate.format(new Date(project.sharingReadiness.verifiedAt))}`]) : null,
     project.lifecycle?.resumeCondition
@@ -1516,7 +1407,7 @@ async function renderProject() {
   ) => element("section", { class: "outcome-panel" }, [
     element("header", {}, [element("div", {}, [element("h3", {}, [label]), element("small", {}, [formatted(observedAt)])]), state(statusValue)]),
     metricGrid(metrics),
-    element("details", { class: "evidence-details" }, [element("summary", {}, ["Source and methodology"]), element("p", { class: "outcome-panel__note" }, [note])]),
+    createUiControl("details", { class: "evidence-details" }, [createUiControl("summary", {}, ["Source and methodology"]), element("p", { class: "outcome-panel__note" }, [note])]),
   ]);
   replace("project-detail", element("div", { class: "project-profile" }, [
     element("nav", { class: "section-jumps", "aria-label": "Product sections" }, [
@@ -1812,7 +1703,6 @@ async function start() {
   if (document.body.dataset.dashboardEvidence === "false") return;
   try {
     bindPortfolioRefresh();
-    bindProjectRefreshAll();
     if (view === "projects") await renderProjects();
     if (view === "project") await renderProject();
     if (view === "domains") await renderDomains();
@@ -1823,6 +1713,7 @@ async function start() {
     connection?.classList.add("online");
     if (connection) connection.dataset.dashboardEvidenceState = "online";
     if (connectionLabel) connectionLabel.textContent = "Live evidence";
+    window.dispatchEvent(new CustomEvent("site-health:evidence-status",{detail:"Live evidence"}));
   } catch (error) {
     const awarenessState = document.querySelector<HTMLElement>("[data-ai-awareness-state]");
     if (awarenessState) awarenessState.textContent = "Unavailable";
@@ -1847,6 +1738,7 @@ async function start() {
     connection?.classList.add("offline");
     if (connection) connection.dataset.dashboardEvidenceState = "offline";
     if (connectionLabel) connectionLabel.textContent = "Offline";
+    window.dispatchEvent(new CustomEvent("site-health:evidence-status",{detail:"Offline"}));
   }
 }
 
