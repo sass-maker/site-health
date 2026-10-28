@@ -547,10 +547,10 @@ function signalColumn(id: string, label: string, suffix = ""): EvidenceColumn {
 
 let projectsDirectoryRoot: Root | null = null;
 async function renderProjects() {
-  const [projects, domains, search, awareness, performance] = await Promise.all([
+  const [projects, domains, search, awareness, performance, library] = await Promise.all([
     api("/v1/projects"), optionalOutcome("/v1/outcomes/domains"),
     optionalOutcome("/v1/outcomes/search"), optionalOutcome("/v1/outcomes/ai-awareness"),
-    optionalOutcome("/v1/outcomes/performance"),
+    optionalOutcome("/v1/outcomes/performance"), optionalOutcome("/v1/ui-library"),
   ]);
   const { current, inactive } = partitionProjects(projects);
   const payloads = { domains, search, awareness, performance };
@@ -567,6 +567,7 @@ async function renderProjects() {
   projectsDirectoryRoot ??= createRoot(host);
   projectsDirectoryRoot.render(createElement(ProjectsDirectory, {
     current, inactive, evidence, projectHref,
+    uiCoverage: Object.fromEntries((library.projects ?? []).map((project: JsonRecord) => [project.id, project.coverage])),
     observedAt: latestTime(domains.generatedAt, performance.generatedAt, search.generatedAt, awareness.generatedAt),
     period: search.source?.period,
     onRefresh: async (status) => {

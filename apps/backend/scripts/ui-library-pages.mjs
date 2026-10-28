@@ -50,10 +50,9 @@ const routes=[
   ['app-store','App Store SEO','/search/app-store','pages/search/app-store.astro'],
   ['awareness','AI awareness','/ai-awareness','pages/ai-awareness.astro'],
   ['readiness','Readiness & history','/readiness','pages/readiness.astro'],
-  ['ui-library','UI Library coverage','/ui-library','pages/ui-library.astro'],
 ];
 const registered=new Set(routes.map(r=>`apps/web/src/${r[3]}`));
-const extraPages=production.filter(p=>p.startsWith('apps/web/src/pages/')&&p.endsWith('.astro')&&!registered.has(p)&&p!=='apps/web/src/pages/index.astro');
+const extraPages=production.filter(p=>p.startsWith('apps/web/src/pages/')&&p.endsWith('.astro')&&!registered.has(p)&&!['apps/web/src/pages/index.astro','apps/web/src/pages/ui-library.astro'].includes(p));
 if(extraPages.length)throw Error(`Unregistered UI pages: ${extraPages.join(', ')}`);
 const output=resolve(option('--output')??uiPagesPath());
 let priorSamples=[];
