@@ -7,7 +7,7 @@ const href = (product: ReadinessProduct) => `/readiness?pillar=product&tab=effor
 function Evidence({ product, full = false }: { product: ReadinessProduct; full?: boolean }) {
   const coverage = product.uiLibrary;
   if (!coverage) return <p className="text-sm text-muted-foreground">No source scan saved.</p>;
-  return <div className="space-y-2 text-sm"><p>{coverage.shared} shared / {coverage.eligible} identified reusable controls</p><p className="text-xs text-muted-foreground">{new Date(coverage.observedAt).toLocaleDateString()} · {coverage.stale ? 'Stale source estimate' : 'Source estimate'}{coverage.dirty ? ' · local changes included' : ''} · {coverage.revision?.slice(0, 8) ?? 'No revision'}</p>{full && <p className="text-xs leading-5 text-muted-foreground">{coverage.gap}</p>}</div>;
+  return <div className="space-y-2 text-sm"><p>{coverage.status === 'source-estimate' ? `${coverage.shared} shared / ${coverage.eligible} identified reusable controls` : 'No usable control estimate'}</p><p className="text-xs text-muted-foreground">{new Date(coverage.observedAt).toLocaleDateString()} · {coverage.status === 'source-estimate' ? (coverage.stale ? 'Stale source estimate' : 'Source estimate') : coverage.status.replaceAll('-', ' ')}{coverage.dirty ? ' · local changes included' : ''} · {coverage.revision?.slice(0, 8) ?? 'No revision'}</p>{(full || coverage.status !== 'source-estimate') && <p className="text-xs leading-5 text-muted-foreground">{coverage.gap}</p>}</div>;
 }
 export function UiLibraryDetail({ product }: { product: ReadinessProduct }) {
   const coverage = product.uiLibrary;

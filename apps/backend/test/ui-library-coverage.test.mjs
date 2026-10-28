@@ -57,5 +57,12 @@ test('collector entrypoint scopes nested products and rejects a private output i
   const result = JSON.parse(readFileSync(output, 'utf8'));
   assert.deepEqual(Object.keys(result.records), ['parent', 'nested']);
   assert.deepEqual(result.input.projects[0].excludePrefixes, ['apps/nested']); assert.equal(result.input.projects[1].prefix, 'apps/nested');
+  const tooling = join(fleet, 'saas-maker'); mkdirSync(join(tooling, 'tooling/scripts'), { recursive: true });
+  const sharedCollector = join(tooling, 'tooling/scripts/ui-library-coverage.mjs'); writeFileSync(sharedCollector, readFileSync(collector));
+  const git = (...values) => execFileSync('git', ['-C', tooling, ...values], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  git('init', '-b', 'main'); git('add', '.'); git('-c', 'user.name=Coverage Test', '-c', 'user.email=test@example.invalid', 'commit', '-m', 'collector fixture'); git('update-ref', 'refs/remotes/origin/main', 'HEAD');
+  writeFileSync(sharedCollector, "throw Error('Dirty working collector must not run')");
+  execFileSync(process.execPath, [script, '--fleet-root', fleet, '--output', output], { stdio: ['ignore', 'pipe', 'pipe'] });
+  assert.equal(JSON.parse(readFileSync(output, 'utf8')).collectorRevision, git('rev-parse', 'HEAD').trim());
   assert.throws(() => execFileSync(process.execPath, [...args.slice(0,-1), join(fleet, 'site-health/private.json')], { stdio: ['ignore', 'pipe', 'pipe'] }));
 });

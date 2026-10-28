@@ -79,7 +79,8 @@ into design acceptance, joy, accessibility or outcome scores.
 
 Refresh with `node apps/backend/scripts/ui-library-coverage.mjs --fleet-root
 /absolute/fleet` after relevant UI work and at the existing weekly review. The
-collector uses SaaS Maker's shared `tooling/scripts/ui-library-coverage.mjs`;
+collector reads SaaS Maker's shared `tooling/scripts/ui-library-coverage.mjs`
+from its exact local `origin/main` Git revision, preserving dirty checkouts;
 private output defaults to Application Support/Fleet Ops/ui-library-coverage.
 It scans39 current catalog identities and excludes nested product sources from
 their host product. Separate shared-factory landing sources stay explicitly
