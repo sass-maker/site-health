@@ -45,9 +45,9 @@ test('collector entrypoint scopes nested products and rejects a private output i
   mkdirSync(join(fleet, 'site-health/catalog'), { recursive: true });
   const catalog = join(fleet, 'site-health/catalog/projects.json');
   writeFileSync(catalog, JSON.stringify({ projects: [
-    { id: 'parent', lifecycle: { status: 'active' }, repositories: { localPath: 'app' } },
-    { id: 'nested', lifecycle: { status: 'primary' }, repositories: { localPath: 'app', sourcePath: 'app/apps/nested' } },
-    { id: 'retired', lifecycle: { status: 'retired' }, repositories: { localPath: 'retired' } },
+    { id: 'parent', name: 'A Parent', lifecycle: { status: 'active' }, repositories: { localPath: 'app' } },
+    { id: 'nested', name: 'B Nested', lifecycle: { status: 'primary' }, repositories: { localPath: 'app', sourcePath: 'app/apps/nested' } },
+    { id: 'retired', name: 'Retired', lifecycle: { status: 'retired' }, repositories: { localPath: 'retired' } },
   ] }));
   const collector = join(root, 'collector.mjs');
   writeFileSync(collector, `export function collectCoverage(input) { return { schemaVersion:'ui-library-source-coverage.v1', observedAt:new Date().toISOString(), input, records:Object.fromEntries(input.projects.map(p=>[p.id,{status:'not-measured',revision:null,shared:0,eligible:0,percent:null,surfaces:[],gap:'fixture'}])) }; }`);
