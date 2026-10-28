@@ -29,6 +29,9 @@ function displayName(project) {
 
 export function loadDashboardProjects(registryPath = defaultRegistryPath) {
   const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
+  const rootPolicy = registry.systems?.rootBrands;
+  const focusRoots = new Set(rootPolicy?.growthPriority?.level === 'high'
+    ? (rootPolicy.brands ?? []).map(brand => brand.rootDomain) : []);
   const familyNames = new Map(
     registry.projects.map((project) => [project.id, displayName(project)]),
   );
@@ -66,10 +69,15 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         ? siteHealthRepository
         : historicalRepositoryUrl;
       const priorityDecision = project.portfolio?.scopeDecision?.priorityDecision;
+      const directory = registry.publicDirectory?.projects?.[project.id];
+      const websiteUrl = directory && Object.hasOwn(directory, 'publicDestinationUrl')
+        ? directory.publicDestinationUrl : domain ? `https://${domain}` : null;
+      const focusDomains = (project.domains ?? []).filter(host => focusRoots.has(host));
+      const growthFocus = focusDomains.length ? { level: 'high', domains: focusDomains } : null;
       return {
         id: project.id,
         name: displayName(project),
-        description: project.public?.description ?? null,
+        description: directory?.description ?? project.public?.description ?? null,
         category: project.category ?? null,
         audience: project.audience ?? 'unknown',
         purposeCategories: project.portfolio?.purposeCategories ?? [],
@@ -88,14 +96,17 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         priority: priorityDecision?.applicable === false ? null : project.portfolio?.priority ?? null,
         priorityApplicable: priorityDecision?.applicable ?? null,
         priorityReason: priorityDecision?.reason ?? null,
+        growthFocus,
+        domainLabel: websiteUrl === null && (project.domains?.length ?? 0) > 1
+          ? `${project.domains.length} configured endpoint hosts` : domain,
         status: project.status,
         repo: project.repo,
         sourcePath: project.sourcePath ?? null,
         repositoryVisibility: project.repositoryVisibility ?? 'unknown',
         repositoryUrl,
         domains: project.domains ?? [],
-        websiteUrl: domain ? `https://${domain}` : null,
-        changelogUrl: domain ? `https://${domain}/changelog` : null,
+        websiteUrl,
+        changelogUrl: websiteUrl && domain ? `https://${domain}/changelog` : null,
         deployKind: project.deployKind,
       };
     })

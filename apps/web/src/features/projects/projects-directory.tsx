@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@saas-maker/ui/components/sheet';
 import { NativeDisclosure, NativeSummary } from '@saas-maker/ui/components/native-controls';
 import { SlidersHorizontal, RefreshCw } from 'lucide-react';
-import { matchesProjectFilters, projectSharingLabel, inactiveProjectState, projectPriorityValue, projectPrioritySortValue, projectPriorityLabel } from '../../lib/project-directory.mjs';
+import { matchesProjectFilters, projectSharingLabel, inactiveProjectState, projectPriorityValue, projectPrioritySortValue, projectPriorityLabel, projectGrowthFocusLabel } from '../../lib/project-directory.mjs';
 
 export type DirectoryProject = { id: string; name: string; description?: string; domains?: string[]; priority?: string | null; audience?: string; priorityApplicable?: boolean | null; status?: string; familyName?: string; identityKind?: string; repositoryUrl?: string; repository?: string; lifecycle?: {status?: string; shareable?: boolean; resumeCondition?: unknown}; [key: string]: unknown };
 export type DirectoryEvidence = { id: string; label: string; status: string; value: string; numeric: number | null; observedAt?: string | null };
@@ -31,7 +31,7 @@ export default function ProjectsDirectory({ current, inactive, evidence, uiCover
   const revealRetained = filters.health==='inactive'||filters.lifecycle==='inactive'||(retained.length>0&&visible.length===0);
   const filterCount = Object.entries(filters).filter(([key,value])=>key !== 'query' && key !== 'priority' && value).length;
   const signal = (p:DirectoryProject,id:string) => evidence[p.id]?.find(e=>e.id===id);
-  const identity = (p:DirectoryProject) => <div className="min-w-0 space-y-1 py-1"><a href={projectHref(p.id)} className="font-medium text-foreground hover:underline">{p.name}</a><p className="break-all text-xs text-muted-foreground">{p.domains?.[0] ?? 'No public site'}</p>{p.audience==='internal'&&<p className="text-xs text-muted-foreground">Internal</p>}</div>;
+  const identity = (p:DirectoryProject) => <div className="min-w-0 space-y-1 py-1"><a href={projectHref(p.id)} className="font-medium text-foreground hover:underline">{p.name}</a><p className="break-all text-xs text-muted-foreground">{String(p.domainLabel ?? p.domains?.[0] ?? 'No public site')}</p>{projectGrowthFocusLabel(p)&&<p className="text-xs font-medium text-foreground">{projectGrowthFocusLabel(p)}</p>}{p.audience==='internal'&&<p className="text-xs text-muted-foreground">Internal</p>}</div>;
   const reading = (p:DirectoryProject,id:string) => {
     const e = signal(p,id);
     if (!e || e.numeric === null) return <span className="text-muted-foreground" title={e?.value ?? 'Not measured'}>—</span>;
