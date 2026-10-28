@@ -124,7 +124,8 @@ function repositoryUrl(project) {
   return project.public?.repositoryUrl ?? project.repositoryUrl ?? null;
 }
 
-function publicUrl(project) {
+function publicUrl(project, metadata) {
+  if (metadata && Object.hasOwn(metadata, 'publicDestinationUrl') && metadata.publicDestinationUrl === null) return null;
   const domain = project.domains?.[0];
   if (!domain) return null;
   const override = project.public?.url;
@@ -148,8 +149,8 @@ function publicUrl(project) {
   return parsed.toString();
 }
 
-function publicChangelogUrl(project) {
-  const url = publicUrl(project);
+function publicChangelogUrl(project, metadata) {
+  const url = publicUrl(project, metadata);
   if (!url) return null;
   const parsed = new URL(url);
   parsed.pathname = `${parsed.pathname.replace(/\/+$/, '')}/changelog`;
@@ -258,7 +259,7 @@ export function buildProjectDossier({
   const actionVerification = workflowVerification(operation, operations);
   const historyVerification = retainedGitHistoryVerification(metadata, operation, operations);
   const unknowns = [...actionVerification.unknowns];
-  const expectedGithubHomepage = publicUrl(project);
+  const expectedGithubHomepage = publicUrl(project, metadata);
   const observedGithubHomepage = operation.githubActionsMeta?.homepage ?? null;
   const homepageObserved = Object.hasOwn(operation.githubActionsMeta ?? {}, 'homepage');
   const githubHomepageStatus = !expectedGithubHomepage
@@ -431,7 +432,7 @@ export function buildProjectDossier({
       kind: project.deployKind,
       deployed: project.portfolio.deployed,
       domains: project.domains ?? [],
-      primaryUrl: publicUrl(project),
+      primaryUrl: publicUrl(project, metadata),
       domainProbePaths: project.domainProbePaths ?? {},
       targets: project.deployTargets ?? [],
       cloudflare: {
@@ -452,8 +453,8 @@ export function buildProjectDossier({
       changelogUrl:
         project.public?.listing === 'maintained' &&
         project.public?.hasChangelog !== false &&
-        publicUrl(project)
-          ? publicChangelogUrl(project)
+        publicUrl(project, metadata)
+          ? publicChangelogUrl(project, metadata)
           : null,
       roadmapUrl: repositoryUrl(project) ? `${repositoryUrl(project)}/issues` : null,
       geoIdentity,

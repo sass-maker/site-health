@@ -819,3 +819,21 @@ test('dossier validation rejects invented history for an unobserved repository',
     /unobserved Git history must stay null/,
   );
 });
+
+// A connection gateway may have several endpoint hosts and no single public website.
+test('an explicit no-homepage decision survives generated dossier links', () => {
+  const privateCatalog = structuredClone(catalog);
+  privateCatalog.publicDirectory.projects.anchor.publicDestinationUrl = null;
+  const {intents} = parsePortfolioIntents(intentMarkdown, privateCatalog.projects);
+  const owners = parseOwnerNarratives(ownerNarrativesMarkdown, privateCatalog.projects);
+  const project = privateCatalog.projects.find(p => p.id === 'anchor');
+  const dossier = buildProjectDossier({
+    catalog: privateCatalog, operations, project, operation: operations.projects.anchor,
+    intent: intents.anchor, ownerNarrative: owners.narratives.anchor,
+    sourceFingerprints: {catalog: sha256(catalogSource), ownerNarratives: sha256(ownerNarrativesMarkdown), portfolioIntent: sha256(intentMarkdown)},
+  });
+  assert.equal(dossier.deployment.primaryUrl, null);
+  assert.equal(dossier.verification.evidence.repository.expectedHomepage, null);
+  assert.equal(dossier.sharing.changelogUrl, null);
+  assert.deepEqual(dossier.deployment.domains, project.domains);
+});
