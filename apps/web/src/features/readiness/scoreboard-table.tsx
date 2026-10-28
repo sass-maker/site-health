@@ -1,5 +1,7 @@
 'use client';
 
+import { NativeSelect } from '@saas-maker/ui/components/native-controls';
+import { Button as UiButton } from '@saas-maker/ui/components/button';
 import { useState } from 'react';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 import { DataTable, type DataColumn, type DataSort } from '@saas-maker/ui/components/data-table';
@@ -67,7 +69,7 @@ export function ScoreboardTable<T extends object>({
           <div className={styles.narrowSort}>
             <label>
               Sort by{' '}
-              <select
+              <NativeSelect
                 aria-label={`${label}: sort by`}
                 value={current?.id ?? ''}
                 onChange={(e) =>
@@ -80,9 +82,9 @@ export function ScoreboardTable<T extends object>({
                     {c.group ? `${c.group} · ${c.header}` : c.header}
                   </option>
                 ))}
-              </select>
+              </NativeSelect>
             </label>
-            <button
+            <UiButton variant="ghost"
               disabled={!current}
               aria-label={`${label}: reverse sort`}
               onClick={() => {
@@ -91,7 +93,7 @@ export function ScoreboardTable<T extends object>({
             >
               {current?.desc ? <ArrowDown size={14} /> : <ArrowUp size={14} />}{' '}
               {current?.desc ? 'Descending' : 'Ascending'}
-            </button>
+            </UiButton>
           </div>
         )}
       />

@@ -3,7 +3,7 @@
 /* Scan the shared primitives and the complete page-header block used by readiness. */
 @source "../../node_modules/@saas-maker/ui/src/components";
 @source "../../node_modules/@saas-maker/ui/src/blocks/app.tsx";
-@source "../../node_modules/@saas-maker/ui/src/lib/surface-motion.ts";
+@source "../../node_modules/@saas-maker/ui/src/lib";
 @source "../";
 
 /* Use the library's neutral base surfaces in both modes. Legacy dashboard

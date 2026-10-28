@@ -1,3 +1,5 @@
+import { Button as UiButton } from '@saas-maker/ui/components/button';
+import { NativeDisclosure, NativeSummary } from '@saas-maker/ui/components/native-controls';
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, FileText } from 'lucide-react';
 import { Badge } from '@saas-maker/ui/components/badge';
@@ -52,7 +54,7 @@ export function PortfolioOverview({ workspace, queue, waiting, onReview, onOpenL
     <section className={styles.portfolioSummary} aria-label="Assessment coverage">
       <a href="/projects"><strong>{inventory?.length ?? '—'}</strong><span>{inventory ? 'current products' : 'Inventory unavailable'}</span></a>
       <div><strong>{currentAssessed ?? workspace.snapshot.projects.length}{inventory && <small> / {inventory.length}</small>}</strong><span>assessed{inventory && currentAssessed !== inventory.length ? ` · ${inventory.length - (currentAssessed ?? 0)} pending` : ''}</span></div>
-      <button onClick={onWaiting}><strong>{waiting}</strong><span>awaiting evidence</span></button>
+      <UiButton variant="outline" onClick={onWaiting}><strong>{waiting}</strong><span>awaiting evidence</span></UiButton>
       <div className={styles.assessmentDate}><span>Latest assessment</span><b>{dateLabel(workspace.snapshot.assessedAt)}</b><span>Estimates · open a product for context</span></div>
     </section>
     {queue && queueProject ? <section className={styles.queueCard} aria-label="Next in your queue">
@@ -61,7 +63,7 @@ export function PortfolioOverview({ workspace, queue, waiting, onReview, onOpenL
         <Badge variant="outline">{queueStatus === 'parked' ? 'Parked · resumable' : queueStatus === 'active' ? 'Active' : 'Ready'} · {queue.priority}</Badge>
       </div>
       <div className={styles.queueAction}><h2>{plan?.title ?? queue.title}</h2><Button variant="outline" onClick={() => onOpenLever(queue.id)}>Open lever <ArrowUpRight size={15} /></Button></div>
-      <details><summary>{CATEGORY_LABELS[queue.category]} · change and finish line</summary><p>{plan?.action ?? queue.action}</p><p><strong>Done when:</strong> {plan?.proof ?? queue.proof}</p></details>
+      <NativeDisclosure><NativeSummary>{CATEGORY_LABELS[queue.category]} · change and finish line</NativeSummary><p>{plan?.action ?? queue.action}</p><p><strong>Done when:</strong> {plan?.proof ?? queue.proof}</p></NativeDisclosure>
     </section> : <p className={styles.queueEmpty}>No ready lever. Review the queue for awaiting evidence, completed work or prerequisites.</p>}
     </>}
   </>;

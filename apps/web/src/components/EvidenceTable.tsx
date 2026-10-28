@@ -1,3 +1,4 @@
+import { NativeSelect } from '@saas-maker/ui/components/native-controls';
 import { useEffect, useRef, useState } from 'react';
 import { DataTable, type DataColumn, type DataSort, type DataValue } from '@saas-maker/ui/components/data-table';
 import { Badge } from '@saas-maker/ui/components/badge';
@@ -77,7 +78,7 @@ export default function EvidenceTable({ rows, label, columns, detail, projectHre
   };
   return <div className="evidence-table" ref={host}>
     <div className="evidence-table__toolbar"><Input type="search" aria-label={`Find product or domain in ${label}`} placeholder="Find product or domain…" value={query} onChange={event => setQuery(event.target.value)} /><span aria-live="polite">{visible.length} of {rows.length}</span></div>
-    {compact && <div className="evidence-table__sort"><label>Order <select aria-label={`Order ${label}`} value={sort[0]?.id ?? 'product'} onChange={event => setSort([{ id: event.target.value, desc: event.target.value !== 'product' }])}>{tableColumns.map(column => <option key={column.id} value={column.id}>{column.header}</option>)}</select></label><Button variant="outline" size="sm" onClick={() => setSort([{ id: sort[0]?.id ?? 'product', desc: !sort[0]?.desc }])}>{sort[0]?.desc ? 'Descending ↓' : 'Ascending ↑'}</Button></div>}
+    {compact && <div className="evidence-table__sort"><label>Order <NativeSelect aria-label={`Order ${label}`} value={sort[0]?.id ?? 'product'} onChange={event => setSort([{ id: event.target.value, desc: event.target.value !== 'product' }])}>{tableColumns.map(column => <option key={column.id} value={column.id}>{column.header}</option>)}</NativeSelect></label><Button variant="outline" size="sm" onClick={() => setSort([{ id: sort[0]?.id ?? 'product', desc: !sort[0]?.desc }])}>{sort[0]?.desc ? 'Descending ↓' : 'Ascending ↑'}</Button></div>}
     <DataTable key={`${visible.length}:${compact}`} data={visible} columns={tableColumns} getRowId={evidenceRowId} label={label} pageSize={Math.max(1, visible.length)} maxHeight="none" sort={sort} onSortChange={setSort} onRowClick={open} selectedId={active ? selected : null} empty={rows.length ? "No products or domains match this search." : "No evidence recorded for this scope."} />
     <Sheet open={Boolean(active)} onOpenChange={open => { if (!open) setSelected(null); }}>
       <SheetContent className="evidence-sheet" onCloseAutoFocus={event => {

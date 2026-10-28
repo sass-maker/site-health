@@ -1,4 +1,5 @@
 ---
+import { Button } from "@saas-maker/ui/components/button";
 import DashboardLayout from "../components/DashboardLayout.astro";
 ---
 
@@ -9,7 +10,7 @@ import DashboardLayout from "../components/DashboardLayout.astro";
   view="performance"
 >
   <div slot="meta" class="page-head__meta">
-    <button type="button" class="secondary-action" data-portfolio-refresh="psi" data-usage-event="refresh">Refresh performance</button>
+    <Button variant="outline" type="button" className="secondary-action" data-portfolio-refresh="psi" data-usage-event="refresh">Refresh performance</Button>
     <span class="portfolio-refresh-status" role="status" aria-live="polite" data-portfolio-refresh-status="psi"></span>
     <span class="snapshot-time" data-outcome-time>Reading performance evidence</span>
   </div>

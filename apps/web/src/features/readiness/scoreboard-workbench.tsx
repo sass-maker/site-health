@@ -1,5 +1,8 @@
 'use client';
 
+import { Button as UiButton } from '@saas-maker/ui/components/button';
+import { NativeSelect, NativeDisclosure, NativeSummary, NativeInput } from '@saas-maker/ui/components/native-controls';
+import { Textarea as UiTextarea } from '@saas-maker/ui/components/textarea';
 import { SheetBody } from './sheet-body';
 
 import { useEffect, useMemo, useState } from 'react';
@@ -401,7 +404,7 @@ export function ScoreboardWorkbench({
         cell: (p: ScoreProject) => {
           const change = changesByMetric[m].get(`${p.id}:${c}`);
           return (
-            <button
+            <UiButton variant="ghost"
               className={styles.scoreButton}
               aria-label={`${p.name}: ${CATEGORY_LABELS[c]} ${m === 'effort' ? 'Effort' : 'Result'} evidence`}
               onKeyDown={(e) => e.stopPropagation()}
@@ -422,7 +425,7 @@ export function ScoreboardWorkbench({
                   New
                 </span>
               )}
-            </button>
+            </UiButton>
           );
         },
       }))
@@ -461,7 +464,7 @@ export function ScoreboardWorkbench({
     { id: 'next-lever', header: 'Next lever', sortable: false, value: (project) => productQueueLever(workspace, orderedLevers, project.id)?.title ?? 'No ready lever', cell: (project) => {
       const next = productQueueLever(workspace, orderedLevers, project.id);
       const state = next ? workspace.progress[next.id]?.status ?? 'queued' : null;
-      return next ? <button className={styles.portfolioLever} onKeyDown={(event) => event.stopPropagation()} onClick={(event) => { event.stopPropagation(); setSelected(next.id); setSheet('action'); }}><span>{workspace.progress[next.id]?.plan.title ?? next.title}</span><small>{state === 'parked' ? 'Parked · resumable' : state === 'active' ? 'Active' : 'Ready'} <ArrowUpRight size={12} /></small></button> : <span className={styles.noReadyLever}>No ready lever · open product for context</span>;
+      return next ? <UiButton variant="ghost" className={styles.portfolioLever} onKeyDown={(event) => event.stopPropagation()} onClick={(event) => { event.stopPropagation(); setSelected(next.id); setSheet('action'); }}><span>{workspace.progress[next.id]?.plan.title ?? next.title}</span><small>{state === 'parked' ? 'Parked · resumable' : state === 'active' ? 'Active' : 'Ready'} <ArrowUpRight size={12} /></small></UiButton> : <span className={styles.noReadyLever}>No ready lever · open product for context</span>;
     } },
   ];
   const actionColumns: DataColumn<Lever>[] = [
@@ -572,7 +575,7 @@ export function ScoreboardWorkbench({
           />
           <div className={styles.tabs}>
             <div>
-              <button
+              <UiButton variant="outline"
                 aria-pressed={view === 'scores'}
                 onClick={() => {
                   setView('scores');
@@ -580,16 +583,16 @@ export function ScoreboardWorkbench({
                 }}
               >
                 Portfolio <span>{projects.length}</span>
-              </button>
-              <button aria-pressed={view === 'actions'} onClick={() => setView('actions')}>
+              </UiButton>
+              <UiButton variant="outline" aria-pressed={view === 'actions'} onClick={() => setView('actions')}>
                 Next levers <span>{actions.length}</span>
-              </button>
-              <button aria-pressed={view === 'history'} onClick={() => setView('history')}>
+              </UiButton>
+              <UiButton variant="outline" aria-pressed={view === 'history'} onClick={() => setView('history')}>
                 History <span>{reviews.length + workspace.history.length}</span>
-              </button>
-              <button aria-pressed={view === 'checklist'} onClick={() => setView('checklist')}>
+              </UiButton>
+              <UiButton variant="outline" aria-pressed={view === 'checklist'} onClick={() => setView('checklist')}>
                 Checklist <span>6</span>
-              </button>
+              </UiButton>
             </div>
             <span>Effort = work quality · Result = observed outcome</span>
           </div>
@@ -603,7 +606,7 @@ export function ScoreboardWorkbench({
                 <Button variant="outline" aria-expanded={showFilters} aria-controls="portfolio-filters" onClick={() => setShowFilters(!showFilters)}>Filters</Button>
               </div>
               <div className={styles.tools} id="portfolio-filters" hidden={!showFilters}>
-                <select
+                <NativeSelect
                   aria-label="Purpose"
                   value={purpose}
                   onChange={(e) => {
@@ -617,8 +620,8 @@ export function ScoreboardWorkbench({
                       {label}
                     </option>
                   ))}
-                </select>
-                <select
+                </NativeSelect>
+                <NativeSelect
                   aria-label="Priority"
                   value={priorityFilter}
                   onChange={(e) => {
@@ -630,8 +633,8 @@ export function ScoreboardWorkbench({
                   <option value="0">Focus</option>
                   <option value="1">Standard</option>
                   <option value="2">Unclassified</option>
-                </select>
-                <select
+                </NativeSelect>
+                <NativeSelect
                   aria-label="Scope"
                   value={scope}
                   onChange={(e) => {
@@ -642,8 +645,8 @@ export function ScoreboardWorkbench({
                   <option value="all">All products</option>
                   <option value="products">Public products</option>
                   <option value="internal">Internal tools</option>
-                </select>
-                <select
+                </NativeSelect>
+                <NativeSelect
                   aria-label="Area"
                   value={area}
                   onChange={(e) => {
@@ -664,9 +667,9 @@ export function ScoreboardWorkbench({
                       {CATEGORY_LABELS[c]}
                     </option>
                   ))}
-                </select>
+                </NativeSelect>
                 {view === 'scores' && (
-                  <select
+                  <NativeSelect
                     aria-label="30-day usage status"
                     value={usageFilter}
                     onChange={(e) => setUsageFilter(e.target.value)}
@@ -677,9 +680,9 @@ export function ScoreboardWorkbench({
                         {label}
                       </option>
                     ))}
-                  </select>
+                  </NativeSelect>
                 )}
-                <select
+                <NativeSelect
                   aria-label="Domain"
                   value={domain}
                   onChange={(e) => {
@@ -691,7 +694,7 @@ export function ScoreboardWorkbench({
                   {domains.map((d) => (
                     <option key={d}>{d}</option>
                   ))}
-                </select>
+                </NativeSelect>
               </div>
               {hasFocus && (
                 <div className={styles.filterSummary}>
@@ -702,16 +705,16 @@ export function ScoreboardWorkbench({
                       : `${actions.length} recommendations`}{' '}
                     match
                   </span>
-                  <button onClick={resetFilters}>
+                  <UiButton variant="outline" onClick={resetFilters}>
                     <RotateCcw size={12} />
                     Reset filters
-                  </button>
+                  </UiButton>
                 </div>
               )}
               {view === 'actions' && (
                 <label className={styles.statusFilter}>
                   Status{' '}
-                  <select
+                  <NativeSelect
                     aria-label="Lever status"
                     value={status}
                     onChange={(e) => {
@@ -726,15 +729,15 @@ export function ScoreboardWorkbench({
                       </option>
                     ))}
                     <option value="scope">Scope decisions</option>
-                  </select>
+                  </NativeSelect>
                 </label>
               )}
               {hasMatches && view === 'actions' && (
-                <button className={styles.selectedLeverLink} onClick={() => setSheet('action')}>
+                <UiButton variant="ghost" className={styles.selectedLeverLink} onClick={() => setSheet('action')}>
                   <span>Next lever · {selectedProject.name}</span>
                   <strong>{lever.title}</strong>
                   <ArrowUpRight size={15} />
-                </button>
+                </UiButton>
               )}
               <div
                 className={styles.compareGrid}
@@ -752,9 +755,9 @@ export function ScoreboardWorkbench({
                       <div className={styles.metricSwitch} aria-label="Sort score">
                         <span>Sort score</span>
                         {(['effort', 'result'] as const).map((m) => (
-                          <button key={m} aria-pressed={metric === m} onClick={() => setMetric(m)}>
+                          <UiButton variant="outline" key={m} aria-pressed={metric === m} onClick={() => setMetric(m)}>
                             {m === 'effort' ? 'Effort' : 'Result'}
-                          </button>
+                          </UiButton>
                         ))}
                       </div>
                     )}
@@ -762,7 +765,7 @@ export function ScoreboardWorkbench({
                       (reviews.length > 1 ? (
                         <label>
                           Change since{' '}
-                          <select
+                          <NativeSelect
                             aria-label="Score baseline"
                             value={baseline.id}
                             onChange={(e) => setBaselineId(e.target.value)}
@@ -772,15 +775,15 @@ export function ScoreboardWorkbench({
                                 {dateLabel(r.assessedAt)} · {i + 1}. {r.label}
                               </option>
                             ))}
-                          </select>
+                          </NativeSelect>
                         </label>
                       ) : (
                         <span>Baseline saved · {dateLabel(snapshot.assessedAt)}</span>
                       ))}
                     {view === 'scores' && (
-                      <button onClick={() => setView('history')}>
+                      <UiButton variant="outline" onClick={() => setView('history')}>
                         View score history <ArrowUpRight size={12} />
-                      </button>
+                      </UiButton>
                     )}
                   </div>
                   {view === 'scores' ? (
@@ -828,8 +831,8 @@ export function ScoreboardWorkbench({
           {view === 'history' && (
             <>
               <ScoreHistory workspace={workspace} reviews={reviews} onImport={onImport} />
-              <details className={styles.outcomeDisclosure}>
-                <summary>Lever outcomes · {workspace.history.length} recorded steps</summary>
+              <NativeDisclosure className={styles.outcomeDisclosure}>
+                <NativeSummary>Lever outcomes · {workspace.history.length} recorded steps</NativeSummary>
                 <section className={styles.history} aria-label="Outcome history">
                   <h2>Lever outcomes</h2>
                   <p>
@@ -884,30 +887,30 @@ export function ScoreboardWorkbench({
                         {record.evidence && <p>Evidence: {record.evidence}</p>}
                         {record.outcome && <p>Outcome: {record.outcome}</p>}
                         {record.prerequisiteSatisfied && <p>Prerequisite objective accepted.</p>}
-                        <details>
-                          <summary>Original action and finish line</summary>
+                        <NativeDisclosure>
+                          <NativeSummary>Original action and finish line</NativeSummary>
                           <p>{record.plan.action}</p>
                           <p>Done when: {record.plan.proof}</p>
-                        </details>
+                        </NativeDisclosure>
                       </article>
                     ))
                   )}
                 </section>
-              </details>
+              </NativeDisclosure>
             </>
           )}
-          <details className={styles.guideDisclosure}>
-            <summary>How to read scores and evidence</summary>
+          <NativeDisclosure className={styles.guideDisclosure}>
+            <NativeSummary>How to read scores and evidence</NativeSummary>
             <ScoreboardGuide target={snapshot.target} />
-          </details>
+          </NativeDisclosure>
           <footer className={styles.workspaceFooter}>
-            <button onClick={() => setSheet('review')}>
+            <UiButton variant="outline" onClick={() => setSheet('review')}>
               {saved ? 'Saved on this device' : 'Unsaved · export now'} · review & backup
-            </button>
-            <button onClick={() => void copyFocus()}>
+            </UiButton>
+            <UiButton variant="outline" onClick={() => void copyFocus()}>
               <Link size={12} />
               Copy selected focus
-            </button>
+            </UiButton>
           </footer>
           {notice && (
             <p className={styles.notice} role="status">
@@ -1013,12 +1016,12 @@ export function ScoreboardWorkbench({
               </div>
             ) : (
               <>
-                <button className={styles.evidenceLever} onClick={() => setSheet('action')}>
+                <UiButton variant="ghost" className={styles.evidenceLever} onClick={() => setSheet('action')}>
                   <span>
                     Next lever in this area<strong>{lever.title}</strong>
                   </span>
                   <ArrowUpRight size={17} />
-                </button>
+                </UiButton>
                 <CategoryEvidence
                   key={`${selectedProject.id}:${lever.category}:${evidenceMetric}`}
                   project={selectedProject}
@@ -1067,10 +1070,10 @@ function LeverInspector({
       <h2>{lever.title}</h2>
       <div className={styles.baseline}>
         <ScorePair score={score} />
-        <button onClick={onEvidence}>
+        <UiButton variant="outline" onClick={onEvidence}>
           See evidence
           <ArrowUpRight size={13} />
-        </button>
+        </UiButton>
       </div>
       <div className={styles.changeGrid}>
         <section>
@@ -1095,23 +1098,23 @@ function LeverInspector({
           )}
         </section>
       </div>
-      <details className={styles.fullDetails}>
-        <summary>Why this matters & full recommendation</summary>
+      <NativeDisclosure className={styles.fullDetails}>
+        <NativeSummary>Why this matters & full recommendation</NativeSummary>
         <p>{lever.why}</p>
         <p>{lever.action}</p>
-      </details>
+      </NativeDisclosure>
       {lever.dependencies.length > 0 && (
         <div className={styles.dependencies}>
           <span>Prerequisites</span>
           {lever.dependencies.map((id) => (
-            <button key={id} onClick={() => onSelect(id)}>
+            <UiButton variant="outline" key={id} onClick={() => onSelect(id)}>
               <Check
                 size={12}
                 className={prerequisiteSatisfied(workspace, id) ? '' : styles.unaccepted}
               />
               {workspace.snapshot.levers.find((l) => l.id === id)!.title}
               <ArrowUpRight size={12} />
-            </button>
+            </UiButton>
           ))}
         </div>
       )}
@@ -1193,9 +1196,9 @@ function LeverWorkflow({
             {blocked ? (
               'Complete the prerequisites first.'
             ) : active ? (
-              <button onClick={() => onSelect(active.leverId)}>
+              <UiButton variant="outline" onClick={() => onSelect(active.leverId)}>
                 Open the active lever to finish, wait or park it.
-              </button>
+              </UiButton>
             ) : (
               'One active lever at a time'
             )}
@@ -1203,22 +1206,22 @@ function LeverWorkflow({
         </div>
       )}
       {(state === 'active' || state === 'awaiting_evidence') && (
-        <details className={styles.recordDetails} open={state === 'active'}>
-          <summary>
+        <NativeDisclosure className={styles.recordDetails} open={state === 'active'}>
+          <NativeSummary>
             {state === 'active'
               ? 'Active · record progress or outcome'
               : 'Awaiting evidence · record an outcome'}
-          </summary>
+          </NativeSummary>
           <div className={styles.form}>
             {progress?.result && progress.work === undefined && (
-              <details className={styles.legacyEvidence}>
-                <summary>Earlier work / outcome note</summary>
+              <NativeDisclosure className={styles.legacyEvidence}>
+                <NativeSummary>Earlier work / outcome note</NativeSummary>
                 <p>{progress.result}</p>
-              </details>
+              </NativeDisclosure>
             )}
             <label>
               Effort · work completed
-              <textarea
+              <UiTextarea
                 value={work}
                 placeholder="What did we implement or change?"
                 onChange={(e) => setWork(e.target.value)}
@@ -1226,7 +1229,7 @@ function LeverWorkflow({
             </label>
             <label>
               Result · what actually happened
-              <textarea
+              <UiTextarea
                 value={observedResult}
                 placeholder="Observed outcome, including no change or a negative result. Leave empty while waiting."
                 onChange={(e) => setObservedResult(e.target.value)}
@@ -1234,7 +1237,7 @@ function LeverWorkflow({
             </label>
             <label>
               Evidence, date and scope
-              <textarea
+              <UiTextarea
                 value={evidence}
                 placeholder="A result, test or observation with its exact scope…"
                 onChange={(e) => setEvidence(e.target.value)}
@@ -1242,7 +1245,7 @@ function LeverWorkflow({
             </label>
             <label>
               Observed outcome
-              <select
+              <NativeSelect
                 value={outcome}
                 onChange={(e) => setOutcome(e.target.value as typeof outcome)}
               >
@@ -1250,11 +1253,11 @@ function LeverWorkflow({
                 <option value="helped">Helped</option>
                 <option value="unchanged">No material change</option>
                 <option value="worse">Worse / needs recovery</option>
-              </select>
+              </NativeSelect>
             </label>
             {outcome === 'helped' && (
               <label className={styles.checkbox}>
-                <input
+                <NativeInput
                   type="checkbox"
                   checked={accepted}
                   onChange={(e) => setAccepted(e.target.checked)}
@@ -1291,7 +1294,7 @@ function LeverWorkflow({
               </Button>
             </div>
           </div>
-        </details>
+        </NativeDisclosure>
       )}
       {(state === 'verified' || state === 'parked') && (
         <>
@@ -1311,20 +1314,20 @@ function LeverWorkflow({
               {progress.evidence && <p>Evidence: {progress.evidence}</p>}
             </div>
           )}
-          <details className={styles.recordDetails}>
-            <summary>Plan the next lever in this area</summary>
+          <NativeDisclosure className={styles.recordDetails}>
+            <NativeSummary>Plan the next lever in this area</NativeSummary>
             <div className={styles.form}>
               <label>
                 Next lever title
-                <input value={title} onChange={(e) => setTitle(e.target.value)} />
+                <NativeInput value={title} onChange={(e) => setTitle(e.target.value)} />
               </label>
               <label>
                 One bounded change
-                <textarea value={action} onChange={(e) => setAction(e.target.value)} />
+                <UiTextarea value={action} onChange={(e) => setAction(e.target.value)} />
               </label>
               <label>
                 What evidence would close it?
-                <textarea value={proof} onChange={(e) => setProof(e.target.value)} />
+                <UiTextarea value={proof} onChange={(e) => setProof(e.target.value)} />
               </label>
               <Button
                 className={styles.primary}
@@ -1338,7 +1341,7 @@ function LeverWorkflow({
               </Button>
               <p>The previous plan and outcome stay in history. The score stays unchanged.</p>
             </div>
-          </details>
+          </NativeDisclosure>
         </>
       )}
     </div>

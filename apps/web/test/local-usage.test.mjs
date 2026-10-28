@@ -78,8 +78,10 @@ test("only trusted explicit controls count, and QA query sessions are excluded",
   const storage = memoryStorage();
   const listeners = new Map();
   class ElementMock {
-    closest() {
-      return { getAttribute: () => "navigation" };
+    constructor(category=null){this.category=category;}
+    closest(selector) {
+      assert.match(selector,/nav\[aria-label=App\] a\[href\]/);
+      return { getAttribute: () => this.category };
     }
   }
   const document = {
@@ -100,6 +102,13 @@ test("only trusted explicit controls count, and QA query sessions are excluded",
   assert.equal(storage.raw(), null);
   click({ isTrusted: true, target, type: "click" });
   assert.equal(usageRecord(storage).proxy.count, 1);
+  const select=new ElementMock("select");
+  listeners.get("pointerdown")({isTrusted:true,target:select,type:"pointerdown"});
+  listeners.get("keydown")({isTrusted:true,target:select,type:"keydown",key:"Enter"});
+  click({isTrusted:true,target:select,type:"click"});
+  listeners.get("keydown")({isTrusted:true,target:select,type:"keydown",key:"Tab"});
+  listeners.get("pointerdown")({isTrusted:false,target:select,type:"pointerdown"});
+  assert.equal(JSON.parse(storage.raw()).days["2026-10-25"].interactions,3);
   stop();
   assert.equal(listeners.size, 0);
 

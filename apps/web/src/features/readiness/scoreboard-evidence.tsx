@@ -1,5 +1,7 @@
 'use client';
 
+import { Button as UiButton } from '@saas-maker/ui/components/button';
+import { NativeDisclosure, NativeSummary } from '@saas-maker/ui/components/native-controls';
 import { useState } from 'react';
 import { ArrowUpRight, ChevronRight, FileText } from 'lucide-react';
 import {
@@ -74,10 +76,10 @@ export function CategoryEvidence({
     <div className={styles.categoryEvidence}>
       <div className={styles.evidenceMetric} aria-label="Evidence reading">
         {(['effort', 'result'] as const).map((m) => (
-          <button key={m} aria-pressed={metric === m} onClick={() => setMetric(m)}>
+          <UiButton variant="outline" key={m} aria-pressed={metric === m} onClick={() => setMetric(m)}>
             {m === 'effort' ? 'Effort' : 'Result'}
             <ScoreValue score={scoreReading(score, m)} unknownLabel="Unknown" />
-          </button>
+          </UiButton>
         ))}
       </div>
       <section>
@@ -89,17 +91,17 @@ export function CategoryEvidence({
         </p>
         <ScoreEvidence project={project} score={scoreReading(score, metric)} />
       </section>
-      <details className={styles.legacyEvidence}>
-        <summary>
+      <NativeDisclosure className={styles.legacyEvidence}>
+        <NativeSummary>
           Previous combined assessment ·{' '}
           {score.value === null
             ? score.status === 'not_applicable'
               ? 'Exempt'
               : 'Unassessed'
             : `${formatScore(score.value)}/10`}
-        </summary>
+        </NativeSummary>
         <ScoreEvidence project={project} score={score} />
-      </details>
+      </NativeDisclosure>
     </div>
   );
 }
@@ -124,15 +126,15 @@ export function ScoreEvidence({ project, score }: { project: ScoreProject; score
       {score.evidence.map((e, i) => {
         const url = safeEvidenceUrl(e.source);
         return (
-          <details key={`${i}:${e.source}`}>
-            <summary>
+          <NativeDisclosure key={`${i}:${e.source}`}>
+            <NativeSummary>
               <FileText size={15} />
               <span>
                 {url ? new URL(url).hostname : e.source.split('/').pop()}
                 <small>{dateLabel(e.date)}</small>
               </span>
               <ChevronRight size={14} />
-            </summary>
+            </NativeSummary>
             <p>{e.note}</p>
             {url ? (
               <a href={url} target="_blank" rel="noopener noreferrer">
@@ -142,7 +144,7 @@ export function ScoreEvidence({ project, score }: { project: ScoreProject; score
             ) : (
               <code>Local evidence: {e.source}</code>
             )}
-          </details>
+          </NativeDisclosure>
         );
       })}
       <div className={styles.evidenceLimits}>

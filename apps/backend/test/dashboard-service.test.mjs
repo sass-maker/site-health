@@ -53,8 +53,13 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
   currentProjects = [{ id: 'retained', name: 'Retained', status: 'live', lifecycle: { status: 'inactive', shareable: false, resumeCondition: null } }];
   assert.equal((await (await fetch(`${base}/v1/projects`)).json())[0].id, 'retained');
   assert.equal((await fetch(`${base}/v1/readiness`)).status, 200);
+  assert.equal((await fetch(`${base}/v1/ui-library`)).status, 200);
+  const uiSummary=await (await fetch(`${base}/v1/ui-library?summary=1`)).json();
+  assert.deepEqual(Object.keys(uiSummary),['siteHealth']);
+  if(uiSummary.siteHealth)assert.deepEqual(Object.keys(uiSummary.siteHealth).sort(),['current','stale','total']);
+  for (const privatePath of ['/v1/readiness', '/v1/ui-library','/v1/ui-library?summary=1']) {
   const rebound = await new Promise((resolve, reject) => {
-    const request = httpRequest({ hostname: '127.0.0.1', port: server.address().port, path: '/v1/readiness', headers: { host: 'attacker.example' } }, (response) => {
+    const request = httpRequest({ hostname: '127.0.0.1', port: server.address().port, path: privatePath, headers: { host: 'attacker.example' } }, (response) => {
       let body = '';
       response.setEncoding('utf8'); response.on('data', (chunk) => { body += chunk; });
       response.on('end', () => resolve({ status: response.statusCode, body }));
@@ -63,6 +68,7 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
   });
   assert.equal(rebound.status, 403);
   assert.doesNotMatch(rebound.body, /12345/);
+  }
   store.setMetadata(claritySnapshotKey('retained'), {
     projectId: 'retained',
     observedAt: '2026-09-01T08:00:00.000Z',

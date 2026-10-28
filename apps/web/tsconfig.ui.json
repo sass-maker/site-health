@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app-store.json",
+  "include": [
+    "src/components/**/*.tsx",
+    "src/features/**/*.ts",
+    "src/features/**/*.tsx",
+    "src/scripts/**/*.ts"
+  ]
+}
