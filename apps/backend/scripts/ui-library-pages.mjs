@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdirSync,writeFileSync,renameSync } from 'node:fs';
+import { mkdirSync,writeFileSync,renameSync,readFileSync } from 'node:fs';
 import { dirname,resolve,posix } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { uiPagesPath,validateUiPages } from '../lib/dashboard-backend/ui-library-pages.mjs';
 
 const args=process.argv.slice(2), option=name=>{const i=args.indexOf(name);return i<0?null:args[i+1];};
-if (args.length%2 || args.some((a,i)=>i%2===0&&!['--repo','--collector-repo','--revision','--output'].includes(a))) throw Error('Usage: ui-library-pages.mjs [--repo path] [--collector-repo path] [--revision ref] [--output private.json]');
+if (args.length%2 || args.some((a,i)=>i%2===0&&!['--repo','--collector-repo','--revision','--output','--runtime-samples'].includes(a))) throw Error('Usage: ui-library-pages.mjs [--repo path] [--collector-repo path] [--revision ref] [--output private.json] [--runtime-samples private.json]');
 const repo=resolve(option('--repo')??resolve(import.meta.dirname,'../../..'));
 const { unresolvedUiCalls,inspectJsxControls }=await import(pathToFileURL(resolve(repo,'apps/web/scripts/ui-source-audit.mjs')).href);
 const git=(root,parameters)=>execFileSync('git',['-C',root,...parameters],{encoding:'utf8',maxBuffer:16*1024*1024,stdio:['ignore','pipe','pipe']});
@@ -55,8 +55,18 @@ const routes=[
 const registered=new Set(routes.map(r=>`apps/web/src/${r[3]}`));
 const extraPages=production.filter(p=>p.startsWith('apps/web/src/pages/')&&p.endsWith('.astro')&&!registered.has(p)&&p!=='apps/web/src/pages/index.astro');
 if(extraPages.length)throw Error(`Unregistered UI pages: ${extraPages.join(', ')}`);
-const snapshot=validateUiPages({schemaVersion:'site-health-ui-pages.v1',observedAt:new Date().toISOString(),sourceRevision:revision,collectorRevision,method:'reachable-control-call-sites.v2',files,pages:routes.map(([id,label,route,entry])=>({id,label,route,files:closure(`apps/web/src/${entry}`)})),runtimeSamples:[],limits:['Reachable committed source, with JSX AST traversal including controls passed through props; not rendered area or every possible state.','The shared dashboard renderer is conservatively reachable on each evidence page; its branches are not attributed to individual pages.','Ordinary content, product-specific SVG plots and layout composition are outside the reusable-control denominator.','Runtime ownership markers corroborate source imports; they cannot establish adoption alone.']});
 const output=resolve(option('--output')??uiPagesPath());
+let priorSamples=[];
+try { priorSamples=JSON.parse(readFileSync(output,'utf8')).runtimeSamples??[]; } catch(error) { if(error.code!=='ENOENT')throw error; }
+let importedSamples=[];
+if(option('--runtime-samples')) {
+ const imported=JSON.parse(readFileSync(resolve(option('--runtime-samples')),'utf8'));
+ importedSamples=Array.isArray(imported)?imported:imported.runtimeSamples;
+ if(!Array.isArray(importedSamples))throw Error('Runtime sample import must contain an array');
+}
+const runtimeSamples=[...new Map([...priorSamples,...importedSamples].filter(sample=>sample?.sourceRevision===revision).map(sample=>[JSON.stringify([sample.route,sample.state,sample.viewport?.width,sample.viewport?.height]),sample])).values()];
+const snapshot=validateUiPages({schemaVersion:'site-health-ui-pages.v1',observedAt:new Date().toISOString(),sourceRevision:revision,collectorRevision,method:'reachable-control-call-sites.v2',files,pages:routes.map(([id,label,route,entry])=>({id,label,route,files:closure(`apps/web/src/${entry}`)})),runtimeSamples,limits:['Reachable committed source, with JSX AST traversal including controls passed through props; not rendered area or every possible state.','The shared dashboard renderer is conservatively reachable on each evidence page; its branches are not attributed to individual pages.','Ordinary content, product-specific SVG plots and layout composition are outside the reusable-control denominator.','Runtime ownership markers corroborate source imports; they cannot establish adoption alone.']});
+if(importedSamples.some(sample=>sample?.sourceRevision!==revision)||snapshot.runtimeSamples.length!==runtimeSamples.length)throw Error('Runtime samples must have valid counts, dates, viewports and current source revision');
 if(output===repo||output.startsWith(`${repo}/`))throw Error('Keep private UI measurements outside the repository');
 mkdirSync(dirname(output),{recursive:true,mode:0o700});writeFileSync(`${output}.tmp`,JSON.stringify(snapshot,null,2)+'\n',{mode:0o600});renameSync(`${output}.tmp`,output);
 console.log(JSON.stringify({output,sourceRevision:revision,pages:snapshot.pages.length,...snapshot.total}));

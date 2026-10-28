@@ -20,8 +20,6 @@ import {
 type JsonRecord = Record<string, any>;
 
 const base = document.querySelector<HTMLMetaElement>('meta[name="dashboard-api-base"]')?.content ?? "/api/dashboard";
-const connection = document.querySelector<HTMLElement>("[data-dashboard-connection]");
-const connectionLabel = document.querySelector<HTMLElement>("[data-dashboard-connection-label]");
 const date = new Intl.DateTimeFormat("en", {
   dateStyle: "medium",
   timeStyle: "short",
@@ -1709,10 +1707,7 @@ async function start() {
     if (view === "search") await renderSearch();
     if (view === "ai-awareness") await renderAiAwareness();
     if (view === "performance") await renderPerformance();
-    connection?.classList.remove("offline");
-    connection?.classList.add("online");
-    if (connection) connection.dataset.dashboardEvidenceState = "online";
-    if (connectionLabel) connectionLabel.textContent = "Live evidence";
+    document.body.dataset.evidenceStatus = "Live evidence";
     window.dispatchEvent(new CustomEvent("site-health:evidence-status",{detail:"Live evidence"}));
   } catch (error) {
     const awarenessState = document.querySelector<HTMLElement>("[data-ai-awareness-state]");
@@ -1734,10 +1729,7 @@ async function start() {
       replace("project-statuses", failure.cloneNode(true));
     } else if (slots[view]) replace(slots[view], failure);
     else document.querySelector<HTMLElement>("[data-dashboard-global-status]")?.replaceChildren(failure);
-    connection?.classList.remove("online");
-    connection?.classList.add("offline");
-    if (connection) connection.dataset.dashboardEvidenceState = "offline";
-    if (connectionLabel) connectionLabel.textContent = "Offline";
+    document.body.dataset.evidenceStatus = "Offline";
     window.dispatchEvent(new CustomEvent("site-health:evidence-status",{detail:"Offline"}));
   }
 }

@@ -78,8 +78,9 @@ test("only trusted explicit controls count, and QA query sessions are excluded",
   const storage = memoryStorage();
   const listeners = new Map();
   class ElementMock {
-    closest() {
-      return { getAttribute: () => "navigation" };
+    closest(selector) {
+      assert.match(selector,/nav\[aria-label=App\] a\[href\]/);
+      return { getAttribute: () => null };
     }
   }
   const document = {

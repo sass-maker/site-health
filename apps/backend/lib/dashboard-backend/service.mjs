@@ -341,10 +341,12 @@ export function createDashboardHandler({
     }
     return false;
   };
-  const handleProjectionReadRoutes = (url, projections, response) => {
+  const handleProjectionReadRoutes = async (url, projections, response) => {
     if (url.pathname === '/v1/ui-library') {
+      const siteHealth = await readUiPages();
+      if(url.searchParams.get('summary')==='1')return json(response,200,{siteHealth:siteHealth?{total:siteHealth.total,current:siteHealth.current,stale:siteHealth.stale}:null});
       const snapshot = readUiLibraryCoverage();
-      return json(response, 200, { siteHealth: readUiPages(), projects: projections.projects.flatMap(project => {
+      return json(response, 200, { siteHealth, projects: projections.projects.flatMap(project => {
         const coverage = uiLibraryCoverage(snapshot, project.id);
         return coverage ? [{ id: project.id, name: project.name, coverage }] : [];
       }) });
@@ -455,7 +457,7 @@ export function createDashboardHandler({
         return json(response, 404, { error: 'route not found' });
       }
       const projections = readCurrentProjections();
-      if (method === 'GET' && handleProjectionReadRoutes(url, projections, response)) return;
+      if (method === 'GET' && await handleProjectionReadRoutes(url, projections, response)) return;
       if (method === 'GET' && brandEvidenceRoutes.read(url, store.projects ?? [], response, json)) return;
 
       if (

@@ -18,8 +18,6 @@ interface Props {
 }
 
 const { title, description, active, eyebrow = "Site Health evidence", view, projectId, showProjectScope = true, loadDashboardEvidence = true } = Astro.props;
-const filterable = showProjectScope && !["project", "domains", "search", "ai-awareness", "performance"].includes(view ?? "");
-const directoryView = ["domains", "search", "ai-awareness", "performance", "projects", "app-store"].includes(view ?? "");
 ---
 
 <!doctype html>
@@ -38,7 +36,7 @@ const directoryView = ["domains", "search", "ai-awareness", "performance", "proj
     <a class="skip-link" href="#main">Skip to content</a>
     <SiteHealthShell client:load active={active}>
       <div id="main" tabindex="-1">
-        {!["readiness", "projects", "ui-library"].includes(view ?? "") && <DashboardHeader title={title} description={description}><slot name="meta" /></DashboardHeader>}
+        {!["readiness", "projects", "ui-library"].includes(view ?? "") && <><DashboardHeader title={title} description={description}/><div class="page-evidence-controls"><slot name="meta" /></div></>}
         <div class="global-status" data-dashboard-global-status aria-live="assertive"></div>
         {["domains", "search", "ai-awareness", "performance"].includes(view ?? "") && <CohortControl />}
         <slot />

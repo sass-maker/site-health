@@ -750,3 +750,11 @@ body[data-dashboard-view="projects"] .owner-section { padding-top:10px; }
 .brand-evidence-controls > button:not([data-slot]) { white-space:nowrap; }
 .brand-evidence__count { margin-left:10px; font:inherit; font-size:12px; font-weight:500; }
 @media(max-width:600px) { .brand-evidence-controls { grid-template-columns:repeat(2,minmax(0,1fr)); } .brand-evidence-controls > button:not([data-slot]) { white-space:normal; } }
+
+/* Evidence controls form a full-width row below the shared page heading. */
+.page-evidence-controls:empty { display:none; }
+.page-evidence-controls .page-head__meta { width:100%;max-width:none;flex:none;justify-content:flex-start;padding-block:16px;gap:8px; }
+.page-evidence-controls .page-head__meta .snapshot-time { margin-left:auto;flex-basis:auto;max-width:32rem; }
+.page-evidence-controls .page-head__meta .search-reporting-period { flex-basis:auto;text-align:left; }
+.page-evidence-controls .portfolio-refresh-status:empty { display:none; }
+@media(max-width:767px) { .page-evidence-controls .page-head__meta .snapshot-time { margin-left:0;flex-basis:100%;text-align:left; } }

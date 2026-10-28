@@ -830,7 +830,7 @@
   padding: 0;
   border-bottom: 1px solid var(--line);
 }
-.app-store-seo .matrix td button:not([data-slot]) {
+.app-store-seo .matrix td [data-slot=button] {
   width: 100%;
   height: 79px;
   border: 0;
@@ -844,39 +844,39 @@
   text-align: left;
   padding: 10px;
 }
-.app-store-seo .matrix td button:not([data-slot]):hover:not(:disabled) {
+.app-store-seo .matrix td [data-slot=button]:hover:not(:disabled) {
   background: var(--accent);
 }
-.app-store-seo .matrix td button:not([data-slot]).selected {
+.app-store-seo .matrix td [data-slot=button].selected {
   background: var(--accent) !important;
   box-shadow: inset 0 0 0 1px var(--primary);
   color: var(--foreground);
 }
-.app-store-seo .matrix td button:not([data-slot]) strong {
+.app-store-seo .matrix td [data-slot=button] strong {
   font:
     22px 'SFMono-Regular',
     Consolas,
     monospace;
   font-weight: 400;
 }
-.app-store-seo .matrix td button:not([data-slot]) small {
+.app-store-seo .matrix td [data-slot=button] small {
   font-size: 8px;
   line-height: 1.6;
   color: var(--muted-foreground);
   max-width: 60px;
 }
-.app-store-seo .matrix td button:not([data-slot]) small span {
+.app-store-seo .matrix td [data-slot=button] small span {
   display: block;
   font-size: 8px;
   opacity: 0.75;
 }
-.app-store-seo .matrix td button:not([data-slot]).unobserved {
+.app-store-seo .matrix td [data-slot=button].unobserved {
   color: var(--muted-foreground);
 }
-.app-store-seo .matrix td button:not([data-slot]).unavailable {
+.app-store-seo .matrix td [data-slot=button].unavailable {
   color: var(--warning);
 }
-.app-store-seo .matrix td button:not([data-slot]).not-in-returned-results strong {
+.app-store-seo .matrix td [data-slot=button].not-in-returned-results strong {
   font-size: 16px;
   color: var(--muted-foreground);
 }
@@ -2078,8 +2078,8 @@
 .app-store-seo .primary:not([data-slot]):hover:not(:disabled) { background:var(--primary-hover); border-color:var(--primary); }
 .app-store-seo a { color:var(--primary); }
 .app-store-seo .matrix thead th, .app-store-seo .matrix tbody th { background:var(--aso-surface); }
-.app-store-seo .matrix td button:not([data-slot]) { background:var(--aso-surface); }
-.app-store-seo .matrix td button:not([data-slot]).selected { background:var(--accent); border-color:var(--primary); }
+.app-store-seo .matrix td [data-slot=button] { background:var(--aso-surface); }
+.app-store-seo .matrix td [data-slot=button].selected { background:var(--accent); border-color:var(--primary); }
 @media(max-width:600px) { .app-store-seo .search-panel { padding:20px 16px; } .app-store-seo .feature-toolbar { flex-wrap:wrap; } .app-store-seo .research-footer { display:block; } .app-store-seo .workspace-head { padding:20px; } }
 
 /* Compact research controls share the parent product's identity. */
@@ -2114,7 +2114,7 @@
 .app-store-seo .workspace-nav button:not([data-slot]).active { background:var(--accent); color:var(--accent-foreground); border-color:var(--primary); }
 .app-store-seo .caption, .app-store-seo .matrix-legend, .app-store-seo label { color:var(--muted-foreground); }
 .app-store-seo button:not([data-slot]) { font-weight:500; }
-.app-store-seo .matrix td button:not([data-slot]).selected { background:var(--accent); color:var(--accent-foreground); }
+.app-store-seo .matrix td [data-slot=button].selected { background:var(--accent); color:var(--accent-foreground); }
 
 /* File inputs retain the native picker while the shared Button owns the surface. */
 .app-store-seo .file-button { position: relative; }

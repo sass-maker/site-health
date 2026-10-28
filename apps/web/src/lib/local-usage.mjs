@@ -145,9 +145,9 @@ export function startLocalUsageTracking({ document, window }) {
 
   const record = (event) => {
     if (!event.isTrusted || !(event.target instanceof window.Element)) return;
-    const control = event.target.closest("[data-usage-event]");
+    const control = event.target.closest("[data-usage-event], nav[aria-label=App] a[href]");
     if (!control) return;
-    const category = control.getAttribute("data-usage-event");
+    const category = control.getAttribute("data-usage-event") ?? "navigation";
     if (!new Set(["navigation", "filter", "refresh", "action"]).has(category)) return;
     if (category === "filter" ? event.type !== "change" : event.type !== "click") return;
     try {

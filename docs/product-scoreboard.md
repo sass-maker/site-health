@@ -390,3 +390,10 @@ renderer is conservatively attributed to every evidence route. Overall counts
 use a deduplicated source union. Rendered samples retain route, state, viewport,
 source revision and date separately. Source reuse is not a design score, a
 pixel-coverage score, or proof that every possible state has been exercised.
+
+Page measurements retain runtime samples only for the same source revision. Import
+a private JSON array (or `runtimeSamples` array) with `--runtime-samples <path>`.
+Each sample records route, state, sourceRevision, observedAt, positive viewport
+width/height and observed shared/eligible control counts. Do not infer those
+counts from a screenshot or source reuse. Re-measurement preserves matching
+samples; different revisions require fresh runtime evidence.

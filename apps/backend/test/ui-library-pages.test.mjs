@@ -21,3 +21,10 @@ test('a different revision or local UI changes cannot display current coverage',
   assert.equal(qualifyUiPages(report,{revision:'c'.repeat(40),dirty:false}).total.percent,null);
   assert.equal(qualifyUiPages(report,{revision:report.sourceRevision,dirty:true}).total.percent,null);
 });
+
+test('runtime evidence stays separate and requires matching source, valid counts and viewport',()=>{
+ const data=fixture();const sample={sourceRevision:data.sourceRevision,route:'/a',state:'loaded',observedAt:data.observedAt,shared:2,eligible:3,viewport:{width:390,height:844}};
+ data.runtimeSamples=[sample,{...sample,sourceRevision:'c'.repeat(40)},{...sample,shared:4},{...sample,viewport:{width:-1,height:844}}];
+ const result=validateUiPages(data);assert.equal(result.runtimeSamples.length,1);assert.equal(result.runtimeSamples[0].percent,66.7);assert.equal(result.total.percent,75);
+ assert.equal(qualifyUiPages(result,{revision:'c'.repeat(40),dirty:false}).runtimeSamples.length,0);
+});
