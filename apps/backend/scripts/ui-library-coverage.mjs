@@ -44,4 +44,4 @@ const productRoots = [...new Set(['site-health', 'saas-maker', ...current.map(p 
 if (productRoots.some(path => { const rel = relative(resolve(fleetRoot, path), output); return !isAbsolute(rel) && rel !== '..' && !rel.startsWith('../'); })) throw Error('Keep private coverage outside product repositories');
 snapshot.evidencePath = output; mkdirSync(dirname(output), { recursive: true, mode: 0o700 });
 writeFileSync(`${output}.tmp`, JSON.stringify(snapshot, null, 2) + '\n', { mode: 0o600 }); chmodSync(`${output}.tmp`, 0o600); renameSync(`${output}.tmp`, output);
-console.log(JSON.stringify({ output, projects: current.length, estimated: Object.values(snapshot.records).filter(r => r.percent !== null).length, method: snapshot.method }));
+console.log(JSON.stringify({ output, projects: current.length, estimated: Object.values(snapshot.records).filter(r => r.percent !== null).length, assessed: Object.values(snapshot.records).filter(r => ['source-estimate', 'no-eligible-controls'].includes(r.status)).length, method: snapshot.method }));

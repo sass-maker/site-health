@@ -66,3 +66,14 @@ test('collector entrypoint scopes nested products and rejects a private output i
   assert.equal(JSON.parse(readFileSync(output, 'utf8')).collectorRevision, git('rev-parse', 'HEAD').trim());
   assert.throws(() => execFileSync(process.execPath, [...args.slice(0,-1), join(fleet, 'site-health/private.json')], { stdio: ['ignore', 'pipe', 'pipe'] }));
 });
+
+test('inspected informational HTML has a completed scope without an invented percentage', () => {
+  const data=snapshot(), row=data.records.demo;
+  row.status='no-eligible-controls'; row.shared=row.eligible=0;
+  row.surfaces=[{kind:'web',shared:0,eligible:0,sharedBlocks:1,files:[{path:'src/worker.ts',documents:1}]}];
+  const result=uiLibraryCoverage(data,'demo',Date.parse(now));
+  assert.equal(result.status,'no-eligible-controls'); assert.equal(result.percent,null); assert.equal(result.surfaces[0].sharedBlocks,1);
+  row.surfaces[0].files[0].documents=0; assert.equal(uiLibraryCoverage(data,'demo',Date.parse(now)),null);
+  row.surfaces={}; assert.equal(uiLibraryCoverage(data,'demo',Date.parse(now)),null);
+  row.surfaces=[{files:{}}]; assert.equal(uiLibraryCoverage(data,'demo',Date.parse(now)),null);
+});
