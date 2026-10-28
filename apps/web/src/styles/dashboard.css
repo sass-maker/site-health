@@ -13,11 +13,12 @@
 }
 
 * { box-sizing: border-box; }
-html { overflow-x: hidden; background: var(--canvas); scroll-behavior: smooth; }
+/* Clip horizontal overflow without creating an ancestor scrollport for sticky navigation. */
+html { overflow-x: clip; background: var(--canvas); scroll-behavior: smooth; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
   margin: 0;
   background: var(--canvas);
   color: var(--text);
