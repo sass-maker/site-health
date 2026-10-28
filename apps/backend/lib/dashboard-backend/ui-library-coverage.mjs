@@ -10,8 +10,9 @@ const count = value => Number.isSafeInteger(value) && value >= 0 ? value : 0;
 // Observation only: adoption never mutates checklist assessments or Results.
 export function uiLibraryCoverage(snapshot, projectId, now = Date.now()) {
   const row = snapshot?.records?.[projectId];
-  if (snapshot?.schemaVersion !== 'ui-library-source-coverage.v1' || !row || !validCounts(row) || !['source-estimate', 'not-measured', 'unavailable', 'scan-failed'].includes(row.status) || !Number.isFinite(Date.parse(snapshot.observedAt)) || Date.parse(snapshot.observedAt) > now + 60_000) return null;
+  if (snapshot?.schemaVersion !== 'ui-library-source-coverage.v1' || !row || !validCounts(row) || !['source-estimate', 'no-eligible-controls', 'not-measured', 'unavailable', 'scan-failed'].includes(row.status) || !Number.isFinite(Date.parse(snapshot.observedAt)) || Date.parse(snapshot.observedAt) > now + 60_000) return null;
   if (row.status === 'source-estimate' && (row.eligible === 0 || !/^[a-f0-9]{40}$/.test(row.revision ?? ''))) return null;
+  if (row.status === 'no-eligible-controls' && (row.eligible !== 0 || !/^[a-f0-9]{40}$/.test(row.revision ?? '') || (!Array.isArray(row.surfaces) || !row.surfaces.some(s => Array.isArray(s?.files) && s.files.some(f => Number.isSafeInteger(f?.documents) && f.documents > 0))))) return null;
   if (!Array.isArray(row.surfaces)) return null;
   const surfaces = row.surfaces.filter(s => ['web', 'landing', 'native'].includes(s?.kind) && validCounts(s)).map(s => ({ kind: s.kind, shared: s.shared, eligible: s.eligible, percent: percent(s.shared, s.eligible), files: Array.isArray(s.files) ? s.files.length : 0, tokenFiles: count(s.tokenFiles), sharedBlocks: count(s.sharedBlocks) }));
   if (surfaces.reduce((n, s) => n + s.shared, 0) !== row.shared || surfaces.reduce((n, s) => n + s.eligible, 0) !== row.eligible) return null;
