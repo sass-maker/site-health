@@ -573,7 +573,7 @@ async function renderProjects() {
   host.removeAttribute('aria-live');
   projectsDirectoryRoot ??= createRoot(host);
   projectsDirectoryRoot.render(createElement(ProjectsDirectory, {
-    current, inactive, evidence, projectHref,
+    current, evidence, projectHref,
     uiCoverage: Object.fromEntries((library.projects ?? []).map((project: JsonRecord) => [project.id, project.coverage])),
     observedAt: latestTime(domains.generatedAt, performance.generatedAt, search.generatedAt, awareness.generatedAt),
     period: search.source?.period,
