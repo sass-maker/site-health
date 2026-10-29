@@ -124,6 +124,13 @@ export function importGoogleIndexingReports({ catalog, previous = null, reports,
     if (!target) throw new Error(`Google report is not an exact current product surface: ${row.projectId}`);
     return { target, report: validateGoogleIndexingReport(row, target) };
   });
+  const cohorts = new Map((previous?.records ?? []).filter(record => record.googleReport)
+    .map(record => [record.projectId, record.googleReport.sitemapUrl]));
+  for (const { target, report } of validated) {
+    const existing = cohorts.get(target.projectId);
+    if (existing && existing !== report.sitemapUrl) throw new Error(`Different named sitemap already recorded for ${target.projectId}; an explicit cohort migration is required`);
+    cohorts.set(target.projectId, report.sitemapUrl);
+  }
   const artifact = previous?.schema === COVERAGE_SCHEMA ? structuredClone(previous) : { schema: COVERAGE_SCHEMA, records: [], dailyBudget: {} };
   for (const { target, report } of validated) {
     let record = artifact.records.find(row => row.projectId === target.projectId && row.surfaceUrl === target.surfaceUrl);
@@ -243,13 +250,20 @@ export async function inventorySitemap(target, { fetchImpl = fetch, sitemapUrl, 
 
 export async function collectIndexCoverage({ catalog, previous = null, inventoryOnly = false, maxInspections = 0,
   properties = [], accessToken, quotaProject, fetchImpl = fetch, inspect = inspectSearchConsoleUrl,
-  sitemapOverrides = {}, now = new Date().toISOString(), onProgress = () => {}, projectId = null, maxAgeDays = 7, signal } = {}) {
+  sitemapOverrides = {}, now, clock = () => now ?? new Date().toISOString(), onProgress = () => {}, projectId = null, maxAgeDays = 7, signal } = {}) {
   if (!Number.isInteger(maxInspections) || maxInspections < 0 || maxInspections > 2000) throw new Error('max-inspections must be an integer from 0 to 2000');
   const artifact = previous?.schema === COVERAGE_SCHEMA ? structuredClone(previous) : { schema: COVERAGE_SCHEMA, records: [], dailyBudget: {} };
   artifact.dailyBudget ??= {};
-  const day = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(now));
-  artifact.dailyBudget = Object.fromEntries(Object.entries(artifact.dailyBudget).filter(([key]) => key >= day));
-  const budget = artifact.dailyBudget[day] ??= { total: 0, properties: {} };
+  const readClock = () => {
+    const value = clock();
+    if (!Number.isFinite(new Date(value).getTime())) throw new Error('Coverage clock must return a valid timestamp');
+    return typeof value === 'string' ? value : new Date(value).toISOString();
+  };
+  const quotaDay = value => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(value));
+  const startedAt = readClock();
+  artifact.dailyBudget = Object.fromEntries(Object.entries(artifact.dailyBudget).filter(([key]) => key >= quotaDay(startedAt)));
+  const budgetAt = value => artifact.dailyBudget[quotaDay(value)] ??= { total: 0, properties: {} };
+  budgetAt(startedAt);
   let remaining = maxInspections;
   let blocked = false;
   artifact.budgetPolicy = { localPropertyDailyLimit: LOCAL_PROPERTY_DAILY_LIMIT, quotaDayTimeZone: 'America/Los_Angeles', scope: 'This checkpoint only; other collectors and manual probes are not counted' };
@@ -259,9 +273,10 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
   for (const target of targets) {
     if (signal?.aborted) break;
     const old = artifact.records.find(row => row.projectId === target.projectId && row.surfaceUrl === target.surfaceUrl);
-    const record = { ...target, ...(old?.googleReport ? { googleReport: old.googleReport, googleReports: old.googleReports ?? [old.googleReport] } : {}), inspections: { ...(old?.inspections ?? {}) }, lastAttemptAt: now };
+    const record = { ...target, ...(old?.googleReport ? { googleReport: old.googleReport, googleReports: old.googleReports ?? [old.googleReport] } : {}), inspections: { ...(old?.inspections ?? {}) }, lastAttemptAt: readClock() };
     if (!target.exemption) {
-      const inventory = await inventorySitemap(target, { fetchImpl, sitemapUrl: sitemapOverrides[target.domain], now, signal });
+      const inventory = await inventorySitemap(target, { fetchImpl, sitemapUrl: sitemapOverrides[target.domain], now: record.lastAttemptAt, signal });
+      if (signal?.aborted) break;
       // A failed discovery cannot erase a retained denominator or its exact observations.
       if (!inventory.complete && old?.inventory?.complete === true) { record.inventory = old.inventory; record.failure = 'Sitemap refresh incomplete; retained previous inventory'; record.inventoryAttempt = inventory; }
       else { record.inventory = inventory; if (!inventory.complete) record.failure = 'Sitemap inventory incomplete'; }
@@ -270,13 +285,13 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
       if (!inventoryOnly && !selected) record.failure = 'No accessible Google Search Console property';
       const urls = record.inventory.urls.filter(url => {
         const retained = record.inspections[url];
-        return !(['indexed', 'not-indexed', 'unknown'].includes(retained?.state) && Date.parse(now) - Date.parse(retained.observedAt) < maxAgeDays * DAY);
+        return !(['indexed', 'not-indexed', 'unknown'].includes(retained?.state) && Date.parse(readClock()) - Date.parse(retained.observedAt) < maxAgeDays * DAY);
       });
       if (selected && !inventoryOnly) candidates.push({ record, selected, urls });
     }
     const index = artifact.records.findIndex(row => row.projectId === target.projectId && row.surfaceUrl === target.surfaceUrl);
     if (index >= 0) artifact.records[index] = record; else artifact.records.push(record);
-    artifact.updatedAt = now; await onProgress(artifact);
+    artifact.updatedAt = readClock(); await onProgress(artifact);
   }
   // First observe every applicable product; finish small cohorts, then rotate the
   // remaining URLs so one large sitemap cannot exhaust the portfolio budget.
@@ -296,8 +311,11 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
   async function worker() {
     while (!signal?.aborted && !blocked && remaining > 0 && next < jobs.length) {
       const { record, selected, url } = jobs[next++];
+      const reservedAt = readClock();
+      const budget = budgetAt(reservedAt);
       if ((budget.properties[selected.siteUrl] ?? 0) >= LOCAL_PROPERTY_DAILY_LIMIT) continue;
       remaining--; budget.total++; budget.properties[selected.siteUrl] = (budget.properties[selected.siteUrl] ?? 0) + 1;
+      artifact.updatedAt = reservedAt;
       // Persist the reservation before the provider call, so interruption cannot refund quota.
       await persist();
       if (blocked || signal?.aborted) continue;
@@ -305,7 +323,8 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
       let result;
       try { result = await inspect({ inspectionUrl: url, siteUrl: selected.siteUrl, accessToken, quotaProject, fetchImpl: signal ? (requestUrl, requestOptions) => fetchImpl(requestUrl, { ...requestOptions, signal: AbortSignal.any([signal, ...(requestOptions.signal ? [requestOptions.signal] : [])]) }) : fetchImpl, maxAttempts: 1 }); }
       catch (error) { result = { state: 'unavailable', inspectedUrl: url, failureReason: error.message }; }
-      const observation = { ...result, observedAt: now };
+      const observation = { ...result, observedAt: readClock() };
+      artifact.updatedAt = observation.observedAt;
       if (result.state === 'unavailable' && retained) record.inspections[url] = { ...retained, lastFailure: observation };
       else record.inspections[url] = observation;
       if (result.state === 'unavailable') { record.failure = result.failureReason ?? 'URL Inspection unavailable'; blocked = /(?:401|403|429|quota|credential|permission|auth)/i.test(record.failure); }

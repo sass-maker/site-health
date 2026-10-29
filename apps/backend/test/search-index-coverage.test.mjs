@@ -151,3 +151,42 @@ test('cooperative lock records its PID, reports active ownership, handles signal
   assert.equal(existsSync(`${output}.lock`), false);
   const resume = acquireIndexCoverageLock(output); resume();
 });
+
+test('aborting inventory discovery preserves the entire previous partial record', async () => {
+  const previous = await collectIndexCoverage({ catalog, now, inventoryOnly: true, fetchImpl: fixtureFetch({ [sitemapUrl]: '<sitemapindex><sitemap><loc>https://example.com/child.xml</loc></sitemap><sitemap><loc>https://example.com/missing.xml</loc></sitemap></sitemapindex>', 'https://example.com/child.xml': xml(['https://example.com/app/a', 'https://example.com/app/b']) }) });
+  const retained = structuredClone(previous.records[0]);
+  const controller = new AbortController();
+  const result = await collectIndexCoverage({ catalog, previous, now: '2026-10-30T12:00:00Z', inventoryOnly: true, signal: controller.signal,
+    fetchImpl: async url => {
+      if (url.endsWith('/robots.txt')) return new Response('', { status: 404 });
+      controller.abort();
+      return new Response(xml(['https://example.com/app/a']));
+    } });
+  assert.deepEqual(result.records[0], retained);
+});
+
+test('reservations use their current Pacific day and observations use the provider response clock', async () => {
+  let time = '2026-10-30T06:59:59Z';
+  const afterMidnight = '2026-10-30T07:00:01Z';
+  const documents = count => fixtureFetch({ [sitemapUrl]: xml(Array.from({ length: count }, (_, i) => `https://example.com/app/${i}`)) });
+  let requests = 0;
+  let result = await collectIndexCoverage({ catalog, clock: () => time, fetchImpl: documents(6), maxInspections: 6, properties: [{ siteUrl: 'sc-domain:example.com' }], inspect: async () => { requests++; time = afterMidnight; return { state: 'indexed' }; } });
+  assert.equal(requests, 6);
+  assert.equal(result.dailyBudget['2026-10-29'].properties['sc-domain:example.com'], 4);
+  assert.equal(result.dailyBudget['2026-10-30'].properties['sc-domain:example.com'], 2);
+  assert.ok(Object.values(result.records[0].inspections).every(row => row.observedAt === afterMidnight));
+  time = '2026-10-30T07:10:00Z';
+  result = await collectIndexCoverage({ catalog, previous: result, clock: () => time, fetchImpl: documents(7), maxInspections: 1, properties: [{ siteUrl: 'sc-domain:example.com' }], inspect: async () => ({ state: 'indexed' }) });
+  assert.equal(result.dailyBudget['2026-10-30'].properties['sc-domain:example.com'], 3);
+  assert.equal(result.records[0].inspections['https://example.com/app/6'].observedAt, time);
+});
+
+test('a different named sitemap is rejected atomically for an existing project or the same batch', () => {
+  const previous = importGoogleIndexingReports({ catalog, reports: [googleReport] });
+  const snapshot = JSON.stringify(previous);
+  const second = { ...googleReport, sitemapUrl: 'https://example.com/app/blog-sitemap.xml' };
+  const source = new URL(second.sourceUrl); source.searchParams.set('sitemap', second.sitemapUrl); second.sourceUrl = source.href;
+  assert.throws(() => importGoogleIndexingReports({ catalog, previous, reports: [second] }), /Different named sitemap.*explicit cohort migration/);
+  assert.equal(JSON.stringify(previous), snapshot);
+  assert.throws(() => importGoogleIndexingReports({ catalog, reports: [googleReport, second] }), /Different named sitemap.*explicit cohort migration/);
+});

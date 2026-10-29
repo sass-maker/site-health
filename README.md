@@ -53,7 +53,8 @@ with `--reports <private-reports.json> --import-only`. Each report record suppli
 `projectId`, canonical `surfaceUrl`, `source`, `property`, `sitemapUrl`,
 `reportDate`, `observedAt`, `indexedCount`, `notIndexedCount`, `totalKnownCount`,
 `sourceUrl` and optional `reasons`. The source URL must retain Google's property
-and named-sitemap filters. Prior dated reports remain in the private checkpoint.
+and named-sitemap filters. Prior dated reports remain in the private checkpoint. Removed-URL inspections are
+retained as private history; summaries count only the current inventory URLs.
 Use `--project <id> --max-inspections <explicit-budget>` for bounded URL Inspection
 of missing or diagnostic cohorts; interrupted runs save progress and resume.
 The local budget allows at most 1,800 inspection requests per property per Pacific
