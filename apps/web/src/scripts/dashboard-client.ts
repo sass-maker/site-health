@@ -559,7 +559,7 @@ async function renderProjects() {
     optionalOutcome("/v1/outcomes/search"), optionalOutcome("/v1/outcomes/ai-awareness"),
     optionalOutcome("/v1/outcomes/performance"), optionalOutcome("/v1/ui-library"),
   ]);
-  const { current, inactive } = partitionProjects(projects);
+  const { current } = partitionProjects(projects);
   const payloads = { domains, search, awareness, performance };
   const evidence = Object.fromEntries(current.map((project: JsonRecord) => {
     const outcomes = projectOutcomes(project.id, payloads);
@@ -573,7 +573,7 @@ async function renderProjects() {
   host.removeAttribute('aria-live');
   projectsDirectoryRoot ??= createRoot(host);
   projectsDirectoryRoot.render(createElement(ProjectsDirectory, {
-    current, inactive, evidence, projectHref,
+    current, evidence, projectHref,
     uiCoverage: Object.fromEntries((library.projects ?? []).map((project: JsonRecord) => [project.id, project.coverage])),
     observedAt: latestTime(domains.generatedAt, performance.generatedAt, search.generatedAt, awareness.generatedAt),
     period: search.source?.period,
