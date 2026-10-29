@@ -81,6 +81,17 @@ export function matchesProjectFilters(project, { query = "", priority = "", heal
     && (!sharing || (sharing === "shareable" ? project.lifecycle?.shareable === true : project.lifecycle?.shareable !== true));
 }
 
+export async function loadProjectDirectory(api) {
+  const optionalCollections = Promise.resolve().then(() => api('/v1/project-collections'))
+    .then(collections => {
+      if (!Array.isArray(collections)) throw new Error('Invalid app collections response');
+      return { collections, collectionsUnavailable: false };
+    })
+    .catch(() => ({ collections: [], collectionsUnavailable: true }));
+  const [projects, collectionResult] = await Promise.all([api('/v1/projects'), optionalCollections]);
+  return { projects, ...collectionResult };
+}
+
 export function groupProjectCollections(projects, collections = [], filters = {}) {
   const current = [...new Map(projects.map(project => [project.id, project])).values()];
   const collectionByProject = new Map(collections.flatMap(collection =>

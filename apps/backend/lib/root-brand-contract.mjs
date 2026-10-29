@@ -54,8 +54,6 @@ export function validateRootBrandContract(contract, projects) {
 
   const byRoot = new Map();
   const globalNames = new Map();
-  const collectionIds = new Set();
-  const collectionMembers = new Set();
   for (const brand of contract.brands) {
     const root = String(brand?.rootDomain ?? '').trim();
     const canonicalName = String(brand?.canonicalName ?? '').trim();
@@ -86,23 +84,10 @@ export function validateRootBrandContract(contract, projects) {
       globalNames.set(normalized, root);
     }
 
-    if (brand.priority !== undefined && !/^P[0-4]$/.test(brand.priority)) {
-      throw new Error(`invalid root brand priority: ${root}`);
-    }
-    const collection = collectionForBrand(brand, projects);
-    if (collection) {
-      if (collectionIds.has(collection.id) || collection.projectIds.some(id => collectionMembers.has(id))) {
-        throw new Error(`duplicate root brand collection or member: ${root}`);
-      }
-      collectionIds.add(collection.id);
-      collection.projectIds.forEach(id => collectionMembers.add(id));
-    }
     byRoot.set(root, {
       rootDomain: root,
       canonicalName,
       alternateNames: alternateNames.map((name) => String(name).trim()),
-      ...(brand.priority === undefined ? {} : { priority: brand.priority }),
-      ...(collection ? { collection } : {}),
     });
   }
 
@@ -115,6 +100,31 @@ export function validateRootBrandContract(contract, projects) {
   }
 
   return byRoot;
+}
+
+export function validateRootBrandCollections(contract, projects) {
+  const brands = validateRootBrandContract(contract, projects);
+  const collections = new Map();
+  const collectionIds = new Set();
+  const collectionMembers = new Set();
+  for (const brand of contract.brands) {
+    if (brand.priority !== undefined && !/^P[0-4]$/.test(brand.priority)) {
+      throw new Error(`invalid root brand priority: ${brand.rootDomain}`);
+    }
+    const collection = collectionForBrand(brand, projects);
+    if (!collection) continue;
+    if (collectionIds.has(collection.id) || collection.projectIds.some(id => collectionMembers.has(id))) {
+      throw new Error(`duplicate root brand collection or member: ${brand.rootDomain}`);
+    }
+    collectionIds.add(collection.id);
+    collection.projectIds.forEach(id => collectionMembers.add(id));
+    collections.set(brand.rootDomain, {
+      ...brands.get(brand.rootDomain),
+      ...(brand.priority === undefined ? {} : { priority: brand.priority }),
+      collection,
+    });
+  }
+  return collections;
 }
 
 export function loadRootBrandContract(path, projects) {

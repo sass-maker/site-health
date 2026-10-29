@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { validateRootBrandContract } from '../root-brand-contract.mjs';
+import { validateRootBrandCollections } from '../root-brand-contract.mjs';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const defaultRegistryPath = process.env.SITE_HEALTH_OWNER_REPOSITORY
@@ -40,7 +40,7 @@ export function loadProjectCollections(registryPath = defaultRegistryPath) {
   const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
   const policy = registry.systems?.rootBrands;
   if (!policy) return [];
-  const brands = validateRootBrandContract(policy, loadDashboardProjects(registryPath));
+  const brands = validateRootBrandCollections(policy, loadDashboardProjects(registryPath));
   return [...brands.values()].filter(brand => brand.collection).map(brand => ({
     ...brand.collection,
     name: brand.canonicalName,

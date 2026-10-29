@@ -8,6 +8,7 @@ import test from 'node:test';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
 import { DashboardStore } from '../lib/dashboard-backend/store.mjs';
 import { claritySnapshotKey } from '../lib/dashboard-backend/clarity.mjs';
+import { loadProjectDirectory, groupProjectCollections } from '../../web/src/lib/project-directory.mjs';
 
 const projection = {
   schemaVersion: 'dashboard.projection.v1',
@@ -121,6 +122,40 @@ test('does not trust spoofed Cloudflare Access headers', async (context) => {
     },
   });
   assert.equal(response.status, 401);
+});
+
+test('optional collections fail gently over HTTP while the required product directory stays available', async (context) => {
+  const projects = [{ id: 'first', name: 'First', lifecycle: { status: 'active' } }, { id: 'second', name: 'Second', lifecycle: { status: 'active' } }];
+  const store = new DashboardStore({ databasePath: join(mkdtempSync(join(tmpdir(), 'collection-fallback-')), 'dashboard.sqlite'), projects });
+  const server = await startDashboardService({
+    store, port: 0, trustLoopback: true, projectionProvider: () => projection,
+    visibilityPortfolio: { eligible: [], scheduleIntent: { enabled: false } },
+    projectCollectionsProvider: () => { throw new Error('Collection configuration is stale'); },
+  });
+  context.after(() => new Promise(resolve => server.close(() => { store.close(); resolve(); })));
+  const request = (path, mode) => new Promise((resolve, reject) => {
+    const optional = path === '/v1/project-collections';
+    const call = httpRequest({ hostname: '127.0.0.1', port: server.address().port,
+      path: optional && mode === 'missing' ? '/v1/old-collections' : path,
+      headers: optional && mode === 'forbidden' ? { host: 'attacker.example' } : {},
+    }, response => {
+      let body = '';
+      response.setEncoding('utf8'); response.on('data', chunk => { body += chunk; });
+      response.on('end', () => response.statusCode === 200 ? resolve(JSON.parse(body)) : reject(new Error(`HTTP ${response.statusCode}`)));
+    });
+    call.on('error', reject); call.end();
+  });
+  for (const [mode, status] of [['missing', 404], ['forbidden', 403], ['provider', 500]]) {
+    await assert.rejects(request('/v1/project-collections', mode), new RegExp(`HTTP ${status}`));
+    const result = await loadProjectDirectory(path => request(path, mode));
+    assert.deepEqual(result.projects.map(project => project.id), ['first', 'second']);
+    assert.equal(result.collectionsUnavailable, true);
+    assert.deepEqual(result.collections, []);
+    const flat = groupProjectCollections(result.projects, result.collections);
+    assert.deepEqual(flat.ungrouped.map(project => project.id), ['first', 'second']);
+    assert.equal(flat.visible.length, 2);
+  }
+  await assert.rejects(loadProjectDirectory(path => request(path === '/v1/projects' ? '/v1/missing-projects' : path, 'provider')), /HTTP 404/);
 });
 
 test('loopback mutations reject cross-site browser requests and accept dashboard JSON and bearer CLI', async (context) => {

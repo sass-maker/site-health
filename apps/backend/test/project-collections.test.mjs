@@ -3,7 +3,7 @@ import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
-import { validateRootBrandContract } from '../lib/root-brand-contract.mjs';
+import { validateRootBrandContract, validateRootBrandCollections } from '../lib/root-brand-contract.mjs';
 import { loadDashboardProjects, loadProjectCollections } from '../lib/dashboard-backend/registry.mjs';
 import { buildReadinessProjection } from '../lib/dashboard-backend/readiness.mjs';
 import { groupProjectCollections } from '../../web/src/lib/project-directory.mjs';
@@ -47,7 +47,7 @@ test('root collections retain shared website priority without promoting or scori
 });
 
 test('root collections reject unsafe websites, missing, archived and repeated members', () => {
-  assert.deepEqual(validateRootBrandContract(contract, projects).get('daddyrad.com').collection, collection);
+  assert.deepEqual(validateRootBrandCollections(contract, projects).get('daddyrad.com').collection, collection);
   for (const invalid of [
     { websiteUrl: 'http://daddyrad.com/' }, { websiteUrl: 'https://other.example/' },
     { websiteUrl: 'https://user:pass@daddyrad.com/' }, { websiteUrl: 'https://daddyrad.com/?key=value' },
@@ -56,16 +56,16 @@ test('root collections reject unsafe websites, missing, archived and repeated me
   ]) {
     const input = structuredClone(contract);
     Object.assign(input.brands[0].collection, invalid);
-    assert.throws(() => validateRootBrandContract(input, [...projects, { id: 'retired', lifecycle: { status: 'inactive' } }]));
+    assert.throws(() => validateRootBrandCollections(input, [...projects, { id: 'retired', lifecycle: { status: 'inactive' } }]));
   }
   const invalidPriority = structuredClone(contract);
   invalidPriority.brands[0].priority = 'first';
-  assert.throws(() => validateRootBrandContract(invalidPriority, projects), /invalid root brand priority/);
+  assert.throws(() => validateRootBrandCollections(invalidPriority, projects), /invalid root brand priority/);
   const overlapping = structuredClone(contract);
   overlapping.brands.push({ rootDomain: 'other.example', canonicalName: 'Other', alternateNames: [], collection: {
     ...collection, id: 'other', websiteUrl: 'https://other.example/', projectIds: ['storage', 'other'],
   } });
-  assert.throws(() => validateRootBrandContract(overlapping, projects), /duplicate root brand collection or member/);
+  assert.throws(() => validateRootBrandCollections(overlapping, projects.map(project => project.id === 'other' ? { ...project, domains: ['other.example'] } : project)), /duplicate root brand collection or member/);
 });
 
 test('family filtering counts each child once and keeps app priority independent of shared P1', () => {
@@ -82,4 +82,18 @@ test('family filtering counts each child once and keeps app priority independent
   assert.equal(groupProjectCollections(projects, [family], { priority: 'P1' }).visible.length, 0);
   assert.deepEqual(groupProjectCollections(projects, [family], { priority: 'P2' }).visible.map(p => p.id), ['performance']);
   assert.deepEqual(projects, before);
+});
+
+test('stale collection membership cannot disable the independent root-brand metric contract', () => {
+  const paused = structuredClone(projects);
+  paused[1].lifecycle.status = 'inactive';
+  const brands = validateRootBrandContract(contract, paused);
+  assert.equal(brands.get('daddyrad.com').canonicalName, 'DaddyRad');
+  assert.equal(brands.get('daddyrad.com').collection, undefined);
+  assert.throws(() => validateRootBrandCollections(contract, paused), /unique current project ids/);
+  const malformed = structuredClone(contract);
+  malformed.brands[0].priority = 'invalid';
+  malformed.brands[0].collection.websiteUrl = 'invalid';
+  assert.equal(validateRootBrandContract(malformed, projects).get('daddyrad.com').canonicalName, 'DaddyRad');
+  assert.throws(() => validateRootBrandCollections(malformed, projects), /invalid root brand priority/);
 });
