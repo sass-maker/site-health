@@ -48,8 +48,10 @@ as observed zero. Scope exemptions require reasons/proof and leave the denominat
 Confidence describes support; it never discounts completion. Results and their
 benchmarks remain separate. Publishing is effort; indexing/rank/citations are results.
 
-The UI opens a checklist-item comparison across all39 products and supports a
-full product checklist with all eight item scores and visible work/evidence notes.
+The UI opens the Portfolio scoreboard across all current products, with total
+effort, design work, desktop/mobile PSI, SEO work and measured source readings.
+The view selector retains checklist-item comparisons and UI Library adoption;
+opening a product reveals all 16 item scores, dated proof and next levers.
 Edit details and proof in a secondary panel. The optional state.checklist field
 is additive; previous combined requirements, six-category assessments and all
 ledger events are retained without conversion. Old gate verification levels
