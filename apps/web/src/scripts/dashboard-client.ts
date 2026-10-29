@@ -559,7 +559,7 @@ async function renderProjects() {
     optionalOutcome("/v1/outcomes/search"), optionalOutcome("/v1/outcomes/ai-awareness"),
     optionalOutcome("/v1/outcomes/performance"), optionalOutcome("/v1/ui-library"),
   ]);
-  const { current, inactive } = partitionProjects(projects);
+  const { current } = partitionProjects(projects);
   const payloads = { domains, search, awareness, performance };
   const evidence = Object.fromEntries(current.map((project: JsonRecord) => {
     const outcomes = projectOutcomes(project.id, payloads);
