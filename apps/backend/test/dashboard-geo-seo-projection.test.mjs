@@ -307,5 +307,18 @@ test('Search enumerates every current product, attaches exact scoped summaries a
   assert.equal(indexCoverage.find(row => row.projectId === 'current-1').indexCoverage.indexed, null);
   assert.equal(indexCoverage.find(row => row.projectId === 'current-37').indexCoverage.state, 'no-public-surface');
   assert.equal(JSON.stringify({ search, indexCoverage }).includes('private-query'), false);
-  assert.deepEqual(readinessObservations(projects, { outcomes: { search, indexCoverage } }), readinessObservations(projects, { outcomes: { search } }));
+  const evidence = readinessObservations(projects, { outcomes: { search, indexCoverage } });
+  assert.equal(evidence.find(row => row.projectId === 'current-0' && row.id === 'indexCoverage:inventory:0').value, 100);
+  assert.equal(evidence.find(row => row.projectId === 'current-37' && row.id === 'indexCoverage:google:0').qualification, 'exempt');
+  assert.equal(JSON.stringify(evidence).includes('private-query'), false);
+});
+
+test('an audit with absent or invalid counters cannot become a clean measured zero', () => {
+  for (const missing of [null, '', -1, 1.5]) {
+    const { seoAudit } = fixture({ projects: [project('alpha')], seoAudit: { alpha: { auditedAt: NOW, pass: missing, fail: null, warn: null } } });
+    assert.equal(seoAudit[0].status, 'invalid');
+    assert.equal(seoAudit[0].pass, null);
+    assert.equal(seoAudit[0].fail, null);
+    assert.equal(seoAudit[0].checks, null);
+  }
 });

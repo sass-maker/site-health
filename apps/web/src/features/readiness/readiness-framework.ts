@@ -1,6 +1,6 @@
 import type { Requirement } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 import { GATES, CHECKLIST_ITEMS } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
-export { GATES, CHECKLIST_ITEMS, READINESS_VERSION, emptyReadinessState, effortSummary, hasRequirementAssessment, requirementCompletion, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
+export { GATES, CHECKLIST_ITEMS, READINESS_VERSION, emptyReadinessState, effortSummary, hasRequirementAssessment, requirementCompletion, benchmarkFreshness, metricScore, resultSummary, validateReadinessState } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export type { ReadinessState, ReadinessProduct, ReadinessProjection, Requirement, Benchmark, ProofRef, Observation } from '../../../../backend/lib/dashboard-backend/readiness-model.mjs';
 export const READINESS_AREAS = [
   { id: 'product', label: 'Product & design', description: 'Build a useful, understandable, polished and dependable product.' },
@@ -64,4 +64,15 @@ export function frameworkHref(area: ReadinessArea, view: FrameworkView, project 
 export function requirementStatusChange(entry: Requirement, status: Requirement['status']): Requirement {
   if (['verified', 'not-started', 'exempt'].includes(status)) return { ...entry, status, completion: null };
   return { ...entry, status };
+}
+
+// Date inputs are local calendar dates. Preserve that date when UTC is still
+// yesterday, without weakening future-time checks for actual source captures.
+export function localMeasurementDate(observedAt: string) {
+  if (!Number.isFinite(Date.parse(observedAt))) return '';
+  const date = new Date(observedAt);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+export function measurementDateInstant(value: string) {
+  return value ? new Date(`${value}T00:00:00`).toISOString() : '';
 }

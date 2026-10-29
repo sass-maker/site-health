@@ -1,3 +1,4 @@
+import { observationFreshness, CLOCK_TOLERANCE_MS } from './dashboard-backend/measurement-contract.mjs';
 import { coverageTargets, readIndexCoverage, summarizeIndexCoverage } from './search-index-coverage.mjs';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
@@ -55,8 +56,8 @@ function runTimestamp(date) {
 }
 
 function observedState(observedAt, now, maximumAge) {
-  if (!observedAt || !Number.isFinite(Date.parse(observedAt))) return 'unknown';
-  return Date.parse(now) - Date.parse(observedAt) > maximumAge ? 'stale' : 'fresh';
+  const state = observationFreshness(observedAt, now, maximumAge);
+  return state === 'current' ? 'fresh' : state === 'invalid' ? 'unknown' : state;
 }
 
 // `Number(null)` and `Number('')` are both 0, so coercing first would turn "the provider
@@ -172,11 +173,13 @@ function median(values) {
 
 // The headline reads the whole most recent measurement batch, not its last row: a single PSI
 // sample carries the full per-sample lab variance the runner's repeated runs exist to cancel.
-export function latestPerformanceBatch(history = []) {
+export function latestPerformanceBatch(history = [], now = new Date().toISOString()) {
   const runs = (history ?? [])
     .filter((run) => numeric(run?.score) !== null
       && numeric(run?.lcp) !== null
-      && Number.isFinite(Date.parse(run?.observedAt)))
+      && Number.isFinite(Date.parse(run?.observedAt))
+      && Date.parse(run.observedAt) <= Date.parse(now) + CLOCK_TOLERANCE_MS
+      && numeric(run.score) >= 0 && numeric(run.score) <= 100 && numeric(run.lcp) >= 0)
     .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt));
   const newest = runs.at(-1);
   if (!newest) return null;
@@ -197,13 +200,13 @@ export function performanceStatus(score, lcp) {
   return score >= 90 && lcp <= 2500 ? 'fast-enough' : 'needs-work';
 }
 
-function performanceProjection(projects, home) {
+function performanceProjection(projects, home, now) {
   const historyByDomain = psiHistory(home);
   return projects.map((project) => {
     const domain = normalizedDomain(project.domains?.[0]);
-    const history = historyByDomain.get(domain) ?? [];
-    const batch = latestPerformanceBatch(history.filter(run => run.preset === 'desktop'));
-    const mobileBatch = latestPerformanceBatch(history.filter(run => run.preset === 'mobile-mid'));
+    const history = (historyByDomain.get(domain) ?? []).filter(run => observationFreshness(run.observedAt, now, Infinity) !== 'invalid');
+    const batch = latestPerformanceBatch(history.filter(run => run.preset === 'desktop'), now);
+    const mobileBatch = latestPerformanceBatch(history.filter(run => run.preset === 'mobile-mid'), now);
     const observedAt = batch?.observedAt ?? null;
     // The sparkline keeps every stored run; only the headline value collapses to the batch median.
     const psi = signal('PSI performance', batch?.score, observedAt, history.filter(item => item.preset === 'desktop').map((item) => ({
@@ -463,6 +466,7 @@ function geoProjection(catalog, configRoot, dataRoot) {
 }
 
 function seoAuditStatus(entry) {
+  if (['pass', 'fail', 'warn'].some(key => !Number.isSafeInteger(numeric(entry[key])) || numeric(entry[key]) < 0)) return 'invalid';
   if (entry.reachable === false) return 'unreachable';
   if (Number(entry.fail) > 0) return 'failing';
   if (Number(entry.warn) > 0) return 'warnings';
@@ -500,10 +504,11 @@ function seoAuditProjection(catalog, dataRoot) {
         warningChecks: [],
       };
     }
-    const pass = Number(entry.pass);
-    const fail = Number(entry.fail);
-    const warn = Number(entry.warn);
-    const checks = [pass, fail, warn].every(Number.isFinite) ? pass + fail + warn : null;
+    const checkCount = value => Number.isSafeInteger(numeric(value)) && numeric(value) >= 0 ? numeric(value) : null;
+    const pass = checkCount(entry.pass);
+    const fail = checkCount(entry.fail);
+    const warn = checkCount(entry.warn);
+    const checks = [pass, fail, warn].every(value => value !== null) ? pass + fail + warn : null;
     return {
       ...base,
       status: seoAuditStatus(entry),
@@ -538,7 +543,7 @@ export function buildDashboardProjection({
     generatedAt: now,
     outcomes: {
       domains: drankProjection(workspaceRoot, catalog, home, now),
-      performance: performanceProjection(publicProjects, home),
+      performance: performanceProjection(publicProjects, home, now),
       search: searchProjection(catalog, configRoot, home, now),
       indexCoverage: searchIndexCoverageProjection(catalog, home, now),
       seoAudit: seoAuditProjection(catalog, dataRoot),

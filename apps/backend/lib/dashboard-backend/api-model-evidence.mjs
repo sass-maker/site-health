@@ -14,6 +14,7 @@ export function apiModelObservations(projects, store) {
       return { projectId: project.id, id: `api-model:${intent}`, label: `API model · ${intent} mentions`,
         value: available.length ? mentioned / available.length * 100 : null, unit: '%',
         observedAt: dates[0] ?? null,
+        context: { method: 'API model hypothesis panel; not consumer assistants', intent, numerator: mentioned, denominator: available.length, completed: available.length, configured: ids.size, models, detail: 'Exploratory sample; one hypothesis question per intent' },
         source: 'free-ai.api-model', qualification: available.length ? 'proxy' : 'unknown',
         window: ids.size ? `${available.length}/${ids.size} configured answers available${models ? ` · ${models}` : ''}${dateRange}` : 'Panel not configured',
         gap: intent === 'brand' ? 'Name mention does not prove factual recognition. Review the saved answer. Not consumer-assistant visibility.'

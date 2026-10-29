@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { emptyReadinessState, type ReadinessProduct } from '../../src/features/readiness/readiness-framework';
-import { effortCell, observationText, summarizePortfolioProduct } from '../../src/features/readiness/portfolio-scoreboard-summary';
+import { emptyReadinessState, localMeasurementDate, measurementDateInstant, type ReadinessProduct } from '../../src/features/readiness/readiness-framework';
+import { effortCell, observationText, currentReadingValue, summarizePortfolioProduct } from '../../src/features/readiness/portfolio-scoreboard-summary';
 
 function product(): ReadinessProduct {
   return { id: 'sample', name: 'Sample', revision: 1, updatedAt: null, state: emptyReadinessState(), evidence: [], coverageGaps: [] };
@@ -80,4 +80,23 @@ it('does not sort an exempt product design by its retained historical estimate',
   estimateAllProductItems(row, 50);
   row.state.applicability.product = { state: 'exempt', reason: 'Scope exemption' };
   expect(summarizePortfolioProduct(row).designScore).toBeNull();
+});
+
+it('labels historical readings, prefers a current scoped reading, and excludes stale data from numeric sort', () => {
+  const row = product();
+  const stale = { id: 'search:clicks:0', source: 'search', projectId: row.id, label: 'Search clicks · old.test', unit: 'clicks', value: 99, observedAt: '2026-10-29T00:00:00Z', qualification: 'unknown' as const, measurement: { state: 'stale' as const, cadence: 'daily', maximumAgeDays: 1, freshUntil: '2026-10-30T00:00:00Z' } };
+  row.evidence = [stale];
+  expect(observationText(summarizePortfolioProduct(row).clicks)).toContain('stale');
+  expect(currentReadingValue(summarizePortfolioProduct(row).clicks)).toBeNull();
+  row.evidence.push({ ...stale, id: 'search:clicks:1', label: 'Search clicks · current.test', value: 0, measurement: { ...stale.measurement, state: 'current' } });
+  expect(currentReadingValue(summarizePortfolioProduct(row).clicks)).toBe(0);
+  expect(summarizePortfolioProduct(row).clicks?.label).toContain('current.test');
+});
+
+it('round-trips local measurement dates without creating a future instant after local midnight', () => {
+  const now = new Date();
+  const localToday = localMeasurementDate(now.toISOString());
+  const observedAt = measurementDateInstant(localToday);
+  expect(localMeasurementDate(observedAt)).toBe(localToday);
+  expect(Date.parse(observedAt)).toBeLessThanOrEqual(now.getTime());
 });

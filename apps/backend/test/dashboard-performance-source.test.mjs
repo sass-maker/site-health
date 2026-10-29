@@ -23,6 +23,7 @@ test('SQLite null metrics stay absent before performance aggregation and history
       CREATE TABLE runs (url TEXT, preset TEXT, started_at REAL, performance_score REAL, lcp REAL, error TEXT);
       INSERT INTO runs VALUES
         ('https://alpha.example/', 'desktop', 1790899200000, 92, 1800, NULL),
+        ('https://alpha.example/', 'desktop', 1791158400000, 99, 100, NULL),
         ('https://alpha.example/', 'mobile-mid', 1790899260000, 44, 5000, NULL),
         ('https://alpha.example/', 'desktop', 1790899260000, 95, NULL, NULL),
         ('https://alpha.example/', 'desktop', 1790899320000, NULL, 900, NULL),
@@ -35,6 +36,8 @@ test('SQLite null metrics stay absent before performance aggregation and history
       now: '2026-10-02T12:00:00Z',
     }).outcomes.performance;
     const alpha = rows.find((row) => row.projectId === 'alpha');
+    // The later valid-looking capture is after injected now and must not win
+    // either the headline batch or the historical sparkline.
     assert.equal(alpha.samples, 1);
     assert.equal(alpha.psi.value, 92);
     assert.equal(alpha.lcp.value, 1800);

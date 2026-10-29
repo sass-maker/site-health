@@ -3,11 +3,18 @@ import { promisify } from 'node:util';
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { INTERNAL_USAGE_SOURCES as INTERNAL_SOURCES } from './measurement-contract.mjs';
 import { isCurrentPortfolioProject } from './domain-scope.mjs';
 
 const ORIGIN = 'https://health.sassmaker.com';
 const execFileAsync = promisify(execFile);
-const number = (value) => typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
+const number = (value) => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 ? value : null;
+const eventCount = events => {
+  if (!Array.isArray(events) || events.some(event => number(event?.count) === null)) return null;
+  return number(events.reduce((sum, event) => sum + event.count, 0));
+};
+const usageUnit = value => ['sessions', 'browsers', 'devices', 'users'].includes(value) ? value : null;
+const internalRow = (id, row) => row?.source === INTERNAL_SOURCES[id] && Boolean(INTERNAL_SOURCES[id]);
 const iso = (value) => ['number', 'string'].includes(typeof value) && Number.isFinite(new Date(value).getTime()) ? new Date(value).toISOString() : null;
 export const defaultUsageEvidencePath = () => join(process.env.HOME, 'Library/Application Support/Fleet Ops/founder-control/app-health-usage.json');
 
@@ -21,14 +28,17 @@ export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) 
   const previous = readUsageEvidence(path);
   const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
     const old = previous?.records?.[id];
+    // A daily browser refresh cannot erase a tool's explicit local/workflow counter.
+    if (internalRow(id, old) && (!internalRow(id, row) || Date.parse(row.observedAt) < Date.parse(old.observedAt))) return [id, old];
+    if (internalRow(id, row) && !internalRow(id, old)) return [id, row];
     const failed = row.status === 'failed';
     const legacyUnknown = row.status === undefined && row.count === null;
     return [id, (failed || legacyUnknown) && number(old?.count) !== null
       ? { ...old, status: 'retained', lastAttemptAt: snapshot.observedAt,
-        gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained last-known ${old.count} ${old.unit === 'sessions' ? 'sessions' : 'browsers'} observed ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
+        gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained last-known ${old.count} ${usageUnit(old.unit) ?? 'units'} observed ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
-  snapshot = { ...snapshot, records };
+  snapshot = { ...snapshot, records: { ...(previous?.records ?? {}), ...records } };
   mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
   const temporary = `${path}.${randomUUID()}.tmp`;
   const data = `${JSON.stringify(snapshot, null, 2)}\n`;
@@ -49,23 +59,28 @@ export function usageObservations(projects, snapshot) {
   return projects.filter(isCurrentPortfolioProject).flatMap((project) => {
     const row = snapshot?.records?.[project.id];
     const retained = row?.status === 'retained';
+    const bounds = String(row?.window ?? '').split(' to ').map(value => Date.parse(value));
+    const validWindow = bounds.length === 2 && bounds.every(Number.isFinite) && Math.abs(bounds[1] - bounds[0] - 30 * 86_400_000) <= 60_000 && bounds[1] <= Date.parse(row.observedAt) + 300_000 && Date.parse(row.observedAt) - bounds[1] <= 86_400_000;
+    const invalidWindow = row && !['failed', 'unmapped', 'retained'].includes(row.status) && !validWindow;
+    const status = invalidWindow ? 'invalid' : row?.status;
+    const local = internalRow(project.id, row);
     return [
-      { id: 'monthly-browser-proxy', label: '30-day browser / session proxy', value: retained ? null : number(row?.count),
-        unit: row?.unit === 'sessions' ? 'sessions' : 'browsers', observedAt: row?.observedAt ?? null,
-        window: row?.window ?? 'rolling 30 days', qualification: retained || number(row?.count) === null ? 'unknown' : 'proxy',
-        status: row?.status ?? (number(row?.count) === null ? 'unknown' : 'available'),
-        gap: row?.gap ?? 'Browser identifiers are not people; QA and automation may remain. No qualified core-action or churn cohort.' },
+      { id: local ? 'monthly-local-proxy' : 'monthly-browser-proxy', label: local ? '30-day local / workflow activity proxy' : '30-day browser / session proxy', value: retained || !usageUnit(row?.unit) ? null : number(row?.count),
+        unit: usageUnit(row?.unit) ?? '', observedAt: row?.observedAt ?? null,
+        window: row?.window ?? 'rolling 30 days', qualification: retained || !usageUnit(row?.unit) || number(row?.count) === null ? 'unknown' : 'proxy',
+        status: status ?? (number(row?.count) === null ? 'unknown' : 'available'),
+        gap: [invalidWindow ? 'Missing or invalid 30-day evaluation window.' : null, row?.gap ?? 'Browser identifiers are not people; QA and automation may remain. No qualified core-action or churn cohort.'].filter(Boolean).join(' ') },
       { id: 'high-intent-events', metricId: 'high-intent', label: 'Named action events (unqualified)', value: retained ? null : number(row?.actionEvents),
         unit: 'events', observedAt: row?.observedAt ?? null, window: row?.window ?? 'rolling 30 days',
         qualification: retained || number(row?.actionEvents) === null ? 'unknown' : 'proxy',
-        status: row?.status ?? (number(row?.actionEvents) === null ? 'unknown' : 'available'),
+        status: status ?? (number(row?.actionEvents) === null ? 'unknown' : 'available'),
         gap: [retained
           ? number(row?.actionEvents) === null
             ? `No last-known action-event count; this row remains unknown after the usage refresh at ${row.lastAttemptAt ?? 'an unknown date'}.`
             : `Last-known ${row.actionEvents} events observed ${row.observedAt}; retained historical value, current refresh unavailable.`
           : row?.gap,
         'Event occurrences are not completed core workflows or distinct active people.'].filter(Boolean).join(' ') },
-    ].map((observation) => ({ ...observation, projectId: project.id, source: 'app-health.browser-report' }));
+    ].map((observation) => ({ ...observation, projectId: project.id, source: local ? row.source : 'app-health.browser-report', context: { method: local ? 'Automatic local/workflow aggregate; not qualified human adoption' : '30-day browser aggregate; does not cover all local/native usage', scope: local ? 'Local counter / retained workflow metadata' : 'Production browser tracking', sampled: row?.sampled ?? null, detail: row?.providerSource ? `Provider source: ${row.providerSource}` : 'Sampling status unavailable in retained source' } }));
   });
 }
 
@@ -98,10 +113,12 @@ export function importUsageExport(bundle, projects) {
     const observedAt = iso(row.checkedAt);
     if (!observedAt) continue;
     records[project.id] = {
-      count: number(row.proxy?.count), unit: row.proxy?.unit === 'sessions' ? 'sessions' : 'browsers',
-      actionEvents: Array.isArray(row.events) ? row.events.reduce((sum, event) => sum + (number(event.count) ?? 0), 0) : null,
+      source: INTERNAL_SOURCES[project.id] && row.evidence?.some(e => e.source === INTERNAL_SOURCES[project.id]) ? INTERNAL_SOURCES[project.id] : 'app-health.browser-report',
+      count: usageUnit(row.proxy?.unit) ? number(row.proxy?.count) : null, unit: usageUnit(row.proxy?.unit),
+      actionEvents: eventCount(row.events),
       observedAt, window: `${iso(row.windowStart) ?? '?'} to ${iso(row.windowEnd) ?? '?'}`,
-      gap: String(row.limitations ?? 'Unqualified aggregate proxy.').slice(0, 1600),
+      sampled: typeof row.sampled === 'boolean' ? row.sampled : null,
+      gap: [!usageUnit(row.proxy?.unit) ? 'Unsupported or missing proxy unit; count is unknown.' : null, eventCount(row.events) === null ? 'Missing or invalid event counts; action total is unknown.' : null, String(row.limitations ?? 'Unqualified aggregate proxy.')].filter(Boolean).join(' ').slice(0, 1600),
     };
   }
   return { schemaVersion: 1, observedAt: iso(bundle.usage.updatedAt), records };
@@ -147,14 +164,14 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
         const params = new URLSearchParams({ range: '30d', app_id: matches[0].app.id, environment_id: environments[0].id });
         const report = await get(`/v1/analytics/report?${params}`);
         const start = iso(report.from); const end = iso(report.to);
-        if (!start || !end || report.from >= report.to || typeof report.sampled !== 'boolean' || !['local', 'analytics-engine'].includes(report.source) || number(report.sessions) === null || !Array.isArray(report.events)) throw new Error('Invalid aggregate report');
+        if (!start || !end || Date.parse(start) >= Date.parse(end) || Math.abs(Date.parse(end) - Date.parse(start) - 30 * 86_400_000) > 60_000 || Date.parse(end) > Date.parse(now()) + 300_000 || Date.parse(now()) - Date.parse(end) > 300_000 || typeof report.sampled !== 'boolean' || !['local', 'analytics-engine'].includes(report.source) || number(report.sessions) === null || !Array.isArray(report.events)) throw new Error('Invalid aggregate report');
         const browsers = number(report.audience?.visitors);
         records[project.id] = {
           status: 'available',
           count: browsers ?? number(report.sessions), unit: browsers === null ? 'sessions' : 'browsers',
-          actionEvents: report.events.reduce((sum, event) => sum + (number(event.count) ?? 0), 0),
+          actionEvents: eventCount(report.events), sampled: report.sampled, providerSource: report.source,
           observedAt: now(), window: `${start} to ${end}`,
-          gap: `${report.sampled ? 'Sampled lower-bound/estimated aggregates. ' : ''}Browser/session proxy only; named event counts do not qualify completed core use or human adoption.`,
+          gap: `${eventCount(report.events) === null ? 'Invalid event count; action total unknown. ' : ''}${report.sampled ? 'Sampled lower-bound/estimated aggregates. ' : ''}Browser/session proxy only; named event counts do not qualify completed core use or human adoption.`,
         };
       } catch { records[project.id] = { status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'Aggregate report unavailable or invalid; source remains unknown unless a last-good observation exists.' }; }
     }

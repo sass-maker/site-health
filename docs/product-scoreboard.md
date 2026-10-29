@@ -15,21 +15,20 @@ Select a product to record applicability, requirement status, dated proof,
 next bounded lever, metric definitions and benchmarks. Unknown and exempt are
 explicit states. Internal growth exemptions require a reason.
 
-Effort has five ordered two-point gates. Product gates cover the deployed core
-loop, promised features and recovery, rendered design, appropriate AI/agent
-workflows, then technical delivery and performance budgets. Growth gates cover
-crawlable identity and instrumentation, researched useful indexed coverage,
-broad distinct intent coverage, relevant links/distribution, then recurring
-maintenance and learning. A later verified gate cannot skip an earlier gate.
-Verification needs dated proof of the full gate; a scoped gate exemption needs
-a reason and dated proof. No assessment remains unscored. Technical checks do
-not establish a design rating or meaningful product use.
+Effort averages the eight applicable checklist items in each category, each
+scored /10 from saved completion and dated proof. Unknown estimates show a range;
+exempt items leave the denominator. The older five ordered gates are retained
+as historical assessments and never copied into the individual item scores.
+Technical checks do not establish a design quality rating or meaningful use.
 
 Results retain four Product measures (DAU, high-intent actions, revenue, churn)
 and three Growth measures (discoverability, visits, AI/Google answers). Each
 metric needs applicability, a qualifying definition, numeric baseline/target,
 unit, source, evaluation window, direction and five strictly improving
-thresholds. Only a qualified measured value with a date and proof can score.
+thresholds. Only a qualified measured value with proof and an observation from the last
+seven days can earn a current score. The five thresholds define score levels;
+baseline and target retain context. Weekly review refreshes the measurement,
+not the date of old evidence.
 Category Results remain unscored until every applicable metric qualifies;
 explicitly exempt metrics are excluded. An actual zero remains a measured zero.
 
@@ -39,6 +38,30 @@ GEO/AI, performance and Clarity evidence is supporting evidence; it does not
 silently qualify a metric or pass a gate. The optional service observation
 provider adds first-party aggregates without coupling readiness to collector
 paths. Review the source definition/window before recording a measurement.
+
+Every source reading also has a measurement state: **current**, **stale**,
+**missing**, **invalid**, **retained** after refresh failure, or **exempt**.
+Freshness uses the source date and existing cadence: usage/search daily,
+Clarity every three days, and performance/SEO/AI/domain evidence weekly.
+Invalid/future dates and nonfinite/out-of-range numbers cannot qualify. Historical
+values remain visible with their state and cannot sort as current measurements.
+A current proxy is valid evidence of its stated definition, not a qualified
+business outcome. Coverage counts describe readings, not product quality.
+
+Keep lab PSI device preset and run count separate from field Core Web Vitals
+and native/core-workflow speed. Technical SEO retains pass/fail/warnings and
+total checks for the audited URL. Google-known named-sitemap indexing and the
+current discovered inventory have separate denominators; partial inspection
+never becomes full indexing coverage. AI panels retain effective sample size,
+models, prompt text/intent where known, and failures; mixed intent is explicitly
+unspecified, not neutral discovery. API panels are not consumer assistants.
+Browser/session proxies retain exact 30-day windows and sampling limitations;
+supported browsers/sessions/devices/users units and original automatic source identity
+are preserved. Unsupported units or malformed event counts remain unknown, never
+coerced to zero. Partial imports preserve other products and a later browser
+refresh cannot replace an explicit internal local/workflow report. Empty
+provider revenue totals do not establish zero revenue. Design effort remains
+separate from rendered quality and task-based user validation.
 
 `PUT /v1/readiness/:projectId` uses the existing owner-token/loopback mutation
 authorization and browser-origin protection. Saves include `expectedRevision`

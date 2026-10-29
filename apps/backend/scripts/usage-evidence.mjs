@@ -16,6 +16,6 @@ if (!['collect', 'import'].includes(command) || (command === 'import' && !path))
     writeUsageEvidence(snapshot);
     const observations = usageObservations(projects, snapshot);
     console.log(JSON.stringify({ observedAt: snapshot.observedAt, records: Object.keys(snapshot.records).length,
-      numericAudienceProxies: observations.filter(row => row.id === 'monthly-browser-proxy' && row.value !== null).length }));
+      numericAudienceProxies: observations.filter(row => ['monthly-browser-proxy', 'monthly-local-proxy'].includes(row.id) && row.value !== null).length }));
   } catch (error) { console.error(error.message); process.exitCode = 1; }
 }

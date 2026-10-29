@@ -128,14 +128,15 @@ test('completion contract rejects unsupported estimates and contradictory states
 });
 
 test('results require complete definitions and qualified proof; zero remains a measured value', () => {
-  assert.equal(metricScore(benchmark()), 6);
-  assert.equal(metricScore(benchmark({ value: 0 })), 0);
-  for (const patch of [{ qualification: 'proxy' }, { value: null }, { evidenceRefs: [] }, { thresholds: [] }, { source: '' }, { window: '' }, { baseline: null }, { target: null }]) assert.equal(metricScore(benchmark(patch)), null);
-  assert.equal(metricScore(benchmark({ direction: 'lower', thresholds: [5, 4, 3, 2, 1], value: 2 })), 8);
+  const score = value => metricScore(value, now);
+  assert.equal(score(benchmark()), 6);
+  assert.equal(score(benchmark({ value: 0 })), 0);
+  for (const patch of [{ qualification: 'proxy' }, { value: null }, { evidenceRefs: [] }, { thresholds: [] }, { source: '' }, { window: '' }, { baseline: null }, { target: null }]) assert.equal(score(benchmark(patch)), null);
+  assert.equal(score(benchmark({ direction: 'lower', thresholds: [5, 4, 3, 2, 1], value: 2 })), 8);
   const state = emptyReadinessState(); state.applicability.product.state = 'applicable'; state.benchmarks.dau = benchmark();
-  assert.equal(resultSummary(state, 'product').score, null);
+  assert.equal(resultSummary(state, 'product', now).score, null);
   for (const id of ['high-intent', 'revenue', 'churn']) state.benchmarks[id] = benchmark({ applicability: 'exempt', reason: 'Outside this product outcome contract' });
-  assert.equal(resultSummary(state, 'product').score, 6);
+  assert.equal(resultSummary(state, 'product', now).score, 6);
   state.benchmarks.dau.thresholds = [1, 3, 2, 4, 5]; assert.throws(() => validateReadinessState(state), /strictly improve/);
 });
 
@@ -156,14 +157,14 @@ test('source adapters retain real projection signal shapes, domain membership an
     domains: [{ domain: 'sample.example', projects: [{ projectId: 'sample', name: 'Sample' }], signal: signal(12) }],
     performance: [{ projectId: 'sample', psi: signal(95), lcp: signal(1200), mobile: { psi: signal(70), lcp: signal(3000) } }],
     search: [{ projectId: 'sample', impressions: signal(200), clicks: signal(0), averagePosition: signal(8), period: { start: '2026-10-01', end: '2026-10-26' } }],
-    seoAudit: [{ projectId: 'sample', pass: signal(45), fail: signal(0) }],
+    seoAudit: [{ projectId: 'sample', pass: signal(45), fail: signal(0), warn: signal(2), checks: 47, observedAt: now }],
     geoAwareness: [{ projectId: 'sample', topThree: signal(25), pageOne: signal(75), queries: 4 }],
     aiAwareness: [{ projectId: 'sample', mention: signal(20), recommendation: signal(10), citation: signal(0), coverage: { configured: 10, completed: 10 } }],
   } };
   const clarity = { sample: { state: 'fresh', snapshot: { observedAt: now, metrics: { sessions: 9, uniqueBrowsers: 4 } } } };
   const rows = readinessObservations(projects, projection, clarity).filter(row => row.projectId === 'sample');
   const readings = Object.fromEntries(rows.map(row => [row.id, row.value]));
-  assert.deepEqual(readings, { 'domains:signal:0': 12, 'performance:psi:0': 95, 'performance:lcp:0': 1200, 'search:impressions:0': 200, 'search:clicks:0': 0, 'search:averagePosition:0': 8, 'seoAudit:pass:0': 45, 'seoAudit:fail:0': 0, 'geoAwareness:topThree:0': 25, 'geoAwareness:pageOne:0': 75, 'aiAwareness:mention:0': 20, 'aiAwareness:recommendation:0': 10, 'aiAwareness:citation:0': 0, 'mobile:psi': 70, 'mobile:lcp': 3000, 'clarity:sessions': 9, 'clarity:uniqueBrowsers': 4 });
+  assert.deepEqual(readings, { 'domains:signal:0': 12, 'performance:psi:0': 95, 'performance:lcp:0': 1200, 'search:impressions:0': 200, 'search:clicks:0': 0, 'search:averagePosition:0': 8, 'seoAudit:pass:0': 45, 'seoAudit:fail:0': 0, 'seoAudit:warn:0': 2, 'seoAudit:checks:0': 47, 'geoAwareness:topThree:0': 25, 'geoAwareness:pageOne:0': 75, 'aiAwareness:mention:0': 20, 'aiAwareness:recommendation:0': 10, 'aiAwareness:citation:0': 0, 'mobile:psi': 70, 'mobile:lcp': 3000, 'clarity:sessions': 9, 'clarity:uniqueBrowsers': 4 });
   assert.ok(rows.every(row => row.observedAt === now && row.qualification === 'proxy'));
 });
 

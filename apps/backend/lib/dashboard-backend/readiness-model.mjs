@@ -1,3 +1,4 @@
+import { observationFreshness } from './measurement-contract.mjs';
 // Shared, versioned rules for the current two-category owner workspace.
 export const READINESS_VERSION = 'readiness.two-category.v1';
 export const AREAS = ['product', 'growth'];
@@ -209,14 +210,18 @@ export function effortSummary(state, area) {
     verified: entries.filter(e => e?.status === 'verified' && hasProof(e.evidenceRefs)).length, total: definitions.length,
     assessed, applicable: applicable.length, confidence, minimumScore, maximumScore };
 }
-export function metricScore(benchmark) {
+export function benchmarkFreshness(benchmark, now = new Date().toISOString()) {
+  return observationFreshness(benchmark?.observedAt, now, 7 * 86_400_000);
+}
+export function metricScore(benchmark, now = new Date().toISOString()) {
+  if (benchmarkFreshness(benchmark, now) !== 'current') return null;
   if (!benchmark || benchmark.applicability !== 'applicable' || benchmark.qualification !== 'qualified' || !Number.isFinite(benchmark.value) || !Number.isFinite(Date.parse(benchmark.observedAt)) || !hasProof(benchmark.evidenceRefs) || !Number.isFinite(benchmark.baseline) || !Number.isFinite(benchmark.target) || benchmark.thresholds.length !== 5 || benchmark.thresholds.some((n, i, all) => !Number.isFinite(n) || (i > 0 && (benchmark.direction === 'higher' ? n <= all[i - 1] : n >= all[i - 1]))) || !['definition', 'unit', 'window', 'source'].every(k => benchmark[k]?.trim())) return null;
   return benchmark.thresholds.filter(t => benchmark.direction === 'higher' ? benchmark.value >= t : benchmark.value <= t).length * 2;
 }
-export function resultSummary(state, area) {
+export function resultSummary(state, area, now = new Date().toISOString()) {
   if (state.applicability[area].state !== 'applicable') return { score: null, qualified: 0, total: METRICS[area].length };
   const applicable = METRICS[area].filter(id => state.benchmarks[id]?.applicability !== 'exempt');
-  const scores = applicable.map(id => metricScore(state.benchmarks[id]));
+  const scores = applicable.map(id => metricScore(state.benchmarks[id], now));
   return { score: scores.length && scores.every(s => s !== null) ? Math.round(scores.reduce((sum, s) => sum + s, 0) / scores.length * 10) / 10 : null, qualified: scores.filter(s => s !== null).length, total: applicable.length };
 }
 export function replayReadiness(events) {

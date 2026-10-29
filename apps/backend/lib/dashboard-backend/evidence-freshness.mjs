@@ -126,7 +126,8 @@ export function buildEvidenceEnvelope({
 }) {
   const policy = EVIDENCE_POLICIES[family];
   if (!policy) throw new Error(`unknown evidence family: ${family}`);
-  const observedAt = latestTimestamp(rows.map((row) => row?.observedAt));
+  const validRows = rows.filter(row => Number.isFinite(Date.parse(row?.observedAt ?? '')) && Date.parse(row.observedAt) <= Date.parse(now) + 5 * 60_000);
+  const observedAt = latestTimestamp(validRows.map((row) => row.observedAt));
   const lastSuccessAt = latestTimestamp([receipt?.lastSuccessAt, observedAt]);
   const lastAttemptAt = timestamp(receipt?.lastAttemptAt);
   // A successful process can return cached data or no observations. Keep its
@@ -134,7 +135,7 @@ export function buildEvidenceEnvelope({
   const freshUntil = observedAt
     ? new Date(Date.parse(observedAt) + policy.maximumAgeMs).toISOString()
     : null;
-  const expired = !freshUntil || Date.parse(now) > Date.parse(freshUntil);
+  const expired = !freshUntil || Date.parse(observedAt) > Date.parse(now) + 5 * 60_000 || Date.parse(now) > Date.parse(freshUntil);
   const abandoned = isAbandonedRefreshReceipt(receipt, now, abandonedRunMs);
   let state = expired ? 'stale' : 'fresh';
   if (receipt?.state === 'running' && !abandoned) state = 'refreshing';
@@ -154,7 +155,8 @@ export function buildEvidenceEnvelope({
     lastAttemptAt,
     lastSuccessAt,
     freshUntil,
-    resultCount: rows.filter((row) => row?.observedAt).length,
+    resultCount: validRows.length,
+    invalidDateCount: rows.filter(row => row?.observedAt && !validRows.includes(row)).length,
     failure: ['failed', 'unavailable'].includes(state)
       ? (abandoned ? { ...ABANDONED_RUN_FAILURE } : receipt?.failure ?? null)
       : null,
