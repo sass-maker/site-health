@@ -554,8 +554,8 @@ function signalColumn(id: string, label: string, suffix = ""): EvidenceColumn {
 
 let projectsDirectoryRoot: Root | null = null;
 async function renderProjects() {
-  const [projects, domains, search, awareness, performance, library] = await Promise.all([
-    api("/v1/projects"), optionalOutcome("/v1/outcomes/domains"),
+  const [projects, collections, domains, search, awareness, performance, library] = await Promise.all([
+    api("/v1/projects"), api("/v1/project-collections"), optionalOutcome("/v1/outcomes/domains"),
     optionalOutcome("/v1/outcomes/search"), optionalOutcome("/v1/outcomes/ai-awareness"),
     optionalOutcome("/v1/outcomes/performance"), optionalOutcome("/v1/ui-library"),
   ]);
@@ -573,7 +573,7 @@ async function renderProjects() {
   host.removeAttribute('aria-live');
   projectsDirectoryRoot ??= createRoot(host);
   projectsDirectoryRoot.render(createElement(ProjectsDirectory, {
-    current, evidence, projectHref,
+    current, collections, evidence, projectHref,
     uiCoverage: Object.fromEntries((library.projects ?? []).map((project: JsonRecord) => [project.id, project.coverage])),
     observedAt: latestTime(domains.generatedAt, performance.generatedAt, search.generatedAt, awareness.generatedAt),
     period: search.source?.period,

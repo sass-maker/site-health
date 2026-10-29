@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { validateRootBrandContract } from '../root-brand-contract.mjs';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const defaultRegistryPath = process.env.SITE_HEALTH_OWNER_REPOSITORY
@@ -25,6 +26,21 @@ function displayName(project) {
     .split('-')
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
+}
+
+export function loadProjectCollections(registryPath = defaultRegistryPath) {
+  const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
+  const policy = registry.systems?.rootBrands;
+  if (!policy) return [];
+  const brands = validateRootBrandContract(policy, loadDashboardProjects(registryPath));
+  return [...brands.values()].filter(brand => brand.collection).map(brand => ({
+    ...brand.collection,
+    name: brand.canonicalName,
+    rootDomain: brand.rootDomain,
+    priority: brand.priority ?? null,
+    growthFocus: policy.growthPriority?.level === 'high'
+      ? { level: 'high', domains: [brand.rootDomain] } : null,
+  }));
 }
 
 export function loadDashboardProjects(registryPath = defaultRegistryPath) {

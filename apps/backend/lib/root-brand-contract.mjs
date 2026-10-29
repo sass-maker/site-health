@@ -13,6 +13,40 @@ function normalizedName(value) {
   return String(value ?? '').trim().toLocaleLowerCase('en-US');
 }
 
+function collectionForBrand(brand, projects) {
+  const collection = brand.collection;
+  if (collection === undefined) return undefined;
+  const fields = ['id', 'description', 'websiteUrl', 'projectIds'];
+  if (!collection || typeof collection !== 'object' || Array.isArray(collection)
+    || Object.keys(collection).some(key => !fields.includes(key))) {
+    throw new Error(`invalid root brand collection: ${brand.rootDomain}`);
+  }
+  if (typeof collection.id !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(collection.id)
+    || typeof collection.description !== 'string' || !collection.description.trim()) {
+    throw new Error(`invalid root brand collection identity: ${brand.rootDomain}`);
+  }
+  let website;
+  try { website = new URL(collection.websiteUrl); } catch {}
+  if (!website || website.protocol !== 'https:' || website.hostname !== brand.rootDomain
+    || website.port || website.username || website.password || website.search || website.hash
+    || website.pathname !== '/' || collection.websiteUrl !== `${website.origin}/`) {
+    throw new Error(`root brand collection website must be its HTTPS root: ${brand.rootDomain}`);
+  }
+  const currentIds = new Set(projects.filter(project =>
+    ['primary', 'active'].includes(project.lifecycle?.status)).map(project => project.id));
+  if (!Array.isArray(collection.projectIds) || collection.projectIds.length < 2
+    || new Set(collection.projectIds).size !== collection.projectIds.length
+    || collection.projectIds.some(id => !currentIds.has(id))) {
+    throw new Error(`root brand collection needs unique current project ids: ${brand.rootDomain}`);
+  }
+  return {
+    id: collection.id,
+    description: collection.description.trim(),
+    websiteUrl: website.href,
+    projectIds: [...collection.projectIds],
+  };
+}
+
 export function validateRootBrandContract(contract, projects) {
   if (!contract || contract.version !== 1 || !Array.isArray(contract.brands)) {
     throw new Error('root brand contract must contain version 1 and a brands array');
@@ -20,6 +54,8 @@ export function validateRootBrandContract(contract, projects) {
 
   const byRoot = new Map();
   const globalNames = new Map();
+  const collectionIds = new Set();
+  const collectionMembers = new Set();
   for (const brand of contract.brands) {
     const root = String(brand?.rootDomain ?? '').trim();
     const canonicalName = String(brand?.canonicalName ?? '').trim();
@@ -50,10 +86,23 @@ export function validateRootBrandContract(contract, projects) {
       globalNames.set(normalized, root);
     }
 
+    if (brand.priority !== undefined && !/^P[0-4]$/.test(brand.priority)) {
+      throw new Error(`invalid root brand priority: ${root}`);
+    }
+    const collection = collectionForBrand(brand, projects);
+    if (collection) {
+      if (collectionIds.has(collection.id) || collection.projectIds.some(id => collectionMembers.has(id))) {
+        throw new Error(`duplicate root brand collection or member: ${root}`);
+      }
+      collectionIds.add(collection.id);
+      collection.projectIds.forEach(id => collectionMembers.add(id));
+    }
     byRoot.set(root, {
       rootDomain: root,
       canonicalName,
       alternateNames: alternateNames.map((name) => String(name).trim()),
+      ...(brand.priority === undefined ? {} : { priority: brand.priority }),
+      ...(collection ? { collection } : {}),
     });
   }
 

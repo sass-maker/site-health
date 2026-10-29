@@ -81,6 +81,28 @@ export function matchesProjectFilters(project, { query = "", priority = "", heal
     && (!sharing || (sharing === "shareable" ? project.lifecycle?.shareable === true : project.lifecycle?.shareable !== true));
 }
 
+export function groupProjectCollections(projects, collections = [], filters = {}) {
+  const current = [...new Map(projects.map(project => [project.id, project])).values()];
+  const collectionByProject = new Map(collections.flatMap(collection =>
+    collection.projectIds.map(id => [id, collection])));
+  const visible = current.filter(project => {
+    const collection = collectionByProject.get(project.id);
+    return matchesProjectFilters(collection ? {
+      ...project,
+      familyName: [project.familyName, collection.name, collection.description, collection.rootDomain].filter(Boolean).join(' '),
+    } : project, filters);
+  });
+  return {
+    total: current.length,
+    visible,
+    collections: collections.map(collection => ({
+      ...collection,
+      projects: visible.filter(project => collection.projectIds.includes(project.id)),
+    })).filter(collection => collection.projects.length),
+    ungrouped: visible.filter(project => !collectionByProject.has(project.id)),
+  };
+}
+
 export function projectSharingLabel(project) {
   return project.lifecycle?.shareable === true ? "Shareable" : "Not shareable";
 }

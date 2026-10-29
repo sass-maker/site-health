@@ -35,6 +35,7 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
     visibilityPortfolio: { eligible: [], scheduleIntent: { enabled: false } },
     prefillEvidence: () => ({ schemaVersion: 'site-health.prefill.v1', sources: [] }),
     projectsProvider: () => currentProjects,
+    projectCollectionsProvider: () => [{ id: 'family', name: 'Family', projectIds: ['first', 'second'], priority: 'P1' }],
     clarityRegistryProvider: () => new Map([
       ['retained', { projectId: 'retained', wired: true, hostname: 'example.com' }],
     ]),
@@ -50,6 +51,7 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
   const health = await (await fetch(`${base}/health`)).json();
   assert.equal(health.service, 'site-health-backend');
   assert.deepEqual(await (await fetch(`${base}/v1/projects`)).json(), []);
+  assert.deepEqual(await (await fetch(`${base}/v1/project-collections`)).json(), [{ id: 'family', name: 'Family', projectIds: ['first', 'second'], priority: 'P1' }]);
   currentProjects = [{ id: 'retained', name: 'Retained', status: 'live', lifecycle: { status: 'inactive', shareable: false, resumeCondition: null } }];
   assert.equal((await (await fetch(`${base}/v1/projects`)).json())[0].id, 'retained');
   assert.equal((await fetch(`${base}/v1/readiness`)).status, 200);
@@ -57,7 +59,7 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
   const uiSummary=await (await fetch(`${base}/v1/ui-library?summary=1`)).json();
   assert.deepEqual(Object.keys(uiSummary),['siteHealth']);
   if(uiSummary.siteHealth)assert.deepEqual(Object.keys(uiSummary.siteHealth).sort(),['current','stale','total']);
-  for (const privatePath of ['/v1/readiness', '/v1/ui-library','/v1/ui-library?summary=1']) {
+  for (const privatePath of ['/v1/readiness', '/v1/ui-library','/v1/ui-library?summary=1', '/v1/project-collections']) {
   const rebound = await new Promise((resolve, reject) => {
     const request = httpRequest({ hostname: '127.0.0.1', port: server.address().port, path: privatePath, headers: { host: 'attacker.example' } }, (response) => {
       let body = '';
