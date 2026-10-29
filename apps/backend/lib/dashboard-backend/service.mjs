@@ -262,6 +262,7 @@ export function createDashboardHandler({
   metricRunController,
   prefillEvidence,
   projectsProvider = () => store.projects,
+  projectCollectionsProvider = () => [],
   clarityRegistryProvider = loadClarityRegistry,
   readinessObservationProvider = () => [],
   appStoreStore = null,
@@ -361,6 +362,7 @@ export function createDashboardHandler({
       return json(response, 200, buildReadinessProjection({ ...projections, uiCoverage: readUiLibraryCoverage(), generatedAt: now(), observations: [...currentEvidence, ...readinessObservationProvider(projections.projects)] }));
     }
     if (url.pathname === '/v1/projects') return json(response, 200, projections.projects);
+    if (url.pathname === '/v1/project-collections') return json(response, 200, projectCollectionsProvider());
     const clarityMatch = url.pathname.match(/^\/v1\/projects\/([^/]+)\/clarity$/);
     if (clarityMatch) {
       const projectId = decodeURIComponent(clarityMatch[1]);
@@ -442,7 +444,7 @@ export function createDashboardHandler({
       const method = request.method ?? 'GET';
       const verifiedPrincipal = requestAuthorizer ? await requestAuthorizer(request) : null;
       if (requestAuthorizer && !verifiedPrincipal) return json(response, 401, { error: 'owner authentication required' });
-      if (method === 'GET' && ['/v1/readiness', '/v1/ui-library'].includes(url.pathname) && !verifiedPrincipal && !loopbackHostAllowed(request)) {
+      if (method === 'GET' && ['/v1/readiness', '/v1/ui-library', '/v1/project-collections'].includes(url.pathname) && !verifiedPrincipal && !loopbackHostAllowed(request)) {
         return json(response, 403, { error: 'Unknown dashboard host' });
       }
       if (handleEarlyRoutes(url, method, response)) return;
@@ -499,6 +501,7 @@ export function startDashboardService({
   metricRunController,
   prefillEvidence,
   projectsProvider,
+  projectCollectionsProvider,
   clarityRegistryProvider,
   readinessObservationProvider,
   appStoreStore,
@@ -518,6 +521,7 @@ export function startDashboardService({
       ...(metricRunController ? { metricRunController } : {}),
       ...(prefillEvidence ? { prefillEvidence } : {}),
       ...(projectsProvider ? { projectsProvider } : {}),
+      ...(projectCollectionsProvider ? { projectCollectionsProvider } : {}),
       ...(clarityRegistryProvider ? { clarityRegistryProvider } : {}),
       ...(readinessObservationProvider ? { readinessObservationProvider } : {}),
       ...(appStoreStore ? { appStoreStore } : {}),

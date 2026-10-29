@@ -2,7 +2,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
+import { loadDashboardProjects, loadProjectCollections } from '../lib/dashboard-backend/registry.mjs';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
 import { hostedConfiguration, hostedListenPort, startHostedDashboardService } from '../lib/dashboard-backend/hosted.mjs';
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
@@ -57,6 +57,7 @@ if (!command || ['help', '--help', '-h'].includes(command)) {
 const hostedConfig = hostedConfiguration();
 const hostedPort = hostedConfig && command === 'serve' ? hostedListenPort(args[0] ?? process.env.PORT) : null;
 const projectsProvider = () => loadDashboardProjects();
+const projectCollectionsProvider = () => loadProjectCollections();
 const projects = projectsProvider();
 const store = new DashboardStore({
   databasePath: process.env.DASHBOARD_DB || process.env.FOUNDER_CONTROL_DB || defaultDatabasePath(),
@@ -151,6 +152,7 @@ if (command === 'status') {
     metricRunController,
     prefillEvidence,
     projectsProvider,
+    projectCollectionsProvider,
     readinessObservationProvider: (currentProjects) => [
       ...usageObservations(currentProjects, readUsageEvidence()),
       ...providerRevenueObservations(currentProjects, readProviderRevenueEvidence()),

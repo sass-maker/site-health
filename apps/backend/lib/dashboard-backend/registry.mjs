@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { validateRootBrandCollections } from '../root-brand-contract.mjs';
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const defaultRegistryPath = process.env.SITE_HEALTH_OWNER_REPOSITORY
@@ -25,6 +26,31 @@ function displayName(project) {
     .split('-')
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
+}
+
+function websiteChangelog(websiteUrl) {
+  let url;
+  try { url = new URL(websiteUrl); } catch { return null; }
+  if (url.protocol !== 'https:') return null;
+  url.pathname = `${url.pathname.replace(/\/+$/, '')}/changelog`;
+  url.search = '';
+  url.hash = '';
+  return url.href;
+}
+
+export function loadProjectCollections(registryPath = defaultRegistryPath) {
+  const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
+  const policy = registry.systems?.rootBrands;
+  if (!policy) return [];
+  const brands = validateRootBrandCollections(policy, loadDashboardProjects(registryPath));
+  return [...brands.values()].filter(brand => brand.collection).map(brand => ({
+    ...brand.collection,
+    name: brand.canonicalName,
+    rootDomain: brand.rootDomain,
+    priority: brand.priority ?? null,
+    growthFocus: policy.growthPriority?.level === 'high'
+      ? { level: 'high', domains: [brand.rootDomain] } : null,
+  }));
 }
 
 export function loadDashboardProjects(registryPath = defaultRegistryPath) {
@@ -108,7 +134,8 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         repositoryUrl,
         domains: project.domains ?? [],
         websiteUrl,
-        changelogUrl: websiteUrl && domain ? `https://${domain}/changelog` : null,
+        changelogUrl: websiteUrl && domain && project.public?.hasChangelog !== false
+          ? websiteChangelog(websiteUrl) : null,
         deployKind: project.deployKind,
       };
     })
