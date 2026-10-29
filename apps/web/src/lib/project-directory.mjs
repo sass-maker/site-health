@@ -5,7 +5,7 @@ export function projectPriorityValue(project) {
 
 export function projectPrioritySortValue(project) {
   if (project.priorityApplicable === false) return 6;
-  const rank = /^P([1-4])$/.exec(project.priority ?? '');
+  const rank = /^P([0-4])$/.exec(project.priority ?? '');
   return rank ? Number(rank[1]) : 5;
 }
 

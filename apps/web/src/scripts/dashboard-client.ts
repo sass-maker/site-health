@@ -16,6 +16,7 @@ import {
   partitionProjects,
   projectSharingLabel,
   projectAudiencePriorityLabel,
+  projectPriorityLabel,
   projectTypeLabel,
 } from "../lib/project-directory.mjs";
 
@@ -1434,6 +1435,7 @@ async function renderProject() {
       profileLinks,
       metricGrid([
         { label: "Product type", value: projectTypeLabel(project) },
+        { label: "Priority", value: projectPriorityLabel(project), detail: project.priorityReason ?? "Priority has not been reviewed yet." },
         { label: "Domain / endpoints", value: project.domainLabel ?? project.domains?.[0] ?? "No public domain" },
         { label: "Repository", value: project.repo ?? "Not cataloged" },
         { label: "Deployment", value: project.deployKind ?? "Not configured" },
