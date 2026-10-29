@@ -1400,7 +1400,7 @@ async function renderProject() {
       ? element("p", {}, [element("strong", {}, ["Resume condition: "]), project.lifecycle.resumeCondition]) : null,
   ]);
   const profileLinks = element("div", { class: "project-profile__links" }, [
-    createUiControl("a", { href: `/readiness?q=${encodeURIComponent(project.name)}` }, ["Find in readiness"], { variant: "outline" }),
+    createUiControl("a", { href: `/readiness?pillar=product&tab=effort&project=${encodeURIComponent(project.id)}` }, ["Open product checklist"], { variant: "outline" }),
     project.websiteUrl ? createUiControl("a", { href: project.websiteUrl, target: "_blank", rel: "noreferrer" }, ["Open website ↗"], { variant: "outline" }) : null,
     project.repositoryUrl ? createUiControl("a", { href: project.repositoryUrl, target: "_blank", rel: "noreferrer" }, ["Source ↗"], { variant: "outline" }) : null,
     project.changelogUrl ? createUiControl("a", { href: project.changelogUrl, target: "_blank", rel: "noreferrer" }, ["Changelog ↗"], { variant: "outline" }) : null,
