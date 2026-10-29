@@ -50,6 +50,10 @@ export function frameworkRoute(params: URLSearchParams) {
   return { historical, area, view };
 }
 
+export function usesPortfolioScoreboard(params: URLSearchParams) {
+  return !params.has('item') || params.get('item') === 'summary';
+}
+
 export function frameworkHref(area: ReadinessArea, view: FrameworkView, project = '') {
   const params = new URLSearchParams({ pillar: area, tab: view });
   if (project) params.set('project', project);

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { frameworkHref, frameworkRoute, LEVEL_STRUCTURE, READINESS_AREAS, RESULT_METRICS, VISIBILITY_LEVELS, CHECKLIST_ITEMS, EFFORT_REQUIREMENTS, requirementStatusChange, emptyReadinessState, validateReadinessState, requirementCompletion } from '../../src/features/readiness/readiness-framework';
+import { frameworkHref, frameworkRoute, usesPortfolioScoreboard, LEVEL_STRUCTURE, READINESS_AREAS, RESULT_METRICS, VISIBILITY_LEVELS, CHECKLIST_ITEMS, EFFORT_REQUIREMENTS, requirementStatusChange, emptyReadinessState, validateReadinessState, requirementCompletion } from '../../src/features/readiness/readiness-framework';
 
 describe('current readiness framework and historical routes', () => {
   it('keeps the agreed four Product and three Growth measures in exactly two areas', () => {
@@ -17,6 +17,12 @@ describe('current readiness framework and historical routes', () => {
     expect(params.get('project')).toBe('a product/one');
     expect(frameworkRoute(params)).toEqual({ historical: false, area: 'growth', view: 'results' });
     expect(frameworkRoute(new URLSearchParams('pillar=unknown&tab=unsupported'))).toEqual({ historical: false, area: null, view: 'effort' });
+  });
+  it('shows the portfolio board by default and preserves explicit checklist and library comparisons', () => {
+    expect(usesPortfolioScoreboard(new URLSearchParams())).toBe(true);
+    expect(usesPortfolioScoreboard(new URLSearchParams('item=summary'))).toBe(true);
+    expect(usesPortfolioScoreboard(new URLSearchParams('item=product-design'))).toBe(false);
+    expect(usesPortfolioScoreboard(new URLSearchParams('item=ui-library'))).toBe(false);
   });
   it('retains previous assessment, evidence and lever deep links without relabelling old scores as current', () => {
     for (const query of ['page=legacy&mode=history', 'page=category&category=geo', 'product=codevetter', 'category=seo', 'domain=codevetter.com', 'mode=levers&project=codevetter', 'q=CodeVetter']) {
