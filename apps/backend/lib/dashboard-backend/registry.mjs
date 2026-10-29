@@ -78,6 +78,8 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         id: project.id,
         name: displayName(project),
         description: directory?.description ?? project.public?.description ?? null,
+        form: directory?.form ?? null,
+        platforms: directory?.platforms ?? [],
         category: project.category ?? null,
         audience: project.audience ?? 'unknown',
         purposeCategories: project.portfolio?.purposeCategories ?? [],

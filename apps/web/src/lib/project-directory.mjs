@@ -17,6 +17,24 @@ export function projectGrowthFocusLabel(project) {
   return project.growthFocus?.level === 'high' ? 'SEO/GEO focus' : null;
 }
 
+// Describe the product itself: a native app's landing page is not its type.
+export function projectTypeLabel(project) {
+  const platforms = new Set((project.platforms ?? []).map(platform => platform.toLowerCase()));
+  const devices = [
+    platforms.has('macos') ? 'Mac' : null,
+    platforms.has('ios') ? 'iPhone' : null,
+    platforms.has('ipados') ? 'iPad' : null,
+    platforms.has('watchos') ? 'Apple Watch' : null,
+  ].filter(Boolean);
+  if (devices.length) {
+    const last = devices.pop();
+    return `${devices.length ? `${devices.join(', ')} & ` : ''}${last} app`;
+  }
+  if (/api gateway/i.test(project.form ?? '')) return 'API/tool';
+  if (platforms.has('web')) return 'Website';
+  return project.form || 'Type not recorded';
+}
+
 export function projectAudiencePriorityLabel(project) {
   return [project.audience === 'internal' ? 'Internal' : null, projectPriorityLabel(project), projectGrowthFocusLabel(project)].filter(Boolean).join(' · ');
 }
@@ -50,6 +68,7 @@ export function matchesProjectFilters(project, { query = "", priority = "", heal
     project.name,
     project.description,
     project.familyName,
+    projectTypeLabel(project),
     projectGrowthFocusLabel(project),
     ...(project.domains ?? []),
   ].filter(Boolean).join(" ").toLowerCase();

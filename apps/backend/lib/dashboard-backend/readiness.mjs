@@ -47,7 +47,7 @@ export function buildReadinessProjection({ projects = [], readiness = {}, observ
     projects: current.map(project => {
       const saved = readiness[project.id] ?? { revision: 0, updatedAt: null, state: emptyReadinessState() };
       const evidence = observations.filter(row => row.projectId === project.id).map(row => ({ ...row }));
-      return { id: project.id, name: project.name, ...saved, audience: project.audience, priority: project.priority, priorityApplicable: project.priorityApplicable, growthFocus: project.growthFocus, evidence, uiLibrary: uiLibraryCoverage(uiCoverage, project.id, Date.parse(generatedAt)),
+      return { id: project.id, name: project.name, ...saved, form: project.form, platforms: project.platforms, audience: project.audience, priority: project.priority, priorityApplicable: project.priorityApplicable, growthFocus: project.growthFocus, evidence, uiLibrary: uiLibraryCoverage(uiCoverage, project.id, Date.parse(generatedAt)),
         coverageGaps: [...new Set(evidence.filter(row => row.qualification !== 'qualified').map(row => row.gap).filter(Boolean))],
         scores: Object.fromEntries(['product', 'growth'].map(area => [area, { effort: effortSummary(saved.state, area), results: resultSummary(saved.state, area) }])),
       };
