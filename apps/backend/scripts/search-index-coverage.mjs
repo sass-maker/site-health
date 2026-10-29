@@ -2,15 +2,16 @@
 import { spawnSync } from 'node:child_process';
 import { closeSync, existsSync, mkdirSync, openSync, readFileSync, unlinkSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
-import { collectIndexCoverage, defaultIndexCoveragePath, readIndexCoverage, saveIndexCoverage, summarizeIndexCoverage } from '../lib/search-index-coverage.mjs';
+import { collectIndexCoverage, defaultIndexCoveragePath, importGoogleIndexingReports, readIndexCoverage, saveIndexCoverage, summarizeIndexCoverage } from '../lib/search-index-coverage.mjs';
 
 const repository = resolve(import.meta.dirname, '../../..');
 const options = { registry: resolve(repository, 'apps/backend/config/projects.json'), output: defaultIndexCoveragePath(), maxInspections: 0, inventoryOnly: false };
 for (let i = 2; i < process.argv.length; i++) {
   const flag = process.argv[i];
+  if (flag === '--import-only') { options.importOnly = true; continue; }
   if (flag === '--inventory-only') { options.inventoryOnly = true; continue; }
   if (flag === '--help') {
-    console.log('search-index-coverage.mjs [--registry operations.json] [--catalog projects.json] [--output private.json] [--project id] [--inventory-only] [--max-inspections 0..2000] [--properties accessible-properties.json]');
+    console.log('search-index-coverage.mjs [--registry operations.json] [--catalog projects.json] [--output private.json] [--project id] [--inventory-only] [--max-inspections 0..2000] [--properties accessible-properties.json] [--reports reports.json --import-only]');
     process.exit(0);
   }
   const value = process.argv[++i];
@@ -20,15 +21,17 @@ for (let i = 2; i < process.argv.length; i++) {
   else if (flag === '--output') options.output = resolve(value);
   else if (flag === '--project') options.projectId = value;
   else if (flag === '--max-inspections') options.maxInspections = Number(value);
+  else if (flag === '--reports') options.reportsPath = resolve(value);
   else if (flag === '--properties') options.propertiesPath = resolve(value);
   else throw new Error(`Unknown option: ${flag}`);
 }
-if (!options.inventoryOnly && !(options.maxInspections > 0)) throw new Error('Inspection requires explicit --max-inspections (or use --inventory-only)');
+if (options.importOnly && !options.reportsPath) throw new Error('--import-only requires --reports');
+if (!options.inventoryOnly && !options.importOnly && !(options.maxInspections > 0)) throw new Error('Inspection requires explicit --max-inspections (or use --inventory-only)');
 const catalog = JSON.parse(readFileSync(options.catalog ?? options.registry, 'utf8'));
 let token;
 let properties = [];
 let quotaProject;
-if (!options.inventoryOnly) {
+if (!options.inventoryOnly && !options.importOnly) {
   const config = JSON.parse(readFileSync(resolve(repository, 'apps/backend/config/search-console.json'), 'utf8'));
   quotaProject = config.quotaProject;
   const auth = spawnSync('gcloud', ['auth', 'application-default', 'print-access-token'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
@@ -48,11 +51,13 @@ mkdirSync(dirname(options.output), { recursive: true, mode: 0o700 });
 const lockPath = `${options.output}.lock`;
 const lock = openSync(lockPath, 'wx', 0o600);
 try {
-  const previous = readIndexCoverage({ path: options.output });
+  let previous = readIndexCoverage({ path: options.output });
   if (existsSync(options.output) && !previous) throw new Error('Existing checkpoint is unreadable or has an unsupported schema; preserve and inspect it before collecting');
-  const result = await collectIndexCoverage({ ...options, catalog, properties, accessToken: token, quotaProject,
+  if (options.reportsPath) previous = importGoogleIndexingReports({ catalog, previous, projectId: options.projectId, reports: JSON.parse(readFileSync(options.reportsPath, 'utf8')) });
+  const result = options.importOnly ? previous : await collectIndexCoverage({ ...options, catalog, properties, accessToken: token, quotaProject,
     previous,
     sitemapOverrides: catalog.systems?.searchConsole?.sitemapOverrides ?? {},
     onProgress: artifact => saveIndexCoverage(options.output, artifact) });
+  saveIndexCoverage(options.output, result);
   console.log(JSON.stringify({ output: options.output, records: result.records.map(record => ({ projectId: record.projectId, ...summarizeIndexCoverage(record) })) }, null, 2));
 } finally { closeSync(lock); unlinkSync(lockPath); }

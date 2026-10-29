@@ -51,9 +51,69 @@ export function saveIndexCoverage(path, artifact) {
   writeFileSync(temporary, `${JSON.stringify(artifact, null, 2)}\n`, { mode: 0o600 });
   renameSync(temporary, path);
 }
+export function validateGoogleIndexingReport(input, target) {
+  const report = input.googleReport ?? input;
+  const surface = safeUrl(target.surfaceUrl);
+  const sitemap = surface && safeUrl(report.sitemapUrl, surface.hostname);
+  if (report.source !== 'google-search-console-page-indexing' || !surface || !sitemap
+    || !urlInCoverageScope(sitemap.href, surface.href)) throw new Error('Google report requires a sitemap within the exact canonical product surface');
+  if (input.projectId && input.projectId !== target.projectId) throw new Error('Google report project mismatch');
+  if (input.surfaceUrl && input.surfaceUrl !== target.surfaceUrl) throw new Error('Google report surface mismatch');
+  const property = String(report.property ?? '');
+  if (!selectSearchConsoleProperty(surface.hostname, [{ siteUrl: property }])
+    || (!property.startsWith('sc-domain:') && !urlInCoverageScope(surface.href, property))) throw new Error('Google report property does not own the product surface');
+  const sourceUrl = safeUrl(report.sourceUrl, 'search.google.com');
+  if (!sourceUrl || !sourceUrl.pathname.startsWith('/search-console/')
+    || sourceUrl.searchParams.get('resource_id') !== property
+    || sourceUrl.searchParams.get('pages') !== 'SITEMAP'
+    || sourceUrl.searchParams.get('sitemap') !== sitemap.href) throw new Error('Google report source URL must identify the exact property and sitemap filter');
+  const counts = ['indexedCount', 'notIndexedCount', 'totalKnownCount'];
+  if (counts.some(key => !Number.isSafeInteger(report[key]) || report[key] < 0)
+    || report.indexedCount + report.notIndexedCount !== report.totalKnownCount) throw new Error('Google report counts must be nonnegative integers with an exact total');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(report.reportDate ?? '') || !Number.isFinite(Date.parse(report.reportDate))
+    || !Number.isFinite(Date.parse(report.observedAt)) || new Date(report.reportDate).toISOString().slice(0, 10) !== report.reportDate
+    || report.reportDate > new Date(report.observedAt).toISOString().slice(0, 10)) throw new Error('Google report requires reportDate and observedAt');
+  const reasons = {};
+  const entries = Array.isArray(report.reasons) ? report.reasons.map(row => [row.reason, row.count]) : Object.entries(report.reasons ?? {});
+  if (entries.length > 100) throw new Error('Too many Google report reasons');
+  for (const [reason, count] of entries) {
+    if (typeof reason !== 'string' || !reason.trim() || reason.length > 500 || !Number.isSafeInteger(count) || count < 0) throw new Error('Invalid Google report reason');
+    reasons[reason] = count;
+  }
+  return { source: report.source, property, sitemapUrl: sitemap.href, reportDate: report.reportDate,
+    observedAt: new Date(report.observedAt).toISOString(), indexedCount: report.indexedCount,
+    notIndexedCount: report.notIndexedCount, totalKnownCount: report.totalKnownCount, sourceUrl: sourceUrl.href, reasons };
+}
+export function importGoogleIndexingReports({ catalog, previous = null, reports, projectId = null }) {
+  const suppliedRows = Array.isArray(reports) ? reports : reports?.records;
+  if (!Array.isArray(suppliedRows)) throw new Error('Google report import requires records');
+  const rows = projectId ? suppliedRows.filter(row => row.projectId === projectId) : suppliedRows;
+  if (projectId && !rows.length) throw new Error('No Google report matches the selected project');
+  const targets = coverageTargets(catalog);
+  // Validate every row before changing any private state.
+  const validated = rows.map(row => {
+    const target = targets.find(target => target.projectId === row.projectId && target.surfaceUrl === row.surfaceUrl && !target.exemption);
+    if (!target) throw new Error(`Google report is not an exact current product surface: ${row.projectId}`);
+    return { target, report: validateGoogleIndexingReport(row, target) };
+  });
+  const artifact = previous?.schema === COVERAGE_SCHEMA ? structuredClone(previous) : { schema: COVERAGE_SCHEMA, records: [], dailyBudget: {} };
+  for (const { target, report } of validated) {
+    let record = artifact.records.find(row => row.projectId === target.projectId && row.surfaceUrl === target.surfaceUrl);
+    if (!record) { record = { ...target, inspections: {} }; artifact.records.push(record); }
+    const history = [...(record.googleReports ?? []), ...(record.googleReport ? [record.googleReport] : []), report];
+    record.googleReports = [...new Map(history.map(item => [`${item.reportDate}:${item.sitemapUrl}:${item.observedAt}`, item])).values()]
+      .sort((a, b) => a.reportDate.localeCompare(b.reportDate) || a.observedAt.localeCompare(b.observedAt));
+    record.googleReport = record.googleReports.at(-1);
+  }
+  artifact.updatedAt = new Date().toISOString();
+  return artifact;
+}
 export function summarizeIndexCoverage(record, { now = new Date().toISOString(), maxAgeDays = 7 } = {}) {
   if (!record) return { state: 'not-collected', total: null, indexed: null, indexedPercentage: null, checkedPercentage: null, observedAt: null };
   if (record.exemption) return { state: record.exemption, total: null, indexed: null, indexedPercentage: null, checkedPercentage: null, observedAt: null };
+  let googleReport = null;
+  try { if (record.googleReport) googleReport = validateGoogleIndexingReport(record.googleReport, record); } catch {}
+  const googleReportStale = googleReport ? Date.parse(now) - Date.parse(`${googleReport.reportDate}T12:00:00Z`) > maxAgeDays * DAY : false;
   const inventory = record.inventory;
   const urls = Array.isArray(inventory?.urls) ? inventory.urls : null;
   const counts = { indexed: 0, 'not-indexed': 0, unknown: 0, unavailable: 0, pending: 0, stale: 0 };
@@ -78,7 +138,7 @@ export function summarizeIndexCoverage(record, { now = new Date().toISOString(),
   const checked = total === null ? null : total - counts.pending;
   const inventoryFresh = Number.isFinite(Date.parse(inventory?.observedAt)) && Date.parse(now) - Date.parse(inventory.observedAt) <= maxAgeDays * DAY;
   const complete = inventoryFresh && total > 0 && inventory.complete === true && known === total && !counts.stale && !record.failure;
-  return { state: complete ? 'complete' : counts.stale || (inventory && !inventoryFresh) ? 'stale' : record.failure ? 'unavailable' : total === null ? 'inventory-unavailable' : 'partial',
+  return { googleReport, googleReportStale, state: googleReport ? (googleReportStale ? 'stale-google-report' : 'google-report') : complete ? 'complete' : counts.stale || (inventory && !inventoryFresh) ? 'stale' : record.failure ? 'unavailable' : total === null ? 'inventory-unavailable' : 'partial',
     surfaceUrl: record.surfaceUrl, total, indexed: total === null ? null : counts.indexed, checked, known, counts,
     indexedPercentage: complete ? 100 * counts.indexed / total : null,
     checkedPercentage: total > 0 ? 100 * checked / total : null,
@@ -168,7 +228,7 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
   const candidates = [];
   for (const target of targets) {
     const old = artifact.records.find(row => row.projectId === target.projectId && row.surfaceUrl === target.surfaceUrl);
-    const record = { ...target, inspections: { ...(old?.inspections ?? {}) }, lastAttemptAt: now };
+    const record = { ...target, ...(old?.googleReport ? { googleReport: old.googleReport, googleReports: old.googleReports ?? [old.googleReport] } : {}), inspections: { ...(old?.inspections ?? {}) }, lastAttemptAt: now };
     if (!target.exemption) {
       const inventory = await inventorySitemap(target, { fetchImpl, sitemapUrl: sitemapOverrides[target.domain], now });
       // A failed discovery cannot erase a retained denominator or its exact observations.

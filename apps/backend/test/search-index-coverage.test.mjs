@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { collectIndexCoverage, coverageTargets, inventorySitemap, summarizeIndexCoverage, urlInCoverageScope } from '../lib/search-index-coverage.mjs';
+import { collectIndexCoverage, coverageTargets, inventorySitemap, importGoogleIndexingReports, summarizeIndexCoverage, urlInCoverageScope } from '../lib/search-index-coverage.mjs';
 const now = '2026-10-29T12:00:00Z';
 const target = { projectId: 'app', domain: 'example.com', surfaceUrl: 'https://example.com/app/' };
 const catalog = { projects: [{ id: 'app', name: 'App', portfolio: { status: 'active' }, domains: ['old.example.com'] }], publicDirectory: { projects: { app: { publicDestinationUrl: target.surfaceUrl } } } };
@@ -78,4 +78,33 @@ test('fair budget observes every product before large cohorts and respects four 
   });
   assert.equal(new Set(calls.slice(0, 5)).size, 5); assert.equal(calls.length, 6); assert.ok(maximum <= 4);
   assert.equal(result.dailyBudget['2026-10-29'].properties['sc-domain:example.com'], 6);
+});
+
+const googleReport = { ...target, source: 'google-search-console-page-indexing', property: 'sc-domain:example.com', sitemapUrl: 'https://example.com/app/sitemap.xml', reportDate: '2026-10-23', observedAt: now, indexedCount: 3, notIndexedCount: 1, totalKnownCount: 4, sourceUrl: 'https://search.google.com/search-console/index?resource_id=sc-domain%3Aexample.com&pages=SITEMAP&sitemap=https%3A%2F%2Fexample.com%2Fapp%2Fsitemap.xml', reasons: { 'Discovered - currently not indexed': 1 } };
+test('exact sitemap report has its own denominator, dates, zero values and retained history', () => {
+  let artifact = importGoogleIndexingReports({ catalog, reports: [googleReport] });
+  let summary = summarizeIndexCoverage(artifact.records[0], { now });
+  assert.equal(summary.googleReport.indexedCount, 3); assert.equal(summary.googleReport.totalKnownCount, 4); assert.equal(summary.total, null);
+  assert.equal(summary.googleReportStale, false);
+  artifact = importGoogleIndexingReports({ catalog, previous: artifact, reports: [{ ...googleReport, reportDate: '2026-10-24', indexedCount: 0, notIndexedCount: 4 }] });
+  summary = summarizeIndexCoverage(artifact.records[0], { now });
+  assert.equal(summary.googleReport.indexedCount, 0); assert.equal(artifact.records[0].googleReports.length, 2);
+  assert.equal(summarizeIndexCoverage(artifact.records[0], { now: '2026-11-10T12:00:00Z' }).googleReportStale, true);
+});
+test('report imports reject mixed projects, shared root path totals and wrong denominator before mutation', () => {
+  for (const report of [{ ...googleReport, sourceUrl: 'https://search.google.com/search-console/index?resource_id=sc-domain%3Aexample.com&pages=ALL' }, { ...googleReport, projectId: 'wrong' }, { ...googleReport, surfaceUrl: 'https://other.example.com/' }, { ...googleReport, sitemapUrl: 'https://example.com/sitemap.xml' }, { ...googleReport, totalKnownCount: 5 }, { ...googleReport, property: 'sc-domain:evil.test' }, { ...googleReport, reportDate: '2026-02-31' }]) {
+    assert.throws(() => importGoogleIndexingReports({ catalog, reports: [googleReport, report] }));
+  }
+});
+test('inventory refresh retains Google report evidence independently', async () => {
+  const previous = importGoogleIndexingReports({ catalog, reports: [googleReport] });
+  const artifact = await collectIndexCoverage({ catalog, previous, now, fetchImpl, inventoryOnly: true });
+  const summary = summarizeIndexCoverage(artifact.records[0], { now });
+  assert.equal(summary.total, 2); assert.equal(summary.googleReport.totalKnownCount, 4); assert.equal(summary.googleReport.indexedCount, 3);
+});
+
+test('project-scoped report import cannot mutate another product', () => {
+  const artifact = importGoogleIndexingReports({ catalog, projectId: 'app', reports: [googleReport, { ...googleReport, projectId: 'unselected' }] });
+  assert.equal(artifact.records.length, 1); assert.equal(artifact.records[0].projectId, 'app');
+  assert.throws(() => importGoogleIndexingReports({ catalog, projectId: 'missing', reports: [googleReport] }));
 });
