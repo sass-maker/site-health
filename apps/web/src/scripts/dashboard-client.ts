@@ -709,15 +709,15 @@ function updateCoverage(slot: string, payload: JsonRecord, missingStates: string
 }
 
 function indexCoverageCount(coverage: JsonRecord | null | undefined) {
-  if (coverage?.googleReport) return `${coverage.googleReport.indexedCount} / ${coverage.googleReport.totalKnownCount} Google-known`;
-  if (!coverage || coverage.total == null) return coverage?.state === "no-public-surface" ? "Not applicable" : "Not collected";
+  if (coverage?.googleReport) return `${coverage.googleReport.indexedCount} / ${coverage.googleReport.totalKnownCount} Google-known${coverage.total != null && coverage.total !== coverage.googleReport.totalKnownCount ? " · partial cohort" : ""}`;
+  if (!coverage || coverage.total == null) return coverage?.state === "no-public-surface" ? "Not applicable" : (coverage?.failure || ["unavailable", "inventory-unavailable", "stale"].includes(coverage?.state)) ? "Sitemap unavailable" : "Not collected";
   if (!coverage.checked) return "Not checked";
   if (!coverage.known) return `No verdict · ${coverage.checked}/${coverage.total} checked`;
   return coverage.state === "complete" ? String(coverage.indexed) : `${coverage.indexed} confirmed · ${coverage.checked}/${coverage.total} checked`;
 }
 
 function indexCoverageRate(coverage: JsonRecord | null | undefined) {
-  if (coverage?.googleReport) return coverage.googleReport.totalKnownCount > 0 ? `${(100 * coverage.googleReport.indexedCount / coverage.googleReport.totalKnownCount).toFixed(1)}% indexed` : "—";
+  if (coverage?.googleReport) return coverage.googleReport.totalKnownCount > 0 ? `${(100 * coverage.googleReport.indexedCount / coverage.googleReport.totalKnownCount).toFixed(1)}% of Google-known` : "—";
   if (coverage?.indexedPercentage != null) return `${coverage.indexedPercentage.toFixed(1)}% indexed`;
   return coverage?.checkedPercentage != null ? `${coverage.checkedPercentage.toFixed(1)}% checked` : "—";
 }
@@ -728,7 +728,7 @@ function indexCoverageDetail(row: JsonRecord) {
   return element("div", { class: "seo-result" }, [
     ...(report ? [element("p", {}, [`Google Page Indexing report: ${report.indexedCount} indexed / ${report.totalKnownCount} Google-known sitemap URLs (${indexCoverageRate(coverage)}); ${report.notIndexedCount} not indexed. Report date ${report.reportDate}; captured ${formatted(report.observedAt)}${coverage.googleReportStale ? "; stale report" : ""}.`]),
       element("p", {}, [element("a", { href: report.sourceUrl, target: "_blank", rel: "noreferrer" }, ["Open exact Google report ↗"])]),
-      element("p", {}, [`Report sitemap: ${report.sitemapUrl}. The fresh discovered sitemap inventory is a separate cohort and can differ.`]),
+      element("p", {}, [`Report sitemap: ${report.sitemapUrl}. Current discovered sitemap URLs: ${coverage?.total ?? "unknown"}. This Google-known report is a separate named-sitemap cohort, not all current pages.${coverage?.total != null && coverage.total !== report.totalKnownCount ? " The report and inventory totals differ; report coverage of the current inventory is unqualified." : ""}`]),
       ...Object.entries(report.reasons ?? {}).map(([reason, count]) => element("p", {}, [`${reason}: ${count}`]))] : []),
     element("p", {}, [coverage?.state === "no-public-surface" ? "No public discovery surface for this current product." : `${indexCoverageCount({ ...coverage, googleReport: null })} · ${indexCoverageRate({ ...coverage, googleReport: null })}. URL Inspection denominator: ${coverage?.total ?? "unknown"} unique discovered sitemap URLs; these have not been classified as indexable pages.`]),
     element("p", {}, [coverage?.failure ?? (coverage?.inventoryComplete ? "Sitemap inventory complete." : "Sitemap inventory is missing or incomplete; a full-cohort indexed percentage is unavailable.")]),
@@ -749,7 +749,7 @@ async function renderSearch() {
   if (periodTarget) periodTarget.textContent = `Google data: ${reportingPeriod(period)}`;
   const scopeNote = document.querySelector<HTMLElement>("[data-search-scope-note]");
   const rows = payload.rows;
-  const indexingRows = rows.filter((row: JsonRecord) => row.currentProduct).map((row: JsonRecord) => ({ ...row, status: row.indexCoverage?.state ?? "not-collected", observedAt: row.indexCoverage?.googleReport?.observedAt ?? row.indexCoverage?.observedAt, domain: row.indexCoverage?.surfaceUrl ?? row.domain }));
+  const indexingRows = (payload.indexCoverage ?? []).map((row: JsonRecord) => ({ ...row, status: row.indexCoverage?.state ?? "not-collected", observedAt: row.indexCoverage?.googleReport?.observedAt ?? row.indexCoverage?.observedAt, domain: row.indexCoverage?.surfaceUrl ?? row.domain }));
   evidenceTable("index-coverage", indexingRows, "Google indexing coverage", [
     { id: "sitemap", label: "Sitemap URLs", value: row => row.indexCoverage?.total ?? null, display: row => row.indexCoverage?.total == null ? "—" : String(row.indexCoverage.total) },
     { id: "indexed", label: "Indexed", value: row => row.indexCoverage?.googleReport?.indexedCount ?? row.indexCoverage?.indexed ?? null, display: row => indexCoverageCount(row.indexCoverage) },
@@ -1414,6 +1414,7 @@ async function renderProject() {
   }
   const domain = domains.rows.find((row: JsonRecord) => row.projects?.some((item: JsonRecord) => item.projectId === projectId));
   const searchRow = search.rows.find((row: JsonRecord) => row.projectId === projectId);
+  const projectIndexCoverage = (search.indexCoverage ?? []).find((row: JsonRecord) => row.projectId === projectId)?.indexCoverage;
   const aiRow = awareness.rows.find((row: JsonRecord) => row.projectId === projectId);
   const performanceRow = performance.rows.find((row: JsonRecord) => row.projectId === projectId);
   const seoRow = seo.rows.find((row: JsonRecord) => row.projectId === projectId);
@@ -1509,9 +1510,9 @@ async function renderProject() {
           { label: "Clicks", value: sourceValue(search, signalValue(searchRow?.clicks)) },
           { label: "CTR", value: sourceValue(search, signalValue(searchRow?.ctr, "%")) },
           { label: "Position", value: sourceValue(search, signalValue(searchRow?.averagePosition)) },
-          { label: "Sitemap URLs", value: searchRow?.indexCoverage?.state === "no-public-surface" ? "Not applicable" : searchRow?.indexCoverage?.total == null ? "Not collected" : String(searchRow.indexCoverage.total) },
-          { label: "Sitemap indexed", value: indexCoverageCount(searchRow?.indexCoverage), detail: searchRow?.indexCoverage?.googleReport ? `${indexCoverageRate(searchRow.indexCoverage)} · ${searchRow.indexCoverage.googleReport.totalKnownCount} Google-known sitemap URLs · report ${searchRow.indexCoverage.googleReport.reportDate}` : indexCoverageRate(searchRow?.indexCoverage) },
-        ], `Search Console traffic and sitemap URL Inspection are separate cohorts. ${searchRow?.indexCoverage?.failure ?? ""} Inspection: ${formatted(searchRow?.indexCoverage?.observedAt)}.`),
+          { label: "Sitemap URLs", value: projectIndexCoverage?.state === "no-public-surface" ? "Not applicable" : projectIndexCoverage?.total == null ? indexCoverageCount({ ...projectIndexCoverage, googleReport: null }) : String(projectIndexCoverage.total) },
+          { label: "Sitemap indexed", value: indexCoverageCount(projectIndexCoverage), detail: projectIndexCoverage?.googleReport ? `${indexCoverageRate(projectIndexCoverage)} · ${projectIndexCoverage.googleReport.totalKnownCount} Google-known sitemap URLs · report ${projectIndexCoverage.googleReport.reportDate}` : indexCoverageRate(projectIndexCoverage) },
+        ], `Search Console traffic and sitemap URL Inspection are separate cohorts. ${projectIndexCoverage?.failure ?? ""} Inspection: ${formatted(projectIndexCoverage?.observedAt)}.`),
         outcomePanel("On-page SEO", sourceStatus(seo, seoRow?.status), seoRow?.observedAt, [
           { label: "Passed", value: sourceValue(seo, signalValue(seoRow?.pass)) },
           { label: "Failed", value: sourceValue(seo, signalValue(seoRow?.fail)) },
@@ -1781,6 +1782,9 @@ async function start() {
     if (view === "projects") {
       replace("project-summary", failure);
       replace("project-statuses", failure.cloneNode(true));
+    } else if (view === "search") {
+      replace("search", failure);
+      replace("index-coverage", failure.cloneNode(true));
     } else if (slots[view]) replace(slots[view], failure);
     else document.querySelector<HTMLElement>("[data-dashboard-global-status]")?.replaceChildren(failure);
     document.body.dataset.evidenceStatus = "Offline";

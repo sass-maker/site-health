@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
+import { existsSync, mkdtempSync, readFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { test } from 'node:test';
-import { collectIndexCoverage, coverageTargets, inventorySitemap, importGoogleIndexingReports, summarizeIndexCoverage, urlInCoverageScope } from '../lib/search-index-coverage.mjs';
+import { acquireIndexCoverageLock, collectIndexCoverage, coverageTargets, inventorySitemap, importGoogleIndexingReports, summarizeIndexCoverage, urlInCoverageScope } from '../lib/search-index-coverage.mjs';
 const now = '2026-10-29T12:00:00Z';
 const target = { projectId: 'app', domain: 'example.com', surfaceUrl: 'https://example.com/app/' };
 const catalog = { projects: [{ id: 'app', name: 'App', portfolio: { status: 'active' }, domains: ['old.example.com'] }], publicDirectory: { projects: { app: { publicDestinationUrl: target.surfaceUrl } } } };
@@ -38,7 +41,7 @@ test('daily quota reservations, resumable fresh inspection and exact URL provide
   result = await collectIndexCoverage({ catalog, now, fetchImpl, maxInspections: 2, properties: [{ siteUrl: 'sc-domain:example.com' }], inspect, previous: result });
   assert.equal(calls.length, 2); assert.equal(new Set(calls.map(call => call.inspectionUrl)).size, 2);
   assert.equal(summarizeIndexCoverage(result.records[0], { now }).indexedPercentage, 100);
-  result.dailyBudget['2026-10-29'].properties['sc-domain:example.com'] = 2000;
+  result.dailyBudget['2026-10-29'].properties['sc-domain:example.com'] = 1800;
   await collectIndexCoverage({ catalog, now: '2026-10-29T23:00:00Z', fetchImpl, maxInspections: 5, maxAgeDays: 0, properties: [{ siteUrl: 'sc-domain:example.com' }], inspect, previous: result });
   assert.equal(calls.length, 2);
 });
@@ -107,4 +110,44 @@ test('project-scoped report import cannot mutate another product', () => {
   const artifact = importGoogleIndexingReports({ catalog, projectId: 'app', reports: [googleReport, { ...googleReport, projectId: 'unselected' }] });
   assert.equal(artifact.records.length, 1); assert.equal(artifact.records[0].projectId, 'app');
   assert.throws(() => importGoogleIndexingReports({ catalog, projectId: 'missing', reports: [googleReport] }));
+});
+
+test('later incomplete inventory replaces an earlier incomplete attempt with its own date and URLs', async () => {
+  const documents = urls => ({ [sitemapUrl]: '<sitemapindex><sitemap><loc>https://example.com/child.xml</loc></sitemap><sitemap><loc>https://example.com/missing.xml</loc></sitemap></sitemapindex>', 'https://example.com/child.xml': xml(urls) });
+  const previous = await collectIndexCoverage({ catalog, now, inventoryOnly: true, fetchImpl: fixtureFetch(documents(['https://example.com/app/'])) });
+  const nextDate = '2026-10-30T12:00:00Z';
+  const result = await collectIndexCoverage({ catalog, previous, now: nextDate, inventoryOnly: true, fetchImpl: fixtureFetch(documents(['https://example.com/app/', 'https://example.com/app/later'])) });
+  assert.equal(result.records[0].inventory.complete, false); assert.equal(result.records[0].inventory.urls.length, 2);
+  assert.equal(result.records[0].inventory.observedAt, nextDate); assert.equal(result.records[0].inventory.failures[0].reason, 'HTTP 404');
+});
+test('local property budget leaves Google quota headroom for existing collectors', async () => {
+  const previous = await collectIndexCoverage({ catalog, now, inventoryOnly: true, fetchImpl });
+  previous.dailyBudget['2026-10-29'].properties['sc-domain:example.com'] = 1799;
+  let requests = 0;
+  const result = await collectIndexCoverage({ catalog, previous, now, fetchImpl, maxInspections: 20, properties: [{ siteUrl: 'sc-domain:example.com' }], inspect: async () => { requests++; return { state: 'indexed' }; } });
+  assert.equal(requests, 1); assert.equal(result.dailyBudget['2026-10-29'].properties['sc-domain:example.com'], 1800);
+  assert.equal(result.budgetPolicy.localPropertyDailyLimit, 1800);
+});
+test('abort stops queued provider requests, preserves progress, and failures are attempted rather than checked', async () => {
+  const controller = new AbortController(); let requests = 0; let progress;
+  const result = await collectIndexCoverage({ catalog, now, signal: controller.signal, maxInspections: 10, accessToken: 'fixture', quotaProject: 'fixture', properties: [{ siteUrl: 'sc-domain:example.com' }], onProgress: artifact => { progress = structuredClone(artifact); },
+    fetchImpl: async (url, options) => {
+      if (!url.startsWith('https://searchconsole.googleapis.com/')) return fetchImpl(url, options);
+      requests++;
+      return new Promise((resolve, reject) => { options.signal.addEventListener('abort', () => reject(new Error('Interrupted provider request')), { once: true }); setImmediate(() => controller.abort()); });
+    } });
+  assert.ok(requests > 0 && requests <= 4); assert.equal(progress.records.length, 1);
+  const summary = summarizeIndexCoverage(result.records[0], { now });
+  assert.equal(summary.checked, 0); assert.equal(summary.attempted, requests); assert.equal(summary.counts.unavailable, requests);
+});
+test('cooperative lock records its PID, reports active ownership, handles signals and releases only its own lock', () => {
+  const output = join(mkdtempSync(join(tmpdir(), 'index-coverage-lock-')), 'latest.json');
+  const signals = []; const release = acquireIndexCoverageLock(output, { onInterrupt: signal => signals.push(signal) });
+  try {
+    assert.equal(JSON.parse(readFileSync(`${output}.lock`, 'utf8')).pid, process.pid);
+    assert.throws(() => acquireIndexCoverageLock(output), /still running/);
+    process.emit('SIGTERM'); assert.deepEqual(signals, ['SIGTERM']);
+  } finally { release(); }
+  assert.equal(existsSync(`${output}.lock`), false);
+  const resume = acquireIndexCoverageLock(output); resume();
 });

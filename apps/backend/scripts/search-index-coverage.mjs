@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
-import { closeSync, existsSync, mkdirSync, openSync, readFileSync, unlinkSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { collectIndexCoverage, defaultIndexCoveragePath, importGoogleIndexingReports, readIndexCoverage, saveIndexCoverage, summarizeIndexCoverage } from '../lib/search-index-coverage.mjs';
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { acquireIndexCoverageLock, collectIndexCoverage, defaultIndexCoveragePath, importGoogleIndexingReports, readIndexCoverage, saveIndexCoverage, summarizeIndexCoverage } from '../lib/search-index-coverage.mjs';
 
 const repository = resolve(import.meta.dirname, '../../..');
 const options = { registry: resolve(repository, 'apps/backend/config/projects.json'), output: defaultIndexCoveragePath(), maxInspections: 0, inventoryOnly: false };
@@ -12,6 +12,7 @@ for (let i = 2; i < process.argv.length; i++) {
   if (flag === '--inventory-only') { options.inventoryOnly = true; continue; }
   if (flag === '--help') {
     console.log('search-index-coverage.mjs [--registry operations.json] [--catalog projects.json] [--output private.json] [--project id] [--inventory-only] [--max-inspections 0..2000] [--properties accessible-properties.json] [--reports reports.json --import-only]');
+    console.log('Coverage inspections use a local 1800-request/property/day budget (Pacific time), leaving headroom within Google quota for other collectors.');
     process.exit(0);
   }
   const value = process.argv[++i];
@@ -46,18 +47,23 @@ if (!options.inventoryOnly && !options.importOnly) {
     properties = (await response.json()).siteEntry ?? [];
   }
 }
-// Lock before reading or initializing; another collector must never lose its checkpoint.
-mkdirSync(dirname(options.output), { recursive: true, mode: 0o700 });
-const lockPath = `${options.output}.lock`;
-const lock = openSync(lockPath, 'wx', 0o600);
+const controller = new AbortController();
+let latestArtifact = null;
+let interruptedSignal = null;
+const releaseLock = acquireIndexCoverageLock(options.output, { onInterrupt: signal => {
+  interruptedSignal = signal;
+  controller.abort(new Error(`Collection interrupted by ${signal}`));
+  if (latestArtifact) saveIndexCoverage(options.output, latestArtifact);
+} });
 try {
   let previous = readIndexCoverage({ path: options.output });
   if (existsSync(options.output) && !previous) throw new Error('Existing checkpoint is unreadable or has an unsupported schema; preserve and inspect it before collecting');
+  latestArtifact = previous;
   if (options.reportsPath) previous = importGoogleIndexingReports({ catalog, previous, projectId: options.projectId, reports: JSON.parse(readFileSync(options.reportsPath, 'utf8')) });
   const result = options.importOnly ? previous : await collectIndexCoverage({ ...options, catalog, properties, accessToken: token, quotaProject,
-    previous,
+    previous, signal: controller.signal,
     sitemapOverrides: catalog.systems?.searchConsole?.sitemapOverrides ?? {},
-    onProgress: artifact => saveIndexCoverage(options.output, artifact) });
+    onProgress: artifact => { latestArtifact = artifact; saveIndexCoverage(options.output, artifact); } });
   saveIndexCoverage(options.output, result);
-  console.log(JSON.stringify({ output: options.output, records: result.records.map(record => ({ projectId: record.projectId, ...summarizeIndexCoverage(record) })) }, null, 2));
-} finally { closeSync(lock); unlinkSync(lockPath); }
+  console.log(JSON.stringify({ output: options.output, interrupted: interruptedSignal, budgetPolicy: result.budgetPolicy, records: result.records.map(record => ({ projectId: record.projectId, ...summarizeIndexCoverage(record) })) }, null, 2));
+} finally { releaseLock(); if (interruptedSignal) process.exitCode = interruptedSignal === 'SIGINT' ? 130 : 143; }

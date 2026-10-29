@@ -264,21 +264,7 @@ function searchProjection(catalog, configRoot, home, now) {
     byProject.set(observation.projectId, rows);
   }
   const targets = searchProjectsFor(catalog, configRoot);
-  const coverage = readIndexCoverage({ path: home ? resolve(home, '.fleet/search-index-coverage/latest.json') : undefined });
-  const currentTargets = coverageTargets(catalog);
-  for (const target of currentTargets) {
-    if (!targets.some(project => project.id === target.projectId)) {
-      const project = catalog.projects.find(project => project.id === target.projectId);
-      targets.push({ ...project, domains: target.domain ? [target.domain] : [] });
-    }
-  }
-  const assigned = new Set();
   return targets.map((project) => {
-    const currentTarget = currentTargets.find(target => target.projectId === project.id);
-    const currentProduct = Boolean(currentTarget && !assigned.has(project.id));
-    if (currentProduct) assigned.add(project.id);
-    const coverageRecord = currentProduct && coverage?.records.find(record => record.projectId === project.id && record.surfaceUrl === currentTarget.surfaceUrl);
-    const indexCoverage = currentProduct ? summarizeIndexCoverage(coverageRecord || (currentTarget.exemption ? currentTarget : null), { now }) : null;
     const domain = normalizedDomain(project.domains?.[0]);
     const multipleTargets = targets.filter((target) => target.id === project.id).length > 1;
     const history = (byProject.get(project.id) ?? [])
@@ -308,8 +294,6 @@ function searchProjection(catalog, configRoot, home, now) {
       period: latest?.period ?? null,
       previousPeriod: latest?.previousPeriod ?? null,
       indexInspection: latest?.indexInspection ?? null,
-      currentProduct,
-      indexCoverage,
       searchTerms: latest?.searchTerms ?? [],
       searchTermSample: latest?.searchTermSample ?? null,
       impressions,
@@ -317,6 +301,17 @@ function searchProjection(catalog, configRoot, home, now) {
       ctr: metric('Search CTR', 'ctr'),
       averagePosition: metric('Search average position', 'position'),
     };
+  }).sort((left, right) => left.name.localeCompare(right.name));
+}
+
+function searchIndexCoverageProjection(catalog, home, now) {
+  const artifact = readIndexCoverage({ path: home ? resolve(home, '.fleet/search-index-coverage/latest.json') : undefined });
+  return coverageTargets(catalog).map(target => {
+    const record = artifact?.records.find(record => record.projectId === target.projectId && record.surfaceUrl === target.surfaceUrl);
+    const indexCoverage = summarizeIndexCoverage(record || (target.exemption ? target : null), { now });
+    return { projectId: target.projectId, name: target.name, domain: target.surfaceUrl,
+      status: indexCoverage.state, observedAt: indexCoverage.googleReport?.observedAt ?? indexCoverage.observedAt,
+      indexCoverage };
   }).sort((left, right) => left.name.localeCompare(right.name));
 }
 
@@ -545,6 +540,7 @@ export function buildDashboardProjection({
       domains: drankProjection(workspaceRoot, catalog, home, now),
       performance: performanceProjection(publicProjects, home),
       search: searchProjection(catalog, configRoot, home, now),
+      indexCoverage: searchIndexCoverageProjection(catalog, home, now),
       seoAudit: seoAuditProjection(catalog, dataRoot),
       geoAwareness: geoProjection(catalog, configRoot, dataRoot),
       aiAwareness: ai.rows,

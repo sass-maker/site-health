@@ -1,12 +1,40 @@
-import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
+import { createHash, randomUUID } from 'node:crypto';
+import { closeSync, existsSync, mkdirSync, openSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { inspectSearchConsoleUrl, selectSearchConsoleProperty } from './search-console.mjs';
 
+export const LOCAL_PROPERTY_DAILY_LIMIT = 1800;
 export const COVERAGE_SCHEMA = 'site-health.search-index-coverage.v1';
 const DAY = 86400000;
 export const defaultIndexCoveragePath = ({ home = homedir() } = {}) => join(home, '.fleet/search-index-coverage/latest.json');
+export function acquireIndexCoverageLock(path, { onInterrupt = () => {} } = {}) {
+  mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
+  const lockPath = `${path}.lock`;
+  const token = randomUUID();
+  let lock;
+  try { lock = openSync(lockPath, 'wx', 0o600); }
+  catch (error) {
+    if (error.code !== 'EEXIST') throw error;
+    let owner = 'unknown owner';
+    try {
+      const { pid } = JSON.parse(readFileSync(lockPath, 'utf8'));
+      try { process.kill(pid, 0); owner = `PID ${pid} is still running`; }
+      catch (failure) { owner = failure.code === 'ESRCH' ? `PID ${pid} is no longer running` : `PID ${pid} cannot be verified`; }
+    } catch {}
+    throw new Error(`Coverage lock exists at ${lockPath} (${owner}). Preserve the checkpoint; clear this lock only after verifying its collector has stopped.`);
+  }
+  writeFileSync(lock, JSON.stringify({ pid: process.pid, token, createdAt: new Date().toISOString() }));
+  const interrupt = signal => onInterrupt(signal);
+  const sigint = () => interrupt('SIGINT');
+  const sigterm = () => interrupt('SIGTERM');
+  process.on('SIGINT', sigint); process.on('SIGTERM', sigterm);
+  return () => {
+    process.off('SIGINT', sigint); process.off('SIGTERM', sigterm);
+    closeSync(lock);
+    try { if (JSON.parse(readFileSync(lockPath, 'utf8')).token === token) unlinkSync(lockPath); } catch {}
+  };
+}
 export function currentCoverageProjects(catalog) {
   return (catalog.projects ?? []).filter(p => (p.lifecycle?.portfolioStatus ?? p.portfolio?.status) === 'active');
 }
@@ -135,22 +163,23 @@ export function summarizeIndexCoverage(record, { now = new Date().toISOString(),
   }
   const total = urls && (inventory.complete || urls.length > 0) ? urls.length : null;
   const known = counts.indexed + counts['not-indexed'];
-  const checked = total === null ? null : total - counts.pending;
+  const checked = total === null ? null : counts.indexed + counts['not-indexed'] + counts.unknown;
+  const attempted = total === null ? null : total - counts.pending;
   const inventoryFresh = Number.isFinite(Date.parse(inventory?.observedAt)) && Date.parse(now) - Date.parse(inventory.observedAt) <= maxAgeDays * DAY;
   const complete = inventoryFresh && total > 0 && inventory.complete === true && known === total && !counts.stale && !record.failure;
   return { googleReport, googleReportStale, state: googleReport ? (googleReportStale ? 'stale-google-report' : 'google-report') : complete ? 'complete' : counts.stale || (inventory && !inventoryFresh) ? 'stale' : record.failure ? 'unavailable' : total === null ? 'inventory-unavailable' : 'partial',
-    surfaceUrl: record.surfaceUrl, total, indexed: total === null ? null : counts.indexed, checked, known, counts,
+    surfaceUrl: record.surfaceUrl, total, attempted, indexed: total === null ? null : counts.indexed, checked, known, counts,
     indexedPercentage: complete ? 100 * counts.indexed / total : null,
     checkedPercentage: total > 0 ? 100 * checked / total : null,
     sampleIndexedPercentage: known > 0 ? 100 * counts.indexed / known : null,
     inventoryComplete: inventory?.complete ?? false, inventoryObservedAt: inventory?.observedAt ?? null,
     observedAt: dates.sort()[0] ?? null, lastAttemptAt: record.lastAttemptAt ?? null,
-    failure: record.failure ?? null, failures: inventory?.failures ?? [], truncated: inventory?.truncated ?? false,
+    failure: record.failure ?? null, failures: record.inventoryAttempt?.failures ?? inventory?.failures ?? [], truncated: record.inventoryAttempt?.truncated ?? inventory?.truncated ?? false,
     canonicalMismatch, reasons, lastCrawlTime: crawlDates.sort().at(-1) ?? null, provenance: 'Google URL Inspection of discovered sitemap URLs',
   };
 }
 const decodeXml = value => value.replace(/&(?:amp|lt|gt|quot|apos);/g, token => ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&apos;': "'" })[token]);
-export async function inventorySitemap(target, { fetchImpl = fetch, sitemapUrl, maxRequests = 40, maxUrls = 10000, maxBytes = 2000000, maxDepth = 5, now = new Date().toISOString() } = {}) {
+export async function inventorySitemap(target, { fetchImpl = fetch, sitemapUrl, maxRequests = 40, maxUrls = 10000, maxBytes = 2000000, maxDepth = 5, signal, now = new Date().toISOString() } = {}) {
   const host = target.domain;
   const failures = [];
   const urls = new Set();
@@ -160,7 +189,7 @@ export async function inventorySitemap(target, { fetchImpl = fetch, sitemapUrl, 
   async function document(url) {
     const safe = safeUrl(url, host);
     if (!safe) throw new Error('Sitemap URL is outside canonical HTTPS host');
-    const response = await fetchImpl(safe.href, { method: 'GET', redirect: 'error', signal: AbortSignal.timeout(15000) });
+    const response = await fetchImpl(safe.href, { method: 'GET', redirect: 'error', signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(15000)]) : AbortSignal.timeout(15000) });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     if (Number(response.headers?.get?.('content-length')) > maxBytes) throw new Error('Response exceeds byte limit');
     let value = '';
@@ -183,7 +212,7 @@ export async function inventorySitemap(target, { fetchImpl = fetch, sitemapUrl, 
     } catch { /* robots is optional; the bounded conventional sitemap is next. */ }
     if (!queue.length) queue.push({ url: `https://${host}/sitemap.xml`, depth: 0 });
   }
-  while (queue.length) {
+  while (queue.length && !signal?.aborted) {
     const entry = queue.shift();
     const url = safeUrl(entry.url, host)?.href;
     if (!url) { failures.push({ url: entry.url, reason: 'Outside canonical sitemap host' }); continue; }
@@ -208,13 +237,13 @@ export async function inventorySitemap(target, { fetchImpl = fetch, sitemapUrl, 
     } catch (error) { failures.push({ url, reason: error.message }); }
   }
   const sorted = [...urls].sort();
-  return { urls: sorted, observedAt: now, complete: failures.length === 0 && !truncated && seen.size > 0,
-    truncated, failures, sitemaps: [...seen], fingerprint: createHash('sha256').update(JSON.stringify(sorted)).digest('hex') };
+  return { urls: sorted, observedAt: now, complete: failures.length === 0 && !truncated && !signal?.aborted && seen.size > 0,
+    truncated: truncated || Boolean(signal?.aborted), failures, sitemaps: [...seen], fingerprint: createHash('sha256').update(JSON.stringify(sorted)).digest('hex') };
 }
 
 export async function collectIndexCoverage({ catalog, previous = null, inventoryOnly = false, maxInspections = 0,
   properties = [], accessToken, quotaProject, fetchImpl = fetch, inspect = inspectSearchConsoleUrl,
-  sitemapOverrides = {}, now = new Date().toISOString(), onProgress = () => {}, projectId = null, maxAgeDays = 7 } = {}) {
+  sitemapOverrides = {}, now = new Date().toISOString(), onProgress = () => {}, projectId = null, maxAgeDays = 7, signal } = {}) {
   if (!Number.isInteger(maxInspections) || maxInspections < 0 || maxInspections > 2000) throw new Error('max-inspections must be an integer from 0 to 2000');
   const artifact = previous?.schema === COVERAGE_SCHEMA ? structuredClone(previous) : { schema: COVERAGE_SCHEMA, records: [], dailyBudget: {} };
   artifact.dailyBudget ??= {};
@@ -223,16 +252,18 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
   const budget = artifact.dailyBudget[day] ??= { total: 0, properties: {} };
   let remaining = maxInspections;
   let blocked = false;
+  artifact.budgetPolicy = { localPropertyDailyLimit: LOCAL_PROPERTY_DAILY_LIMIT, quotaDayTimeZone: 'America/Los_Angeles', scope: 'This checkpoint only; other collectors and manual probes are not counted' };
   const targets = coverageTargets(catalog).filter(target => !projectId || target.projectId === projectId);
   if (!targets.length) throw new Error('Unknown current project');
   const candidates = [];
   for (const target of targets) {
+    if (signal?.aborted) break;
     const old = artifact.records.find(row => row.projectId === target.projectId && row.surfaceUrl === target.surfaceUrl);
     const record = { ...target, ...(old?.googleReport ? { googleReport: old.googleReport, googleReports: old.googleReports ?? [old.googleReport] } : {}), inspections: { ...(old?.inspections ?? {}) }, lastAttemptAt: now };
     if (!target.exemption) {
-      const inventory = await inventorySitemap(target, { fetchImpl, sitemapUrl: sitemapOverrides[target.domain], now });
+      const inventory = await inventorySitemap(target, { fetchImpl, sitemapUrl: sitemapOverrides[target.domain], now, signal });
       // A failed discovery cannot erase a retained denominator or its exact observations.
-      if (!inventory.complete && old?.inventory) { record.inventory = old.inventory; record.failure = 'Sitemap refresh incomplete; retained previous inventory'; record.inventoryAttempt = inventory; }
+      if (!inventory.complete && old?.inventory?.complete === true) { record.inventory = old.inventory; record.failure = 'Sitemap refresh incomplete; retained previous inventory'; record.inventoryAttempt = inventory; }
       else { record.inventory = inventory; if (!inventory.complete) record.failure = 'Sitemap inventory incomplete'; }
       const selected = selectSearchConsoleProperty(target.domain, properties.filter(p => p.siteUrl?.startsWith('sc-domain:') || urlInCoverageScope(target.surfaceUrl, p.siteUrl)));
       record.property = selected?.siteUrl ?? null;
@@ -263,16 +294,16 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
   let progress = Promise.resolve();
   const persist = () => { progress = progress.then(() => onProgress(artifact)); return progress; };
   async function worker() {
-    while (!blocked && remaining > 0 && next < jobs.length) {
+    while (!signal?.aborted && !blocked && remaining > 0 && next < jobs.length) {
       const { record, selected, url } = jobs[next++];
-      if ((budget.properties[selected.siteUrl] ?? 0) >= 2000) continue;
+      if ((budget.properties[selected.siteUrl] ?? 0) >= LOCAL_PROPERTY_DAILY_LIMIT) continue;
       remaining--; budget.total++; budget.properties[selected.siteUrl] = (budget.properties[selected.siteUrl] ?? 0) + 1;
       // Persist the reservation before the provider call, so interruption cannot refund quota.
       await persist();
-      if (blocked) continue;
+      if (blocked || signal?.aborted) continue;
       const retained = record.inspections[url];
       let result;
-      try { result = await inspect({ inspectionUrl: url, siteUrl: selected.siteUrl, accessToken, quotaProject, fetchImpl, maxAttempts: 1 }); }
+      try { result = await inspect({ inspectionUrl: url, siteUrl: selected.siteUrl, accessToken, quotaProject, fetchImpl: signal ? (requestUrl, requestOptions) => fetchImpl(requestUrl, { ...requestOptions, signal: AbortSignal.any([signal, ...(requestOptions.signal ? [requestOptions.signal] : [])]) }) : fetchImpl, maxAttempts: 1 }); }
       catch (error) { result = { state: 'unavailable', inspectedUrl: url, failureReason: error.message }; }
       const observation = { ...result, observedAt: now };
       if (result.state === 'unavailable' && retained) record.inspections[url] = { ...retained, lastFailure: observation };
