@@ -114,11 +114,11 @@ export function importUsageExport(bundle, projects) {
     if (!observedAt) continue;
     records[project.id] = {
       source: INTERNAL_SOURCES[project.id] && row.evidence?.some(e => e.source === INTERNAL_SOURCES[project.id]) ? INTERNAL_SOURCES[project.id] : 'app-health.browser-report',
-      count: usageUnit(row.proxy?.unit) ? number(row.proxy?.count) : null, unit: usageUnit(row.proxy?.unit),
-      actionEvents: eventCount(row.events),
+      count: row.tracking !== 'missing' && usageUnit(row.proxy?.unit) ? number(row.proxy?.count) : null, unit: usageUnit(row.proxy?.unit),
+      actionEvents: row.tracking === 'missing' ? null : eventCount(row.events),
       observedAt, window: `${iso(row.windowStart) ?? '?'} to ${iso(row.windowEnd) ?? '?'}`,
       sampled: typeof row.sampled === 'boolean' ? row.sampled : null,
-      gap: [!usageUnit(row.proxy?.unit) ? 'Unsupported or missing proxy unit; count is unknown.' : null, eventCount(row.events) === null ? 'Missing or invalid event counts; action total is unknown.' : null, String(row.limitations ?? 'Unqualified aggregate proxy.')].filter(Boolean).join(' ').slice(0, 1600),
+      gap: [row.tracking === 'missing' ? 'Tracking is missing; audience and event counts are unknown.' : null, !usageUnit(row.proxy?.unit) ? 'Unsupported or missing proxy unit; count is unknown.' : null, eventCount(row.events) === null ? 'Missing or invalid event counts; action total is unknown.' : null, String(row.limitations ?? 'Unqualified aggregate proxy.')].filter(Boolean).join(' ').slice(0, 1600),
     };
   }
   return { schemaVersion: 1, observedAt: iso(bundle.usage.updatedAt), records };
