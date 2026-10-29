@@ -2,7 +2,8 @@ import { EVIDENCE_POLICIES } from './evidence-freshness.mjs';
 
 const DAY = 86_400_000;
 export const CLOCK_TOLERANCE_MS = 5 * 60_000;
-const families = { domains: 'drank', performance: 'psi', 'psi-swarm.mobile': 'psi', seoAudit: 'seo', indexCoverage: 'seo', geoAwareness: 'geo', aiAwareness: 'ai', 'free-ai.api-model': 'ai', 'app-health.browser-report': 'usage', 'app-health.provider-revenue': 'usage' };
+export const INTERNAL_USAGE_SOURCES = Object.freeze({ 'site-health': 'site-health.local-interactions', 'fleet-social': 'fleet-social.aggregate-ledger', 'agent-inbox': 'Agent Inbox local counter' });
+const families = { ...Object.fromEntries(Object.values(INTERNAL_USAGE_SOURCES).map(source => [source, 'usage'])), domains: 'drank', performance: 'psi', 'psi-swarm.mobile': 'psi', seoAudit: 'seo', indexCoverage: 'seo', geoAwareness: 'geo', aiAwareness: 'ai', 'free-ai.api-model': 'ai', 'app-health.browser-report': 'usage', 'app-health.provider-revenue': 'usage' };
 
 export function observationFreshness(observedAt, now, maximumAgeMs) {
   const time = Date.parse(observedAt ?? '');

@@ -3,6 +3,7 @@ import { promisify } from 'node:util';
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { INTERNAL_USAGE_SOURCES as INTERNAL_SOURCES } from './measurement-contract.mjs';
 import { isCurrentPortfolioProject } from './domain-scope.mjs';
 
 const ORIGIN = 'https://health.sassmaker.com';
@@ -13,7 +14,6 @@ const eventCount = events => {
   return number(events.reduce((sum, event) => sum + event.count, 0));
 };
 const usageUnit = value => ['sessions', 'browsers', 'devices', 'users'].includes(value) ? value : null;
-const INTERNAL_SOURCES = { 'site-health': 'site-health.local-interactions', 'fleet-social': 'fleet-social.aggregate-ledger', 'agent-inbox': 'Agent Inbox local counter' };
 const internalRow = (id, row) => row?.source === INTERNAL_SOURCES[id] && Boolean(INTERNAL_SOURCES[id]);
 const iso = (value) => ['number', 'string'].includes(typeof value) && Number.isFinite(new Date(value).getTime()) ? new Date(value).toISOString() : null;
 export const defaultUsageEvidencePath = () => join(process.env.HOME, 'Library/Application Support/Fleet Ops/founder-control/app-health-usage.json');
@@ -35,7 +35,7 @@ export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) 
     const legacyUnknown = row.status === undefined && row.count === null;
     return [id, (failed || legacyUnknown) && number(old?.count) !== null
       ? { ...old, status: 'retained', lastAttemptAt: snapshot.observedAt,
-        gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained last-known ${old.count} ${old.unit === 'sessions' ? 'sessions' : 'browsers'} observed ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
+        gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained last-known ${old.count} ${usageUnit(old.unit) ?? 'units'} observed ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
   snapshot = { ...snapshot, records: { ...(previous?.records ?? {}), ...records } };

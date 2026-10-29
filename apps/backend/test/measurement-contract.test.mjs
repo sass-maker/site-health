@@ -126,6 +126,12 @@ test('automatic internal reports preserve devices/users and survive a later brow
   assert.equal(row.value, 1);
   assert.equal(row.source, 'site-health.local-interactions');
   assert.equal(qualifyObservation(row, now).qualification, 'proxy');
+  assert.equal(qualifyObservation(row, '2026-11-01T10:00:00Z').measurement.state, 'stale');
+  assert.equal(qualifyObservation(row, now).measurement.cadence, 'daily');
+  const missing = structuredClone(local); missing.records['site-health'].count = null;
+  writeUsageEvidence(missing, path);
+  assert.match(readUsageEvidence(path).records['site-health'].gap, /1 devices/);
+  assert.doesNotMatch(readUsageEvidence(path).records['site-health'].gap, /1 browsers/);
   local.records['site-health'].count = null;
   local.records['site-health'].observedAt = '2026-10-31T10:00:00Z';
   const newPath = join(mkdtempSync(join(tmpdir(), 'unknown-local-source-')), 'usage.json');
