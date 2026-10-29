@@ -58,3 +58,26 @@ describe('portfolio scoreboard aggregation', () => {
     expect(result.browserProxy?.id).toBe('monthly-browser-proxy');
   });
 });
+
+
+it('keeps multi-surface readings scoped and never pairs SEO counts from different sites', () => {
+  const row = product();
+  row.evidence = [
+    { id: 'seoAudit:pass:0', source: 'seoAudit', projectId: row.id, label: 'SEO checks passed · a.test', unit: 'checks', value: 15, observedAt: '2026-10-29T00:00:00Z', qualification: 'proxy' },
+    { id: 'seoAudit:fail:1', source: 'seoAudit', projectId: row.id, label: 'SEO checks failed · b.test', unit: 'checks', value: 2, observedAt: '2026-10-29T01:00:00Z', qualification: 'proxy' },
+    { id: 'search:clicks:0', source: 'search', projectId: row.id, label: 'Search clicks · a.test', unit: 'clicks', value: 7, observedAt: '2026-10-29T00:00:00Z', qualification: 'proxy' },
+    { id: 'search:clicks:1', source: 'search', projectId: row.id, label: 'Search clicks · b.test', unit: 'clicks', value: 3, observedAt: '2026-10-29T01:00:00Z', qualification: 'proxy' },
+  ];
+  const summary = summarizePortfolioProduct(row);
+  expect(summary.seoPass).toBeNull();
+  expect(summary.seoFail?.label).toContain('b.test');
+  expect(summary.clicks?.value).toBe(3);
+  expect(summary.clicks?.label).toContain('b.test');
+});
+
+it('does not sort an exempt product design by its retained historical estimate', () => {
+  const row = product();
+  estimateAllProductItems(row, 50);
+  row.state.applicability.product = { state: 'exempt', reason: 'Scope exemption' };
+  expect(summarizePortfolioProduct(row).designScore).toBeNull();
+});

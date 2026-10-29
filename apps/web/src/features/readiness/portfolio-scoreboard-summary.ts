@@ -4,7 +4,7 @@ export function summarizePortfolioProduct(product: ReadinessProduct) {
   const productEffort = effortSummary(product.state, 'product');
   const growthEffort = effortSummary(product.state, 'growth');
   const designEntry = product.state.checklist?.['product-design'];
-  const designScore = requirementCompletion(designEntry);
+  const designScore = product.state.applicability.product.state === 'exempt' ? null : requirementCompletion(designEntry);
   const foundationsScore = requirementCompletion(product.state.checklist?.['growth-foundations']);
   const designObservedAt = designEntry?.evidenceRefs.reduce<string | null>((latest, ref) => !latest || Date.parse(ref.observedAt) > Date.parse(latest) ? ref.observedAt : latest, null) ?? null;
   const itemCount = (area: ReadinessArea) => CHECKLIST_ITEMS[area].filter(item => product.state.checklist?.[item.id]).length;
@@ -33,8 +33,10 @@ export function summarizePortfolioProduct(product: ReadinessProduct) {
   const desktop = evidence(row => row.source === 'performance' && row.id.includes('psi'));
   const mobile = evidence(row => row.id === 'mobile:psi');
   const speedEffort = requirementCompletion(product.state.checklist?.['product-speed']);
-  const seoPass = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:pass'));
-  const seoFail = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:fail'));
+  const seoSurface = evidence(row => row.source === 'seoAudit' && /^seoAudit:(pass|fail):/.test(row.id));
+  const sameSeoSurface = (row: ReadinessProduct['evidence'][number]) => row.id.split(':').slice(2).join(':') === seoSurface?.id.split(':').slice(2).join(':') && row.observedAt === seoSurface?.observedAt;
+  const seoPass = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:pass:') && sameSeoSurface(row));
+  const seoFail = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:fail:') && sameSeoSurface(row));
   const clicks = evidence(row => row.source === 'search' && row.id.startsWith('search:clicks'));
   const browserProxy = evidence(row => row.id === 'monthly-browser-proxy' && row.source === 'app-health.browser-report');
   const productResults = resultSummary(product.state, 'product');
