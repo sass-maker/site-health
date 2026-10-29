@@ -17,7 +17,12 @@ const contract = { version: 1, brands: [brand], growthPriority: { level: 'high' 
 test('root collections retain shared website priority without promoting or scoring another product', () => {
   const path = join(mkdtempSync(join(tmpdir(), 'project-collections-')), 'catalog.json');
   const retired = { id: 'daddyrad', name: 'DaddyRad', family: 'daddyrad', lifecycle: { status: 'inactive' }, portfolio: { status: 'archived', priority: 'P4' } };
-  const input = { projects: [...projects, retired], systems: { rootBrands: contract } };
+  const input = { projects: structuredClone([...projects, retired]), systems: { rootBrands: structuredClone(contract) },
+    publicDirectory: { projects: {
+      storage: { publicDestinationUrl: 'https://daddyrad.com/storage/' },
+      performance: { publicDestinationUrl: 'https://daddyrad.com/performance/' },
+    } } };
+  input.projects[0].public.hasChangelog = false;
   writeFileSync(path, JSON.stringify(input));
   const loaded = loadDashboardProjects(path);
   const collections = loadProjectCollections(path);
@@ -25,6 +30,10 @@ test('root collections retain shared website priority without promoting or scori
   assert.doesNotMatch(JSON.stringify(collections), /priorityDecision|Private owner/);
   assert.deepEqual(loaded.map(p => p.priority), [null, 'P2', null, 'P4']);
   assert.equal(loaded[0].growthFocus, null);
+  assert.equal(loaded[0].websiteUrl, 'https://daddyrad.com/storage/');
+  assert.equal(loaded[0].changelogUrl, null);
+  assert.deepEqual(loaded[0].domains, ['storage.daddyrad.com']);
+  assert.equal(loaded[1].changelogUrl, 'https://daddyrad.com/performance/changelog');
   const saved = Object.fromEntries(buildReadinessProjection({ projects: loaded }).projects.map(p => [p.id, {
     revision: 7, updatedAt: '2026-10-28T00:00:00.000Z', state: p.state,
   }]));

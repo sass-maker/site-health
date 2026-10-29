@@ -28,6 +28,14 @@ function displayName(project) {
     .join(' ');
 }
 
+function websiteChangelog(websiteUrl) {
+  const url = new URL(websiteUrl);
+  url.pathname = `${url.pathname.replace(/\/+$/, '')}/changelog`;
+  url.search = '';
+  url.hash = '';
+  return url.href;
+}
+
 export function loadProjectCollections(registryPath = defaultRegistryPath) {
   const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
   const policy = registry.systems?.rootBrands;
@@ -124,7 +132,8 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         repositoryUrl,
         domains: project.domains ?? [],
         websiteUrl,
-        changelogUrl: websiteUrl && domain ? `https://${domain}/changelog` : null,
+        changelogUrl: websiteUrl && domain && project.public?.hasChangelog !== false
+          ? websiteChangelog(websiteUrl) : null,
         deployKind: project.deployKind,
       };
     })
