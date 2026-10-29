@@ -97,3 +97,19 @@ test('stale collection membership cannot disable the independent root-brand metr
   assert.equal(validateRootBrandContract(malformed, projects).get('daddyrad.com').canonicalName, 'DaddyRad');
   assert.throws(() => validateRootBrandCollections(malformed, projects), /invalid root brand priority/);
 });
+
+test('malformed website destinations hide only their changelog and retain the project feed', () => {
+  const path = join(mkdtempSync(join(tmpdir(), 'project-changelog-')), 'catalog.json');
+  for (const destination of ['/storage/', 'not a URL', 'http://daddyrad.com/storage/', 'javascript:alert(1)']) {
+    writeFileSync(path, JSON.stringify({ projects, publicDirectory: { projects: {
+      storage: { publicDestinationUrl: destination },
+      performance: { publicDestinationUrl: 'https://daddyrad.com/performance/' },
+    } } }));
+    const loaded = loadDashboardProjects(path);
+    assert.deepEqual(loaded.map(project => project.id), ['storage', 'performance', 'other']);
+    assert.equal(loaded[0].websiteUrl, destination);
+    assert.equal(loaded[0].changelogUrl, null);
+    assert.equal(loaded[1].changelogUrl, 'https://daddyrad.com/performance/changelog');
+    assert.deepEqual(loaded.map(project => project.priority), [null, 'P2', null]);
+  }
+});

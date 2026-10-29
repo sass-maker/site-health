@@ -29,7 +29,9 @@ function displayName(project) {
 }
 
 function websiteChangelog(websiteUrl) {
-  const url = new URL(websiteUrl);
+  let url;
+  try { url = new URL(websiteUrl); } catch { return null; }
+  if (url.protocol !== 'https:') return null;
   url.pathname = `${url.pathname.replace(/\/+$/, '')}/changelog`;
   url.search = '';
   url.hash = '';
