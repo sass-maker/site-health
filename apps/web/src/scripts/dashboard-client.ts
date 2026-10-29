@@ -535,7 +535,7 @@ function seoAuditResult(row: JsonRecord) {
   ]);
 }
 
-function evidenceTable(slot: string, rows: JsonRecord[], label: string, columns: EvidenceColumn[], detail: (row: JsonRecord) => Node) {
+function evidenceTable(slot: string, rows: JsonRecord[], label: string, columns: EvidenceColumn[], detail: (row: JsonRecord) => Node, metadataColumns = true) {
   const target = document.querySelector<HTMLElement>(`[data-dashboard-slot="${slot}"]`);
   if (!target) return;
   target.className = "";
@@ -546,7 +546,7 @@ function evidenceTable(slot: string, rows: JsonRecord[], label: string, columns:
     root = createRoot(target);
     evidenceRoots.set(target, root);
   }
-  root.render(createElement(EvidenceTable, { rows, label, columns, detail, projectHref, formatted }));
+  root.render(createElement(EvidenceTable, { rows, label, columns, detail, projectHref, formatted, metadataColumns }));
 }
 
 function signalColumn(id: string, label: string, suffix = ""): EvidenceColumn {
@@ -751,12 +751,14 @@ async function renderSearch() {
   const rows = payload.rows;
   const indexingRows = (payload.indexCoverage ?? []).map((row: JsonRecord) => ({ ...row, status: row.indexCoverage?.state ?? "not-collected", observedAt: row.indexCoverage?.googleReport?.observedAt ?? row.indexCoverage?.observedAt, domain: row.indexCoverage?.surfaceUrl ?? row.domain }));
   evidenceTable("index-coverage", indexingRows, "Google indexing coverage", [
-    { id: "sitemap", label: "Sitemap URLs", value: row => row.indexCoverage?.total ?? null, display: row => row.indexCoverage?.total == null ? "—" : String(row.indexCoverage.total) },
-    { id: "indexed", label: "Indexed", value: row => row.indexCoverage?.googleReport?.indexedCount ?? row.indexCoverage?.indexed ?? null, display: row => indexCoverageCount(row.indexCoverage) },
-    { id: "indexingIssues", label: "Not indexed", value: row => row.indexCoverage?.googleReport?.notIndexedCount ?? row.indexCoverage?.counts?.["not-indexed"] ?? null, display: row => row.indexCoverage?.googleReport ? String(row.indexCoverage.googleReport.notIndexedCount) : row.indexCoverage?.total == null ? "—" : String(row.indexCoverage?.counts?.["not-indexed"] ?? 0) },
-    { id: "reportDate", label: "Google report", value: row => row.indexCoverage?.googleReport?.reportDate ?? null, display: row => row.indexCoverage?.googleReport?.reportDate ?? "No report" },
-    { id: "indexedRate", label: "Indexed / checked", value: row => row.indexCoverage?.googleReport?.totalKnownCount > 0 ? 100 * row.indexCoverage.googleReport.indexedCount / row.indexCoverage.googleReport.totalKnownCount : row.indexCoverage?.indexedPercentage ?? row.indexCoverage?.checkedPercentage ?? null, display: row => indexCoverageRate(row.indexCoverage) },
-  ], indexCoverageDetail);
+    { id: "indexedPercentage", label: "Indexed %", align: "left", wrap: true,
+      value: row => row.indexCoverage?.googleReport?.totalKnownCount > 0 ? 100 * row.indexCoverage.googleReport.indexedCount / row.indexCoverage.googleReport.totalKnownCount : row.indexCoverage?.indexedPercentage ?? null,
+      display: row => `${indexCoverageCount(row.indexCoverage)}\n${indexCoverageRate(row.indexCoverage)}` },
+    { id: "sitemap", label: "Inventory", value: row => row.indexCoverage?.total ?? null, display: row => row.indexCoverage?.total == null ? "—" : String(row.indexCoverage.total) },
+    { id: "evidenceDate", label: "Evidence date", align: "left", wrap: true,
+      value: row => row.indexCoverage?.googleReport?.reportDate ?? row.observedAt,
+      display: row => `${row.indexCoverage?.googleReport?.reportDate ?? formatted(row.observedAt)}\n${String(row.status).replaceAll("-", " ")}${row.indexCoverage?.googleReport ? ` · captured ${formatted(row.observedAt)}` : ""}` },
+  ], indexCoverageDetail, false);
   if (scopeNote) scopeNote.textContent = `${indexingRows.length} current products · ${rows.filter((row: JsonRecord) => row.observedAt).length} measured traffic surfaces`;
   evidenceTable("search", rows, "Google Search evidence", [signalColumn("clicks", "Clicks"), signalColumn("impressions", "Impressions"), signalColumn("ctr", "CTR", "%"), signalColumn("averagePosition", "Position")], searchResult);
   if (audit.unavailable) replace("seo-audit", empty("On-page SEO audit unavailable"));
