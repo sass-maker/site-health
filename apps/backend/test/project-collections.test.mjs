@@ -6,6 +6,7 @@ import test from 'node:test';
 import { validateRootBrandContract, validateRootBrandCollections } from '../lib/root-brand-contract.mjs';
 import { loadDashboardProjects, loadProjectCollections } from '../lib/dashboard-backend/registry.mjs';
 import { buildReadinessProjection } from '../lib/dashboard-backend/readiness.mjs';
+import { publicMetricTargets } from '../lib/dashboard-backend/domain-scope.mjs';
 import { groupProjectCollections } from '../../web/src/lib/project-directory.mjs';
 
 const collection = { id: 'daddyrad', description: 'Native Mac utilities.', websiteUrl: 'https://daddyrad.com/', projectIds: ['storage', 'performance'] };
@@ -21,8 +22,10 @@ test('root collections retain shared website priority without promoting or scori
     publicDirectory: { projects: {
       storage: { publicDestinationUrl: 'https://daddyrad.com/storage/' },
       performance: { publicDestinationUrl: 'https://daddyrad.com/performance/' },
+      other: { publicDestinationUrl: 'https://daddyrad.com/other/' },
     } } };
   input.projects[0].public.hasChangelog = false;
+  input.projects[2].domains = ['other.daddyrad.com'];
   writeFileSync(path, JSON.stringify(input));
   const loaded = loadDashboardProjects(path);
   const collections = loadProjectCollections(path);
@@ -31,9 +34,13 @@ test('root collections retain shared website priority without promoting or scori
   assert.deepEqual(loaded.map(p => p.priority), [null, 'P2', null, 'P4']);
   assert.equal(loaded[0].growthFocus, null);
   assert.equal(loaded[0].websiteUrl, 'https://daddyrad.com/storage/');
+  assert.equal(loaded[0].domainLabel, 'daddyrad.com/storage');
   assert.equal(loaded[0].changelogUrl, null);
   assert.deepEqual(loaded[0].domains, ['storage.daddyrad.com']);
   assert.equal(loaded[1].changelogUrl, 'https://daddyrad.com/performance/changelog');
+  assert.equal(loaded[1].domainLabel, 'daddyrad.com/performance');
+  assert.equal(loaded[2].domainLabel, 'other.daddyrad.com');
+  assert.equal(publicMetricTargets(loaded).find(target => target.projectId === 'storage').domain, 'storage.daddyrad.com');
   const saved = Object.fromEntries(buildReadinessProjection({ projects: loaded }).projects.map(p => [p.id, {
     revision: 7, updatedAt: '2026-10-28T00:00:00.000Z', state: p.state,
   }]));
@@ -101,7 +108,7 @@ test('stale collection membership cannot disable the independent root-brand metr
 test('malformed website destinations hide only their changelog and retain the project feed', () => {
   const path = join(mkdtempSync(join(tmpdir(), 'project-changelog-')), 'catalog.json');
   for (const destination of ['/storage/', 'not a URL', 'http://daddyrad.com/storage/', 'javascript:alert(1)']) {
-    writeFileSync(path, JSON.stringify({ projects, publicDirectory: { projects: {
+    writeFileSync(path, JSON.stringify({ projects, systems: { rootBrands: contract }, publicDirectory: { projects: {
       storage: { publicDestinationUrl: destination },
       performance: { publicDestinationUrl: 'https://daddyrad.com/performance/' },
     } } }));
@@ -109,6 +116,7 @@ test('malformed website destinations hide only their changelog and retain the pr
     assert.deepEqual(loaded.map(project => project.id), ['storage', 'performance', 'other']);
     assert.equal(loaded[0].websiteUrl, destination);
     assert.equal(loaded[0].changelogUrl, null);
+    assert.equal(loaded[0].domainLabel, 'storage.daddyrad.com');
     assert.equal(loaded[1].changelogUrl, 'https://daddyrad.com/performance/changelog');
     assert.deepEqual(loaded.map(project => project.priority), [null, 'P2', null]);
   }

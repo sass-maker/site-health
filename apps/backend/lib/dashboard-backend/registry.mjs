@@ -38,6 +38,17 @@ function websiteChangelog(websiteUrl) {
   return url.href;
 }
 
+function collectionWebsiteLabel(project, policy, websiteUrl) {
+  const brand = (policy?.brands ?? []).find(brand =>
+    Array.isArray(brand.collection?.projectIds) && brand.collection.projectIds.includes(project.id));
+  if (!brand || !websiteUrl) return null;
+  let url;
+  try { url = new URL(websiteUrl); } catch { return null; }
+  if (url.protocol !== 'https:' || url.hostname !== brand.rootDomain
+    || url.port || url.username || url.password) return null;
+  return `${url.hostname}${url.pathname.replace(/\/+$/, '')}`;
+}
+
 export function loadProjectCollections(registryPath = defaultRegistryPath) {
   const registry = JSON.parse(readFileSync(registryPath, 'utf8'));
   const policy = registry.systems?.rootBrands;
@@ -125,8 +136,9 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         priorityApplicable: priorityDecision?.applicable ?? null,
         priorityReason: priorityDecision?.reason ?? null,
         growthFocus,
-        domainLabel: websiteUrl === null && (project.domains?.length ?? 0) > 1
-          ? `${project.domains.length} configured endpoint hosts` : domain,
+        domainLabel: collectionWebsiteLabel(project, rootPolicy, websiteUrl)
+          ?? (websiteUrl === null && (project.domains?.length ?? 0) > 1
+            ? `${project.domains.length} configured endpoint hosts` : domain),
         status: project.status,
         repo: project.repo,
         sourcePath: project.sourcePath ?? null,
