@@ -42,3 +42,11 @@ test('catalog priority decisions reach Projects and Portfolio without altering a
   assert.deepEqual(product.state, state);
   assert.equal(product.revision, 7);
 });
+
+test('P0 sorts before P1 and remains independently filterable', () => {
+  const project = (id, priority, priorityApplicable = true) => ({id, name: id, priority, priorityApplicable, lifecycle: {status: 'active'}});
+  const projects = [project('unranked', null), project('primary-domain', 'P1'), project('internal', null, false), project('top-bet', 'P0')];
+  assert.deepEqual(partitionProjects(projects).current.map(p => p.id), ['top-bet', 'primary-domain', 'unranked', 'internal']);
+  assert.equal(projectPriorityLabel(projects[3]), 'P0');
+  assert.deepEqual(projects.filter(p => matchesProjectFilters(p, {priority: 'P0'})).map(p => p.id), ['top-bet']);
+});

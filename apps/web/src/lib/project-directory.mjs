@@ -5,7 +5,7 @@ export function projectPriorityValue(project) {
 
 export function projectPrioritySortValue(project) {
   if (project.priorityApplicable === false) return 6;
-  const rank = /^P([1-4])$/.exec(project.priority ?? '');
+  const rank = /^P([0-4])$/.exec(project.priority ?? '');
   return rank ? Number(rank[1]) : 5;
 }
 
@@ -15,6 +15,24 @@ export function projectPriorityLabel(project) {
 
 export function projectGrowthFocusLabel(project) {
   return project.growthFocus?.level === 'high' ? 'SEO/GEO focus' : null;
+}
+
+// Describe the product itself: a native app's landing page is not its type.
+export function projectTypeLabel(project) {
+  const platforms = new Set((project.platforms ?? []).map(platform => platform.toLowerCase()));
+  const devices = [
+    platforms.has('macos') ? 'Mac' : null,
+    platforms.has('ios') ? 'iPhone' : null,
+    platforms.has('ipados') ? 'iPad' : null,
+    platforms.has('watchos') ? 'Apple Watch' : null,
+  ].filter(Boolean);
+  if (devices.length) {
+    const last = devices.pop();
+    return `${devices.length ? `${devices.join(', ')} & ` : ''}${last} app`;
+  }
+  if (/api gateway/i.test(project.form ?? '')) return 'API/tool';
+  if (platforms.has('web')) return 'Website';
+  return project.form || 'Type not recorded';
 }
 
 export function projectAudiencePriorityLabel(project) {
@@ -50,6 +68,7 @@ export function matchesProjectFilters(project, { query = "", priority = "", heal
     project.name,
     project.description,
     project.familyName,
+    projectTypeLabel(project),
     projectGrowthFocusLabel(project),
     ...(project.domains ?? []),
   ].filter(Boolean).join(" ").toLowerCase();
