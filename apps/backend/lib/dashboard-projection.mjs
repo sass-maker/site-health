@@ -204,7 +204,7 @@ function performanceProjection(projects, home, now) {
   const historyByDomain = psiHistory(home);
   return projects.map((project) => {
     const domain = normalizedDomain(project.domains?.[0]);
-    const history = historyByDomain.get(domain) ?? [];
+    const history = (historyByDomain.get(domain) ?? []).filter(run => observationFreshness(run.observedAt, now, Infinity) !== 'invalid');
     const batch = latestPerformanceBatch(history.filter(run => run.preset === 'desktop'), now);
     const mobileBatch = latestPerformanceBatch(history.filter(run => run.preset === 'mobile-mid'), now);
     const observedAt = batch?.observedAt ?? null;
