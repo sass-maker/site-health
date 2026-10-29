@@ -8,7 +8,7 @@ const projects = [{ id: 'one', name: 'One', lifecycle: { status: 'active' }, sta
 
 test('import filters archived/foreign records, preserves zero, never promotes events to qualified use', () => {
   const snapshot = importUsageExport({ kind: 'portfolio-usage', schemaVersion: 1, usage: { updatedAt: '2026-10-27T00:00:00Z', records: {
-    one: { checkedAt: '2026-10-27T00:00:00Z', proxy: { count: 0, unit: 'browsers' }, events: [{ count: 3 }] }, foreign: { proxy: { count: 99 } },
+    one: { checkedAt: '2026-10-27T00:00:00Z', proxy: { count: 0, unit: 'browsers' }, events: [{ count: 3 }], windowStart: '2026-09-27T00:00:00Z', windowEnd: '2026-10-27T00:00:00Z' }, foreign: { proxy: { count: 99 } },
   } } }, projects);
   assert.deepEqual(Object.keys(snapshot.records), ['one']);
   const rows = usageObservations(projects, snapshot);
@@ -23,7 +23,7 @@ test('collector rejects ambiguous mapping and redirects; only fixed-origin GET a
   const fetcher = async (url, options) => {
     calls.push({ url, options });
     const body = url.endsWith('/v1/apps') ? { apps: [{ app: { id: 'app', name: 'One' }, environments: [{ id: 'prod', name: 'production' }] }] }
-      : { from: 1, to: 2, sampled: false, source: 'analytics-engine', sessions: 3, audience: { visitors: 0 }, events: [{ count: 2 }] };
+      : { from: Date.now() - 30 * 86_400_000, to: Date.now(), sampled: false, source: 'analytics-engine', sessions: 3, audience: { visitors: 0 }, events: [{ count: 2 }] };
     return { ok: true, json: async () => body };
   };
   const snapshot = await collectUsageEvidence({ projects, credential: 'fixture', fetcher });

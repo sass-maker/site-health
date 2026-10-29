@@ -158,7 +158,7 @@ export function summarizeIndexCoverage(record, { now = new Date().toISOString(),
   if (record.exemption) return { state: record.exemption, total: null, indexed: null, indexedPercentage: null, checkedPercentage: null, observedAt: null };
   let googleReport = null;
   try { if (record.googleReport) googleReport = validateGoogleIndexingReport(record.googleReport, record); } catch {}
-  const googleReportStale = googleReport ? Date.parse(now) - Date.parse(`${googleReport.reportDate}T12:00:00Z`) > maxAgeDays * DAY : false;
+  const googleReportStale = googleReport ? (googleReport.reportDate > now.slice(0, 10) || Date.parse(googleReport.observedAt) > Date.parse(now) + 300_000 || Date.parse(now) - Date.parse(`${googleReport.reportDate}T12:00:00Z`) > maxAgeDays * DAY) : false;
   const inventory = record.inventory;
   const urls = Array.isArray(inventory?.urls) ? inventory.urls : null;
   const counts = { indexed: 0, 'not-indexed': 0, unknown: 0, unavailable: 0, pending: 0, stale: 0 };
@@ -169,7 +169,7 @@ export function summarizeIndexCoverage(record, { now = new Date().toISOString(),
   for (const url of urls ?? []) {
     const result = record.inspections?.[url];
     if (!result) { counts.pending++; continue; }
-    const stale = !Number.isFinite(Date.parse(result.observedAt)) || Date.parse(now) - Date.parse(result.observedAt) > maxAgeDays * DAY;
+    const stale = !Number.isFinite(Date.parse(result.observedAt)) || Date.parse(result.observedAt) > Date.parse(now) + 300_000 || Date.parse(now) - Date.parse(result.observedAt) > maxAgeDays * DAY;
     if (stale) counts.stale++;
     const state = Object.hasOwn(counts, result.state) ? result.state : 'unknown';
     counts[state]++;
@@ -182,7 +182,7 @@ export function summarizeIndexCoverage(record, { now = new Date().toISOString(),
   const known = counts.indexed + counts['not-indexed'];
   const checked = total === null ? null : counts.indexed + counts['not-indexed'] + counts.unknown;
   const attempted = total === null ? null : total - counts.pending;
-  const inventoryFresh = Number.isFinite(Date.parse(inventory?.observedAt)) && Date.parse(now) - Date.parse(inventory.observedAt) <= maxAgeDays * DAY;
+  const inventoryFresh = Number.isFinite(Date.parse(inventory?.observedAt)) && Date.parse(inventory.observedAt) <= Date.parse(now) + 300_000 && Date.parse(now) - Date.parse(inventory.observedAt) <= maxAgeDays * DAY;
   const complete = inventoryFresh && total > 0 && inventory.complete === true && known === total && !counts.stale && !record.failure;
   return { googleReport, googleReportStale, state: googleReport ? (googleReportStale ? 'stale-google-report' : 'google-report') : complete ? 'complete' : counts.stale || (inventory && !inventoryFresh) ? 'stale' : record.failure ? 'unavailable' : total === null ? 'inventory-unavailable' : 'partial',
     surfaceUrl: record.surfaceUrl, total, attempted, indexed: total === null ? null : counts.indexed, checked, known, counts,

@@ -134,7 +134,7 @@ export function buildEvidenceEnvelope({
   const freshUntil = observedAt
     ? new Date(Date.parse(observedAt) + policy.maximumAgeMs).toISOString()
     : null;
-  const expired = !freshUntil || Date.parse(now) > Date.parse(freshUntil);
+  const expired = !freshUntil || Date.parse(observedAt) > Date.parse(now) + 5 * 60_000 || Date.parse(now) > Date.parse(freshUntil);
   const abandoned = isAbandonedRefreshReceipt(receipt, now, abandonedRunMs);
   let state = expired ? 'stale' : 'fresh';
   if (receipt?.state === 'running' && !abandoned) state = 'refreshing';

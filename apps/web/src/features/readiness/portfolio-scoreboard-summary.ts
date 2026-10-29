@@ -29,13 +29,15 @@ export function summarizePortfolioProduct(product: ReadinessProduct) {
 
   const evidence = (predicate: (row: ReadinessProduct['evidence'][number]) => boolean) => product.evidence
     .filter(row => row.value !== null && predicate(row))
-    .sort((a, b) => Date.parse(b.observedAt ?? '') - Date.parse(a.observedAt ?? ''))[0] ?? null;
+    .sort((a, b) => Number(b.measurement?.state === 'current') - Number(a.measurement?.state === 'current') || Date.parse(b.observedAt ?? '') - Date.parse(a.observedAt ?? ''))[0] ?? null;
   const desktop = evidence(row => row.source === 'performance' && row.id.includes('psi'));
   const mobile = evidence(row => row.id === 'mobile:psi');
   const speedEffort = requirementCompletion(product.state.checklist?.['product-speed']);
   const seoSurface = evidence(row => row.source === 'seoAudit' && /^seoAudit:(pass|fail):/.test(row.id));
   const sameSeoSurface = (row: ReadinessProduct['evidence'][number]) => row.id.split(':').slice(2).join(':') === seoSurface?.id.split(':').slice(2).join(':') && row.observedAt === seoSurface?.observedAt;
   const seoPass = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:pass:') && sameSeoSurface(row));
+  const seoWarn = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:warn:') && sameSeoSurface(row));
+  const seoChecks = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:checks:') && sameSeoSurface(row));
   const seoFail = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:fail:') && sameSeoSurface(row));
   const clicks = evidence(row => row.source === 'search' && row.id.startsWith('search:clicks'));
   const browserProxy = evidence(row => row.id === 'monthly-browser-proxy' && row.source === 'app-health.browser-report');
@@ -46,7 +48,7 @@ export function summarizePortfolioProduct(product: ReadinessProduct) {
   return {
     productEffort, growthEffort, effortTotal, effortSortValue, unresolvedScope, itemCount,
     designScore, designConfidence: designEntry?.confidence ?? 'Unrecorded', designStatus: designEntry?.status ?? 'not-started', designObservedAt, foundationsScore,
-    desktop, mobile, speedEffort, seoPass, seoFail, clicks, browserProxy,
+    desktop, mobile, speedEffort, seoPass, seoFail, seoWarn, seoChecks, clicks, browserProxy,
     productResults, growthResults, qualifiedResultScores,
   };
 }
@@ -61,5 +63,9 @@ export function effortCell(summary: ReturnType<typeof summarizePortfolioProduct>
 
 export function observationText(row: ReadinessProduct['evidence'][number] | null) {
   if (!row) return 'No dated reading';
-  return `${row.value?.toLocaleString() ?? 'Unknown'} ${row.unit}`.trim();
+  return `${row.value?.toLocaleString() ?? 'Unknown'} ${row.unit}${row.measurement && row.measurement.state !== 'current' ? ` · ${row.measurement.state}` : ''}`.trim();
+}
+
+export function currentReadingValue(row: ReadinessProduct['evidence'][number] | null) {
+  return row?.measurement && row.measurement.state !== 'current' ? null : row?.value ?? null;
 }

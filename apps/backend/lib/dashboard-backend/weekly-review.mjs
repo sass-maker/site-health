@@ -1,3 +1,4 @@
+import { measurementCoverage } from './measurement-contract.mjs';
 import {hasRequirementAssessment} from './readiness-model.mjs';
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -20,6 +21,8 @@ export function createWeeklyReview({ store, observations = [], now = new Date().
   }));
   const report = { schemaVersion: 1, week, generatedAt: now, baseline, projects,
     counts: { currentProducts: projects.length, assessedProducts: projection.projects.filter(project => Object.keys(project.state.requirements).length || Object.values(project.state.checklist ?? {}).some(hasRequirementAssessment) || Object.keys(project.state.benchmarks).length).length,
+      measurementCoverage: measurementCoverage(projects.flatMap(project => project.evidence)),
+      productsWithCurrentEvidence: projects.filter(project => project.evidence.some(row => row.measurement?.state === 'current')).length,
       productsWithNumericEvidence: projects.filter(project => project.evidence.some(row => typeof row.value === 'number')).length },
     policy: 'Complete one selected lever, attach dated proof, then compare the same definitions/windows. Unknown measurements are not zero; evidence collection alone is not score improvement.',
   };
