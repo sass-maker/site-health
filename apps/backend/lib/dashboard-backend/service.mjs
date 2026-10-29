@@ -207,6 +207,7 @@ function outcomeProjection(projection, family, { receipt = null, now } = {}) {
     family,
     source: buildEvidenceEnvelope({ family: OUTCOME_SOURCES[family], rows, receipt, now }),
     rows,
+    ...(family === 'search' ? { indexCoverage: outcomes.indexCoverage ?? [] } : {}),
     ...(family === 'performance'
       ? { thresholds: { psiScore: 90, lcpMilliseconds: 2500 } }
       : {}),

@@ -19,6 +19,11 @@ import SeoNav from "../components/SeoNav.astro";
   </div>
   <SeoNav active="web" />
   <nav class="section-jumps" aria-label="Evidence sections"><a href="#search-results">Google Search</a><a href="#seo-audit-title">On-page audit</a></nav>
+  <section class="owner-section owner-section--directory" aria-labelledby="index-coverage-title">
+    <div class="section-head"><div><h2 id="index-coverage-title">Google indexing coverage</h2>
+    <p>Indexed counts use Google’s named-sitemap report. Inventory shows URLs in the current sitemap. Open a row for scope and inspection details.</p></div></div>
+    <div class="loading-state" data-dashboard-slot="index-coverage">Reading sitemap indexing coverage…</div>
+  </section>
   <section class="owner-section owner-section--directory" id="search-results" aria-label="Google Search results by project">
     <p class="measurement-boundary-note" data-search-scope-note></p>
     <div class="loading-state" data-dashboard-slot="search">Building Google Search ledger…</div>

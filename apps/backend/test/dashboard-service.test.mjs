@@ -192,3 +192,18 @@ test('loopback mutations reject cross-site browser requests and accept dashboard
   assert.equal((await fetch(bearerEndpoint, { method: 'POST', headers: { authorization: 'Bearer test-owner', 'content-type': 'application/json' }, body: '{}' })).status, 202);
   assert.equal((await fetch(bearerEndpoint, { method: 'POST', headers: { authorization: 'Bearer wrong', 'content-type': 'application/json' }, body: '{}' })).status, 401);
 });
+
+test('Search API exposes indexing separately without adding traffic or freshness evidence', async (context) => {
+  const store = new DashboardStore({ databasePath: join(mkdtempSync(join(tmpdir(), 'dashboard-index-coverage-')), 'dashboard.sqlite'), projects: [] });
+  const indexCoverage = Array.from({ length: 38 }, (_, index) => ({ projectId: `current-${index}`, status: 'google-report', observedAt: '2026-10-29T12:00:00Z', indexCoverage: { googleReport: { indexedCount: 3, totalKnownCount: 4 }, total: 10 } }));
+  const server = await startDashboardService({ store, port: 0, trustLoopback: true,
+    projectionProvider: () => ({ ...projection, outcomes: { ...projection.outcomes, indexCoverage } }),
+    visibilityPortfolio: { eligible: [], scheduleIntent: { enabled: false } }, projectsProvider: () => [], projectCollectionsProvider: () => [],
+  });
+  context.after(() => new Promise(resolve => server.close(() => { store.close(); resolve(); })));
+  const payload = await (await fetch(`http://127.0.0.1:${server.address().port}/v1/outcomes/search`)).json();
+  assert.deepEqual(payload.rows, []);
+  assert.equal(payload.indexCoverage.length, 38);
+  assert.equal(payload.source.resultCount, 0);
+  assert.equal(payload.source.observedAt, null);
+});

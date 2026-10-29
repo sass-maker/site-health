@@ -46,6 +46,28 @@ backoff; dates describe the observation rather than the failed attempt. A weekly
 review snapshots readiness, evidence and next levers with the prior week retained.
 Schedules do not run while the owner app is stopped.
 
+Google indexing coverage is a separate weekly agent workflow. Refresh the current
+sitemap inventory with `node apps/backend/scripts/search-index-coverage.mjs
+--inventory-only`, then import captured, exact named-sitemap Page Indexing reports
+with `--reports <private-reports.json> --import-only`. To intentionally replace a
+named sitemap on the same product surface, run `node
+apps/backend/scripts/search-index-coverage.mjs --reports <private-report.json>
+--import-only --replace-cohort <project-id>`; this retains prior reports and
+selects the latest report within the replacement sitemap. Each report record supplies
+`projectId`, canonical `surfaceUrl`, `source`, `property`, `sitemapUrl`,
+`reportDate`, `observedAt`, `indexedCount`, `notIndexedCount`, `totalKnownCount`,
+`sourceUrl` and optional `reasons`. The source URL must retain Google's property
+and named-sitemap filters. Prior dated reports remain in the private checkpoint. Removed-URL inspections are
+retained as private history; summaries count only the current inventory URLs.
+Use `--project <id> --max-inspections <explicit-budget>` for bounded URL Inspection
+of missing or diagnostic cohorts; interrupted runs save progress and resume.
+The local budget allows at most 1,800 inspection requests per property per Pacific
+day, leaving headroom for existing collectors; it does not measure other clients'
+quota use. Google-known report URLs, currently discovered sitemap URLs and
+individually inspected URLs remain separate denominators. Reports that differ
+from the inventory show a partial cohort. This adds no scheduler and does not
+attach a sitemap scan to the ordinary Search refresh button.
+
 The App Health reader uses `APP_HEALTH_READ_TOKEN` or the approved read-only
 login Keychain item `com.sassmaker.site-health.app-health-read` (account
 `owner`). It does not fall back to broad owner credentials. No token is stored

@@ -6,6 +6,7 @@ import test from 'node:test';
 
 import { appendVisibilityOutcomeBundle } from '../lib/visibility-outcome-store.mjs';
 
+import { readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
 import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
 
 const NOW = '2026-09-05T12:00:00.000Z';
@@ -24,7 +25,7 @@ function project(id, overrides = {}) {
   };
 }
 
-function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seoAudit = {}, searchLedger = [], rootBrands = null, rootQueries = null } = {}) {
+function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seoAudit = {}, searchLedger = [], rootBrands = null, rootQueries = null, indexCoverage = null } = {}) {
   const repositoryRoot = mkdtempSync(join(tmpdir(), 'site-health-projection-'));
   const configRoot = join(repositoryRoot, 'apps/backend/config');
   const dataRoot = join(repositoryRoot, 'apps/backend/data');
@@ -43,6 +44,10 @@ function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seo
   if (searchLedger.length) appendVisibilityOutcomeBundle({
     schema: 'fleet.visibility-outcome-bundle.v1', observations: searchLedger,
   }, { path: join(repositoryRoot, '.fleet/visibility-outcomes/ledger.jsonl') });
+  if (indexCoverage) {
+    mkdirSync(join(repositoryRoot, '.fleet/search-index-coverage'), { recursive: true });
+    writeFileSync(join(repositoryRoot, '.fleet/search-index-coverage/latest.json'), JSON.stringify(indexCoverage));
+  }
   return buildDashboardProjection({
     repositoryRoot,
     workspaceRoot: repositoryRoot,
@@ -287,4 +292,20 @@ test('retired domainless root history cannot break current portfolio evidence or
   const reassigned = fixture({ projects: [retired, project('active', { domains: ['retired.example'] })], rootBrands, rootQueries });
   assert.deepEqual(reassigned.search.map((row) => row.projectId), ['active']);
   assert.throws(() => fixture({ projects: [project('retired', { domains: [] }), project('active', { domains: ['app.retired.example'] })], rootBrands, rootQueries }), /domain mismatch/);
+});
+
+test('Search enumerates every current product, attaches exact scoped summaries and never leaks raw inspection URLs', () => {
+  const projects = Array.from({ length: 38 }, (_, index) => project(`current-${index}`, { portfolio: { status: 'active' }, public: { listing: 'hidden' }, domains: index === 37 ? [] : [`current-${index}.example`] }));
+  projects.push(project('retired', { portfolio: { status: 'archived' } }));
+  const { search, indexCoverage } = fixture({ projects, indexCoverage: { schema: 'site-health.search-index-coverage.v1', records: [
+    { projectId: 'current-0', surfaceUrl: 'https://current-0.example/', inventory: { urls: ['https://current-0.example/private-query?x=1'], complete: true, observedAt: NOW }, inspections: { 'https://current-0.example/private-query?x=1': { state: 'indexed', observedAt: NOW } } },
+    { projectId: 'current-1', surfaceUrl: 'https://wrong.example/', inventory: { urls: ['wrong'], complete: true }, inspections: { wrong: { state: 'indexed', observedAt: NOW } } },
+  ] } });
+  assert.equal(indexCoverage.length, 38);
+  assert.deepEqual(search.map(row => row.projectId), ['retired']);
+  assert.equal(indexCoverage.find(row => row.projectId === 'current-0').indexCoverage.indexedPercentage, 100);
+  assert.equal(indexCoverage.find(row => row.projectId === 'current-1').indexCoverage.indexed, null);
+  assert.equal(indexCoverage.find(row => row.projectId === 'current-37').indexCoverage.state, 'no-public-surface');
+  assert.equal(JSON.stringify({ search, indexCoverage }).includes('private-query'), false);
+  assert.deepEqual(readinessObservations(projects, { outcomes: { search, indexCoverage } }), readinessObservations(projects, { outcomes: { search } }));
 });

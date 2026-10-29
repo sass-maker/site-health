@@ -1,3 +1,4 @@
+import { coverageTargets, readIndexCoverage, summarizeIndexCoverage } from './search-index-coverage.mjs';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -253,7 +254,7 @@ function searchProjectsFor(catalog, configRoot) {
   return searchConsoleProjects(catalog, roots);
 }
 
-function searchProjection(catalog, configRoot, home) {
+function searchProjection(catalog, configRoot, home, now) {
   const observations = readVisibilityOutcomes({ path: defaultVisibilityOutcomePath({ home }) })
     .filter((item) => item.family === 'search');
   const byProject = new Map();
@@ -300,6 +301,17 @@ function searchProjection(catalog, configRoot, home) {
       ctr: metric('Search CTR', 'ctr'),
       averagePosition: metric('Search average position', 'position'),
     };
+  }).sort((left, right) => left.name.localeCompare(right.name));
+}
+
+function searchIndexCoverageProjection(catalog, home, now) {
+  const artifact = readIndexCoverage({ path: home ? resolve(home, '.fleet/search-index-coverage/latest.json') : undefined });
+  return coverageTargets(catalog).map(target => {
+    const record = artifact?.records.find(record => record.projectId === target.projectId && record.surfaceUrl === target.surfaceUrl);
+    const indexCoverage = summarizeIndexCoverage(record || (target.exemption ? target : null), { now });
+    return { projectId: target.projectId, name: target.name, domain: target.surfaceUrl,
+      status: indexCoverage.state, observedAt: indexCoverage.googleReport?.observedAt ?? indexCoverage.observedAt,
+      indexCoverage };
   }).sort((left, right) => left.name.localeCompare(right.name));
 }
 
@@ -527,7 +539,8 @@ export function buildDashboardProjection({
     outcomes: {
       domains: drankProjection(workspaceRoot, catalog, home, now),
       performance: performanceProjection(publicProjects, home),
-      search: searchProjection(catalog, configRoot, home),
+      search: searchProjection(catalog, configRoot, home, now),
+      indexCoverage: searchIndexCoverageProjection(catalog, home, now),
       seoAudit: seoAuditProjection(catalog, dataRoot),
       geoAwareness: geoProjection(catalog, configRoot, dataRoot),
       aiAwareness: ai.rows,

@@ -491,6 +491,7 @@ function safeHttpsUrl(value) {
 
 export async function inspectSearchConsoleUrl({
   inspectionUrl,
+  maxAttempts = 2,
   siteUrl,
   accessToken,
   quotaProject,
@@ -498,7 +499,7 @@ export async function inspectSearchConsoleUrl({
   requestImpl = googleRequest,
 }) {
   let lastError = null;
-  for (let attempt = 0; attempt < 2; attempt += 1) {
+  for (let attempt = 0; attempt < Math.max(1, Math.min(2, maxAttempts)); attempt += 1) {
     try {
       const payload = await requestImpl('/urlInspection/index:inspect', {
         accessToken,
@@ -515,7 +516,7 @@ export async function inspectSearchConsoleUrl({
       const sitemapUrls = [...new Set((result.sitemap ?? []).map(safeHttpsUrl).filter(Boolean))].slice(0, 10);
       return {
         inspectedUrl: inspectionUrl,
-        state: verdict === 'PASS' ? 'indexed' : verdict ? 'not-indexed' : 'unknown',
+        state: verdict === 'PASS' ? 'indexed' : ['FAIL', 'NEUTRAL'].includes(verdict) ? 'not-indexed' : 'unknown',
         verdict,
         coverageState: boundedProviderText(result.coverageState),
         robotsTxtState: boundedProviderText(result.robotsTxtState, 80),
@@ -528,7 +529,7 @@ export async function inspectSearchConsoleUrl({
       };
     } catch (error) {
       lastError = error;
-      if (attempt === 0 && error?.name !== 'TimeoutError') {
+      if (attempt === 0 && maxAttempts > 1 && error?.name !== 'TimeoutError' && !/(?:401|403|429|quota|credential|permission|auth)/i.test(String(error?.message))) {
         await new Promise((resolve) => setTimeout(resolve, 500));
       } else {
         break;
