@@ -11,7 +11,13 @@ Private portfolio health dashboard for answering five owner questions:
 The private readiness workspace at `/readiness` uses two categories, Product & design and SEO & growth, with separate Effort
 and Results scores. Assessments are revisioned in the private owner ledger;
 observations and next levers are shown alongside them. Historical six-category
-assessments remain under Previous assessments. See [ownership](docs/ownership.md)
+assessments remain under Previous assessments. The default Portfolio scoreboard compares
+all current products by effort, design work, desktop/mobile PSI, SEO work and
+measured source readings. Open a row for all 16 item scores, dated evidence,
+source windows and next levers. The view selector retains individual-item and
+UI Library comparisons. Totals sort numerically by the lower bound as a share
+of applicable points; exempt categories leave the denominator. Source readings
+do not automatically become qualified Result scores. See [ownership](docs/ownership.md)
 and the [current checklist](docs/product-readiness-checklist.md).
 
 This repository contains one product and its backend:
