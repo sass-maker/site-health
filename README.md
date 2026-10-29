@@ -49,7 +49,11 @@ Schedules do not run while the owner app is stopped.
 Google indexing coverage is a separate weekly agent workflow. Refresh the current
 sitemap inventory with `node apps/backend/scripts/search-index-coverage.mjs
 --inventory-only`, then import captured, exact named-sitemap Page Indexing reports
-with `--reports <private-reports.json> --import-only`. Each report record supplies
+with `--reports <private-reports.json> --import-only`. To intentionally replace a
+named sitemap on the same product surface, run `node
+apps/backend/scripts/search-index-coverage.mjs --reports <private-report.json>
+--import-only --replace-cohort <project-id>`; this retains prior reports and
+selects the latest report within the replacement sitemap. Each report record supplies
 `projectId`, canonical `surfaceUrl`, `source`, `property`, `sitemapUrl`,
 `reportDate`, `observedAt`, `indexedCount`, `notIndexedCount`, `totalKnownCount`,
 `sourceUrl` and optional `reasons`. The source URL must retain Google's property

@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
-import { existsSync, mkdtempSync, readFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
@@ -186,7 +188,51 @@ test('a different named sitemap is rejected atomically for an existing project o
   const snapshot = JSON.stringify(previous);
   const second = { ...googleReport, sitemapUrl: 'https://example.com/app/blog-sitemap.xml' };
   const source = new URL(second.sourceUrl); source.searchParams.set('sitemap', second.sitemapUrl); second.sourceUrl = source.href;
-  assert.throws(() => importGoogleIndexingReports({ catalog, previous, reports: [second] }), /Different named sitemap.*explicit cohort migration/);
+  assert.throws(() => importGoogleIndexingReports({ catalog, previous, reports: [second] }), /Different named sitemap.*--replace-cohort/);
   assert.equal(JSON.stringify(previous), snapshot);
-  assert.throws(() => importGoogleIndexingReports({ catalog, reports: [googleReport, second] }), /Different named sitemap.*explicit cohort migration/);
+  assert.throws(() => importGoogleIndexingReports({ catalog, reports: [googleReport, second] }), /Only one named sitemap per product/);
+});
+
+function withSitemap(report, sitemapUrl) {
+  const sourceUrl = new URL(report.sourceUrl); sourceUrl.searchParams.set('sitemap', sitemapUrl);
+  return { ...report, sitemapUrl, sourceUrl: sourceUrl.href };
+}
+test('a moved canonical surface imports independently while retaining the old surface record', () => {
+  const previous = importGoogleIndexingReports({ catalog, reports: [googleReport] });
+  const priorRecord = structuredClone(previous.records[0]);
+  const movedCatalog = structuredClone(catalog);
+  movedCatalog.publicDirectory.projects.app.publicDestinationUrl = 'https://new.example.com/app/';
+  const report = { ...withSitemap(googleReport, 'https://new.example.com/app/sitemap.xml'), surfaceUrl: 'https://new.example.com/app/' };
+  const result = importGoogleIndexingReports({ catalog: movedCatalog, previous, reports: [report] });
+  assert.equal(result.records.length, 2); assert.deepEqual(result.records[0], priorRecord);
+  assert.equal(result.records[1].googleReport.sitemapUrl, report.sitemapUrl);
+  const unsupported = { ...previous, schema: 'unsupported' };
+  const fresh = importGoogleIndexingReports({ catalog, previous: unsupported, reports: [withSitemap(googleReport, 'https://example.com/app/new.xml')] });
+  assert.equal(fresh.records.length, 1); assert.equal(fresh.records[0].googleReports.length, 1);
+});
+test('explicit same-surface replacement retains history and selects only the replacement cohort', () => {
+  const previous = importGoogleIndexingReports({ catalog, reports: [googleReport] });
+  const replacement = { ...withSitemap(googleReport, 'https://example.com/app/blog.xml'), reportDate: '2026-10-22' };
+  const result = importGoogleIndexingReports({ catalog, previous, reports: [replacement], replaceCohortProjectId: 'app' });
+  assert.equal(result.records[0].googleReport.sitemapUrl, replacement.sitemapUrl);
+  assert.equal(result.records[0].googleReport.reportDate, '2026-10-22'); assert.equal(result.records[0].googleReports.length, 2);
+  const snapshot = JSON.stringify(previous);
+  assert.throws(() => importGoogleIndexingReports({ catalog, previous, reports: [replacement, withSitemap(googleReport, 'https://example.com/app/third.xml')], replaceCohortProjectId: 'app' }), /Only one named sitemap per product/);
+  assert.equal(JSON.stringify(previous), snapshot);
+});
+test('CLI replacement is import-only and changes no other project or historical report', () => {
+  const directory = mkdtempSync(join(tmpdir(), 'index-coverage-replace-'));
+  const registry = join(directory, 'registry.json'); const reports = join(directory, 'reports.json'); const output = join(directory, 'latest.json');
+  writeFileSync(registry, JSON.stringify(catalog));
+  writeFileSync(output, JSON.stringify(importGoogleIndexingReports({ catalog, reports: [googleReport] })));
+  const replacement = { ...withSitemap(googleReport, 'https://example.com/app/replacement.xml'), reportDate: '2026-10-22' };
+  writeFileSync(reports, JSON.stringify({ records: [replacement] }));
+  const script = fileURLToPath(new URL('../scripts/search-index-coverage.mjs', import.meta.url));
+  const args = [script, '--registry', registry, '--output', output, '--reports', reports, '--replace-cohort', 'app'];
+  const rejected = spawnSync(process.execPath, args, { encoding: 'utf8' });
+  assert.notEqual(rejected.status, 0); assert.match(rejected.stderr, /--replace-cohort requires --import-only/);
+  const accepted = spawnSync(process.execPath, [...args, '--import-only'], { encoding: 'utf8' });
+  assert.equal(accepted.status, 0, accepted.stderr);
+  const artifact = JSON.parse(readFileSync(output, 'utf8'));
+  assert.equal(artifact.records[0].googleReport.sitemapUrl, replacement.sitemapUrl); assert.equal(artifact.records[0].googleReports.length, 2);
 });

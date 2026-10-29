@@ -719,7 +719,7 @@ function indexCoverageCount(coverage: JsonRecord | null | undefined) {
 function indexCoverageRate(coverage: JsonRecord | null | undefined) {
   if (coverage?.googleReport) return coverage.googleReport.totalKnownCount > 0 ? `${(100 * coverage.googleReport.indexedCount / coverage.googleReport.totalKnownCount).toFixed(1)}% of Google-known` : "—";
   if (coverage?.indexedPercentage != null) return `${coverage.indexedPercentage.toFixed(1)}% indexed`;
-  return coverage?.checkedPercentage != null ? `${coverage.checkedPercentage.toFixed(1)}% checked` : "—";
+  return coverage?.checkedPercentage != null ? "Not fully measured" : "—";
 }
 
 function indexCoverageDetail(row: JsonRecord) {

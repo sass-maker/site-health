@@ -112,11 +112,13 @@ export function validateGoogleIndexingReport(input, target) {
     observedAt: new Date(report.observedAt).toISOString(), indexedCount: report.indexedCount,
     notIndexedCount: report.notIndexedCount, totalKnownCount: report.totalKnownCount, sourceUrl: sourceUrl.href, reasons };
 }
-export function importGoogleIndexingReports({ catalog, previous = null, reports, projectId = null }) {
+export function importGoogleIndexingReports({ catalog, previous = null, reports, projectId = null, replaceCohortProjectId = null }) {
   const suppliedRows = Array.isArray(reports) ? reports : reports?.records;
   if (!Array.isArray(suppliedRows)) throw new Error('Google report import requires records');
-  const rows = projectId ? suppliedRows.filter(row => row.projectId === projectId) : suppliedRows;
-  if (projectId && !rows.length) throw new Error('No Google report matches the selected project');
+  if (replaceCohortProjectId && projectId && replaceCohortProjectId !== projectId) throw new Error('Cohort replacement must match the selected project');
+  const selectedProjectId = projectId ?? replaceCohortProjectId;
+  const rows = selectedProjectId ? suppliedRows.filter(row => row.projectId === selectedProjectId) : suppliedRows;
+  if (selectedProjectId && !rows.length) throw new Error('No Google report matches the selected project');
   const targets = coverageTargets(catalog);
   // Validate every row before changing any private state.
   const validated = rows.map(row => {
@@ -124,12 +126,20 @@ export function importGoogleIndexingReports({ catalog, previous = null, reports,
     if (!target) throw new Error(`Google report is not an exact current product surface: ${row.projectId}`);
     return { target, report: validateGoogleIndexingReport(row, target) };
   });
-  const cohorts = new Map((previous?.records ?? []).filter(record => record.googleReport)
-    .map(record => [record.projectId, record.googleReport.sitemapUrl]));
+  const cohortKey = record => `${record.projectId}\n${record.surfaceUrl}`;
+  const priorRecords = previous?.schema === COVERAGE_SCHEMA ? previous.records : [];
+  const cohorts = new Map(priorRecords.filter(record => record.googleReport)
+    .map(record => [cohortKey(record), record.googleReport.sitemapUrl]));
+  const batchCohorts = new Map();
   for (const { target, report } of validated) {
-    const existing = cohorts.get(target.projectId);
-    if (existing && existing !== report.sitemapUrl) throw new Error(`Different named sitemap already recorded for ${target.projectId}; an explicit cohort migration is required`);
-    cohorts.set(target.projectId, report.sitemapUrl);
+    const key = cohortKey(target);
+    const incoming = batchCohorts.get(key);
+    if (incoming && incoming !== report.sitemapUrl) throw new Error(`Only one named sitemap per product can be imported in a batch: ${target.projectId}`);
+    batchCohorts.set(key, report.sitemapUrl);
+    const existing = cohorts.get(key);
+    if (existing && existing !== report.sitemapUrl && replaceCohortProjectId !== target.projectId) {
+      throw new Error(`Different named sitemap already recorded for ${target.projectId}; use --replace-cohort ${target.projectId} with --import-only to replace it and retain history`);
+    }
   }
   const artifact = previous?.schema === COVERAGE_SCHEMA ? structuredClone(previous) : { schema: COVERAGE_SCHEMA, records: [], dailyBudget: {} };
   for (const { target, report } of validated) {
@@ -138,7 +148,7 @@ export function importGoogleIndexingReports({ catalog, previous = null, reports,
     const history = [...(record.googleReports ?? []), ...(record.googleReport ? [record.googleReport] : []), report];
     record.googleReports = [...new Map(history.map(item => [`${item.reportDate}:${item.sitemapUrl}:${item.observedAt}`, item])).values()]
       .sort((a, b) => a.reportDate.localeCompare(b.reportDate) || a.observedAt.localeCompare(b.observedAt));
-    record.googleReport = record.googleReports.at(-1);
+    record.googleReport = record.googleReports.filter(item => item.sitemapUrl === report.sitemapUrl).at(-1);
   }
   artifact.updatedAt = new Date().toISOString();
   return artifact;
