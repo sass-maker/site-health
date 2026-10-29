@@ -708,6 +708,30 @@ function updateCoverage(slot: string, payload: JsonRecord, missingStates: string
   }
 }
 
+function indexCoverageCount(coverage: JsonRecord | null | undefined) {
+  if (!coverage || coverage.total == null) return coverage?.state === "no-public-surface" ? "Not applicable" : "Not collected";
+  if (!coverage.checked) return "Not checked";
+  if (!coverage.known) return `No verdict · ${coverage.checked}/${coverage.total} checked`;
+  return coverage.state === "complete" ? String(coverage.indexed) : `${coverage.indexed} confirmed · ${coverage.checked}/${coverage.total} checked`;
+}
+
+function indexCoverageRate(coverage: JsonRecord | null | undefined) {
+  if (coverage?.indexedPercentage != null) return `${coverage.indexedPercentage.toFixed(1)}% indexed`;
+  return coverage?.checkedPercentage != null ? `${coverage.checkedPercentage.toFixed(1)}% checked` : "—";
+}
+
+function indexCoverageDetail(row: JsonRecord) {
+  const coverage = row.indexCoverage;
+  return element("div", { class: "seo-result" }, [
+    element("p", {}, [coverage?.state === "no-public-surface" ? "No public discovery surface for this current product." : `${indexCoverageCount(coverage)} · ${indexCoverageRate(coverage)}. Denominator: ${coverage?.total ?? "unknown"} unique discovered sitemap URLs; these have not been classified as indexable pages.`]),
+    element("p", {}, [coverage?.failure ?? (coverage?.inventoryComplete ? "Sitemap inventory complete." : "Sitemap inventory is missing or incomplete; a full-cohort indexed percentage is unavailable.")]),
+    element("p", {}, [`Inspection evidence: ${formatted(coverage?.observedAt)}. Sitemap inventory: ${formatted(coverage?.inventoryObservedAt)}.`]),
+    element("p", {}, [coverage?.counts ? `${coverage.counts["not-indexed"]} not indexed · ${coverage.counts.unknown} unknown · ${coverage.counts.unavailable} unavailable · ${coverage.counts.pending} pending · ${coverage.counts.stale} stale. Canonical mismatches: ${coverage.canonicalMismatch}.` : "Run the bounded indexing collector to gather evidence."]),
+    ...(Object.entries(coverage?.reasons ?? {}).map(([reason, count]) => element("p", {}, [`${reason}: ${count}`]))),
+    ...(coverage?.failures ?? []).map((failure: JsonRecord) => element("p", {}, [`${failure.url}: ${failure.reason}`])),
+  ]);
+}
+
 async function renderSearch() {
   const [payload, audit] = await Promise.all([
     api("/v1/outcomes/search"),
@@ -718,6 +742,13 @@ async function renderSearch() {
   if (periodTarget) periodTarget.textContent = `Google data: ${reportingPeriod(period)}`;
   const scopeNote = document.querySelector<HTMLElement>("[data-search-scope-note]");
   const rows = payload.rows;
+  const indexingRows = rows.filter((row: JsonRecord) => row.currentProduct).map((row: JsonRecord) => ({ ...row, status: row.indexCoverage?.state ?? "not-collected", observedAt: row.indexCoverage?.observedAt, domain: row.indexCoverage?.surfaceUrl ?? row.domain }));
+  evidenceTable("index-coverage", indexingRows, "Google indexing coverage", [
+    { id: "sitemap", label: "Sitemap URLs", value: row => row.indexCoverage?.total ?? null, display: row => row.indexCoverage?.total == null ? "—" : String(row.indexCoverage.total) },
+    { id: "indexed", label: "Indexed", value: row => row.indexCoverage?.indexed ?? null, display: row => indexCoverageCount(row.indexCoverage) },
+    { id: "indexingIssues", label: "Not indexed", value: row => row.indexCoverage?.counts?.["not-indexed"] ?? null, display: row => row.indexCoverage?.total == null ? "—" : String(row.indexCoverage?.counts?.["not-indexed"] ?? 0) },
+    { id: "indexedRate", label: "Indexed / checked", value: row => row.indexCoverage?.indexedPercentage ?? row.indexCoverage?.checkedPercentage ?? null, display: row => indexCoverageRate(row.indexCoverage) },
+  ], indexCoverageDetail);
   if (scopeNote) scopeNote.textContent = `${rows.length} properties · ${rows.filter((row: JsonRecord) => row.observedAt).length} measured`;
   evidenceTable("search", rows, "Google Search evidence", [signalColumn("clicks", "Clicks"), signalColumn("impressions", "Impressions"), signalColumn("ctr", "CTR", "%"), signalColumn("averagePosition", "Position")], searchResult);
   if (audit.unavailable) replace("seo-audit", empty("On-page SEO audit unavailable"));
@@ -1470,7 +1501,9 @@ async function renderProject() {
           { label: "Clicks", value: sourceValue(search, signalValue(searchRow?.clicks)) },
           { label: "CTR", value: sourceValue(search, signalValue(searchRow?.ctr, "%")) },
           { label: "Position", value: sourceValue(search, signalValue(searchRow?.averagePosition)) },
-        ], "Search evidence is collected at portfolio scope from Google Search Console."),
+          { label: "Sitemap URLs", value: searchRow?.indexCoverage?.total == null ? "Not collected" : String(searchRow.indexCoverage.total) },
+          { label: "Sitemap indexed", value: indexCoverageCount(searchRow?.indexCoverage), detail: indexCoverageRate(searchRow?.indexCoverage) },
+        ], `Search Console traffic and sitemap URL Inspection are separate cohorts. ${searchRow?.indexCoverage?.failure ?? ""} Inspection: ${formatted(searchRow?.indexCoverage?.observedAt)}.`),
         outcomePanel("On-page SEO", sourceStatus(seo, seoRow?.status), seoRow?.observedAt, [
           { label: "Passed", value: sourceValue(seo, signalValue(seoRow?.pass)) },
           { label: "Failed", value: sourceValue(seo, signalValue(seoRow?.fail)) },

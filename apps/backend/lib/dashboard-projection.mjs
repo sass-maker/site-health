@@ -1,3 +1,4 @@
+import { coverageTargets, readIndexCoverage, summarizeIndexCoverage } from './search-index-coverage.mjs';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -253,7 +254,7 @@ function searchProjectsFor(catalog, configRoot) {
   return searchConsoleProjects(catalog, roots);
 }
 
-function searchProjection(catalog, configRoot, home) {
+function searchProjection(catalog, configRoot, home, now) {
   const observations = readVisibilityOutcomes({ path: defaultVisibilityOutcomePath({ home }) })
     .filter((item) => item.family === 'search');
   const byProject = new Map();
@@ -263,7 +264,21 @@ function searchProjection(catalog, configRoot, home) {
     byProject.set(observation.projectId, rows);
   }
   const targets = searchProjectsFor(catalog, configRoot);
+  const coverage = readIndexCoverage({ path: home ? resolve(home, '.fleet/search-index-coverage/latest.json') : undefined });
+  const currentTargets = coverageTargets(catalog);
+  for (const target of currentTargets) {
+    if (!targets.some(project => project.id === target.projectId)) {
+      const project = catalog.projects.find(project => project.id === target.projectId);
+      targets.push({ ...project, domains: target.domain ? [target.domain] : [] });
+    }
+  }
+  const assigned = new Set();
   return targets.map((project) => {
+    const currentTarget = currentTargets.find(target => target.projectId === project.id);
+    const currentProduct = Boolean(currentTarget && !assigned.has(project.id));
+    if (currentProduct) assigned.add(project.id);
+    const coverageRecord = currentProduct && coverage?.records.find(record => record.projectId === project.id && record.surfaceUrl === currentTarget.surfaceUrl);
+    const indexCoverage = currentProduct ? summarizeIndexCoverage(coverageRecord || (currentTarget.exemption ? currentTarget : null), { now }) : null;
     const domain = normalizedDomain(project.domains?.[0]);
     const multipleTargets = targets.filter((target) => target.id === project.id).length > 1;
     const history = (byProject.get(project.id) ?? [])
@@ -293,6 +308,8 @@ function searchProjection(catalog, configRoot, home) {
       period: latest?.period ?? null,
       previousPeriod: latest?.previousPeriod ?? null,
       indexInspection: latest?.indexInspection ?? null,
+      currentProduct,
+      indexCoverage,
       searchTerms: latest?.searchTerms ?? [],
       searchTermSample: latest?.searchTermSample ?? null,
       impressions,
@@ -527,7 +544,7 @@ export function buildDashboardProjection({
     outcomes: {
       domains: drankProjection(workspaceRoot, catalog, home, now),
       performance: performanceProjection(publicProjects, home),
-      search: searchProjection(catalog, configRoot, home),
+      search: searchProjection(catalog, configRoot, home, now),
       seoAudit: seoAuditProjection(catalog, dataRoot),
       geoAwareness: geoProjection(catalog, configRoot, dataRoot),
       aiAwareness: ai.rows,
