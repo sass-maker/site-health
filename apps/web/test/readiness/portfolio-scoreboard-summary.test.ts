@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { emptyReadinessState, type ReadinessProduct } from '../../src/features/readiness/readiness-framework';
+import { emptyReadinessState, localMeasurementDate, measurementDateInstant, type ReadinessProduct } from '../../src/features/readiness/readiness-framework';
 import { effortCell, observationText, currentReadingValue, summarizePortfolioProduct } from '../../src/features/readiness/portfolio-scoreboard-summary';
 
 function product(): ReadinessProduct {
@@ -91,4 +91,12 @@ it('labels historical readings, prefers a current scoped reading, and excludes s
   row.evidence.push({ ...stale, id: 'search:clicks:1', label: 'Search clicks · current.test', value: 0, measurement: { ...stale.measurement, state: 'current' } });
   expect(currentReadingValue(summarizePortfolioProduct(row).clicks)).toBe(0);
   expect(summarizePortfolioProduct(row).clicks?.label).toContain('current.test');
+});
+
+it('round-trips local measurement dates without creating a future instant after local midnight', () => {
+  const now = new Date();
+  const localToday = localMeasurementDate(now.toISOString());
+  const observedAt = measurementDateInstant(localToday);
+  expect(localMeasurementDate(observedAt)).toBe(localToday);
+  expect(Date.parse(observedAt)).toBeLessThanOrEqual(now.getTime());
 });

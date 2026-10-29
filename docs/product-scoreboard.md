@@ -56,7 +56,10 @@ never becomes full indexing coverage. AI panels retain effective sample size,
 models, prompt text/intent where known, and failures; mixed intent is explicitly
 unspecified, not neutral discovery. API panels are not consumer assistants.
 Browser/session proxies retain exact 30-day windows and sampling limitations;
-invalid units or event counts remain unknown, never coerced to zero. Empty
+supported browsers/sessions/devices/users units and original automatic source identity
+are preserved. Unsupported units or malformed event counts remain unknown, never
+coerced to zero. Partial imports preserve other products and a later browser
+refresh cannot replace an explicit internal local/workflow report. Empty
 provider revenue totals do not establish zero revenue. Design effort remains
 separate from rendered quality and task-based user validation.
 

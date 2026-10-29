@@ -40,7 +40,8 @@ export function summarizePortfolioProduct(product: ReadinessProduct) {
   const seoChecks = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:checks:') && sameSeoSurface(row));
   const seoFail = evidence(row => row.source === 'seoAudit' && row.id.startsWith('seoAudit:fail:') && sameSeoSurface(row));
   const clicks = evidence(row => row.source === 'search' && row.id.startsWith('search:clicks'));
-  const browserProxy = evidence(row => row.id === 'monthly-browser-proxy' && row.source === 'app-health.browser-report');
+  const localProxy = product.evidence.find(row => row.id === 'monthly-local-proxy') ?? null;
+  const browserProxy = localProxy ?? evidence(row => row.id === 'monthly-browser-proxy' && row.source === 'app-health.browser-report');
   const productResults = resultSummary(product.state, 'product');
   const growthResults = resultSummary(product.state, 'growth');
   const qualifiedResultScores = productResults.qualified + growthResults.qualified;
@@ -63,7 +64,7 @@ export function effortCell(summary: ReturnType<typeof summarizePortfolioProduct>
 
 export function observationText(row: ReadinessProduct['evidence'][number] | null) {
   if (!row) return 'No dated reading';
-  return `${row.value?.toLocaleString() ?? 'Unknown'} ${row.unit}${row.measurement && row.measurement.state !== 'current' ? ` · ${row.measurement.state}` : ''}`.trim();
+  return `${row.value?.toLocaleString() ?? 'Unknown'}${row.value != null && row.unit ? ` ${row.unit}` : ''}${row.measurement && row.measurement.state !== 'current' ? ` · ${row.measurement.state}` : ''}`.trim();
 }
 
 export function currentReadingValue(row: ReadinessProduct['evidence'][number] | null) {

@@ -12,7 +12,9 @@ const eventCount = events => {
   if (!Array.isArray(events) || events.some(event => number(event?.count) === null)) return null;
   return number(events.reduce((sum, event) => sum + event.count, 0));
 };
-const usageUnit = value => ['sessions', 'browsers'].includes(value) ? value : null;
+const usageUnit = value => ['sessions', 'browsers', 'devices', 'users'].includes(value) ? value : null;
+const INTERNAL_SOURCES = { 'site-health': 'site-health.local-interactions', 'fleet-social': 'fleet-social.aggregate-ledger', 'agent-inbox': 'Agent Inbox local counter' };
+const internalRow = (id, row) => row?.source === INTERNAL_SOURCES[id] && Boolean(INTERNAL_SOURCES[id]);
 const iso = (value) => ['number', 'string'].includes(typeof value) && Number.isFinite(new Date(value).getTime()) ? new Date(value).toISOString() : null;
 export const defaultUsageEvidencePath = () => join(process.env.HOME, 'Library/Application Support/Fleet Ops/founder-control/app-health-usage.json');
 
@@ -26,6 +28,9 @@ export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) 
   const previous = readUsageEvidence(path);
   const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
     const old = previous?.records?.[id];
+    // A daily browser refresh cannot erase a tool's explicit local/workflow counter.
+    if (internalRow(id, old) && (!internalRow(id, row) || Date.parse(row.observedAt) < Date.parse(old.observedAt))) return [id, old];
+    if (internalRow(id, row) && !internalRow(id, old)) return [id, row];
     const failed = row.status === 'failed';
     const legacyUnknown = row.status === undefined && row.count === null;
     return [id, (failed || legacyUnknown) && number(old?.count) !== null
@@ -33,7 +38,7 @@ export function writeUsageEvidence(snapshot, path = defaultUsageEvidencePath()) 
         gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained last-known ${old.count} ${old.unit === 'sessions' ? 'sessions' : 'browsers'} observed ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
-  snapshot = { ...snapshot, records };
+  snapshot = { ...snapshot, records: { ...(previous?.records ?? {}), ...records } };
   mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
   const temporary = `${path}.${randomUUID()}.tmp`;
   const data = `${JSON.stringify(snapshot, null, 2)}\n`;
@@ -56,13 +61,15 @@ export function usageObservations(projects, snapshot) {
     const retained = row?.status === 'retained';
     const bounds = String(row?.window ?? '').split(' to ').map(value => Date.parse(value));
     const validWindow = bounds.length === 2 && bounds.every(Number.isFinite) && Math.abs(bounds[1] - bounds[0] - 30 * 86_400_000) <= 60_000 && bounds[1] <= Date.parse(row.observedAt) + 300_000 && Date.parse(row.observedAt) - bounds[1] <= 86_400_000;
-    const status = retained ? 'retained' : row && !validWindow ? 'invalid' : row?.status;
+    const invalidWindow = row && !['failed', 'unmapped', 'retained'].includes(row.status) && !validWindow;
+    const status = invalidWindow ? 'invalid' : row?.status;
+    const local = internalRow(project.id, row);
     return [
-      { id: 'monthly-browser-proxy', label: '30-day browser / session proxy', value: retained || !usageUnit(row?.unit) ? null : number(row?.count),
-        unit: usageUnit(row?.unit) ?? 'unknown unit', observedAt: row?.observedAt ?? null,
+      { id: local ? 'monthly-local-proxy' : 'monthly-browser-proxy', label: local ? '30-day local / workflow activity proxy' : '30-day browser / session proxy', value: retained || !usageUnit(row?.unit) ? null : number(row?.count),
+        unit: usageUnit(row?.unit) ?? '', observedAt: row?.observedAt ?? null,
         window: row?.window ?? 'rolling 30 days', qualification: retained || !usageUnit(row?.unit) || number(row?.count) === null ? 'unknown' : 'proxy',
         status: status ?? (number(row?.count) === null ? 'unknown' : 'available'),
-        gap: [row && !validWindow ? 'Missing or invalid 30-day evaluation window.' : null, row?.gap ?? 'Browser identifiers are not people; QA and automation may remain. No qualified core-action or churn cohort.'].filter(Boolean).join(' ') },
+        gap: [invalidWindow ? 'Missing or invalid 30-day evaluation window.' : null, row?.gap ?? 'Browser identifiers are not people; QA and automation may remain. No qualified core-action or churn cohort.'].filter(Boolean).join(' ') },
       { id: 'high-intent-events', metricId: 'high-intent', label: 'Named action events (unqualified)', value: retained ? null : number(row?.actionEvents),
         unit: 'events', observedAt: row?.observedAt ?? null, window: row?.window ?? 'rolling 30 days',
         qualification: retained || number(row?.actionEvents) === null ? 'unknown' : 'proxy',
@@ -73,7 +80,7 @@ export function usageObservations(projects, snapshot) {
             : `Last-known ${row.actionEvents} events observed ${row.observedAt}; retained historical value, current refresh unavailable.`
           : row?.gap,
         'Event occurrences are not completed core workflows or distinct active people.'].filter(Boolean).join(' ') },
-    ].map((observation) => ({ ...observation, projectId: project.id, source: 'app-health.browser-report', context: { method: '30-day aggregate proxy; QA/background activity not excluded', scope: 'production environment', sampled: row?.sampled ?? null, detail: row?.providerSource ? `Provider source: ${row.providerSource}` : 'Sampling status unavailable in retained source' } }));
+    ].map((observation) => ({ ...observation, projectId: project.id, source: local ? row.source : 'app-health.browser-report', context: { method: local ? 'Automatic local/workflow aggregate; not qualified human adoption' : '30-day browser aggregate; does not cover all local/native usage', scope: local ? 'Local counter / retained workflow metadata' : 'Production browser tracking', sampled: row?.sampled ?? null, detail: row?.providerSource ? `Provider source: ${row.providerSource}` : 'Sampling status unavailable in retained source' } }));
   });
 }
 
@@ -106,6 +113,7 @@ export function importUsageExport(bundle, projects) {
     const observedAt = iso(row.checkedAt);
     if (!observedAt) continue;
     records[project.id] = {
+      source: INTERNAL_SOURCES[project.id] && row.evidence?.some(e => e.source === INTERNAL_SOURCES[project.id]) ? INTERNAL_SOURCES[project.id] : 'app-health.browser-report',
       count: usageUnit(row.proxy?.unit) ? number(row.proxy?.count) : null, unit: usageUnit(row.proxy?.unit),
       actionEvents: eventCount(row.events),
       observedAt, window: `${iso(row.windowStart) ?? '?'} to ${iso(row.windowEnd) ?? '?'}`,

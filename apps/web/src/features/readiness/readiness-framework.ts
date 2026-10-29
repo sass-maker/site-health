@@ -65,3 +65,14 @@ export function requirementStatusChange(entry: Requirement, status: Requirement[
   if (['verified', 'not-started', 'exempt'].includes(status)) return { ...entry, status, completion: null };
   return { ...entry, status };
 }
+
+// Date inputs are local calendar dates. Preserve that date when UTC is still
+// yesterday, without weakening future-time checks for actual source captures.
+export function localMeasurementDate(observedAt: string) {
+  if (!Number.isFinite(Date.parse(observedAt))) return '';
+  const date = new Date(observedAt);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+export function measurementDateInstant(value: string) {
+  return value ? new Date(`${value}T00:00:00`).toISOString() : '';
+}

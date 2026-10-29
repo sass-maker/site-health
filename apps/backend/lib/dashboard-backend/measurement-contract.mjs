@@ -17,7 +17,8 @@ export function qualifyObservation(row, now = new Date().toISOString()) {
   const policy = EVIDENCE_POLICIES[families[row.source] ?? row.source] ?? EVIDENCE_POLICIES.ai;
   const numeric = typeof row.value === 'number' && Number.isFinite(row.value);
   const negativeAllowed = row.source === 'app-health.provider-revenue';
-  const invalidValue = row.value != null && (!numeric || (!negativeAllowed && row.value < 0) || (['%', '/100', 'DR /100'].includes(row.unit) && row.value > 100));
+  const countUnit = ['browsers', 'sessions', 'devices', 'users', 'checks', 'clicks', 'impressions', 'events'].includes(row.unit);
+  const invalidValue = row.value != null && ((countUnit && !Number.isSafeInteger(row.value)) || (row.unit === 'position' && row.value < 1) || (!numeric || (!negativeAllowed && row.value < 0) || (['%', '/100', 'DR /100'].includes(row.unit) && row.value > 100)));
   let state = row.qualification === 'exempt' ? 'exempt'
     : row.status === 'retained' ? 'retained'
     : row.status === 'invalid' || invalidValue ? 'invalid'

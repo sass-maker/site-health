@@ -543,7 +543,7 @@ export function buildDashboardProjection({
     generatedAt: now,
     outcomes: {
       domains: drankProjection(workspaceRoot, catalog, home, now),
-      performance: performanceProjection(publicProjects, home),
+      performance: performanceProjection(publicProjects, home, now),
       search: searchProjection(catalog, configRoot, home, now),
       indexCoverage: searchIndexCoverageProjection(catalog, home, now),
       seoAudit: seoAuditProjection(catalog, dataRoot),

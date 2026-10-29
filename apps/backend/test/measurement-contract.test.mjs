@@ -1,8 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { buildEvidenceEnvelope } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { qualifyObservation } from '../lib/dashboard-backend/measurement-contract.mjs';
 import { buildReadinessProjection, readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
-import { collectUsageEvidence, importUsageExport } from '../lib/dashboard-backend/usage-evidence.mjs';
+import { collectUsageEvidence, importUsageExport, usageObservations, writeUsageEvidence, readUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
 import { metricScore } from '../lib/dashboard-backend/readiness-model.mjs';
 import { latestPerformanceBatch } from '../lib/dashboard-projection.mjs';
 import { summarizeIndexCoverage } from '../lib/search-index-coverage.mjs';
@@ -88,4 +92,45 @@ test('future lab captures and future inventory checks cannot define current perf
   const coverage = summarizeIndexCoverage({ inventory: { urls: ['a'], complete: true, observedAt: '2027-01-01T00:00:00Z' }, inspections: { a: { state: 'indexed', observedAt: '2027-01-01T00:00:00Z' } } }, { now });
   assert.equal(coverage.indexedPercentage, null);
   assert.equal(coverage.state, 'stale');
+});
+
+test('provider outages and missing mappings stay missing, rather than invalid corrupt reports', () => {
+  for (const status of ['failed', 'unmapped']) {
+    const rows = usageObservations(projects, { records: { one: { status, count: null, observedAt: null, gap: 'Source unavailable' } } });
+    assert.equal(rows[0].status, status);
+    assert.equal(qualifyObservation(rows[0], now).measurement.state, 'missing');
+    assert.doesNotMatch(rows[0].gap, /invalid 30-day/);
+  }
+});
+
+test('a future row cannot poison a family with valid current evidence', () => {
+  const report = buildEvidenceEnvelope({ family: 'psi', now, rows: [{ observedAt: now }, { observedAt: '2027-01-01T00:00:00Z' }] });
+  assert.equal(report.state, 'fresh');
+  assert.equal(report.observedAt, now);
+  assert.equal(report.resultCount, 1);
+  assert.equal(report.invalidDateCount, 1);
+});
+
+test('automatic internal reports preserve devices/users and survive a later browser-zero refresh', () => {
+  const path = join(mkdtempSync(join(tmpdir(), 'local-usage-source-')), 'usage.json');
+  const project = { id: 'site-health', name: 'Site Health', lifecycle: { status: 'active' } };
+  const browser = { status: 'available', count: 0, unit: 'browsers', observedAt: now, actionEvents: 0 };
+  writeUsageEvidence({ observedAt: now, records: { 'site-health': browser, one: browser } }, path);
+  const local = importUsageExport({ kind: 'portfolio-usage', schemaVersion: 1, usage: { updatedAt: now, records: { 'site-health': { checkedAt: now, windowStart: '2026-09-30T10:00:00Z', windowEnd: now, proxy: { count: 1, unit: 'devices' }, evidence: [{ source: 'site-health.local-interactions' }], limitations: 'One local profile; QA may contribute, not core use.' } } } }, [project]);
+  writeUsageEvidence(local, path);
+  assert.equal(readUsageEvidence(path).records.one.count, 0); // Partial import preserves other products.
+  writeUsageEvidence({ observedAt: now, records: { 'site-health': browser } }, path);
+  const row = usageObservations([project], readUsageEvidence(path))[0];
+  assert.equal(row.id, 'monthly-local-proxy');
+  assert.equal(row.unit, 'devices');
+  assert.equal(row.value, 1);
+  assert.equal(row.source, 'site-health.local-interactions');
+  assert.equal(qualifyObservation(row, now).qualification, 'proxy');
+  local.records['site-health'].count = null;
+  local.records['site-health'].observedAt = '2026-10-31T10:00:00Z';
+  const newPath = join(mkdtempSync(join(tmpdir(), 'unknown-local-source-')), 'usage.json');
+  writeUsageEvidence({ observedAt: now, records: { 'site-health': browser } }, newPath);
+  writeUsageEvidence(local, newPath);
+  assert.equal(readUsageEvidence(newPath).records['site-health'].count, null);
+  assert.equal(readUsageEvidence(newPath).records['site-health'].source, 'site-health.local-interactions');
 });
