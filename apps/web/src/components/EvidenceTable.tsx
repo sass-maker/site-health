@@ -58,7 +58,7 @@ export default function EvidenceTable({ rows, label, columns, detail, projectHre
   }, []);
   const visible = filterOutcomeRows(rows, query);
   const active = rows.find(row => evidenceRowId(row) === selected);
-  const compactIdentity = (row: Row) => <div className="evidence-table__compact"><strong>{outcomeTitle(row)}</strong>{row.domain && row.domain !== outcomeTitle(row) && <small>{row.domain}</small>}<div className="evidence-table__compact-metrics">{columns.map(column => <span key={column.id}><small>{column.label}</small><strong>{column.display(row)}</strong></span>)}</div>{metadataColumns && <small>{String(row.status ?? 'not-measured').replaceAll('-', ' ')} · {formatted(row.observedAt)}</small>}</div>;
+  const compactIdentity = (row: Row) => <div className="evidence-table__compact"><strong>{outcomeTitle(row)}</strong>{row.domain && row.domain !== outcomeTitle(row) && <small>{row.domain}</small>}<div className="evidence-table__compact-metrics">{columns.map(column => <span key={column.id}><small>{column.label}</small>{" "}<strong>{column.display(row).replaceAll("\n", " ")}</strong>{" "}</span>)}</div>{metadataColumns && <small>{String(row.status ?? 'not-measured').replaceAll('-', ' ')} · {formatted(row.observedAt)}</small>}</div>;
   const tableColumns: DataColumn<Row>[] = [
     {
       id: 'product', header: 'Product / domain', value: outcomeTitle, hideable: false,
