@@ -1630,7 +1630,7 @@ async function runRefreshPlans(
       announce();
       return completed;
     } catch (error) {
-      progress.set(plan.family, "unavailable");
+      progress.set(plan.family, error instanceof Error ? error.message : "unavailable");
       announce();
       throw error;
     }
@@ -1644,7 +1644,7 @@ async function runRefreshPlans(
         ? "partially refreshed; missing targets retained"
       : resultState === "running"
         ? "still running"
-        : "unavailable";
+        : result.status === "rejected" && result.reason instanceof Error ? result.reason.message : "unavailable";
     return `${labels[plan.family] ?? plan.family}: ${receipt}`;
   }).join(" · ");
   return results;

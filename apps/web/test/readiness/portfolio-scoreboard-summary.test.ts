@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { emptyReadinessState, localMeasurementDate, measurementDateInstant, type ReadinessProduct } from '../../src/features/readiness/readiness-framework';
-import { effortCell, observationText, currentReadingValue, summarizePortfolioProduct } from '../../src/features/readiness/portfolio-scoreboard-summary';
+import { effortCell, observationText, currentReadingValue, externalPerformanceQuality, summarizePortfolioProduct } from '../../src/features/readiness/portfolio-scoreboard-summary';
 
 function product(): ReadinessProduct {
   return { id: 'sample', name: 'Sample', revision: 1, updatedAt: null, state: emptyReadinessState(), evidence: [], coverageGaps: [] };
@@ -99,4 +99,22 @@ it('round-trips local measurement dates without creating a future instant after 
   const observedAt = measurementDateInstant(localToday);
   expect(localMeasurementDate(observedAt)).toBe(localToday);
   expect(Date.parse(observedAt)).toBeLessThanOrEqual(now.getTime());
+});
+
+it('requires both current device cohorts and five samples before calling lab performance strong', () => {
+  const row = product(); row.audience = 'public';
+  const observation = (id: string, source: string, value: number, samples = 5) => ({ id, source, projectId: row.id, label: id, value, unit: id.includes('psi') ? '/100' : 'ms', observedAt: '2026-10-30T00:00:00Z', qualification: 'proxy' as const, context: { samples }, measurement: { state: 'current' as const, cadence: 'weekly', maximumAgeDays: 7, freshUntil: '2026-11-06T00:00:00Z' } });
+  row.evidence = [observation('performance:psi:0', 'performance', 98), observation('mobile:psi', 'psi-swarm.mobile', 96), observation('performance:lcp:0', 'performance', 1000), observation('mobile:lcp', 'psi-swarm.mobile', 2200)];
+  expect(externalPerformanceQuality(row).state).toBe('strong');
+  row.evidence[1].value = 94;
+  expect(externalPerformanceQuality(row).state).toBe('below');
+  row.evidence[1].value = 96; row.evidence[1].context!.samples = 2;
+  expect(externalPerformanceQuality(row).state).toBe('samples');
+  row.evidence[1].context!.samples = 5; row.evidence[1].measurement!.state = 'stale';
+  expect(externalPerformanceQuality(row).state).toBe('stale');
+  row.evidence[1].measurement!.state = 'retained';
+  expect(externalPerformanceQuality(row).state).toBe('retained');
+  expect(currentReadingValue(row.evidence[1])).toBeNull();
+  row.audience = 'internal';
+  expect(externalPerformanceQuality(row).state).toBe('internal');
 });

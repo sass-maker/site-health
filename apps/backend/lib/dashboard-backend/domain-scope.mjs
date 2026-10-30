@@ -91,3 +91,23 @@ export function publicMetricTargets(projects) {
     })
     .sort((left, right) => left.projectId.localeCompare(right.projectId));
 }
+
+export function performanceTargetUrl(project, directory = {}) {
+  const destination = project.websiteUrl ?? directory[project.id]?.publicDestinationUrl
+    ?? (project.domains?.[0] ? `https://${project.domains[0]}` : null);
+  if (!destination) return null;
+  try {
+    const url = new URL(destination);
+    if (url.protocol !== 'https:' || url.username || url.password || url.port) return null;
+    url.hash = '';
+    return url.href;
+  } catch { return null; }
+}
+
+export function externalPerformanceTargets(projects, directory = {}) {
+  return projects.filter(project => isCurrentPortfolioProject(project) && project.audience === 'public')
+    .flatMap(project => {
+      const url = performanceTargetUrl(project, directory);
+      return url ? [{ projectId: project.id, url }] : [];
+    }).sort((a, b) => a.projectId.localeCompare(b.projectId));
+}

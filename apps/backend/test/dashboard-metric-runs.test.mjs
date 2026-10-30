@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path';
 import test, { after } from 'node:test';
 
 import { createMetricRunController as createController } from '../lib/dashboard-backend/metric-runs.mjs';
-import { resolveFleetRoot, runPerformancePortfolio } from '../scripts/run-performance-portfolio.mjs';
+import { resolveFleetRoot, runPerformancePortfolio, runSwarmProcess } from '../scripts/run-performance-portfolio.mjs';
 
 const fixtureRoot = mkdtempSync(join(tmpdir(), 'site-health-metric-runners-'));
 for (const file of ['psi-swarm/cli/dist/cli.js']) {
@@ -20,7 +20,7 @@ function createMetricRunController(options) {
   return createController({ workspaceRoot: fixtureRoot, ...options });
 }
 
-test('keeps PSI cataloged and runs domain rating from the executing Site Health checkout', () => {
+test('keeps PSI cataloged and runs domain rating from the executing Site Health checkout', async () => {
   const root = realpathSync(mkdtempSync(join(tmpdir(), 'site-health-relocated-runners-')));
   const projects = [project(),
     { id: 'drank', repo: '../archive/drank', lifecycle: { status: 'inactive' } },
@@ -51,8 +51,8 @@ test('keeps PSI cataloged and runs domain rating from the executing Site Health 
     assert.equal(invocations[1].options.cwd, join(root, 'archive/psi-swarm'));
     assert.equal(invocations[2].options.cwd, resolve(import.meta.dirname, '../../..'));
     let performanceInvocation;
-    runPerformancePortfolio([{ projectId: 'pace', url: 'https://heypace.app/' }], {
-      projects, workspaceRoot, log() {},
+    await runPerformancePortfolio([{ projectId: 'pace', url: 'https://heypace.app/' }], {
+      projects, workspaceRoot, log() {}, verifySamples: () => true,
       run(command, args, options) { performanceInvocation = { args, options }; return { status: 0 }; },
     });
     assert.equal(performanceInvocation.args[4], invocations[1].args[4]);
@@ -85,6 +85,7 @@ function fakeProcess() {
 function project() {
   return {
     id: 'pace',
+    audience: 'public',
     name: 'Pace',
     repo: 'pace',
     domains: ['heypace.app'],
@@ -100,13 +101,14 @@ test('resolves PSI Swarm from the Fleet root beside Site Health', () => {
   );
 });
 
-test('launches portfolio PSI with the supported Node 24 runtime', () => {
+test('launches portfolio PSI with the supported Node 24 runtime', async () => {
   let invocation;
-  const result = runPerformancePortfolio(
+  const result = await runPerformancePortfolio(
     [{ projectId: 'pace', url: 'https://heypace.app/' }],
     {
       cliPath: '/workspace/fleet/psi-swarm/cli/dist/cli.js',
       cwd: '/workspace/fleet/psi-swarm',
+      verifySamples: () => true,
       run(command, args, options) {
         invocation = { command, args, options };
         return { status: 0 };
@@ -316,4 +318,111 @@ test('refreshes the project inventory before planning a metric run', () => {
     controller.start({ family: 'drank', projectId: 'pace' }).label,
     'Ahrefs Domain Rating',
   );
+});
+
+test('portfolio performance measures external identities including hidden listings and preserves section URLs', () => {
+  const invocations = [];
+  const controller = createMetricRunController({
+    projects: [project(), { ...project(), id: 'hidden', publicListing: 'hidden', websiteUrl: 'https://family.example/product/', domains: ['old.example'] },
+      { ...project(), id: 'internal', audience: 'internal' },
+      { ...project(), id: 'retired', lifecycle: { status: 'inactive' } }],
+    spawnProcess: (command, args) => { invocations.push(args); return fakeProcess(); },
+  });
+  controller.start({ family: 'psi', scope: 'portfolio' });
+  assert.deepEqual(invocations[0].filter(arg => arg.includes('=https://')), ['hidden=https://family.example/product/', 'pace=https://heypace.app/']);
+});
+
+test('portfolio progress reaches callers and duplicate clicks attach to the existing run', () => {
+  const child = fakeProcess();
+  const receipts = [];
+  let spawns = 0;
+  const controller = createMetricRunController({ projects: [project()], onRunChange: run => receipts.push(run), spawnProcess: () => { spawns++; return child; } });
+  const run = controller.start({ family: 'psi', scope: 'portfolio' });
+  child.stdout.emit('data', 'Measuring pace\n');
+  assert.equal(controller.get(run.runId).progress, null);
+  child.stdout.emit('data', 'Checked 1/1 pa');
+  child.stdout.emit('data', 'ce ok\n');
+  const progress = controller.get(run.runId);
+  assert.deepEqual(progress.progress, { completed: 1, total: 1, projectId: 'pace', outcome: 'ok' });
+  assert.match(progress.summary, /Checked 1\/1/);
+  assert.equal(controller.start({ family: 'psi', scope: 'portfolio' }).duplicate, true);
+  assert.equal(spawns, 1);
+  assert.equal(receipts.at(-1).progress.projectId, 'pace');
+  child.emit('close', 0);
+  assert.equal(controller.get(run.runId).state, 'succeeded');
+});
+
+test('an incomplete swarm is failed without skipping the remaining external products', async () => {
+  let attempts = 0;
+  const result = await runPerformancePortfolio([{ projectId: 'alpha', url: 'https://alpha.example' }, { projectId: 'beta', url: 'https://beta.example' }], {
+    cwd: fixtureRoot, cliPath: 'unused', log() {}, run() { attempts++; return { status: 0 }; }, verifySamples: () => false,
+  });
+  assert.equal(attempts, 2);
+  assert.deepEqual(result, { completed: 0, failed: ['alpha', 'beta'] });
+});
+
+test('Lighthouse runs one target and device preset at a time', async () => {
+  const releases = [];
+  let active = 0, peak = 0;
+  const result = runPerformancePortfolio(['alpha', 'beta', 'gamma'].map(projectId => ({ projectId, url: `https://${projectId}.example` })), {
+    cwd: fixtureRoot, cliPath: 'unused', log() {}, verifySamples: () => true,
+    run(command, args) {
+      assert.equal(args[args.indexOf('--parallel') + 1], '1');
+      assert.equal(args[args.indexOf('--runs') + 1], '5');
+      active++; peak = Math.max(peak, active);
+      return new Promise(resolve => releases.push(() => { active--; resolve({ status: 0 }); }));
+    },
+  });
+  assert.equal(releases.length, 1);
+  releases.shift()();
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(releases.length, 1);
+  releases.shift()();
+  await new Promise(resolve => setImmediate(resolve));
+  releases.shift()();
+  assert.equal((await result).completed, 3);
+  assert.equal(peak, 1);
+});
+
+test('different performance scopes cannot overlap a running portfolio swarm', () => {
+  const controller = createMetricRunController({ projects: [project()], spawnProcess: () => fakeProcess() });
+  controller.start({ family: 'psi', scope: 'portfolio' });
+  assert.throws(() => controller.start({ family: 'psi', projectId: 'pace' }), { code: 'PERFORMANCE_BUSY' });
+});
+
+test('timed-out process receives the CLI cancellation signal and settles as failed', { skip: process.platform === 'win32' }, async () => {
+  const result = await runSwarmProcess(process.execPath, ['-e', `process.on('SIGINT', () => { console.log('cancelled'); process.exit(130); }); setInterval(() => {}, 1000);`], { timeout: 500, shell: false });
+  assert.equal(result.status, 130);
+  assert.match(result.stdout, /cancelled/);
+  assert.match(result.stderr, /timed out/);
+});
+
+test('shutdown signals owned metric children and retires their receipts', () => {
+  const child = fakeProcess();
+  const signals = [];
+  child.kill = signal => signals.push(signal);
+  const controller = createMetricRunController({ projects: [project()], spawnProcess: () => child });
+  const run = controller.start({ family: 'psi', scope: 'portfolio' });
+  controller.abandonActiveRuns();
+  assert.deepEqual(signals, ['SIGINT']);
+  assert.equal(controller.get(run.runId).state, 'failed');
+  child.emit('close', 130);
+  controller.abandonActiveRuns();
+  assert.deepEqual(signals, ['SIGINT']);
+});
+
+test('an aborted runner cancels its swarm instead of starting another target', { skip: process.platform === 'win32' }, async () => {
+  const abort = new AbortController();
+  let attempts = 0;
+  const run = runPerformancePortfolio(['alpha', 'beta'].map(projectId => ({ projectId, url: `https://${projectId}.example` })), {
+    cwd: fixtureRoot, cliPath: 'unused', signal: abort.signal, log() {}, verifySamples: () => true,
+    run(command, args, options) {
+      attempts++;
+      const child = runSwarmProcess(process.execPath, ['-e', `process.on('SIGINT', () => process.exit(130)); setInterval(() => {}, 1000);`], options);
+      setTimeout(() => abort.abort(), 300);
+      return child;
+    },
+  });
+  await assert.rejects(run, { code: 'REFRESH_INTERRUPTED' });
+  assert.equal(attempts, 1);
 });

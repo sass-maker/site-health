@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 import { randomUUID } from 'node:crypto';
-import { spawnSync } from 'node:child_process';
+import { spawn, execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 import { DashboardStore, defaultDatabasePath } from '../lib/dashboard-backend/store.mjs';
+import { PERFORMANCE_TARGET } from '../lib/dashboard-backend/performance-policy.mjs';
 import { PSI_NODE_VERSION } from '../lib/dashboard-backend/psi-runtime.mjs';
 import { resolveCollectorRoot } from '../lib/dashboard-backend/collector-paths.mjs';
 
@@ -37,60 +39,120 @@ export function parseTargets(args) {
   return targets;
 }
 
-export function runPerformancePortfolio(
+export function completeSwarmSamples(tag, home = homedir()) {
+  const database = resolve(home, '.psi-swarm/history.db');
+  if (!existsSync(database)) return false;
+  try {
+    const rows = JSON.parse(execFileSync('sqlite3', ['-json', database,
+      `SELECT preset, COUNT(*) AS count FROM runs WHERE tag = '${tag.replaceAll("'", "''")}' AND error IS NULL AND performance_score BETWEEN 0 AND 100 AND lcp >= 0 GROUP BY preset`],
+      { encoding: 'utf8', timeout: 4000 }));
+    return PERFORMANCE_TARGET.presets.every(preset => (rows.find(row => row.preset === preset)?.count ?? 0) >= PERFORMANCE_TARGET.samplesPerPreset);
+  } catch { return false; }
+}
+
+export function runSwarmProcess(command, args, { timeout, signal, ...options }) {
+  return new Promise(resolveRun => {
+    const child = spawn(command, args, { ...options, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
+    let cancellation = null;
+    let forceTimer;
+    const cancel = reason => {
+      if (cancellation) return;
+      cancellation = reason;
+      // Chrome Launcher owns detached browser groups and cleans them on SIGINT.
+      try { if (process.platform === 'win32') child.kill('SIGINT'); else process.kill(-child.pid, 'SIGINT'); } catch {}
+      forceTimer = setTimeout(() => { try { if (process.platform === 'win32') child.kill('SIGKILL'); else process.kill(-child.pid, 'SIGKILL'); } catch {} }, 15_000);
+    };
+    const timer = setTimeout(() => cancel('timed out'), timeout);
+    const abort = () => cancel('interrupted');
+    signal?.addEventListener('abort', abort, { once: true });
+    if (signal?.aborted) abort();
+    const cleanup = () => { clearTimeout(timer); clearTimeout(forceTimer); signal?.removeEventListener('abort', abort); };
+    let stdout = '', stderr = '';
+    child.stdout.on('data', chunk => { stdout = `${stdout}${chunk}`.slice(-8 * 1024 * 1024); });
+    child.stderr.on('data', chunk => { stderr = `${stderr}${chunk}`.slice(-8 * 1024 * 1024); });
+    child.once('error', error => { cleanup(); resolveRun({ status: null, stderr: error.message }); });
+    child.once('close', status => { cleanup(); resolveRun({ status: cancellation && status === 0 ? 1 : status, stdout, stderr: cancellation ? `Performance target ${cancellation}; last complete readings retained` : stderr }); });
+  });
+}
+
+export async function runPerformancePortfolio(
   targets,
   {
     workspaceRoot = FLEET_ROOT,
     projects,
     cwd = resolveCollectorRoot(workspaceRoot, 'psi-swarm', projects),
     cliPath = resolve(cwd, 'cli/dist/cli.js'),
-    run = spawnSync,
+    run = runSwarmProcess,
     log = console.log,
+    verifySamples = completeSwarmSamples,
+    now = Date.now,
+    signal,
   } = {},
 ) {
-  if (!existsSync(cliPath) && run === spawnSync) {
+  if (!existsSync(cliPath) && run === runSwarmProcess) {
     throw new Error('PSI Swarm CLI is not built');
   }
   const failed = [];
-  targets.forEach((target, index) => {
-    log(`[${index + 1}/${targets.length}] ${target.projectId}`);
-    const result = run('mise', [
-      'exec',
-      `node@${PSI_NODE_VERSION}`,
-      '--',
-      'node',
-      cliPath,
-      'run',
-      target.url,
-      '--runs',
-      '2',
-      '--presets',
-      'desktop,mobile-mid',
-      '--tag',
-      'console-portfolio',
-      '--output',
-      'html',
-      '--no-suggest',
-      '--no-crux',
-      '--no-ahrefs',
-      '--no-diagnose',
-      '--no-insight',
-    ], {
-      cwd,
-      encoding: 'utf8',
-      maxBuffer: 8 * 1024 * 1024,
-      shell: false,
-    });
-    if (result.status !== 0) {
-      failed.push(target.projectId);
-      const detail = String(result.stderr || result.stdout || 'PSI run failed').trim().split(/\r?\n/).at(-1);
-      log(`${target.projectId}: ${detail}`);
+  const deadline = now() + PERFORMANCE_TARGET.portfolioTimeoutMs;
+  let next = 0;
+  let checked = 0;
+  const workers = Array.from({ length: Math.min(PERFORMANCE_TARGET.concurrentTargets, targets.length) }, async () => {
+    while (next < targets.length) {
+      if (signal?.aborted) throw Object.assign(new Error('Performance measurement interrupted; previous readings retained'), { code: 'REFRESH_INTERRUPTED' });
+      const index = next++;
+      const target = targets[index];
+      log(`Measuring ${target.projectId}`);
+      const remainingMs = deadline - now();
+      if (remainingMs <= 0) { failed.push(target.projectId); log(`Checked ${++checked}/${targets.length} ${target.projectId} failed`); continue; }
+      const tag = `console-portfolio-${randomUUID()}`;
+      const result = await run('mise', [
+        'exec',
+        `node@${PSI_NODE_VERSION}`,
+        '--',
+        'node',
+        cliPath,
+        'run',
+        target.url,
+        '--runs',
+        String(PERFORMANCE_TARGET.samplesPerPreset),
+        '--parallel',
+        String(PERFORMANCE_TARGET.parallel),
+        '--presets',
+        PERFORMANCE_TARGET.presets.join(','),
+        '--tag',
+        tag,
+        '--output',
+        'html',
+        '--no-suggest',
+        '--no-crux',
+        '--no-ahrefs',
+      ], {
+        cwd,
+        encoding: 'utf8',
+        maxBuffer: 8 * 1024 * 1024,
+        shell: false,
+        timeout: Math.min(PERFORMANCE_TARGET.targetTimeoutMs, remainingMs),
+        signal,
+      });
+      if (signal?.aborted) throw Object.assign(new Error('Performance measurement interrupted; previous readings retained'), { code: 'REFRESH_INTERRUPTED' });
+      const complete = result.status === 0 && verifySamples(tag);
+      if (!complete) {
+        failed.push(target.projectId);
+        const detail = String(result.status === 0 ? 'Incomplete desktop/mobile cohort; successful samples retained' : result.stderr || result.stdout || 'PSI run failed').trim().split(/\r?\n/).at(-1);
+        log(`${target.projectId}: ${detail}`);
+      }
+      log(`Checked ${++checked}/${targets.length} ${target.projectId} ${complete ? 'ok' : 'failed'}`);
     }
   });
+  await Promise.all(workers);
   return { completed: targets.length - failed.length, failed };
 }
 
 if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
+  const cancellation = new AbortController();
+  const stop = () => cancellation.abort();
+  const stopSignals = ['SIGINT', 'SIGTERM', 'SIGHUP'];
+  for (const signal of stopSignals) process.on(signal, stop);
   // The runner owns its own refresh receipt so the receipt reaches a terminal
   // state in the process that does the work — a crash records `failed` rather
   // than leaving `running` for a supervisor that may not outlive the run.
@@ -110,7 +172,7 @@ if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
         label: 'Portfolio PSI',
       },
       async () => {
-        const result = runPerformancePortfolio(targets);
+        const result = await runPerformancePortfolio(targets, { signal: cancellation.signal });
         console.log(`Completed ${result.completed}/${targets.length} performance targets.`);
         if (result.failed.length > 0) {
           throw Object.assign(
@@ -120,12 +182,15 @@ if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
         }
         return result;
       },
-      { summarize: (result) => ({ resultCount: result.completed }) },
+      // Await owned-browser cleanup before the receipt is settled and the
+      // process exits; the generic receipt handler exits synchronously.
+      { signals: [], summarize: (result) => ({ resultCount: result.completed }) },
     );
   } catch (error) {
     console.error(error instanceof Error ? error.message : String(error));
     process.exitCode = 1;
   } finally {
+    for (const signal of stopSignals) process.off(signal, stop);
     store.close();
   }
 }

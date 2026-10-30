@@ -2,13 +2,15 @@ import { randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { existsSync, realpathSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { PERFORMANCE_TARGET } from './performance-policy.mjs';
 import { PSI_NODE_VERSION } from './psi-runtime.mjs';
 import { resolveCollectorRoot } from './collector-paths.mjs';
 
 import {
   domainStrengthRoots,
   isCurrentPortfolioProject,
-  publicMetricTargets,
+  externalPerformanceTargets,
+  performanceTargetUrl,
   normalizedDomain,
   registrableDomain,
 } from './domain-scope.mjs';
@@ -72,20 +74,20 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
         'node',
         cli,
         'run',
-        `https://${domain}`,
+        performanceTargetUrl(project),
         '--runs',
-        '2',
+        String(PERFORMANCE_TARGET.samplesPerPreset),
+        '--parallel',
+        String(PERFORMANCE_TARGET.parallel),
         '--presets',
-        'desktop,mobile-mid',
+        PERFORMANCE_TARGET.presets.join(','),
         '--tag',
-        'console-manual',
+        `console-manual-${randomUUID()}`,
         '--output',
         'html',
         '--no-suggest',
         '--no-crux',
         '--no-ahrefs',
-        '--no-diagnose',
-        '--no-insight',
       ],
       label: 'PSI Swarm',
     };
@@ -140,7 +142,7 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
     };
   }
   if (family === 'psi') {
-    const targets = publicMetricTargets(currentProjects);
+    const targets = externalPerformanceTargets(currentProjects);
     if (targets.length === 0) {
       fail('METRIC_DOMAIN_MISSING', 'No public performance targets are configured');
     }
@@ -148,9 +150,9 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
       command: process.execPath,
       args: [
         resolve(import.meta.dirname, '../../scripts/run-performance-portfolio.mjs'),
-        ...targets.flatMap(({ projectId, domain }) => [
+        ...targets.flatMap(({ projectId, url }) => [
           '--target',
-          `${projectId}=https://${domain}`,
+          `${projectId}=${url}`,
         ]),
       ],
       label: 'Portfolio PSI',
@@ -205,6 +207,7 @@ function publicRun(run, { duplicate = false } = {}) {
     summary: run.summary,
     code: run.code ?? null,
     resultCount: run.resultCount ?? null,
+    progress: run.progress ?? null,
     duplicate,
   };
 }
@@ -220,6 +223,7 @@ export function createMetricRunController({
 } = {}) {
   const runs = new Map();
   const active = new Map();
+  const children = new Set();
 
   return {
     start({ family, projectId, scope = 'project' } = {}) {
@@ -237,6 +241,7 @@ export function createMetricRunController({
       const key = `${family}:${scope === 'portfolio' ? 'portfolio' : projectId}`;
       const existingId = active.get(key);
       if (existingId) return publicRun(runs.get(existingId), { duplicate: true });
+      if (family === 'psi' && [...active.keys()].some(key => key.startsWith('psi:'))) fail('PERFORMANCE_BUSY', 'Another performance measurement is running. Wait for it to finish before starting a different scope.');
 
       const plan = scope === 'portfolio'
         ? portfolioCommandFor({
@@ -275,8 +280,19 @@ export function createMetricRunController({
         shell: false,
         stdio: ['ignore', 'pipe', 'pipe'],
       });
+      children.add(child);
+      child.once('close', () => children.delete(child));
+      child.once('error', () => children.delete(child));
       const capture = (chunk) => {
         run.capture = boundedStatusText(`${run.capture}${chunk}`);
+        if (family === 'psi' && scope === 'portfolio') {
+          const match = [...run.capture.matchAll(/^Checked (\d+)\/(\d+) ([a-z0-9-]+) (ok|failed)\r?\n/gm)].at(-1);
+          if (match && Number(match[1]) <= Number(match[2]) && run.progress?.completed !== Number(match[1])) {
+            run.progress = { completed: Number(match[1]), total: Number(match[2]), projectId: match[3], outcome: match[4] };
+            run.summary = `Checked ${match[1]}/${match[2]} external products · ${match[3]} ${match[4] === 'ok' ? 'measured' : 'incomplete'}`;
+            onRunChange(publicRun(run));
+          }
+        }
       };
       child.stdout?.on('data', capture);
       child.stderr?.on('data', capture);
@@ -322,6 +338,9 @@ export function createMetricRunController({
       summary = 'The backend stopped before this refresh reported a result.',
     } = {}) {
       const abandoned = [];
+      // The portfolio runner forwards SIGINT to its owned swarm group; the
+      // single-project CLI uses Chrome Launcher's own SIGINT cleanup.
+      for (const child of children) { try { child.kill?.('SIGINT'); } catch {} }
       for (const [key, runId] of [...active.entries()]) {
         active.delete(key);
         const run = runs.get(runId);
