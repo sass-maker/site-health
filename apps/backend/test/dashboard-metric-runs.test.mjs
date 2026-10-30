@@ -423,6 +423,6 @@ test('an aborted runner cancels its swarm instead of starting another target', {
       return child;
     },
   });
-  await assert.rejects(run, /interrupted/);
+  await assert.rejects(run, { code: 'REFRESH_INTERRUPTED' });
   assert.equal(attempts, 1);
 });

@@ -98,7 +98,7 @@ export async function runPerformancePortfolio(
   let checked = 0;
   const workers = Array.from({ length: Math.min(PERFORMANCE_TARGET.concurrentTargets, targets.length) }, async () => {
     while (next < targets.length) {
-      if (signal?.aborted) throw new Error('Performance measurement interrupted; previous readings retained');
+      if (signal?.aborted) throw Object.assign(new Error('Performance measurement interrupted; previous readings retained'), { code: 'REFRESH_INTERRUPTED' });
       const index = next++;
       const target = targets[index];
       log(`Measuring ${target.projectId}`);
@@ -134,7 +134,7 @@ export async function runPerformancePortfolio(
         timeout: Math.min(PERFORMANCE_TARGET.targetTimeoutMs, remainingMs),
         signal,
       });
-      if (signal?.aborted) throw new Error('Performance measurement interrupted; previous readings retained');
+      if (signal?.aborted) throw Object.assign(new Error('Performance measurement interrupted; previous readings retained'), { code: 'REFRESH_INTERRUPTED' });
       const complete = result.status === 0 && verifySamples(tag);
       if (!complete) {
         failed.push(target.projectId);
