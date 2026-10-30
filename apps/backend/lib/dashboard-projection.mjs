@@ -186,15 +186,16 @@ export function latestPerformanceBatch(history = [], now = new Date().toISOStrin
   if (!newest) return null;
   const cohort = anchor => runs.filter(run => {
     const age = Date.parse(anchor.observedAt) - Date.parse(run.observedAt);
+    const uniqueTag = /^console-(?:portfolio|manual)-[0-9a-f-]{36}$/.test(anchor.tag ?? '');
     return (run.preset ?? null) === (anchor.preset ?? null) && (run.tag ?? null) === (anchor.tag ?? null)
-      && age >= 0 && age <= PERFORMANCE_BATCH_WINDOW_MS;
+      && age >= 0 && (uniqueTag || age <= PERFORMANCE_BATCH_WINDOW_MS);
   });
   const summarize = batch => ({ observedAt: batch.at(-1).observedAt,
     score: median(batch.map(run => Number(run.score))), lcp: median(batch.map(run => Number(run.lcp))), sampleCount: batch.length });
   const latest = summarize(cohort(newest));
   if (latest.sampleCount >= PERFORMANCE_TARGET.samplesPerPreset) return latest;
   const complete = runs.filter(run => (run.preset ?? null) === (newest.preset ?? null)).reverse().map(cohort).find(batch => batch.length >= PERFORMANCE_TARGET.samplesPerPreset);
-  return complete ? { ...summarize(complete), pendingBatch: latest } : latest;
+  return { ...(complete ? summarize(complete) : latest), pendingBatch: latest };
 }
 
 export function performanceStatus(score, lcp) {

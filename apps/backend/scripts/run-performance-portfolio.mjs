@@ -50,22 +50,28 @@ export function completeSwarmSamples(tag, home = homedir()) {
   } catch { return false; }
 }
 
-export function runSwarmProcess(command, args, { timeout, ...options }) {
+export function runSwarmProcess(command, args, { timeout, signal, ...options }) {
   return new Promise(resolveRun => {
     const child = spawn(command, args, { ...options, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
-    let timedOut = false;
+    let cancellation = null;
     let forceTimer;
-    const timer = setTimeout(() => {
-      timedOut = true;
+    const cancel = reason => {
+      if (cancellation) return;
+      cancellation = reason;
       // Chrome Launcher owns detached browser groups and cleans them on SIGINT.
       try { if (process.platform === 'win32') child.kill('SIGINT'); else process.kill(-child.pid, 'SIGINT'); } catch {}
       forceTimer = setTimeout(() => { try { if (process.platform === 'win32') child.kill('SIGKILL'); else process.kill(-child.pid, 'SIGKILL'); } catch {} }, 15_000);
-    }, timeout);
+    };
+    const timer = setTimeout(() => cancel('timed out'), timeout);
+    const abort = () => cancel('interrupted');
+    signal?.addEventListener('abort', abort, { once: true });
+    if (signal?.aborted) abort();
+    const cleanup = () => { clearTimeout(timer); clearTimeout(forceTimer); signal?.removeEventListener('abort', abort); };
     let stdout = '', stderr = '';
     child.stdout.on('data', chunk => { stdout = `${stdout}${chunk}`.slice(-8 * 1024 * 1024); });
     child.stderr.on('data', chunk => { stderr = `${stderr}${chunk}`.slice(-8 * 1024 * 1024); });
-    child.once('error', error => { clearTimeout(timer); clearTimeout(forceTimer); resolveRun({ status: null, stderr: error.message }); });
-    child.once('close', status => { clearTimeout(timer); clearTimeout(forceTimer); resolveRun({ status, stdout, stderr: timedOut ? 'Performance target timed out; last complete readings retained' : stderr }); });
+    child.once('error', error => { cleanup(); resolveRun({ status: null, stderr: error.message }); });
+    child.once('close', status => { cleanup(); resolveRun({ status: cancellation && status === 0 ? 1 : status, stdout, stderr: cancellation ? `Performance target ${cancellation}; last complete readings retained` : stderr }); });
   });
 }
 
@@ -80,6 +86,7 @@ export async function runPerformancePortfolio(
     log = console.log,
     verifySamples = completeSwarmSamples,
     now = Date.now,
+    signal,
   } = {},
 ) {
   if (!existsSync(cliPath) && run === runSwarmProcess) {
@@ -91,6 +98,7 @@ export async function runPerformancePortfolio(
   let checked = 0;
   const workers = Array.from({ length: Math.min(PERFORMANCE_TARGET.concurrentTargets, targets.length) }, async () => {
     while (next < targets.length) {
+      if (signal?.aborted) throw new Error('Performance measurement interrupted; previous readings retained');
       const index = next++;
       const target = targets[index];
       log(`Measuring ${target.projectId}`);
@@ -124,8 +132,9 @@ export async function runPerformancePortfolio(
         maxBuffer: 8 * 1024 * 1024,
         shell: false,
         timeout: Math.min(PERFORMANCE_TARGET.targetTimeoutMs, remainingMs),
-        killSignal: 'SIGTERM',
+        signal,
       });
+      if (signal?.aborted) throw new Error('Performance measurement interrupted; previous readings retained');
       const complete = result.status === 0 && verifySamples(tag);
       if (!complete) {
         failed.push(target.projectId);
@@ -140,6 +149,10 @@ export async function runPerformancePortfolio(
 }
 
 if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
+  const cancellation = new AbortController();
+  const stop = () => cancellation.abort();
+  const stopSignals = ['SIGINT', 'SIGTERM', 'SIGHUP'];
+  for (const signal of stopSignals) process.on(signal, stop);
   // The runner owns its own refresh receipt so the receipt reaches a terminal
   // state in the process that does the work — a crash records `failed` rather
   // than leaving `running` for a supervisor that may not outlive the run.
@@ -159,7 +172,7 @@ if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
         label: 'Portfolio PSI',
       },
       async () => {
-        const result = await runPerformancePortfolio(targets);
+        const result = await runPerformancePortfolio(targets, { signal: cancellation.signal });
         console.log(`Completed ${result.completed}/${targets.length} performance targets.`);
         if (result.failed.length > 0) {
           throw Object.assign(
@@ -169,12 +182,15 @@ if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
         }
         return result;
       },
-      { summarize: (result) => ({ resultCount: result.completed }) },
+      // Await owned-browser cleanup before the receipt is settled and the
+      // process exits; the generic receipt handler exits synchronously.
+      { signals: [], summarize: (result) => ({ resultCount: result.completed }) },
     );
   } catch (error) {
     console.error(error instanceof Error ? error.message : String(error));
     process.exitCode = 1;
   } finally {
+    for (const signal of stopSignals) process.off(signal, stop);
     store.close();
   }
 }

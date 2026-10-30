@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 import { buildDashboardProjection, latestPerformanceBatch } from '../lib/dashboard-projection.mjs';
+import { buildReadinessProjection, readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
 
 test('SQLite null metrics stay absent before performance aggregation and history', () => {
   const root = mkdtempSync(join(tmpdir(), 'site-health-performance-source-'));
@@ -45,7 +46,14 @@ test('SQLite null metrics stay absent before performance aggregation and history
     assert.equal(alpha.preset, 'desktop');
     assert.equal(alpha.mobile.psi.value, 44);
     assert.equal(alpha.mobile.lcp.value, 5000);
-    assert.equal(alpha.mobile.status, 'needs-work');
+    assert.equal(alpha.mobile.status, 'retained');
+    const projects = [{ id: 'alpha', lifecycle: { status: 'active' } }];
+    const observations = readinessObservations(projects, { outcomes: { performance: rows } });
+    const evidence = buildReadinessProjection({ projects, observations, generatedAt: '2026-10-02T12:00:00Z' }).projects[0].evidence;
+    const partial = evidence.filter(row => ['performance', 'psi-swarm.mobile'].includes(row.source) && row.value !== null);
+    assert.equal(partial.length, 4);
+    assert.ok(partial.every(row => row.measurement.state === 'retained'));
+    assert.ok(partial.every(row => row.context.detail.includes('no complete cohort')));
     const beta = rows.find((row) => row.projectId === 'beta');
     assert.equal(beta.status, 'not-measured');
     assert.equal(beta.samples, 0);
@@ -63,7 +71,10 @@ test('before and after batches stay separate even within the same ten-minute win
     { observedAt: '2026-10-30T06:01:00Z', preset: 'mobile-mid', score: 96, lcp: 1200, tag: 'after' },
     { observedAt: '2026-10-30T06:02:00Z', preset: 'mobile-mid', score: 98, lcp: 1400, tag: 'after' },
   ];
-  assert.deepEqual(latestPerformanceBatch(rows, '2026-10-30T07:00:00Z'), { observedAt: '2026-10-30T06:02:00Z', score: 97, lcp: 1300, sampleCount: 2 });
+  const result = latestPerformanceBatch(rows, '2026-10-30T07:00:00Z');
+  assert.equal(result.score, 97);
+  assert.equal(result.sampleCount, 2);
+  assert.equal(result.pendingBatch.sampleCount, 2);
 });
 
 test('shared-domain product sections and hidden external products keep their own readings', () => {
@@ -99,4 +110,11 @@ test('an incomplete newer tag retains the last complete cohort with an explicit 
   assert.equal(reading.observedAt, '2026-10-30T06:04:00Z');
   assert.equal(reading.pendingBatch.score, 70);
   assert.equal(reading.pendingBatch.sampleCount, 1);
+});
+
+test('a unique five-sample cohort stays complete beyond the legacy ten-minute window', () => {
+  const rows = Array.from({ length: 5 }, (_, i) => ({ observedAt: new Date(Date.parse('2026-10-30T06:00:00Z') + i * 180000).toISOString(), preset: 'desktop', score: 97, lcp: 1000, tag: 'console-portfolio-12345678-1234-1234-1234-123456789abc' }));
+  const reading = latestPerformanceBatch(rows, '2026-10-30T07:00:00Z');
+  assert.equal(reading.sampleCount, 5);
+  assert.equal(reading.pendingBatch, undefined);
 });

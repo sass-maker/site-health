@@ -396,3 +396,33 @@ test('timed-out process receives the CLI cancellation signal and settles as fail
   assert.match(result.stdout, /cancelled/);
   assert.match(result.stderr, /timed out/);
 });
+
+test('shutdown signals owned metric children and retires their receipts', () => {
+  const child = fakeProcess();
+  const signals = [];
+  child.kill = signal => signals.push(signal);
+  const controller = createMetricRunController({ projects: [project()], spawnProcess: () => child });
+  const run = controller.start({ family: 'psi', scope: 'portfolio' });
+  controller.abandonActiveRuns();
+  assert.deepEqual(signals, ['SIGINT']);
+  assert.equal(controller.get(run.runId).state, 'failed');
+  child.emit('close', 130);
+  controller.abandonActiveRuns();
+  assert.deepEqual(signals, ['SIGINT']);
+});
+
+test('an aborted runner cancels its swarm instead of starting another target', { skip: process.platform === 'win32' }, async () => {
+  const abort = new AbortController();
+  let attempts = 0;
+  const run = runPerformancePortfolio(['alpha', 'beta'].map(projectId => ({ projectId, url: `https://${projectId}.example` })), {
+    cwd: fixtureRoot, cliPath: 'unused', signal: abort.signal, log() {}, verifySamples: () => true,
+    run(command, args, options) {
+      attempts++;
+      const child = runSwarmProcess(process.execPath, ['-e', `process.on('SIGINT', () => process.exit(130)); setInterval(() => {}, 1000);`], options);
+      setTimeout(() => abort.abort(), 300);
+      return child;
+    },
+  });
+  await assert.rejects(run, /interrupted/);
+  assert.equal(attempts, 1);
+});

@@ -223,6 +223,7 @@ export function createMetricRunController({
 } = {}) {
   const runs = new Map();
   const active = new Map();
+  const children = new Set();
 
   return {
     start({ family, projectId, scope = 'project' } = {}) {
@@ -279,6 +280,9 @@ export function createMetricRunController({
         shell: false,
         stdio: ['ignore', 'pipe', 'pipe'],
       });
+      children.add(child);
+      child.once('close', () => children.delete(child));
+      child.once('error', () => children.delete(child));
       const capture = (chunk) => {
         run.capture = boundedStatusText(`${run.capture}${chunk}`);
         if (family === 'psi' && scope === 'portfolio') {
@@ -334,6 +338,9 @@ export function createMetricRunController({
       summary = 'The backend stopped before this refresh reported a result.',
     } = {}) {
       const abandoned = [];
+      // The portfolio runner forwards SIGINT to its owned swarm group; the
+      // single-project CLI uses Chrome Launcher's own SIGINT cleanup.
+      for (const child of children) { try { child.kill?.('SIGINT'); } catch {} }
       for (const [key, runId] of [...active.entries()]) {
         active.delete(key);
         const run = runs.get(runId);
