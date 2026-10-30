@@ -62,7 +62,7 @@ export function inactiveProjectState(project) {
   return "inactive";
 }
 
-export function matchesProjectFilters(project, { query = "", priority = "", health = "", sharing = "", lifecycle = "", resume = "" } = {}) {
+export function matchesProjectFilters(project, { query = "", priority = "", health = "", sharing = "", lifecycle = "", resume = "", aiRole = "" } = {}) {
   const normalizedQuery = query.trim().toLowerCase();
   const searchText = [
     project.name,
@@ -70,10 +70,15 @@ export function matchesProjectFilters(project, { query = "", priority = "", heal
     project.familyName,
     projectTypeLabel(project),
     projectGrowthFocusLabel(project),
+    ...(project.aiProduct?.roles ?? []),
+    project.aiProduct?.workflow,
     ...(project.domains ?? []),
   ].filter(Boolean).join(" ").toLowerCase();
 
   return (!normalizedQuery || searchText.includes(normalizedQuery))
+    && (!aiRole || (aiRole === 'none'
+      ? project.aiProduct != null && project.aiProduct.roles.length === 0
+      : project.aiProduct?.roles.includes(aiRole)))
     && (!priority || projectPriorityValue(project) === priority)
     && (!health || project.health === health)
     && (!lifecycle || project.lifecycle?.status === lifecycle)
