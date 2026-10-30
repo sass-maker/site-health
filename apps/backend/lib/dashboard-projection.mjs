@@ -8,16 +8,13 @@ import { validateRootBrandContract } from './root-brand-contract.mjs';
 import { validateRootSearchQueryContract } from './root-search-query-contract.mjs';
 import { defaultVisibilityOutcomePath, readVisibilityOutcomes } from './visibility-outcome-store.mjs';
 import { searchConsoleProjects, searchObservationDomain, visibilityProjects } from './visibility-projects.mjs';
-import { domainStrengthRoots, registrableDomain } from './dashboard-backend/domain-scope.mjs';
+import { domainStrengthRoots, registrableDomain, externalPerformanceTargets, performanceTargetUrl } from './dashboard-backend/domain-scope.mjs';
 import { resolveCollectorRoot } from './dashboard-backend/collector-paths.mjs';
 import { defaultDomainRatingHistoryPath, parseDomainRatingHistory } from './domain-rating-collector.mjs';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-// The portfolio runner measures each target with `--runs 2` so lab noise averages out.
-// Runs of the same surface and preset within this window of the newest run are one measurement
-// batch, including a same-window re-run under a different tag. The window is anchored on the
-// newest run rather than chained run-to-run so a repeatedly measured surface cannot grow an
-// unbounded batch that blends a before-fix and after-fix reading.
+// Tags separate before/after captures. The bounded window also separates older
+// untagged captures and repeated uses of a legacy tag.
 const PERFORMANCE_BATCH_WINDOW_MS = 10 * 60 * 1000;
 
 function readJson(path, fallback = null) {
@@ -128,10 +125,12 @@ function psiHistory(home) {
   const database = resolve(home, '.psi-swarm/history.db');
   if (!existsSync(database)) return new Map();
   try {
+    const columns = JSON.parse(execFileSync('sqlite3', ['-json', database, 'PRAGMA table_info(runs)'], { encoding: 'utf8', timeout: 4000 }));
+    const hasTags = columns.some(column => column.name === 'tag');
     const rows = JSON.parse(execFileSync('sqlite3', [
       '-json',
       database,
-      `SELECT url, preset, started_at, performance_score, lcp
+      `SELECT url, preset, started_at, performance_score, lcp, ${hasTags ? 'tag' : 'NULL AS tag'}
        FROM runs
        WHERE error IS NULL
        ORDER BY started_at DESC`,
@@ -145,7 +144,7 @@ function psiHistory(home) {
         || score === null || lcp === null) continue;
       let domain;
       try {
-        domain = normalizedDomain(new URL(row.url).hostname);
+        domain = performanceHistoryKey(row.url);
       } catch {
         continue;
       }
@@ -154,6 +153,7 @@ function psiHistory(home) {
       history.push({
         observedAt: new Date(startedAt).toISOString(),
         preset: row.preset ?? null,
+        tag: row.tag ?? null,
         score,
         lcp,
       });
@@ -186,6 +186,7 @@ export function latestPerformanceBatch(history = [], now = new Date().toISOStrin
   const batch = runs.filter((run) =>
     // Presets are separate measurement conditions, so a batch never mixes them.
     (run.preset ?? null) === (newest.preset ?? null)
+    && (run.tag ?? null) === (newest.tag ?? null)
     && Date.parse(newest.observedAt) - Date.parse(run.observedAt) <= PERFORMANCE_BATCH_WINDOW_MS);
   return {
     observedAt: newest.observedAt,
@@ -200,11 +201,17 @@ export function performanceStatus(score, lcp) {
   return score >= 90 && lcp <= 2500 ? 'fast-enough' : 'needs-work';
 }
 
-function performanceProjection(projects, home, now) {
+function performanceHistoryKey(value) {
+  const url = new URL(value);
+  return `${url.origin}${url.pathname.replace(/\/+$/, '')}${url.search}`;
+}
+
+function performanceProjection(projects, home, now, directory) {
   const historyByDomain = psiHistory(home);
   return projects.map((project) => {
-    const domain = normalizedDomain(project.domains?.[0]);
-    const history = (historyByDomain.get(domain) ?? []).filter(run => observationFreshness(run.observedAt, now, Infinity) !== 'invalid');
+    const url = performanceTargetUrl(project, directory);
+    const domain = url ? new URL(url).host + new URL(url).pathname.replace(/\/+$/, '') : normalizedDomain(project.domains?.[0]);
+    const history = (url ? historyByDomain.get(performanceHistoryKey(url)) ?? [] : []).filter(run => observationFreshness(run.observedAt, now, Infinity) !== 'invalid');
     const batch = latestPerformanceBatch(history.filter(run => run.preset === 'desktop'), now);
     const mobileBatch = latestPerformanceBatch(history.filter(run => run.preset === 'mobile-mid'), now);
     const observedAt = batch?.observedAt ?? null;
@@ -221,6 +228,8 @@ function performanceProjection(projects, home, now) {
       projectId: project.id,
       name: project.name ?? project.id,
       domain,
+      url,
+      audience: project.audience ?? 'unknown',
       status: psi && lcp ? performanceStatus(psi.value, lcp.value) : 'not-measured',
       observedAt,
       samples: batch?.sampleCount ?? 0,
@@ -538,12 +547,14 @@ export function buildDashboardProjection({
   const catalog = readJson(resolve(configRoot, 'projects.json'), { projects: [] });
   const publicProjects = visibilityProjects(catalog);
   const ai = aiProjection(catalog, aiVisibilityProjects);
+  const externalPerformanceIds = new Set(externalPerformanceTargets(catalog.projects ?? [], catalog.publicDirectory?.projects).map(target => target.projectId));
+  const performanceProjects = [...new Map([...publicProjects, ...(catalog.projects ?? []).filter(project => externalPerformanceIds.has(project.id))].map(project => [project.id, project])).values()];
   return {
     schemaVersion: 'dashboard.projection.v1',
     generatedAt: now,
     outcomes: {
       domains: drankProjection(workspaceRoot, catalog, home, now),
-      performance: performanceProjection(publicProjects, home, now),
+      performance: performanceProjection(performanceProjects, home, now, catalog.publicDirectory?.projects),
       search: searchProjection(catalog, configRoot, home, now),
       indexCoverage: searchIndexCoverageProjection(catalog, home, now),
       seoAudit: seoAuditProjection(catalog, dataRoot),

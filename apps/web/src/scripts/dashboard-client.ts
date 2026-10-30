@@ -1601,8 +1601,8 @@ function wait(milliseconds: number) {
 
 async function completeMetricRun(run: JsonRecord) {
   let current = run;
-  for (let attempt = 0; attempt < 80 && current.state === "running"; attempt += 1) {
-    await wait(750);
+  while (current.state === "running") {
+    await wait(2000);
     current = await api(`/v1/metric-runs/${encodeURIComponent(current.runId)}`);
   }
   return current;

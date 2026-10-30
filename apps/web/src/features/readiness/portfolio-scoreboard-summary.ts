@@ -1,3 +1,4 @@
+import { PERFORMANCE_TARGET } from '../../../../backend/lib/dashboard-backend/performance-policy.mjs';
 import { CHECKLIST_ITEMS, effortSummary, requirementCompletion, resultSummary, type ReadinessArea, type ReadinessProduct } from './readiness-framework';
 
 export function summarizePortfolioProduct(product: ReadinessProduct) {
@@ -69,4 +70,18 @@ export function observationText(row: ReadinessProduct['evidence'][number] | null
 
 export function currentReadingValue(row: ReadinessProduct['evidence'][number] | null) {
   return row?.measurement && row.measurement.state !== 'current' ? null : row?.value ?? null;
+}
+
+export function externalPerformanceQuality(product: ReadinessProduct) {
+  if (product.audience !== 'public') return { state: 'internal', label: 'Internal scope' };
+  const summary = summarizePortfolioProduct(product);
+  const rows = [summary.desktop, summary.mobile];
+  if (rows.some(row => row?.value == null)) return { state: 'missing', label: 'Not measured' };
+  if (rows.some(row => row?.measurement?.state !== 'current')) return { state: 'stale', label: 'Historical reading' };
+  const lcp = product.evidence.filter(row => row.id === 'mobile:lcp' || row.source === 'performance' && row.id.startsWith('performance:lcp:'));
+  if (lcp.length !== 2 || lcp.some(row => currentReadingValue(row) === null)) return { state: 'missing', label: 'LCP unmeasured' };
+  const strong = rows.every(row => row!.value! >= PERFORMANCE_TARGET.psiScore) && lcp.every(row => row.value! <= PERFORMANCE_TARGET.lcpMilliseconds);
+  if (!strong) return { state: 'below', label: 'Below target' };
+  if (rows.some(row => { const samples = row?.context?.samples; return typeof samples !== 'number' || !Number.isInteger(samples) || samples < PERFORMANCE_TARGET.samplesPerPreset; })) return { state: 'samples', label: 'Needs 5-run check' };
+  return { state: 'strong', label: 'Strong lab' };
 }

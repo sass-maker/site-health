@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 import { randomUUID } from 'node:crypto';
-import { spawnSync } from 'node:child_process';
+import { spawn, execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { loadDashboardProjects } from '../lib/dashboard-backend/registry.mjs';
 import { DashboardStore, defaultDatabasePath } from '../lib/dashboard-backend/store.mjs';
+import { PERFORMANCE_TARGET } from '../lib/dashboard-backend/performance-policy.mjs';
 import { PSI_NODE_VERSION } from '../lib/dashboard-backend/psi-runtime.mjs';
 import { resolveCollectorRoot } from '../lib/dashboard-backend/collector-paths.mjs';
 
@@ -37,56 +39,88 @@ export function parseTargets(args) {
   return targets;
 }
 
-export function runPerformancePortfolio(
+export function completeSwarmSamples(tag, home = homedir()) {
+  const database = resolve(home, '.psi-swarm/history.db');
+  if (!existsSync(database)) return false;
+  try {
+    const rows = JSON.parse(execFileSync('sqlite3', ['-json', database,
+      `SELECT preset, COUNT(*) AS count FROM runs WHERE tag = '${tag.replaceAll("'", "''")}' AND error IS NULL AND performance_score BETWEEN 0 AND 100 AND lcp >= 0 GROUP BY preset`],
+      { encoding: 'utf8', timeout: 4000 }));
+    return PERFORMANCE_TARGET.presets.every(preset => (rows.find(row => row.preset === preset)?.count ?? 0) >= PERFORMANCE_TARGET.samplesPerPreset);
+  } catch { return false; }
+}
+
+function runSwarmProcess(command, args, options) {
+  return new Promise(resolveRun => {
+    const child = spawn(command, args, { ...options, stdio: ['ignore', 'pipe', 'pipe'] });
+    let stdout = '', stderr = '';
+    child.stdout.on('data', chunk => { stdout = `${stdout}${chunk}`.slice(-8 * 1024 * 1024); });
+    child.stderr.on('data', chunk => { stderr = `${stderr}${chunk}`.slice(-8 * 1024 * 1024); });
+    child.once('error', error => resolveRun({ status: null, stderr: error.message }));
+    child.once('close', status => resolveRun({ status, stdout, stderr }));
+  });
+}
+
+export async function runPerformancePortfolio(
   targets,
   {
     workspaceRoot = FLEET_ROOT,
     projects,
     cwd = resolveCollectorRoot(workspaceRoot, 'psi-swarm', projects),
     cliPath = resolve(cwd, 'cli/dist/cli.js'),
-    run = spawnSync,
+    run = runSwarmProcess,
     log = console.log,
+    verifySamples = completeSwarmSamples,
   } = {},
 ) {
-  if (!existsSync(cliPath) && run === spawnSync) {
+  if (!existsSync(cliPath) && run === runSwarmProcess) {
     throw new Error('PSI Swarm CLI is not built');
   }
   const failed = [];
-  targets.forEach((target, index) => {
-    log(`[${index + 1}/${targets.length}] ${target.projectId}`);
-    const result = run('mise', [
-      'exec',
-      `node@${PSI_NODE_VERSION}`,
-      '--',
-      'node',
-      cliPath,
-      'run',
-      target.url,
-      '--runs',
-      '2',
-      '--presets',
-      'desktop,mobile-mid',
-      '--tag',
-      'console-portfolio',
-      '--output',
-      'html',
-      '--no-suggest',
-      '--no-crux',
-      '--no-ahrefs',
-      '--no-diagnose',
-      '--no-insight',
-    ], {
-      cwd,
-      encoding: 'utf8',
-      maxBuffer: 8 * 1024 * 1024,
-      shell: false,
-    });
-    if (result.status !== 0) {
-      failed.push(target.projectId);
-      const detail = String(result.stderr || result.stdout || 'PSI run failed').trim().split(/\r?\n/).at(-1);
-      log(`${target.projectId}: ${detail}`);
+  let next = 0;
+  const workers = Array.from({ length: Math.min(PERFORMANCE_TARGET.concurrentTargets, targets.length) }, async () => {
+    while (next < targets.length) {
+      const index = next++;
+      const target = targets[index];
+      log(`[${index + 1}/${targets.length}] ${target.projectId}`);
+      const tag = `console-portfolio-${randomUUID()}`;
+      const result = await run('mise', [
+        'exec',
+        `node@${PSI_NODE_VERSION}`,
+        '--',
+        'node',
+        cliPath,
+        'run',
+        target.url,
+        '--runs',
+        String(PERFORMANCE_TARGET.samplesPerPreset),
+        '--parallel',
+        String(PERFORMANCE_TARGET.parallel),
+        '--presets',
+        PERFORMANCE_TARGET.presets.join(','),
+        '--tag',
+        tag,
+        '--output',
+        'html',
+        '--no-suggest',
+        '--no-crux',
+        '--no-ahrefs',
+      ], {
+        cwd,
+        encoding: 'utf8',
+        maxBuffer: 8 * 1024 * 1024,
+        shell: false,
+        timeout: 12 * 60 * 1000,
+        killSignal: 'SIGTERM',
+      });
+      if (result.status !== 0 || !verifySamples(tag)) {
+        failed.push(target.projectId);
+        const detail = String(result.status === 0 ? 'Incomplete desktop/mobile cohort; successful samples retained' : result.stderr || result.stdout || 'PSI run failed').trim().split(/\r?\n/).at(-1);
+        log(`${target.projectId}: ${detail}`);
+      }
     }
   });
+  await Promise.all(workers);
   return { completed: targets.length - failed.length, failed };
 }
 
@@ -110,7 +144,7 @@ if (resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
         label: 'Portfolio PSI',
       },
       async () => {
-        const result = runPerformancePortfolio(targets);
+        const result = await runPerformancePortfolio(targets);
         console.log(`Completed ${result.completed}/${targets.length} performance targets.`);
         if (result.failed.length > 0) {
           throw Object.assign(

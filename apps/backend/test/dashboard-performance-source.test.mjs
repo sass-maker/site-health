@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
-import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
+import { buildDashboardProjection, latestPerformanceBatch } from '../lib/dashboard-projection.mjs';
 
 test('SQLite null metrics stay absent before performance aggregation and history', () => {
   const root = mkdtempSync(join(tmpdir(), 'site-health-performance-source-'));
@@ -55,4 +55,37 @@ test('SQLite null metrics stay absent before performance aggregation and history
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
+});
+
+test('before and after batches stay separate even within the same ten-minute window', () => {
+  const rows = [
+    { observedAt: '2026-10-30T06:00:00Z', preset: 'mobile-mid', score: 70, lcp: 4000, tag: 'before' },
+    { observedAt: '2026-10-30T06:01:00Z', preset: 'mobile-mid', score: 96, lcp: 1200, tag: 'after' },
+    { observedAt: '2026-10-30T06:02:00Z', preset: 'mobile-mid', score: 98, lcp: 1400, tag: 'after' },
+  ];
+  assert.deepEqual(latestPerformanceBatch(rows, '2026-10-30T07:00:00Z'), { observedAt: '2026-10-30T06:02:00Z', score: 97, lcp: 1300, sampleCount: 2 });
+});
+
+test('shared-domain product sections and hidden external products keep their own readings', () => {
+  const root = mkdtempSync(join(tmpdir(), 'site-health-performance-sections-'));
+  const repositoryRoot = join(root, 'fleet/site-health');
+  try {
+    const configRoot = join(repositoryRoot, 'apps/backend/config');
+    mkdirSync(configRoot, { recursive: true });
+    writeFileSync(join(configRoot, 'projects.json'), JSON.stringify({ projects: [
+      { id: 'browser', audience: 'public', domains: ['old-browser.example'], lifecycle: { status: 'active' }, public: { listing: 'hidden' } },
+      { id: 'storage', audience: 'public', domains: ['old-storage.example'], lifecycle: { status: 'active' }, public: { listing: 'maintained' } },
+    ], publicDirectory: { projects: { browser: { publicDestinationUrl: 'https://family.example/browser/' }, storage: { publicDestinationUrl: 'https://family.example/storage/' } } } }));
+    mkdirSync(join(root, '.psi-swarm'));
+    execFileSync('sqlite3', [join(root, '.psi-swarm/history.db'), `
+      CREATE TABLE runs (url TEXT, preset TEXT, started_at REAL, performance_score REAL, lcp REAL, error TEXT, tag TEXT);
+      INSERT INTO runs VALUES
+       ('https://family.example/browser/', 'desktop', 1790899200000, 97, 1000, NULL, 'browser'),
+       ('https://family.example/storage/', 'desktop', 1790899200000, 75, 4000, NULL, 'storage');
+    `]);
+    const rows = buildDashboardProjection({ repositoryRoot, workspaceRoot: join(root, 'fleet'), home: root, now: '2026-10-02T12:00:00Z' }).outcomes.performance;
+    assert.equal(rows.find(row => row.projectId === 'browser').psi.value, 97);
+    assert.equal(rows.find(row => row.projectId === 'browser').url, 'https://family.example/browser/');
+    assert.equal(rows.find(row => row.projectId === 'storage').psi.value, 75);
+  } finally { rmSync(root, { recursive: true, force: true }); }
 });

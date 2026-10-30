@@ -2,13 +2,15 @@ import { randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { existsSync, realpathSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { PERFORMANCE_TARGET } from './performance-policy.mjs';
 import { PSI_NODE_VERSION } from './psi-runtime.mjs';
 import { resolveCollectorRoot } from './collector-paths.mjs';
 
 import {
   domainStrengthRoots,
   isCurrentPortfolioProject,
-  publicMetricTargets,
+  externalPerformanceTargets,
+  performanceTargetUrl,
   normalizedDomain,
   registrableDomain,
 } from './domain-scope.mjs';
@@ -72,20 +74,20 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
         'node',
         cli,
         'run',
-        `https://${domain}`,
+        performanceTargetUrl(project),
         '--runs',
-        '2',
+        String(PERFORMANCE_TARGET.samplesPerPreset),
+        '--parallel',
+        String(PERFORMANCE_TARGET.parallel),
         '--presets',
-        'desktop,mobile-mid',
+        PERFORMANCE_TARGET.presets.join(','),
         '--tag',
-        'console-manual',
+        `console-manual-${randomUUID()}`,
         '--output',
         'html',
         '--no-suggest',
         '--no-crux',
         '--no-ahrefs',
-        '--no-diagnose',
-        '--no-insight',
       ],
       label: 'PSI Swarm',
     };
@@ -140,7 +142,7 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
     };
   }
   if (family === 'psi') {
-    const targets = publicMetricTargets(currentProjects);
+    const targets = externalPerformanceTargets(currentProjects);
     if (targets.length === 0) {
       fail('METRIC_DOMAIN_MISSING', 'No public performance targets are configured');
     }
@@ -148,9 +150,9 @@ function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }
       command: process.execPath,
       args: [
         resolve(import.meta.dirname, '../../scripts/run-performance-portfolio.mjs'),
-        ...targets.flatMap(({ projectId, domain }) => [
+        ...targets.flatMap(({ projectId, url }) => [
           '--target',
-          `${projectId}=https://${domain}`,
+          `${projectId}=${url}`,
         ]),
       ],
       label: 'Portfolio PSI',
@@ -205,6 +207,7 @@ function publicRun(run, { duplicate = false } = {}) {
     summary: run.summary,
     code: run.code ?? null,
     resultCount: run.resultCount ?? null,
+    progress: run.progress ?? null,
     duplicate,
   };
 }
@@ -277,6 +280,14 @@ export function createMetricRunController({
       });
       const capture = (chunk) => {
         run.capture = boundedStatusText(`${run.capture}${chunk}`);
+        if (family === 'psi' && scope === 'portfolio') {
+          const match = [...run.capture.matchAll(/^\[(\d+)\/(\d+)\] ([a-z0-9-]+)\r?\n/gm)].at(-1);
+          if (match && Number(match[1]) <= Number(match[2]) && run.progress?.index !== Number(match[1])) {
+            run.progress = { index: Number(match[1]), total: Number(match[2]), projectId: match[3] };
+            run.summary = `Measuring ${match[1]}/${match[2]} external products · ${match[3]}`;
+            onRunChange(publicRun(run));
+          }
+        }
       };
       child.stdout?.on('data', capture);
       child.stderr?.on('data', capture);
