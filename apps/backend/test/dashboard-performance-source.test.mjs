@@ -118,3 +118,60 @@ test('a unique five-sample cohort stays complete beyond the legacy ten-minute wi
   assert.equal(reading.sampleCount, 5);
   assert.equal(reading.pendingBatch, undefined);
 });
+
+
+test('history larger than the subprocess default buffer preserves complete tagged desktop and mobile cohorts', (t) => {
+  const root = mkdtempSync(join(tmpdir(), 'site-health-performance-large-history-'));
+  const repositoryRoot = join(root, 'fleet/site-health');
+  const configRoot = join(repositoryRoot, 'apps/backend/config');
+  const database = join(root, '.psi-swarm/history.db');
+  const start = Date.parse('2026-10-30T06:00:00Z');
+  const completeTag = 'console-portfolio-12345678-1234-1234-1234-123456789abc';
+  const pendingTag = 'console-portfolio-abcdefab-1234-1234-1234-123456789abc';
+  try {
+    mkdirSync(configRoot, { recursive: true });
+    writeFileSync(join(configRoot, 'projects.json'), JSON.stringify({ projects: [
+      { id: 'alpha', domains: ['alpha.example'], lifecycle: { status: 'active' }, public: { listing: 'maintained' } },
+    ] }));
+    mkdirSync(join(root, '.psi-swarm'));
+    const current = Array.from({ length: 5 }, (_, i) => [
+      `('https://alpha.example/', 'desktop', ${start + 60000 + i * 1000}, ${95 + i}, ${1000 + i * 100}, NULL, '${completeTag}')`,
+      `('https://alpha.example/', 'mobile-mid', ${start + 60100 + i * 1000}, ${96 + i}, ${1400 + i * 100}, NULL, '${completeTag}')`,
+      `('https://alpha.example/', 'desktop', ${start + i * 1000}, ${60 + i}, 5000, NULL, 'before')`,
+      `('https://alpha.example/', 'mobile-mid', ${start + 100 + i * 1000}, ${60 + i}, 5000, NULL, 'before')`,
+    ]).flat().join(',');
+    execFileSync('sqlite3', [database, `
+      CREATE TABLE runs (url TEXT, preset TEXT, started_at REAL, performance_score REAL, lcp REAL, error TEXT, tag TEXT);
+      WITH RECURSIVE history(i) AS (VALUES(0) UNION ALL SELECT i + 1 FROM history WHERE i < 5999)
+      INSERT INTO runs SELECT
+        'https://archive.example/product-history-with-a-long-public-url/record-' || printf('%06d', i),
+        'desktop', ${start - 86400000} - i * 1000, 90, 1800, NULL, 'archived-measurement-batch'
+      FROM history;
+      INSERT INTO runs VALUES ${current},
+        ('https://alpha.example/', 'desktop', ${start + 120000}, 12, 9000, NULL, '${pendingTag}'),
+        ('https://alpha.example/', 'mobile-mid', ${start + 120100}, 13, 9000, NULL, '${pendingTag}'),
+        ('https://alpha.example/', 'desktop', ${start + 180000}, 100, 1, 'interrupted', 'failed');
+    `]);
+    const raw = execFileSync('sqlite3', ['-json', database,
+      'SELECT url, preset, started_at, performance_score, lcp, tag FROM runs WHERE error IS NULL ORDER BY started_at DESC'],
+    { maxBuffer: 8 * 1024 * 1024 });
+    assert.ok(raw.byteLength > 1024 * 1024, 'fixture must exceed Node’s default subprocess stdout buffer');
+    t.diagnostic(`SQLite history payload: ${raw.byteLength} bytes`);
+    const rows = buildDashboardProjection({ repositoryRoot, workspaceRoot: join(root, 'fleet'), home: root, now: '2026-10-30T07:00:00Z' }).outcomes.performance;
+    const alpha = rows.find(row => row.projectId === 'alpha');
+    assert.equal(alpha.samples, 5);
+    assert.equal(alpha.psi.value, 97);
+    assert.equal(alpha.lcp.value, 1200);
+    assert.equal(alpha.status, 'retained');
+    assert.equal(alpha.pendingBatch.sampleCount, 1);
+    assert.equal(alpha.pendingBatch.score, 12);
+    assert.equal(alpha.mobile.samples, 5);
+    assert.equal(alpha.mobile.psi.value, 98);
+    assert.equal(alpha.mobile.lcp.value, 1600);
+    assert.equal(alpha.mobile.status, 'retained');
+    assert.equal(alpha.mobile.pendingBatch.sampleCount, 1);
+    assert.equal(alpha.mobile.pendingBatch.score, 13);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});

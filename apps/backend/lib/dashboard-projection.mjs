@@ -17,6 +17,8 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 // Tags separate before/after captures. The bounded window also separates older
 // untagged captures and repeated uses of a legacy tag.
 const PERFORMANCE_BATCH_WINDOW_MS = 10 * 60 * 1000;
+// Fleet history exceeds Node’s 1 MiB subprocess default; keep complete tags intact.
+const PSI_HISTORY_MAX_BUFFER_BYTES = 64 * 1024 * 1024;
 
 function readJson(path, fallback = null) {
   if (!existsSync(path)) return fallback;
@@ -135,7 +137,7 @@ function psiHistory(home) {
        FROM runs
        WHERE error IS NULL
        ORDER BY started_at DESC`,
-    ], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 4000 }) || '[]');
+    ], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 4000, maxBuffer: PSI_HISTORY_MAX_BUFFER_BYTES }) || '[]');
     const byDomain = new Map();
     for (const row of rows) {
       const startedAt = numeric(row.started_at);
