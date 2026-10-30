@@ -136,6 +136,7 @@ export function loadDashboardProjects(registryPath = defaultRegistryPath) {
         priorityApplicable: priorityDecision?.applicable ?? null,
         priorityReason: priorityDecision?.reason ?? null,
         growthFocus,
+        aiProduct: project.systems?.aiProduct ?? null,
         domainLabel: collectionWebsiteLabel(project, rootPolicy, websiteUrl)
           ?? (websiteUrl === null && (project.domains?.length ?? 0) > 1
             ? `${project.domains.length} configured endpoint hosts` : domain),

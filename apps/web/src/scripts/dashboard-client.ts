@@ -4,6 +4,7 @@ import { createRoot, type Root } from "react-dom/client";
 import ProjectsDirectory from "../features/projects/projects-directory";
 import EvidenceTable, { type EvidenceColumn } from "../components/EvidenceTable";
 import { numericEvidence } from "../lib/evidence-table.mjs";
+import { productAiLabel, productAiEvidenceLabel } from "../lib/product-ai.mjs";
 import { evidenceStateLabel, refreshAttemptLabel } from "../lib/evidence-labels.mjs";
 import { downloadLocalUsageBundle, startLocalUsageTracking } from "../lib/local-usage.mjs";
 import { dashboardApi } from "../lib/dashboard-api.mjs";
@@ -1464,6 +1465,7 @@ async function renderProject() {
     element("nav", { class: "section-jumps", "aria-label": "Product sections" }, [
       element("a", { href: "/projects" }, ["← Projects"]),
       element("a", { href: "#site-evidence-title" }, ["Site evidence"]),
+      element("a", { href: "#product-ai-title" }, ["AI role"]),
       element("a", { href: "#capabilities-title" }, ["Fleet skills"]),
     ]),
     element("section", { class: "project-profile__identity" }, [
@@ -1487,6 +1489,30 @@ async function renderProject() {
       ]),
     ]),
     sharingDetails,
+    element("section", { class: "profile-section", "aria-labelledby": "product-ai-title" }, [
+      element("div", { class: "section-head" }, [element("div", {}, [
+        element("p", { class: "eyebrow" }, ["Product capability"]),
+        element("h2", { id: "product-ai-title" }, ["How this product works with AI"]),
+        element("p", {}, ["AI-powered uses a model. Agent-operable exposes a useful product workflow. AI-enabling helps build, ground or verify AI work. Built with AI alone does not qualify."]),
+      ])]),
+      metricGrid([
+        { label: "Role", value: productAiLabel(project.aiProduct) },
+        { label: "Evidence", value: productAiEvidenceLabel(project.aiProduct), detail: project.aiProduct?.reviewedAt ? `Reviewed ${shortDate.format(new Date(project.aiProduct.reviewedAt))}` : undefined },
+      ]),
+      element("p", {}, [project.aiProduct?.workflow ?? "This product has no recorded AI-role assessment yet."]),
+      project.aiProduct?.runtime ? element("p", {}, [element("strong", {}, ["Where it runs: "]), project.aiProduct.runtime]) : null,
+      project.aiProduct?.nextLever ? element("p", {}, [element("strong", {}, ["Best next step: "]), project.aiProduct.nextLever]) : null,
+      createUiControl("details", { class: "evidence-details" }, [
+        createUiControl("summary", {}, ["Source evidence and readiness boundary"]),
+        element("div", { class: "disclosure-content" }, [
+          element("p", {}, ["This records the product’s AI role, separately from SEO/AI visibility and readiness scores. Source declarations do not prove a released workflow works. CLI, MCP, permissions and fresh-agent qualification remain in the product checklist."]),
+          ...(project.aiProduct?.evidence ?? []).map((proof: JsonRecord) => element("div", {}, [
+            element("p", {}, [`${proof.path}:${proof.line} · ${proof.revision.slice(0, 12)}`]),
+            element("p", {}, [proof.excerpt]),
+          ])),
+        ]),
+      ]),
+    ]),
     element("section", { class: "profile-section", "aria-labelledby": "site-evidence-title" }, [
       element("div", { class: "section-head" }, [element("div", {}, [
         element("p", { class: "eyebrow" }, ["Five independent sources"]),
