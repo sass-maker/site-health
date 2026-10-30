@@ -82,6 +82,37 @@ test('missing warnings and observed values are unknown; partial capture keeps it
   assert.doesNotMatch(detail, /private-person|file\.txt/);
 });
 
+test('valid metadata without any captured warning arrays reports unknown rather than zero warnings', t => {
+  const f = fixture(t);
+  f.bundle.runMetadata.forEach(item => { delete item.provenance.runWarnings; });
+  f.write();
+  const [detail] = psiArtifactContexts(f.home, [f.runs]);
+  assert.match(detail, /Capture metadata 5\/5/);
+  assert.match(detail, /Warning coverage unknown \(0\/5 captured\)/);
+  assert.doesNotMatch(detail, /Warnings: 0|0 warnings/);
+  assert.match(detail, /Observed LCP: 800 ms median \(5\/5 samples\)/);
+});
+
+test('warning summaries redact URL credentials/query/fragment and whole credential-bearing messages', t => {
+  const f = fixture(t);
+  const messages = [
+    'Request https://synthetic-user:synthetic-pass@example.com/page?session=synthetic-query#synthetic-fragment failed',
+    'Request //synthetic-relative-user:synthetic-relative-pass@example.com/page?code=synthetic-code failed',
+    'Authorization: Basic synthetic-basic-credential',
+    'Retry with Bearer synthetic-bearer-credential',
+    'Authorization="Bearer synthetic-quoted-credential"',
+  ];
+  f.bundle.runMetadata.forEach((item, index) => { item.provenance.runWarnings = [messages[index]]; });
+  f.bundle.runMetadata[0].provenance.extraHeaders = { Authorization: 'synthetic-unknown-field' };
+  f.bundle.metrics[0].unknownField = 'synthetic-unknown-field';
+  f.write();
+  const [detail] = psiArtifactContexts(f.home, [f.runs]);
+  assert.match(detail, /Warnings: 5 captured across 5\/5 samples/);
+  assert.match(detail, /https:\/\/example\.com\/page\?\[query redacted\]#\[fragment redacted\]/);
+  assert.match(detail, /\[credential-bearing warning redacted\]/);
+  assert.doesNotMatch(detail, /synthetic-|Authorization|Bearer|extraHeaders|unknownField/);
+});
+
 test('zero/false remain captured values and failed attempts never displace successful metric indices', t => {
   const f = fixture(t);
   f.bundle.runMetadata.forEach(item => {

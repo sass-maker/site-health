@@ -47,7 +47,8 @@ function readBundle(home, path) {
     const parsed = JSON.parse(buffer.subarray(0, length).toString('utf8'));
     if (!record(parsed) || !Array.isArray(parsed.metrics) || !Array.isArray(parsed.runMetadata)
       || parsed.metrics.length > 100 || parsed.runMetadata.length > 100) return null;
-    // Audits and any unknown fields never enter the cache or owner API response.
+    // Cache bounded owner bundles without audits. Nested metrics/metadata may
+    // retain unknown fields; only the allowlisted summary below reaches the API.
     const bundle = { url: parsed.url, tag: parsed.tag ?? null, preset: parsed.preset,
       metrics: parsed.metrics, runMetadata: parsed.runMetadata };
     cache.delete(canonical);
@@ -95,6 +96,22 @@ function method(provenance) {
     `Chrome flags ${flags}`].join('; ');
 }
 
+function safeWarning(text) {
+  const normalized = text.replace(/[\u0000-\u001f]/g, ' ');
+  // Header/token formats vary; omit the whole warning rather than guessing
+  // where a credential ends. Counts and other warning messages remain intact.
+  if (/\b(?:authorization|proxy-authorization|bearer|api[-_]?key|(?:access|refresh)[-_]?token|password|client[-_]?secret|cookie)\b/i.test(normalized)) {
+    return '[credential-bearing warning redacted]';
+  }
+  return normalized.replace(/(?:\b[a-z][a-z\d+.-]*:)?\/\/[^\s<>"']+/gi, value => {
+    try {
+      const url = new URL(value, 'https://redaction.invalid');
+      if (!['https:', 'http:'].includes(url.protocol)) return '[URL redacted]';
+      return `${url.origin}${url.pathname}${url.search ? '?[query redacted]' : ''}${url.hash ? '#[fragment redacted]' : ''}`;
+    } catch { return '[URL redacted]'; }
+  }).replace(/\/(?:Users|home|private|tmp|var|Volumes)\/[^\s<>"']+/g, '[local path]').slice(0, 300);
+}
+
 function summarize(metadata, total) {
   if (!metadata.length) return unknown;
   const methods = [...new Set(metadata.map(method))];
@@ -102,10 +119,13 @@ function summarize(metadata, total) {
     && item.runWarnings.length <= 100 && item.runWarnings.every(warning => typeof warning === 'string'));
   const warningCount = warnings.reduce((sum, item) => sum + item.runWarnings.length, 0);
   const warningText = [...new Set(warnings.flatMap(item => item.runWarnings))].slice(0, 5)
-    .map(text => text.replace(/\/(?:Users|home|private|tmp|var|Volumes)\/[^\s<>"']+/g, '[local path]').replace(/[\u0000-\u001f]/g, ' ').slice(0, 300));
+    .map(safeWarning);
+  const warningDetail = warnings.length
+    ? `Warnings: ${warningCount} captured across ${warnings.length}/${total} samples${warnings.length < total ? '; remaining warning coverage unknown' : ''}${warningText.length ? `; ${warningText.join(' | ')}` : ''}`
+    : `Warning coverage unknown (0/${total} captured)`;
   const details = [`Capture metadata ${metadata.length}/${total}${metadata.length < total ? ' (partial; remainder unknown)' : ''}`,
     `${methods.length > 1 ? 'Mixed measurement configurations: ' : 'Measurement configuration: '}${methods.join(' | ')}`,
-    `Warnings: ${warningCount} captured across ${warnings.length}/${total} samples${warnings.length < total ? '; remaining warning coverage unknown' : ''}${warningText.length ? `; ${warningText.join(' | ')}` : ''}`];
+    warningDetail];
   const benchmarks = metadata.map(item => item.benchmarkIndex).filter(finite);
   details.push(`Host benchmark: ${benchmarks.length ? `${Math.min(...benchmarks)}–${Math.max(...benchmarks)} (${benchmarks.length}/${total} samples)` : 'unknown'}`);
   for (const [key, label] of [['fcpMs', 'FCP'], ['lcpMs', 'LCP'], ['siMs', 'SI']]) {
