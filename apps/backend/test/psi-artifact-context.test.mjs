@@ -50,7 +50,8 @@ test('actual bundle contract enriches the selected cohort, distinguishes observe
   const [detail] = psiArtifactContexts(f.home, [f.runs]);
   assert.match(detail, /Capture metadata 5\/5/);
   assert.match(detail, /Warnings: 0 captured across 5\/5 samples/);
-  assert.match(detail, /LH 13\.3\.0; Chrome 142\.0\.0\.0; Node v24\.20\.0/);
+  assert.match(detail, /LH 13\.3\.0; Chrome UA 142\.0\.0\.0; Node v24\.20\.0/);
+  assert.match(detail, /Requested Chrome flags --headless=new/);
   assert.match(detail, /method simulate \(scored timings simulated\)/);
   assert.match(detail, /Observed LCP: 800 ms median \(5\/5 samples\); separate from scored timing/);
   assert.doesNotMatch(detail, /Mixed|\/Users\/|capture\/desktop|artifact_path/);

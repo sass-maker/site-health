@@ -88,12 +88,12 @@ function method(provenance) {
   const allowedFlags = ['--headless=new', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage'];
   const flags = Array.isArray(provenance.chromeFlags) && provenance.chromeFlags.every(flag => allowedFlags.includes(flag))
     ? provenance.chromeFlags.join(',') : 'unknown';
-  return [`LH ${version(provenance.lighthouseVersion)}`, `Chrome ${version(browser)}`, `Node ${version(provenance.nodeVersion)}`,
+  return [`LH ${version(provenance.lighthouseVersion)}`, `Chrome UA ${version(browser)}`, `Node ${version(provenance.nodeVersion)}`,
     `method ${mode}${mode === 'simulate' ? ' (scored timings simulated)' : ''}`,
     `form ${['mobile', 'desktop'].includes(provenance.formFactor) ? provenance.formFactor : 'unknown'}`,
     `screen ${['width', 'height', 'deviceScaleFactor', 'mobile', 'disabled'].map(key => `${key}=${typeof screen[key] === 'boolean' || finite(screen[key]) ? screen[key] : '?'}`).join(',')}`,
     `throttle ${['rttMs', 'throughputKbps', 'requestLatencyMs', 'downloadThroughputKbps', 'uploadThroughputKbps', 'cpuSlowdownMultiplier'].map(key => `${key}=${finite(throttle[key]) ? throttle[key] : '?'}`).join(',')}`,
-    `Chrome flags ${flags}`].join('; ');
+    `Requested Chrome flags ${flags}`].join('; ');
 }
 
 function safeWarning(text) {
