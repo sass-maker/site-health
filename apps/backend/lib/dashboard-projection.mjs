@@ -1,4 +1,5 @@
 import { PERFORMANCE_TARGET } from './dashboard-backend/performance-policy.mjs';
+import { psiArtifactContexts } from './dashboard-backend/psi-artifact-context.mjs';
 import { observationFreshness, CLOCK_TOLERANCE_MS } from './dashboard-backend/measurement-contract.mjs';
 import { coverageTargets, readIndexCoverage, summarizeIndexCoverage } from './search-index-coverage.mjs';
 import { execFileSync } from 'node:child_process';
@@ -133,7 +134,7 @@ function psiHistory(home) {
     const rows = JSON.parse(execFileSync('sqlite3', [
       '-json',
       database,
-      `SELECT url, preset, started_at, performance_score, lcp, ${hasTags ? 'tag' : 'NULL AS tag'}
+      `SELECT ${columns.some(column => column.name === 'id') ? 'id' : 'NULL AS id'}, url, preset, started_at, ${columns.some(column => column.name === 'finished_at') ? 'finished_at' : 'NULL AS finished_at'}, performance_score, lcp, ${hasTags ? 'tag' : 'NULL AS tag'}
        FROM runs
        WHERE error IS NULL
        ORDER BY started_at DESC`,
@@ -154,6 +155,7 @@ function psiHistory(home) {
       const history = byDomain.get(domain) ?? [];
       if (history.filter(item => item.preset === (row.preset ?? null)).length >= 30) continue;
       history.push({
+        id: row.id, url: row.url, startedAt, finishedAt: row.finished_at,
         observedAt: new Date(startedAt).toISOString(),
         preset: row.preset ?? null,
         tag: row.tag ?? null,
@@ -176,7 +178,7 @@ function median(values) {
 
 // A partial retry must not replace a complete cohort. Keep its attempt visible
 // separately while retaining the previous complete measurement.
-export function latestPerformanceBatch(history = [], now = new Date().toISOString()) {
+function selectedPerformanceBatch(history = [], now = new Date().toISOString()) {
   const runs = (history ?? [])
     .filter((run) => numeric(run?.score) !== null
       && numeric(run?.lcp) !== null
@@ -194,10 +196,15 @@ export function latestPerformanceBatch(history = [], now = new Date().toISOStrin
   });
   const summarize = batch => ({ observedAt: batch.at(-1).observedAt,
     score: median(batch.map(run => Number(run.score))), lcp: median(batch.map(run => Number(run.lcp))), sampleCount: batch.length });
-  const latest = summarize(cohort(newest));
-  if (latest.sampleCount >= PERFORMANCE_TARGET.samplesPerPreset) return latest;
+  const latestRuns = cohort(newest);
+  const latest = summarize(latestRuns);
+  if (latest.sampleCount >= PERFORMANCE_TARGET.samplesPerPreset) return { summary: latest, runs: latestRuns };
   const complete = runs.filter(run => (run.preset ?? null) === (newest.preset ?? null)).reverse().map(cohort).find(batch => batch.length >= PERFORMANCE_TARGET.samplesPerPreset);
-  return { ...(complete ? summarize(complete) : latest), pendingBatch: latest };
+  return { summary: { ...(complete ? summarize(complete) : latest), pendingBatch: latest }, runs: complete ?? latestRuns };
+}
+
+export function latestPerformanceBatch(history = [], now = new Date().toISOString()) {
+  return selectedPerformanceBatch(history, now)?.summary ?? null;
 }
 
 export function performanceStatus(score, lcp) {
@@ -213,12 +220,15 @@ function performanceHistoryKey(value) {
 
 function performanceProjection(projects, home, now, directory) {
   const historyByDomain = psiHistory(home);
-  return projects.map((project) => {
+  const selected = [];
+  const rows = projects.map((project) => {
     const url = performanceTargetUrl(project, directory);
     const domain = url ? new URL(url).host + new URL(url).pathname.replace(/\/+$/, '') : normalizedDomain(project.domains?.[0]);
     const history = (url ? historyByDomain.get(performanceHistoryKey(url)) ?? [] : []).filter(run => observationFreshness(run.observedAt, now, Infinity) !== 'invalid');
-    const batch = latestPerformanceBatch(history.filter(run => run.preset === 'desktop'), now);
-    const mobileBatch = latestPerformanceBatch(history.filter(run => run.preset === 'mobile-mid'), now);
+    const desktopSelection = selectedPerformanceBatch(history.filter(run => run.preset === 'desktop'), now);
+    const mobileSelection = selectedPerformanceBatch(history.filter(run => run.preset === 'mobile-mid'), now);
+    const batch = desktopSelection?.summary;
+    const mobileBatch = mobileSelection?.summary;
     const observedAt = batch?.observedAt ?? null;
     // The sparkline keeps every stored run; only the headline value collapses to the batch median.
     const psi = signal('PSI performance', batch?.score, observedAt, history.filter(item => item.preset === 'desktop').map((item) => ({
@@ -229,7 +239,7 @@ function performanceProjection(projects, home, now, directory) {
       observedAt: item.observedAt,
       value: item.lcp,
     })));
-    return {
+    const row = {
       projectId: project.id,
       name: project.name ?? project.id,
       domain,
@@ -251,7 +261,14 @@ function performanceProjection(projects, home, now, directory) {
       psi,
       lcp,
     };
+    for (const [selection, target] of [[desktopSelection, row], [mobileSelection, row.mobile]]) {
+      if (selection?.summary.sampleCount >= PERFORMANCE_TARGET.samplesPerPreset) selected.push({ runs: selection.runs, target });
+    }
+    return row;
   }).sort((left, right) => left.name.localeCompare(right.name));
+  const contexts = psiArtifactContexts(home, selected.map(item => item.runs));
+  selected.forEach((item, index) => { item.target.provenanceDetail = contexts[index]; });
+  return rows;
 }
 
 function searchProjectsFor(catalog, configRoot) {
