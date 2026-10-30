@@ -17,9 +17,13 @@ function incompletePerformanceDetail(batch, samples) {
   return `Latest attempt incomplete: ${batch.sampleCount}/${PERFORMANCE_TARGET.samplesPerPreset} samples observed ${batch.observedAt}. ${samples >= PERFORMANCE_TARGET.samplesPerPreset ? 'Last complete reading retained.' : 'Partial reading; no complete cohort available.'}`;
 }
 
+function performanceDetail(row) {
+  return [incompletePerformanceDetail(row?.pendingBatch, row?.samples), row?.provenanceDetail].filter(Boolean).join(' · ') || undefined;
+}
+
 function sourceContext(family, row) {
   const context = { scope: row.domain ?? row.url ?? null };
-  if (family === 'performance') return { ...context, method: 'Laboratory median; field CWV and native workflow speed unmeasured', preset: row.preset ?? 'desktop', samples: row.samples ?? null, detail: incompletePerformanceDetail(row.pendingBatch, row.samples) };
+  if (family === 'performance') return { ...context, method: 'Laboratory median; field CWV and native workflow speed unmeasured', preset: row.preset ?? 'desktop', samples: row.samples ?? null, detail: performanceDetail(row) };
   if (family === 'seoAudit') return { ...context, method: 'Technical audit of the stated URL; not all-site content quality', detail: `${row.checks ?? '?'} total checks; reachable: ${row.reachable ?? 'unknown'}; ${row.url ?? ''}` };
   if (family === 'aiAwareness') return { ...context, method: 'Exploratory pooled AI sample; not neutral discovery unless prompt intent is known',
     completed: row.coverage?.completed ?? null, configured: row.coverage?.configured ?? null,
@@ -71,7 +75,7 @@ export function readinessObservations(projects, projection = {}, clarityByProjec
       const signal = performance?.mobile?.[key];
       rows.push({ projectId: project.id, id: `mobile:${key}`, label: key === 'psi' ? 'Mobile PSI performance' : 'Mobile LCP',
         value: signal?.value ?? null, unit: key === 'psi' ? '/100' : 'ms', observedAt: signal?.observedAt ?? null,
-        source: 'psi-swarm.mobile', status: performance?.mobile?.status === 'retained' ? 'retained' : undefined, context: { scope: performance?.domain, method: 'Laboratory median; field CWV and native workflow speed unmeasured', preset: 'mobile-mid', samples: performance?.mobile?.samples ?? null, detail: incompletePerformanceDetail(performance?.mobile?.pendingBatch, performance?.mobile?.samples) }, qualification: signal?.value == null ? 'unknown' : 'proxy',
+        source: 'psi-swarm.mobile', status: performance?.mobile?.status === 'retained' ? 'retained' : undefined, context: { scope: performance?.domain, method: 'Laboratory median; field CWV and native workflow speed unmeasured', preset: 'mobile-mid', samples: performance?.mobile?.samples ?? null, detail: performanceDetail(performance?.mobile) }, qualification: signal?.value == null ? 'unknown' : 'proxy',
         gap: 'Mobile-mid laboratory samples. Field Core Web Vitals and core-workflow interaction budgets are separate.' });
     }
     rows.push(...indexObservations(project.id, projection.outcomes?.indexCoverage ?? []));
