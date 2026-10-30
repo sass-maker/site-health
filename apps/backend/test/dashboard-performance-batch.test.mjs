@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { latestPerformanceBatch, numeric, performanceStatus } from '../lib/dashboard-projection.mjs';
+import { PERFORMANCE_TARGET } from '../lib/dashboard-backend/performance-policy.mjs';
 
 function run(observedAt, score, lcp, preset = 'desktop') {
   return { observedAt, preset, score, lcp };
@@ -22,7 +23,7 @@ test('a two-sample batch straddling the LCP gate reads from the median, not the 
   assert.equal(batch.observedAt, '2026-09-05T07:31:54.000Z');
 });
 
-test('a third same-window sample moves the median across the threshold', () => {
+test('a third same-window sample moves the median without lowering the target', () => {
   // saas-maker as stored on 2026-09-05: two portfolio runs plus a re-run 5 minutes later.
   const history = [
     run('2026-09-05T07:31:45.000Z', 81, 2828.71),
@@ -33,7 +34,7 @@ test('a third same-window sample moves the median across the threshold', () => {
   assert.equal(batch.sampleCount, 3);
   assert.equal(batch.score, 92);
   assert.equal(batch.lcp, 1802.71);
-  assert.equal(performanceStatus(batch.score, batch.lcp), 'fast-enough');
+  assert.equal(performanceStatus(batch.score, batch.lcp), 'needs-work');
 });
 
 test('the batch window ignores older runs of the same surface', () => {
@@ -73,7 +74,7 @@ test('a batch never mixes presets', () => {
   assert.equal(batch.sampleCount, 2);
   assert.equal(batch.score, 94);
   assert.equal(batch.lcp, 1000);
-  assert.equal(performanceStatus(batch.score, batch.lcp), 'fast-enough');
+  assert.equal(performanceStatus(batch.score, batch.lcp), 'needs-work');
 });
 
 test('runs without a usable score, LCP, or timestamp are skipped', () => {
@@ -108,9 +109,11 @@ test('absent provider metrics never become measured zeroes or contaminate a batc
 });
 
 test('status needs both signals inside their gates', () => {
-  assert.equal(performanceStatus(90, 2500), 'fast-enough');
-  assert.equal(performanceStatus(89.5, 2500), 'needs-work');
-  assert.equal(performanceStatus(90, 2500.5), 'needs-work');
-  assert.equal(performanceStatus(Number.NaN, 2500), 'not-measured');
-  assert.equal(performanceStatus(90, null), 'not-measured');
+  const { psiScore, lcpMilliseconds } = PERFORMANCE_TARGET;
+  // Current policy: 94 fails, 95 passes, and LCP 2501ms fails.
+  assert.equal(performanceStatus(psiScore - 1, lcpMilliseconds), 'needs-work');
+  assert.equal(performanceStatus(psiScore, lcpMilliseconds), 'fast-enough');
+  assert.equal(performanceStatus(psiScore, lcpMilliseconds + 1), 'needs-work');
+  assert.equal(performanceStatus(Number.NaN, lcpMilliseconds), 'not-measured');
+  assert.equal(performanceStatus(psiScore, null), 'not-measured');
 });

@@ -3,6 +3,7 @@ import { createServer } from 'node:http';
 
 import { buildDashboardProjection } from '../dashboard-projection.mjs';
 import { createMetricRunController } from './metric-runs.mjs';
+import { PERFORMANCE_TARGET } from './performance-policy.mjs';
 import {
   buildEvidenceEnvelope,
   readRefreshReceipt,
@@ -209,7 +210,7 @@ function outcomeProjection(projection, family, { receipt = null, now } = {}) {
     rows,
     ...(family === 'search' ? { indexCoverage: outcomes.indexCoverage ?? [] } : {}),
     ...(family === 'performance'
-      ? { thresholds: { psiScore: 90, lcpMilliseconds: 2500 } }
+      ? { thresholds: { psiScore: PERFORMANCE_TARGET.psiScore, lcpMilliseconds: PERFORMANCE_TARGET.lcpMilliseconds } }
       : {}),
   };
 }

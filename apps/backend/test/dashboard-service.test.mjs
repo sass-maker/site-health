@@ -8,6 +8,7 @@ import test from 'node:test';
 import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
 import { DashboardStore } from '../lib/dashboard-backend/store.mjs';
 import { claritySnapshotKey } from '../lib/dashboard-backend/clarity.mjs';
+import { PERFORMANCE_TARGET } from '../lib/dashboard-backend/performance-policy.mjs';
 import { loadProjectDirectory, groupProjectCollections } from '../../web/src/lib/project-directory.mjs';
 
 const projection = {
@@ -84,7 +85,12 @@ test('serves Dashboard evidence, capabilities, and four outcome families', async
   assert.equal((await fetch(`${base}/v1/outcomes/domains`)).status, 200);
   assert.equal((await fetch(`${base}/v1/outcomes/search`)).status, 200);
   assert.equal((await fetch(`${base}/v1/outcomes/ai-awareness`)).status, 200);
-  assert.equal((await fetch(`${base}/v1/outcomes/performance`)).status, 200);
+  const performance = await fetch(`${base}/v1/outcomes/performance`);
+  assert.equal(performance.status, 200);
+  assert.deepEqual((await performance.json()).thresholds, {
+    psiScore: PERFORMANCE_TARGET.psiScore,
+    lcpMilliseconds: PERFORMANCE_TARGET.lcpMilliseconds,
+  });
   assert.equal((await fetch(`${base}/v1/capabilities`)).status, 200);
   assert.equal((await fetch(`${base}/v1/evidence-status`)).status, 200);
   const prefill = await fetch(`${base}/v1/prefill`, { method: 'POST' });

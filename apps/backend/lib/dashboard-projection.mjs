@@ -202,7 +202,8 @@ export function latestPerformanceBatch(history = [], now = new Date().toISOStrin
 
 export function performanceStatus(score, lcp) {
   if (!Number.isFinite(score) || !Number.isFinite(lcp)) return 'not-measured';
-  return score >= 90 && lcp <= 2500 ? 'fast-enough' : 'needs-work';
+  return score >= PERFORMANCE_TARGET.psiScore && lcp <= PERFORMANCE_TARGET.lcpMilliseconds
+    ? 'fast-enough' : 'needs-work';
 }
 
 function performanceHistoryKey(value) {
