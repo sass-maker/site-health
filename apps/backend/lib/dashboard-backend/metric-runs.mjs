@@ -240,6 +240,7 @@ export function createMetricRunController({
       const key = `${family}:${scope === 'portfolio' ? 'portfolio' : projectId}`;
       const existingId = active.get(key);
       if (existingId) return publicRun(runs.get(existingId), { duplicate: true });
+      if (family === 'psi' && [...active.keys()].some(key => key.startsWith('psi:'))) fail('PERFORMANCE_BUSY', 'Another performance measurement is running. Wait for it to finish before starting a different scope.');
 
       const plan = scope === 'portfolio'
         ? portfolioCommandFor({
@@ -281,10 +282,10 @@ export function createMetricRunController({
       const capture = (chunk) => {
         run.capture = boundedStatusText(`${run.capture}${chunk}`);
         if (family === 'psi' && scope === 'portfolio') {
-          const match = [...run.capture.matchAll(/^\[(\d+)\/(\d+)\] ([a-z0-9-]+)\r?\n/gm)].at(-1);
-          if (match && Number(match[1]) <= Number(match[2]) && run.progress?.index !== Number(match[1])) {
-            run.progress = { index: Number(match[1]), total: Number(match[2]), projectId: match[3] };
-            run.summary = `Measuring ${match[1]}/${match[2]} external products · ${match[3]}`;
+          const match = [...run.capture.matchAll(/^Checked (\d+)\/(\d+) ([a-z0-9-]+) (ok|failed)\r?\n/gm)].at(-1);
+          if (match && Number(match[1]) <= Number(match[2]) && run.progress?.completed !== Number(match[1])) {
+            run.progress = { completed: Number(match[1]), total: Number(match[2]), projectId: match[3], outcome: match[4] };
+            run.summary = `Checked ${match[1]}/${match[2]} external products · ${match[3]} ${match[4] === 'ok' ? 'measured' : 'incomplete'}`;
             onRunChange(publicRun(run));
           }
         }

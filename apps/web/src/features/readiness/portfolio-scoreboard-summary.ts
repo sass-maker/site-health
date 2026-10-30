@@ -77,6 +77,7 @@ export function externalPerformanceQuality(product: ReadinessProduct) {
   const summary = summarizePortfolioProduct(product);
   const rows = [summary.desktop, summary.mobile];
   if (rows.some(row => row?.value == null)) return { state: 'missing', label: 'Not measured' };
+  if (rows.some(row => row?.measurement?.state === 'retained')) return { state: 'retained', label: 'Latest check incomplete' };
   if (rows.some(row => row?.measurement?.state !== 'current')) return { state: 'stale', label: 'Historical reading' };
   const lcp = product.evidence.filter(row => row.id === 'mobile:lcp' || row.source === 'performance' && row.id.startsWith('performance:lcp:'));
   if (lcp.length !== 2 || lcp.some(row => currentReadingValue(row) === null)) return { state: 'missing', label: 'LCP unmeasured' };

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@saas-maker/ui/components/button';
 import { PERFORMANCE_TARGET } from '../../../../backend/lib/dashboard-backend/performance-policy.mjs';
 
-type MetricRun = { runId: string; state: 'running' | 'succeeded' | 'failed' | 'unavailable'; summary: string; progress?: { index: number } | null };
+type MetricRun = { runId: string; state: 'running' | 'succeeded' | 'failed' | 'unavailable'; summary: string; progress?: { completed: number } | null };
 const pendingKey = 'site-health.performance-run';
 const apiBase = () => document.querySelector<HTMLMetaElement>('meta[name="dashboard-api-base"]')?.content ?? '/api/dashboard';
 
@@ -28,7 +28,7 @@ export function PerformanceRefresh({ count, onMeasured }: { count: number; onMea
         const run: MetricRun = await response.json();
         setMessage(run.summary);
         if (run.state === 'running') {
-          if (run.progress && run.progress.index > lastIndex) { lastIndex = run.progress.index; if (lastIndex > 1) void onMeasured().catch(() => {}); }
+          if (run.progress && run.progress.completed > lastIndex) { lastIndex = run.progress.completed; if (lastIndex > 0) void onMeasured().catch(() => {}); }
           timer = setTimeout(poll, 2000);
         }
         else {

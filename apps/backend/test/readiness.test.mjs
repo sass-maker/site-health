@@ -227,6 +227,21 @@ test('full individual checklist persists over HTTP above legacy event size and r
   }finally{await new Promise(resolve=>server.close(resolve));ledger.close();}
 });
 
+test('incomplete performance attempts retain both device readings without qualifying them as current', () => {
+  const pendingBatch = { sampleCount: 1, observedAt: now };
+  const signal = { value: 98, observedAt: now };
+  const observations = readinessObservations(projects, { outcomes: { performance: [{
+    projectId: 'sample', domain: 'sample.example', status: 'retained', samples: 5,
+    psi: signal, lcp: { ...signal, value: 1000 }, pendingBatch,
+    mobile: { status: 'retained', samples: 5, psi: signal, lcp: { ...signal, value: 1200 }, pendingBatch },
+  }] } });
+  const projection = buildReadinessProjection({ projects, observations, generatedAt: now });
+  const readings = projection.projects[0].evidence.filter(row => ['performance', 'psi-swarm.mobile'].includes(row.source) && row.value !== null);
+  assert.equal(readings.length, 4);
+  assert.ok(readings.every(row => row.measurement.state === 'retained'));
+  assert.ok(readings.every(row => row.context.samples === 5 && row.context.detail.includes('1/5')));
+});
+
 test('editing one category never replaces the other category legacy effort or level; empty checklist is inert',()=>{
  const state=estimatedProduct();state.applicability.growth.state='applicable';
  for(const gate of GATES.growth)state.requirements[gate.id]={status:'verified',note:'Legacy proof',evidenceRefs:proof};

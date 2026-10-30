@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path';
 import test, { after } from 'node:test';
 
 import { createMetricRunController as createController } from '../lib/dashboard-backend/metric-runs.mjs';
-import { resolveFleetRoot, runPerformancePortfolio } from '../scripts/run-performance-portfolio.mjs';
+import { resolveFleetRoot, runPerformancePortfolio, runSwarmProcess } from '../scripts/run-performance-portfolio.mjs';
 
 const fixtureRoot = mkdtempSync(join(tmpdir(), 'site-health-metric-runners-'));
 for (const file of ['psi-swarm/cli/dist/cli.js']) {
@@ -338,11 +338,13 @@ test('portfolio progress reaches callers and duplicate clicks attach to the exis
   let spawns = 0;
   const controller = createMetricRunController({ projects: [project()], onRunChange: run => receipts.push(run), spawnProcess: () => { spawns++; return child; } });
   const run = controller.start({ family: 'psi', scope: 'portfolio' });
-  child.stdout.emit('data', '[1/1] pa');
-  child.stdout.emit('data', 'ce\n');
+  child.stdout.emit('data', 'Measuring pace\n');
+  assert.equal(controller.get(run.runId).progress, null);
+  child.stdout.emit('data', 'Checked 1/1 pa');
+  child.stdout.emit('data', 'ce ok\n');
   const progress = controller.get(run.runId);
-  assert.deepEqual(progress.progress, { index: 1, total: 1, projectId: 'pace' });
-  assert.match(progress.summary, /Measuring 1\/1/);
+  assert.deepEqual(progress.progress, { completed: 1, total: 1, projectId: 'pace', outcome: 'ok' });
+  assert.match(progress.summary, /Checked 1\/1/);
   assert.equal(controller.start({ family: 'psi', scope: 'portfolio' }).duplicate, true);
   assert.equal(spawns, 1);
   assert.equal(receipts.at(-1).progress.projectId, 'pace');
@@ -359,7 +361,7 @@ test('an incomplete swarm is failed without skipping the remaining external prod
   assert.deepEqual(result, { completed: 0, failed: ['alpha', 'beta'] });
 });
 
-test('Lighthouse isolates targets into at most two processes and runs device presets serially', async () => {
+test('Lighthouse runs one target and device preset at a time', async () => {
   const releases = [];
   let active = 0, peak = 0;
   const result = runPerformancePortfolio(['alpha', 'beta', 'gamma'].map(projectId => ({ projectId, url: `https://${projectId}.example` })), {
@@ -371,11 +373,26 @@ test('Lighthouse isolates targets into at most two processes and runs device pre
       return new Promise(resolve => releases.push(() => { active--; resolve({ status: 0 }); }));
     },
   });
-  assert.equal(releases.length, 2);
+  assert.equal(releases.length, 1);
   releases.shift()();
   await new Promise(resolve => setImmediate(resolve));
-  assert.equal(releases.length, 2);
-  while (releases.length) releases.shift()();
+  assert.equal(releases.length, 1);
+  releases.shift()();
+  await new Promise(resolve => setImmediate(resolve));
+  releases.shift()();
   assert.equal((await result).completed, 3);
-  assert.equal(peak, 2);
+  assert.equal(peak, 1);
+});
+
+test('different performance scopes cannot overlap a running portfolio swarm', () => {
+  const controller = createMetricRunController({ projects: [project()], spawnProcess: () => fakeProcess() });
+  controller.start({ family: 'psi', scope: 'portfolio' });
+  assert.throws(() => controller.start({ family: 'psi', projectId: 'pace' }), { code: 'PERFORMANCE_BUSY' });
+});
+
+test('timed-out process receives the CLI cancellation signal and settles as failed', { skip: process.platform === 'win32' }, async () => {
+  const result = await runSwarmProcess(process.execPath, ['-e', `process.on('SIGINT', () => { console.log('cancelled'); process.exit(130); }); setInterval(() => {}, 1000);`], { timeout: 500, shell: false });
+  assert.equal(result.status, 130);
+  assert.match(result.stdout, /cancelled/);
+  assert.match(result.stderr, /timed out/);
 });

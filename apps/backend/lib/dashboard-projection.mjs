@@ -1,3 +1,4 @@
+import { PERFORMANCE_TARGET } from './dashboard-backend/performance-policy.mjs';
 import { observationFreshness, CLOCK_TOLERANCE_MS } from './dashboard-backend/measurement-contract.mjs';
 import { coverageTargets, readIndexCoverage, summarizeIndexCoverage } from './search-index-coverage.mjs';
 import { execFileSync } from 'node:child_process';
@@ -171,8 +172,8 @@ function median(values) {
   return sorted.length % 2 === 1 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
 }
 
-// The headline reads the whole most recent measurement batch, not its last row: a single PSI
-// sample carries the full per-sample lab variance the runner's repeated runs exist to cancel.
+// A partial retry must not replace a complete cohort. Keep its attempt visible
+// separately while retaining the previous complete measurement.
 export function latestPerformanceBatch(history = [], now = new Date().toISOString()) {
   const runs = (history ?? [])
     .filter((run) => numeric(run?.score) !== null
@@ -183,17 +184,17 @@ export function latestPerformanceBatch(history = [], now = new Date().toISOStrin
     .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt));
   const newest = runs.at(-1);
   if (!newest) return null;
-  const batch = runs.filter((run) =>
-    // Presets are separate measurement conditions, so a batch never mixes them.
-    (run.preset ?? null) === (newest.preset ?? null)
-    && (run.tag ?? null) === (newest.tag ?? null)
-    && Date.parse(newest.observedAt) - Date.parse(run.observedAt) <= PERFORMANCE_BATCH_WINDOW_MS);
-  return {
-    observedAt: newest.observedAt,
-    score: median(batch.map((run) => Number(run.score))),
-    lcp: median(batch.map((run) => Number(run.lcp))),
-    sampleCount: batch.length,
-  };
+  const cohort = anchor => runs.filter(run => {
+    const age = Date.parse(anchor.observedAt) - Date.parse(run.observedAt);
+    return (run.preset ?? null) === (anchor.preset ?? null) && (run.tag ?? null) === (anchor.tag ?? null)
+      && age >= 0 && age <= PERFORMANCE_BATCH_WINDOW_MS;
+  });
+  const summarize = batch => ({ observedAt: batch.at(-1).observedAt,
+    score: median(batch.map(run => Number(run.score))), lcp: median(batch.map(run => Number(run.lcp))), sampleCount: batch.length });
+  const latest = summarize(cohort(newest));
+  if (latest.sampleCount >= PERFORMANCE_TARGET.samplesPerPreset) return latest;
+  const complete = runs.filter(run => (run.preset ?? null) === (newest.preset ?? null)).reverse().map(cohort).find(batch => batch.length >= PERFORMANCE_TARGET.samplesPerPreset);
+  return complete ? { ...summarize(complete), pendingBatch: latest } : latest;
 }
 
 export function performanceStatus(score, lcp) {
@@ -230,14 +231,16 @@ function performanceProjection(projects, home, now, directory) {
       domain,
       url,
       audience: project.audience ?? 'unknown',
-      status: psi && lcp ? performanceStatus(psi.value, lcp.value) : 'not-measured',
+      status: batch?.pendingBatch ? 'retained' : psi && lcp ? performanceStatus(psi.value, lcp.value) : 'not-measured',
+      pendingBatch: batch?.pendingBatch ?? null,
       observedAt,
       samples: batch?.sampleCount ?? 0,
       preset: 'desktop',
       mobile: {
         observedAt: mobileBatch?.observedAt ?? null,
         samples: mobileBatch?.sampleCount ?? 0,
-        status: mobileBatch ? performanceStatus(mobileBatch.score, mobileBatch.lcp) : 'not-measured',
+        status: mobileBatch?.pendingBatch ? 'retained' : mobileBatch ? performanceStatus(mobileBatch.score, mobileBatch.lcp) : 'not-measured',
+        pendingBatch: mobileBatch?.pendingBatch ?? null,
         psi: signal('Mobile PSI performance', mobileBatch?.score, mobileBatch?.observedAt ?? null),
         lcp: signal('Mobile PSI LCP', mobileBatch?.lcp, mobileBatch?.observedAt ?? null),
       },

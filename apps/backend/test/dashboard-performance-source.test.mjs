@@ -89,3 +89,14 @@ test('shared-domain product sections and hidden external products keep their own
     assert.equal(rows.find(row => row.projectId === 'storage').psi.value, 75);
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
+
+test('an incomplete newer tag retains the last complete cohort with an explicit pending reading', () => {
+  const complete = Array.from({ length: 5 }, (_, i) => ({ observedAt: `2026-10-30T06:0${i}:00Z`, preset: 'desktop', score: 96 + i, lcp: 1000, tag: 'complete' }));
+  const partial = { observedAt: '2026-10-30T06:05:00Z', preset: 'desktop', score: 70, lcp: 5000, tag: 'partial' };
+  const reading = latestPerformanceBatch([...complete, partial], '2026-10-30T07:00:00Z');
+  assert.equal(reading.score, 98);
+  assert.equal(reading.sampleCount, 5);
+  assert.equal(reading.observedAt, '2026-10-30T06:04:00Z');
+  assert.equal(reading.pendingBatch.score, 70);
+  assert.equal(reading.pendingBatch.sampleCount, 1);
+});

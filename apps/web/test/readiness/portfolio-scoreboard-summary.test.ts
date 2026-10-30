@@ -112,6 +112,9 @@ it('requires both current device cohorts and five samples before calling lab per
   expect(externalPerformanceQuality(row).state).toBe('samples');
   row.evidence[1].context!.samples = 5; row.evidence[1].measurement!.state = 'stale';
   expect(externalPerformanceQuality(row).state).toBe('stale');
+  row.evidence[1].measurement!.state = 'retained';
+  expect(externalPerformanceQuality(row).state).toBe('retained');
+  expect(currentReadingValue(row.evidence[1])).toBeNull();
   row.audience = 'internal';
   expect(externalPerformanceQuality(row).state).toBe('internal');
 });

@@ -50,14 +50,22 @@ export function completeSwarmSamples(tag, home = homedir()) {
   } catch { return false; }
 }
 
-function runSwarmProcess(command, args, options) {
+export function runSwarmProcess(command, args, { timeout, ...options }) {
   return new Promise(resolveRun => {
-    const child = spawn(command, args, { ...options, stdio: ['ignore', 'pipe', 'pipe'] });
+    const child = spawn(command, args, { ...options, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
+    let timedOut = false;
+    let forceTimer;
+    const timer = setTimeout(() => {
+      timedOut = true;
+      // Chrome Launcher owns detached browser groups and cleans them on SIGINT.
+      try { if (process.platform === 'win32') child.kill('SIGINT'); else process.kill(-child.pid, 'SIGINT'); } catch {}
+      forceTimer = setTimeout(() => { try { if (process.platform === 'win32') child.kill('SIGKILL'); else process.kill(-child.pid, 'SIGKILL'); } catch {} }, 15_000);
+    }, timeout);
     let stdout = '', stderr = '';
     child.stdout.on('data', chunk => { stdout = `${stdout}${chunk}`.slice(-8 * 1024 * 1024); });
     child.stderr.on('data', chunk => { stderr = `${stderr}${chunk}`.slice(-8 * 1024 * 1024); });
-    child.once('error', error => resolveRun({ status: null, stderr: error.message }));
-    child.once('close', status => resolveRun({ status, stdout, stderr }));
+    child.once('error', error => { clearTimeout(timer); clearTimeout(forceTimer); resolveRun({ status: null, stderr: error.message }); });
+    child.once('close', status => { clearTimeout(timer); clearTimeout(forceTimer); resolveRun({ status, stdout, stderr: timedOut ? 'Performance target timed out; last complete readings retained' : stderr }); });
   });
 }
 
@@ -71,18 +79,23 @@ export async function runPerformancePortfolio(
     run = runSwarmProcess,
     log = console.log,
     verifySamples = completeSwarmSamples,
+    now = Date.now,
   } = {},
 ) {
   if (!existsSync(cliPath) && run === runSwarmProcess) {
     throw new Error('PSI Swarm CLI is not built');
   }
   const failed = [];
+  const deadline = now() + PERFORMANCE_TARGET.portfolioTimeoutMs;
   let next = 0;
+  let checked = 0;
   const workers = Array.from({ length: Math.min(PERFORMANCE_TARGET.concurrentTargets, targets.length) }, async () => {
     while (next < targets.length) {
       const index = next++;
       const target = targets[index];
-      log(`[${index + 1}/${targets.length}] ${target.projectId}`);
+      log(`Measuring ${target.projectId}`);
+      const remainingMs = deadline - now();
+      if (remainingMs <= 0) { failed.push(target.projectId); log(`Checked ${++checked}/${targets.length} ${target.projectId} failed`); continue; }
       const tag = `console-portfolio-${randomUUID()}`;
       const result = await run('mise', [
         'exec',
@@ -110,14 +123,16 @@ export async function runPerformancePortfolio(
         encoding: 'utf8',
         maxBuffer: 8 * 1024 * 1024,
         shell: false,
-        timeout: 12 * 60 * 1000,
+        timeout: Math.min(PERFORMANCE_TARGET.targetTimeoutMs, remainingMs),
         killSignal: 'SIGTERM',
       });
-      if (result.status !== 0 || !verifySamples(tag)) {
+      const complete = result.status === 0 && verifySamples(tag);
+      if (!complete) {
         failed.push(target.projectId);
         const detail = String(result.status === 0 ? 'Incomplete desktop/mobile cohort; successful samples retained' : result.stderr || result.stdout || 'PSI run failed').trim().split(/\r?\n/).at(-1);
         log(`${target.projectId}: ${detail}`);
       }
+      log(`Checked ${++checked}/${targets.length} ${target.projectId} ${complete ? 'ok' : 'failed'}`);
     }
   });
   await Promise.all(workers);
