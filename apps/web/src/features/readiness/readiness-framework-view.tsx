@@ -12,7 +12,7 @@ import { Input } from '@saas-maker/ui/components/input';
 import { Textarea } from '@saas-maker/ui/components/textarea';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@saas-maker/ui/components/select';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@saas-maker/ui/components/dropdown-menu';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@saas-maker/ui/components/sheet';
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@saas-maker/ui/components/sheet';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@saas-maker/ui/components/tabs';
 import { LocalLink, useRouter, useSearchParams } from './navigation';
 import { UiLibraryOverview, UiLibraryDetail } from './ui-library-coverage-view';
@@ -100,12 +100,15 @@ function ObservationContext({ row }: { row: Observation }) {
   const context = measurementContextText(row);
   return <div className="min-w-0 space-y-2">
     {row.gap && <p className="whitespace-normal break-words text-sm leading-6 text-muted-foreground">{row.gap}</p>}
-    {context && <Accordion type="single" collapsible className="min-w-0">
-      <AccordionItem value="measurement-context" className="border-0">
-        <AccordionTrigger className="py-2 text-left text-xs" aria-label={`Measurement context for ${row.label}`}>Measurement context</AccordionTrigger>
-        <AccordionContent className="min-w-0 whitespace-normal break-words text-xs leading-5 text-muted-foreground [overflow-wrap:anywhere]">{context}</AccordionContent>
-      </AccordionItem>
-    </Accordion>}
+    {context && <Sheet>
+      <SheetTrigger asChild><Button variant="link" size="sm" className="h-auto max-w-full justify-start whitespace-normal px-0 py-2 text-left text-xs" aria-label={`Measurement context for ${row.label}`}>Measurement context</Button></SheetTrigger>
+      <SheetContent className="w-full overflow-y-auto sm:max-w-2xl">
+        <SheetHeader><SheetTitle>{row.label}</SheetTitle><SheetDescription>{row.source} · {dateText(row.observedAt)}</SheetDescription></SheetHeader>
+        <div className="min-w-0 space-y-3 px-6 pb-8 text-sm leading-6 text-muted-foreground">
+          {context.split(' · ').map((paragraph, index) => <p key={index} className="whitespace-normal break-words [overflow-wrap:anywhere]">{paragraph}</p>)}
+        </div>
+      </SheetContent>
+    </Sheet>}
   </div>;
 }
 function Results({ product, state, area }: { product: ReadinessProduct; state: ReadinessState; area: ReadinessArea }) {
