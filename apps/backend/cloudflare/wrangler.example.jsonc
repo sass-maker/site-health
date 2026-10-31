@@ -17,6 +17,7 @@
   "rules": [{ "type": "Text", "globs": ["**/*.sql"], "fallthrough": true }],
   "observability": { "enabled": true, "traces": { "enabled": true } },
   "vars": {
+    "SITE_HEALTH_WRITER_ROLE": "staging",
     "SITE_HEALTH_PUBLIC_ORIGIN": "https://REPLACE_WITH_OWNER_HOST",
     "ACCESS_TEAM_DOMAIN": "https://REPLACE_WITH_TEAM.cloudflareaccess.com",
     "ACCESS_AUD": "REPLACE_WITH_ACCESS_AUDIENCE",

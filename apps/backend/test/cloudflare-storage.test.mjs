@@ -18,7 +18,7 @@ async function fixture() {
   const root=await mkdtemp(join(tmpdir(),'site-health-cloud-test-'));
   const bundle=join(root,'worker.mjs');
   await build({entryPoints:['apps/backend/test/fixtures/cloudflare/worker.mjs'],bundle:true,format:'esm',platform:'neutral',target:'es2024',outfile:bundle,external:['cloudflare:workers','node:*'],loader:{'.sql':'text'},conditions:['workerd','worker','browser']});
-  const options={modules:true,modulesRoot:root,scriptPath:bundle,compatibilityDate:'2026-07-30',compatibilityFlags:['nodejs_compat'],durableObjects:definitions,durableObjectsPersist:join(root,'durable'),r2Buckets:['EVIDENCE'],r2BucketsPersist:join(root,'r2')};
+  const options={bindings:{SITE_HEALTH_WRITER_ROLE:'active'},modules:true,modulesRoot:root,scriptPath:bundle,compatibilityDate:'2026-07-30',compatibilityFlags:['nodejs_compat'],durableObjects:definitions,durableObjectsPersist:join(root,'durable'),r2Buckets:['EVIDENCE'],r2Persist:join(root,'r2')};
   const start=()=>new Miniflare(options); let mf=start();
   const call=async(binding,name,method,...args)=>{const response=await mf.dispatchFetch('http://localhost/__test',{method:'POST',body:JSON.stringify({binding,name,method,args})});const body=await response.json();if(!response.ok)throw new Error(body.error);return body.result;};
   return {call,get mf(){return mf;},async restart(){await mf.dispose();mf=start();},async close(){await mf.dispose();}};
@@ -119,5 +119,19 @@ test('awaited readiness bodies keep their request catalog during interleaved DO 
    assert.equal(retained.status,200);assert.deepEqual(retained.otherProjects,[]);
    const absent=await f.call('DASHBOARD','catalog-addition','interleavedCatalog',false);
    assert.equal(absent.status,404);assert.equal(absent.otherProjects[0].id,'fixture');
+ }finally{await f.close();}
+});
+
+test('explicit retry keys stay distinct and batch expiry budgets reset after real progress',async()=>{
+ const f=await fixture();try{
+   const a=await f.call('JOBS','keys','test','start',[{family:'usage'},'key-a']);
+   const b=await f.call('JOBS','keys','test','start',[{family:'usage'},'key-b']);assert.notEqual(a.runId,b.runId);
+   for(let i=0;i<2;i++){const claimed=await f.call('JOBS','keys','test','claim',[]);await f.call('JOBS','keys','test','finish',[claimed.job.runId,claimed.token,{}]);}
+   assert.equal((await f.call('JOBS','keys','test','start',[{family:'usage'},'key-b'])).runId,b.runId);
+   const start=await f.call('JOBS','expiry','test','start',[{family:'usage'},'expiry']);
+   for(let attempt=0;attempt<3;attempt++){await f.call('JOBS','expiry','test','clock',attempt*1001);assert.ok((await f.call('JOBS','expiry','test','claim',[])).token);}
+   await f.call('JOBS','expiry','test','clock',3003);const exhausted=await f.call('JOBS','expiry','test','claim',[]);assert.equal(exhausted.exhausted.state,'failed');assert.equal(exhausted.exhausted.runId,start.runId);
+   await f.call('JOBS','progress','test','start',[{family:'usage'},'progress']);
+   for(let completed=1;completed<=10;completed++){const claim=await f.call('JOBS','progress','test','claim',[]);assert.ok(claim.token);await f.call('JOBS','progress','test','advance',[claim.job.runId,claim.token,{completed},{state:completed===10?'succeeded':'queued'}]);}
  }finally{await f.close();}
 });

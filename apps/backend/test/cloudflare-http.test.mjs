@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { build } from 'esbuild';
 import { Miniflare } from 'miniflare';
 import { generateKeyPair, exportJWK, SignJWT } from 'jose';
+import { clarityPolicy } from './fixtures/cloudflare/policy.mjs';
 import { writeEvidence } from '../cloudflare/evidence.mjs';
 import { emptyReadinessState } from '../lib/dashboard-backend/readiness-model.mjs';
 import { outcomeProjection } from '../lib/dashboard-backend/outcome-projection.mjs';
@@ -19,7 +20,7 @@ test('signed owner Access gates HTML, assets, APIs and R2; invalid claims and ex
  let keysUnavailable=false,assetReads=0,appleCalls=0,aiCalls=0;
  const options={modules:true,modulesRoot:root,scriptPath:bundle,compatibilityDate:'2026-07-30',compatibilityFlags:['nodejs_compat'],
  durableObjects:{DASHBOARD:{className:'DashboardState',useSQLite:true},BRAND:{className:'BrandState',useSQLite:true},APP_STORE:{className:'AppStoreState',useSQLite:true}},r2Buckets:['EVIDENCE'],
- bindings:{SITE_HEALTH_PUBLIC_ORIGIN:origin,ACCESS_TEAM_DOMAIN:issuer,ACCESS_AUD:'fixture-audience',ACCESS_OWNER_EMAIL:owner,OWNER_STORE_ID:'fixture',AI_GATEWAY_API_KEY:'synthetic-test-key'},
+ bindings:{SITE_HEALTH_WRITER_ROLE:'active',SITE_HEALTH_PUBLIC_ORIGIN:origin,ACCESS_TEAM_DOMAIN:issuer,ACCESS_AUD:'fixture-audience',ACCESS_OWNER_EMAIL:owner,OWNER_STORE_ID:'fixture',AI_GATEWAY_API_KEY:'synthetic-test-key'},
  serviceBindings:{ASSETS:async request=>{assetReads++;if(!['/','/_astro/private.js'].includes(new URL(request.url).pathname))return new Response('Not found',{status:404});return new Response('<html>Private fixture</html>',{headers:{'content-type':'text/html'}});}},
  outboundService:async request=>{
    if(request.url===issuer+'/cdn-cgi/access/certs')return keysUnavailable ? new Response('Unavailable',{status:503}) : Response.json({keys:[jwk]});
@@ -62,7 +63,7 @@ test('signed owner Access gates HTML, assets, APIs and R2; invalid claims and ex
    const evidence=(family,payload)=>writeEvidence(bucket,{schema:'site-health.cloud-evidence.v1',family,source:'synthetic-fixture',provenance:'authenticated-native-feed',observedAt:'2026-10-31T00:00:00.000Z',payload});
    const payload={generatedAt:'2026-10-31T00:00:00.000Z',outcomes:{domains:[],search:[],seoAudit:[],geoAwareness:[],aiAwareness:[],performance:[]}};
    const manifest={catalog:await evidence('catalog',{projects:[project],collections:[]}),dashboard:await evidence('dashboard',payload),
-     uiLibrary:await evidence('ui-library',{siteHealth:null,projects:[],coverage:null}),capabilities:await evidence('capabilities',{schemaVersion:'site-health.capability-projection.v1',sources:{},skills:[]}),spend:await evidence('spend',{state:'not-measured'}),collectors:{psi:{enabled:false,reason:'Synthetic unqualified runner'}}};
+     clarityPolicy:await evidence('policy',clarityPolicy([project])),uiLibrary:await evidence('ui-library',{siteHealth:null,projects:[],coverage:null}),capabilities:await evidence('capabilities',{schemaVersion:'site-health.capability-projection.v1',sources:{},skills:[]}),spend:await evidence('spend',{state:'not-measured'}),collectors:{psi:{enabled:false,reason:'Synthetic unqualified runner'}}};
    const setup=await mf.dispatchFetch('http://localhost/__test',{method:'POST',body:JSON.stringify({method:'configureRuntime',args:[manifest]})});assert.equal(setup.status,200);
    assert.equal((await request('/v1/projects')).status,200);
    for(const path of ['/health','/v1/projects','/v1/readiness','/v1/seo/app-store/status','/v1/projects/fixture/brand-evidence/growth']) {

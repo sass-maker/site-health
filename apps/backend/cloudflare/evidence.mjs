@@ -1,5 +1,5 @@
 import { snapshotDigest } from '../lib/store-snapshot.mjs';
-const FAMILIES = new Set(['catalog','dashboard','ui-library','capabilities','spend','clarity','policy','artifact']);
+const FAMILIES = new Set(['catalog','dashboard','ui-library','capabilities','spend','clarity','usage','provider-revenue','policy','artifact']);
 const MAX_BYTES = 16 * 1024 * 1024;
 const fail = message => { throw Object.assign(new Error(message), { statusCode: 503 }); };
 export function evidenceReference(document) {
@@ -15,6 +15,8 @@ export async function writeEvidence(bucket, document) {
   if (new TextEncoder().encode(body).length > MAX_BYTES) fail('Evidence exceeds its bound');
   await bucket.put(`evidence/${reference.family}/${reference.digest}.json`, body,
     { httpMetadata: { contentType: 'application/json' }, onlyIf: { etagDoesNotMatch: '*' } });
+  // A conditional put alone does not prove that an existing object is intact.
+  await readEvidence(bucket,reference,reference.family);
   return reference;
 }
 export async function readEvidence(bucket, reference, family) {
