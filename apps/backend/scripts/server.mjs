@@ -3,8 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import { loadDashboardProjects, loadProjectCollections } from '../lib/dashboard-backend/registry.mjs';
-import { startDashboardService } from '../lib/dashboard-backend/service.mjs';
-import { hostedConfiguration, hostedListenPort, startHostedDashboardService } from '../lib/dashboard-backend/hosted.mjs';
+import { ownerListenerConfiguration, startOwnerListeners } from '../lib/dashboard-backend/owner-listeners.mjs';
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
 import {
   recordRefreshReceipt,
@@ -54,8 +53,8 @@ if (!command || ['help', '--help', '-h'].includes(command)) {
   process.exit(0);
 }
 
-const hostedConfig = hostedConfiguration();
-const hostedPort = hostedConfig && command === 'serve' ? hostedListenPort(args[0] ?? process.env.PORT) : null;
+const listeners = command === 'serve' ? ownerListenerConfiguration(process.env, args[0]) : null;
+const hostedConfig = listeners?.hosted;
 const projectsProvider = () => loadDashboardProjects();
 const projectCollectionsProvider = () => loadProjectCollections();
 const projects = projectsProvider();
@@ -99,7 +98,7 @@ if (command === 'status') {
   console.log(JSON.stringify(store.restoreBackup(JSON.parse(readFileSync(resolve(args[0]), 'utf8'))), null, 2));
   store.close();
 } else if (command === 'serve') {
-  const port = hostedConfig ? hostedPort : Number(args[0] ?? 4187);
+  const port = listeners.port;
   const metricRunController = createMetricRunController({
     projectsProvider,
     onRunChange: (run) => recordRefreshReceipt(store, run),
@@ -138,14 +137,13 @@ if (command === 'status') {
   });
   const appStoreStore = new AppStoreStore({ ...(process.env.SITE_HEALTH_APP_STORE_DB ? { databasePath: process.env.SITE_HEALTH_APP_STORE_DB } : {}) });
   const brandEvidenceEnv = gatewayEnvironment();
-  const startService = hostedConfig ? startHostedDashboardService : startDashboardService;
-  const server = await startService({
-    ...(hostedConfig ? { config: hostedConfig, distDirectory: resolve(import.meta.dirname, '../../web/dist') } : {}),
+  const servers = await startOwnerListeners({
+    listeners,
+    ...(hostedConfig ? { distDirectory: resolve(import.meta.dirname, '../../web/dist') } : {}),
     store,
     brandEvidenceStore,
     appStoreStore,
     brandEvidenceEnv,
-    port,
     prewarmProjection: true,
     ownerToken: process.env.DASHBOARD_OWNER_TOKEN ?? process.env.FOUNDER_CONTROL_OWNER_TOKEN,
     trustLoopback: (process.env.DASHBOARD_TRUST_LOOPBACK ?? process.env.FOUNDER_CONTROL_TRUST_LOOPBACK) !== '0',
@@ -160,9 +158,8 @@ if (command === 'status') {
     ],
   });
   const brandScheduler = startBrandEvidenceScheduler({ store: brandEvidenceStore, projectsProvider, env: brandEvidenceEnv });
-  console.log(hostedConfig
-    ? `Site Health hosted dashboard listening on port ${port} for ${hostedConfig.origin}`
-    : `Site Health backend listening on http://127.0.0.1:${port}`);
+  if (!hostedConfig || listeners.tunnel) console.log(`Site Health backend listening on http://127.0.0.1:${port}`);
+  if (hostedConfig) console.log(`Site Health hosted dashboard listening on port ${listeners.tunnel ? listeners.tunnelPort : port} for ${hostedConfig.origin}`);
   const evidenceScheduler = startEvidenceScheduler({
     lanes: process.env.SITE_HEALTH_SCHEDULED_REFRESH === '0' ? [] : [
       { id: 'provider-refresh', intervalMs: 10 * 60_000, run: () => prefillEvidence({ force: false }) },
@@ -248,7 +245,7 @@ if (command === 'status') {
     const brandsStopped = brandScheduler.stop();
     const evidenceStopped = evidenceScheduler.stop();
     abandonInFlightRuns();
-    server.close(async () => {
+    Promise.all(servers.map(server => new Promise(resolve => server.close(resolve)))).then(async () => {
       await brandsStopped;
       await evidenceStopped;
       store.close();
