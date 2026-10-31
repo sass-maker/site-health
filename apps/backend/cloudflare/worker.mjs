@@ -22,6 +22,7 @@ export default {
       const principal = await authorize({headers:{host:url.host,'cf-access-jwt-assertion':request.headers.get('cf-access-jwt-assertion')}});
       if (!principal) return jsonResponse(401,{error:'owner authentication required'});
       if (!['GET','HEAD'].includes(request.method)) {
+        if(env.SITE_HEALTH_WRITER_ROLE!=='active')return jsonResponse(503,{error:'Staging and read-only writes are disabled'});
         if (request.headers.get('origin') !== config.origin || !['same-origin','same-site','none',null].includes(request.headers.get('sec-fetch-site'))) return jsonResponse(403,{error:'Unknown dashboard origin'});
         if (request.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !== 'application/json') return jsonResponse(415,{error:'Browser mutations require application/json'});
       }

@@ -20,8 +20,9 @@ created, read, transferred or changed by the tests.
   snapshots. It is a read-only projection of the canonical owner-local catalog,
   never another editable catalog. No URL maps arbitrary R2 keys or native paths.
 - Job claims, retry leases, fencing and cancellation are durable. A collector
-  receipt cannot claim success until evidence publication is qualified. No
-  container-local disk is authoritative. Collector executors are not included.
+  receipts for Clarity and App Health usage/revenue follow verified immutable R2
+  publication and an atomic fenced metadata/progress commit. Other acquisition
+  backends remain unqualified. No container-local disk is authoritative.
 - Signed Access verification is shared with the Node hosted adapter: RS256,
   configured issuer/audience/owner, expiry/issued-at and exact HTTPS origin.
   Missing configuration and key outages fail closed; there is no loopback trust.
@@ -41,22 +42,40 @@ configured; provisioned Access, routes, bindings and retention remain operator w
 | Owner authentication | Shared Access JWT rule; private assets/API/R2 denial; exact Origin/JSON/body bounds | Provisioned owner Access and real hosted denial/recovery proof |
 | Readiness, projects, collections | Existing projection/save rules on DO SQL | Real complete catalog build and route/page acceptance |
 | Six outcome reads | Existing bounded outcome/freshness contracts from immutable evidence | Qualified live acquisition/publication and attributed native artifact references |
-| UI Library, capabilities, spend, Clarity | Typed snapshot routes | Exact source-field parity for every independent evidence adapter |
+| UI Library, capabilities, spend, Clarity | Independent typed reads; full shared Clarity projection with TTL/receipts | Actual catalog/evidence migration and live provider proof |
 | Brand profile/prompts/growth/actions/drafts | Existing project-scoped business routes and storage | Durable resumable AI/community/brief runner; scheduled work |
 | App Store | Existing Apple HTTP and AI proposal routes; durable allowances/cache | Real credential-binding qualification (synthetic Worker provider fixtures are covered) |
-| Metric jobs | Durable queue/claim/fence/cancel/interruption lease model | Qualified executor, receipt-to-evidence publication, prefill and schedules |
+| Metric jobs | Durable batching, fenced publication, bounded retry, prefill and daily/three-day HTTP schedules | Other acquisition/import backends, cloud control recovery and live credential qualification |
 | Browser-private work | Existing JSON export/preview/atomic import retained | Synthetic two-origin test and owner-operated exports/imports |
 | Cloud release | Example config and Worker bundle with forbidden-Node-import guard | Provisioning, full checks/review, private build, upload, cutover and live proof |
 
 | Collector | Cloud state |
 | --- | --- |
 | PSI Swarm | Unavailable: Node/Chrome executor plus durable sample/artifact upload not qualified |
-| Domain Rating, GEO, pooled AI | Unavailable: existing operator/source semantics must be ported and qualified |
+| Domain Rating | Existing acquisition adapter still needs cloud execution qualification |
+| GEO and pooled AI | Existing manual validation/import workflows must be ported; no new live discovery automation is implied |
 | Search Console | Unavailable: Google HTTP acquisition needs credential bindings instead of gcloud ADC |
-| Clarity, App Health usage, revenue | Unavailable: HTTP adapters need explicit cloud credential bindings and durable publication |
+| Clarity, App Health usage, revenue | Shared HTTP adapters and durable publication tested in workerd; live explicit credential bindings and provider qualification pending |
 | Brand API checks/community/briefs | Unavailable: interrupted work must resume without duplicated or lost observations |
 | Apple research and AI proposals | Request routes ported; shared allowance/cache remain durable; private drafts stay in browser |
 | Native/local observations | Typed `authenticated-native-feed` storage only; feed authentication/ingestion and attribution pending |
+
+The runtime manifest enables individual HTTP families through `collectors` entries
+(`enabled`, optional `schedule: true`). Credential binding names are
+`APP_HEALTH_READ_TOKEN` and `CLARITY_API_TOKEN_<NORMALIZED_PROJECT_ID>`; no secret is
+stored in catalog/evidence/job payloads. `SITE_HEALTH_WRITER_ROLE` defaults to
+staging: mutations and alarms are disabled unless explicitly set to `active`.
+Activation and complete cloud recovery remain separate migration gates.
+
+Internally queued jobs retain the existing public `running` state so the unchanged
+clients poll and reconnect to the same run. Headerless starts coalesce active
+identical jobs; explicit idempotency keys retain distinct retry identities. Each
+batch pins target IDs and catalog/policy digests, covers at most four App Health
+projects (one Clarity export), and permits three claims at an unchanged progress
+offset. Successful progress resets the batch budget. Failed scheduled prerequisites
+write a bounded unavailable receipt and advance cadence without erasing evidence.
+A cancelled/expired lease cannot advance an evidence pointer, receipt or progress.
+R2 publication is verified by read-back hash, including existing immutable keys.
 
 Unconfigured refreshes return an explicit 503 and retain existing evidence.
 Missing evidence is not zero. This unit does not claim collector or full-route
@@ -69,7 +88,10 @@ SQLite Durable Objects and private R2. The fixture exposes test-only RPC helpers
 it is never the production entrypoint. Tests exercise full-store snapshot replay,
 restart/eviction, rollback, duplicate/conflicting writes, job fencing/cancellation,
 signed owner/issuer/audience/time/origin checks, private HTML/assets/API/R2, body
-bounds and synthetic route reads. Existing Node test runners remain authoritative.
+bounds and synthetic route reads. Additional HTTP fixtures exercise actual client
+polling, fresh/zero/partial/retained values, namespace-preserving revenue, Clarity
+TTL, independent-source corruption, retries/cancellation, pinned catalog changes,
+staging and schedules, and checkpointed publication through full runtime restart. Existing Node test runners remain authoritative.
 `pnpm run build:cloudflare` rejects unsupported disk/process/SQLite imports.
 
 ## Cutover and recovery sequence

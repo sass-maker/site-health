@@ -4,6 +4,15 @@ import { DurableJobs } from '../../../cloudflare/jobs.mjs';
 import { emptyReadinessState } from '../../../lib/dashboard-backend/readiness-model.mjs';
 import { DurableObject } from 'cloudflare:workers';
 export class DashboardState extends Dashboard {
+  now(){return this.store?.getMetadata('test:clock')?.value??super.now();}
+  async scheduleJobs(){if(this.store?.getMetadata('test:pause')?.value){await this.ctx.storage.deleteAlarm();return;}return super.scheduleJobs();}
+  async alarm(){this.lastAlarm=super.alarm();return this.lastAlarm;}
+  runAlarm(){return this.alarm();}
+  idle(){return this.lastAlarm??Promise.resolve();}
+  alarmAt(){return this.ctx.storage.getAlarm();}
+  async startPinned(input){const runtime=this.runtime();const catalog=(await this.env.EVIDENCE.get(`evidence/catalog/${runtime.catalog.digest}.json`));return this.enqueueHttp(input,runtime,(await catalog.json()).payload.projects);}
+  control(){return {publications:this.database.prepare('SELECT * FROM _cloud_publications ORDER BY job_id,batch_id').all(),schedules:this.database.prepare('SELECT * FROM _cloud_schedules ORDER BY family').all(),metadata:this.store.listMetadata()};}
+
   async interleavedCatalog(firstHasProject) {
     const project={id:'fixture',name:'Fixture',status:'active',lifecycle:{status:'active'}};
     let admit,release;
