@@ -1,14 +1,42 @@
 # Hosted Node runtime
 
-This adapter is prepared for a persistent Node 24 host behind Cloudflare Access.
-It has not been deployed. No remote VM is currently configured by this work.
+This adapter supports the owner's Mac or a persistent Node 24 host behind
+Cloudflare Access. Source support does not mean the Cloudflare connection is live.
 Use the final reviewed commit SHA for any deployment, rather than a moving branch.
 
 Build the existing Astro application with the repository's pinned pnpm version,
 then run `node apps/backend/scripts/server.mjs serve`. Hosted mode serves the
 built UI and `/api/dashboard` API from one server. The listener defaults to
 `127.0.0.1:4187`; run cloudflared on the same host and keep the backend port
-private. No Mac process or Mac tunnel is required on that host.
+private.
+
+## Mac-backed Cloudflare access
+
+Keep the Mac as the collector and authoritative store. Set `SITE_HEALTH_TUNNEL=1`
+instead of `SITE_HEALTH_HOSTED=1`, with the four Access configuration values below.
+One backend process then serves the existing local API on `127.0.0.1:4187` and
+the built, authenticated dashboard on `127.0.0.1:4188`. Both use the same stores,
+job controller and collectors. The local dashboard at port 4321 keeps working.
+Do not start a second backend against the same databases.
+
+Map the owner-only Cloudflare Tunnel hostname to `http://127.0.0.1:4188`,
+preserving its public Host header. Use a final `http_status:404` ingress rule.
+Protect the entire hostname with Access before publishing its DNS record.
+Never expose the development server or either backend port directly to the network.
+The origin verifies the signed Access assertion for HTML, assets and API requests.
+
+The Mac must be awake and online to view live data. This mode does not move or
+copy the databases, provider credentials or measurement jobs to Cloudflare.
+Browser-only drafts remain specific to each browser origin; server-backed scores,
+evidence and measurements are shared. There is no separate synchronization delay.
+
+`SITE_HEALTH_TUNNEL_PORT` optionally changes 4188. The CLI port argument changes
+the local API port in tunnel mode; it must differ from the tunnel port. `PORT`
+continues to apply only to the hosted-only mode. Invalid configuration is rejected
+before opening the private databases. Reuse the current private data locations
+and reviewed production build; do not use the example `/data` paths below on the Mac.
+
+## Hosted-only configuration
 
 Required nonsecret runtime configuration, with example placeholders:
 
