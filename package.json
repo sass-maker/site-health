@@ -33,13 +33,17 @@
     "owner:service": "node scripts/owner-service.mjs",
     "test:app-store": "node --disable-warning=ExperimentalWarning --test apps/web/test/app-store/*.test.ts apps/backend/test/app-store*.test.mjs",
     "test:app-store:web": "node --disable-warning=ExperimentalWarning --test apps/web/test/app-store/*.test.ts",
-    "test:readiness": "pnpm --dir apps/web test:readiness && pnpm --dir apps/web check:ui && pnpm --dir apps/web check:ui-library"
+    "test:readiness": "pnpm --dir apps/web test:readiness && pnpm --dir apps/web check:ui && pnpm --dir apps/web check:ui-library",
+    "build:cloudflare": "node scripts/build-cloudflare.mjs",
+    "test:cloudflare": "node --disable-warning=ExperimentalWarning --test apps/backend/test/cloudflare*.test.mjs"
   },
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.0",
+    "miniflare": "4.20260730.0",
+    "esbuild": "0.28.2"
   },
   "packageManager": "pnpm@10.33.2",
   "dependencies": {

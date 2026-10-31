@@ -26,3 +26,6 @@ apps/backend/*.sqlite-*
 /catalog/projects.json
 /catalog/generated/
 /catalog/backups/
+
+# Disposable bundled Worker used by workerd tests
+apps/backend/cloudflare/.build/

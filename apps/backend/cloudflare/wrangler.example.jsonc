@@ -1,0 +1,26 @@
+{
+  "$schema": "../../../node_modules/wrangler/config-schema.json",
+  "name": "site-health-owner",
+  "main": "./worker.mjs",
+  "compatibility_date": "2026-07-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": { "directory": "../../web/dist", "binding": "ASSETS", "run_worker_first": true },
+  "durable_objects": { "bindings": [
+    { "name": "DASHBOARD", "class_name": "DashboardState" },
+    { "name": "BRAND", "class_name": "BrandState" },
+    { "name": "APP_STORE", "class_name": "AppStoreState" }
+  ] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DashboardState", "BrandState", "AppStoreState"] }],
+  "r2_buckets": [{ "binding": "EVIDENCE", "bucket_name": "REPLACE_WITH_PRIVATE_PROJECT_BUCKET" }],
+  "rules": [{ "type": "Text", "globs": ["**/*.sql"], "fallthrough": true }],
+  "observability": { "enabled": true, "traces": { "enabled": true } },
+  "vars": {
+    "SITE_HEALTH_PUBLIC_ORIGIN": "https://REPLACE_WITH_OWNER_HOST",
+    "ACCESS_TEAM_DOMAIN": "https://REPLACE_WITH_TEAM.cloudflareaccess.com",
+    "ACCESS_AUD": "REPLACE_WITH_ACCESS_AUDIENCE",
+    "ACCESS_OWNER_EMAIL": "REPLACE_WITH_OWNER_EMAIL",
+    "OWNER_STORE_ID": "REPLACE_WITH_STAGED_VALIDATED_OWNER_STORE"
+  }
+}

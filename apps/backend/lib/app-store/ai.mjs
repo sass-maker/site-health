@@ -1,4 +1,4 @@
-import { AppStoreError } from './store.mjs';
+import { AppStoreError } from './store-core.mjs';
 const ApiError = AppStoreError;
 const record = (value) => { if (!value || typeof value !== 'object' || Array.isArray(value)) throw new AppStoreError('Expected an object.'); return value; };
 const str = (value, max) => { if (typeof value !== 'string' || [...value].length > max) throw new AppStoreError('Invalid or oversized text.'); return value; };

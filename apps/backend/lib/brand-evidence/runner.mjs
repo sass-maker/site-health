@@ -1,7 +1,7 @@
 import { generateText } from 'ai';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { analyzeAnswer } from './analysis.mjs';
-import { BrandEvidenceError } from './store.mjs';
+import { BrandEvidenceError } from './store-core.mjs';
 
 // API model checks run each saved prompt once through an OpenAI-compatible
 // endpoint. The default is Fleet's free-ai gateway (model `auto`). The key is

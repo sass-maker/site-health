@@ -1,6 +1,6 @@
 import { currentProjects, emptyReadinessState, effortSummary, resultSummary, READINESS_VERSION } from './readiness-model.mjs';
 import { qualifyObservation, measurementCoverage } from './measurement-contract.mjs';
-import { uiLibraryCoverage } from './ui-library-coverage.mjs';
+import { uiLibraryCoverage } from './ui-library-coverage-core.mjs';
 import { PERFORMANCE_TARGET } from './performance-policy.mjs';
 
 const FAMILIES = {
@@ -87,7 +87,7 @@ export function readinessObservations(projects, projection = {}, clarityByProjec
     return rows;
   });
 }
-export function buildReadinessProjection({ projects = [], readiness = {}, observations = [], uiCoverage = null, generatedAt = new Date().toISOString() }) {
+export function buildReadinessProjection({ projects = [], readiness = {}, observations = [], uiCoverage = null, coverageProvider = uiLibraryCoverage, generatedAt = new Date().toISOString() }) {
   const current = currentProjects(projects);
   return {
     schemaVersion: READINESS_VERSION,
@@ -95,7 +95,7 @@ export function buildReadinessProjection({ projects = [], readiness = {}, observ
     projects: current.map(project => {
       const saved = readiness[project.id] ?? { revision: 0, updatedAt: null, state: emptyReadinessState() };
       const evidence = observations.filter(row => row.projectId === project.id).map(row => qualifyObservation(row, generatedAt));
-      return { id: project.id, name: project.name, ...saved, form: project.form, platforms: project.platforms, audience: project.audience, priority: project.priority, priorityApplicable: project.priorityApplicable, growthFocus: project.growthFocus, evidence, uiLibrary: uiLibraryCoverage(uiCoverage, project.id, Date.parse(generatedAt)),
+      return { id: project.id, name: project.name, ...saved, form: project.form, platforms: project.platforms, audience: project.audience, priority: project.priority, priorityApplicable: project.priorityApplicable, growthFocus: project.growthFocus, evidence, uiLibrary: coverageProvider(uiCoverage, project.id, Date.parse(generatedAt)),
         measurementCoverage: measurementCoverage(evidence),
         coverageGaps: [...new Set(evidence.filter(row => !['current', 'exempt'].includes(row.measurement.state)).map(row => row.gap).filter(Boolean))],
         scores: Object.fromEntries(['product', 'growth'].map(area => [area, { effort: effortSummary(saved.state, area), results: resultSummary(saved.state, area, generatedAt) }])),
@@ -103,9 +103,9 @@ export function buildReadinessProjection({ projects = [], readiness = {}, observ
     }),
   };
 }
-export function saveReadiness(store, projectId, body, now) {
+export function saveReadiness(store, projectId, body, now, projects = store.projects) {
   if (!body || Object.keys(body).some(key => !['expectedRevision', 'idempotencyKey', 'state'].includes(key))) throw Object.assign(new Error('Invalid readiness update'), { code: 'INVALID_READINESS_REQUEST', statusCode: 422 });
-  if (!currentProjects(store.projects).some(project => project.id === projectId)) throw Object.assign(new Error('Readiness product is not current'), { statusCode: 404 });
-  const result = store.append({ type: 'readiness.state-updated', projectId, actor: { type: 'owner', id: 'readiness-owner' }, idempotencyKey: body.idempotencyKey, payload: { expectedRevision: body.expectedRevision, state: body.state } }, { now });
+  if (!currentProjects(projects).some(project => project.id === projectId)) throw Object.assign(new Error('Readiness product is not current'), { statusCode: 404 });
+  const result = store.append({ type: 'readiness.state-updated', projectId, actor: { type: 'owner', id: 'readiness-owner' }, idempotencyKey: body.idempotencyKey, payload: { expectedRevision: body.expectedRevision, state: body.state } }, { now, projects });
   return { projectId, revision: result.event.payload.expectedRevision + 1, updatedAt: result.event.recordedAt, duplicate: result.duplicate, state: result.event.payload.state };
 }

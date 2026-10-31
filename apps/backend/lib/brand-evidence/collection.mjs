@@ -1,7 +1,7 @@
 import { createCollector } from '@saas-maker/collect';
 import { lookup } from 'node:dns/promises';
 import { isIP } from 'node:net';
-import { BrandEvidenceError } from './store.mjs';
+import { BrandEvidenceError } from './store-core.mjs';
 import { loadRedditCatalog, loadRedditSnapshot, snapshotThreads } from './reddit-snapshots.mjs';
 import { containsTerm } from './term-match.mjs';
 

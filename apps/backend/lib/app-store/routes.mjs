@@ -1,7 +1,7 @@
 import { createAppleCollector, normalizeAppleQuery } from '@saas-maker/collect/apple';
 import { askProvider, resolveCheckSource } from '../brand-evidence/runner.mjs';
 import { parseAIInput, parseAIOutput } from './ai.mjs';
-import { AppStoreError } from './store.mjs';
+import { AppStoreError } from './store-core.mjs';
 
 const PREFIX = '/v1/seo/app-store/';
 export function createAppStoreRoutes({ store, env = process.env, fetchImpl = fetch, now = Date.now } = {}) {
