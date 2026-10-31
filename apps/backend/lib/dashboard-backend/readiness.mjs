@@ -87,7 +87,7 @@ export function readinessObservations(projects, projection = {}, clarityByProjec
     return rows;
   });
 }
-export function buildReadinessProjection({ projects = [], readiness = {}, observations = [], uiCoverage = null, generatedAt = new Date().toISOString() }) {
+export function buildReadinessProjection({ projects = [], readiness = {}, observations = [], uiCoverage = null, coverageProvider = uiLibraryCoverage, generatedAt = new Date().toISOString() }) {
   const current = currentProjects(projects);
   return {
     schemaVersion: READINESS_VERSION,
@@ -95,7 +95,7 @@ export function buildReadinessProjection({ projects = [], readiness = {}, observ
     projects: current.map(project => {
       const saved = readiness[project.id] ?? { revision: 0, updatedAt: null, state: emptyReadinessState() };
       const evidence = observations.filter(row => row.projectId === project.id).map(row => qualifyObservation(row, generatedAt));
-      return { id: project.id, name: project.name, ...saved, form: project.form, platforms: project.platforms, audience: project.audience, priority: project.priority, priorityApplicable: project.priorityApplicable, growthFocus: project.growthFocus, evidence, uiLibrary: uiLibraryCoverage(uiCoverage, project.id, Date.parse(generatedAt)),
+      return { id: project.id, name: project.name, ...saved, form: project.form, platforms: project.platforms, audience: project.audience, priority: project.priority, priorityApplicable: project.priorityApplicable, growthFocus: project.growthFocus, evidence, uiLibrary: coverageProvider(uiCoverage, project.id, Date.parse(generatedAt)),
         measurementCoverage: measurementCoverage(evidence),
         coverageGaps: [...new Set(evidence.filter(row => !['current', 'exempt'].includes(row.measurement.state)).map(row => row.gap).filter(Boolean))],
         scores: Object.fromEntries(['product', 'growth'].map(area => [area, { effort: effortSummary(saved.state, area), results: resultSummary(saved.state, area, generatedAt) }])),

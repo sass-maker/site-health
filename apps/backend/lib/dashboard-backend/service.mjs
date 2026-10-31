@@ -250,7 +250,7 @@ export function createDashboardHandler({
         clarity = Object.fromEntries(projections.projects.map(project => [project.id, readClarityProjection(store, project.id, registry)]));
       } catch { /* Missing Clarity configuration must not hide independent evidence. */ }
       const currentEvidence = readinessObservations(projections.projects, cachedDashboardProjection(projections), clarity);
-      return json(response, 200, buildReadinessProjection({ ...projections, uiCoverage: readUiLibraryCoverage(), generatedAt: now(), observations: [...currentEvidence, ...readinessObservationProvider(projections.projects)] }));
+      return json(response, 200, buildReadinessProjection({ ...projections, uiCoverage: readUiLibraryCoverage(), coverageProvider: uiLibraryCoverage, generatedAt: now(), observations: [...currentEvidence, ...readinessObservationProvider(projections.projects)] }));
     }
     if (url.pathname === '/v1/projects') return json(response, 200, projections.projects);
     if (url.pathname === '/v1/project-collections') return json(response, 200, projectCollectionsProvider());

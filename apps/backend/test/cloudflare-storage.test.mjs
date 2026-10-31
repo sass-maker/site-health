@@ -8,6 +8,7 @@ import { Miniflare } from 'miniflare';
 import { DashboardStore } from '../lib/dashboard-backend/store.mjs';
 import { BrandEvidenceStore } from '../lib/brand-evidence/store.mjs';
 import { GrowthCycleStore } from '../lib/brand-evidence/growth-cycle.mjs';
+import { buildReadinessProjection } from '../lib/dashboard-backend/readiness.mjs';
 import { AppStoreStore } from '../lib/app-store/store.mjs';
 import { exportStoreSnapshot, snapshotDigest, migrationBundle, verifyMigrationBundle, stageMigrationBundle } from '../lib/store-snapshot.mjs';
 
@@ -104,4 +105,10 @@ test('DO changes, idempotency conflict, transaction rollback, eviction and durab
   await assert.rejects(f.call('DASHBOARD','owner','test','evict'),/Synthetic eviction/);
   const restored=await f.call('DASHBOARD','owner','exportSnapshot');assert.equal(JSON.parse(restored.tables.find(t=>t.name==='local_metadata').rows[0].value_json),42);
  }finally{await f.close();}
+});
+
+test('readiness uses the native coverage adapter without imposing local paths on cloud evidence',()=>{
+ let calls=0;
+ const projection=buildReadinessProjection({projects:[{id:'fixture',name:'Fixture',status:'active',lifecycle:{status:'active'}}],coverageProvider:(_snapshot,id)=>{calls++;assert.equal(id,'fixture');return {evidencePath:'synthetic-native-fallback'};}});
+ assert.equal(calls,1);assert.equal(projection.projects[0].uiLibrary.evidencePath,'synthetic-native-fallback');
 });
