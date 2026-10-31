@@ -82,11 +82,11 @@ export class SqlDashboardStore {
     return row ? rowToEvent(row) : null;
   }
 
-  append(input, { now = new Date().toISOString() } = {}) {
-    return this.#append(input, { now, normalize: normalizeEvent });
+  append(input, { now = new Date().toISOString(), projects = this.projects } = {}) {
+    return this.#append(input, { now, normalize: normalizeEvent, projects });
   }
 
-  #append(input, { now, normalize }) {
+  #append(input, { now, normalize, projects = this.projects }) {
     const existing = input?.idempotencyKey
       ? this.getEventByIdempotencyKey(input.idempotencyKey)
       : null;
@@ -111,7 +111,7 @@ export class SqlDashboardStore {
       }
       // Serialize the revision comparison with insertion across connections.
       if (event.type === 'readiness.state-updated') {
-        if (normalize === normalizeEvent && !currentProjects(this.projects).some(p => p.id === event.projectId)) {
+        if (normalize === normalizeEvent && !currentProjects(projects).some(p => p.id === event.projectId)) {
           throw Object.assign(new DashboardValidationError('READINESS_PROJECT_NOT_CURRENT', 'Readiness updates require a current product'), { statusCode: 404 });
         }
         const revision = this.database.prepare("SELECT COUNT(*) AS count FROM events WHERE type = 'readiness.state-updated' AND project_id = ?").get(event.projectId).count;
@@ -186,9 +186,9 @@ export class SqlDashboardStore {
     return { key, value, updatedAt: now };
   }
 
-  rebuildProjections({ now = new Date().toISOString() } = {}) {
+  rebuildProjections({ now = new Date().toISOString(), projects = this.projects } = {}) {
     const events = this.listEvents();
-    const projections = buildProjections(events, { now, projects: this.projects });
+    const projections = buildProjections(events, { now, projects });
     const checkpoint = this.database.prepare('SELECT COALESCE(MAX(sequence), 0) AS sequence FROM events').get();
     this.database
       .prepare(`

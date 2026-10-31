@@ -1,8 +1,23 @@
 import worker, { DashboardState as Dashboard, BrandState as Brand, AppStoreState as AppStore } from '../../../cloudflare/worker.mjs';
 import { durableSqlDatabase, durableTransaction } from '../../../cloudflare/sql-adapter.mjs';
 import { DurableJobs } from '../../../cloudflare/jobs.mjs';
+import { emptyReadinessState } from '../../../lib/dashboard-backend/readiness-model.mjs';
 import { DurableObject } from 'cloudflare:workers';
 export class DashboardState extends Dashboard {
+  async interleavedCatalog(firstHasProject) {
+    const project={id:'fixture',name:'Fixture',status:'active',lifecycle:{status:'active'}};
+    let admit,release;
+    const admitted=new Promise(resolve=>{admit=resolve;});
+    const released=new Promise(resolve=>{release=resolve;});
+    const body=new ReadableStream({async start(controller){admit();await released;controller.enqueue(new TextEncoder().encode(JSON.stringify({expectedRevision:0,idempotencyKey:'interleave',state:emptyReadinessState()})));controller.close();}});
+    const pending=this.route(new Request('https://fixture.example/v1/readiness/fixture',{method:'PUT',body,duplex:'half'}),null,firstHasProject?[project]:[]);
+    await admitted;
+    const other=await this.route(new Request('https://fixture.example/v1/projects'),null,firstHasProject?[]:[project]);
+    const otherProjects=await other.json();
+    release();
+    const result=await pending;
+    return {status:result.status,body:await result.json(),otherProjects};
+  }
   test(action, value) {
     if (action === 'metadata') return this.store.setMetadata(value.key,value.value);
     if (action === 'events') return this.store.listEvents();

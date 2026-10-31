@@ -112,3 +112,12 @@ test('readiness uses the native coverage adapter without imposing local paths on
  const projection=buildReadinessProjection({projects:[{id:'fixture',name:'Fixture',status:'active',lifecycle:{status:'active'}}],coverageProvider:(_snapshot,id)=>{calls++;assert.equal(id,'fixture');return {evidencePath:'synthetic-native-fallback'};}});
  assert.equal(calls,1);assert.equal(projection.projects[0].uiLibrary.evidencePath,'synthetic-native-fallback');
 });
+
+test('awaited readiness bodies keep their request catalog during interleaved DO calls',async()=>{
+ const f=await fixture();try{
+   const retained=await f.call('DASHBOARD','catalog-removal','interleavedCatalog',true);
+   assert.equal(retained.status,200);assert.deepEqual(retained.otherProjects,[]);
+   const absent=await f.call('DASHBOARD','catalog-addition','interleavedCatalog',false);
+   assert.equal(absent.status,404);assert.equal(absent.otherProjects[0].id,'fixture');
+ }finally{await f.close();}
+});

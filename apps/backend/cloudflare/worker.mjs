@@ -25,10 +25,15 @@ export default {
         if (request.headers.get('origin') !== config.origin || !['same-origin','same-site','none',null].includes(request.headers.get('sec-fetch-site'))) return jsonResponse(403,{error:'Unknown dashboard origin'});
         if (request.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !== 'application/json') return jsonResponse(415,{error:'Browser mutations require application/json'});
       }
+      const mountedApi = url.pathname === '/api/dashboard' || url.pathname.startsWith('/api/dashboard/');
+      if (mountedApi) {
+        url.pathname = url.pathname.slice('/api/dashboard'.length) || '/';
+        request = new Request(url,request);
+      }
       // R2 has no public route. Even an authenticated owner must use an
       // attributed evidence manifest; paths never become arbitrary object keys.
       if (/^\/(?:r2|evidence|internal|migration)(?:\/|$)/.test(url.pathname)) return jsonResponse(404,{error:'route not found'});
-      if (url.pathname === '/health' || url.pathname.startsWith('/v1/')) {
+      if (mountedApi || url.pathname === '/health' || url.pathname.startsWith('/v1/')) {
         if (url.pathname.startsWith('/v1/seo/app-store/')) return env.APP_STORE.getByName(env.OWNER_STORE_ID).route(request);
         const dashboard = env.DASHBOARD.getByName(env.OWNER_STORE_ID);
         const runtime = await dashboard.runtime();

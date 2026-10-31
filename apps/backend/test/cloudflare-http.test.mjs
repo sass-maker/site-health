@@ -20,7 +20,7 @@ test('signed owner Access gates HTML, assets, APIs and R2; invalid claims and ex
  const options={modules:true,modulesRoot:root,scriptPath:bundle,compatibilityDate:'2026-07-30',compatibilityFlags:['nodejs_compat'],
  durableObjects:{DASHBOARD:{className:'DashboardState',useSQLite:true},BRAND:{className:'BrandState',useSQLite:true},APP_STORE:{className:'AppStoreState',useSQLite:true}},r2Buckets:['EVIDENCE'],
  bindings:{SITE_HEALTH_PUBLIC_ORIGIN:origin,ACCESS_TEAM_DOMAIN:issuer,ACCESS_AUD:'fixture-audience',ACCESS_OWNER_EMAIL:owner,OWNER_STORE_ID:'fixture',AI_GATEWAY_API_KEY:'synthetic-test-key'},
- serviceBindings:{ASSETS:async()=>{assetReads++;return new Response('<html>Private fixture</html>',{headers:{'content-type':'text/html'}});}},
+ serviceBindings:{ASSETS:async request=>{assetReads++;if(!['/','/_astro/private.js'].includes(new URL(request.url).pathname))return new Response('Not found',{status:404});return new Response('<html>Private fixture</html>',{headers:{'content-type':'text/html'}});}},
  outboundService:async request=>{
    if(request.url===issuer+'/cdn-cgi/access/certs')return keysUnavailable ? new Response('Unavailable',{status:503}) : Response.json({keys:[jwk]});
    if(new URL(request.url).hostname==='itunes.apple.com') {appleCalls++;return Response.json({resultCount:1,results:[{wrapperType:'software',kind:'software',trackId:123,trackName:'Synthetic Notes',artistName:'Fixture',trackViewUrl:'https://apps.apple.com/us/app/id123',description:'A synthetic note app.',userRatingCount:0,averageUserRating:0}]});}
@@ -65,6 +65,14 @@ test('signed owner Access gates HTML, assets, APIs and R2; invalid claims and ex
      uiLibrary:await evidence('ui-library',{siteHealth:null,projects:[],coverage:null}),capabilities:await evidence('capabilities',{schemaVersion:'site-health.capability-projection.v1',sources:{},skills:[]}),spend:await evidence('spend',{state:'not-measured'}),collectors:{psi:{enabled:false,reason:'Synthetic unqualified runner'}}};
    const setup=await mf.dispatchFetch('http://localhost/__test',{method:'POST',body:JSON.stringify({method:'configureRuntime',args:[manifest]})});assert.equal(setup.status,200);
    assert.equal((await request('/v1/projects')).status,200);
+   for(const path of ['/health','/v1/projects','/v1/readiness','/v1/seo/app-store/status','/v1/projects/fixture/brand-evidence/growth']) {
+     const direct=await request(path),mounted=await request('/api/dashboard'+path);assert.equal(mounted.status,direct.status,path);
+     const left=await direct.json(),right=await mounted.json();delete left.generatedAt;delete right.generatedAt;assert.deepEqual(right,left,path);
+     assert.equal((await mf.dispatchFetch(origin+'/api/dashboard'+path)).status,401);
+   }
+   for(const path of ['/api/dashboard-lookalike/v1/projects','/api/dashboardevil/v1/projects','/api%2Fdashboard/v1/projects']) assert.equal((await request(path)).status,404,path);
+   assert.equal((await request('/api/dashboard/v1/readiness/fixture',{method:'PUT',headers:{origin:'https://evil.example','content-type':'application/json'},body:'{}'})).status,403);
+   assert.equal((await request('/api/dashboard/v1/projects/fixture/brand-evidence/profile',{method:'PUT',headers:{origin,'content-type':'application/json'},body:JSON.stringify({brandName:'Mounted fixture'})})).status,200);
    assert.equal((await request('/v1/project-collections')).status,200);
    for(const family of ['domains','search','seo-audit','geo-awareness','ai-awareness','performance']){
      const response=await request('/v1/outcomes/'+family);assert.equal(response.status,200);

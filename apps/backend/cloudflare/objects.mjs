@@ -49,7 +49,6 @@ export class DashboardState extends StoreState {
     });
   }
   async handleRoute(request, runtime, projects, collections = []) {
-    this.store.projects = projects;
     const url = new URL(request.url), method = request.method;
     if (method === 'GET' && url.pathname === '/health') {
       let projection = 'unavailable';
@@ -73,9 +72,9 @@ export class DashboardState extends StoreState {
       await this.scheduleJobs(); return jsonResponse(202, job);
     }
     if (method === 'POST' && url.pathname === '/v1/prefill') unavailable('Cloud prefill requires qualified collector bindings; existing evidence retained');
-    const projections = this.store.rebuildProjections();
+    const projections = this.store.rebuildProjections({projects});
     const readiness = url.pathname.match(/^\/v1\/readiness\/([^/]+)$/);
-    if (method === 'PUT' && readiness) return jsonResponse(200, saveReadiness(this.store, decodeURIComponent(readiness[1]), await readJson(request, 28*1024), new Date().toISOString()));
+    if (method === 'PUT' && readiness) return jsonResponse(200, saveReadiness(this.store, decodeURIComponent(readiness[1]), await readJson(request, 28*1024), new Date().toISOString(), projects));
     if (method === 'POST' && url.pathname === '/v1/projections/rebuild') return jsonResponse(200, projections);
     if (method !== 'GET') return jsonResponse(404, { error: 'route not found' });
     if (url.pathname === '/v1/projects') return jsonResponse(200, projections.projects);
