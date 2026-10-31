@@ -45,6 +45,17 @@ export class DashboardState extends StoreState {
   now() { return new Date().toISOString(); }
   activeWriter() { return this.env.SITE_HEALTH_WRITER_ROLE==='active'; }
   runtime() { return this.store.getMetadata('cloud:runtime')?.value ?? null; }
+  recordJobReceipts(run) {
+    const current=readRefreshReceipt(this.store,run.family,run);
+    if(!current||(current.runId===run.runId&&current.state==='running'))recordRefreshReceipt(this.store,run);
+    if(run.family==='clarity'&&['failed','unavailable'].includes(run.state)){
+      for(const projectId of run.targets??[]){
+        const target={scope:'project',projectId};
+        const receipt=readRefreshReceipt(this.store,'clarity',target);
+        if(receipt?.runId===run.runId&&receipt.state==='running')recordRefreshReceipt(this.store,{...run,...target,resultCount:0});
+      }
+    }
+  }
   async configureRuntime(manifest, expectedRevision = 0) {
     // Internal RPC only. Publication needs explicit operator preparation; this
     // method never reads arbitrary R2 keys or native filesystem paths.
@@ -68,7 +79,16 @@ export class DashboardState extends StoreState {
     if (runMatch) {
       const id = decodeURIComponent(runMatch[1]);
       if (method === 'GET' && !runMatch[2]) { const run = this.jobs.get(id); return jsonResponse(run ? 200 : 404, run ?? { error: 'metric run not found' }); }
-      if (method === 'POST' && runMatch[2]) { const run = this.transaction(()=>{const cancelled=this.jobs.cancel(id);if(cancelled)recordRefreshReceipt(this.store,{...cancelled,state:'failed',code:'REFRESH_CANCELLED',summary:'Collection cancelled; previous evidence retained'});return cancelled;}); await this.scheduleJobs(); return jsonResponse(run ? 200 : 404, run ?? { error: 'metric run not found' }); }
+      if (method === 'POST' && runMatch[2]) {
+        const run=this.transaction(()=>{
+          const current=this.jobs.get(id);
+          if(current?.state!=='running')return current;
+          const cancelled=this.jobs.cancel(id);
+          this.recordJobReceipts({...cancelled,state:'failed',code:'REFRESH_CANCELLED',summary:'Collection cancelled; previous evidence retained'});
+          return cancelled;
+        });
+        await this.scheduleJobs();return jsonResponse(run?200:404,run??{error:'metric run not found'});
+      }
     }
     if (method === 'POST' && url.pathname === '/v1/metric-runs') {
       const input = await readJson(request);
@@ -167,7 +187,7 @@ export class DashboardState extends StoreState {
     if(!this.activeWriter()){await this.ctx.storage.deleteAlarm();return;}
     const runtime=this.runtime();
     try{await this.queueScheduled(runtime);}catch{await this.ctx.storage.setAlarm(Date.parse(this.now())+60000);return;}
-    const claimed=this.jobs.claim(exhausted=>recordRefreshReceipt(this.store,{...exhausted,code:'REFRESH_RETRY_EXHAUSTED'}));if(claimed?.exhausted){await this.scheduleJobs();return;}if(!claimed){await this.scheduleJobs();return;}
+    const claimed=this.jobs.claim(exhausted=>this.recordJobReceipts({...exhausted,code:'REFRESH_RETRY_EXHAUSTED'}));if(claimed?.exhausted){await this.scheduleJobs();return;}if(!claimed){await this.scheduleJobs();return;}
     await this.scheduleJobs();
     const {job,token}=claimed;
     try{
@@ -188,12 +208,17 @@ export class DashboardState extends StoreState {
         try{
           finished=this.jobs.publish(job.runId,token,progress,{state,summary},current=>{
             commitBatchPublication({store:this.store,database:this.database,job:current,publication,now:this.now()});
-            recordRefreshReceipt(this.store,{...job,state:terminal?state:'running',finishedAt:terminal?this.now():null,summary,resultCount:progress.completed-progress.failed});
+            this.recordJobReceipts({...job,state:terminal?state:'running',finishedAt:terminal?this.now():null,summary,resultCount:progress.completed-progress.failed});
           });break;
         }catch(error){if(error.code!=='PUBLICATION_REVISION_CONFLICT'||attempt===2)throw error;}
       }
     }catch(error){
-      try{const finished=this.jobs.finish(job.runId,token,{state:error.statusCode===503?'unavailable':'failed',summary:'HTTP collection/publication unavailable; previous qualified evidence retained'});recordRefreshReceipt(this.store,finished);}catch{ /* Cancelled/expired leases cannot advance evidence or receipts. */ }
+      try{
+        const state=error.statusCode===503?'unavailable':'failed',summary='HTTP collection/publication unavailable; previous qualified evidence retained';
+        this.jobs.publish(job.runId,token,job.progress??{},{state,summary},current=>{
+          this.recordJobReceipts({...current,state,summary,finishedAt:this.now()});
+        });
+      }catch{ /* Cancelled/expired leases cannot advance evidence or receipts. */ }
     }
     await this.scheduleJobs();
   }

@@ -3,7 +3,7 @@ import { collectUsageEvidence,usageFailureSnapshot,mergeUsageSnapshots,usageObse
 import { collectProviderRevenueEvidence,providerRevenueFailureSnapshot,mergeProviderRevenueSnapshots,providerRevenueObservations,validProviderRevenueTotal } from '../lib/dashboard-backend/provider-revenue-core.mjs';
 import { isCurrentPortfolioProject } from '../lib/dashboard-backend/domain-scope.mjs';
 import { readEvidence,writeEvidence } from './evidence.mjs';
-import { recordRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
+import { recordRefreshReceipt,readRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { snapshotDigest } from '../lib/store-snapshot.mjs';
 import { readJson } from './http.mjs';
 export const HTTP_FAMILIES=Object.freeze(['clarity','usage','provider-revenue']);
@@ -95,7 +95,8 @@ export function commitBatchPublication({store,database,job,publication,now}) {
   if(job.family==='clarity'){
     for(const row of publication.rows){
       if(row.reference){store.setMetadata(`cloud:clarity:${row.projectId}`,row.reference,{now});store.setMetadata(`clarity-snapshot:${row.projectId}`,row.snapshot,{now});}
-      recordRefreshReceipt(store,{family:'clarity',scope:'project',projectId:row.projectId,runId:job.runId,state:row.error?'failed':'succeeded',startedAt:job.startedAt,finishedAt:now,resultCount:row.snapshot?1:0,code:row.error?.code,summary:row.error?.message??'Clarity evidence published'});
+      const receipt=readRefreshReceipt(store,'clarity',{scope:'project',projectId:row.projectId});
+      if(!receipt||receipt.runId===job.runId)recordRefreshReceipt(store,{family:'clarity',scope:'project',projectId:row.projectId,runId:job.runId,state:row.error?'failed':'succeeded',startedAt:job.startedAt,finishedAt:now,resultCount:row.snapshot?1:0,code:row.error?.code,summary:row.error?.message??'Clarity evidence published'});
     }
   }else{
     const current=store.getMetadata(`cloud:source:${job.family}`)?.value?.digest??null;
@@ -121,9 +122,13 @@ export async function httpReadinessObservations(store,bucket,projects){
 export async function liveClarityProjection(store,bucket,projectId,runtime,now,registry=null){
   registry??=await clarityRegistry(bucket,runtime);
   const reference=store.getMetadata(`cloud:clarity:${projectId}`)?.value;
-  const snapshot=reference?validateHttpSnapshot('clarity',(await readEvidence(bucket,reference,'clarity')).payload,projectId):null;
-  const view={getMetadata:key=>snapshot&&key===`clarity-snapshot:${projectId}`?{value:snapshot,updatedAt:snapshot.observedAt}:store.getMetadata(key)};
-  return readClarityProjection(view,projectId,registry,{now});
+  let snapshot=null,invalid=false;
+  try{if(reference)snapshot=validateHttpSnapshot('clarity',(await readEvidence(bucket,reference,'clarity')).payload,projectId);}
+  catch{invalid=true;}
+  const view={getMetadata:key=>key===`clarity-snapshot:${projectId}`&&(snapshot||invalid)
+    ?snapshot?{value:snapshot,updatedAt:snapshot.observedAt}:null:store.getMetadata(key)};
+  const projection=readClarityProjection(view,projectId,registry,{now});
+  return invalid?{...projection,state:'unavailable',snapshot:null,failure:{code:'CLARITY_EVIDENCE_UNAVAILABLE',message:'Clarity evidence could not be verified.'}}:projection;
 }
 export async function httpClarityProjections(store,bucket,projects,runtime,now){
   const registry=await clarityRegistry(bucket,runtime),rows={};

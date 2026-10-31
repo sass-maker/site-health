@@ -25,6 +25,7 @@ async function harness({projects=[project('fixture')],role='active',token=true,c
    state.requests.push(url.pathname+'?'+url.searchParams);
    assert.equal(request.method,'GET');assert.ok(request.headers.get('authorization')?.startsWith('Bearer synthetic-'));
    if(url.hostname==='www.clarity.ms'){
+     if(state.hold){const hold=state.hold;hold.started.resolve();await hold.release.promise;}
      if(state.fail.has('clarity'))return Response.json({error:'synthetic'}, {status:429});
      return Response.json([{metricName:'Traffic',information:[{totalSessionCount:state.claritySessions,totalBotSessionCount:1,distinctUserCount:4,PagesPerSessionPercentage:2}]}]);
    }
@@ -94,6 +95,95 @@ test('cancelled and expired publication leases cannot replace good evidence or d
    assert.equal((await f.snapshot('usage')).ref.digest,baseline.ref.digest);
    await f.rpc('runAlarm');const ended=await f.wait(retry.body.runId);assert.equal(ended.state,'succeeded');assert.equal(ended.attempts,2);assert.equal((await f.snapshot('usage')).payload.records.fixture.count,99);
    const rows=(await f.rpc('control')).publications.filter(row=>row.job_id===retry.body.runId);assert.equal(rows.length,1);
+ }finally{await f.close();}
+});
+test('late and repeated cancellation preserves completed jobs and the latest refresh receipt',async()=>{
+ const f=await harness();try{
+   const receipt=async()=> (await f.rpc('control')).metadata.find(row=>row.key==='evidence-refresh:usage:portfolio').value;
+   const first=await f.api('/v1/metric-runs',{family:'usage',scope:'portfolio'});
+   assert.equal((await f.wait(first.body.runId)).state,'succeeded');
+   const completedReceipt=await receipt();
+   assert.equal((await f.api('/v1/metric-runs/'+first.body.runId+'/cancel',{})).body.state,'succeeded');
+   assert.deepEqual(await receipt(),completedReceipt,'a completed refresh must not become a cancellation failure');
+   f.state.hold={started:deferred(),release:deferred()};
+   const active=await f.api('/v1/metric-runs',{family:'usage',scope:'portfolio'});
+   await Promise.race([f.state.hold.started.promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error('Synthetic provider did not start')),3000))]);
+   assert.equal((await f.api('/v1/metric-runs/'+active.body.runId+'/cancel',{})).body.state,'cancelled');
+   assert.equal((await receipt()).failure.code,'REFRESH_CANCELLED');
+   f.state.hold.release.resolve();await f.rpc('idle');f.state.hold=null;
+   f.state.visitors=7;
+   const latest=await f.api('/v1/metric-runs',{family:'usage',scope:'portfolio'});
+   assert.equal((await f.wait(latest.body.runId)).state,'succeeded');
+   const latestReceipt=await receipt(),latestEvidence=(await f.snapshot('usage')).ref;
+   assert.equal(latestReceipt.runId,latest.body.runId);
+   for(const old of [first,active])await f.api('/v1/metric-runs/'+old.body.runId+'/cancel',{});
+   assert.deepEqual(await receipt(),latestReceipt,'old cancellation requests must not overwrite a newer refresh');
+   assert.deepEqual((await f.snapshot('usage')).ref,latestEvidence);
+ }finally{await f.close();}
+});
+for(const mode of ['cancel','publication','exhaustion','newer'])test('terminal Clarity receipts preserve completed and newer targets: '+mode,async()=>{
+ const f=await harness({projects:[project('alpha'),project('beta')]});try{
+   const seed=await f.api('/v1/metric-runs',{family:'clarity',scope:'portfolio'});await f.wait(seed.body.runId);
+   const priorBeta=(await f.api('/v1/projects/beta/clarity')).body.snapshot;
+   await f.rpc('test','metadata',{key:'test:pause',value:true});f.state.claritySessions=11;
+   const job=await f.rpc('startPinned',{family:'clarity',scope:'portfolio'});await f.rpc('runAlarm');
+   assert.equal((await f.api('/v1/projects/alpha/clarity')).body.snapshot.metrics.sessions,11);
+   let newer;
+   if(mode==='newer')newer=await f.rpc('startPinned',{family:'clarity',scope:'project',projectId:'beta'});
+   if(mode==='cancel'||mode==='newer')await f.api('/v1/metric-runs/'+job.runId+'/cancel',{});
+   if(mode==='publication'){
+     const snapshot={...priorBeta,observedAt:f.state.clock,metrics:{...priorBeta.metrics,sessions:11}};
+     const ref=await writeEvidence(f.bucket,{schema:'site-health.cloud-evidence.v1',family:'clarity',source:'clarity-data-export',provenance:'provider',observedAt:f.state.clock,payload:snapshot});
+     await f.bucket.put(`evidence/clarity/${ref.digest}.json`,'{}');await f.rpc('runAlarm');
+   }
+   if(mode==='exhaustion'){
+     for(let i=0;i<3;i++){
+       f.state.hold={started:deferred(),release:deferred()};const attempt=f.rpc('runAlarm');
+       await Promise.race([f.state.hold.started.promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error('Synthetic provider did not start')),3000))]);
+       await f.clock(new Date(Date.parse(f.state.clock)+61000).toISOString());f.state.hold.release.resolve();await attempt;f.state.hold=null;
+     }
+     await f.rpc('runAlarm');
+   }
+   const receipt=(await f.rpc('control')).metadata.find(row=>row.key==='evidence-refresh:clarity:beta').value;
+   if(newer){assert.equal(receipt.runId,newer.runId);assert.equal(receipt.state,'running');}
+   else{
+     assert.ok(['failed','unavailable'].includes(receipt.state),'unfinished target must reach a terminal state');
+     assert.equal(receipt.runId,job.runId);assert.equal(receipt.lastSuccessAt,priorBeta.observedAt);
+     const view=(await f.api('/v1/projects/beta/clarity')).body;assert.equal(view.state,receipt.state);assert.deepEqual(view.snapshot,priorBeta);
+   }
+   const completed=(await f.api('/v1/projects/alpha/clarity')).body;
+   assert.equal(completed.state,'fresh');assert.equal(completed.snapshot.metrics.sessions,11);
+ }finally{await f.close();}
+});
+test('later Clarity jobs retain their status while older batches finish',async()=>{
+ const f=await harness({projects:[project('alpha'),project('beta')]});try{
+   await f.rpc('test','metadata',{key:'test:pause',value:true});
+   const older=await f.rpc('startPinned',{family:'clarity',scope:'portfolio'});await f.rpc('runAlarm');
+   await f.clock(new Date(Date.parse(f.state.clock)+1).toISOString());
+   const newer=await f.rpc('startPinned',{family:'clarity',scope:'project',projectId:'beta'});await f.rpc('runAlarm');
+   assert.equal((await f.api('/v1/metric-runs/'+older.runId)).body.state,'succeeded');
+   const receipt=(await f.rpc('control')).metadata.find(row=>row.key==='evidence-refresh:clarity:beta').value;
+   assert.equal(receipt.runId,newer.runId);assert.equal(receipt.state,'running');
+   await f.rpc('runAlarm');assert.equal((await f.api('/v1/metric-runs/'+newer.runId)).body.state,'succeeded');
+ }finally{await f.close();}
+});
+test('corrupt Clarity evidence is unavailable without hiding healthy readiness readings',async()=>{
+ const f=await harness({projects:[project('alpha'),project('beta')]});try{
+   const seed=await f.api('/v1/metric-runs',{family:'clarity',scope:'portfolio'});await f.wait(seed.body.runId);
+   const alpha=(await f.api('/v1/projects/alpha/clarity')).body,beta=(await f.api('/v1/projects/beta/clarity')).body;
+   const dashboard=(await (await f.bucket.get(`evidence/dashboard/${f.manifest.dashboard.digest}.json`)).json()).payload;
+   const stale=structuredClone(alpha);stale.snapshot.metrics.sessions=88;
+   const oldBeta=structuredClone(beta);oldBeta.snapshot.metrics.sessions=2;
+   const reference=await f.evidence('dashboard',{...dashboard,clarityByProject:{alpha:stale,beta:oldBeta}});
+   await f.rpc('configureRuntime',{...f.manifest,dashboard:reference},1);
+   const broken=(await f.rpc('control')).metadata.find(row=>row.key==='cloud:clarity:alpha').value;
+   await f.bucket.put(`evidence/clarity/${broken.digest}.json`,'{}');
+   const ready=(await f.api('/v1/readiness')).body.projects;
+   assert.equal(ready.find(row=>row.id==='beta').evidence.find(row=>row.id==='clarity:sessions').value,9);
+   assert.equal(ready.find(row=>row.id==='alpha').evidence.find(row=>row.id==='clarity:sessions').value,null);
+   const unavailable=(await f.api('/v1/projects/alpha/clarity')).body;
+   assert.equal(unavailable.state,'unavailable');assert.equal(unavailable.snapshot,null);assert.equal(unavailable.failure.code,'CLARITY_EVIDENCE_UNAVAILABLE');
+   assert.equal((await f.api('/v1/projects/beta/clarity')).body.snapshot.metrics.sessions,9);
  }finally{await f.close();}
 });
 test('staging suppresses alarms/writes; scheduled missing bindings leave an honest unavailable receipt',async()=>{
