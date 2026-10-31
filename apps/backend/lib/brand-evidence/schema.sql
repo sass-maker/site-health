@@ -196,3 +196,8 @@ CREATE TABLE IF NOT EXISTS community_briefs (
   updated_at TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS community_briefs_project ON community_briefs(project_id, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS brand_growth (
+  project_id TEXT PRIMARY KEY REFERENCES brand_profiles(project_id),
+  revision INTEGER NOT NULL, document_json TEXT NOT NULL
+);

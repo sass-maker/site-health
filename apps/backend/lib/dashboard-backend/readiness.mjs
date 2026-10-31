@@ -1,6 +1,6 @@
 import { currentProjects, emptyReadinessState, effortSummary, resultSummary, READINESS_VERSION } from './readiness-model.mjs';
 import { qualifyObservation, measurementCoverage } from './measurement-contract.mjs';
-import { uiLibraryCoverage } from './ui-library-coverage.mjs';
+import { uiLibraryCoverage } from './ui-library-coverage-core.mjs';
 import { PERFORMANCE_TARGET } from './performance-policy.mjs';
 
 const FAMILIES = {
