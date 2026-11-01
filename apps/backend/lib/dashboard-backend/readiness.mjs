@@ -19,8 +19,8 @@ function incompletePerformanceDetail(batch, samples) {
 }
 
 function performanceDetail(row) {
-  const engine = typeof row?.lighthouseVersion === 'string' && /^v?\d+(?:\.\d+){0,3}$/.test(row.lighthouseVersion)
-    ? `Reading engine: Lighthouse ${row.lighthouseVersion}` : undefined;
+  const engine = typeof row?.lighthouseVersion === 'string' && row.lighthouseVersion.trim()
+    ? `Reading engine: Lighthouse ${row.lighthouseVersion.trim()}` : undefined;
   return [engine, incompletePerformanceDetail(row?.pendingBatch, row?.samples), row?.provenanceDetail].filter(Boolean).join(' · ') || undefined;
 }
 
