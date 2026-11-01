@@ -14,7 +14,8 @@ const FAMILIES = {
 
 function incompletePerformanceDetail(batch, samples) {
   if (!batch) return undefined;
-  return `Latest attempt incomplete: ${batch.sampleCount}/${PERFORMANCE_TARGET.samplesPerPreset} samples observed ${batch.observedAt}. ${samples >= PERFORMANCE_TARGET.samplesPerPreset ? 'Last complete reading retained.' : 'Partial reading; no complete cohort available.'}`;
+  const engine = batch.lighthouseVersion ? ` using Lighthouse ${batch.lighthouseVersion}` : '';
+  return `Latest attempt incomplete: ${batch.sampleCount}/${PERFORMANCE_TARGET.samplesPerPreset} samples${engine} observed ${batch.observedAt}. ${samples >= PERFORMANCE_TARGET.samplesPerPreset ? 'Last complete reading retained.' : 'Partial reading; no complete cohort available.'}`;
 }
 
 function performanceDetail(row) {

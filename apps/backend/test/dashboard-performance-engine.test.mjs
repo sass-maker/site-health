@@ -5,6 +5,7 @@ import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { buildDashboardProjection, latestPerformanceBatch } from '../lib/dashboard-projection.mjs';
+import { readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
 
 const tag = 'console-manual-12345678-1234-1234-1234-123456789abc';
 const start = Date.parse('2026-11-01T10:00:00Z');
@@ -84,6 +85,12 @@ test('stored engine provenance reaches the visible projection without mixing ver
     assert.deepEqual(row.psi.series.map(point => point.lighthouseVersion), [
       '13.4.1', '13.4.1', '13.4.1', '13.4.1', '13.4.1', '13.6.0',
     ]);
+    const observations = readinessObservations([{ id: 'alpha', lifecycle: { status: 'active' } }], {
+      outcomes: { performance: [row] },
+    });
+    const desktop = observations.find(observation => observation.source === 'performance');
+    assert.match(desktop.context.detail, /1\/5 samples using Lighthouse 13\.6\.0/);
+    assert.match(desktop.context.detail, /Last complete reading retained/);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
