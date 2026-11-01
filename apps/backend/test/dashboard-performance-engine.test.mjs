@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { latestPerformanceBatch } from '../lib/dashboard-projection.mjs';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { buildDashboardProjection, latestPerformanceBatch } from '../lib/dashboard-projection.mjs';
 
 const tag = 'console-manual-12345678-1234-1234-1234-123456789abc';
 const start = Date.parse('2026-11-01T10:00:00Z');
@@ -42,4 +46,45 @@ test('a complete new-engine reading replaces the old cohort without changing eit
   assert.equal(reading.lighthouseVersion, '13.6.0');
   assert.equal(reading.pendingBatch, undefined);
   assert.deepEqual(history, before);
+});
+
+test('stored engine provenance reaches the visible projection without mixing versions or hiding history', () => {
+  const root = mkdtempSync(join(tmpdir(), 'site-health-engine-cohorts-'));
+  const repositoryRoot = join(root, 'fleet/site-health');
+  try {
+    const configRoot = join(repositoryRoot, 'apps/backend/config');
+    mkdirSync(configRoot, { recursive: true });
+    writeFileSync(join(configRoot, 'projects.json'), JSON.stringify({ projects: [{
+      id: 'alpha', domains: ['alpha.example'], lifecycle: { status: 'active' },
+      public: { listing: 'maintained' },
+    }] }));
+    mkdirSync(join(root, '.psi-swarm'));
+    const values = [
+      ...Array.from({ length: 5 }, (_, i) => `('https://alpha.example/', 'desktop', ${start + i * 1000}, 98, 1200, NULL, '${tag}', '13.4.1')`),
+      `('https://alpha.example/', 'desktop', ${start + 5000}, 10, 9000, NULL, '${tag}', '13.6.0')`,
+      ...Array.from({ length: 5 }, (_, i) => `('https://alpha.example/', 'mobile-mid', ${start + (i + 6) * 1000}, 97, 1500, NULL, '${tag}', '13.6.0')`),
+    ];
+    execFileSync('sqlite3', [join(root, '.psi-swarm/history.db'), `
+      CREATE TABLE runs (url TEXT, preset TEXT, started_at REAL, performance_score REAL, lcp REAL, error TEXT, tag TEXT, lighthouse_version TEXT);
+      INSERT INTO runs VALUES ${values.join(',')};
+    `]);
+    const [row] = buildDashboardProjection({
+      repositoryRoot, workspaceRoot: join(root, 'fleet'), home: root,
+      now: '2026-11-01T11:00:00Z',
+    }).outcomes.performance;
+    assert.equal(row.samples, 5);
+    assert.equal(row.psi.value, 98);
+    assert.equal(row.lighthouseVersion, '13.4.1');
+    assert.equal(row.status, 'retained');
+    assert.equal(row.pendingBatch.sampleCount, 1);
+    assert.equal(row.pendingBatch.lighthouseVersion, '13.6.0');
+    assert.equal(row.mobile.samples, 5);
+    assert.equal(row.mobile.lighthouseVersion, '13.6.0');
+    assert.deepEqual(row.psi.series.map(point => point.value), [98, 98, 98, 98, 98, 10]);
+    assert.deepEqual(row.psi.series.map(point => point.lighthouseVersion), [
+      '13.4.1', '13.4.1', '13.4.1', '13.4.1', '13.4.1', '13.6.0',
+    ]);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });

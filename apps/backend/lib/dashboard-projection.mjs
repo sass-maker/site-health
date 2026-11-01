@@ -134,7 +134,7 @@ function psiHistory(home) {
     const rows = JSON.parse(execFileSync('sqlite3', [
       '-json',
       database,
-      `SELECT ${columns.some(column => column.name === 'id') ? 'id' : 'NULL AS id'}, url, preset, started_at, ${columns.some(column => column.name === 'finished_at') ? 'finished_at' : 'NULL AS finished_at'}, performance_score, lcp, ${hasTags ? 'tag' : 'NULL AS tag'}
+      `SELECT ${columns.some(column => column.name === 'id') ? 'id' : 'NULL AS id'}, url, preset, started_at, ${columns.some(column => column.name === 'finished_at') ? 'finished_at' : 'NULL AS finished_at'}, performance_score, lcp, ${hasTags ? 'tag' : 'NULL AS tag'}, ${columns.some(column => column.name === 'lighthouse_version') ? 'lighthouse_version' : 'NULL AS lighthouse_version'}
        FROM runs
        WHERE error IS NULL
        ORDER BY started_at DESC`,
@@ -159,6 +159,7 @@ function psiHistory(home) {
         observedAt: new Date(startedAt).toISOString(),
         preset: row.preset ?? null,
         tag: row.tag ?? null,
+        lighthouseVersion: row.lighthouse_version ?? null,
         score,
         lcp,
       });
@@ -174,6 +175,11 @@ function median(values) {
   const sorted = [...values].sort((left, right) => left - right);
   const middle = Math.floor(sorted.length / 2);
   return sorted.length % 2 === 1 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
+function engineVersion(run) {
+  return typeof run?.lighthouseVersion === 'string' && run.lighthouseVersion.trim()
+    ? run.lighthouseVersion.trim() : null;
 }
 
 // A partial retry must not replace a complete cohort. Keep its attempt visible
@@ -192,9 +198,11 @@ function selectedPerformanceBatch(history = [], now = new Date().toISOString()) 
     const age = Date.parse(anchor.observedAt) - Date.parse(run.observedAt);
     const uniqueTag = /^console-(?:portfolio|manual)-[0-9a-f-]{36}$/.test(anchor.tag ?? '');
     return (run.preset ?? null) === (anchor.preset ?? null) && (run.tag ?? null) === (anchor.tag ?? null)
+      && engineVersion(run) === engineVersion(anchor)
       && age >= 0 && (uniqueTag || age <= PERFORMANCE_BATCH_WINDOW_MS);
   });
   const summarize = batch => ({ observedAt: batch.at(-1).observedAt,
+    ...(engineVersion(batch.at(-1)) ? { lighthouseVersion: engineVersion(batch.at(-1)) } : {}),
     score: median(batch.map(run => Number(run.score))), lcp: median(batch.map(run => Number(run.lcp))), sampleCount: batch.length });
   const latestRuns = cohort(newest);
   const latest = summarize(latestRuns);
@@ -234,10 +242,12 @@ function performanceProjection(projects, home, now, directory) {
     const psi = signal('PSI performance', batch?.score, observedAt, history.filter(item => item.preset === 'desktop').map((item) => ({
       observedAt: item.observedAt,
       value: item.score,
+      ...(engineVersion(item) ? { lighthouseVersion: engineVersion(item) } : {}),
     })));
     const lcp = signal('PSI LCP', batch?.lcp, observedAt, history.filter(item => item.preset === 'desktop').map((item) => ({
       observedAt: item.observedAt,
       value: item.lcp,
+      ...(engineVersion(item) ? { lighthouseVersion: engineVersion(item) } : {}),
     })));
     const row = {
       projectId: project.id,
@@ -249,10 +259,12 @@ function performanceProjection(projects, home, now, directory) {
       pendingBatch: batch?.pendingBatch ?? null,
       observedAt,
       samples: batch?.sampleCount ?? 0,
+      ...(batch?.lighthouseVersion ? { lighthouseVersion: batch.lighthouseVersion } : {}),
       preset: 'desktop',
       mobile: {
         observedAt: mobileBatch?.observedAt ?? null,
         samples: mobileBatch?.sampleCount ?? 0,
+        ...(mobileBatch?.lighthouseVersion ? { lighthouseVersion: mobileBatch.lighthouseVersion } : {}),
         status: mobileBatch?.pendingBatch ? 'retained' : mobileBatch ? performanceStatus(mobileBatch.score, mobileBatch.lcp) : 'not-measured',
         pendingBatch: mobileBatch?.pendingBatch ?? null,
         psi: signal('Mobile PSI performance', mobileBatch?.score, mobileBatch?.observedAt ?? null),
