@@ -73,9 +73,11 @@ export function numeric(value) {
 
 function signal(label, value, observedAt, series = []) {
   const parsed = numeric(value);
+  const engines = new Set(series.map(point => point.lighthouseVersion ?? null));
   return parsed === null
     ? null
-    : { label, value: parsed, observedAt, series, history: series.length > 1 ? 'comparable' : 'baseline-only' };
+    : { label, value: parsed, observedAt, series,
+      history: engines.size > 1 ? 'incompatible-engines' : series.length > 1 ? 'comparable' : 'baseline-only' };
 }
 
 function drankProjection(fleetRoot, catalog, home, now) {
