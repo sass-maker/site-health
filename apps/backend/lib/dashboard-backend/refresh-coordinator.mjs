@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-import { buildEvidenceEnvelope, evidenceRefreshDue, readRefreshReceipt, recordRefreshReceipt } from './evidence-freshness.mjs';
+import { AI_COLLECTION_UNAVAILABLE, buildEvidenceEnvelope, evidenceRefreshDue, readRefreshReceipt, recordRefreshReceipt } from './evidence-freshness.mjs';
 
 const SOURCES = Object.freeze([
   { family: 'drank', outcome: 'domains', auto: () => true },
@@ -47,11 +47,7 @@ export function refreshStaleEvidence({
       continue;
     }
     if (!source.auto(env)) {
-      const blocker = [
-        'AI_RECURRING_APPROVAL_REQUIRED',
-        'Latest provider evidence is retained; recurring paid AI collection requires an approved provider connection and per-launch cost cap.',
-      ];
-      const run = unavailableRun(source.family, now, blocker[0], blocker[1]);
+      const run = unavailableRun(source.family, now, AI_COLLECTION_UNAVAILABLE.code, AI_COLLECTION_UNAVAILABLE.message);
       recordRefreshReceipt(store, run);
       results.push({ family: source.family, action: 'unavailable', state: run.state, code: run.code });
       continue;

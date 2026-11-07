@@ -488,6 +488,9 @@ function geoQueryLedger(row: JsonRecord) {
 
 function geoResult(row: JsonRecord) {
   return element("div", { class: "geo-result" }, [
+    ...(row.coverage?.expected > 0 ? [element("p", { class: "measurement-boundary-note" }, [
+      `${row.coverage.scope === "root-search" ? "Current root panel" : "Legacy panel"}: ${row.coverage.observed}/${row.coverage.expected} queries observed${row.coverage.complete ? " · complete" : " · incomplete; missing queries are unmeasured"}.${row.coverage.legacy ? ` Separate legacy coverage: ${row.coverage.legacy.observed}/${row.coverage.legacy.expected}${row.coverage.legacy.observedAt ? ` observed ${formatted(row.coverage.legacy.observedAt)}` : " · never observed"}.` : ""}`,
+    ])] : []),
     metricGrid([
       { label: "Top three (A)", value: countOf(row.classes?.A, row.queries), detail: GEO_CLASS_NOTES.A },
       {

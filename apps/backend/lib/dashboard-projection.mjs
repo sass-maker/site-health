@@ -7,7 +7,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import { validateRootBrandContract } from './root-brand-contract.mjs';
-import { validateRootSearchQueryContract } from './root-search-query-contract.mjs';
+import { activeObservatoryQueries, mergeRootSearchQueriesIntoObservatory, validateRootSearchQueryContract } from './root-search-query-contract.mjs';
 import { defaultVisibilityOutcomePath, readVisibilityOutcomes } from './visibility-outcome-store.mjs';
 import { searchConsoleProjects, searchObservationDomain, visibilityProjects } from './visibility-projects.mjs';
 import { domainStrengthRoots, registrableDomain, externalPerformanceTargets, performanceTargetUrl } from './dashboard-backend/domain-scope.mjs';
@@ -285,10 +285,10 @@ function performanceProjection(projects, home, now, directory) {
   return rows;
 }
 
-function searchProjectsFor(catalog, configRoot) {
+function rootSearchQueriesFor(catalog, configRoot) {
   const brands = readJson(resolve(configRoot, 'root-brands.json'));
   const queries = readJson(resolve(configRoot, 'root-search-queries.json'));
-  if (!brands || !queries) return visibilityProjects(catalog);
+  if (!brands || !queries) return null;
   const brandMap = validateRootBrandContract(brands, catalog.projects ?? []);
   // Retired, domainless projects may keep historical query policy. Do not revive
   // them as current targets or let that history prevent unrelated views loading.
@@ -300,8 +300,12 @@ function searchProjectsFor(catalog, configRoot) {
   }).map((root) => root.rootDomain));
   const currentBrands = new Map([...brandMap].filter(([domain]) => !excluded.has(domain)));
   const currentQueries = excluded.size ? { ...queries, roots: queries.roots.filter((root) => !excluded.has(root.rootDomain)) } : queries;
-  const roots = validateRootSearchQueryContract(currentQueries, currentBrands, projects);
-  return searchConsoleProjects(catalog, roots);
+  return validateRootSearchQueryContract(currentQueries, currentBrands, projects);
+}
+
+function searchProjectsFor(catalog, configRoot) {
+  const roots = rootSearchQueriesFor(catalog, configRoot);
+  return roots ? searchConsoleProjects(catalog, roots) : visibilityProjects(catalog);
 }
 
 function searchProjection(catalog, configRoot, home, now) {
@@ -417,7 +421,9 @@ function geoStatus(counts) {
 // GEO panel, or it is a public-metric surface the rest of the dashboard already covers. That is
 // what makes an unmeasured product render as an explicit state instead of dropping out silently.
 function geoProjection(catalog, configRoot, dataRoot) {
-  const config = readJson(resolve(configRoot, 'geo-observatory.json'), { products: [] });
+  const legacyConfig = readJson(resolve(configRoot, 'geo-observatory.json'), { products: [] });
+  const roots = rootSearchQueriesFor(catalog, configRoot);
+  const config = roots ? mergeRootSearchQueriesIntoObservatory(legacyConfig, roots) : legacyConfig;
   const configured = new Map((config.products ?? []).map((product) => [product.id, product]));
   const projects = new Map((catalog.projects ?? []).map((project) => [project.id, project]));
   const byProduct = new Map();
@@ -438,10 +444,27 @@ function geoProjection(catalog, configRoot, dataRoot) {
     const domain = productConfig?.origin
       ? searchObservationDomain({ scope: productConfig.origin })
       : normalizedDomain(project?.domains?.[0]);
-    const queryIds = new Set((productConfig?.queries ?? []).map((query) => query.qid));
-    const observations = (byProduct.get(projectId) ?? []).filter((row) => !productConfig || queryIds.has(row.qid));
+    const activeQueries = activeObservatoryQueries(productConfig);
+    const root = roots?.get(domain);
+    const selectedQueries = root ? root.activeQueries.map(query => ({ qid: query.id })) : activeQueries;
+    const queryIds = new Set(selectedQueries.map(query => query.qid));
+    const allObservations = byProduct.get(projectId) ?? [];
+    const observations = allObservations.filter(row => !productConfig || queryIds.has(row.qid));
     const runDates = [...new Set(observations.map((row) => row.date))].sort();
     const latestDate = runDates.at(-1) ?? null;
+    const coverageFor = queries => {
+      const ids = new Set(queries.map(query => query.qid));
+      const rows = allObservations.filter(row => ids.has(row.qid));
+      const date = rows.map(row => row.date).sort().at(-1) ?? null;
+      const observed = new Set(rows.filter(row => row.date === date).map(row => row.qid));
+      return { observedAt: date ? runTimestamp(date) : null, expected: ids.size, observed: observed.size,
+        complete: ids.size > 0 && observed.size === ids.size, missing: [...ids].filter(id => !observed.has(id)) };
+    };
+    const coverage = {
+      scope: root ? 'root-search' : 'legacy-panel',
+      ...coverageFor(selectedQueries),
+      legacy: root ? coverageFor(activeQueries.filter(query => !query.rootDomain)) : null,
+    };
     if (!latestDate) {
       return {
         projectId,
@@ -451,7 +474,8 @@ function geoProjection(catalog, configRoot, dataRoot) {
         // and both are different from a measured zero. All three stay distinguishable.
         status: configured.has(projectId) ? 'not-measured' : 'not-configured',
         observedAt: null,
-        queries: (configured.get(projectId)?.queries ?? []).length,
+        queries: selectedQueries.length,
+        coverage,
         runCount: 0,
         classes: null,
         topThree: null,
@@ -479,6 +503,7 @@ function geoProjection(catalog, configRoot, dataRoot) {
       status: geoStatus(counts),
       observedAt,
       queries: latest.length,
+      coverage,
       runCount: runDates.length,
       classes: counts,
       topThree: signal(

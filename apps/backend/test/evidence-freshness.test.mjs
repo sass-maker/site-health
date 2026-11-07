@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import test from 'node:test';
 
 import {
+  AI_COLLECTION_UNAVAILABLE,
   buildEvidenceEnvelope,
   readRefreshReceipt,
   recordRefreshReceipt,
@@ -12,6 +13,25 @@ import {
   withRefreshReceipt,
 } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { DashboardStore } from '../lib/dashboard-backend/store.mjs';
+
+test('legacy AI approval receipts report the missing connection without rewriting history or freshness', () => {
+  const store = new DashboardStore({ databasePath: join(mkdtempSync(join(tmpdir(), 'ai-receipt-')), 'dashboard.sqlite') });
+  try {
+    recordRefreshReceipt(store, { family: 'ai', runId: 'old-blocker', state: 'unavailable',
+      startedAt: '2026-10-27T00:00:00.000Z', finishedAt: '2026-10-27T00:00:00.000Z',
+      code: 'AI_RECURRING_APPROVAL_REQUIRED', summary: 'Recurring paid AI collection requires approval.' });
+    const receipt = readRefreshReceipt(store, 'ai');
+    assert.deepEqual(receipt.failure, AI_COLLECTION_UNAVAILABLE);
+    assert.equal(receipt.lastAttemptAt, '2026-10-27T00:00:00.000Z');
+    assert.equal(store.getMetadata('evidence-refresh:ai:portfolio').value.failure.code, 'AI_RECURRING_APPROVAL_REQUIRED');
+    const envelope = buildEvidenceEnvelope({ family: 'ai', receipt,
+      rows: [{ observedAt: '2026-09-05T12:00:00.000Z' }], now: '2026-11-08T00:00:00.000Z' });
+    assert.equal(envelope.state, 'unavailable');
+    assert.equal(envelope.lastSuccessAt, '2026-09-05T12:00:00.000Z');
+    assert.equal(envelope.observedAt, '2026-09-05T12:00:00.000Z');
+    assert.deepEqual(envelope.failure, AI_COLLECTION_UNAVAILABLE);
+  } finally { store.close(); }
+});
 
 test('failed refresh never advances successful evidence freshness', () => {
   const store = new DashboardStore({

@@ -5,6 +5,7 @@ import { resolve } from 'node:path';
 import { PERFORMANCE_TARGET } from './performance-policy.mjs';
 import { PSI_NODE_VERSION } from './psi-runtime.mjs';
 import { resolveCollectorRoot } from './collector-paths.mjs';
+import { AI_COLLECTION_UNAVAILABLE } from './evidence-freshness.mjs';
 
 import {
   domainStrengthRoots,
@@ -118,9 +119,9 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
   if (family === 'ai') {
     return {
       unavailable: true,
-      code: 'AI_PROVIDER_CONNECTION_REQUIRED',
+      code: AI_COLLECTION_UNAVAILABLE.code,
       label: 'AI Awareness',
-      summary: 'No approved provider-backed AI connection is configured; cached evidence was not changed.',
+      summary: AI_COLLECTION_UNAVAILABLE.message,
     };
   }
   fail('METRIC_FAMILY_INVALID', 'Unsupported project metric family');
@@ -128,6 +129,7 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
 
 function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }) {
   const currentProjects = projects.filter(isCurrentPortfolioProject);
+  if (family === 'ai') return commandFor({ family, project: {}, workspaceRoot, repositoryRoot, projects });
   if (family === 'drank') {
     const targets = domainStrengthRoots(currentProjects);
     if (targets.length === 0) {
