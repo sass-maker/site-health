@@ -25,7 +25,7 @@ test('failed weekly collectors back off rather than retry on every ten-minute po
   assert.equal(evidenceRefreshDue(envelope, '2026-10-27T06:00:00Z'), true);
 });
 
-test('forced prefill starts every free portfolio collector and records paid AI approval', () => {
+test('forced prefill starts every free portfolio collector and records the missing AI connection', () => {
   const store = new DashboardStore({
     databasePath: join(mkdtempSync(join(tmpdir(), 'refresh-coordinator-')), 'dashboard.sqlite'),
   });
@@ -56,7 +56,8 @@ test('forced prefill starts every free portfolio collector and records paid AI a
       ['seo', 'refresh'],
       ['ai', 'unavailable'],
     ]);
-    assert.equal(readRefreshReceipt(store, 'ai').failure.code, 'AI_RECURRING_APPROVAL_REQUIRED');
+    assert.equal(readRefreshReceipt(store, 'ai').failure.code, 'AI_PROVIDER_CONNECTION_REQUIRED');
+    assert.match(readRefreshReceipt(store, 'ai').failure.message, /No external AI assistant collector is configured/);
   } finally {
     store.close();
   }

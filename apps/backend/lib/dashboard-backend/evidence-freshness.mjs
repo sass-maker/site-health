@@ -13,6 +13,11 @@ export const ABANDONED_RUN_FAILURE = Object.freeze({
   message: 'The refresh started and never reported a result; the run that owned it is gone.',
 });
 
+export const AI_COLLECTION_UNAVAILABLE = Object.freeze({
+  code: 'AI_PROVIDER_CONNECTION_REQUIRED',
+  message: 'No external AI assistant collector is configured. Import captured provider observations to refresh visibility; cached evidence is retained.',
+});
+
 export const EVIDENCE_POLICIES = Object.freeze({
   clarity: { maximumAgeMs: 3 * DAY_MS, cadence: 'every-3-days', provenance: 'provider' },
   drank: { maximumAgeMs: 7 * DAY_MS, cadence: 'weekly', provenance: 'provider' },
@@ -78,7 +83,11 @@ export function recordRefreshReceipt(store, run) {
 }
 
 export function readRefreshReceipt(store, family, target = {}) {
-  return store.getMetadata(refreshMetadataKey(family, target))?.value ?? null;
+  const receipt = store.getMetadata(refreshMetadataKey(family, target))?.value ?? null;
+  if (family === 'ai' && receipt?.failure?.code === 'AI_RECURRING_APPROVAL_REQUIRED') {
+    return { ...receipt, failure: { ...AI_COLLECTION_UNAVAILABLE } };
+  }
+  return receipt;
 }
 
 export function isAbandonedRefreshReceipt(

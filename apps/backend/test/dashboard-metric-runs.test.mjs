@@ -277,6 +277,11 @@ test('reports AI-awareness unavailable instead of projecting a fixture', () => {
   assert.equal(started.label, 'AI Awareness');
   assert.equal(started.state, 'unavailable');
   assert.equal(started.code, 'AI_PROVIDER_CONNECTION_REQUIRED');
+  assert.match(started.summary, /No external AI assistant collector is configured/);
+  const portfolio = controller.start({ family: 'ai', scope: 'portfolio' });
+  assert.equal(portfolio.state, 'unavailable');
+  assert.equal(portfolio.code, started.code);
+  assert.equal(portfolio.summary, started.summary);
   assert.equal(invoked, false);
 });
 

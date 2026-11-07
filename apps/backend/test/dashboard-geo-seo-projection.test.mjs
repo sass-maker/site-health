@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -59,6 +59,71 @@ function fixture({ projects = [], geoConfig = { products: [] }, ledger = [], seo
 function geoRow(rows, projectId) {
   return rows.find((row) => row.projectId === projectId);
 }
+
+test('GEO includes root-contract observations absent from the legacy panel', () => {
+  const rootQueries = { version: 1, cadence: 'weekly', roots: [{
+    rootDomain: 'example.com', projectId: 'owner',
+    collision: { state: 'clear', note: 'Distinct test brand with an independently owned root domain.' },
+    queries: ['brand', 'exact-domain', 'category', 'problem'].map(kind => ({ id: `root-${kind}`, kind, text: `Example ${kind}`, status: 'active' })),
+  }] };
+  const { geoAwareness } = fixture({
+    projects: [project('owner', { domains: ['example.com'] })],
+    rootBrands: { version: 1, brands: [{ rootDomain: 'example.com', canonicalName: 'Example', alternateNames: [] }] },
+    rootQueries,
+    geoConfig: { products: [{ id: 'owner', origin: 'https://example.com', queries: [{ qid: 'legacy-brand', q: 'Example legacy', kind: 'brand' }] }] },
+    ledger: rootQueries.roots[0].queries.map(query => ({ date: '2026-09-05', product: 'owner', qid: query.id, query: query.text, class: 'A', source: 'web-search' })),
+  });
+  const row = geoRow(geoAwareness, 'owner');
+  assert.equal(row.observedAt, NOW);
+  assert.equal(row.queries, 4);
+  assert.equal(row.topThree.value, 100);
+  assert.deepEqual(row.coverage, { scope: 'root-search', observedAt: NOW, expected: 4, observed: 4, complete: true, missing: [],
+    legacy: { observedAt: null, expected: 1, observed: 0, complete: false, missing: ['legacy-brand'] } });
+  assert.deepEqual(row.observations.map(observation => observation.kind).sort(), ['brand', 'category', 'exact-domain', 'problem']);
+});
+
+test('partial root coverage stays separate from earlier legacy and historical observations', () => {
+  const queries = ['brand', 'exact-domain', 'category', 'problem'].map(kind => ({ id: `root-${kind}`, kind, text: `Example ${kind}`, status: 'active' }));
+  const { geoAwareness } = fixture({
+    projects: [project('owner', { domains: ['example.com'] })],
+    rootBrands: { version: 1, brands: [{ rootDomain: 'example.com', canonicalName: 'Example', alternateNames: [] }] },
+    rootQueries: { version: 1, cadence: 'weekly', roots: [{ rootDomain: 'example.com', projectId: 'owner',
+      collision: { state: 'clear', note: 'Distinct test brand with an independently owned root domain.' },
+      queries: [...queries, { id: 'retired-root', kind: 'brand', text: 'Old Example', status: 'historical', supersededBy: 'root-brand' }],
+    }] },
+    geoConfig: { products: [{ id: 'owner', origin: 'https://example.com', queries: [{ qid: 'legacy-brand', q: 'Example legacy', kind: 'brand' }, { qid: 'retired-legacy', q: 'Earlier Example', kind: 'brand', status: 'historical' }] }] },
+    ledger: [
+      { date: '2026-08-16', product: 'owner', qid: 'legacy-brand', class: 'B' },
+      { date: '2026-09-05', product: 'owner', qid: 'root-brand', class: 'C' },
+      { date: '2026-09-05', product: 'owner', qid: 'retired-root', class: 'A' },
+      { date: '2026-09-05', product: 'owner', qid: 'retired-legacy', class: 'A' },
+    ],
+  });
+  const row = geoRow(geoAwareness, 'owner');
+  assert.deepEqual(row.classes, { A: 0, B: 0, C: 1 });
+  assert.equal(row.runCount, 1);
+  assert.equal(row.coverage.observed, 1);
+  assert.equal(row.coverage.expected, 4);
+  assert.equal(row.coverage.complete, false);
+  assert.deepEqual(row.coverage.missing, ['root-exact-domain', 'root-category', 'root-problem']);
+  assert.deepEqual(row.coverage.legacy, { observedAt: '2026-08-16T12:00:00.000Z', expected: 1, observed: 1, complete: true, missing: [] });
+  assert.deepEqual(row.observations.map(item => item.qid), ['root-brand']);
+});
+
+test('the full eleven-root query contract projects forty-four queries when every owner is active', () => {
+  const readConfig = name => JSON.parse(readFileSync(new URL(`../config/${name}.json`, import.meta.url), 'utf8'));
+  const rootQueries = readConfig('root-search-queries');
+  const rootBrands = readConfig('root-brands');
+  const projects = rootQueries.roots.map(root => project(root.projectId, { domains: [root.rootDomain] }));
+  const ledger = rootQueries.roots.flatMap(root => root.queries.filter(query => query.status === 'active').map(query => ({
+    date: '2026-09-05', product: root.projectId, qid: query.id, query: query.text, class: 'C', source: 'web-search',
+  })));
+  const { geoAwareness } = fixture({ projects, rootQueries, rootBrands, ledger });
+  assert.equal(rootQueries.roots.length, 11);
+  assert.equal(ledger.length, 44);
+  assert.equal(geoAwareness.reduce((total, row) => total + row.coverage.observed, 0), 44);
+  assert.ok(geoAwareness.every(row => row.coverage.complete && row.coverage.expected === 4));
+});
 
 test('a GEO product is classed from its most recent run, and class C is a measured zero', () => {
   const { geoAwareness } = fixture({
