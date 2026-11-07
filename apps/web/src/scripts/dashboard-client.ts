@@ -395,10 +395,25 @@ function searchKeywordVisibility(row: JsonRecord) {
 
 function searchIndexStatus(row: JsonRecord) {
   const inspection = row.indexInspection;
+  const label = row.pathScoped ? "Landing index" : "Root index";
   return element("p", { class: "search-index-status" }, [
     inspection
-      ? `Root index: ${String(inspection.state).replaceAll("-", " ")} · ${inspection.coverageState ?? inspection.failureReason ?? "Coverage detail unavailable"}${inspection.lastCrawlTime ? ` · last crawled ${formatted(inspection.lastCrawlTime)}` : ""}`
-      : "Root index: not inspected",
+      ? `${label}: ${String(inspection.state).replaceAll("-", " ")} · ${inspection.coverageState ?? inspection.failureReason ?? "Coverage detail unavailable"}${inspection.lastCrawlTime ? ` · last crawled ${formatted(inspection.lastCrawlTime)}` : ""}`
+      : `${label}: not inspected`,
+  ]);
+}
+
+function searchScopeHistory(row: JsonRecord) {
+  const scopes: JsonRecord[] = row.retainedScopes ?? [];
+  if (!scopes.length) return null;
+  return createUiControl("details", { class: "search-keywords" }, [
+    createUiControl("summary", {}, [`Other scope history · ${scopes.length}`]),
+    element("div", { class: "disclosure-content" }, [
+      element("p", { class: "measurement-boundary-note" }, ["Other scopes are retained separately. Their totals are excluded from the current series; a change in scope does not establish growth."]),
+      ...scopes.map(scope => element("p", { class: "measurement-boundary-note" }, [
+        `${scope.surfaceUrl ?? scope.scope} · ${scope.impressions ?? "Unavailable"} impressions · ${scope.clicks ?? "Unavailable"} clicks · collected ${formatted(scope.observedAt)}`,
+      ])),
+    ]),
   ]);
 }
 
@@ -422,6 +437,9 @@ function searchResult(row: JsonRecord) {
       ]),
       state(row.status),
     ]),
+    ...(row.surfaceUrl ? [element("p", { class: "measurement-boundary-note" }, [
+      `Current surface: ${row.surfaceUrl}${row.pathScoped ? " · Search totals cover this path and its descendants." : ""}`,
+    ])] : []),
     element("div", { class: "search-result__summary" }, [
       metricGrid([
         { label: "Impressions", value: value(row.impressions), detail: comparison("Search impressions", row.impressions) },
@@ -436,6 +454,7 @@ function searchResult(row: JsonRecord) {
         searchTrend(row.impressions),
         searchIndexStatus(row),
         searchKeywordVisibility(row),
+        ...[searchScopeHistory(row)].filter(Boolean),
       ]),
     ]),
     element("footer", {}, [

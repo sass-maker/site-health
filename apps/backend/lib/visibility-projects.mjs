@@ -25,11 +25,40 @@ function normalizedDomain(value) {
   return String(value ?? '').trim().toLowerCase().replace(/^www\./, '');
 }
 
+export function searchConsoleTarget(project) {
+  const policy = project?.systems?.searchConsole;
+  const explicit = policy !== undefined && policy !== null;
+  const value = explicit ? policy.surfaceUrl : `https://${project.domains?.[0]}/`;
+  if (!explicit && !project.domains?.[0]) return null;
+  let url;
+  try { url = new URL(value); } catch { /* Report policy errors at this boundary. */ }
+  if (typeof value !== 'string' || /[\s?#]/.test(value) || !url || url.protocol !== 'https:' || url.username || url.password ||
+      !url.hostname.includes('.') || /(?:^|\.)(?:localhost|local|internal)$/.test(url.hostname) ||
+      /^[\d.]+$/.test(url.hostname) || url.hostname.includes(':') || url.port) {
+    throw new Error(`Invalid Search Console surface URL for ${project.id}: expected a public HTTPS URL without credentials, query or fragment`);
+  }
+  url.pathname = `${url.pathname.replace(/\/+$/, '')}/`;
+  return { surfaceUrl: url.href, domain: url.hostname, explicit };
+}
+
+export function searchObservationSurface(observation) {
+  const scope = String(observation?.scope ?? '');
+  const value = observation?.indexInspection?.inspectedUrl
+    ?? (scope.includes(' · page:') ? scope.split(' · page:')[1] : scope);
+  if (String(value).startsWith('sc-domain:')) return `https://${normalizedDomain(String(value).slice(10))}/`;
+  try {
+    const url = new URL(value);
+    if (!['https:', 'http:'].includes(url.protocol)) return null;
+    url.pathname = `${url.pathname.replace(/\/+$/, '')}/`;
+    return url.href;
+  } catch { return null; }
+}
+
 export function searchConsoleProjects(catalog, rootsByDomain = new Map()) {
   const catalogProjects = catalog?.projects ?? [];
   const catalogById = new Map(catalogProjects.map((project) => [project.id, project]));
   const selected = visibilityProjects(catalog);
-  const targets = new Set(selected.map((project) => `${project.id}:${normalizedDomain(project.domains?.[0])}`));
+  const targets = new Set(selected.map((project) => `${project.id}:${searchConsoleTarget(project).surfaceUrl}`));
 
   for (const root of rootsByDomain.values()) {
     const rootDomain = normalizedDomain(root?.rootDomain);
@@ -45,9 +74,9 @@ export function searchConsoleProjects(catalog, rootsByDomain = new Map()) {
       throw new Error(`Search Console root project domain mismatch: ${projectId} does not own ${rootDomain || '(empty)'}`);
     }
 
-    const key = `${projectId}:${rootDomain}`;
+    const key = `${projectId}:https://${rootDomain}/`;
     if (targets.has(key)) continue;
-    selected.push({ ...project, domains: [rootDomain] });
+    selected.push({ ...project, domains: [rootDomain], systems: { ...project.systems, searchConsole: undefined } });
     targets.add(key);
   }
 

@@ -4,7 +4,9 @@ import test from 'node:test';
 import {
   isVisibilityProject,
   searchConsoleProjects,
+  searchConsoleTarget,
   searchObservationDomain,
+  searchObservationSurface,
   visibilityProjects,
 } from '../lib/visibility-projects.mjs';
 
@@ -121,4 +123,18 @@ test('search domain identity uses inspected URL before shared property scope', (
   assert.equal(searchObservationDomain({ scope: 'https://example.com/' }), 'example.com');
   assert.equal(searchObservationDomain({ scope: 'sc-domain:example.com' }), 'example.com');
   assert.equal(searchObservationDomain({ scope: 'legacy unscoped' }), null);
+});
+
+test('canonical targets preserve catalog domains and keep separately owned root contracts', () => {
+  const canonical = project({ domains: ['old.example.com', 'example.com'], systems: { searchConsole: { surfaceUrl: 'https://EXAMPLE.com/browser' } } });
+  const before = JSON.stringify(canonical);
+  const targets = searchConsoleProjects({ projects: [canonical] }, new Map([['example.com', { rootDomain: 'example.com', projectId: canonical.id }]]));
+  assert.deepEqual(targets.map(searchConsoleTarget), [
+    { surfaceUrl: 'https://example.com/browser/', domain: 'example.com', explicit: true },
+    { surfaceUrl: 'https://example.com/', domain: 'example.com', explicit: false },
+  ]);
+  assert.equal(JSON.stringify(canonical), before);
+  assert.deepEqual(targets[0].domains, ['old.example.com', 'example.com']);
+  assert.equal(searchObservationSurface({ scope: 'sc-domain:example.com · page:https://example.com/browser/' }), 'https://example.com/browser/');
+  assert.equal(searchObservationSurface({ scope: 'sc-domain:example.com', indexInspection: { inspectedUrl: 'https://example.com/storage/' } }), 'https://example.com/storage/');
 });

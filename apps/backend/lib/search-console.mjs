@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { searchObservationDomain } from './visibility-projects.mjs';
+import { searchConsoleTarget, searchObservationDomain, searchObservationSurface } from './visibility-projects.mjs';
 
 const SEARCH_CONSOLE_API = 'https://www.googleapis.com/webmasters/v3';
 const SEARCH_CONSOLE_INSPECTION_API = 'https://searchconsole.googleapis.com/v1';
@@ -64,14 +64,24 @@ function propertyHost(siteUrl) {
   }
 }
 
-export function selectSearchConsoleProperty(domain, properties) {
+export function selectSearchConsoleProperty(surface, properties) {
+  const explicitUrl = String(surface).startsWith('https://');
+  const targetUrl = new URL(explicitUrl ? surface : `https://${surface}/`);
+  const domain = targetUrl.hostname;
   const accessible = properties.filter((property) =>
     property?.siteUrl && property.permissionLevel !== 'siteUnverifiedUser');
-  const prefix = accessible.find((property) => {
+  const prefixes = accessible.filter((property) => {
     const host = propertyHost(property.siteUrl);
-    return host === domain && property.siteUrl.startsWith('https://');
+    if (host !== domain || !property.siteUrl.startsWith('https://')) return false;
+    const prefix = new URL(property.siteUrl);
+    const path = prefix.pathname.replace(/\/+$/, '');
+    return prefix.origin === targetUrl.origin && !prefix.search && !prefix.hash &&
+      (targetUrl.pathname === path || targetUrl.pathname.startsWith(`${path}/`));
   });
-  if (prefix) return { ...prefix, pageFilter: null };
+  if (explicitUrl) prefixes.sort((left, right) => right.siteUrl.length - left.siteUrl.length);
+  const prefix = prefixes[0];
+  const filter = explicitUrl ? { pageFilter: targetUrl.href, pageFilterOperator: 'includingRegex' } : null;
+  if (prefix) return { ...prefix, ...(filter ?? { pageFilter: null }) };
 
   const domains = accessible
     .map((property) => ({ property, domain: propertyDomain(property.siteUrl) }))
@@ -81,7 +91,7 @@ export function selectSearchConsoleProperty(domain, properties) {
   if (domains.length === 0) return null;
   return {
     ...domains[0].property,
-    pageFilter: `https://${domain}/`,
+    ...(filter ?? { pageFilter: `https://${domain}/` }),
   };
 }
 
@@ -95,7 +105,7 @@ export function searchConsoleSitemapTargets(projects, rootDomains = [], sitemapO
   const targets = [];
   const seen = new Set();
   for (const item of [
-    ...projects.map((project) => ({ id: project.id, domain: project.domains?.[0] })),
+    ...projects.map((project) => ({ id: project.id, domain: searchConsoleTarget(project)?.domain })),
     ...rootDomains.map((domain) => ({ id: `root:${domain}`, domain })),
   ]) {
     const domain = String(item.domain ?? '').trim().toLowerCase();
@@ -141,7 +151,7 @@ export async function reconcileSearchConsoleSitemaps({
   const properties = siteList.siteEntry ?? [];
   const desiredByProperty = new Map();
   const assignments = targets.map((target) => {
-    const selected = selectSearchConsoleProperty(target.domain, properties);
+    const selected = selectSearchConsoleProperty(target.sitemapUrl, properties);
     if (selected) {
       const desired = desiredByProperty.get(selected.siteUrl) ?? new Set();
       desired.add(target.sitemapUrl);
@@ -294,7 +304,7 @@ export async function reconcileSearchConsoleSitemaps({
   };
 }
 
-function requestBody({ startDate, endDate, pageFilter, dimensions = [], rowLimit = 1 }) {
+function requestBody({ startDate, endDate, pageFilter, pageFilterOperator = 'contains', dimensions = [], rowLimit = 1 }) {
   return {
     startDate,
     endDate,
@@ -305,8 +315,8 @@ function requestBody({ startDate, endDate, pageFilter, dimensions = [], rowLimit
       dimensionFilterGroups: [{
         filters: [{
           dimension: 'page',
-          operator: 'contains',
-          expression: pageFilter,
+          operator: pageFilterOperator,
+          expression: pageFilterOperator === 'includingRegex' ? `^${pageFilter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}` : pageFilter,
         }],
       }],
     } : {}),
@@ -353,23 +363,29 @@ export async function ensureSearchConsoleSitemaps({
 }) {
   if (!accessToken) throw new Error('Search Console access token is required');
   if (!quotaProject) throw new Error('Search Console quota project is required');
+  const targets = projects.map(project => ({ project, target: searchConsoleTarget(project) }));
   const siteList = await googleRequest('/sites', { accessToken, quotaProject, fetchImpl });
   const properties = siteList.siteEntry ?? [];
   const plans = [];
-  const seen = new Set();
+  const plansBySitemap = new Map();
 
-  for (const project of projects) {
-    const domain = project.domains?.[0];
-    const selected = domain ? selectSearchConsoleProperty(domain, properties) : null;
+  for (const { project, target } of targets) {
+    const domain = target?.domain;
+    const sitemapUrl = domain ? `https://${domain}/sitemap.xml` : null;
+    const selected = sitemapUrl ? selectSearchConsoleProperty(sitemapUrl, properties) : null;
     if (!selected) {
-      plans.push({ project, domain: domain ?? null, selected: null, sitemapUrl: null });
+      plans.push({ project, domain: domain ?? null, selected: null, sitemapUrl: null, targets: [{ project, target }] });
       continue;
     }
-    const sitemapUrl = `https://${domain}/sitemap.xml`;
     const key = `${selected.siteUrl}\n${sitemapUrl}`;
-    if (seen.has(key)) continue;
-    seen.add(key);
-    plans.push({ project, domain, selected, sitemapUrl });
+    const existing = plansBySitemap.get(key);
+    if (existing) {
+      existing.targets.push({ project, target });
+      continue;
+    }
+    const plan = { project, domain, selected, sitemapUrl, targets: [{ project, target }] };
+    plansBySitemap.set(key, plan);
+    plans.push(plan);
   }
 
   const propertyUrls = [...new Set(plans.flatMap((plan) => plan.selected ? [plan.selected.siteUrl] : []))];
@@ -390,7 +406,7 @@ export async function ensureSearchConsoleSitemaps({
   const listingsByProperty = new Map(propertyListings);
   let submissionBlockedReason = null;
 
-  return mapWithConcurrency(plans, 4, async ({ project, domain, selected, sitemapUrl }) => {
+  const results = await mapWithConcurrency(plans, 4, async ({ project, domain, selected, sitemapUrl }) => {
     if (!selected) {
       return { projectId: project.id, domain, state: 'property-unavailable' };
     }
@@ -446,16 +462,23 @@ export async function ensureSearchConsoleSitemaps({
       };
     }
   });
+  return results.flatMap((result, index) => plans[index].targets.map(({ project, target }) => ({
+    ...result,
+    projectId: project.id,
+    ...(target?.explicit ? { surfaceUrl: target.surfaceUrl } : {}),
+  })));
 }
 
 const RECORDED_SITEMAP_STATES = new Set(['submitted', 'already-submitted']);
 
 export function attachSitemapSubmissionState(bundle, sitemapResults) {
-  const sitemapByProject = new Map(sitemapResults.map((result) => [`${result.projectId}:${result.domain ?? ''}`, result]));
+  const sitemapBySurface = new Map(sitemapResults.filter(result => result.surfaceUrl).map(result => [`${result.projectId}:${result.surfaceUrl}`, result]));
+  const sitemapByDomain = new Map(sitemapResults.filter(result => !result.surfaceUrl).map(result => [`${result.projectId}:${result.domain ?? ''}`, result]));
   return {
     ...bundle,
     observations: bundle.observations.map((observation) => {
-      const sitemap = sitemapByProject.get(`${observation.projectId}:${searchObservationDomain(observation) ?? ''}`);
+      const sitemap = sitemapBySurface.get(`${observation.projectId}:${searchObservationSurface(observation) ?? ''}`)
+        ?? sitemapByDomain.get(`${observation.projectId}:${searchObservationDomain(observation) ?? ''}`);
       if (
         !observation.indexInspection ||
         !sitemap?.submittedAt ||
@@ -598,6 +621,7 @@ export async function collectSearchConsoleOutcomes({
   const previousStartDate = shiftedDay(previousEndDate, -(reportingWindowDays - 1));
   const observedAt = now.toISOString();
   const runId = observedAt.replace(/[^0-9]/g, '');
+  const targets = projects.map(project => ({ project, target: searchConsoleTarget(project) }));
   const siteList = await requestImpl('/sites', {
     accessToken,
     quotaProject,
@@ -607,9 +631,9 @@ export async function collectSearchConsoleOutcomes({
   const inspectWithBoundedConcurrency = createConcurrencyGate(
     SEARCH_CONSOLE_INSPECTION_CONCURRENCY,
   );
-  const collectedProjects = await mapWithConcurrency(projects, 4, async (project) => {
-    const domain = project.domains?.[0];
-    const selected = domain ? selectSearchConsoleProperty(domain, properties) : null;
+  const collectedProjects = await mapWithConcurrency(targets, 4, async ({ project, target }) => {
+    const domain = target?.domain;
+    const selected = target ? selectSearchConsoleProperty(target.explicit ? target.surfaceUrl : domain, properties) : null;
     if (!selected) {
       return {
         unavailable: { projectId: project.id, domain: domain ?? null, reason: 'property-unavailable' },
@@ -620,7 +644,7 @@ export async function collectSearchConsoleOutcomes({
         accessToken,
         quotaProject,
         fetchImpl,
-        body: requestBody({ startDate, endDate, pageFilter: selected.pageFilter }),
+        body: requestBody({ startDate, endDate, pageFilter: selected.pageFilter, pageFilterOperator: selected.pageFilterOperator }),
       },
     );
     const termsRequest = requestImpl(
@@ -632,6 +656,7 @@ export async function collectSearchConsoleOutcomes({
           startDate,
           endDate,
           pageFilter: selected.pageFilter,
+          pageFilterOperator: selected.pageFilterOperator,
           dimensions: ['query', 'page'],
           rowLimit: SEARCH_CONSOLE_QUERY_POOL_LIMIT,
         }),
@@ -646,6 +671,7 @@ export async function collectSearchConsoleOutcomes({
           startDate,
           endDate,
           pageFilter: selected.pageFilter,
+          pageFilterOperator: selected.pageFilterOperator,
           dimensions: ['date'],
           rowLimit: Math.min(reportingWindowDays, 90),
         }),
@@ -660,10 +686,11 @@ export async function collectSearchConsoleOutcomes({
           startDate: previousStartDate,
           endDate: previousEndDate,
           pageFilter: selected.pageFilter,
+          pageFilterOperator: selected.pageFilterOperator,
         }),
       },
     );
-    const inspectedUrl = `https://${domain}/`;
+    const inspectedUrl = target.surfaceUrl;
     const inspectionRequest = inspectWithBoundedConcurrency(() => inspectSearchConsoleUrl({
       inspectionUrl: inspectedUrl,
       siteUrl: selected.siteUrl,
@@ -742,7 +769,7 @@ export async function collectSearchConsoleOutcomes({
       }];
     });
     return { observation: {
-      id: `search-${project.id}-${createHash('sha256').update(domain).digest('hex').slice(0, 12)}-${endDate}-${runId}`,
+      id: `search-${project.id}-${createHash('sha256').update(target.surfaceUrl).digest('hex').slice(0, 12)}-${endDate}-${runId}`,
       projectId: project.id,
       family: 'search',
       provider: 'google-search-console',

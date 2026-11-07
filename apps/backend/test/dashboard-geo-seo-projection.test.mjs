@@ -333,6 +333,24 @@ test('search projection keeps multiple surfaces of one owner separate', () => {
   assert.equal(search.find((row) => row.domain === 'example.com').indexInspection.state, 'not-indexed');
 });
 
+test('canonical path search separates sibling paths and retains previous scope without blending or zeroing', () => {
+  const old = { id: 'search-old', projectId: 'browser', family: 'search', provider: 'google-search-console', scope: 'https://old.example.com/', observedAt: NOW, period: { start: '2026-08-01T00:00:00Z', end: '2026-08-28T23:59:59Z' }, metrics: [{ label: 'Search impressions', value: 90 }], indexInspection: { inspectedUrl: 'https://old.example.com/', state: 'indexed' } };
+  const storage = { ...old, id: 'search-storage', scope: 'sc-domain:example.com · page:https://example.com/storage/', metrics: [{ label: 'Search impressions', value: 900 }], indexInspection: { inspectedUrl: 'https://example.com/storage/', state: 'indexed' } };
+  const configured = project('browser', { domains: ['old.example.com'], systems: { searchConsole: { surfaceUrl: 'https://example.com/browser/' } } });
+  const pending = fixture({ projects: [configured], searchLedger: [old, storage] }).search[0];
+  assert.equal(pending.surfaceUrl, 'https://example.com/browser/');
+  assert.equal(pending.status, 'not-measured');
+  assert.equal(pending.impressions, null);
+  assert.equal(pending.previousPeriod, null);
+  assert.equal(pending.retainedScopes.length, 2);
+  assert.equal(pending.retainedScopes.find(scope => scope.surfaceUrl === 'https://old.example.com/').impressions, 90);
+  const current = { ...old, id: 'search-current', observedAt: '2026-09-04T12:00:00Z', scope: 'sc-domain:example.com · page:https://example.com/browser/', metrics: [{ label: 'Search impressions', value: 3 }], indexInspection: { inspectedUrl: 'https://example.com/browser/', state: 'indexed' } };
+  const observed = fixture({ projects: [configured], searchLedger: [old, storage, current] }).search[0];
+  assert.equal(observed.impressions.value, 3);
+  assert.equal(observed.retainedScopes.length, 2);
+  assert.deepEqual(old.metrics, [{ label: 'Search impressions', value: 90 }]);
+});
+
 test('GEO follows the configured surface and excludes a retired query cohort', () => {
   const { geoAwareness } = fixture({
     projects: [project('owner', { domains: ['app.example.com', 'example.com'] })],
