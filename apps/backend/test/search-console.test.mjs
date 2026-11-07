@@ -13,6 +13,68 @@ import {
   selectSearchConsoleProperty,
 } from '../lib/search-console.mjs';
 
+test('explicit surfaces choose only covering properties and prefer the deepest prefix', () => {
+  const properties = ['https://example.com/context/', 'https://example.com/', 'https://example.com/browser/', 'sc-domain:example.com'].map(siteUrl => ({ siteUrl }));
+  assert.equal(selectSearchConsoleProperty('https://example.com/browser/tools/', properties)?.siteUrl, 'https://example.com/browser/');
+  assert.equal(selectSearchConsoleProperty('https://example.com/browser/', [properties[0]]), null);
+  assert.equal(selectSearchConsoleProperty('https://example.com/browserish/', [properties[2]]), null);
+  assert.equal(selectSearchConsoleProperty('https://example.com/browser/', [properties[3]])?.siteUrl, 'sc-domain:example.com');
+});
+
+test('canonical path filters every analytics request, inspects the landing URL and isolates IDs', async () => {
+  const requests = [];
+  const projects = ['browser', 'storage'].map(path => ({ id: 'owner', domains: ['old.example.com'], systems: { searchConsole: { surfaceUrl: `https://example.com/${path}/` } } }));
+  const result = await collectSearchConsoleOutcomes({
+    projects,
+    now: new Date('2026-11-08T12:00:00Z'),
+    requestImpl: async (path, options) => {
+      requests.push({ path, body: options.body });
+      if (path === '/sites') return { siteEntry: [{ siteUrl: 'sc-domain:example.com' }] };
+      if (path.includes('index:inspect')) return { inspectionResult: { indexStatusResult: { verdict: 'PASS' } } };
+      return { rows: [] };
+    },
+  });
+  assert.equal(result.bundle.observations.length, 2);
+  assert.equal(new Set(result.bundle.observations.map(row => row.id)).size, 2);
+  assert.deepEqual(result.bundle.observations.map(row => row.indexInspection.inspectedUrl), ['https://example.com/browser/', 'https://example.com/storage/']);
+  for (const name of ['browser', 'storage']) {
+    const matching = requests.filter(request => request.body?.dimensionFilterGroups?.[0]?.filters[0]?.expression.includes(`/${name}`));
+    assert.equal(matching.length, 4);
+    for (const request of matching) {
+      const filter = request.body.dimensionFilterGroups[0].filters[0];
+      assert.equal(filter.operator, 'includingRegex');
+      const regex = new RegExp(filter.expression);
+      assert.equal(regex.test(`https://example.com/${name}/`), true);
+      assert.equal(regex.test(`https://example.com/${name}/guide`), true);
+      assert.equal(regex.test(`https://example.com/${name}ish/`), false);
+      assert.equal(regex.test(`https://elsewhere.example/?next=https://example.com/${name}/`), false);
+    }
+  }
+  assert.deepEqual(projects.map(project => project.domains), [['old.example.com'], ['old.example.com']]);
+});
+
+test('canonical sitemap helpers use the new host and a property covering the sitemap', async () => {
+  const projects = [{ id: 'browser', domains: ['old.example.com'], systems: { searchConsole: { surfaceUrl: 'https://example.com/browser/' } } }];
+  assert.deepEqual(searchConsoleSitemapTargets(projects), [{ id: 'browser', domain: 'example.com', sitemapUrl: 'https://example.com/sitemap.xml' }]);
+  const requests = [];
+  const results = await ensureSearchConsoleSitemaps({ projects, accessToken: 'test', quotaProject: 'test', fetchImpl: async (url, options) => {
+    requests.push({ url, options });
+    if (url.endsWith('/sites')) return Response.json({ siteEntry: [{ siteUrl: 'https://example.com/browser/' }, { siteUrl: 'sc-domain:example.com' }] });
+    return Response.json({ sitemap: [{ path: 'https://example.com/sitemap.xml' }] });
+  } });
+  assert.equal(results[0].domain, 'example.com');
+  assert.equal(results[0].state, 'already-submitted');
+  assert.equal(requests[1].url.includes(encodeURIComponent('sc-domain:example.com')), true);
+});
+
+test('invalid explicit canonical policies fail clearly before provider requests', async () => {
+  for (const surfaceUrl of ['', 'http://example.com/', 'https://user:pass@example.com/', 'https://example.com/?q=1', 'https://example.com/#fragment', 'https://localhost/', 'https://127.0.0.1/']) {
+    let requests = 0;
+    await assert.rejects(collectSearchConsoleOutcomes({ projects: [{ id: 'bad', domains: ['old.example.com'], systems: { searchConsole: { surfaceUrl } } }], requestImpl: async () => { requests += 1; return { siteEntry: [] }; } }), /Invalid Search Console surface URL/);
+    assert.equal(requests, 0);
+  }
+});
+
 test('does not retry a timed-out URL inspection', async () => {
   let requests = 0;
   const timeout = new Error('request timed out');
