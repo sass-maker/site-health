@@ -9,7 +9,7 @@ import { resolve } from 'node:path';
 import { validateRootBrandContract } from './root-brand-contract.mjs';
 import { activeObservatoryQueries, mergeRootSearchQueriesIntoObservatory, validateRootSearchQueryContract } from './root-search-query-contract.mjs';
 import { defaultVisibilityOutcomePath, readVisibilityOutcomes } from './visibility-outcome-store.mjs';
-import { searchConsoleProjects, searchObservationDomain, visibilityProjects } from './visibility-projects.mjs';
+import { searchConsoleProjects, searchConsoleTarget, searchObservationDomain, searchObservationSurface, visibilityProjects } from './visibility-projects.mjs';
 import { domainStrengthRoots, registrableDomain, externalPerformanceTargets, performanceTargetUrl } from './dashboard-backend/domain-scope.mjs';
 import { resolveCollectorRoot } from './dashboard-backend/collector-paths.mjs';
 import { defaultDomainRatingHistoryPath, parseDomainRatingHistory } from './domain-rating-collector.mjs';
@@ -319,11 +319,26 @@ function searchProjection(catalog, configRoot, home, now) {
   }
   const targets = searchProjectsFor(catalog, configRoot);
   return targets.map((project) => {
-    const domain = normalizedDomain(project.domains?.[0]);
+    const target = searchConsoleTarget(project);
     const multipleTargets = targets.filter((target) => target.id === project.id).length > 1;
-    const history = (byProject.get(project.id) ?? [])
-      .filter((row) => searchObservationDomain(row) === domain || (!multipleTargets && !searchObservationDomain(row)))
+    const rows = byProject.get(project.id) ?? [];
+    const matches = (row) => searchObservationSurface(row) === target.surfaceUrl ||
+      (!target.explicit && !multipleTargets && !searchObservationSurface(row));
+    const history = rows.filter(matches)
       .sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt));
+    const retained = new Map();
+    for (const row of rows.filter(row => !matches(row)).sort((left, right) => Date.parse(left.observedAt) - Date.parse(right.observedAt))) {
+      const surfaceUrl = searchObservationSurface(row);
+      const key = surfaceUrl ?? row.scope;
+      retained.set(key, {
+        surfaceUrl,
+        scope: row.scope,
+        observedAt: row.observedAt,
+        impressions: row.metrics.find(metric => metric.label === 'Search impressions')?.value ?? null,
+        clicks: row.metrics.find(metric => metric.label === 'Search clicks')?.value ?? null,
+        observations: (retained.get(key)?.observations ?? 0) + 1,
+      });
+    }
     const latest = history.at(-1) ?? null;
     const metric = (label, dailyKey) => {
       const aggregate = latest?.metrics.find((candidate) => candidate.label === label);
@@ -338,7 +353,10 @@ function searchProjection(catalog, configRoot, home, now) {
       projectId: project.id,
       name: project.name ?? project.id,
       futureForm: project.portfolio?.futureForm ?? null,
-      domain: normalizedDomain(project.domains?.[0]),
+      domain: target.domain,
+      surfaceUrl: target.surfaceUrl,
+      pathScoped: target.explicit && new URL(target.surfaceUrl).pathname !== '/',
+      retainedScopes: [...retained.values()],
       status: latest ? (Number(impressions?.value) > 0 ? 'observed' : 'zero-impressions') : 'not-measured',
       observedAt: latest?.observedAt ?? null,
       scope: latest?.scope ?? null,

@@ -19,6 +19,9 @@ test('explicit surfaces choose only covering properties and prefer the deepest p
   assert.equal(selectSearchConsoleProperty('https://example.com/browser/', [properties[0]]), null);
   assert.equal(selectSearchConsoleProperty('https://example.com/browserish/', [properties[2]]), null);
   assert.equal(selectSearchConsoleProperty('https://example.com/browser/', [properties[3]])?.siteUrl, 'sc-domain:example.com');
+  assert.equal(selectSearchConsoleProperty('example.com', [properties[0]]), null);
+  assert.equal(selectSearchConsoleProperty('example.com', [properties[0], properties[3]])?.siteUrl, 'sc-domain:example.com');
+  assert.equal(selectSearchConsoleProperty('https://app.example.com/browser/', [{ siteUrl: 'sc-domain:example.com' }, { siteUrl: 'sc-domain:app.example.com' }])?.siteUrl, 'sc-domain:app.example.com');
 });
 
 test('canonical path filters every analytics request, inspects the landing URL and isolates IDs', async () => {
@@ -67,8 +70,29 @@ test('canonical sitemap helpers use the new host and a property covering the sit
   assert.equal(requests[1].url.includes(encodeURIComponent('sc-domain:example.com')), true);
 });
 
+test('one canonical sitemap listing fans out to every project and exact path observation', async () => {
+  const projects = [
+    { id: 'browser', path: 'browser' }, { id: 'storage', path: 'storage' },
+    { id: 'owner', path: 'browser' }, { id: 'owner', path: 'storage' },
+  ].map(({ id, path }) => ({ id, domains: ['old.example.com'], systems: { searchConsole: { surfaceUrl: `https://example.com/${path}/` } } }));
+  const requests = [];
+  const results = await ensureSearchConsoleSitemaps({ projects, accessToken: 'test', quotaProject: 'test', fetchImpl: async (url, options) => {
+    requests.push({ url, options });
+    if (url.endsWith('/sites')) return Response.json({ siteEntry: [{ siteUrl: 'sc-domain:example.com' }] });
+    return Response.json({ sitemap: [] });
+  } });
+  assert.equal(results.length, 4);
+  assert.equal(requests.filter(request => request.options.method === 'PUT').length, 1);
+  assert.equal(requests.filter(request => request.options.method === 'GET' && request.url.endsWith('/sitemaps')).length, 1);
+  const observations = projects.map((project, index) => ({ id: `fixture-${index}`, projectId: project.id, scope: 'sc-domain:example.com', indexInspection: { state: 'indexed', inspectedUrl: project.systems.searchConsole.surfaceUrl } }));
+  observations.push({ projectId: 'owner', scope: 'sc-domain:example.com', indexInspection: { state: 'indexed', inspectedUrl: 'https://example.com/context/' } });
+  const attached = attachSitemapSubmissionState({ observations }, results);
+  assert.deepEqual(attached.observations.slice(0, 4).map(row => row.indexInspection.sitemapSubmissionState), Array(4).fill('submitted'));
+  assert.equal(attached.observations[4].indexInspection.sitemapSubmissionState, undefined);
+});
+
 test('invalid explicit canonical policies fail clearly before provider requests', async () => {
-  for (const surfaceUrl of ['', 'http://example.com/', 'https://user:pass@example.com/', 'https://example.com/?q=1', 'https://example.com/#fragment', 'https://localhost/', 'https://127.0.0.1/']) {
+  for (const surfaceUrl of ['', 'http://example.com/', 'https://user:pass@example.com/', 'https://example.com/?q=1', 'https://example.com/#fragment', 'https://example.com/?', 'https://example.com/#', 'https://localhost/', 'https://private.internal/', 'https://127.0.0.1/']) {
     let requests = 0;
     await assert.rejects(collectSearchConsoleOutcomes({ projects: [{ id: 'bad', domains: ['old.example.com'], systems: { searchConsole: { surfaceUrl } } }], requestImpl: async () => { requests += 1; return { siteEntry: [] }; } }), /Invalid Search Console surface URL/);
     assert.equal(requests, 0);
