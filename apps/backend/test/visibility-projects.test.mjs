@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  indexNowProjects,
   isVisibilityProject,
   searchConsoleProjects,
   searchConsoleTarget,
@@ -111,9 +112,22 @@ test('explicit Search Console policy does not revive inactive or domainless hidd
 });
 
 test('invalid explicit hidden-site Search Console surfaces fail before collection', () => {
-  assert.throws(() => searchConsoleProjects({ projects: [project({
-    public: { listing: 'hidden' }, systems: { searchConsole: { surfaceUrl: 'http://example.com/' } },
-  })] }), /Invalid Search Console surface URL/);
+  for (const policy of [{}, { surfaceUrl: null }, { surfaceUrl: 42 }, { surfaceUrl: false }, { surfaceUrl: 'http://example.com/' }]) {
+    assert.throws(() => searchConsoleProjects({ projects: [project({
+      public: { listing: 'hidden' }, systems: { searchConsole: policy },
+    }), project({ id: 'valid' })] }), /Invalid Search Console surface URL/);
+  }
+});
+
+test('Search Console opt-ins do not activate IndexNow discovery on a catalog host', () => {
+  const hidden = project({
+    id: 'data', domains: ['old.example.com'], public: { listing: 'hidden' },
+    systems: { searchConsole: { surfaceUrl: 'https://example.com/workbench/' } },
+  });
+  const catalog = { projects: [project({ id: 'ordinary' }), hidden] };
+  const google = searchConsoleProjects(catalog);
+  assert.deepEqual(google.map(entry => searchConsoleTarget(entry).surfaceUrl), ['https://example.com/', 'https://example.com/workbench/']);
+  assert.deepEqual(indexNowProjects(catalog).map(entry => entry.id), ['ordinary']);
 });
 
 test('Search Console targets retain primary and owned root surfaces while rejecting unknown ownership', () => {
