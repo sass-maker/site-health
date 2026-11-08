@@ -279,9 +279,9 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
   };
   const quotaDay = value => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(value));
   const startedAt = readClock();
-  artifact.dailyBudget = Object.fromEntries(Object.entries(artifact.dailyBudget).filter(([key]) => key >= quotaDay(startedAt)));
+  if (!inventoryOnly) artifact.dailyBudget = Object.fromEntries(Object.entries(artifact.dailyBudget).filter(([key]) => key >= quotaDay(startedAt)));
   const budgetAt = value => artifact.dailyBudget[quotaDay(value)] ??= { total: 0, properties: {} };
-  budgetAt(startedAt);
+  if (!inventoryOnly) budgetAt(startedAt);
   let remaining = maxInspections;
   let blocked = false;
   artifact.budgetPolicy = { localPropertyDailyLimit: LOCAL_PROPERTY_DAILY_LIMIT, quotaDayTimeZone: 'America/Los_Angeles', scope: 'This checkpoint only; other collectors and manual probes are not counted' };

@@ -54,7 +54,7 @@ test('default collection inventories 71245 URLs and later weekly refreshes prese
   assert.equal(record.inventory.sitemaps.length, 16);
   assert.deepEqual(record.googleReports, previous.records[0].googleReports);
   assert.deepEqual(record.inspections, previous.records[0].inspections);
-  assert.equal(result.dailyBudget['2026-10-30'].total, 0);
+  assert.deepEqual(result.dailyBudget, previous.dailyBudget);
   const summary = summarizeIndexCoverage(record, { now: nextDate });
   assert.equal(summary.total, 71245);
   assert.equal(summary.indexed, 1);
@@ -227,6 +227,27 @@ test('inventory refresh retains Google report evidence independently', async () 
   const summary = summarizeIndexCoverage(artifact.records[0], { now });
   assert.equal(summary.total, 2); assert.equal(summary.googleReport.totalKnownCount, 4); assert.equal(summary.googleReport.indexedCount, 3);
 });
+test('inventory-only refresh preserves every historical and current inspection budget without initializing a new day', async () => {
+  const previous = importGoogleIndexingReports({ catalog, reports: [googleReport] });
+  previous.dailyBudget = {
+    '2026-10-01': { total: 425, properties: { 'sc-domain:example.com': 400, 'sc-domain:other.test': 25 } },
+    '2026-10-29': { total: 1799, properties: { 'sc-domain:example.com': 1799 } },
+  };
+  const before = structuredClone(previous);
+  let inspections = 0;
+  const result = await collectIndexCoverage({ catalog, previous, now: '2026-11-08T12:00:00Z', inventoryOnly: true, maxInspections: 10,
+    properties: [{ siteUrl: 'sc-domain:example.com' }], fetchImpl, inspect: async () => { inspections++; throw new Error('Unexpected inspection'); } });
+  assert.equal(inspections, 0);
+  assert.deepEqual(result.dailyBudget, before.dailyBudget);
+  assert.deepEqual(result.records[0].googleReports, before.records[0].googleReports);
+  assert.deepEqual(previous, before);
+  const fresh = await collectIndexCoverage({ catalog, now, inventoryOnly: true, fetchImpl });
+  assert.deepEqual(fresh.dailyBudget, {});
+  const inspection = await collectIndexCoverage({ catalog, previous, now: '2026-11-08T12:00:00Z', maxInspections: 1,
+    properties: [{ siteUrl: 'sc-domain:example.com' }], fetchImpl, inspect: async () => { inspections++; return { state: 'indexed' }; } });
+  assert.equal(inspections, 1);
+  assert.deepEqual(inspection.dailyBudget, { '2026-11-08': { total: 1, properties: { 'sc-domain:example.com': 1 } } });
+});
 
 test('project-scoped report import cannot mutate another product', () => {
   const artifact = importGoogleIndexingReports({ catalog, projectId: 'app', reports: [googleReport, { ...googleReport, projectId: 'unselected' }] });
@@ -244,7 +265,7 @@ test('later incomplete inventory replaces an earlier incomplete attempt with its
 });
 test('local property budget leaves Google quota headroom for existing collectors', async () => {
   const previous = await collectIndexCoverage({ catalog, now, inventoryOnly: true, fetchImpl });
-  previous.dailyBudget['2026-10-29'].properties['sc-domain:example.com'] = 1799;
+  previous.dailyBudget['2026-10-29'] = { total: 1799, properties: { 'sc-domain:example.com': 1799 } };
   let requests = 0;
   const result = await collectIndexCoverage({ catalog, previous, now, fetchImpl, maxInspections: 20, properties: [{ siteUrl: 'sc-domain:example.com' }], inspect: async () => { requests++; return { state: 'indexed' }; } });
   assert.equal(requests, 1); assert.equal(result.dailyBudget['2026-10-29'].properties['sc-domain:example.com'], 1800);
