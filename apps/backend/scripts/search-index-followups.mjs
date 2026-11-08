@@ -37,7 +37,7 @@ try {
       if (!authorization) {
         const config = JSON.parse(readFileSync(resolve(repository, 'apps/backend/config/search-console.json'), 'utf8'));
         const auth = spawnSync('gcloud', ['auth', 'application-default', 'print-access-token'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 30000 });
-        if (auth.status !== 0 || !auth.stdout.trim()) throw new Error('Existing Google authorization unavailable');
+        if (auth.status !== 0 || !auth.stdout.trim()) throw Object.assign(new Error('Existing Google authorization unavailable'),{code:'GOOGLE_AUTH_UNAVAILABLE'});
         authorization = { accessToken: auth.stdout.trim(), quotaProject: config.quotaProject };
       }
       return inspectSearchConsoleUrl({ ...request, ...authorization, maxAttempts: 1,

@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { EventEmitter } from 'node:events';
 import { registerIndexFollowup, collectIndexFollowups, indexFollowupSummary } from '../lib/search-index-followups.mjs';
 import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.mjs';
+import { collectIndexCoverage } from '../lib/search-index-coverage.mjs';
+import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
 const baselineAt = '2026-11-08T09:00:00.000Z';
 const catalog = { projects: [{ id: 'app', name: 'App', lifecycle: { status: 'active', portfolioStatus: 'active' }, domains: ['example.com'], systems: { site: { url: 'https://example.com/' } } }] };
 const urls = ['https://example.com/a', 'https://example.com/b'];
@@ -51,7 +53,7 @@ test('day-three observation retains history, detects a regression and does not r
 });
 test('partial work resumes only missing URLs; failed requests preserve prior good observations', async () => {
   const first = await collectIndexFollowups(options(registered(), '2026-11-11T09:00:00Z', async () => ({ state: 'indexed' }), { maxInspections: 1 }));
-  assert.equal(first.artifact.followups[0].rounds[0].status, 'retrying');
+  assert.equal(first.artifact.followups[0].rounds[0].status, 'pending');
   const calls = [];
   const second = await collectIndexFollowups(options(first.artifact, '2026-11-12T09:00:00Z', async request => { calls.push(request.inspectionUrl); return { state: 'not-indexed' }; }));
   assert.deepEqual(calls, [urls[1]]); assert.equal(second.artifact.followups[0].rounds[0].status, 'complete');
@@ -83,7 +85,7 @@ test('interruption preserves its reservation and result and stops queued calls',
   }, { signal: controller.signal }));
   assert.equal(result.requests, 1);
   assert.equal(result.artifact.dailyBudget['2026-11-11'].total, 1);
-  assert.equal(result.artifact.followups[0].rounds[0].status, 'retrying');
+  assert.equal(result.artifact.followups[0].rounds[0].status, 'interrupted');
   assert.equal(Object.keys(result.artifact.followups[0].rounds[0].observations).length, 1);
 });
 test('CLI due mode needs no authorization before any registered observation is due', () => {
@@ -110,4 +112,48 @@ test('existing metric controller owns follow-up execution, overlap prevention an
   assert.deepEqual(signals, ['SIGINT']); assert.equal(controller.get(run.runId).state, 'failed');
   child.emit('close', 0); assert.equal(controller.get(run.runId).state, 'failed');
   assert.equal(receipts.at(-1).code, 'REFRESH_INTERRUPTED');
+});
+test('restart recovers a fully checkpointed in-window round even after expiry and attempt exhaustion', async () => {
+  const previous = registered(); const round = previous.followups[0].rounds[0];
+  round.status = 'running'; round.attempts = [{state:'failed'}, {state:'failed'}, {state:'running'}];
+  round.observations = Object.fromEntries(urls.map(url => [url, { state:'indexed', observedAt:'2026-11-12T08:00:00Z' }]));
+  const result = await collectIndexFollowups(options(previous, '2026-11-13T10:00:00Z', () => { throw new Error('Already checkpointed'); }));
+  assert.equal(result.requests, 0); assert.equal(result.artifact.followups[0].rounds[0].status, 'complete');
+  assert.equal(result.artifact.followups[0].rounds[0].finishedAt, '2026-11-12T08:00:00.000Z');
+});
+test('responses outside a bounded observation window remain retained but do not complete it', async () => {
+  const previous = registered(); previous.followups[0].rounds[0].observations[urls[0]] = {state:'indexed',observedAt:'2026-11-11T10:00:00Z'};
+  let late = false;
+  const result = await collectIndexFollowups({ previous, catalog, clock: () => late ? '2026-11-13T09:00:01Z' : '2026-11-13T08:59:59Z', inspect: async () => { late = true; return {state:'indexed'}; } });
+  const round = result.artifact.followups[0].rounds[0];
+  assert.equal(round.status, 'missed'); assert.equal(round.observations[urls[1]].state, 'indexed');
+  assert.equal(indexFollowupSummary(result.artifact.followups[0]).rounds[0].checked, 1);
+  assert.equal(indexFollowupSummary(result.artifact.followups[0]).rounds[0].outsideWindow, 1);
+});
+test('inventory-only refresh preserves property evidence and cannot cancel registered follow-ups', async () => {
+  const refreshed = await collectIndexCoverage({ previous:registered(), catalog, inventoryOnly:true, now:baselineAt,
+    fetchImpl: async () => new Response(`<urlset>${urls.map(url => `<url><loc>${url}</loc></url>`).join('')}</urlset>`) });
+  assert.equal(refreshed.records[0].property, 'sc-domain:example.com');
+  const result = await collectIndexFollowups(options(refreshed, '2026-11-11T10:00:00Z', async () => ({state:'indexed'})));
+  assert.equal(result.requests, 2); assert.equal(result.artifact.followups[0].rounds[0].status, 'complete');
+});
+test('successful partial runs can resume on the next invocation before their window expires', async () => {
+  const first = await collectIndexFollowups(options(registered(), '2026-11-12T12:00:00Z', async () => ({state:'indexed'}), {maxInspections:1}));
+  const second = await collectIndexFollowups(options(first.artifact, '2026-11-12T13:00:00Z', async () => ({state:'indexed'})));
+  assert.equal(second.requests, 1); assert.equal(second.artifact.followups[0].rounds[0].status, 'complete');
+});
+test('dashboard retains moved-surface follow-up history separately from current coverage', async () => {
+  const directory = mkdtempSync(join(tmpdir(), 'index-followup-projection-'));
+  const moved = structuredClone(catalog); moved.projects[0].systems.site.url = 'https://new.example.net/';
+  const result = await collectIndexFollowups(options(registered(), '2026-11-11T09:00:00Z', () => { throw new Error('Moved scope'); }, {catalog:moved}));
+  mkdirSync(join(directory,'apps/backend/config'),{recursive:true});
+  mkdirSync(join(directory,'.fleet/search-index-coverage'),{recursive:true});
+  writeFileSync(join(directory,'apps/backend/config/projects.json'),JSON.stringify(moved));
+  writeFileSync(join(directory,'.fleet/search-index-coverage/latest.json'),JSON.stringify(result.artifact));
+  const projection = buildDashboardProjection({ repositoryRoot:directory, home:directory, now:'2026-11-11T09:00:00Z' });
+  const row = projection.outcomes.indexCoverage.find(row => row.projectId==='app');
+  assert.equal(row.indexCoverage.followups.length,1);
+  assert.equal(row.indexCoverage.followups[0].surfaceUrl,'https://example.com/');
+  assert.equal(row.indexCoverage.followups[0].currentSurface,false);
+  assert.equal(row.indexCoverage.followups[0].rounds[0].status,'scope-changed');
 });

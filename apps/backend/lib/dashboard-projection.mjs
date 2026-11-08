@@ -382,7 +382,7 @@ function searchIndexCoverageProjection(catalog, home, now) {
   return coverageTargets(catalog).map(target => {
     const record = artifact?.records.find(record => record.projectId === target.projectId && record.surfaceUrl === target.surfaceUrl);
     const indexCoverage = summarizeIndexCoverage(record || (target.exemption ? target : null), { now });
-    indexCoverage.followups = (artifact?.followups ?? []).filter(row => row.projectId === target.projectId && row.surfaceUrl === target.surfaceUrl).map(indexFollowupSummary);
+    indexCoverage.followups = (artifact?.followups ?? []).filter(row => row.projectId === target.projectId).map(row => ({...indexFollowupSummary(row),currentSurface:row.surfaceUrl===target.surfaceUrl}));
     return { projectId: target.projectId, name: target.name, domain: target.surfaceUrl,
       status: indexCoverage.state, observedAt: indexCoverage.googleReport?.observedAt ?? indexCoverage.observedAt,
       indexCoverage };

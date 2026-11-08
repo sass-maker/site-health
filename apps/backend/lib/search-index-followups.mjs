@@ -4,9 +4,11 @@ import { selectSearchConsoleProperty } from './search-console.mjs';
 const DAY = 86_400_000;
 const HORIZONS = [3, 7];
 const resolved = observation => ['indexed', 'not-indexed', 'unknown'].includes(observation?.state);
+const inWindow = (observation, round) => resolved(observation) && Date.parse(observation.observedAt) >= Date.parse(round.dueAt) && Date.parse(observation.observedAt) < Date.parse(round.expiresAt);
 const timestamp = value => {
-  if (!Number.isFinite(Date.parse(value))) throw new Error('Invalid follow-up timestamp');
-  return new Date(value).toISOString();
+  const parsed = typeof value === 'number' ? value : Date.parse(value);
+  if (!Number.isFinite(parsed)) throw new Error('Invalid follow-up timestamp');
+  return new Date(parsed).toISOString();
 };
 const quotaDay = value => new Intl.DateTimeFormat('en-CA', {
   timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit',
@@ -34,6 +36,7 @@ export function registerIndexFollowup(previous, input, { catalog, now = new Date
   }
   if (artifact.followups.length >= 50) throw new Error('Follow-up register is full; retain and review existing history');
   const record = artifact.records.find(row => row.projectId === input.projectId && row.surfaceUrl === target.surfaceUrl);
+  if (!record?.property || !selectSearchConsoleProperty(target.surfaceUrl, [{siteUrl:record.property}])) throw new Error('Baseline needs a covering Google property');
   const inventory = new Set(record?.inventory?.urls ?? []);
   const baseline = Object.fromEntries(urls.map(url => {
     const observation = record?.inspections?.[url];
@@ -45,7 +48,7 @@ export function registerIndexFollowup(previous, input, { catalog, now = new Date
   }));
   const baselineAt = Object.values(baseline).map(row => row.observedAt).sort().at(-1);
   artifact.followups.push({ id: input.id, projectId: input.projectId, surfaceUrl: target.surfaceUrl,
-    sourceRevision: input.sourceRevision, registeredAt, baselineAt, urls, baseline,
+    property: record.property, sourceRevision: input.sourceRevision, registeredAt, baselineAt, urls, baseline,
     rounds: HORIZONS.map(days => ({ days, dueAt: new Date(Date.parse(baselineAt) + days * DAY).toISOString(),
       expiresAt: new Date(Date.parse(baselineAt) + (days + 2) * DAY).toISOString(), status: 'pending', attempts: [], observations: {} })) });
   return artifact;
@@ -53,10 +56,11 @@ export function registerIndexFollowup(previous, input, { catalog, now = new Date
 
 export function indexFollowupSummary(cohort) {
   const count = rows => Object.values(rows).filter(row => row.state === 'indexed').length;
-  return { id: cohort.id, baselineAt: cohort.baselineAt, total: cohort.urls.length, baselineIndexed: count(cohort.baseline),
+  return { id: cohort.id, surfaceUrl: cohort.surfaceUrl, baselineAt: cohort.baselineAt, total: cohort.urls.length, baselineIndexed: count(cohort.baseline),
     rounds: cohort.rounds.map(round => ({ days: round.days, dueAt: round.dueAt, status: round.status,
-      observedAt: round.finishedAt ?? null, checked: Object.values(round.observations).filter(resolved).length,
-      indexed: count(round.observations), regressions: cohort.urls.filter(url => cohort.baseline[url]?.state === 'indexed' && round.observations[url]?.state === 'not-indexed').length,
+      observedAt: round.finishedAt ?? null, checked: Object.values(round.observations).filter(row => inWindow(row,round)).length,
+      outsideWindow: Object.values(round.observations).filter(row => resolved(row) && !inWindow(row,round)).length,
+      indexed: count(Object.fromEntries(Object.entries(round.observations).filter(([,row])=>inWindow(row,round)))), regressions: cohort.urls.filter(url => cohort.baseline[url]?.state === 'indexed' && round.observations[url]?.state === 'not-indexed' && inWindow(round.observations[url],round)).length,
       failure: round.failure ?? null })) };
 }
 
@@ -75,38 +79,54 @@ export async function collectIndexFollowups({ previous, catalog, inspect, maxIns
     for (const round of cohort.rounds) {
       if (signal?.aborted) break;
       const now = timestamp(clock());
-      if (['complete', 'missed', 'failed', 'scope-changed'].includes(round.status) || now < round.dueAt) continue;
+      if (round.status === 'complete') continue;
+      // The last response can be durable even if completion was interrupted.
+      if (cohort.urls.every(url => inWindow(round.observations[url],round))) {
+        round.status = 'complete';
+        round.finishedAt = timestamp(Math.max(...cohort.urls.map(url => Date.parse(round.observations[url].observedAt))));
+        const last = round.attempts.at(-1);
+        if (last?.state === 'running') { last.state = 'complete'; last.finishedAt = round.finishedAt; }
+        delete round.failure; delete round.retryAt; await persist(); continue;
+      }
+      if (['missed', 'failed', 'scope-changed'].includes(round.status) || now < round.dueAt) continue;
       if (now >= round.expiresAt) { round.status = 'missed'; round.failure = 'Observation window passed; historical indexing cannot be reconstructed'; await persist(); continue; }
       const target = targets.find(row => row.projectId === cohort.projectId && !row.exemption && row.surfaceUrl === cohort.surfaceUrl);
       const record = artifact.records.find(row => row.projectId === cohort.projectId && row.surfaceUrl === cohort.surfaceUrl);
-      if (!target || cohort.urls.some(url => !urlInCoverageScope(url, target.surfaceUrl)) ||
-          !record?.property || !selectSearchConsoleProperty(target.surfaceUrl, [{ siteUrl: record.property }])) {
+      if (!target || cohort.urls.some(url => !urlInCoverageScope(url, target.surfaceUrl))) {
         round.status = 'scope-changed'; round.failure = 'Current public surface/property no longer matches this baseline'; await persist(); continue;
       }
+      const property = record?.property ?? cohort.property;
+      if (!record || !property || !selectSearchConsoleProperty(target.surfaceUrl, [{siteUrl:property}])) {
+        round.status = 'retrying'; round.failure = 'Covering Google property evidence unavailable; baseline retained'; await persist(); continue;
+      }
       if (blocked || requests >= maxInspections || (round.retryAt && now < round.retryAt)) continue;
-      if (round.attempts.length >= 3) { round.status = 'failed'; await persist(); continue; }
+      if (round.attempts.filter(attempt => attempt.state === 'failed').length >= 3 || round.attempts.length >= 100) { round.status = 'failed'; await persist(); continue; }
+      const interrupted = round.attempts.at(-1);
+      if (interrupted?.state === 'running') { interrupted.state = 'interrupted'; interrupted.finishedAt = now; }
       const attempt = { startedAt: now, requests: 0, state: 'running' };
       round.attempts.push(attempt);
       round.status = 'running';
       await persist();
       let quotaLimited = false;
-      for (const url of cohort.urls.filter(url => !resolved(round.observations[url]))) {
+      let providerFailed = false;
+      for (const url of cohort.urls.filter(url => !inWindow(round.observations[url],round))) {
         if (requests >= maxInspections || blocked || signal?.aborted) break;
         const reservedAt = timestamp(clock());
         if (reservedAt >= round.expiresAt) break;
         const budget = (artifact.dailyBudget ??= {})[quotaDay(reservedAt)] ??= { total: 0, properties: {} };
-        if ((budget.properties[record.property] ?? 0) >= LOCAL_PROPERTY_DAILY_LIMIT) { quotaLimited = true; break; }
-        budget.total++; budget.properties[record.property] = (budget.properties[record.property] ?? 0) + 1;
+        if ((budget.properties[property] ?? 0) >= LOCAL_PROPERTY_DAILY_LIMIT) { quotaLimited = true; break; }
+        budget.total++; budget.properties[property] = (budget.properties[property] ?? 0) + 1;
         requests++; attempt.requests++;
         await persist();
         let result;
-        try { result = await inspect({ inspectionUrl: url, siteUrl: record.property }); }
-        catch { result = { inspectedUrl: url, state: 'unavailable', failureReason: 'Google URL Inspection unavailable' }; }
+        try { result = await inspect({ inspectionUrl: url, siteUrl: property }); }
+        catch (error) { result = { inspectedUrl: url, state: 'unavailable', failureReason: error?.code === 'GOOGLE_AUTH_UNAVAILABLE' ? 'Google authorization unavailable' : 'Google URL Inspection unavailable' }; }
         const observation = { ...result, inspectedUrl: url, observedAt: timestamp(clock()) };
         round.observations[url] = observation;
         const retained = record.inspections[url];
         record.inspections[url] = !resolved(observation) && retained ? { ...retained, lastFailure: observation } : observation;
         if (!resolved(observation)) {
+          providerFailed = !signal?.aborted;
           round.failure = observation.failureReason ?? 'Google inspection returned no usable verdict';
           blocked = /401|403|429|quota|credential|permission|auth/i.test(round.failure);
           await persist();
@@ -115,13 +135,15 @@ export async function collectIndexFollowups({ previous, catalog, inspect, maxIns
         await persist();
       }
       const finishedAt = timestamp(clock());
-      const complete = cohort.urls.every(url => resolved(round.observations[url]));
+      const complete = cohort.urls.every(url => inWindow(round.observations[url],round));
       attempt.finishedAt = finishedAt;
-      attempt.state = complete ? 'complete' : 'incomplete';
+      attempt.state = complete ? 'complete' : providerFailed ? 'failed' : signal?.aborted ? 'interrupted' : 'partial';
       if (quotaLimited && attempt.requests === 0) round.attempts.pop();
-      round.status = complete ? 'complete' : round.attempts.length >= 3 ? 'failed' : 'retrying';
+      round.status = complete ? 'complete' : round.attempts.filter(attempt => attempt.state === 'failed').length >= 3 ? 'failed' : providerFailed ? 'retrying' : signal?.aborted ? 'interrupted' : 'pending';
       if (complete) { round.finishedAt = finishedAt; delete round.failure; delete round.retryAt; }
-      else round.retryAt = new Date(Date.parse(finishedAt) + (quotaLimited ? 1 / 24 : 1) * DAY).toISOString();
+      else if (finishedAt >= round.expiresAt) { round.status = 'missed'; round.failure = 'Observation window ended; outside-window responses are retained but excluded'; delete round.retryAt; }
+      else if (providerFailed || quotaLimited) round.retryAt = new Date(Date.parse(finishedAt) + DAY / 24).toISOString();
+      else delete round.retryAt;
       await persist();
     }
   }

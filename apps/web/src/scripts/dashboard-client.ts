@@ -761,10 +761,11 @@ function indexCoverageDetail(row: JsonRecord) {
     ...(Object.entries(coverage?.reasons ?? {}).map(([reason, count]) => element("p", {}, [`${reason}: ${count}`]))),
     ...(coverage?.failures ?? []).map((failure: JsonRecord) => element("p", {}, [`${failure.url}: ${failure.reason}`])),
     ...(coverage?.followups ?? []).flatMap((followup: JsonRecord) => [
-      element("h3", {}, ["Fixed URL follow-up"]),
+      element("h3", {}, [followup.currentSurface ? "Fixed URL follow-up" : "Fixed URL follow-up · prior surface"]),
+      element("p", {}, [`Sample surface: ${followup.surfaceUrl}`]),
       element("p", {}, [`Baseline ${formatted(followup.baselineAt)}: ${followup.baselineIndexed}/${followup.total} sampled URLs indexed. This fixed sample is not a whole-site estimate.`]),
       ...followup.rounds.map((round: JsonRecord) => element("p", {}, [
-        `Day ${round.days} · ${round.status} · due ${formatted(round.dueAt)}. ${round.checked ? `${round.checked}/${followup.total} checked; ${round.indexed} confirmed indexed; ${round.regressions} previously indexed URLs now not indexed.` : "Not yet measured."}${round.failure ? ` ${round.failure}` : ""}`,
+        `Day ${round.days} · ${round.status} · due ${formatted(round.dueAt)}. ${round.checked ? `${round.checked}/${followup.total} checked; ${round.indexed} confirmed indexed; ${round.regressions} previously indexed URLs now not indexed.` : "Not yet measured."}${round.outsideWindow ? ` ${round.outsideWindow} outside-window observations excluded.` : ""}${round.failure ? ` ${round.failure}` : ""}`,
       ])),
     ]),
   ]);
