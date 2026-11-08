@@ -54,11 +54,23 @@ export function searchObservationSurface(observation) {
   } catch { return null; }
 }
 
-export function searchConsoleProjects(catalog, rootsByDomain = new Map()) {
+export function searchConsoleProjects(catalog, rootsByDomain = new Map(), { includeExplicitSurfaces = true } = {}) {
   const catalogProjects = catalog?.projects ?? [];
   const catalogById = new Map(catalogProjects.map((project) => [project.id, project]));
   const selected = visibilityProjects(catalog);
   const targets = new Set(selected.map((project) => `${project.id}:${searchConsoleTarget(project).surfaceUrl}`));
+
+  // Search eligibility is explicit and independent of directory listing.
+  // A hidden public workbench can opt into search without changing its listing.
+  for (const project of includeExplicitSurfaces ? catalogProjects : []) {
+    const status = typeof project.lifecycle === 'object' ? project.lifecycle?.status : project.lifecycle;
+    if (!['primary', 'active'].includes(status) || !project.domains?.length ||
+        project.systems?.searchConsole == null) continue;
+    const key = `${project.id}:${searchConsoleTarget(project).surfaceUrl}`;
+    if (targets.has(key)) continue;
+    selected.push(project);
+    targets.add(key);
+  }
 
   for (const root of rootsByDomain.values()) {
     const rootDomain = normalizedDomain(root?.rootDomain);
@@ -81,6 +93,11 @@ export function searchConsoleProjects(catalog, rootsByDomain = new Map()) {
   }
 
   return selected;
+}
+
+// A Search Console opt-in does not authorize IndexNow discovery or key checks.
+export function indexNowProjects(catalog, rootsByDomain = new Map()) {
+  return searchConsoleProjects(catalog, rootsByDomain, { includeExplicitSurfaces: false });
 }
 
 // Old ledger rows retain their inspected URL/property scope, so domain separation

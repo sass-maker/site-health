@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Fleet IndexNow submitter — notifies Bing and other IndexNow engines about
- * canonical URLs for every Search Console-eligible project domain.
+ * canonical URLs for the existing public inventory and owned root contracts.
+ * An explicit Search Console-only surface does not activate IndexNow.
  *
  * Google is not covered; `search-console-collect.mjs --discovery-cycle` runs
  * this script first and then submits sitemaps to Google.
@@ -19,7 +20,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 
-import { searchConsoleProjects } from '../lib/visibility-projects.mjs';
+import { indexNowProjects } from '../lib/visibility-projects.mjs';
 import { validateRootBrandContract } from '../lib/root-brand-contract.mjs';
 import { validateRootSearchQueryContract } from '../lib/root-search-query-contract.mjs';
 
@@ -53,7 +54,7 @@ const rootBrands = JSON.parse(readFileSync(resolve(REPOSITORY_ROOT, 'apps/backen
 const rootQueries = JSON.parse(readFileSync(resolve(REPOSITORY_ROOT, 'apps/backend/config/root-search-queries.json'), 'utf8'));
 const brandMap = validateRootBrandContract(rootBrands, catalog.projects ?? []);
 const rootsByDomain = validateRootSearchQueryContract(rootQueries, brandMap, catalog.projects ?? []);
-const eligible = searchConsoleProjects(catalog, rootsByDomain);
+const eligible = indexNowProjects(catalog, rootsByDomain);
 const domains = [...new Set(eligible.map((project) => project.domains?.[0]).filter(Boolean))];
 
 function loadState() {

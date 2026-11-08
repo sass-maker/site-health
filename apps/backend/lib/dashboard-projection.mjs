@@ -305,7 +305,7 @@ function rootSearchQueriesFor(catalog, configRoot) {
 
 function searchProjectsFor(catalog, configRoot) {
   const roots = rootSearchQueriesFor(catalog, configRoot);
-  return roots ? searchConsoleProjects(catalog, roots) : visibilityProjects(catalog);
+  return searchConsoleProjects(catalog, roots ?? new Map());
 }
 
 function searchProjection(catalog, configRoot, home, now) {
