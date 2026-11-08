@@ -6,6 +6,12 @@ import { inspectSearchConsoleUrl, selectSearchConsoleProperty } from './search-c
 
 export const LOCAL_PROPERTY_DAILY_LIMIT = 1800;
 export const COVERAGE_SCHEMA = 'site-health.search-index-coverage.v1';
+export const DEFAULT_MAX_SITEMAP_URLS = 100000;
+export const MAX_SITEMAP_URLS = 250000;
+export function validateSitemapUrlLimit(value) {
+  if (!Number.isInteger(value) || value < 1 || value > MAX_SITEMAP_URLS) throw new Error(`max-sitemap-urls must be an integer from 1 to ${MAX_SITEMAP_URLS}`);
+  return value;
+}
 const DAY = 86400000;
 export const defaultIndexCoveragePath = ({ home = homedir() } = {}) => join(home, '.fleet/search-index-coverage/latest.json');
 export function acquireIndexCoverageLock(path, { onInterrupt = () => {} } = {}) {
@@ -196,7 +202,8 @@ export function summarizeIndexCoverage(record, { now = new Date().toISOString(),
   };
 }
 const decodeXml = value => value.replace(/&(?:amp|lt|gt|quot|apos);/g, token => ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&apos;': "'" })[token]);
-export async function inventorySitemap(target, { fetchImpl = fetch, sitemapUrl, maxRequests = 40, maxUrls = 10000, maxBytes = 2000000, maxDepth = 5, signal, now = new Date().toISOString() } = {}) {
+export async function inventorySitemap(target, { fetchImpl = fetch, sitemapUrl, maxRequests = 40, maxUrls = DEFAULT_MAX_SITEMAP_URLS, maxBytes = 2000000, maxDepth = 5, signal, now = new Date().toISOString() } = {}) {
+  validateSitemapUrlLimit(maxUrls);
   const host = target.domain;
   const failures = [];
   const urls = new Set();
@@ -258,9 +265,10 @@ export async function inventorySitemap(target, { fetchImpl = fetch, sitemapUrl, 
     truncated: truncated || Boolean(signal?.aborted), failures, sitemaps: [...seen], fingerprint: createHash('sha256').update(JSON.stringify(sorted)).digest('hex') };
 }
 
-export async function collectIndexCoverage({ catalog, previous = null, inventoryOnly = false, maxInspections = 0,
+export async function collectIndexCoverage({ catalog, previous = null, inventoryOnly = false, maxInspections = 0, maxSitemapUrls = DEFAULT_MAX_SITEMAP_URLS,
   properties = [], accessToken, quotaProject, fetchImpl = fetch, inspect = inspectSearchConsoleUrl,
   sitemapOverrides = {}, now, clock = () => now ?? new Date().toISOString(), onProgress = () => {}, projectId = null, maxAgeDays = 7, signal } = {}) {
+  validateSitemapUrlLimit(maxSitemapUrls);
   if (!Number.isInteger(maxInspections) || maxInspections < 0 || maxInspections > 2000) throw new Error('max-inspections must be an integer from 0 to 2000');
   const artifact = previous?.schema === COVERAGE_SCHEMA ? structuredClone(previous) : { schema: COVERAGE_SCHEMA, records: [], dailyBudget: {} };
   artifact.dailyBudget ??= {};
@@ -271,9 +279,9 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
   };
   const quotaDay = value => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(value));
   const startedAt = readClock();
-  artifact.dailyBudget = Object.fromEntries(Object.entries(artifact.dailyBudget).filter(([key]) => key >= quotaDay(startedAt)));
+  if (!inventoryOnly) artifact.dailyBudget = Object.fromEntries(Object.entries(artifact.dailyBudget).filter(([key]) => key >= quotaDay(startedAt)));
   const budgetAt = value => artifact.dailyBudget[quotaDay(value)] ??= { total: 0, properties: {} };
-  budgetAt(startedAt);
+  if (!inventoryOnly) budgetAt(startedAt);
   let remaining = maxInspections;
   let blocked = false;
   artifact.budgetPolicy = { localPropertyDailyLimit: LOCAL_PROPERTY_DAILY_LIMIT, quotaDayTimeZone: 'America/Los_Angeles', scope: 'This checkpoint only; other collectors and manual probes are not counted' };
@@ -285,7 +293,7 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
     const old = artifact.records.find(row => row.projectId === target.projectId && row.surfaceUrl === target.surfaceUrl);
     const record = { ...target, ...(old?.googleReport ? { googleReport: old.googleReport, googleReports: old.googleReports ?? [old.googleReport] } : {}), inspections: { ...(old?.inspections ?? {}) }, lastAttemptAt: readClock() };
     if (!target.exemption) {
-      const inventory = await inventorySitemap(target, { fetchImpl, sitemapUrl: sitemapOverrides[target.domain], now: record.lastAttemptAt, signal });
+      const inventory = await inventorySitemap(target, { fetchImpl, sitemapUrl: sitemapOverrides[target.domain], maxUrls: maxSitemapUrls, now: record.lastAttemptAt, signal });
       if (signal?.aborted) break;
       // A failed discovery cannot erase a retained denominator or its exact observations.
       if (!inventory.complete && old?.inventory?.complete === true) { record.inventory = old.inventory; record.failure = 'Sitemap refresh incomplete; retained previous inventory'; record.inventoryAttempt = inventory; }
