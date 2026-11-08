@@ -54,7 +54,10 @@ Schedules do not run while the owner app is stopped.
 
 Google indexing coverage is a separate weekly agent workflow. Refresh the current
 sitemap inventory with `node apps/backend/scripts/search-index-coverage.mjs
---inventory-only`, then import captured, exact named-sitemap Page Indexing reports
+--inventory-only`. Inventory defaults to 100,000 URLs per project; use
+`--max-sitemap-urls <1..250000>` for an explicit bounded limit. The existing
+40-document, 2 MB per-document and depth limits still apply; any truncation
+remains incomplete. Then import captured, exact named-sitemap Page Indexing reports
 with `--reports <private-reports.json> --import-only`. To intentionally replace a
 named sitemap on the same product surface, run `node
 apps/backend/scripts/search-index-coverage.mjs --reports <private-report.json>

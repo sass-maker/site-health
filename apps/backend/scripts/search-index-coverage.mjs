@@ -2,16 +2,17 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { acquireIndexCoverageLock, collectIndexCoverage, defaultIndexCoveragePath, importGoogleIndexingReports, readIndexCoverage, saveIndexCoverage, summarizeIndexCoverage } from '../lib/search-index-coverage.mjs';
+import { acquireIndexCoverageLock, collectIndexCoverage, DEFAULT_MAX_SITEMAP_URLS, MAX_SITEMAP_URLS, validateSitemapUrlLimit, defaultIndexCoveragePath, importGoogleIndexingReports, readIndexCoverage, saveIndexCoverage, summarizeIndexCoverage } from '../lib/search-index-coverage.mjs';
 
 const repository = resolve(import.meta.dirname, '../../..');
-const options = { registry: resolve(repository, 'apps/backend/config/projects.json'), output: defaultIndexCoveragePath(), maxInspections: 0, inventoryOnly: false };
+const options = { registry: resolve(repository, 'apps/backend/config/projects.json'), output: defaultIndexCoveragePath(), maxInspections: 0, inventoryOnly: false, maxSitemapUrls: DEFAULT_MAX_SITEMAP_URLS };
 for (let i = 2; i < process.argv.length; i++) {
   const flag = process.argv[i];
   if (flag === '--import-only') { options.importOnly = true; continue; }
   if (flag === '--inventory-only') { options.inventoryOnly = true; continue; }
   if (flag === '--help') {
-    console.log('search-index-coverage.mjs [--registry operations.json] [--catalog projects.json] [--output private.json] [--project id] [--inventory-only] [--max-inspections 0..2000] [--properties accessible-properties.json] [--reports reports.json --import-only] [--replace-cohort projectId]');
+    console.log('search-index-coverage.mjs [--registry operations.json] [--catalog projects.json] [--output private.json] [--project id] [--inventory-only] [--max-sitemap-urls 1..250000] [--max-inspections 0..2000] [--properties accessible-properties.json] [--reports reports.json --import-only] [--replace-cohort projectId]');
+    console.log(`Sitemap inventory defaults to ${DEFAULT_MAX_SITEMAP_URLS} URLs per project; --max-sitemap-urls accepts 1..${MAX_SITEMAP_URLS}. Request, byte and depth limits still apply; truncated inventory is incomplete.`);
     console.log('Coverage inspections use a local 1800-request/property/day budget (Pacific time), leaving headroom within Google quota for other collectors.');
     process.exit(0);
   }
@@ -21,12 +22,14 @@ for (let i = 2; i < process.argv.length; i++) {
   else if (flag === '--catalog') options.catalog = resolve(value);
   else if (flag === '--output') options.output = resolve(value);
   else if (flag === '--project') options.projectId = value;
+  else if (flag === '--max-sitemap-urls') options.maxSitemapUrls = Number(value);
   else if (flag === '--max-inspections') options.maxInspections = Number(value);
   else if (flag === '--reports') options.reportsPath = resolve(value);
   else if (flag === '--replace-cohort') options.replaceCohortProjectId = value;
   else if (flag === '--properties') options.propertiesPath = resolve(value);
   else throw new Error(`Unknown option: ${flag}`);
 }
+validateSitemapUrlLimit(options.maxSitemapUrls);
 if (options.replaceCohortProjectId && !options.importOnly) throw new Error('--replace-cohort requires --import-only');
 if (options.replaceCohortProjectId && options.projectId && options.replaceCohortProjectId !== options.projectId) throw new Error('--replace-cohort must match --project');
 if (options.importOnly && !options.reportsPath) throw new Error('--import-only requires --reports');

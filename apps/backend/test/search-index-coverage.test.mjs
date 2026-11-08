@@ -14,6 +14,18 @@ const fixtureFetch = documents => async (url, options) => { assert.equal(options
 const sitemapUrl = 'https://example.com/sitemap.xml';
 const docs = { [sitemapUrl]: xml(['https://example.com/app/', 'https://example.com/app/page?x=1', 'https://example.com/other/']) };
 const fetchImpl = fixtureFetch(docs);
+const chunkedDocuments = count => {
+  const documents = {};
+  const children = [];
+  for (let start = 0; start < count; start += 5000) {
+    const child = `https://example.com/sitemap-${start}.xml`;
+    children.push(child);
+    documents[child] = xml(Array.from({ length: Math.min(5000, count - start) }, (_, i) => `https://example.com/app/page/${start + i}`));
+  }
+  documents[sitemapUrl] = `<sitemapindex>${children.map(url => `<sitemap><loc>${url}</loc></sitemap>`).join('')}</sitemapindex>`;
+  return documents;
+};
+const googleReport = { ...target, source: 'google-search-console-page-indexing', property: 'sc-domain:example.com', sitemapUrl: 'https://example.com/app/sitemap.xml', reportDate: '2026-10-23', observedAt: now, indexedCount: 3, notIndexedCount: 1, totalKnownCount: 4, sourceUrl: 'https://search.google.com/search-console/index?resource_id=sc-domain%3Aexample.com&pages=SITEMAP&sitemap=https%3A%2F%2Fexample.com%2Fapp%2Fsitemap.xml', reasons: { 'Discovered - currently not indexed': 1 } };
 test('current roster uses explicit marketing destination, private surfaces exempt, legacy aliases not duplicated', () => {
   const targets = coverageTargets({ ...catalog, projects: [...catalog.projects, { id: 'private', portfolio: { status: 'active' }, authModel: 'private-authenticated', domains: ['mail.example.com'] }, { id: 'retired', portfolio: { status: 'archived' } }] });
   assert.equal(targets.length, 2); assert.equal(targets[0].surfaceUrl, target.surfaceUrl); assert.equal(targets[1].exemption, 'no-public-surface');
@@ -25,6 +37,115 @@ test('path and query scope are exact, hostname cannot escape', () => {
 test('nested sitemap inventory deduplicates, retains failures and truncation', async () => {
   const result = await inventorySitemap(target, { now, fetchImpl: fixtureFetch({ [sitemapUrl]: '<sitemapindex><sitemap><loc>https://example.com/child.xml</loc></sitemap><sitemap><loc>https://evil.test/map.xml</loc></sitemap></sitemapindex>', 'https://example.com/child.xml': xml(['https://example.com/app/', 'https://example.com/app/', 'https://example.com/app/a', 'https://example.com/other']) }), maxUrls: 1 });
   assert.deepEqual(result.urls, ['https://example.com/app/']); assert.equal(result.complete, false); assert.equal(result.truncated, true); assert.equal(result.failures.length, 1);
+});
+test('default collection inventories 71245 URLs and later weekly refreshes preserve that full denominator', async () => {
+  const documents = chunkedDocuments(71245);
+  const previous = importGoogleIndexingReports({ catalog, reports: [googleReport] });
+  previous.records[0].inspections['https://example.com/app/page/0'] = { state: 'indexed', observedAt: now };
+  const first = await collectIndexCoverage({ catalog, previous, now, inventoryOnly: true, fetchImpl: fixtureFetch(documents) });
+  const nextDate = '2026-10-30T12:00:00Z';
+  const result = await collectIndexCoverage({ catalog, previous: first, now: nextDate, inventoryOnly: true, fetchImpl: fixtureFetch(documents) });
+  const record = result.records[0];
+  assert.equal(first.records[0].inventory.urls.length, 71245);
+  assert.equal(record.inventory.urls.length, 71245);
+  assert.equal(record.inventory.complete, true);
+  assert.equal(record.inventory.truncated, false);
+  assert.equal(record.inventory.observedAt, nextDate);
+  assert.equal(record.inventory.sitemaps.length, 16);
+  assert.deepEqual(record.googleReports, previous.records[0].googleReports);
+  assert.deepEqual(record.inspections, previous.records[0].inspections);
+  assert.equal(result.dailyBudget['2026-10-30'].total, 0);
+  const summary = summarizeIndexCoverage(record, { now: nextDate });
+  assert.equal(summary.total, 71245);
+  assert.equal(summary.indexed, 1);
+  assert.equal(summary.checked, 1);
+  assert.equal(summary.indexedPercentage, null);
+  assert.equal(summary.googleReport.totalKnownCount, 4);
+  assert.equal(summary.googleReport.reportDate, googleReport.reportDate);
+  assert.equal(summary.googleReport.observedAt, new Date(googleReport.observedAt).toISOString());
+});
+test('default URL ceiling remains bounded and an explicit larger limit can finish the same inventory', async () => {
+  const fetchImpl = fixtureFetch(chunkedDocuments(100001));
+  const limited = await inventorySitemap(target, { now, fetchImpl });
+  assert.equal(limited.urls.length, 100000);
+  assert.equal(limited.complete, false);
+  assert.equal(limited.truncated, true);
+  const full = await inventorySitemap(target, { now, fetchImpl, maxUrls: 100001 });
+  assert.equal(full.urls.length, 100001);
+  assert.equal(full.complete, true);
+  assert.equal(full.truncated, false);
+});
+test('explicit URL limits reach collection, duplicates at the limit are complete, overflow cannot erase a full cohort', async () => {
+  const documents = { [sitemapUrl]: xml(['https://example.com/app/a', 'https://example.com/app/a']) };
+  const complete = await collectIndexCoverage({ catalog, now, inventoryOnly: true, maxSitemapUrls: 1, fetchImpl: fixtureFetch(documents) });
+  assert.equal(complete.records[0].inventory.complete, true);
+  assert.equal(complete.records[0].inventory.urls.length, 1);
+  complete.records[0].inspections['https://example.com/app/a'] = { state: 'indexed', observedAt: now };
+  const nextDate = '2026-10-30T12:00:00Z';
+  const result = await collectIndexCoverage({ catalog, previous: complete, now: nextDate, inventoryOnly: true, maxSitemapUrls: 1,
+    fetchImpl: fixtureFetch({ [sitemapUrl]: xml(['https://example.com/app/a', 'https://example.com/app/b']) }) });
+  const record = result.records[0];
+  assert.deepEqual(record.inventory, complete.records[0].inventory);
+  assert.deepEqual(record.inspections, complete.records[0].inspections);
+  assert.equal(record.inventoryAttempt.observedAt, nextDate);
+  assert.equal(record.inventoryAttempt.complete, false);
+  assert.equal(record.inventoryAttempt.truncated, true);
+  const summary = summarizeIndexCoverage(record, { now: nextDate });
+  assert.equal(summary.truncated, true);
+  assert.equal(summary.indexedPercentage, null);
+  assert.equal(summary.state, 'unavailable');
+});
+test('invalid or unbounded inventory limits reject before fetching or changing prior evidence', async () => {
+  let requests = 0;
+  const fetchImpl = async () => { requests++; throw new Error('Unexpected request'); };
+  const previous = importGoogleIndexingReports({ catalog, reports: [googleReport] });
+  const retained = structuredClone(previous);
+  for (const limit of [0, -1, 1.5, NaN, Infinity, 250001, '10000', null]) {
+    await assert.rejects(inventorySitemap(target, { maxUrls: limit, fetchImpl }), /max-sitemap-urls must be an integer from 1 to 250000/);
+    await assert.rejects(collectIndexCoverage({ catalog, previous, maxSitemapUrls: limit, fetchImpl, inventoryOnly: true }), /max-sitemap-urls must be an integer from 1 to 250000/);
+  }
+  assert.equal(requests, 0);
+  assert.deepEqual(previous, retained);
+});
+test('request, depth and byte limits still produce incomplete inventories', async () => {
+  const documents = chunkedDocuments(10001);
+  for (const limits of [{ maxRequests: 1 }, { maxDepth: 0 }, { maxBytes: 100 }]) {
+    const inventory = await inventorySitemap(target, { now, fetchImpl: fixtureFetch(documents), ...limits });
+    assert.equal(inventory.complete, false);
+    assert.ok(inventory.truncated || inventory.failures.length > 0);
+  }
+});
+test('large inventories retain partial HTTP failures and never imply complete indexing', async () => {
+  const documents = chunkedDocuments(12001);
+  delete documents['https://example.com/sitemap-10000.xml'];
+  const result = await collectIndexCoverage({ catalog, now, inventoryOnly: true, fetchImpl: fixtureFetch(documents) });
+  const record = result.records[0];
+  assert.equal(record.inventory.urls.length, 10000);
+  assert.equal(record.inventory.complete, false);
+  assert.equal(record.inventory.truncated, false);
+  assert.equal(record.inventory.failures[0].reason, 'HTTP 404');
+  assert.equal(summarizeIndexCoverage(record, { now }).indexedPercentage, null);
+});
+test('inventory CLI forwards explicit limits and its default counts more than 10000 without credentials', () => {
+  const directory = mkdtempSync(join(tmpdir(), 'index-coverage-url-limit-'));
+  const catalogPath = join(directory, 'catalog.json');
+  writeFileSync(catalogPath, JSON.stringify(catalog));
+  const script = fileURLToPath(new URL('../scripts/search-index-coverage.mjs', import.meta.url));
+  const preload = `globalThis.fetch = async url => new Response(url.endsWith('/robots.txt') ? '' : '<urlset>' + Array.from({length:12001}, (_, i) => '<url><loc>https://example.com/app/page/' + i + '</loc></url>').join('') + '</urlset>');`;
+  for (const limit of [null, 2]) {
+    const output = join(directory, `inventory-${limit}.json`);
+    const command = spawnSync(process.execPath, ['--import', `data:text/javascript,${encodeURIComponent(preload)}`, script, '--catalog', catalogPath, '--output', output, '--project', 'app', '--inventory-only', ...(limit === null ? [] : ['--max-sitemap-urls', String(limit)])], { encoding: 'utf8' });
+    assert.equal(command.status, 0, command.stderr);
+    const record = JSON.parse(readFileSync(output, 'utf8')).records[0];
+    assert.equal(record.inventory.urls.length, limit ?? 12001);
+    assert.equal(record.inventory.complete, limit === null);
+    assert.equal(record.inventory.truncated, limit !== null);
+    assert.equal(JSON.parse(command.stdout).records[0].indexedPercentage, null);
+  }
+  const invalid = spawnSync(process.execPath, [script, '--catalog', join(directory, 'missing.json'), '--inventory-only', '--max-sitemap-urls', '250001'], { encoding: 'utf8' });
+  assert.notEqual(invalid.status, 0);
+  assert.match(invalid.stderr, /max-sitemap-urls must be an integer from 1 to 250000/);
+  assert.doesNotMatch(invalid.stderr, /ENOENT/);
 });
 test('complete percentage requires fresh known outcomes for entire complete inventory', () => {
   const record = { ...target, inventory: { urls: ['a', 'b'], complete: true, observedAt: now }, inspections: { a: { state: 'indexed', observedAt: now }, b: { state: 'not-indexed', observedAt: now } } };
@@ -85,7 +206,6 @@ test('fair budget observes every product before large cohorts and respects four 
   assert.equal(result.dailyBudget['2026-10-29'].properties['sc-domain:example.com'], 6);
 });
 
-const googleReport = { ...target, source: 'google-search-console-page-indexing', property: 'sc-domain:example.com', sitemapUrl: 'https://example.com/app/sitemap.xml', reportDate: '2026-10-23', observedAt: now, indexedCount: 3, notIndexedCount: 1, totalKnownCount: 4, sourceUrl: 'https://search.google.com/search-console/index?resource_id=sc-domain%3Aexample.com&pages=SITEMAP&sitemap=https%3A%2F%2Fexample.com%2Fapp%2Fsitemap.xml', reasons: { 'Discovered - currently not indexed': 1 } };
 test('exact sitemap report has its own denominator, dates, zero values and retained history', () => {
   let artifact = importGoogleIndexingReports({ catalog, reports: [googleReport] });
   let summary = summarizeIndexCoverage(artifact.records[0], { now });
