@@ -140,7 +140,9 @@ export async function reconcileSearchConsoleSitemaps({
   quotaProject,
   fetchImpl = fetch,
   apply = false,
+  removeUnlisted = false,
 }) {
+  if (typeof removeUnlisted !== 'boolean') throw new Error('removeUnlisted must be an explicit boolean');
   if (!accessToken) throw new Error('Search Console access token is required');
   if (!quotaProject) throw new Error('Search Console quota project is required');
   if (!Array.isArray(targets) || targets.length === 0) {
@@ -249,7 +251,10 @@ export async function reconcileSearchConsoleSitemaps({
     }
   }
 
-  for (const [property, desired] of desiredByProperty) {
+  // A caller may submit only part of a shared domain property's sitemaps.
+  // Removing other registrations requires an explicit complete-inventory choice.
+  const removalProperties = removeUnlisted ? desiredByProperty : new Map();
+  for (const [property, desired] of removalProperties) {
     const listing = listingsByProperty.get(property);
     if (listing?.error) continue;
     for (const entry of listing?.entries ?? []) {
@@ -298,6 +303,7 @@ export async function reconcileSearchConsoleSitemaps({
 
   return {
     apply,
+    removeUnlisted,
     targetCount: targets.length,
     propertyCount: desiredByProperty.size,
     actions,

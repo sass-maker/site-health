@@ -197,6 +197,38 @@ test('rejects a sitemap override on another host', () => {
   );
 });
 
+test('partial sitemap updates preserve other registered surfaces by default', async () => {
+  const registrations = new Set([
+    'https://app.example.com/sitemap.xml',
+    'https://other.example.com/sitemap.xml',
+    'https://other.example.com/repository-sitemap.xml',
+  ]);
+  const original = [...registrations];
+  const requests = [];
+  const fetchImpl = async (url, options = {}) => {
+    const method = options.method ?? 'GET';
+    requests.push(method);
+    if (url.endsWith('/sites')) return Response.json({
+      siteEntry: [{ siteUrl: 'sc-domain:example.com', permissionLevel: 'siteOwner' }],
+    });
+    if (method === 'PUT' || method === 'DELETE') {
+      const path = decodeURIComponent(url.split('/sitemaps/')[1]);
+      if (method === 'PUT') registrations.add(path);
+      else registrations.delete(path);
+      return new Response(null, { status: 204 });
+    }
+    return Response.json({ sitemap: [...registrations].map(path => ({ path })) });
+  };
+  const result = await reconcileSearchConsoleSitemaps({
+    targets: [{ id: 'app', domain: 'app.example.com', sitemapUrl: 'https://app.example.com/repository-sitemap.xml' }],
+    accessToken: 'not-retained', quotaProject: 'quota-project', fetchImpl, apply: true,
+  });
+  assert.deepEqual([...registrations].sort(), [...original, 'https://app.example.com/repository-sitemap.xml'].sort());
+  assert.equal(requests.filter(method => method === 'PUT').length, 1);
+  assert.equal(requests.filter(method => method === 'DELETE').length, 0);
+  assert.deepEqual(result.actions.map(({ action, state }) => [action, state]), [['add', 'submitted']]);
+});
+
 test('previews and applies exact sitemap additions and removals', async () => {
   const requests = [];
   const fetchImpl = async (url, options = {}) => {
@@ -223,6 +255,7 @@ test('previews and applies exact sitemap additions and removals', async () => {
     accessToken: 'not-retained',
     quotaProject: 'quota-project',
     fetchImpl,
+    removeUnlisted: true,
   });
   assert.deepEqual(preview.actions.map(({ action, state, sitemapUrl }) => [action, state, sitemapUrl]), [
     ['retain', 'unchanged', 'https://app.example.com/sitemap.xml'],
@@ -237,6 +270,7 @@ test('previews and applies exact sitemap additions and removals', async () => {
     quotaProject: 'quota-project',
     fetchImpl,
     apply: true,
+    removeUnlisted: true,
   });
   assert.deepEqual(applied.actions.map(({ action, state }) => [action, state]), [
     ['retain', 'unchanged'],
@@ -245,6 +279,18 @@ test('previews and applies exact sitemap additions and removals', async () => {
   ]);
   assert.equal(requests.filter(({ method }) => method === 'PUT').length, 1);
   assert.equal(requests.filter(({ method }) => method === 'DELETE').length, 1);
+});
+
+test('rejects ambiguous sitemap removal modes before contacting Google', async () => {
+  let requests = 0;
+  for (const removeUnlisted of ['true', 1, null, {}]) {
+    await assert.rejects(reconcileSearchConsoleSitemaps({
+      targets: [{ id: 'app', domain: 'app.example.com', sitemapUrl: 'https://app.example.com/sitemap.xml' }],
+      accessToken: 'not-retained', quotaProject: 'quota-project', apply: true,
+      removeUnlisted, fetchImpl: async () => { requests++; throw new Error('Unexpected request'); },
+    }), /removeUnlisted must be an explicit boolean/);
+  }
+  assert.equal(requests, 0);
 });
 
 test('fails closed for unavailable properties and listing errors', async () => {

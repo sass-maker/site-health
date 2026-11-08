@@ -60,6 +60,18 @@ export function searchConsoleProjects(catalog, rootsByDomain = new Map()) {
   const selected = visibilityProjects(catalog);
   const targets = new Set(selected.map((project) => `${project.id}:${searchConsoleTarget(project).surfaceUrl}`));
 
+  // Search eligibility is explicit and independent of directory listing.
+  // A hidden public workbench can opt into search without changing its listing.
+  for (const project of catalogProjects) {
+    const status = typeof project.lifecycle === 'object' ? project.lifecycle?.status : project.lifecycle;
+    if (!['primary', 'active'].includes(status) || !project.domains?.length ||
+        typeof project.systems?.searchConsole?.surfaceUrl !== 'string') continue;
+    const key = `${project.id}:${searchConsoleTarget(project).surfaceUrl}`;
+    if (targets.has(key)) continue;
+    selected.push(project);
+    targets.add(key);
+  }
+
   for (const root of rootsByDomain.values()) {
     const rootDomain = normalizedDomain(root?.rootDomain);
     const projectId = String(root?.projectId ?? '').trim();
