@@ -530,7 +530,7 @@ test('retains high-impression zero-click opportunities beyond the old click-sort
     ctr: (30 - index) / 100, position: 3,
   }));
   const opportunity = { keys: ['relevant category query', 'https://alpha.example/guide'], clicks: 0, impressions: 9000, ctr: 0, position: 42 };
-  const rows = [...clicked, opportunity];
+  const rows = [...clicked, opportunity, { keys: ['site:alpha.example', 'https://alpha.example/'], clicks: 0, impressions: 10000, ctr: 0, position: 1 }];
   const collect = (queryRows) => collectSearchConsoleOutcomes({
     projects: [{ id: 'alpha', domains: ['alpha.example'] }],
     now: new Date('2026-10-11T12:00:00Z'),
@@ -542,7 +542,7 @@ test('retains high-impression zero-click opportunities beyond the old click-sort
         return { rows: queryRows };
       }
       if (body.dimensions?.includes('date')) return { rows: [] };
-      return { rows: [{ impressions: 12000, clicks: 465, ctr: 465 / 12000, position: 20 }] };
+      return { rows: [{ impressions: 22000, clicks: 465, ctr: 465 / 22000, position: 20 }] };
     },
   });
   const first = (await collect(rows)).bundle.observations[0];
@@ -550,12 +550,15 @@ test('retains high-impression zero-click opportunities beyond the old click-sort
   assert.equal(first.searchTerms.length, 25);
   assert(first.searchTerms.some((term) => term.query === 'relevant category query' && term.landingPage.endsWith('/guide')));
   assert(first.searchTerms.some((term) => term.query === 'brand-0'));
+  assert(!first.searchTerms.some((term) => term.query.startsWith('site:')));
   assert.deepEqual(first.searchTerms, reordered.searchTerms);
   assert.deepEqual(first.searchTermSample, {
-    requestedRowLimit: 5000, returnedRows: 31, retainedRows: 25,
+    requestedRowLimit: 5000, returnedRows: 32, retainedRows: 25,
     rowLimitReached: false, strategy: 'clicks-and-impressions',
+    excludedDiagnosticRows: 1, diagnosticImpressions: 10000, returnedQueryImpressions: 22000,
   });
   assert.equal(first.metrics.find((metric) => metric.label === 'Search clicks').value, 465);
+  assert.equal(first.metrics.find((metric) => metric.label === 'Search impressions').value, 22000);
 });
 
 test('a targeted collection cannot claim a portfolio refresh', () => {

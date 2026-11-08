@@ -374,6 +374,7 @@ function searchKeywordVisibility(row: JsonRecord) {
     createUiControl("summary", {}, [`Keyword visibility · ${terms.length} query/page rows`]),
     element("div", { class: "disclosure-content" }, [
       element("p", { class: "measurement-boundary-note" }, [sampleNote]),
+      ...(sample?.excludedDiagnosticRows ? [element("p", { class: "measurement-boundary-note" }, [`${sample.excludedDiagnosticRows} site: diagnostic query/page rows (${sample.diagnosticImpressions} impressions) excluded from this opportunity list. Returned named query rows account for ${sample.returnedQueryImpressions} impressions; aggregate totals include additional unclassified searches. Raw totals are retained; they do not establish buyer intent.`])] : []),
       terms.length
         ? element("div", { class: "search-keywords__scroll", tabindex: "0", "aria-label": "Search keywords and landing pages" }, [
             createUiControl("table", {}, [
@@ -759,6 +760,13 @@ function indexCoverageDetail(row: JsonRecord) {
     element("p", {}, [coverage?.counts ? `${coverage.counts["not-indexed"]} not indexed · ${coverage.counts.unknown} unknown · ${coverage.counts.unavailable} unavailable · ${coverage.counts.pending} pending · ${coverage.counts.stale} stale. Canonical mismatches: ${coverage.canonicalMismatch}.` : "Run the bounded indexing collector to gather evidence."]),
     ...(Object.entries(coverage?.reasons ?? {}).map(([reason, count]) => element("p", {}, [`${reason}: ${count}`]))),
     ...(coverage?.failures ?? []).map((failure: JsonRecord) => element("p", {}, [`${failure.url}: ${failure.reason}`])),
+    ...(coverage?.followups ?? []).flatMap((followup: JsonRecord) => [
+      element("h3", {}, ["Fixed URL follow-up"]),
+      element("p", {}, [`Baseline ${formatted(followup.baselineAt)}: ${followup.baselineIndexed}/${followup.total} sampled URLs indexed. This fixed sample is not a whole-site estimate.`]),
+      ...followup.rounds.map((round: JsonRecord) => element("p", {}, [
+        `Day ${round.days} · ${round.status} · due ${formatted(round.dueAt)}. ${round.checked ? `${round.checked}/${followup.total} checked; ${round.indexed} confirmed indexed; ${round.regressions} previously indexed URLs now not indexed.` : "Not yet measured."}${round.failure ? ` ${round.failure}` : ""}`,
+      ])),
+    ]),
   ]);
 }
 
@@ -778,6 +786,14 @@ async function renderSearch() {
       value: row => row.indexCoverage?.googleReport?.totalKnownCount > 0 ? 100 * row.indexCoverage.googleReport.indexedCount / row.indexCoverage.googleReport.totalKnownCount : row.indexCoverage?.indexedPercentage ?? null,
       display: row => `${indexCoverageCount(row.indexCoverage)}\n${indexCoverageRate(row.indexCoverage)}` },
     { id: "sitemap", label: "Inventory", value: row => row.indexCoverage?.total ?? null, display: row => row.indexCoverage?.total == null ? "—" : String(row.indexCoverage.total) },
+    { id: "followup", label: "Follow-up", align: "left", wrap: true, value: row => row.indexCoverage?.followups?.at(-1)?.baselineAt ?? null,
+      display: row => {
+        const followup = row.indexCoverage?.followups?.at(-1);
+        if (!followup) return "—";
+        if (followup.rounds.some((round: JsonRecord) => round.regressions > 0)) return "Indexing regression detected · open details";
+        const round = followup.rounds.find((entry: JsonRecord) => !["complete", "missed"].includes(entry.status)) ?? followup.rounds.at(-1);
+        return `Day ${round.days} · ${round.status}\n${formatted(round.dueAt)}`;
+      } },
     { id: "evidenceDate", label: "Evidence date", align: "left", wrap: true,
       value: row => row.indexCoverage?.googleReport?.reportDate ?? row.observedAt,
       display: row => `${row.indexCoverage?.googleReport?.reportDate ?? formatted(row.observedAt)}\n${String(row.status).replaceAll("-", " ")}${row.indexCoverage?.googleReport ? ` · captured ${formatted(row.observedAt)}` : ""}` },

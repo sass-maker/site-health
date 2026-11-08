@@ -738,13 +738,19 @@ export async function collectSearchConsoleOutcomes({
         position: Number(term.position),
       }];
     });
-    const searchTerms = selectSearchTerms(queryRows, searchTermLimit);
+    const diagnosticRows = queryRows.filter(term => /\bsite:/i.test(term.query));
+    const searchTerms = selectSearchTerms(queryRows.filter(term => !/\bsite:/i.test(term.query)), searchTermLimit);
     const searchTermSample = {
       requestedRowLimit: SEARCH_CONSOLE_QUERY_POOL_LIMIT,
       returnedRows: (termResult.rows ?? []).length,
       retainedRows: searchTerms.length,
       rowLimitReached: (termResult.rows ?? []).length >= SEARCH_CONSOLE_QUERY_POOL_LIMIT,
       strategy: 'clicks-and-impressions',
+      ...(diagnosticRows.length ? {
+        excludedDiagnosticRows: diagnosticRows.length,
+        diagnosticImpressions: diagnosticRows.reduce((sum, term) => sum + term.impressions, 0),
+        returnedQueryImpressions: queryRows.reduce((sum, term) => sum + term.impressions, 0),
+      } : {}),
     };
     const metrics = [
       { label: 'Search impressions', value: Number(row?.impressions ?? 0) },

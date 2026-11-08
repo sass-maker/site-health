@@ -177,12 +177,16 @@ function normalizeSearchTermSample(value, family, terms) {
   if (value === undefined) return null;
   assert(family === 'search', 'searchTermSample is only supported for Search Console outcomes');
   const path = 'observation.searchTermSample';
-  assertKnownKeys(value, new Set(['requestedRowLimit', 'returnedRows', 'retainedRows', 'rowLimitReached', 'strategy']), path);
+  assertKnownKeys(value, new Set(['requestedRowLimit', 'returnedRows', 'retainedRows', 'rowLimitReached', 'strategy', 'excludedDiagnosticRows', 'diagnosticImpressions', 'returnedQueryImpressions']), path);
   assert(Number.isInteger(value.requestedRowLimit) && value.requestedRowLimit > 0 && value.requestedRowLimit <= 25000, `${path}.requestedRowLimit is invalid`);
   assert(Number.isInteger(value.returnedRows) && value.returnedRows >= 0 && value.returnedRows <= value.requestedRowLimit, `${path}.returnedRows is invalid`);
   assert(value.retainedRows === terms.length && value.retainedRows <= value.returnedRows, `${path}.retainedRows is invalid`);
   assert(value.rowLimitReached === (value.returnedRows === value.requestedRowLimit), `${path}.rowLimitReached is invalid`);
   assert(value.strategy === 'clicks-and-impressions', `${path}.strategy is invalid`);
+  if (value.excludedDiagnosticRows !== undefined) {
+    assert(Number.isInteger(value.excludedDiagnosticRows) && value.excludedDiagnosticRows > 0 && value.excludedDiagnosticRows <= value.returnedRows - value.retainedRows, `${path}.excludedDiagnosticRows is invalid`);
+    assert(Number.isFinite(value.diagnosticImpressions) && value.diagnosticImpressions >= 0 && Number.isFinite(value.returnedQueryImpressions) && value.returnedQueryImpressions >= value.diagnosticImpressions, `${path} impression counts are invalid`);
+  } else assert(value.diagnosticImpressions === undefined && value.returnedQueryImpressions === undefined, `${path} diagnostic counts need a row count`);
   return { ...value };
 }
 

@@ -163,6 +163,7 @@ if (command === 'status') {
   const evidenceScheduler = startEvidenceScheduler({
     lanes: process.env.SITE_HEALTH_SCHEDULED_REFRESH === '0' ? [] : [
       { id: 'provider-refresh', intervalMs: 10 * 60_000, run: () => prefillEvidence({ force: false }) },
+      { id: 'indexing-followups', intervalMs: 60 * 60_000, run: () => metricRunController.start({ family: 'indexing', scope: 'portfolio' }) },
       { id: 'usage', intervalMs: 24 * 60 * 60_000, run: async () => {
         const receipt = readRefreshReceipt(store, 'usage');
         const attemptedAt = Date.parse(receipt?.lastAttemptAt ?? '');
