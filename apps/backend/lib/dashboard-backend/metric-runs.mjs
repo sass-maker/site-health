@@ -20,11 +20,13 @@ const FAMILIES = new Set([
   'psi',
   'drank',
   'search',
+  'indexing',
   'seo',
   'ai',
 ]);
 
 const PORTFOLIO_ONLY_FAMILIES = Object.freeze({
+  indexing: 'Fixed-cohort indexing follow-ups',
   search: 'Google Search',
   seo: 'Technical SEO',
 });
@@ -129,6 +131,11 @@ function commandFor({ family, project, workspaceRoot, repositoryRoot, projects }
 
 function portfolioCommandFor({ family, workspaceRoot, repositoryRoot, projects }) {
   const currentProjects = projects.filter(isCurrentPortfolioProject);
+  if (family === 'indexing') return {
+    command: process.execPath,
+    args: [resolve(import.meta.dirname, '../../scripts/search-index-followups.mjs'), '--due'],
+    label: 'Fixed-cohort indexing follow-ups',
+  };
   if (family === 'ai') return commandFor({ family, project: {}, workspaceRoot, repositoryRoot, projects });
   if (family === 'drank') {
     const targets = domainStrengthRoots(currentProjects);

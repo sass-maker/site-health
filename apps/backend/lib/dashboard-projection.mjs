@@ -2,6 +2,7 @@ import { PERFORMANCE_TARGET } from './dashboard-backend/performance-policy.mjs';
 import { psiArtifactContexts } from './dashboard-backend/psi-artifact-context.mjs';
 import { observationFreshness, CLOCK_TOLERANCE_MS } from './dashboard-backend/measurement-contract.mjs';
 import { coverageTargets, readIndexCoverage, summarizeIndexCoverage } from './search-index-coverage.mjs';
+import { indexFollowupSummary } from './search-index-followups.mjs';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -381,6 +382,7 @@ function searchIndexCoverageProjection(catalog, home, now) {
   return coverageTargets(catalog).map(target => {
     const record = artifact?.records.find(record => record.projectId === target.projectId && record.surfaceUrl === target.surfaceUrl);
     const indexCoverage = summarizeIndexCoverage(record || (target.exemption ? target : null), { now });
+    indexCoverage.followups = (artifact?.followups ?? []).filter(row => row.projectId === target.projectId).map(row => ({...indexFollowupSummary(row),currentSurface:row.surfaceUrl===target.surfaceUrl}));
     return { projectId: target.projectId, name: target.name, domain: target.surfaceUrl,
       status: indexCoverage.state, observedAt: indexCoverage.googleReport?.observedAt ?? indexCoverage.observedAt,
       indexCoverage };

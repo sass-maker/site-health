@@ -219,6 +219,7 @@ test('round-trips query sample coverage while keeping older collections readable
   const sample = {
     requestedRowLimit: 5000, returnedRows: 5000, retainedRows: 1,
     rowLimitReached: true, strategy: 'clicks-and-impressions',
+    excludedDiagnosticRows: 100, diagnosticImpressions: 1000, returnedQueryImpressions: 2000,
   };
   appendVisibilityOutcomeBundle(bundle([
     searchObservation(),
@@ -228,6 +229,9 @@ test('round-trips query sample coverage while keeping older collections readable
   assert.equal(read.length, 2);
   assert.equal(read[0].searchTermSample, undefined);
   assert.deepEqual(read[1].searchTermSample, sample);
+  assert.throws(() => appendVisibilityOutcomeBundle(bundle([
+    searchObservation({ id: 'search-pace-bad-diagnostics', searchTermSample: { ...sample, excludedDiagnosticRows: 5000 } }),
+  ]), { path }), /excludedDiagnosticRows/);
   assert.throws(() => appendVisibilityOutcomeBundle(bundle([
     searchObservation({ id: 'search-pace-bad-sample', searchTermSample: { ...sample, retainedRows: 25 } }),
   ]), { path }), /retainedRows/);

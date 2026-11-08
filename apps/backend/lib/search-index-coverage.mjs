@@ -299,7 +299,7 @@ export async function collectIndexCoverage({ catalog, previous = null, inventory
       if (!inventory.complete && old?.inventory?.complete === true) { record.inventory = old.inventory; record.failure = 'Sitemap refresh incomplete; retained previous inventory'; record.inventoryAttempt = inventory; }
       else { record.inventory = inventory; if (!inventory.complete) record.failure = 'Sitemap inventory incomplete'; }
       const selected = selectSearchConsoleProperty(target.domain, properties.filter(p => p.siteUrl?.startsWith('sc-domain:') || urlInCoverageScope(target.surfaceUrl, p.siteUrl)));
-      record.property = selected?.siteUrl ?? null;
+      record.property = selected?.siteUrl ?? (inventoryOnly ? old?.property ?? null : null);
       if (!inventoryOnly && !selected) record.failure = 'No accessible Google Search Console property';
       const urls = record.inventory.urls.filter(url => {
         const retained = record.inspections[url];
