@@ -6,6 +6,10 @@ This repository contains one product: Site Health and its backend.
 
 - The five evidence areas are Projects, Domains, Performance, SEO (web and App Store),
   and AI Awareness. Readiness owns the private product scoreboard and checklist.
+- App Store research/SEO is part of this product at `/search/app-store`.
+  Its UI is `apps/web/src/features/app-store`; its backend is
+  `apps/backend/lib/app-store`, mounted by the dashboard service. Maintain the
+  feature here. A retained standalone prototype is not another active product.
 - Keep the UI under `apps/web/`.
 - Keep its backend, evidence adapters, storage, and internal AI engine under
   `apps/backend/`. The single editable catalog lives at
@@ -64,3 +68,8 @@ This repository contains one product: Site Health and its backend.
 Site Health owns all private portfolio data, readiness scores, progress, usage,
 and the detailed product checklist. SaaS Maker owns the public showcase and
 reusable tooling. See [the canonical ownership note](docs/ownership.md).
+
+For portfolio questions, distinguish active project records from repository-review
+records in the private catalog. A retained repository, shared component, or linked
+worktree is not automatically an additional active product. Verify the current
+source owner before drawing conclusions from a folder name or historical README.

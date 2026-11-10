@@ -18,6 +18,34 @@ the Site Health browser origin. Export a full backup from the old workspace, imp
 it at `/readiness`, reload, and compare a fresh export before retiring the old copy.
 No review dataset is bundled in the application or uploaded by this workflow.
 
-App Store SEO remains on its existing Site Health origin and storage namespace.
-Collectors record observation times, failures and missing evidence independently;
-refreshing the interface does not create observations or improve a score.
+## App Store research is a Site Health feature
+
+App Store research/SEO was integrated into Site Health on 2026-10-25. It is part
+of the existing SEO area at `/search/app-store`, alongside Web SEO, with the
+existing Site Health origin and storage namespace. It is not a separate product.
+
+- UI source: `apps/web/src/features/app-store`.
+- Backend source: `apps/backend/lib/app-store`, mounted by the dashboard service.
+- Current integration and capability record: [PROJECT_STATUS.md](../PROJECT_STATUS.md).
+
+A retained standalone prototype is historical evidence, not the current source
+owner. Apple Ads popularity and App Store Connect publishing remain unconnected;
+do not infer those capabilities from the feature's name. Collectors record
+observation times, failures and missing evidence independently; refreshing the
+interface does not create observations or improve a score.
+
+## Product identity and repository identity
+
+Use active project records in the owner-local catalog for active product scope.
+The catalog's `repositoryReview.repositories` records explain historical and
+shared repositories; they are not an active-project list. Project counts, unique
+owning repository counts, and physical checkout counts measure different things.
+Do not infer ownership or activity from a repository name alone.
+
+Memory Map and its `memory-pack` CLI are maintained in SaaS Maker's
+`apps/memory-map`. The former `chatgpt-memory-insights` repository retains Memory
+Map history and hosts the DaddyRad MCP source preview under `mcp/`, following the
+2026-10-09 consolidation. That server serves PerformanceDaddy, ContextDaddy,
+StorageDaddy and BrowserDaddy; it is not a ChatGPT-memory feature. The historical
+hosting arrangement does not create another active Memory Map product or imply
+that the server belongs to Site Health.
