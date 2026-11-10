@@ -25,7 +25,9 @@ of the existing SEO area at `/search/app-store`, alongside Web SEO, with the
 existing Site Health origin and storage namespace. It is not a separate product.
 
 - UI source: `apps/web/src/features/app-store`.
-- Backend source: `apps/backend/lib/app-store`, mounted by the dashboard service.
+- Shared backend routes: `apps/backend/lib/app-store`, used by both the local
+  dashboard service and the Cloudflare worker/`APP_STORE` durable-object adapter
+  in `apps/backend/cloudflare`. Verify hosted deployment separately from source.
 - Current integration and capability record: [PROJECT_STATUS.md](../PROJECT_STATUS.md).
 
 A retained standalone prototype is historical evidence, not the current source
@@ -42,10 +44,15 @@ shared repositories; they are not an active-project list. Project counts, unique
 owning repository counts, and physical checkout counts measure different things.
 Do not infer ownership or activity from a repository name alone.
 
-Memory Map and its `memory-pack` CLI are maintained in SaaS Maker's
-`apps/memory-map`. The former `chatgpt-memory-insights` repository retains Memory
-Map history and hosts the DaddyRad MCP source preview under `mcp/`, following the
-2026-10-09 consolidation. That server serves PerformanceDaddy, ContextDaddy,
-StorageDaddy and BrowserDaddy; it is not a ChatGPT-memory feature. The historical
-hosting arrangement does not create another active Memory Map product or imply
-that the server belongs to Site Health.
+Memory Map's active catalog project keeps the stable ID
+`chatgpt-memory-insights` and origin `https://chatgpt.significanthobbies.com`.
+Its owning repository is SaaS Maker, with Memory Map and `memory-pack` source
+under `apps/memory-map`. That active project record must not be mistaken for
+the separate legacy Git repository with the same `chatgpt-memory-insights` name.
+
+The legacy repository retains Memory Map history and hosts the DaddyRad MCP
+source preview under `mcp/`, following the 2026-10-09 consolidation. That server
+serves PerformanceDaddy, ContextDaddy, StorageDaddy and BrowserDaddy; the MCP
+server is not part of Memory Map. The historical hosting arrangement does not
+create another active Memory Map product or imply that the server belongs to
+Site Health.

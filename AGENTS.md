@@ -8,8 +8,10 @@ This repository contains one product: Site Health and its backend.
   and AI Awareness. Readiness owns the private product scoreboard and checklist.
 - App Store research/SEO is part of this product at `/search/app-store`.
   Its UI is `apps/web/src/features/app-store`; its backend is
-  `apps/backend/lib/app-store`, mounted by the dashboard service. Maintain the
-  feature here. A retained standalone prototype is not another active product.
+  `apps/backend/lib/app-store`, shared by the local dashboard service and the
+  Cloudflare worker/`APP_STORE` durable-object adapter. Source presence does not
+  establish a hosted deployment. Maintain the feature here. A retained standalone
+  prototype is not another active product.
 - Keep the UI under `apps/web/`.
 - Keep its backend, evidence adapters, storage, and internal AI engine under
   `apps/backend/`. The single editable catalog lives at
