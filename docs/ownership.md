@@ -48,9 +48,10 @@ Memory Map's active catalog project keeps the stable ID
 `chatgpt-memory-insights` and origin `https://chatgpt.significanthobbies.com`.
 Its owning repository is SaaS Maker, with Memory Map and `memory-pack` source
 under `apps/memory-map`. That active project record must not be mistaken for
-the separate legacy Git repository with the same `chatgpt-memory-insights` name.
+the separate MCP Git repository, renamed from `chatgpt-memory-insights` to
+`daddyrad-mcp` on 2026-11-11.
 
-The legacy repository retains Memory Map history and hosts the DaddyRad MCP
+The `daddyrad-mcp` repository retains Memory Map history and hosts the DaddyRad MCP
 source preview under `mcp/`, following the 2026-10-09 consolidation. That server
 serves PerformanceDaddy, ContextDaddy, StorageDaddy and BrowserDaddy; the MCP
 server is not part of Memory Map. The historical hosting arrangement does not
