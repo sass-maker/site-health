@@ -10,12 +10,12 @@ verification:
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
     githubHomepage: unverified
-    githubActionsLiveState: partial
+    githubActionsLiveState: unverified
     retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 03118baacf028585d8502e3cb123eb32535eeb94d0db5189f3a3d093807cfbea
+      sha256: 0d96a81bb431421173ee8b51063fc02c55cfac67135a3bf60d87906a6b7a4a26
       infrastructureUpdatedAt: 2026-09-27
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 7f8bd76a529e3b1920b297363d26053990bc3c5844536ed54eefee04e2a2e1d8
+      sha256: 4e2d32b5f432606e4f23b031327413dc2cbbc05c52aa1d6f1a51fdd77c23745c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-11-12
@@ -43,7 +43,7 @@ verification:
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-11-11
+      observedAt: 2026-11-12
       state: available
       checkout: ../fleet-archive/veg-protein-food
       revision: 98014fc5ea4dabe94547f67f6d8d905f4014f0fd
@@ -56,13 +56,13 @@ verification:
         - latestCommitAt
       reason: null
     githubActions:
-      observedAt: 2026-10-09T03:02:38.910Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       unverifiable: 1
       attention: &a2
         unclassified: 1
   unknowns:
-    - 1 workflow(s) could not be verified through GitHub.
+    - Live GitHub Actions state has not been refreshed.
     - GitHub repository homepage metadata has not been observed.
 ownerVoice:
   whyVerbatim: "Recipe Dashboard: It's just a product which has some higher protein recipes with Indian ingredients. I thought it would be more but I was not happy with the overall result and currently my food is optimised. I am not looking to expand into cooking so it will be on hold for now."
@@ -149,8 +149,8 @@ repository:
       - preview
       - test
 githubActions:
-  observedAt: 2026-10-09T03:02:38.910Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
     unverifiable: 1
   attention: *a2

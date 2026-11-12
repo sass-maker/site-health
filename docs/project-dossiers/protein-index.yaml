@@ -9,13 +9,13 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: not-applicable
-    githubActionsLiveState: partial
-    retainedGitHistory: catalog-drift
+    githubHomepage: unverified
+    githubActionsLiveState: unverified
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 03118baacf028585d8502e3cb123eb32535eeb94d0db5189f3a3d093807cfbea
+      sha256: 0d96a81bb431421173ee8b51063fc02c55cfac67135a3bf60d87906a6b7a4a26
       infrastructureUpdatedAt: 2026-11-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,50 +28,50 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 7f8bd76a529e3b1920b297363d26053990bc3c5844536ed54eefee04e2a2e1d8
+      sha256: 4e2d32b5f432606e4f23b031327413dc2cbbc05c52aa1d6f1a51fdd77c23745c
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-11-12
       state: available
-      checkout: protein-index-resilience
-      revision: d6e374186096b5f2dfa51c633481be4b57bcba49
+      checkout: food
+      revision: 3f2b29fe92431e7905559c33e6c644a9f7f9cc99
       githubRepository: Significant-Hobbies/food
-      expectedHomepage: null
+      expectedHomepage: https://food.significanthobbies.com
       observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-11-11
+      observedAt: 2026-11-12
       state: available
-      checkout: protein-index-resilience
-      revision: d6e374186096b5f2dfa51c633481be4b57bcba49
+      checkout: food
+      revision: 3f2b29fe92431e7905559c33e6c644a9f7f9cc99
       githubRepository: Significant-Hobbies/food
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-15
-      catalogLatestCommitAt: 2026-09-22
-      catalogDrift:
-        - latestCommitAt
+      catalogLatestCommitAt: 2026-11-12
+      catalogDrift: []
       reason: null
     githubActions:
-      observedAt: 2026-10-09T03:02:38.910Z
-      staleAfterDays: 30
+      observedAt: null
+      staleAfterDays: null
       unverifiable: 15
       attention: &a2
         unclassified: 15
   unknowns:
-    - 15 workflow(s) could not be verified through GitHub.
+    - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage metadata has not been observed.
 ownerVoice:
   whyVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
   fullReviewVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
   relatedHistoricalReviews: []
 decision:
-  classification: Active / revival in progress
+  classification: Active / live
   whySummary: Compare packaged food nutrition and source-linked vegetarian recipes for Indian kitchens.
-  currentState: Owner reactivated this identity on 2026-11-12. Canonical source is Significant-Hobbies/food; the duplicate repository was deleted after verified recovery preservation. Full recipe source/history is integrated under archives/recipe-index in Food commit a1e9dcc21f68a06ccc706e59c7bd632d1dcac1ce. Final data publication and live qualification remain pending.
-  nextDecision: Complete the source consolidation, retain evidence and nutrition-basis limits, then qualify food.significanthobbies.com. The previous P4 priority remains historical, not a new reprioritization.
+  currentState: Owner reactivated this identity on 2026-11-12. Canonical source is Significant-Hobbies/food; the duplicate repository was deleted after verified recovery preservation. Full recipe source/history is integrated under archives/recipe-index in Food commit a1e9dcc21f68a06ccc706e59c7bd632d1dcac1ce. Production source 3f2b29fe serves 22,673 canonical products and 50 recipes; exact-main CI and hosted HTTP/API checks passed.
+  nextDecision: Maintain source and nutrition-basis limits at food.significanthobbies.com; measure actual use separately. The previous P4 priority remains historical, not a new reprioritization.
 identity:
   name: Food
   publicName: Food
@@ -93,9 +93,9 @@ identity:
     status: active
     resumeCondition: null
     shareable: true
-  operationalStatus: pending
+  operationalStatus: live
   authenticationModel: public-persistent
-  inRegistry: false
+  inRegistry: true
 product:
   description: Compare packaged food nutrition and find source-linked vegetarian recipes for Indian kitchens.
   publicMakerNote: I wanted a clear catalog for comparing the protein products available in India, despite the difficulty of reliable data.
@@ -104,8 +104,8 @@ product:
     audience: Indian shoppers and vegetarian cooks comparing foods and practical meal ideas.
     outcome: Find useful foods and recipes while understanding the nutrition basis, source and missing evidence.
     mechanism: One searchable food catalogue combines Open Food Facts product records with a source-linked vegetarian recipe collection.
-    proof: Food is being restored from the retained product and recipe sources. Local data staging is available; final shipped-runtime qualification is pending.
-    nextAction: Complete recipe consolidation, verify the exact release and qualify food.significanthobbies.com.
+    proof: Live production serves 22,673 canonical products from a complete 22,794-record staged source and 50 source-linked recipes. Nutrition conflicts and missing data remain explicit; source records do not establish market completeness or verify every label.
+    nextAction: Search foods, compare nutrition on a shared basis, or browse vegetarian recipes with original publisher links.
   form: Web app and data API
   platforms:
     - Web
@@ -118,13 +118,13 @@ product:
     - SaaS Maker UI
   retainedGitHistory:
     firstCommitAt: 2026-07-15
-    latestCommitAt: 2026-09-27
-    retainedCommitCount: 241
+    latestCommitAt: 2026-11-12
+    retainedCommitCount: 263
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: protein-index-resilience
-  observedRevision: d6e374186096b5f2dfa51c633481be4b57bcba49
+  checkout: food
+  observedRevision: 3f2b29fe92431e7905559c33e6c644a9f7f9cc99
   githubRepository: Significant-Hobbies/food
   githubHomepageUrl: null
   worktree: *a1
@@ -139,9 +139,16 @@ repository:
   tooling:
     declaredPackageManager: pnpm@10.13.1
     detectedSignals:
+      - name: Astro
+        evidence:
+          - archives/recipe-index/astro.config.mjs
       - name: Cloudflare Wrangler
         evidence:
+          - archives/recipe-index/wrangler.jsonc
           - wrangler.jsonc
+      - name: npm
+        evidence:
+          - archives/recipe-index/package-lock.json
       - name: pnpm
         evidence:
           - pnpm-lock.yaml
@@ -202,8 +209,8 @@ repository:
       - test:worker
       - typecheck
 githubActions:
-  observedAt: 2026-10-09T03:02:38.910Z
-  staleAfterDays: 30
+  observedAt: null
+  staleAfterDays: null
   summary:
     unverifiable: 15
   attention: *a2
@@ -295,16 +302,16 @@ githubActions:
         - 23 2 * * 1
 deployment:
   kind: worker
-  deployed: false
+  deployed: true
   domains:
     - food.significanthobbies.com
-  primaryUrl: null
+  primaryUrl: https://food.significanthobbies.com
   domainProbePaths: {}
   targets:
     - id: web-api
       kind: worker
       name: food
-      sourcePath: protein-index-resilience
+      sourcePath: food
   cloudflare:
     deployments:
       - provider: cloudflare
@@ -317,9 +324,9 @@ deployment:
         kind: worker
         name: food
         method: wrangler-direct
-        state: planned
+        state: active
         operationalOwner: protein-index
-        attributionReason: Owner-authorized Food revival targets food.significanthobbies.com. Deployment and final domain verification are pending.
+        attributionReason: Food Worker deployed at 100% traffic on 2026-11-12 with exact-main source 3f2b29fe92431e7905559c33e6c644a9f7f9cc99, serving food.significanthobbies.com.
     resources:
       - provider: cloudflare
         kind: d1
@@ -339,25 +346,25 @@ deployment:
         kind: d1
         name: food
         id: cdeeb557-a46f-4c4d-91a1-0e1379fd8385
-        state: provisioned
+        state: active
         scope: project
         operationalOwner: protein-index
         jurisdiction: apac
-        attributionReason: New Food D1 provisioned on 2026-11-12 for the owner-authorized revival. Data publication and actual serving remain pending.
+        attributionReason: Authoritative APAC Food D1, complete validated import and production serving verified on 2026-11-12.
   otherProviders:
     deployments: []
     resources: []
 sharing:
-  publicListing: hidden
-  maturity: in-progress
+  publicListing: maintained
+  maturity: maintained
   ready: false
   verifiedAt: 2026-11-12
-  reason: Owner-authorized revival is in progress. Repository transfer and duplicate recovery are verified. A complete supplied Open Food Facts Parquet country query found 26,101 India-tagged rows out of 4,908,827 global records. Local staging is not market completeness or independently verified nutrition. Full recipe source/history integration is committed at a1e9dcc21f68a06ccc706e59c7bd632d1dcac1ce. Exact-source release checks, hosted serving and domain proof remain pending.
-  changelogUrl: null
+  reason: Food is live at food.significanthobbies.com on main 3f2b29fe92431e7905559c33e6c644a9f7f9cc99. Production HTTP/API checks verify 22,673 canonical products from 22,794 staged source records, a complete import, 50 source-linked recipes and conflict-safe nutrition ranks. This does not establish market completeness, independent verification of every label, natural usage or growth. Full production browser interaction qualification remains separate.
+  changelogUrl: https://food.significanthobbies.com/changelog
   roadmapUrl: https://github.com/Significant-Hobbies/food/issues
   geoIdentity: null
 notes:
   catalog: |-
     Inactive dated reference. The sourcePath checkout preserves historical alias Significant-Hobbies/protein-index; canonical public source is Significant-Hobbies/protein-index-resilience. Approved production release now has exact tag51c0583792f2c7d3aac70efa5e3d8b1f314ec77e at100% traffic. The prior production Git revision was unknown. Distinct source histories and automation remain preserved.
-    2026-11-12: Owner revived this identity as Food, consolidating the packaged-food and recipe experiments into one application. Previous inactive and hosting statements above are historical. Production release qualification is pending.
-  infrastructure: " 2026-09-26: Worker, D1, and R2 deleted with owner approval; D1 SQL backup retained locally under .fleet-local/deleted-backups/. 2026-11-12: New food Worker planned and APAC D1 provisioned for Food. Old protein-index Worker/D1/R2 deletion history remains unchanged."
+    2026-11-12: Owner revived this identity as Food, consolidating the packaged-food and recipe experiments into one application. Previous inactive and hosting statements above are historical. Exact-source production HTTP/API qualification completed; natural usage and wider browser interaction evidence remain separate.
+  infrastructure: " 2026-09-26: Worker, D1, and R2 deleted with owner approval; D1 SQL backup retained locally under .fleet-local/deleted-backups/. 2026-11-12: Food Worker and APAC D1 are active; exact-source domain and API serving verified. Old protein-index Worker/D1/R2 deletion history remains unchanged."
