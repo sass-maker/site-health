@@ -3,20 +3,20 @@ projectId: protein-index
 verification:
   status: partial
   meaning: Verification confirms that the documented evidence was collected and attributed. It does not mean the project or its workflows are healthy.
-  generatedAt: 2026-10-16
+  generatedAt: 2026-11-12
   checks:
     canonicalCatalogEntry: passed
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
-    repositorySnapshot: unavailable
-    githubHomepage: unset
-    githubActionsLiveState: not-applicable
-    retainedGitHistory: unavailable
+    repositorySnapshot: passed
+    githubHomepage: not-applicable
+    githubActionsLiveState: partial
+    retainedGitHistory: catalog-drift
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 90f3199604d704053430c04e8a4cd16e36762bd16e98e0f8a72c6af68ecbd00e
-      infrastructureUpdatedAt: 2026-09-26
+      sha256: 93729105262bc44a5e9a72960fd244257b7c881511064bd0aaacbb82660d5c3d
+      infrastructureUpdatedAt: 2026-11-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
       sourceHeading: Protein Index
@@ -28,129 +28,283 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 320cf971c2187fb4051a20f4864e42795a6715f09b6ddc2e0820fc642d295923
+      sha256: 4f823cf6d131c88dda1082694b905a80438d37f2eed6c4090db872bc2a3fb817
       sourceKind: derived-owner-intent
     repository:
-      observedAt: 2026-10-16
-      state: unavailable
-      checkout: null
-      revision: null
-      githubRepository: null
-      expectedHomepage: https://protein.significanthobbies.com
+      observedAt: 2026-11-12
+      state: available
+      checkout: protein-index-resilience
+      revision: d6e374186096b5f2dfa51c633481be4b57bcba49
+      githubRepository: Significant-Hobbies/food
+      expectedHomepage: null
       observedHomepage: null
-      worktree: null
+      worktree: &a1
+        state: clean
+        trackedChangeCount: 0
+        deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-10-16
-      state: unavailable
-      checkout: null
-      revision: null
-      githubRepository: null
+      observedAt: 2026-11-11
+      state: available
+      checkout: protein-index-resilience
+      revision: d6e374186096b5f2dfa51c633481be4b57bcba49
+      githubRepository: Significant-Hobbies/food
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
       catalogFirstCommitAt: 2026-07-15
       catalogLatestCommitAt: 2026-09-22
-      catalogDrift: []
-      reason: The repository checkout is not present in the Fleet workspace, so no Git history could be read.
+      catalogDrift:
+        - latestCommitAt
+      reason: null
     githubActions:
       observedAt: 2026-10-09T03:02:38.910Z
       staleAfterDays: 30
-      attention: &a1 {}
+      unverifiable: 15
+      attention: &a2
+        unclassified: 15
   unknowns:
-    - The owning checkout was unavailable during repository observation.
+    - 15 workflow(s) could not be verified through GitHub.
 ownerVoice:
   whyVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
   fullReviewVerbatim: Protein index is something I wanted to build to see what all protein products are available in India, see them, catalogue them, and sort them. It is a decent product but the data is expensive and is unavailable right now for me so I kind of put a pause on this product until the data thing is better sorted. Might pick up in the future when things are clear.
   relatedHistoricalReviews: []
 decision:
-  classification: Inactive
-  whySummary: Catalogue and compare protein products available in India.
-  currentState: Archived work; removed from Fleet listings. Hosting and retained resource ownership are unchanged.
-  nextDecision: "Keep: The existing Indian product-data experiment and provenance notes. Stop: Ongoing retailer ingestion, price maintenance and a public comparison business."
+  classification: Active / revival in progress
+  whySummary: Compare packaged food nutrition and source-linked vegetarian recipes for Indian kitchens.
+  currentState: Owner reactivated this identity on 2026-11-12. Canonical source is Significant-Hobbies/food; the duplicate repository was deleted after verified recovery preservation. Parquet country staging and recipe integration are in progress; no live qualification is claimed.
+  nextDecision: Complete the source consolidation, retain evidence and nutrition-basis limits, then qualify food.significanthobbies.com. The previous P4 priority remains historical, not a new reprioritization.
 identity:
-  name: Protein Index
-  publicName: Protein Index
-  aliases: []
+  name: Food
+  publicName: Food
+  aliases:
+    - Protein Index
   family: significanthobbies
   category: experimental
-  purposeCategories: []
+  purposeCategories:
+    - learn-skill-showoff
   audience: public
   personalUse: false
   moneyOrPersonalBrand: false
   unmetNeed: false
-  kind: experiment
+  kind: product
   priority: P4
-  tier: out-of-fleet
-  attention: ignored
+  tier: secondary
+  attention: toolbox
   lifecycle:
-    status: inactive
+    status: active
     resumeCondition: null
-    shareable: false
-  operationalStatus: undeployed
+    shareable: true
+  operationalStatus: pending
   authenticationModel: public-persistent
   inRegistry: false
 product:
-  description: Explore dated nutrition records with original label links, observation dates and explicit verification limits.
+  description: Compare packaged food nutrition and find source-linked vegetarian recipes for Indian kitchens.
   publicMakerNote: I wanted a clear catalog for comparing the protein products available in India, despite the difficulty of reliable data.
   purposeContract:
-    purpose: Protein Index was built to catalogue and compare protein products available in India using trustworthy nutrition data.
-    audience: Indian shoppers comparing packaged protein sources on nutrition, price, and practical fit.
-    outcome: Inspect recorded nutrition alongside its source, observation date and verification authority.
-    mechanism: A product catalogue normalizes nutrition and comparison fields across available Indian protein products.
-    proof: Hosted search and detail expose dated source and authority labels; one original nutrition label and its density calculation were independently checked. This does not verify the entire catalogue.
-    nextAction: Historical work only; no active roadmap.
-  form: Data API and web app
+    purpose: Food helps Indian shoppers compare packaged-food nutrition and discover vegetarian recipes with the original sources visible.
+    audience: Indian shoppers and vegetarian cooks comparing foods and practical meal ideas.
+    outcome: Find useful foods and recipes while understanding the nutrition basis, source and missing evidence.
+    mechanism: One searchable food catalogue combines Open Food Facts product records with a source-linked vegetarian recipe collection.
+    proof: Food is being restored from the retained product and recipe sources. Local data staging is available; final shipped-runtime qualification is pending.
+    nextAction: Complete recipe consolidation, verify the exact release and qualify food.significanthobbies.com.
+  form: Web app and data API
   platforms:
     - Web
     - API
   prominentTools:
     - React
-    - Hono
+    - Vite
     - Cloudflare Workers
     - D1
+    - SaaS Maker UI
   retainedGitHistory:
-    firstCommitAt: null
-    latestCommitAt: null
-    retainedCommitCount: null
-    historyCompleteness: null
+    firstCommitAt: 2026-07-15
+    latestCommitAt: 2026-09-27
+    retainedCommitCount: 241
+    historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
-  checkout: null
-  observedRevision: null
-  githubRepository: null
+  checkout: protein-index-resilience
+  observedRevision: d6e374186096b5f2dfa51c633481be4b57bcba49
+  githubRepository: Significant-Hobbies/food
   githubHomepageUrl: null
-  worktree: null
+  worktree: *a1
   visibility: public
-  url: https://github.com/sarthakagrawal927/protein-index-resilience
+  url: https://github.com/Significant-Hobbies/food
   aliases:
+    - https://github.com/sarthakagrawal927/protein-index-resilience
+    - https://github.com/Significant-Hobbies/protein-index-resilience
     - https://github.com/sarthakagrawal927/protein-index
+    - https://github.com/Significant-Hobbies/protein-index
   sourceOverride: null
   tooling:
-    declaredPackageManager: null
-    detectedSignals: []
-    rootPackageScripts: []
+    declaredPackageManager: pnpm@10.13.1
+    detectedSignals:
+      - name: Cloudflare Wrangler
+        evidence:
+          - wrangler.jsonc
+      - name: pnpm
+        evidence:
+          - pnpm-lock.yaml
+      - name: Vite
+        evidence:
+          - vite.config.ts
+      - name: Vitest
+        evidence:
+          - vitest.config.ts
+    rootPackageScripts:
+      - build
+      - cf-typegen
+      - check
+      - data:audit-decisions
+      - data:brand-dedupe
+      - data:brand-discover
+      - data:brand-import-sql
+      - data:brand-prepare
+      - data:coverage
+      - data:enrich
+      - data:extract
+      - data:guarded-release:final-state
+      - data:guarded-release:prepare
+      - data:guarded-release:state-query
+      - data:machine-benchmark
+      - data:machine-discover
+      - data:machine-label
+      - data:machine-publish-batch
+      - data:machine-publish-sql
+      - data:machine-release
+      - data:machine-run
+      - data:macro-refresh
+      - data:publish
+      - data:reclassify
+      - data:review:export
+      - data:review:live-selection-prepare
+      - data:review:live-selection-query
+      - data:review:reattest
+      - data:seed
+      - data:stage
+      - db:migrate
+      - deploy
+      - dev
+      - docs:build
+      - docs:check
+      - docs:dev
+      - docs:preview
+      - docs:validate
+      - knip
+      - knip:strict
+      - preview
+      - release:dry-run
+      - release:preflight
+      - release:startup
+      - test
+      - test:unit
+      - test:watch
+      - test:worker
+      - typecheck
 githubActions:
   observedAt: 2026-10-09T03:02:38.910Z
   staleAfterDays: 30
-  summary: {}
-  attention: *a1
-  remote:
-    repository: null
-    defaultBranch: null
-    defaultBranchSha: null
-    homepage: null
-    query: unverifiable
-    disposition:
-      disposition: ignored
-      reason: "Portfolio lifecycle cleanup (2026-09-06): project is inactive. No unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
-  workflows: []
+  summary:
+    unverifiable: 15
+  attention: *a2
+  remote: null
+  workflows:
+    - name: CI
+      file: .github/workflows/ci.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+    - name: Docs
+      file: .github/workflows/docs.yml
+      triggers:
+        - pull_request
+        - push
+      schedules: []
+    - name: Enrich Open Food Facts evidence
+      file: .github/workflows/enrich-open-food-facts.yml
+      triggers:
+        - workflow_dispatch
+        - workflow_run
+      schedules: []
+    - name: Extract ingredient label evidence
+      file: .github/workflows/extract-robotoff-ingredients.yml
+      triggers:
+        - workflow_dispatch
+        - workflow_run
+      schedules: []
+    - name: Extract label evidence with Robotoff
+      file: .github/workflows/extract-robotoff.yml
+      triggers:
+        - workflow_dispatch
+        - workflow_run
+      schedules: []
+    - name: Official brand discovery
+      file: .github/workflows/official-brand-discovery.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 19 3 * * 1
+    - name: Publish verified evidence manually
+      file: .github/workflows/publish-automatic-evidence.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish reviewed catalog
+      file: .github/workflows/publish-catalog.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish reviewed evidence enrichment
+      file: .github/workflows/publish-enrichment.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish guarded reviewed label evidence
+      file: .github/workflows/publish-guarded-reviewed-labels.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish machine-verified evidence
+      file: .github/workflows/publish-machine-evidence.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish official brand discoveries
+      file: .github/workflows/publish-official-brand-discoveries.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish reviewed evidence
+      file: .github/workflows/publish-reviewed-evidence.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Publish reviewed label candidates
+      file: .github/workflows/publish-robotoff-candidates.yml
+      triggers:
+        - workflow_dispatch
+      schedules: []
+    - name: Source sync
+      file: .github/workflows/source-sync.yml
+      triggers:
+        - schedule
+        - workflow_dispatch
+      schedules:
+        - 23 2 * * 1
 deployment:
-  kind: none
+  kind: worker
   deployed: false
   domains:
-    - protein.significanthobbies.com
-  primaryUrl: https://protein.significanthobbies.com
+    - food.significanthobbies.com
+  primaryUrl: null
   domainProbePaths: {}
-  targets: []
+  targets:
+    - id: web-api
+      kind: worker
+      name: food
+      sourcePath: protein-index-resilience
   cloudflare:
     deployments:
       - provider: cloudflare
@@ -159,6 +313,13 @@ deployment:
         method: wrangler-direct
         state: deleted
         attributionReason: Owner ordered deletion 2026-09-26 via Fleet spend audit. Worker deleted with Wrangler; protein.significanthobbies.com now returns 530.
+      - provider: cloudflare
+        kind: worker
+        name: food
+        method: wrangler-direct
+        state: planned
+        operationalOwner: protein-index
+        attributionReason: Owner-authorized Food revival targets food.significanthobbies.com. Deployment and final domain verification are pending.
     resources:
       - provider: cloudflare
         kind: d1
@@ -174,18 +335,29 @@ deployment:
         attributionReason: Owner ordered deletion 2026-09-26 via Fleet spend audit. R2 bucket deleted with Wrangler.
         scope: project
         operationalOwner: protein-index
+      - provider: cloudflare
+        kind: d1
+        name: food
+        id: cdeeb557-a46f-4c4d-91a1-0e1379fd8385
+        state: provisioned
+        scope: project
+        operationalOwner: protein-index
+        jurisdiction: apac
+        attributionReason: New Food D1 provisioned on 2026-11-12 for the owner-authorized revival. Data publication and actual serving remain pending.
   otherProviders:
     deployments: []
     resources: []
 sharing:
   publicListing: hidden
-  maturity: null
+  maturity: in-progress
   ready: false
-  verifiedAt: 2026-09-07
-  reason: Dated public nutrition-reference search/detail and one original label sample pass. Merchant title/current identity drift, full-catalog data quality and reliable current market coverage remain limitations. Canonical and historical histories are preserved separately.
+  verifiedAt: 2026-11-12
+  reason: Owner-authorized revival is in progress. Repository transfer and duplicate recovery are verified. A complete supplied Open Food Facts Parquet country query found 26,101 India-tagged rows out of 4,908,827 global records. Local staging is not market completeness or independently verified nutrition. Recipe integration, exact-source checks, hosted serving and domain proof remain pending.
   changelogUrl: null
-  roadmapUrl: https://github.com/sarthakagrawal927/protein-index-resilience/issues
+  roadmapUrl: https://github.com/Significant-Hobbies/food/issues
   geoIdentity: null
 notes:
-  catalog: Inactive dated reference. The sourcePath checkout preserves historical alias Significant-Hobbies/protein-index; canonical public source is Significant-Hobbies/protein-index-resilience. Approved production release now has exact tag51c0583792f2c7d3aac70efa5e3d8b1f314ec77e at100% traffic. The prior production Git revision was unknown. Distinct source histories and automation remain preserved.
-  infrastructure: " 2026-09-26: Worker, D1, and R2 deleted with owner approval; D1 SQL backup retained locally under .fleet-local/deleted-backups/."
+  catalog: |-
+    Inactive dated reference. The sourcePath checkout preserves historical alias Significant-Hobbies/protein-index; canonical public source is Significant-Hobbies/protein-index-resilience. Approved production release now has exact tag51c0583792f2c7d3aac70efa5e3d8b1f314ec77e at100% traffic. The prior production Git revision was unknown. Distinct source histories and automation remain preserved.
+    2026-11-12: Owner revived this identity as Food, consolidating the packaged-food and recipe experiments into one application. Previous inactive and hosting statements above are historical. Production release qualification is pending.
+  infrastructure: " 2026-09-26: Worker, D1, and R2 deleted with owner approval; D1 SQL backup retained locally under .fleet-local/deleted-backups/. 2026-11-12: New food Worker planned and APAC D1 provisioned for Food. Old protein-index Worker/D1/R2 deletion history remains unchanged."
