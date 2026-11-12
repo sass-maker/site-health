@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 93729105262bc44a5e9a72960fd244257b7c881511064bd0aaacbb82660d5c3d
+      sha256: 62ce3277e493514670cc6ee019ebe34e191492fd7608ad002d23bbdb91ff1dc4
       infrastructureUpdatedAt: 2026-11-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -28,7 +28,7 @@ verification:
       restoredBlob: 161289aa88af76fc68c74a35525119fbf3fda01e
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: 4f823cf6d131c88dda1082694b905a80438d37f2eed6c4090db872bc2a3fb817
+      sha256: 7f8bd76a529e3b1920b297363d26053990bc3c5844536ed54eefee04e2a2e1d8
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-11-12
@@ -70,7 +70,7 @@ ownerVoice:
 decision:
   classification: Active / revival in progress
   whySummary: Compare packaged food nutrition and source-linked vegetarian recipes for Indian kitchens.
-  currentState: Owner reactivated this identity on 2026-11-12. Canonical source is Significant-Hobbies/food; the duplicate repository was deleted after verified recovery preservation. Parquet country staging and recipe integration are in progress; no live qualification is claimed.
+  currentState: Owner reactivated this identity on 2026-11-12. Canonical source is Significant-Hobbies/food; the duplicate repository was deleted after verified recovery preservation. Full recipe source/history is integrated under archives/recipe-index in Food commit a1e9dcc21f68a06ccc706e59c7bd632d1dcac1ce. Final data publication and live qualification remain pending.
   nextDecision: Complete the source consolidation, retain evidence and nutrition-basis limits, then qualify food.significanthobbies.com. The previous P4 priority remains historical, not a new reprioritization.
 identity:
   name: Food
@@ -352,7 +352,7 @@ sharing:
   maturity: in-progress
   ready: false
   verifiedAt: 2026-11-12
-  reason: Owner-authorized revival is in progress. Repository transfer and duplicate recovery are verified. A complete supplied Open Food Facts Parquet country query found 26,101 India-tagged rows out of 4,908,827 global records. Local staging is not market completeness or independently verified nutrition. Recipe integration, exact-source checks, hosted serving and domain proof remain pending.
+  reason: Owner-authorized revival is in progress. Repository transfer and duplicate recovery are verified. A complete supplied Open Food Facts Parquet country query found 26,101 India-tagged rows out of 4,908,827 global records. Local staging is not market completeness or independently verified nutrition. Full recipe source/history integration is committed at a1e9dcc21f68a06ccc706e59c7bd632d1dcac1ce. Exact-source release checks, hosted serving and domain proof remain pending.
   changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/food/issues
   geoIdentity: null
