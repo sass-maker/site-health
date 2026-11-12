@@ -15,7 +15,7 @@ verification:
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 13b5c5caaab4e877119e99deeed4e72de10fc5edabf2b1001738fbc3013d4ee1
+      sha256: 2a757b29ec61adea280ac989fe63c8cf4d2d5387c82f326745eaa7649bea4236
       infrastructureUpdatedAt: 2026-11-12
     ownerVoice:
       path: docs/portfolio-owner-narratives-2026-08-22.md
@@ -360,7 +360,7 @@ sharing:
   ready: true
   verifiedAt: 2026-11-12
   reason: Food is live at food.significanthobbies.com on main014f0ad4f3e164891fd4704fb40997ca9a052f41. Exact-main CI and native checks passed. Production HTTP/API and390/1440px browser checks verify22,673canonical products, complete source import,50source-linked recipes, filters, source links, conflict-safe ranks, mutation denial and hash-verified download. This does not establish market completeness, independent verification of every label, natural use or growth.
-  changelogUrl: https://food.significanthobbies.com/changelog
+  changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/food/issues
   geoIdentity: null
 notes:
