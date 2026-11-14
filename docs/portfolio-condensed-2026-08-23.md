@@ -174,6 +174,8 @@ These statuses reflect current owner intent. They deliberately override misleadi
 | Web Playables | Inactive | Learn how idle and HTML-based games are built and distributed. | Paused experiment; no current work or obligation to resume. | Keep: A small shared starter used by the games you actually make. Stop: A general game engine or a constant obligation to ship more games. |
 | Paths (`what-it-takes-to-win`) | Active | Study advantages behind success and turn comparison into evidence-based understanding. | Strong research publication with clear personal motivation and room for deeper coverage. | Continue studying people, improve source-linked life histories, and reconcile stale public dataset counts during the next refresh. |
 
+| LinkedIn Archive (`linkedin-insights`) | Active public tool; purpose tags and priority unassigned | Explore insights from a personal LinkedIn data export without uploading it. | Owner-approved browser-local release preparing on Cloudflare Workers Static Assets for linkedin.significanthobbies.com; extracted-folder selection, React and internal UI library. Production verification pending. | Complete production folder-import and network-privacy verification; preserve no accounts, uploads or archive telemetry. |
+
 ## System and dependency map
 
 ### Personal-app system
