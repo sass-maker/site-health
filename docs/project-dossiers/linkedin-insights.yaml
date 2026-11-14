@@ -9,28 +9,27 @@ verification:
     infrastructureAttribution: passed
     ownerVoicePresent: passed-verbatim
     repositorySnapshot: passed
-    githubHomepage: not-applicable
+    githubHomepage: unverified
     githubActionsLiveState: unverified
-    retainedGitHistory: catalog-drift
+    retainedGitHistory: passed
   evidence:
     catalog:
       path: apps/backend/config/projects.json
-      sha256: 6702eb1ff6e4871fc2349f56e474f66840ff124d41c47b25b2eca58c16b757b6
+      sha256: a4bf974f1abab1d4c76d7bab6d957e56b758fa324977d5dc26e73b570dff6b81
       infrastructureUpdatedAt: 2026-11-14
     ownerVoice:
       path: apps/backend/config/projects.json
       sourceField: projects[id=linkedin-insights].ownerNarrative
       sourceHeading: LinkedIn Archive
-      sourceKind: verbatim-owner-message-public-excerpts
+      sourceKind: verbatim-owner-message
       capturedAt: 2026-11-14
       reviewSha256: a1a3cca0629eb23b75aa271d4135042ff40838ddcba3edbd4d3e642f6cc5494d
-      documentSha256: 6702eb1ff6e4871fc2349f56e474f66840ff124d41c47b25b2eca58c16b757b6
+      documentSha256: a4bf974f1abab1d4c76d7bab6d957e56b758fa324977d5dc26e73b570dff6b81
       restoredFromCommit: null
       restoredBlob: null
-      fullMessagePublic: false
     decisionSummary:
       path: docs/portfolio-condensed-2026-08-23.md
-      sha256: feff9013b77a814489735a55713e1434218792723b2b5db0bc7b3d09dff7a3e1
+      sha256: 989b1bf9c41b38b355b7ef09673c417de8112fd67a1d4a88c3a3d839eb8b680b
       sourceKind: derived-owner-intent
     repository:
       observedAt: 2026-11-14
@@ -38,25 +37,23 @@ verification:
       checkout: linkedin-insights
       revision: 3bd91febb76a9f9ab23cb428c116e5794fe47169
       githubRepository: Significant-Hobbies/linkedin-insights
-      expectedHomepage: null
+      expectedHomepage: https://linkedin.significanthobbies.com
       observedHomepage: null
       worktree: &a1
         state: clean
         trackedChangeCount: 0
         deletedWorkflowFiles: []
     retainedGitHistory:
-      observedAt: 2026-11-13
+      observedAt: 2026-11-14
       state: available
       checkout: linkedin-insights
       revision: 3bd91febb76a9f9ab23cb428c116e5794fe47169
       githubRepository: Significant-Hobbies/linkedin-insights
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
-      catalogFirstCommitAt: null
-      catalogLatestCommitAt: null
-      catalogDrift:
-        - firstCommitAt
-        - latestCommitAt
+      catalogFirstCommitAt: 2026-11-14
+      catalogLatestCommitAt: 2026-11-14
+      catalogDrift: []
       reason: null
     githubActions:
       observedAt: null
@@ -66,6 +63,7 @@ verification:
         unclassified: 1
   unknowns:
     - Live GitHub Actions state has not been refreshed.
+    - GitHub repository homepage metadata has not been observed.
 ownerVoice:
   whyVerbatim: I want a tool which shows me data insights from my LinkedIn data export.
   fullReviewVerbatim: |-
@@ -79,12 +77,11 @@ ownerVoice:
 
     let people add the folder
   relatedHistoricalReviews: []
-  publicExcerptPolicy: Exact safe excerpts only. The complete owner message is retained only in private task evidence.
 decision:
   classification: Active public tool; purpose tags and priority unassigned
   whySummary: Explore insights from a personal LinkedIn data export without uploading it.
-  currentState: Owner-approved browser-local release preparing on Cloudflare Workers Static Assets for linkedin.significanthobbies.com; extracted-folder selection, React and internal UI library. Production verification pending.
-  nextDecision: Complete production folder-import and network-privacy verification; preserve no accounts, uploads or archive telemetry.
+  currentState: Released on Cloudflare Workers Static Assets at linkedin.significanthobbies.com from 3bd91fe; exact-CI static artifact and 21 synthetic responsive/folder/privacy cases passed. No accounts, archive uploads or persisted records.
+  nextDecision: Use the browser-local folder analysis. Real-user usage/outcomes remain unknown; preserve no accounts, archive uploads or telemetry.
 identity:
   name: LinkedIn Archive
   publicName: LinkedIn Archive
@@ -104,7 +101,7 @@ identity:
     status: active
     resumeCondition: null
     shareable: true
-  operationalStatus: undeployed
+  operationalStatus: live
   authenticationModel: local-only
   inRegistry: false
 product:
@@ -115,8 +112,8 @@ product:
     audience: People who want to explore their own LinkedIn data export without uploading it.
     outcome: Understand the contents and patterns in an exported LinkedIn history.
     mechanism: Select an extracted export folder and parse its CSV files locally in the browser.
-    proof: Release preparation is underway; production runtime qualification is pending.
-    nextAction: Prepare an extracted LinkedIn export folder; the public release is pending verification.
+    proof: The deployed static browser app passes synthetic folder-import, failure recovery, clear/reload and 21 responsive layout checks; the imported archive triggers no remote requests or stored records.
+    nextAction: Choose your extracted LinkedIn export folder and explore the analysis locally; clear the session when finished.
   form: Web app
   platforms:
     - Web
@@ -171,9 +168,10 @@ githubActions:
       schedules: []
 deployment:
   kind: worker
-  deployed: false
-  domains: []
-  primaryUrl: null
+  deployed: true
+  domains:
+    - linkedin.significanthobbies.com
+  primaryUrl: https://linkedin.significanthobbies.com
   domainProbePaths: {}
   targets: []
   cloudflare:
@@ -182,13 +180,32 @@ deployment:
         kind: worker
         name: linkedin-insights
         method: cf-prebuilt-direct
-        state: preparing
-        attributionReason: Owner-requested static LinkedIn Archive release at linkedin.significanthobbies.com. Root selected supported Workers Static Assets custom-domain publishing; production deployment evidence remains pending.
+        state: live
+        attributionReason: LinkedIn Archive owns this static-assets Worker and canonical domain. The pinned cf publisher uploaded only the exact-CI verified immutable static artifact; archive contents stay client-side.
         verification:
           observedAt: 2026-11-14
-          state: pending
-          scope: Pinned cf 1.0.0-beta.32 publishes only a verified immutable CI static artifact via existing-login handoff. Candidate source CI and actual Worker production qualification remain pending.
+          state: success-production-verified
           sourceCommit: 3bd91febb76a9f9ab23cb428c116e5794fe47169
+          workerVersion: d354149b-707c-4217-9e00-940bd4d3d8cb
+          deploymentUrl: https://linkedin.significanthobbies.com
+          exactMainCi: 43571621390
+          artifactFileCount: 34
+          scope: Deployed source 3bd91febb76a9f9ab23cb428c116e5794fe47169 from exact green CI 43571621390 as verified immutable 34-file static artifact. Worker version d354149b-707c-4217-9e00-940bd4d3d8cb serves the canonical HTTPS domain with valid TLS and security headers. Live synthetic Chromium checks passed 21 layouts at 390, 768 and 1440 pixels, folder import, failed-import data preservation, clear/reload empty, zero stored records, zero requests after import and no page errors. Local DNS retained NXDOMAIN; the browser harness used fresh public-DNS addresses with valid canonical-domain TLS and no certificate bypass. Real-user usage and outcomes remain unknown.
+          evidencePaths:
+            - linkedin-insights/.artifacts/browser/verification.json
+            - linkedin-insights/.artifacts/release-source.json
+            - linkedin-insights/.artifacts/live-assets.json
+          independentReview:
+            id: c5656392
+            state: passed_with_limits
+            blockingDefects: false
+          dnsQualification: Cloudflare and Google public resolvers returned 104.21.72.124/172.67.184.158; local resolver cached NXDOMAIN. Chrome used fresh-DNS host mapping with canonical-domain TLS, no SSL bypass.
+          deploymentId: 1ac1d9f4-be65-4689-84a5-5ee9de65bb91
+          deployedAt: 2026-11-14T07:35:10.877319Z
+          source: cf_cli
+          trafficPercentage: 100
+          liveAssetHashesVerified: 33
+          assetVerificationScope: All 33 served asset hashes equal the exact CI manifest; headers configuration interpreted separately; 404 behavior checked.
         verificationHistory:
           - observedAt: 2026-11-14
             state: removed-empty-preparation-resource
@@ -201,14 +218,32 @@ deployment:
     deployments: []
     resources: []
 sharing:
-  publicListing: hidden
-  maturity: null
-  ready: false
+  publicListing: maintained
+  maturity: public-ready
+  ready: true
   verifiedAt: 2026-11-14
-  reason: Owner authorized public release. Deployment and live folder-import/privacy verification are pending; registration does not claim readiness.
+  reason: Deployed source 3bd91febb76a9f9ab23cb428c116e5794fe47169 from exact green CI 43571621390 as verified immutable 34-file static artifact. Worker version d354149b-707c-4217-9e00-940bd4d3d8cb serves the canonical HTTPS domain with valid TLS and security headers. Live synthetic Chromium checks passed 21 layouts at 390, 768 and 1440 pixels, folder import, failed-import data preservation, clear/reload empty, zero stored records, zero requests after import and no page errors. Local DNS retained NXDOMAIN; the browser harness used fresh public-DNS addresses with valid canonical-domain TLS and no certificate bypass. Real-user usage and outcomes remain unknown.
   changelogUrl: null
   roadmapUrl: https://github.com/Significant-Hobbies/linkedin-insights/issues
-  geoIdentity: null
+  geoIdentity:
+    id: linkedin-insights
+    name: LinkedIn Archive
+    aliases: []
+    description: Explore insights from your LinkedIn data export in your browser. Choose the extracted export folder; personal archive data stays on your device.
+    origin: https://linkedin.significanthobbies.com
+    source:
+      state: public
+      url: https://github.com/Significant-Hobbies/linkedin-insights
+    docs:
+      state: repository-readme
+      url: https://github.com/Significant-Hobbies/linkedin-insights#readme
+    officialProfiles:
+      - https://github.com/Significant-Hobbies/linkedin-insights
+    availability:
+      primary: web
+      appStore: not-applicable
+    pricing:
+      state: free
 notes:
-  catalog: "Browser-local analysis of personal LinkedIn exports: no third-party analytics, session replay, imported archive uploads or remote processing. Public static delivery does not collect archive content. Selected stack: React, shared internal UI library and Cloudflare Workers Static Assets. No accounts, server storage or dynamic Worker handlers. Preparing target linkedin.significanthobbies.com; no live release claimed before provider verification."
+  catalog: "Browser-local analysis of personal LinkedIn exports: no third-party analytics, session replay, imported archive uploads or remote processing. Static Cloudflare Workers delivery with React and the shared internal UI library; no accounts, server storage or dynamic Worker handlers. Public dossier ownerVoice contains exact safe excerpts; the complete original owner message is retained only in private task evidence. Live core workflow qualified with synthetic data on 2026-11-14; actual user outcomes remain unknown."
   infrastructure: null
