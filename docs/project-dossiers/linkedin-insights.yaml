@@ -35,7 +35,7 @@ verification:
       observedAt: 2026-11-14
       state: available
       checkout: linkedin-insights
-      revision: 3bd91febb76a9f9ab23cb428c116e5794fe47169
+      revision: 56862a5e905f1e0c29dc204ddde5d3fe3fef6f98
       githubRepository: Significant-Hobbies/linkedin-insights
       expectedHomepage: https://linkedin.significanthobbies.com
       observedHomepage: null
@@ -47,7 +47,7 @@ verification:
       observedAt: 2026-11-14
       state: available
       checkout: linkedin-insights
-      revision: 3bd91febb76a9f9ab23cb428c116e5794fe47169
+      revision: 56862a5e905f1e0c29dc204ddde5d3fe3fef6f98
       githubRepository: Significant-Hobbies/linkedin-insights
       method: git rev-parse --is-shallow-repository; git rev-list --count HEAD; git log --max-parents=0 --format=%cs; git log -1 --format=%cs
       retainedMeaning: Retained commits are the commits reachable from the observed HEAD of the local checkout. A shallow checkout is reported as incomplete and its count is not a lifetime total.
@@ -124,12 +124,12 @@ product:
   retainedGitHistory:
     firstCommitAt: 2026-11-14
     latestCommitAt: 2026-11-14
-    retainedCommitCount: 4
+    retainedCommitCount: 5
     historyCompleteness: complete
     semantics: firstCommitAt and latestCommitAt are dates from the currently retained Git history. They are not incorporation, launch, or retirement dates.
 repository:
   checkout: linkedin-insights
-  observedRevision: 3bd91febb76a9f9ab23cb428c116e5794fe47169
+  observedRevision: 56862a5e905f1e0c29dc204ddde5d3fe3fef6f98
   githubRepository: Significant-Hobbies/linkedin-insights
   githubHomepageUrl: null
   worktree: *a1
