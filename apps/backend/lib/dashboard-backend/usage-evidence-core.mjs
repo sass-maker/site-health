@@ -189,7 +189,7 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
       try {
         const params = new URLSearchParams({ range: '30d', app_id: matches[0].app.id, environment_id: environments[0].id });
         const report = await getReport(`/v1/analytics/report?${params}`);
-        const start = iso(report.from); const end = iso(report.to);
+        const start = iso(report?.from); const end = iso(report?.to);
         if (!start || !end || Date.parse(start) >= Date.parse(end) || Math.abs(Date.parse(end) - Date.parse(start) - 30 * 86_400_000) > 60_000 || Date.parse(end) > Date.parse(now()) + 300_000 || Date.parse(now()) - Date.parse(end) > 300_000 || typeof report.sampled !== 'boolean' || !['local', 'analytics-engine'].includes(report.source) || number(report.sessions) === null || !Array.isArray(report.events)) {
           if (captureReportDiagnostics) reportCounts.invalidAggregates += 1;
           throw new Error('Invalid aggregate report');

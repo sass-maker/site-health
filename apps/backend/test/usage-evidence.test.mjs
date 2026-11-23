@@ -124,7 +124,7 @@ test('scheduled collector measures Bearer report round trips without changing th
 });
 
 test('request timing and outcome aggregates cover HTTP, body, transport, invalid-data, and successful reports', async () => {
-  const currentProjects = ['success', 'http-failure', 'transport-failure', 'body-failure', 'invalid-report'].map((id) => ({
+  const currentProjects = ['success', 'http-failure', 'transport-failure', 'body-failure', 'invalid-report', 'null-report'].map((id) => ({
     id, name: id, lifecycle: { status: 'active' }, status: 'active',
   }));
   const now = '2026-11-23T17:45:00.000Z';
@@ -136,6 +136,7 @@ test('request timing and outcome aggregates cover HTTP, body, transport, invalid
       if (appId === 'transport-failure') throw new Error('private transport detail');
       if (appId === 'http-failure') return new Response('{}', { status: 503 });
       if (appId === 'body-failure') return new Response('not json');
+      if (appId === 'null-report') return new Response('null');
       const report = appId === 'invalid-report' ? {} : {
         from: Date.parse(now) - 30 * 86_400_000, to: Date.parse(now), sampled: false,
         source: 'analytics-engine', sessions: 3, audience: { visitors: 0 }, events: [{ count: 2 }],
@@ -152,16 +153,17 @@ test('request timing and outcome aggregates cover HTTP, body, transport, invalid
   assert.equal(snapshot.records['transport-failure'].status, 'failed');
   assert.equal(snapshot.records['body-failure'].status, 'failed');
   assert.equal(snapshot.records['invalid-report'].status, 'failed');
+  assert.equal(snapshot.records['null-report'].status, 'failed');
   assert.deepEqual(snapshot.records, withoutDiagnostics.records, 'diagnostics do not change success or failure rows');
   assert.deepEqual(
     [snapshot.reportRequestDiagnostics.reportAttempts, snapshot.reportRequestDiagnostics.reportResponses,
       snapshot.reportRequestDiagnostics.reportHttpSuccesses, snapshot.reportRequestDiagnostics.reportHttpFailures,
       snapshot.reportRequestDiagnostics.reportNoResponse, snapshot.reportRequestDiagnostics.reportBodyFailures,
       snapshot.reportRequestDiagnostics.reportInvalidAggregates, snapshot.reportRequestDiagnostics.timingSamplesMissing],
-    [5, 4, 3, 1, 1, 1, 1, 0],
+    [6, 5, 4, 1, 1, 1, 2, 0],
   );
-  assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.sampleCount, 5);
-  assert.doesNotMatch(JSON.stringify(snapshot.reportRequestDiagnostics), /private-token-marker|private transport detail|http-failure|transport-failure|body-failure|invalid-report/);
+  assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.sampleCount, 6);
+  assert.doesNotMatch(JSON.stringify(snapshot.reportRequestDiagnostics), /private-token-marker|private transport detail|http-failure|transport-failure|body-failure|invalid-report|null-report/);
 });
 
 test('failed refresh retains the original good value and observation date', () => {
