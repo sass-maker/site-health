@@ -182,6 +182,28 @@ test('failed refresh retains the original good value and observation date', () =
   assert.doesNotMatch(observations[1].gap, /7 browsers/);
 });
 
+test('same-day non-diagnostic writes preserve scheduled timings, but a new day drops them', () => {
+  const path = join(mkdtempSync(join(tmpdir(), 'usage-request-timing-')), 'usage.json');
+  const diagnostics = {
+    schemaVersion: 1,
+    measurement: 'client-fetch-through-json-decode',
+    reportAttempts: 1,
+    reportResponses: 1,
+    reportHttpSuccesses: 1,
+    reportHttpFailures: 0,
+    reportNoResponse: 0,
+    reportBodyFailures: 0,
+    reportInvalidAggregates: 0,
+    timingSamplesMissing: 0,
+    roundTripMs: { sampleCount: 1, meanMs: 125, p50Ms: 125, p95Ms: 125, maxMs: 125 },
+  };
+  writeUsageEvidence({ observedAt: '2026-11-23T17:00:00Z', records: {}, reportRequestDiagnostics: diagnostics }, path);
+  writeUsageEvidence({ observedAt: '2026-11-23T18:00:00Z', records: {} }, path);
+  assert.deepEqual(readUsageEvidence(path).reportRequestDiagnostics, diagnostics);
+  writeUsageEvidence({ observedAt: '2026-11-24T00:00:00Z', records: {} }, path);
+  assert.equal(readUsageEvidence(path).reportRequestDiagnostics, undefined);
+});
+
 test('null-count imported usage preserves a prior good observation', () => {
   const path = join(mkdtempSync(join(tmpdir(), 'usage-import-retain-')), 'usage.json');
   writeUsageEvidence({ observedAt: '2026-10-26T00:00:00Z', records: { one: { count: 7, observedAt: '2026-10-26T00:00:00Z', unit: 'browsers' } } }, path);

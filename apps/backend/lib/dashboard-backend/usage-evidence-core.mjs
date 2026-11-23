@@ -42,6 +42,8 @@ function reportRequestDiagnostics(samples, counts) {
 }
 
 export function mergeUsageSnapshots(snapshot, previous) {
+  const snapshotDay = iso(snapshot.observedAt)?.slice(0, 10);
+  const previousDay = iso(previous?.observedAt)?.slice(0, 10);
   const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
     const old = previous?.records?.[id];
     // A daily browser refresh cannot erase a tool's explicit local/workflow counter.
@@ -54,7 +56,13 @@ export function mergeUsageSnapshots(snapshot, previous) {
         gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained last-known ${old.count} ${usageUnit(old.unit) ?? 'units'} observed ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
-  return { ...snapshot, records: { ...(previous?.records ?? {}), ...records } };
+  const reportRequestDiagnostics = snapshot.reportRequestDiagnostics ??
+    (snapshotDay && snapshotDay === previousDay ? previous?.reportRequestDiagnostics : undefined);
+  return {
+    ...snapshot,
+    ...(reportRequestDiagnostics ? { reportRequestDiagnostics } : {}),
+    records: { ...(previous?.records ?? {}), ...records },
+  };
 }
 export { iso as usageTimestamp };
 
