@@ -2,6 +2,17 @@ import { INTERNAL_USAGE_SOURCES as INTERNAL_SOURCES } from './measurement-contra
 import { isCurrentPortfolioProject } from './domain-scope.mjs';
 
 const ORIGIN = 'https://health.sassmaker.com';
+const REPORT_TIMING_STAGES = Object.freeze([
+  'auth_setup', 'session_lookup', 'session_db_read', 'user_db_read', 'workspace_scope',
+  'apps_projection', 'workspace_capability_setup_read', 'capability_setup_read',
+  'analytics_cache_lookup', 'analytics_query_wait', 'analytics_trend', 'analytics_pages',
+  'analytics_sources', 'analytics_events', 'analytics_audience_previous',
+  'analytics_dimension_max', 'analytics_engagement', 'analytics_exits',
+  'analytics_report_assembly', 'route_read', 'owner_handler_total',
+]);
+const REPORT_TIMING_STAGE_SET = new Set(REPORT_TIMING_STAGES);
+const MAX_REPORT_TIMING_HEADER_LENGTH = 4096;
+const MAX_REPORT_TIMING_STAGES = 64;
 const number = (value) => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 ? value : null;
 const eventCount = events => {
   if (!Array.isArray(events) || events.some(event => number(event?.count) === null)) return null;
@@ -10,7 +21,74 @@ const eventCount = events => {
 const usageUnit = value => ['sessions', 'browsers', 'devices', 'users'].includes(value) ? value : null;
 const internalRow = (id, row) => row?.source === INTERNAL_SOURCES[id] && Boolean(INTERNAL_SOURCES[id]);
 const iso = (value) => ['number', 'string'].includes(typeof value) && Number.isFinite(new Date(value).getTime()) ? new Date(value).toISOString() : null;
+
+function timingPercentile(sorted, percentile) {
+  // Use nearest-rank so the persisted p50/p95 stay actual observed timings.
+  return sorted[Math.max(0, Math.ceil(sorted.length * percentile) - 1)];
+}
+
+function recordReportTimings(header, samples) {
+  if (typeof header !== 'string' || header.length > MAX_REPORT_TIMING_HEADER_LENGTH) return false;
+  let recorded = false;
+  const seen = new Set();
+  for (const rawEntry of header.split(',').slice(0, MAX_REPORT_TIMING_STAGES)) {
+    const match = rawEntry.trim().match(/^([a-z_]+);dur=(\d{1,6}(?:\.\d{1,3})?)$/);
+    if (!match || !REPORT_TIMING_STAGE_SET.has(match[1]) || seen.has(match[1])) continue;
+    const durationMs = Number(match[2]);
+    if (!Number.isFinite(durationMs) || durationMs > 60_000) continue;
+    seen.add(match[1]);
+    (samples[match[1]] ??= []).push(durationMs);
+    recorded = true;
+  }
+  return recorded;
+}
+
+function numericAggregate(values) {
+  const sorted = [...values].sort((left, right) => left - right);
+  return sorted.length
+    ? {
+        sampleCount: sorted.length,
+        meanMs: sorted.reduce((sum, value) => sum + value, 0) / sorted.length,
+        p50Ms: timingPercentile(sorted, 0.5),
+        p95Ms: timingPercentile(sorted, 0.95),
+        maxMs: sorted.at(-1),
+      }
+    : { sampleCount: 0, meanMs: null, p50Ms: null, p95Ms: null, maxMs: null };
+}
+
+function reportRequestDiagnostics(responseSamples, failedSamples, stageSamples, counts, observedAt) {
+  const stages = Object.fromEntries(REPORT_TIMING_STAGES.map((stage) => [stage, numericAggregate(stageSamples[stage] ?? [])]));
+  return {
+    schemaVersion: 2,
+    observedAt,
+    measurement: 'client-request-through-json-decode',
+    reportAttempts: counts.attempts,
+    reportResponses: counts.responses,
+    reportHttpSuccesses: counts.httpSuccesses,
+    reportHttpFailures: counts.httpFailures,
+    reportNoResponse: counts.attempts - counts.responses,
+    reportBodyFailures: counts.bodyFailures,
+    reportInvalidAggregates: counts.invalidAggregates,
+    timingSamplesMissing: counts.attempts - responseSamples.length - failedSamples.length,
+    roundTripMs: {
+      successfulHttpJsonResponses: numericAggregate(responseSamples),
+      failedAttempts: numericAggregate(failedSamples),
+    },
+    stageTimingCoverage: {
+      optInRequests: counts.attempts,
+      responses: counts.responses,
+      httpSuccessResponses: counts.httpSuccesses,
+      httpJsonResponses: counts.jsonResponses,
+      httpJsonResponsesWithAllowlistedStages: counts.responsesWithStages,
+      httpJsonResponsesWithoutAllowlistedStages: counts.jsonResponses - counts.responsesWithStages,
+    },
+    stages,
+  };
+}
+
 export function mergeUsageSnapshots(snapshot, previous) {
+  const snapshotDay = iso(snapshot.observedAt)?.slice(0, 10);
+  const previousDay = iso(previous?.observedAt)?.slice(0, 10);
   const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
     const old = previous?.records?.[id];
     // A daily browser refresh cannot erase a tool's explicit local/workflow counter.
@@ -23,7 +101,13 @@ export function mergeUsageSnapshots(snapshot, previous) {
         gap: `${failed ? 'Refresh failed' : 'Incoming row had no numeric count'}; retained last-known ${old.count} ${usageUnit(old.unit) ?? 'units'} observed ${old.observedAt}. ${row.gap ?? ''}`.slice(0, 1600) }
       : row];
   }));
-  return { ...snapshot, records: { ...(previous?.records ?? {}), ...records } };
+  const reportRequestDiagnostics = snapshot.reportRequestDiagnostics ??
+    (snapshotDay && snapshotDay === previousDay ? previous?.reportRequestDiagnostics : undefined);
+  return {
+    ...snapshot,
+    ...(reportRequestDiagnostics ? { reportRequestDiagnostics } : {}),
+    records: { ...(previous?.records ?? {}), ...records },
+  };
 }
 export { iso as usageTimestamp };
 
@@ -56,15 +140,22 @@ export function usageObservations(projects, snapshot) {
   });
 }
 
-export function usageFailureSnapshot(projects, now = () => new Date().toISOString()) {
+export function usageFailureSnapshot(projects, now = () => new Date().toISOString(), { captureReportDiagnostics = false } = {}) {
   const observedAt = now();
-  return {
+  const snapshot = {
     schemaVersion: 1, observedAt,
     records: Object.fromEntries(projects.filter(isCurrentPortfolioProject).map((project) => [project.id, {
       status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: observedAt,
       gap: 'App Health usage refresh failed; source remains unknown unless a last-good observation exists.',
     }])),
   };
+  if (captureReportDiagnostics) {
+    snapshot.reportRequestDiagnostics = reportRequestDiagnostics([], [], {}, {
+      attempts: 0, responses: 0, httpSuccesses: 0, httpFailures: 0,
+      jsonResponses: 0, bodyFailures: 0, invalidAggregates: 0, responsesWithStages: 0,
+    }, observedAt);
+  }
+  return snapshot;
 }
 
 export function summarizeUsageSnapshot(snapshot) {
@@ -96,13 +187,77 @@ export function importUsageExport(bundle, projects) {
   return { schemaVersion: 1, observedAt: iso(bundle.usage.updatedAt), records };
 }
 
-export async function collectUsageEvidence({ projects, credential, fetcher = fetch, now = () => new Date().toISOString() }) {
+export async function collectUsageEvidence({ projects, credential, fetcher = fetch, now = () => new Date().toISOString(),
+  monotonicNow = () => performance.now(), captureReportDiagnostics = false }) {
   if (!credential) throw Object.assign(new Error('App Health read connection is unavailable; retained observations remain visible.'), { code: 'APP_HEALTH_CONNECTION_UNAVAILABLE' });
+  const request = (path, { includeTimings = false } = {}) => fetcher(`${ORIGIN}${path}`, { method: 'GET', redirect: 'error',
+    headers: {
+      authorization: `Bearer ${credential}`,
+      // The paired Worker opt-in is authenticated; absent stage data remains explicit in coverage.
+      ...(includeTimings ? { 'X-AppHealth-Diagnostics': 'server-timing' } : {}),
+    }, signal: AbortSignal.timeout(15_000) });
   const get = async (path) => {
-    const response = await fetcher(`${ORIGIN}${path}`, { method: 'GET', redirect: 'error',
-      headers: { authorization: `Bearer ${credential}` }, signal: AbortSignal.timeout(15_000) });
+    const response = await request(path);
     if (!response.ok) throw Object.assign(new Error(`App Health aggregate returned HTTP ${response.status}`), { code: 'APP_HEALTH_READ_FAILED' });
     return response.json();
+  };
+  const reportResponseSamples = [];
+  const reportFailedSamples = [];
+  const stageSamples = {};
+  const reportCounts = { attempts: 0, responses: 0, httpSuccesses: 0, httpFailures: 0,
+    jsonResponses: 0, bodyFailures: 0, invalidAggregates: 0, responsesWithStages: 0 };
+  const getReport = async (path) => {
+    let startedAt = null;
+    if (captureReportDiagnostics) {
+      try { startedAt = monotonicNow(); } catch { /* Diagnostics must not affect the report. */ }
+      if (!Number.isFinite(startedAt)) startedAt = null;
+    }
+    if (captureReportDiagnostics) reportCounts.attempts += 1;
+    let decoded = false;
+    const responseStages = {};
+    let responseHasStages = false;
+    try {
+      const response = await request(path, { includeTimings: captureReportDiagnostics });
+      if (captureReportDiagnostics) reportCounts.responses += 1;
+      if (response.ok) {
+        if (captureReportDiagnostics) {
+          reportCounts.httpSuccesses += 1;
+          let header;
+          try { header = response.headers?.get?.('server-timing'); } catch { /* Malformed diagnostics do not affect the report. */ }
+          responseHasStages = recordReportTimings(header, responseStages);
+        }
+      } else {
+        if (captureReportDiagnostics) reportCounts.httpFailures += 1;
+        throw Object.assign(new Error(`App Health aggregate returned HTTP ${response.status}`), { code: 'APP_HEALTH_READ_FAILED' });
+      }
+      try {
+        const result = await response.json();
+        decoded = true;
+        if (captureReportDiagnostics) {
+          reportCounts.jsonResponses += 1;
+          if (responseHasStages) {
+            reportCounts.responsesWithStages += 1;
+            for (const [stage, durations] of Object.entries(responseStages))
+              (stageSamples[stage] ??= []).push(...durations);
+          }
+        }
+        return result;
+      }
+      catch (error) {
+        if (captureReportDiagnostics) reportCounts.bodyFailures += 1;
+        throw error;
+      }
+    } finally {
+      if (captureReportDiagnostics) {
+        if (startedAt !== null) {
+          try {
+            const durationMs = monotonicNow() - startedAt;
+            if (Number.isFinite(durationMs) && durationMs >= 0)
+              (decoded ? reportResponseSamples : reportFailedSamples).push(durationMs);
+          } catch { /* Diagnostics must not affect the report. */ }
+        }
+      }
+    }
   };
   const apps = (await get('/v1/apps'))?.apps;
   if (!Array.isArray(apps)) throw new Error('Invalid App Health app list');
@@ -113,16 +268,21 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
     while (cursor < current.length) {
       const project = current[cursor++];
       const matches = apps.filter((row) => row.app?.id === project.id || normalize(row.app?.name) === normalize(project.name));
-      const environments = matches.length === 1 ? matches[0].environments?.filter((entry) => entry.name === 'production') ?? [] : [];
+      const environments = matches.length === 1 && Array.isArray(matches[0].environments)
+        ? matches[0].environments.filter((entry) => entry?.name === 'production')
+        : [];
       if (environments.length !== 1) {
         records[project.id] = { status: 'unmapped', count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'No unique exact product and production-environment mapping; source remains unknown.' };
         continue;
       }
       try {
         const params = new URLSearchParams({ range: '30d', app_id: matches[0].app.id, environment_id: environments[0].id });
-        const report = await get(`/v1/analytics/report?${params}`);
-        const start = iso(report.from); const end = iso(report.to);
-        if (!start || !end || Date.parse(start) >= Date.parse(end) || Math.abs(Date.parse(end) - Date.parse(start) - 30 * 86_400_000) > 60_000 || Date.parse(end) > Date.parse(now()) + 300_000 || Date.parse(now()) - Date.parse(end) > 300_000 || typeof report.sampled !== 'boolean' || !['local', 'analytics-engine'].includes(report.source) || number(report.sessions) === null || !Array.isArray(report.events)) throw new Error('Invalid aggregate report');
+        const report = await getReport(`/v1/analytics/report?${params}`);
+        const start = iso(report?.from); const end = iso(report?.to);
+        if (!start || !end || Date.parse(start) >= Date.parse(end) || Math.abs(Date.parse(end) - Date.parse(start) - 30 * 86_400_000) > 60_000 || Date.parse(end) > Date.parse(now()) + 300_000 || Date.parse(now()) - Date.parse(end) > 300_000 || typeof report.sampled !== 'boolean' || !['local', 'analytics-engine'].includes(report.source) || number(report.sessions) === null || !Array.isArray(report.events)) {
+          if (captureReportDiagnostics) reportCounts.invalidAggregates += 1;
+          throw new Error('Invalid aggregate report');
+        }
         const browsers = number(report.audience?.visitors);
         records[project.id] = {
           status: 'available',
@@ -134,5 +294,14 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
       } catch { records[project.id] = { status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'Aggregate report unavailable or invalid; source remains unknown unless a last-good observation exists.' }; }
     }
   }));
-  return { schemaVersion: 1, observedAt: now(), records };
+  const observedAt = now();
+  const snapshot = {
+    schemaVersion: 1,
+    observedAt,
+    records,
+  };
+  if (captureReportDiagnostics) snapshot.reportRequestDiagnostics = reportRequestDiagnostics(
+    reportResponseSamples, reportFailedSamples, stageSamples, reportCounts, observedAt,
+  );
+  return snapshot;
 }

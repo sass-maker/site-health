@@ -174,9 +174,9 @@ if (command === 'status') {
         const currentProjects = projectsProvider();
         let snapshot;
         try {
-          snapshot = await collectUsageEvidence({ projects: currentProjects, credential: await appHealthCredential() });
+          snapshot = await collectUsageEvidence({ projects: currentProjects, credential: await appHealthCredential(), captureReportDiagnostics: true });
         } catch (error) {
-          writeUsageEvidence(usageFailureSnapshot(currentProjects));
+          writeUsageEvidence(usageFailureSnapshot(currentProjects, undefined, { captureReportDiagnostics: true }));
           throw error;
         }
         writeUsageEvidence(snapshot);
