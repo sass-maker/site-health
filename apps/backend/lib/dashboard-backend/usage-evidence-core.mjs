@@ -16,10 +16,11 @@ function timingPercentile(sorted, percentile) {
   return sorted[Math.max(0, Math.ceil(sorted.length * percentile) - 1)];
 }
 
-function reportRequestDiagnostics(samples, counts) {
+function reportRequestDiagnostics(samples, counts, observedAt) {
   const roundTrips = [...samples].sort((left, right) => left - right);
   return {
     schemaVersion: 1,
+    observedAt,
     measurement: 'client-fetch-through-json-decode',
     reportAttempts: counts.attempts,
     reportResponses: counts.responses,
@@ -213,11 +214,12 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
       } catch { records[project.id] = { status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'Aggregate report unavailable or invalid; source remains unknown unless a last-good observation exists.' }; }
     }
   }));
+  const observedAt = now();
   const snapshot = {
     schemaVersion: 1,
-    observedAt: now(),
+    observedAt,
     records,
   };
-  if (captureReportDiagnostics) snapshot.reportRequestDiagnostics = reportRequestDiagnostics(reportSamples, reportCounts);
+  if (captureReportDiagnostics) snapshot.reportRequestDiagnostics = reportRequestDiagnostics(reportSamples, reportCounts, observedAt);
   return snapshot;
 }

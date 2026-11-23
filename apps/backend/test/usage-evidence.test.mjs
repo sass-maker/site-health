@@ -97,6 +97,7 @@ test('scheduled collector measures Bearer report round trips without changing th
   }
 
   const diagnostics = snapshot.reportRequestDiagnostics;
+  assert.equal(diagnostics.observedAt, now);
   assert.equal(diagnostics.measurement, 'client-fetch-through-json-decode');
   assert.deepEqual(
     [diagnostics.reportAttempts, diagnostics.reportResponses, diagnostics.reportHttpSuccesses,
@@ -186,6 +187,7 @@ test('same-day non-diagnostic writes preserve scheduled timings, but a new day d
   const path = join(mkdtempSync(join(tmpdir(), 'usage-request-timing-')), 'usage.json');
   const diagnostics = {
     schemaVersion: 1,
+    observedAt: '2026-11-23T17:00:00Z',
     measurement: 'client-fetch-through-json-decode',
     reportAttempts: 1,
     reportResponses: 1,
@@ -200,6 +202,11 @@ test('same-day non-diagnostic writes preserve scheduled timings, but a new day d
   writeUsageEvidence({ observedAt: '2026-11-23T17:00:00Z', records: {}, reportRequestDiagnostics: diagnostics }, path);
   writeUsageEvidence({ observedAt: '2026-11-23T18:00:00Z', records: {} }, path);
   assert.deepEqual(readUsageEvidence(path).reportRequestDiagnostics, diagnostics);
+  writeUsageEvidence(usageFailureSnapshot(projects, () => '2026-11-23T19:00:00Z'), path);
+  const afterFailure = readUsageEvidence(path);
+  assert.equal(afterFailure.observedAt, '2026-11-23T19:00:00Z');
+  assert.equal(afterFailure.reportRequestDiagnostics.observedAt, '2026-11-23T17:00:00Z');
+  assert.equal(afterFailure.records.one.status, 'failed');
   writeUsageEvidence({ observedAt: '2026-11-24T00:00:00Z', records: {} }, path);
   assert.equal(readUsageEvidence(path).reportRequestDiagnostics, undefined);
 });
