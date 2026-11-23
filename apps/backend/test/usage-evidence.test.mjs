@@ -28,6 +28,7 @@ test('collector rejects ambiguous mapping and redirects; only fixed-origin GET a
   };
   const snapshot = await collectUsageEvidence({ projects, credential: 'fixture', fetcher });
   assert.equal(snapshot.records.one.status, 'available');
+  assert.equal(snapshot.reportRequestDiagnostics, undefined);
   assert.equal(snapshot.records.one.count, 0);
   assert.equal(calls.length, 2);
   for (const call of calls) {
@@ -48,36 +49,22 @@ test('collector rejects ambiguous mapping and redirects; only fixed-origin GET a
   assert.equal(failed.records.one.count, null);
 });
 
-test('collector keeps the 30-day project contract and stores only bounded numeric stage aggregates', async () => {
+test('scheduled collector measures Bearer report round trips without changing the 30-day usage contract', async () => {
   const names = ['one', 'two', 'three', 'four'];
   const projects = names.map((id) => ({ id, name: `Product ${id}`, lifecycle: { status: 'active' }, status: 'active' }));
-  const durations = { one: 10, two: 50, three: 100, four: 16000 };
+  const delays = { one: 5, two: 15, three: 25, four: 45 };
   const now = '2026-11-23T17:45:00.000Z';
   const calls = [];
   const fetcher = async (url, options) => {
     calls.push({ url, options });
     if (url.endsWith('/v1/apps')) {
-      return { ok: true, json: async () => ({ apps: names.map((id) => ({
+      return new Response(JSON.stringify({ apps: names.map((id) => ({
         app: { id, name: `Product ${id}` }, environments: [{ id: `prod-${id}`, name: 'production' }],
-      })) }) };
+      })) }), { headers: { 'content-type': 'application/json' } });
     }
     const appId = new URL(url).searchParams.get('app_id');
-    return {
-      ok: true,
-      status: 200,
-      headers: new Headers({
-        'server-timing': [
-          `analytics_query_wait;dur=${durations[appId]}`,
-          'analytics_query_wait;dur=999',
-          'route_read;dur=5',
-          'analytics_events;dur=0',
-          'private_filter_secret;dur=77',
-          'analytics_pages;dur=-1',
-          'analytics_sources;dur=Infinity',
-          'analytics_trend;dur=60001',
-        ].join(', '),
-      }),
-      json: async () => ({
+    await new Promise((resolve) => setTimeout(resolve, delays[appId]));
+    const response = new Response(JSON.stringify({
         from: Date.parse(now) - 30 * 86_400_000,
         to: Date.parse(now),
         sampled: false,
@@ -85,11 +72,14 @@ test('collector keeps the 30-day project contract and stores only bounded numeri
         sessions: 3,
         audience: { visitors: 0 },
         events: [{ count: 2 }],
-      }),
-    };
+    }), { headers: { 'content-type': 'application/json' } });
+    assert.equal(response.headers.get('server-timing'), null, 'the deployed Bearer response has no stage header');
+    return response;
   };
 
-  const snapshot = await collectUsageEvidence({ projects, credential: 'private-token-marker', fetcher, now: () => now });
+  const snapshot = await collectUsageEvidence({
+    projects, credential: 'private-token-marker', fetcher, now: () => now, captureReportDiagnostics: true,
+  });
   assert.equal(calls.length, 5);
   assert.equal(snapshot.records.one.status, 'available');
   assert.deepEqual(
@@ -103,78 +93,75 @@ test('collector keeps the 30-day project contract and stores only bounded numeri
     assert.equal(new URL(call.url).origin, 'https://health.sassmaker.com');
     assert.equal(call.options.method, 'GET');
     assert.equal(call.options.redirect, 'error');
+    assert.equal(call.options.headers.authorization, 'Bearer private-token-marker');
   }
 
-  const diagnostics = snapshot.reportTimingDiagnostics;
+  const diagnostics = snapshot.reportRequestDiagnostics;
+  assert.equal(diagnostics.measurement, 'client-fetch-through-json-decode');
   assert.deepEqual(
     [diagnostics.reportAttempts, diagnostics.reportResponses, diagnostics.reportHttpSuccesses,
-      diagnostics.reportHttpFailures, diagnostics.reportNoResponse, diagnostics.reportResultFailures,
-      diagnostics.responsesWithStageTimings, diagnostics.responsesWithoutStageTimings],
-    [4, 4, 4, 0, 0, 0, 4, 0],
+      diagnostics.reportHttpFailures, diagnostics.reportNoResponse, diagnostics.reportBodyFailures,
+      diagnostics.reportInvalidAggregates, diagnostics.timingSamplesMissing],
+    [4, 4, 4, 0, 0, 0, 0, 0],
   );
-  assert.deepEqual(diagnostics.stages.analytics_query_wait, {
-    sampleCount: 4, meanMs: 4040, p50Ms: 50, p95Ms: 16000, maxMs: 16000,
-  });
-  assert.deepEqual(diagnostics.stages.analytics_events, {
-    sampleCount: 4, meanMs: 0, p50Ms: 0, p95Ms: 0, maxMs: 0,
-  });
-  assert.equal(diagnostics.stages.analytics_pages.sampleCount, 0);
-  assert.equal(diagnostics.stages.analytics_sources.sampleCount, 0);
-  assert.equal(diagnostics.stages.analytics_trend.sampleCount, 0);
-  assert.doesNotMatch(JSON.stringify(diagnostics), /private-token-marker|private_filter_secret|prod-one|app_id|environment_id/);
+  assert.equal(diagnostics.roundTripMs.sampleCount, 4);
+  assert.ok(diagnostics.roundTripMs.p50Ms > 0);
+  assert.ok(diagnostics.roundTripMs.p95Ms > diagnostics.roundTripMs.p50Ms);
+  assert.ok(diagnostics.roundTripMs.maxMs >= diagnostics.roundTripMs.p95Ms);
+  assert.equal(diagnostics.stages, undefined, 'missing stage headers are not recorded as zero-duration stages');
+  assert.doesNotMatch(JSON.stringify(diagnostics), /private-token-marker|prod-one|app_id|environment_id/);
 
-  const withoutTimings = await collectUsageEvidence({
+  const withoutDiagnostics = await collectUsageEvidence({
     projects,
     credential: 'private-token-marker',
     now: () => now,
-    fetcher: async (url, options) => {
-      const response = await fetcher(url, options);
-      return url.endsWith('/v1/apps') ? response : { ...response, headers: new Headers() };
-    },
+    fetcher,
   });
-  assert.deepEqual(snapshot.records, withoutTimings.records, 'timing collection preserves project results');
-  assert.equal(withoutTimings.reportTimingDiagnostics.reportAttempts, 4);
-  assert.equal(withoutTimings.reportTimingDiagnostics.responsesWithoutStageTimings, 4);
+  assert.deepEqual(snapshot.records, withoutDiagnostics.records, 'timing collection preserves project results');
+  assert.equal(withoutDiagnostics.reportRequestDiagnostics, undefined, 'diagnostics stay off for non-scheduler callers');
   assert.equal(calls.length, 10, 'both paired passes make the same number of requests');
   assert.equal(snapshot.records.one.window, `${new Date(Date.parse(now) - 30 * 86_400_000).toISOString()} to ${new Date(now).toISOString()}`);
 });
 
-test('stage diagnostics retain non-2xx and transport failures without turning failed reports into available rows', async () => {
-  const currentProjects = ['http-failure', 'transport-failure'].map((id) => ({
+test('request timing and outcome aggregates cover HTTP, body, transport, invalid-data, and successful reports', async () => {
+  const currentProjects = ['success', 'http-failure', 'transport-failure', 'body-failure', 'invalid-report'].map((id) => ({
     id, name: id, lifecycle: { status: 'active' }, status: 'active',
   }));
   const now = '2026-11-23T17:45:00.000Z';
-  const snapshot = await collectUsageEvidence({
-    projects: currentProjects,
-    credential: 'private-token-marker',
-    now: () => now,
-    fetcher: async (url) => {
-      if (url.endsWith('/v1/apps')) return { ok: true, json: async () => ({ apps: currentProjects.map(({ id }) => ({
+  const fetcher = async (url) => {
+      if (url.endsWith('/v1/apps')) return new Response(JSON.stringify({ apps: currentProjects.map(({ id }) => ({
         app: { id, name: id }, environments: [{ id: `prod-${id}`, name: 'production' }],
-      })) }) };
+      })) }), { headers: { 'content-type': 'application/json' } });
       const appId = new URL(url).searchParams.get('app_id');
       if (appId === 'transport-failure') throw new Error('private transport detail');
-      return {
-        ok: false,
-        status: 503,
-        headers: new Headers({ 'server-timing': 'analytics_query_wait;dur=1200' }),
-        json: async () => ({}),
+      if (appId === 'http-failure') return new Response('{}', { status: 503 });
+      if (appId === 'body-failure') return new Response('not json');
+      const report = appId === 'invalid-report' ? {} : {
+        from: Date.parse(now) - 30 * 86_400_000, to: Date.parse(now), sampled: false,
+        source: 'analytics-engine', sessions: 3, audience: { visitors: 0 }, events: [{ count: 2 }],
       };
-    },
+      return new Response(JSON.stringify(report), { headers: { 'content-type': 'application/json' } });
+  };
+  const collect = (captureReportDiagnostics) => collectUsageEvidence({
+    projects: currentProjects, credential: 'private-token-marker', now: () => now, fetcher, captureReportDiagnostics,
   });
+  const snapshot = await collect(true);
+  const withoutDiagnostics = await collect(false);
+  assert.equal(snapshot.records.success.status, 'available');
   assert.equal(snapshot.records['http-failure'].status, 'failed');
   assert.equal(snapshot.records['transport-failure'].status, 'failed');
+  assert.equal(snapshot.records['body-failure'].status, 'failed');
+  assert.equal(snapshot.records['invalid-report'].status, 'failed');
+  assert.deepEqual(snapshot.records, withoutDiagnostics.records, 'diagnostics do not change success or failure rows');
   assert.deepEqual(
-    [snapshot.reportTimingDiagnostics.reportAttempts, snapshot.reportTimingDiagnostics.reportResponses,
-      snapshot.reportTimingDiagnostics.reportHttpSuccesses, snapshot.reportTimingDiagnostics.reportHttpFailures,
-      snapshot.reportTimingDiagnostics.reportNoResponse, snapshot.reportTimingDiagnostics.reportResultFailures,
-      snapshot.reportTimingDiagnostics.responsesWithStageTimings],
-    [2, 1, 0, 1, 1, 2, 1],
+    [snapshot.reportRequestDiagnostics.reportAttempts, snapshot.reportRequestDiagnostics.reportResponses,
+      snapshot.reportRequestDiagnostics.reportHttpSuccesses, snapshot.reportRequestDiagnostics.reportHttpFailures,
+      snapshot.reportRequestDiagnostics.reportNoResponse, snapshot.reportRequestDiagnostics.reportBodyFailures,
+      snapshot.reportRequestDiagnostics.reportInvalidAggregates, snapshot.reportRequestDiagnostics.timingSamplesMissing],
+    [5, 4, 3, 1, 1, 1, 1, 0],
   );
-  assert.deepEqual(snapshot.reportTimingDiagnostics.stages.analytics_query_wait, {
-    sampleCount: 1, meanMs: 1200, p50Ms: 1200, p95Ms: 1200, maxMs: 1200,
-  });
-  assert.doesNotMatch(JSON.stringify(snapshot.reportTimingDiagnostics), /private-token-marker|private transport detail|http-failure|transport-failure/);
+  assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.sampleCount, 5);
+  assert.doesNotMatch(JSON.stringify(snapshot.reportRequestDiagnostics), /private-token-marker|private transport detail|http-failure|transport-failure|body-failure|invalid-report/);
 });
 
 test('failed refresh retains the original good value and observation date', () => {
