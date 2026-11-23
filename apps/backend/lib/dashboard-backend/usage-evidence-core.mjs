@@ -59,7 +59,7 @@ function numericAggregate(values) {
 function reportRequestDiagnostics(responseSamples, failedSamples, stageSamples, counts, observedAt) {
   const stages = Object.fromEntries(REPORT_TIMING_STAGES.map((stage) => [stage, numericAggregate(stageSamples[stage] ?? [])]));
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     observedAt,
     measurement: 'client-request-through-json-decode',
     reportAttempts: counts.attempts,
@@ -77,8 +77,9 @@ function reportRequestDiagnostics(responseSamples, failedSamples, stageSamples, 
     stageTimingCoverage: {
       optInRequests: counts.attempts,
       responses: counts.responses,
-      responsesWithAllowlistedStages: counts.responsesWithStages,
-      responsesWithoutAllowlistedStages: counts.responses - counts.responsesWithStages,
+      httpSuccessResponses: counts.httpSuccesses,
+      httpSuccessResponsesWithAllowlistedStages: counts.responsesWithStages,
+      httpSuccessResponsesWithoutAllowlistedStages: counts.httpSuccesses - counts.responsesWithStages,
     },
     stages,
   };
@@ -191,6 +192,7 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
   const request = (path, { includeTimings = false } = {}) => fetcher(`${ORIGIN}${path}`, { method: 'GET', redirect: 'error',
     headers: {
       authorization: `Bearer ${credential}`,
+      // The paired Worker opt-in is authenticated; absent stage data remains explicit in coverage.
       ...(includeTimings ? { 'X-AppHealth-Diagnostics': 'server-timing' } : {}),
     }, signal: AbortSignal.timeout(15_000) });
   const get = async (path) => {
@@ -214,13 +216,13 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
     try {
       const response = await request(path, { includeTimings: captureReportDiagnostics });
       if (captureReportDiagnostics) reportCounts.responses += 1;
-      if (captureReportDiagnostics) {
-        let header;
-        try { header = response.headers?.get?.('server-timing'); } catch { /* Malformed diagnostics do not affect the report. */ }
-        if (recordReportTimings(header, stageSamples)) reportCounts.responsesWithStages += 1;
-      }
       if (response.ok) {
-        if (captureReportDiagnostics) reportCounts.httpSuccesses += 1;
+        if (captureReportDiagnostics) {
+          reportCounts.httpSuccesses += 1;
+          let header;
+          try { header = response.headers?.get?.('server-timing'); } catch { /* Malformed diagnostics do not affect the report. */ }
+          if (recordReportTimings(header, stageSamples)) reportCounts.responsesWithStages += 1;
+        }
       } else {
         if (captureReportDiagnostics) reportCounts.httpFailures += 1;
         throw Object.assign(new Error(`App Health aggregate returned HTTP ${response.status}`), { code: 'APP_HEALTH_READ_FAILED' });

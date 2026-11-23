@@ -99,6 +99,7 @@ test('scheduled collector measures Bearer report round trips without changing th
   }
 
   const diagnostics = snapshot.reportRequestDiagnostics;
+  assert.equal(diagnostics.schemaVersion, 2);
   assert.equal(diagnostics.observedAt, now);
   assert.equal(diagnostics.measurement, 'client-request-through-json-decode');
   assert.deepEqual(
@@ -113,7 +114,8 @@ test('scheduled collector measures Bearer report round trips without changing th
   assert.ok(diagnostics.roundTripMs.successfulHttpJsonResponses.p95Ms > diagnostics.roundTripMs.successfulHttpJsonResponses.p50Ms);
   assert.ok(diagnostics.roundTripMs.successfulHttpJsonResponses.maxMs >= diagnostics.roundTripMs.successfulHttpJsonResponses.p95Ms);
   assert.deepEqual(diagnostics.stageTimingCoverage, {
-    optInRequests: 4, responses: 4, responsesWithAllowlistedStages: 0, responsesWithoutAllowlistedStages: 4,
+    optInRequests: 4, responses: 4, httpSuccessResponses: 4,
+    httpSuccessResponsesWithAllowlistedStages: 0, httpSuccessResponsesWithoutAllowlistedStages: 4,
   });
   assert.deepEqual(diagnostics.stages.analytics_query_wait, {
     sampleCount: 0, meanMs: null, p50Ms: null, p95Ms: null, maxMs: null,
@@ -158,7 +160,8 @@ test('opt-in Server-Timing retains only allowlisted numeric stages with explicit
     call.options.headers['X-AppHealth-Diagnostics'] === 'server-timing'));
   const diagnostics = snapshot.reportRequestDiagnostics;
   assert.deepEqual(diagnostics.stageTimingCoverage, {
-    optInRequests: 2, responses: 2, responsesWithAllowlistedStages: 1, responsesWithoutAllowlistedStages: 1,
+    optInRequests: 2, responses: 2, httpSuccessResponses: 2,
+    httpSuccessResponsesWithAllowlistedStages: 1, httpSuccessResponsesWithoutAllowlistedStages: 1,
   });
   assert.deepEqual(diagnostics.stages.analytics_query_wait, {
     sampleCount: 1, meanMs: 12.34, p50Ms: 12.34, p95Ms: 12.34, maxMs: 12.34,
@@ -181,7 +184,9 @@ test('request timing and outcome aggregates cover HTTP, body, transport, invalid
       })) }), { headers: { 'content-type': 'application/json' } });
       const appId = new URL(url).searchParams.get('app_id');
       if (appId === 'transport-failure') throw new Error('private transport detail');
-      if (appId === 'http-failure') return new Response('{}', { status: 503 });
+      if (appId === 'http-failure') return new Response('{}', {
+        status: 503, headers: { 'server-timing': 'analytics_query_wait;dur=1200' },
+      });
       if (appId === 'body-failure') return new Response('not json');
       if (appId === 'null-report') return new Response('null');
       const report = appId === 'invalid-report' ? {} : {
@@ -211,6 +216,13 @@ test('request timing and outcome aggregates cover HTTP, body, transport, invalid
   );
   assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.successfulHttpJsonResponses.sampleCount, 3);
   assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.failedAttempts.sampleCount, 3);
+  assert.deepEqual(snapshot.reportRequestDiagnostics.stageTimingCoverage, {
+    optInRequests: 6, responses: 5, httpSuccessResponses: 4,
+    httpSuccessResponsesWithAllowlistedStages: 0, httpSuccessResponsesWithoutAllowlistedStages: 4,
+  });
+  assert.deepEqual(snapshot.reportRequestDiagnostics.stages.analytics_query_wait, {
+    sampleCount: 0, meanMs: null, p50Ms: null, p95Ms: null, maxMs: null,
+  }, 'timings on an HTTP failure are excluded from successful report-stage samples');
   assert.doesNotMatch(JSON.stringify(snapshot.reportRequestDiagnostics), /private-token-marker|private transport detail|http-failure|transport-failure|body-failure|invalid-report|null-report/);
 });
 
@@ -230,23 +242,21 @@ test('failed refresh retains the original good value and observation date', () =
   assert.doesNotMatch(observations[1].gap, /7 browsers/);
 });
 
-test('same-day non-diagnostic writes preserve timings; an early scheduled failure records zero report attempts', () => {
+test('same-day non-diagnostic writes preserve timings; an early scheduled failure records zero report attempts', async () => {
   const path = join(mkdtempSync(join(tmpdir(), 'usage-request-timing-')), 'usage.json');
-  const diagnostics = {
-    schemaVersion: 1,
-    observedAt: '2026-11-23T17:00:00Z',
-    measurement: 'client-request-through-json-decode',
-    reportAttempts: 1,
-    reportResponses: 1,
-    reportHttpSuccesses: 1,
-    reportHttpFailures: 0,
-    reportNoResponse: 0,
-    reportBodyFailures: 0,
-    reportInvalidAggregates: 0,
-    timingSamplesMissing: 0,
-    roundTripMs: { sampleCount: 1, meanMs: 125, p50Ms: 125, p95Ms: 125, maxMs: 125 },
-  };
-  writeUsageEvidence({ observedAt: '2026-11-23T17:00:00Z', records: {}, reportRequestDiagnostics: diagnostics }, path);
+  const observedAt = '2026-11-23T17:00:00Z';
+  const usageSnapshot = await collectUsageEvidence({
+    projects, credential: 'fixture', now: () => observedAt, captureReportDiagnostics: true,
+    fetcher: async (url) => url.endsWith('/v1/apps')
+      ? new Response(JSON.stringify({ apps: [{ app: { id: 'one', name: 'One' }, environments: [{ id: 'prod', name: 'production' }] }] }))
+      : new Response(JSON.stringify({
+          from: Date.parse(observedAt) - 30 * 86_400_000, to: Date.parse(observedAt), sampled: false,
+          source: 'analytics-engine', sessions: 1, audience: { visitors: 1 }, events: [{ count: 1 }],
+        })),
+  });
+  const diagnostics = usageSnapshot.reportRequestDiagnostics;
+  assert.equal(diagnostics.schemaVersion, 2);
+  writeUsageEvidence(usageSnapshot, path);
   writeUsageEvidence({ observedAt: '2026-11-23T18:00:00Z', records: {} }, path);
   assert.deepEqual(readUsageEvidence(path).reportRequestDiagnostics, diagnostics);
   writeUsageEvidence(usageFailureSnapshot(projects, () => '2026-11-23T19:00:00Z', { captureReportDiagnostics: true }), path);
@@ -254,8 +264,8 @@ test('same-day non-diagnostic writes preserve timings; an early scheduled failur
   assert.equal(afterFailure.observedAt, '2026-11-23T19:00:00Z');
   assert.equal(afterFailure.reportRequestDiagnostics.observedAt, '2026-11-23T19:00:00Z');
   assert.equal(afterFailure.reportRequestDiagnostics.reportAttempts, 0);
-  assert.equal(afterFailure.reportRequestDiagnostics.stageTimingCoverage.responsesWithoutAllowlistedStages, 0);
-  assert.equal(afterFailure.records.one.status, 'failed');
+  assert.equal(afterFailure.reportRequestDiagnostics.stageTimingCoverage.httpSuccessResponsesWithoutAllowlistedStages, 0);
+  assert.equal(afterFailure.records.one.status, 'retained');
   writeUsageEvidence({ observedAt: '2026-11-24T00:00:00Z', records: {} }, path);
   assert.equal(readUsageEvidence(path).reportRequestDiagnostics, undefined);
 });
