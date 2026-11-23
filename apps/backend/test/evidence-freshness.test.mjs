@@ -10,6 +10,8 @@ import {
   readRefreshReceipt,
   recordRefreshReceipt,
   reconcileAbandonedRefreshReceipts,
+  isRefreshReceiptWithinInterval,
+  refreshReceiptSchedule,
   withRefreshReceipt,
 } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { DashboardStore } from '../lib/dashboard-backend/store.mjs';
@@ -60,6 +62,56 @@ test('failed refresh never advances successful evidence freshness', () => {
     assert.equal(envelope.state, 'failed');
     assert.equal(envelope.observedAt, '2026-08-17T00:00:00.000Z');
     assert.equal(envelope.lastSuccessAt, '2026-08-17T00:01:00.000Z');
+  } finally {
+    store.close();
+  }
+});
+
+test('persisted usage receipts schedule from completion, recover abandoned runs, and bound clock skew', () => {
+  const store = new DashboardStore({
+    databasePath: join(mkdtempSync(join(tmpdir(), 'evidence-schedule-')), 'dashboard.sqlite'),
+  });
+  const intervalMs = 24 * 60 * 60_000;
+  try {
+    assert.equal(refreshReceiptSchedule(readRefreshReceipt(store, 'usage'), intervalMs, Date.parse('2026-11-24T00:00:00Z')), null);
+    recordRefreshReceipt(store, {
+      runId: 'usage_one', family: 'usage', scope: 'portfolio', state: 'failed',
+      startedAt: '2026-11-23T00:00:00.000Z', finishedAt: '2026-11-23T01:00:00.000Z',
+      summary: 'partial fixture',
+    });
+    const receipt = readRefreshReceipt(store, 'usage');
+    const schedule = refreshReceiptSchedule(receipt, intervalMs, Date.parse('2026-11-24T00:00:00Z'));
+    assert.equal(schedule.at, Date.parse('2026-11-24T01:00:00.000Z'));
+    assert.equal(refreshReceiptSchedule(receipt, intervalMs, schedule.at - 1).at, schedule.at);
+    assert.equal(refreshReceiptSchedule(receipt, intervalMs, schedule.at).at, schedule.at);
+
+    recordRefreshReceipt(store, {
+      runId: 'usage_two', family: 'usage', scope: 'portfolio', state: 'unavailable',
+      startedAt: '2026-11-25T00:00:00.000Z', finishedAt: '2026-11-25T00:05:00.000Z',
+      summary: 'future clock fixture',
+    });
+    const futureReceipt = readRefreshReceipt(store, 'usage');
+    const now = Date.parse('2026-11-24T00:00:00Z');
+    assert.equal(refreshReceiptSchedule(futureReceipt, intervalMs, now).at, now);
+    assert.equal(isRefreshReceiptWithinInterval(futureReceipt, intervalMs, now), false,
+      'future-dated success receipts cannot suppress a due collection');
+
+    recordRefreshReceipt(store, {
+      runId: 'usage_abandoned', family: 'usage', scope: 'portfolio', state: 'failed',
+      startedAt: '2026-11-22T00:00:00.000Z', finishedAt: '2026-11-24T00:00:00.000Z',
+      code: 'REFRESH_ABANDONED', summary: 'abandoned fixture',
+    });
+    const abandoned = readRefreshReceipt(store, 'usage');
+    assert.equal(refreshReceiptSchedule(abandoned, intervalMs, Date.parse('2026-11-24T12:00:00Z')).at,
+      Date.parse('2026-11-23T00:00:00Z'));
+    assert.equal(refreshReceiptSchedule(abandoned, intervalMs, Date.parse('2026-11-24T12:00:00Z'), { startup: true }).at,
+      Date.parse('2026-11-24T12:00:00Z'));
+
+    const running = { ...abandoned, state: 'running', failure: null, finishedAt: null };
+    assert.equal(refreshReceiptSchedule(running, intervalMs, now, { startup: true }).at, now);
+    assert.equal(refreshReceiptSchedule(running, intervalMs, now, { startup: false }).at,
+      Date.parse('2026-11-23T00:00:00Z'));
+    assert.equal(isRefreshReceiptWithinInterval({ state: 'succeeded', lastAttemptAt: '2026-11-23T23:00:00Z' }, intervalMs, now), true);
   } finally {
     store.close();
   }
