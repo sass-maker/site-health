@@ -78,8 +78,9 @@ function reportRequestDiagnostics(responseSamples, failedSamples, stageSamples, 
       optInRequests: counts.attempts,
       responses: counts.responses,
       httpSuccessResponses: counts.httpSuccesses,
-      httpSuccessResponsesWithAllowlistedStages: counts.responsesWithStages,
-      httpSuccessResponsesWithoutAllowlistedStages: counts.httpSuccesses - counts.responsesWithStages,
+      httpJsonResponses: counts.jsonResponses,
+      httpJsonResponsesWithAllowlistedStages: counts.responsesWithStages,
+      httpJsonResponsesWithoutAllowlistedStages: counts.jsonResponses - counts.responsesWithStages,
     },
     stages,
   };
@@ -151,7 +152,7 @@ export function usageFailureSnapshot(projects, now = () => new Date().toISOStrin
   if (captureReportDiagnostics) {
     snapshot.reportRequestDiagnostics = reportRequestDiagnostics([], [], {}, {
       attempts: 0, responses: 0, httpSuccesses: 0, httpFailures: 0,
-      bodyFailures: 0, invalidAggregates: 0, responsesWithStages: 0,
+      jsonResponses: 0, bodyFailures: 0, invalidAggregates: 0, responsesWithStages: 0,
     }, observedAt);
   }
   return snapshot;
@@ -204,7 +205,7 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
   const reportFailedSamples = [];
   const stageSamples = {};
   const reportCounts = { attempts: 0, responses: 0, httpSuccesses: 0, httpFailures: 0,
-    bodyFailures: 0, invalidAggregates: 0, responsesWithStages: 0 };
+    jsonResponses: 0, bodyFailures: 0, invalidAggregates: 0, responsesWithStages: 0 };
   const getReport = async (path) => {
     let startedAt = null;
     if (captureReportDiagnostics) {
@@ -213,6 +214,8 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
     }
     if (captureReportDiagnostics) reportCounts.attempts += 1;
     let decoded = false;
+    const responseStages = {};
+    let responseHasStages = false;
     try {
       const response = await request(path, { includeTimings: captureReportDiagnostics });
       if (captureReportDiagnostics) reportCounts.responses += 1;
@@ -221,7 +224,7 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
           reportCounts.httpSuccesses += 1;
           let header;
           try { header = response.headers?.get?.('server-timing'); } catch { /* Malformed diagnostics do not affect the report. */ }
-          if (recordReportTimings(header, stageSamples)) reportCounts.responsesWithStages += 1;
+          responseHasStages = recordReportTimings(header, responseStages);
         }
       } else {
         if (captureReportDiagnostics) reportCounts.httpFailures += 1;
@@ -230,6 +233,14 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
       try {
         const result = await response.json();
         decoded = true;
+        if (captureReportDiagnostics) {
+          reportCounts.jsonResponses += 1;
+          if (responseHasStages) {
+            reportCounts.responsesWithStages += 1;
+            for (const [stage, durations] of Object.entries(responseStages))
+              (stageSamples[stage] ??= []).push(...durations);
+          }
+        }
         return result;
       }
       catch (error) {
@@ -257,7 +268,9 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
     while (cursor < current.length) {
       const project = current[cursor++];
       const matches = apps.filter((row) => row.app?.id === project.id || normalize(row.app?.name) === normalize(project.name));
-      const environments = matches.length === 1 ? matches[0].environments?.filter((entry) => entry.name === 'production') ?? [] : [];
+      const environments = matches.length === 1 && Array.isArray(matches[0].environments)
+        ? matches[0].environments.filter((entry) => entry?.name === 'production')
+        : [];
       if (environments.length !== 1) {
         records[project.id] = { status: 'unmapped', count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'No unique exact product and production-environment mapping; source remains unknown.' };
         continue;

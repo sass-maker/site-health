@@ -115,7 +115,7 @@ test('scheduled collector measures Bearer report round trips without changing th
   assert.ok(diagnostics.roundTripMs.successfulHttpJsonResponses.maxMs >= diagnostics.roundTripMs.successfulHttpJsonResponses.p95Ms);
   assert.deepEqual(diagnostics.stageTimingCoverage, {
     optInRequests: 4, responses: 4, httpSuccessResponses: 4,
-    httpSuccessResponsesWithAllowlistedStages: 0, httpSuccessResponsesWithoutAllowlistedStages: 4,
+    httpJsonResponses: 4, httpJsonResponsesWithAllowlistedStages: 0, httpJsonResponsesWithoutAllowlistedStages: 4,
   });
   assert.deepEqual(diagnostics.stages.analytics_query_wait, {
     sampleCount: 0, meanMs: null, p50Ms: null, p95Ms: null, maxMs: null,
@@ -161,7 +161,7 @@ test('opt-in Server-Timing retains only allowlisted numeric stages with explicit
   const diagnostics = snapshot.reportRequestDiagnostics;
   assert.deepEqual(diagnostics.stageTimingCoverage, {
     optInRequests: 2, responses: 2, httpSuccessResponses: 2,
-    httpSuccessResponsesWithAllowlistedStages: 1, httpSuccessResponsesWithoutAllowlistedStages: 1,
+    httpJsonResponses: 2, httpJsonResponsesWithAllowlistedStages: 1, httpJsonResponsesWithoutAllowlistedStages: 1,
   });
   assert.deepEqual(diagnostics.stages.analytics_query_wait, {
     sampleCount: 1, meanMs: 12.34, p50Ms: 12.34, p95Ms: 12.34, maxMs: 12.34,
@@ -187,7 +187,9 @@ test('request timing and outcome aggregates cover HTTP, body, transport, invalid
       if (appId === 'http-failure') return new Response('{}', {
         status: 503, headers: { 'server-timing': 'analytics_query_wait;dur=1200' },
       });
-      if (appId === 'body-failure') return new Response('not json');
+      if (appId === 'body-failure') return new Response('not json', {
+        headers: { 'server-timing': 'analytics_query_wait;dur=250' },
+      });
       if (appId === 'null-report') return new Response('null');
       const report = appId === 'invalid-report' ? {} : {
         from: Date.parse(now) - 30 * 86_400_000, to: Date.parse(now), sampled: false,
@@ -218,12 +220,38 @@ test('request timing and outcome aggregates cover HTTP, body, transport, invalid
   assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.failedAttempts.sampleCount, 3);
   assert.deepEqual(snapshot.reportRequestDiagnostics.stageTimingCoverage, {
     optInRequests: 6, responses: 5, httpSuccessResponses: 4,
-    httpSuccessResponsesWithAllowlistedStages: 0, httpSuccessResponsesWithoutAllowlistedStages: 4,
+    httpJsonResponses: 3, httpJsonResponsesWithAllowlistedStages: 0,
+    httpJsonResponsesWithoutAllowlistedStages: 3,
   });
   assert.deepEqual(snapshot.reportRequestDiagnostics.stages.analytics_query_wait, {
     sampleCount: 0, meanMs: null, p50Ms: null, p95Ms: null, maxMs: null,
   }, 'timings on an HTTP failure are excluded from successful report-stage samples');
   assert.doesNotMatch(JSON.stringify(snapshot.reportRequestDiagnostics), /private-token-marker|private transport detail|http-failure|transport-failure|body-failure|invalid-report|null-report/);
+});
+
+test('malformed production-environment metadata does not erase earlier report diagnostics', async () => {
+  const currentProjects = ['one', 'two'].map((id) => ({ id, name: id, lifecycle: { status: 'active' }, status: 'active' }));
+  const now = '2026-11-23T17:45:00.000Z';
+  const calls = [];
+  const snapshot = await collectUsageEvidence({
+    projects: currentProjects, credential: 'fixture', now: () => now, captureReportDiagnostics: true,
+    fetcher: async (url, options) => {
+      calls.push({ url, options });
+      if (url.endsWith('/v1/apps')) return new Response(JSON.stringify({ apps: [
+        { app: { id: 'one', name: 'one' }, environments: [{ id: 'prod-one', name: 'production' }] },
+        { app: { id: 'two', name: 'two' }, environments: {} },
+      ] }));
+      return new Response(JSON.stringify({
+        from: Date.parse(now) - 30 * 86_400_000, to: Date.parse(now), sampled: false,
+        source: 'analytics-engine', sessions: 1, audience: { visitors: 1 }, events: [{ count: 1 }],
+      }));
+    },
+  });
+  assert.equal(calls.length, 2, 'only the correctly mapped project makes an existing report request');
+  assert.equal(snapshot.records.one.status, 'available');
+  assert.equal(snapshot.records.two.status, 'unmapped');
+  assert.equal(snapshot.reportRequestDiagnostics.reportAttempts, 1);
+  assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.successfulHttpJsonResponses.sampleCount, 1);
 });
 
 test('failed refresh retains the original good value and observation date', () => {
@@ -264,7 +292,7 @@ test('same-day non-diagnostic writes preserve timings; an early scheduled failur
   assert.equal(afterFailure.observedAt, '2026-11-23T19:00:00Z');
   assert.equal(afterFailure.reportRequestDiagnostics.observedAt, '2026-11-23T19:00:00Z');
   assert.equal(afterFailure.reportRequestDiagnostics.reportAttempts, 0);
-  assert.equal(afterFailure.reportRequestDiagnostics.stageTimingCoverage.httpSuccessResponsesWithoutAllowlistedStages, 0);
+  assert.equal(afterFailure.reportRequestDiagnostics.stageTimingCoverage.httpJsonResponsesWithoutAllowlistedStages, 0);
   assert.equal(afterFailure.records.one.status, 'retained');
   writeUsageEvidence({ observedAt: '2026-11-24T00:00:00Z', records: {} }, path);
   assert.equal(readUsageEvidence(path).reportRequestDiagnostics, undefined);
