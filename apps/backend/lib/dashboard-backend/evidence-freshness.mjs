@@ -90,6 +90,32 @@ export function readRefreshReceipt(store, family, target = {}) {
   return receipt;
 }
 
+export function refreshReceiptSchedule(receipt, intervalMs, now = Date.now(), { startup = false } = {}) {
+  if (!receipt) return null;
+  const abandoned = receipt.failure?.code === 'REFRESH_ABANDONED';
+  if (startup && (receipt.state === 'running' || abandoned)) {
+    return { key: [receipt.state, receipt.lastAttemptAt ?? '', receipt.finishedAt ?? ''].join('|'), at: now };
+  }
+  const timestampValue = receipt.state === 'running' || abandoned
+    ? receipt.lastAttemptAt
+    : (receipt.finishedAt ?? receipt.lastAttemptAt);
+  const observedAt = Date.parse(timestampValue ?? '');
+  const at = Number.isFinite(observedAt)
+    ? (observedAt > now ? now : observedAt + intervalMs)
+    : now;
+  return {
+    key: [receipt.state, receipt.lastAttemptAt ?? '', receipt.finishedAt ?? ''].join('|'),
+    at,
+  };
+}
+
+export function isRefreshReceiptWithinInterval(receipt, intervalMs, now = Date.now()) {
+  if (receipt?.state !== 'succeeded') return false;
+  const attemptedAt = Date.parse(receipt.lastAttemptAt ?? '');
+  const age = now - attemptedAt;
+  return Number.isFinite(attemptedAt) && age >= 0 && age < intervalMs;
+}
+
 export function isAbandonedRefreshReceipt(
   receipt,
   now = new Date().toISOString(),

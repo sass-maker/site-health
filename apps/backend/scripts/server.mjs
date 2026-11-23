@@ -8,7 +8,10 @@ import { createMetricRunController } from '../lib/dashboard-backend/metric-runs.
 import {
   recordRefreshReceipt,
   readRefreshReceipt,
+  refreshReceiptSchedule,
+  isRefreshReceiptWithinInterval,
   reconcileAbandonedRefreshReceipts,
+  withRefreshReceipt,
 } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { refreshStaleEvidence } from '../lib/dashboard-backend/refresh-coordinator.mjs';
 import { buildDashboardProjection } from '../lib/dashboard-projection.mjs';
@@ -26,7 +29,6 @@ import { startEvidenceScheduler } from '../lib/dashboard-backend/evidence-schedu
 import { appHealthCredential, collectUsageEvidence, readUsageEvidence, summarizeUsageSnapshot, usageFailureSnapshot, usageObservations, writeUsageEvidence } from '../lib/dashboard-backend/usage-evidence.mjs';
 import { createWeeklyReview } from '../lib/dashboard-backend/weekly-review.mjs';
 import { readinessObservations } from '../lib/dashboard-backend/readiness.mjs';
-import { withRefreshReceipt } from '../lib/dashboard-backend/evidence-freshness.mjs';
 import { apiModelObservations } from '../lib/dashboard-backend/api-model-evidence.mjs';
 import { collectProviderRevenueEvidence, providerRevenueFailureSnapshot, providerRevenueObservations, readProviderRevenueEvidence, summarizeProviderRevenueSnapshot, writeProviderRevenueEvidence } from '../lib/dashboard-backend/provider-revenue-evidence.mjs';
 
@@ -164,10 +166,13 @@ if (command === 'status') {
     lanes: process.env.SITE_HEALTH_SCHEDULED_REFRESH === '0' ? [] : [
       { id: 'provider-refresh', intervalMs: 10 * 60_000, run: () => prefillEvidence({ force: false }) },
       { id: 'indexing-followups', intervalMs: 60 * 60_000, run: () => metricRunController.start({ family: 'indexing', scope: 'portfolio' }) },
-      { id: 'usage', intervalMs: 24 * 60 * 60_000, run: async () => {
+      { id: 'usage', intervalMs: 24 * 60 * 60_000,
+        schedule: (now, startup) => refreshReceiptSchedule(
+          readRefreshReceipt(store, 'usage'), 24 * 60 * 60_000, now, { startup },
+        ),
+        run: async () => {
         const receipt = readRefreshReceipt(store, 'usage');
-        const attemptedAt = Date.parse(receipt?.lastAttemptAt ?? '');
-        if (receipt?.state === 'succeeded' && Number.isFinite(attemptedAt) && Date.now() - attemptedAt < 24 * 60 * 60_000) return;
+        if (isRefreshReceiptWithinInterval(receipt, 24 * 60 * 60_000)) return;
         return withRefreshReceipt(store, {
         family: 'usage', scope: 'portfolio', label: 'App Health aggregate usage', runId: `usage_${Date.now()}`,
       }, async () => {
