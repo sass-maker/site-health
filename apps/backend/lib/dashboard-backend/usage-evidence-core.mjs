@@ -2,6 +2,37 @@ import { INTERNAL_USAGE_SOURCES as INTERNAL_SOURCES } from './measurement-contra
 import { isCurrentPortfolioProject } from './domain-scope.mjs';
 
 const ORIGIN = 'https://health.sassmaker.com';
+// App Health emits only these fixed Server-Timing labels. Persist aggregates,
+// never headers, request filters, app/environment IDs, or individual samples.
+const REPORT_TIMING_STAGES = Object.freeze([
+  'auth_setup',
+  'session_lookup',
+  'session_db_read',
+  'user_db_read',
+  'workspace_scope',
+  'apps_projection',
+  'workspace_capability_setup_read',
+  'capability_setup_read',
+  'analytics_cache_lookup',
+  'analytics_query_wait',
+  'analytics_summary',
+  'analytics_summary_provider',
+  'analytics_presence',
+  'analytics_trend',
+  'analytics_pages',
+  'analytics_sources',
+  'analytics_events',
+  'analytics_audience_previous',
+  'analytics_dimension_max',
+  'analytics_engagement',
+  'analytics_exits',
+  'analytics_report_assembly',
+  'route_read',
+  'owner_handler_total',
+]);
+const REPORT_TIMING_STAGE_SET = new Set(REPORT_TIMING_STAGES);
+const MAX_REPORT_TIMING_HEADER_LENGTH = 4096;
+const MAX_REPORT_TIMING_STAGES = 64;
 const number = (value) => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 ? value : null;
 const eventCount = events => {
   if (!Array.isArray(events) || events.some(event => number(event?.count) === null)) return null;
@@ -10,6 +41,58 @@ const eventCount = events => {
 const usageUnit = value => ['sessions', 'browsers', 'devices', 'users'].includes(value) ? value : null;
 const internalRow = (id, row) => row?.source === INTERNAL_SOURCES[id] && Boolean(INTERNAL_SOURCES[id]);
 const iso = (value) => ['number', 'string'].includes(typeof value) && Number.isFinite(new Date(value).getTime()) ? new Date(value).toISOString() : null;
+
+function recordReportTiming(header, samples) {
+  if (typeof header !== 'string' || header.length > MAX_REPORT_TIMING_HEADER_LENGTH) return false;
+  let recorded = false;
+  const seen = new Set();
+  for (const rawEntry of header.split(',').slice(0, MAX_REPORT_TIMING_STAGES)) {
+    const match = rawEntry.trim().match(/^([a-z_]+);dur=(\d{1,6}(?:\.\d{1,3})?)$/);
+    if (!match || !REPORT_TIMING_STAGE_SET.has(match[1])) continue;
+    const durationMs = Number(match[2]);
+    if (!Number.isFinite(durationMs) || durationMs > 60_000) continue;
+    if (seen.has(match[1])) continue;
+    seen.add(match[1]);
+    const stageSamples = samples[match[1]] ?? (samples[match[1]] = []);
+    stageSamples.push(durationMs);
+    recorded = true;
+  }
+  return recorded;
+}
+
+function timingPercentile(sorted, percentile) {
+  // Use nearest-rank so the persisted p50/p95 stay actual observed timings.
+  return sorted[Math.max(0, Math.ceil(sorted.length * percentile) - 1)];
+}
+
+function reportTimingDiagnostics(samples, counts, failedReports) {
+  const stages = {};
+  for (const stage of REPORT_TIMING_STAGES) {
+    const values = [...(samples[stage] ?? [])].sort((left, right) => left - right);
+    stages[stage] = values.length
+      ? {
+          sampleCount: values.length,
+          meanMs: values.reduce((sum, value) => sum + value, 0) / values.length,
+          p50Ms: timingPercentile(values, 0.5),
+          p95Ms: timingPercentile(values, 0.95),
+          maxMs: values.at(-1),
+        }
+      : { sampleCount: 0, meanMs: null, p50Ms: null, p95Ms: null, maxMs: null };
+  }
+  return {
+    schemaVersion: 1,
+    reportAttempts: counts.attempts,
+    reportResponses: counts.responses,
+    reportHttpSuccesses: counts.httpSuccesses,
+    reportHttpFailures: counts.httpFailures,
+    reportNoResponse: counts.attempts - counts.responses,
+    reportResultFailures: failedReports,
+    responsesWithStageTimings: counts.timedResponses,
+    responsesWithoutStageTimings: counts.responses - counts.timedResponses,
+    stages,
+  };
+}
+
 export function mergeUsageSnapshots(snapshot, previous) {
   const records = Object.fromEntries(Object.entries(snapshot.records).map(([id, row]) => {
     const old = previous?.records?.[id];
@@ -98,9 +181,24 @@ export function importUsageExport(bundle, projects) {
 
 export async function collectUsageEvidence({ projects, credential, fetcher = fetch, now = () => new Date().toISOString() }) {
   if (!credential) throw Object.assign(new Error('App Health read connection is unavailable; retained observations remain visible.'), { code: 'APP_HEALTH_CONNECTION_UNAVAILABLE' });
+  const request = (path) => fetcher(`${ORIGIN}${path}`, { method: 'GET', redirect: 'error',
+    headers: { authorization: `Bearer ${credential}` }, signal: AbortSignal.timeout(15_000) });
   const get = async (path) => {
-    const response = await fetcher(`${ORIGIN}${path}`, { method: 'GET', redirect: 'error',
-      headers: { authorization: `Bearer ${credential}` }, signal: AbortSignal.timeout(15_000) });
+    const response = await request(path);
+    if (!response.ok) throw Object.assign(new Error(`App Health aggregate returned HTTP ${response.status}`), { code: 'APP_HEALTH_READ_FAILED' });
+    return response.json();
+  };
+  const stageSamples = {};
+  const reportCounts = { attempts: 0, responses: 0, httpSuccesses: 0, httpFailures: 0, timedResponses: 0 };
+  const getReport = async (path) => {
+    reportCounts.attempts += 1;
+    const response = await request(path);
+    reportCounts.responses += 1;
+    if (response.ok) reportCounts.httpSuccesses += 1;
+    else reportCounts.httpFailures += 1;
+    let header;
+    try { header = response.headers?.get?.('server-timing'); } catch { /* Invalid headers do not affect the report. */ }
+    if (recordReportTiming(header, stageSamples)) reportCounts.timedResponses += 1;
     if (!response.ok) throw Object.assign(new Error(`App Health aggregate returned HTTP ${response.status}`), { code: 'APP_HEALTH_READ_FAILED' });
     return response.json();
   };
@@ -120,7 +218,7 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
       }
       try {
         const params = new URLSearchParams({ range: '30d', app_id: matches[0].app.id, environment_id: environments[0].id });
-        const report = await get(`/v1/analytics/report?${params}`);
+        const report = await getReport(`/v1/analytics/report?${params}`);
         const start = iso(report.from); const end = iso(report.to);
         if (!start || !end || Date.parse(start) >= Date.parse(end) || Math.abs(Date.parse(end) - Date.parse(start) - 30 * 86_400_000) > 60_000 || Date.parse(end) > Date.parse(now()) + 300_000 || Date.parse(now()) - Date.parse(end) > 300_000 || typeof report.sampled !== 'boolean' || !['local', 'analytics-engine'].includes(report.source) || number(report.sessions) === null || !Array.isArray(report.events)) throw new Error('Invalid aggregate report');
         const browsers = number(report.audience?.visitors);
@@ -134,5 +232,11 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
       } catch { records[project.id] = { status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'Aggregate report unavailable or invalid; source remains unknown unless a last-good observation exists.' }; }
     }
   }));
-  return { schemaVersion: 1, observedAt: now(), records };
+  const reportResultFailures = Object.values(records).filter((row) => row.status === 'failed').length;
+  return {
+    schemaVersion: 1,
+    observedAt: now(),
+    records,
+    reportTimingDiagnostics: reportTimingDiagnostics(stageSamples, reportCounts, reportResultFailures),
+  };
 }

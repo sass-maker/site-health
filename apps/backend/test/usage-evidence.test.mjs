@@ -48,6 +48,135 @@ test('collector rejects ambiguous mapping and redirects; only fixed-origin GET a
   assert.equal(failed.records.one.count, null);
 });
 
+test('collector keeps the 30-day project contract and stores only bounded numeric stage aggregates', async () => {
+  const names = ['one', 'two', 'three', 'four'];
+  const projects = names.map((id) => ({ id, name: `Product ${id}`, lifecycle: { status: 'active' }, status: 'active' }));
+  const durations = { one: 10, two: 50, three: 100, four: 16000 };
+  const now = '2026-11-23T17:45:00.000Z';
+  const calls = [];
+  const fetcher = async (url, options) => {
+    calls.push({ url, options });
+    if (url.endsWith('/v1/apps')) {
+      return { ok: true, json: async () => ({ apps: names.map((id) => ({
+        app: { id, name: `Product ${id}` }, environments: [{ id: `prod-${id}`, name: 'production' }],
+      })) }) };
+    }
+    const appId = new URL(url).searchParams.get('app_id');
+    return {
+      ok: true,
+      status: 200,
+      headers: new Headers({
+        'server-timing': [
+          `analytics_query_wait;dur=${durations[appId]}`,
+          'analytics_query_wait;dur=999',
+          'route_read;dur=5',
+          'analytics_events;dur=0',
+          'private_filter_secret;dur=77',
+          'analytics_pages;dur=-1',
+          'analytics_sources;dur=Infinity',
+          'analytics_trend;dur=60001',
+        ].join(', '),
+      }),
+      json: async () => ({
+        from: Date.parse(now) - 30 * 86_400_000,
+        to: Date.parse(now),
+        sampled: false,
+        source: 'analytics-engine',
+        sessions: 3,
+        audience: { visitors: 0 },
+        events: [{ count: 2 }],
+      }),
+    };
+  };
+
+  const snapshot = await collectUsageEvidence({ projects, credential: 'private-token-marker', fetcher, now: () => now });
+  assert.equal(calls.length, 5);
+  assert.equal(snapshot.records.one.status, 'available');
+  assert.deepEqual(
+    Object.fromEntries(['count', 'unit', 'actionEvents', 'sampled', 'providerSource'].map((key) => [key, snapshot.records.one[key]])),
+    { count: 0, unit: 'browsers', actionEvents: 2, sampled: false, providerSource: 'analytics-engine' },
+  );
+  assert.equal(new URL(calls[1].url).searchParams.get('range'), '30d');
+  assert.equal(new URL(calls[1].url).searchParams.get('app_id'), 'one');
+  assert.equal(new URL(calls[1].url).searchParams.get('environment_id'), 'prod-one');
+  for (const call of calls) {
+    assert.equal(new URL(call.url).origin, 'https://health.sassmaker.com');
+    assert.equal(call.options.method, 'GET');
+    assert.equal(call.options.redirect, 'error');
+  }
+
+  const diagnostics = snapshot.reportTimingDiagnostics;
+  assert.deepEqual(
+    [diagnostics.reportAttempts, diagnostics.reportResponses, diagnostics.reportHttpSuccesses,
+      diagnostics.reportHttpFailures, diagnostics.reportNoResponse, diagnostics.reportResultFailures,
+      diagnostics.responsesWithStageTimings, diagnostics.responsesWithoutStageTimings],
+    [4, 4, 4, 0, 0, 0, 4, 0],
+  );
+  assert.deepEqual(diagnostics.stages.analytics_query_wait, {
+    sampleCount: 4, meanMs: 4040, p50Ms: 50, p95Ms: 16000, maxMs: 16000,
+  });
+  assert.deepEqual(diagnostics.stages.analytics_events, {
+    sampleCount: 4, meanMs: 0, p50Ms: 0, p95Ms: 0, maxMs: 0,
+  });
+  assert.equal(diagnostics.stages.analytics_pages.sampleCount, 0);
+  assert.equal(diagnostics.stages.analytics_sources.sampleCount, 0);
+  assert.equal(diagnostics.stages.analytics_trend.sampleCount, 0);
+  assert.doesNotMatch(JSON.stringify(diagnostics), /private-token-marker|private_filter_secret|prod-one|app_id|environment_id/);
+
+  const withoutTimings = await collectUsageEvidence({
+    projects,
+    credential: 'private-token-marker',
+    now: () => now,
+    fetcher: async (url, options) => {
+      const response = await fetcher(url, options);
+      return url.endsWith('/v1/apps') ? response : { ...response, headers: new Headers() };
+    },
+  });
+  assert.deepEqual(snapshot.records, withoutTimings.records, 'timing collection preserves project results');
+  assert.equal(withoutTimings.reportTimingDiagnostics.reportAttempts, 4);
+  assert.equal(withoutTimings.reportTimingDiagnostics.responsesWithoutStageTimings, 4);
+  assert.equal(calls.length, 10, 'both paired passes make the same number of requests');
+  assert.equal(snapshot.records.one.window, `${new Date(Date.parse(now) - 30 * 86_400_000).toISOString()} to ${new Date(now).toISOString()}`);
+});
+
+test('stage diagnostics retain non-2xx and transport failures without turning failed reports into available rows', async () => {
+  const currentProjects = ['http-failure', 'transport-failure'].map((id) => ({
+    id, name: id, lifecycle: { status: 'active' }, status: 'active',
+  }));
+  const now = '2026-11-23T17:45:00.000Z';
+  const snapshot = await collectUsageEvidence({
+    projects: currentProjects,
+    credential: 'private-token-marker',
+    now: () => now,
+    fetcher: async (url) => {
+      if (url.endsWith('/v1/apps')) return { ok: true, json: async () => ({ apps: currentProjects.map(({ id }) => ({
+        app: { id, name: id }, environments: [{ id: `prod-${id}`, name: 'production' }],
+      })) }) };
+      const appId = new URL(url).searchParams.get('app_id');
+      if (appId === 'transport-failure') throw new Error('private transport detail');
+      return {
+        ok: false,
+        status: 503,
+        headers: new Headers({ 'server-timing': 'analytics_query_wait;dur=1200' }),
+        json: async () => ({}),
+      };
+    },
+  });
+  assert.equal(snapshot.records['http-failure'].status, 'failed');
+  assert.equal(snapshot.records['transport-failure'].status, 'failed');
+  assert.deepEqual(
+    [snapshot.reportTimingDiagnostics.reportAttempts, snapshot.reportTimingDiagnostics.reportResponses,
+      snapshot.reportTimingDiagnostics.reportHttpSuccesses, snapshot.reportTimingDiagnostics.reportHttpFailures,
+      snapshot.reportTimingDiagnostics.reportNoResponse, snapshot.reportTimingDiagnostics.reportResultFailures,
+      snapshot.reportTimingDiagnostics.responsesWithStageTimings],
+    [2, 1, 0, 1, 1, 2, 1],
+  );
+  assert.deepEqual(snapshot.reportTimingDiagnostics.stages.analytics_query_wait, {
+    sampleCount: 1, meanMs: 1200, p50Ms: 1200, p95Ms: 1200, maxMs: 1200,
+  });
+  assert.doesNotMatch(JSON.stringify(snapshot.reportTimingDiagnostics), /private-token-marker|private transport detail|http-failure|transport-failure/);
+});
+
 test('failed refresh retains the original good value and observation date', () => {
   const path = join(mkdtempSync(join(tmpdir(), 'usage-retain-')), 'usage.json');
   writeUsageEvidence({ observedAt: '2026-10-26T00:00:00Z', records: { one: { count: 7, actionEvents: 3, observedAt: '2026-10-26T00:00:00Z', unit: 'browsers' } } }, path);
