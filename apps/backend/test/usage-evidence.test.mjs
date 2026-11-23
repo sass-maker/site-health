@@ -94,22 +94,30 @@ test('scheduled collector measures Bearer report round trips without changing th
     assert.equal(call.options.method, 'GET');
     assert.equal(call.options.redirect, 'error');
     assert.equal(call.options.headers.authorization, 'Bearer private-token-marker');
+    assert.equal(call.options.headers['X-AppHealth-Diagnostics'],
+      call.url.includes('/v1/analytics/report') ? 'server-timing' : undefined);
   }
 
   const diagnostics = snapshot.reportRequestDiagnostics;
   assert.equal(diagnostics.observedAt, now);
-  assert.equal(diagnostics.measurement, 'client-fetch-through-json-decode');
+  assert.equal(diagnostics.measurement, 'client-request-through-json-decode');
   assert.deepEqual(
     [diagnostics.reportAttempts, diagnostics.reportResponses, diagnostics.reportHttpSuccesses,
       diagnostics.reportHttpFailures, diagnostics.reportNoResponse, diagnostics.reportBodyFailures,
       diagnostics.reportInvalidAggregates, diagnostics.timingSamplesMissing],
     [4, 4, 4, 0, 0, 0, 0, 0],
   );
-  assert.equal(diagnostics.roundTripMs.sampleCount, 4);
-  assert.ok(diagnostics.roundTripMs.p50Ms > 0);
-  assert.ok(diagnostics.roundTripMs.p95Ms > diagnostics.roundTripMs.p50Ms);
-  assert.ok(diagnostics.roundTripMs.maxMs >= diagnostics.roundTripMs.p95Ms);
-  assert.equal(diagnostics.stages, undefined, 'missing stage headers are not recorded as zero-duration stages');
+  assert.equal(diagnostics.roundTripMs.successfulHttpJsonResponses.sampleCount, 4);
+  assert.equal(diagnostics.roundTripMs.failedAttempts.sampleCount, 0);
+  assert.ok(diagnostics.roundTripMs.successfulHttpJsonResponses.p50Ms > 0);
+  assert.ok(diagnostics.roundTripMs.successfulHttpJsonResponses.p95Ms > diagnostics.roundTripMs.successfulHttpJsonResponses.p50Ms);
+  assert.ok(diagnostics.roundTripMs.successfulHttpJsonResponses.maxMs >= diagnostics.roundTripMs.successfulHttpJsonResponses.p95Ms);
+  assert.deepEqual(diagnostics.stageTimingCoverage, {
+    optInRequests: 4, responses: 4, responsesWithAllowlistedStages: 0, responsesWithoutAllowlistedStages: 4,
+  });
+  assert.deepEqual(diagnostics.stages.analytics_query_wait, {
+    sampleCount: 0, meanMs: null, p50Ms: null, p95Ms: null, maxMs: null,
+  });
   assert.doesNotMatch(JSON.stringify(diagnostics), /private-token-marker|prod-one|app_id|environment_id/);
 
   const withoutDiagnostics = await collectUsageEvidence({
@@ -122,6 +130,44 @@ test('scheduled collector measures Bearer report round trips without changing th
   assert.equal(withoutDiagnostics.reportRequestDiagnostics, undefined, 'diagnostics stay off for non-scheduler callers');
   assert.equal(calls.length, 10, 'both paired passes make the same number of requests');
   assert.equal(snapshot.records.one.window, `${new Date(Date.parse(now) - 30 * 86_400_000).toISOString()} to ${new Date(now).toISOString()}`);
+});
+
+test('opt-in Server-Timing retains only allowlisted numeric stages with explicit response coverage', async () => {
+  const names = ['timed', 'untimed'];
+  const stageProjects = names.map((id) => ({ id, name: id, lifecycle: { status: 'active' }, status: 'active' }));
+  const now = '2026-11-23T17:45:00.000Z';
+  const calls = [];
+  const fetcher = async (url, options) => {
+    calls.push({ url, options });
+    if (url.endsWith('/v1/apps')) return new Response(JSON.stringify({ apps: names.map((id) => ({
+      app: { id, name: id }, environments: [{ id: `prod-${id}`, name: 'production' }],
+    })) }), { headers: { 'content-type': 'application/json' } });
+    const id = new URL(url).searchParams.get('app_id');
+    const headers = id === 'timed'
+      ? { 'content-type': 'application/json', 'server-timing': 'analytics_query_wait;dur=12.34, analytics_events;dur=0.00, private_prop;dur=77, analytics_query_wait;dur=999, route_read;dur=60001, analytics_trend;dur=Infinity' }
+      : { 'content-type': 'application/json' };
+    return new Response(JSON.stringify({
+      from: Date.parse(now) - 30 * 86_400_000, to: Date.parse(now), sampled: false,
+      source: 'analytics-engine', sessions: 3, audience: { visitors: 2 }, events: [{ count: 2 }],
+    }), { headers });
+  };
+  const snapshot = await collectUsageEvidence({
+    projects: stageProjects, credential: 'private-token-marker', fetcher, now: () => now, captureReportDiagnostics: true,
+  });
+  assert.ok(calls.filter((call) => call.url.includes('/v1/analytics/report')).every((call) =>
+    call.options.headers['X-AppHealth-Diagnostics'] === 'server-timing'));
+  const diagnostics = snapshot.reportRequestDiagnostics;
+  assert.deepEqual(diagnostics.stageTimingCoverage, {
+    optInRequests: 2, responses: 2, responsesWithAllowlistedStages: 1, responsesWithoutAllowlistedStages: 1,
+  });
+  assert.deepEqual(diagnostics.stages.analytics_query_wait, {
+    sampleCount: 1, meanMs: 12.34, p50Ms: 12.34, p95Ms: 12.34, maxMs: 12.34,
+  });
+  assert.deepEqual(diagnostics.stages.analytics_events, {
+    sampleCount: 1, meanMs: 0, p50Ms: 0, p95Ms: 0, maxMs: 0,
+  });
+  assert.equal(diagnostics.stages.analytics_trend.sampleCount, 0);
+  assert.doesNotMatch(JSON.stringify(diagnostics), /private-token-marker|private_prop|prod-timed|app_id|environment_id/);
 });
 
 test('request timing and outcome aggregates cover HTTP, body, transport, invalid-data, and successful reports', async () => {
@@ -163,7 +209,8 @@ test('request timing and outcome aggregates cover HTTP, body, transport, invalid
       snapshot.reportRequestDiagnostics.reportInvalidAggregates, snapshot.reportRequestDiagnostics.timingSamplesMissing],
     [6, 5, 4, 1, 1, 1, 2, 0],
   );
-  assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.sampleCount, 6);
+  assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.successfulHttpJsonResponses.sampleCount, 3);
+  assert.equal(snapshot.reportRequestDiagnostics.roundTripMs.failedAttempts.sampleCount, 3);
   assert.doesNotMatch(JSON.stringify(snapshot.reportRequestDiagnostics), /private-token-marker|private transport detail|http-failure|transport-failure|body-failure|invalid-report|null-report/);
 });
 
@@ -183,12 +230,12 @@ test('failed refresh retains the original good value and observation date', () =
   assert.doesNotMatch(observations[1].gap, /7 browsers/);
 });
 
-test('same-day non-diagnostic writes preserve scheduled timings, but a new day drops them', () => {
+test('same-day non-diagnostic writes preserve timings; an early scheduled failure records zero report attempts', () => {
   const path = join(mkdtempSync(join(tmpdir(), 'usage-request-timing-')), 'usage.json');
   const diagnostics = {
     schemaVersion: 1,
     observedAt: '2026-11-23T17:00:00Z',
-    measurement: 'client-fetch-through-json-decode',
+    measurement: 'client-request-through-json-decode',
     reportAttempts: 1,
     reportResponses: 1,
     reportHttpSuccesses: 1,
@@ -202,10 +249,12 @@ test('same-day non-diagnostic writes preserve scheduled timings, but a new day d
   writeUsageEvidence({ observedAt: '2026-11-23T17:00:00Z', records: {}, reportRequestDiagnostics: diagnostics }, path);
   writeUsageEvidence({ observedAt: '2026-11-23T18:00:00Z', records: {} }, path);
   assert.deepEqual(readUsageEvidence(path).reportRequestDiagnostics, diagnostics);
-  writeUsageEvidence(usageFailureSnapshot(projects, () => '2026-11-23T19:00:00Z'), path);
+  writeUsageEvidence(usageFailureSnapshot(projects, () => '2026-11-23T19:00:00Z', { captureReportDiagnostics: true }), path);
   const afterFailure = readUsageEvidence(path);
   assert.equal(afterFailure.observedAt, '2026-11-23T19:00:00Z');
-  assert.equal(afterFailure.reportRequestDiagnostics.observedAt, '2026-11-23T17:00:00Z');
+  assert.equal(afterFailure.reportRequestDiagnostics.observedAt, '2026-11-23T19:00:00Z');
+  assert.equal(afterFailure.reportRequestDiagnostics.reportAttempts, 0);
+  assert.equal(afterFailure.reportRequestDiagnostics.stageTimingCoverage.responsesWithoutAllowlistedStages, 0);
   assert.equal(afterFailure.records.one.status, 'failed');
   writeUsageEvidence({ observedAt: '2026-11-24T00:00:00Z', records: {} }, path);
   assert.equal(readUsageEvidence(path).reportRequestDiagnostics, undefined);

@@ -2,6 +2,17 @@ import { INTERNAL_USAGE_SOURCES as INTERNAL_SOURCES } from './measurement-contra
 import { isCurrentPortfolioProject } from './domain-scope.mjs';
 
 const ORIGIN = 'https://health.sassmaker.com';
+const REPORT_TIMING_STAGES = Object.freeze([
+  'auth_setup', 'session_lookup', 'session_db_read', 'user_db_read', 'workspace_scope',
+  'apps_projection', 'workspace_capability_setup_read', 'capability_setup_read',
+  'analytics_cache_lookup', 'analytics_query_wait', 'analytics_trend', 'analytics_pages',
+  'analytics_sources', 'analytics_events', 'analytics_audience_previous',
+  'analytics_dimension_max', 'analytics_engagement', 'analytics_exits',
+  'analytics_report_assembly', 'route_read', 'owner_handler_total',
+]);
+const REPORT_TIMING_STAGE_SET = new Set(REPORT_TIMING_STAGES);
+const MAX_REPORT_TIMING_HEADER_LENGTH = 4096;
+const MAX_REPORT_TIMING_STAGES = 64;
 const number = (value) => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 ? value : null;
 const eventCount = events => {
   if (!Array.isArray(events) || events.some(event => number(event?.count) === null)) return null;
@@ -16,12 +27,41 @@ function timingPercentile(sorted, percentile) {
   return sorted[Math.max(0, Math.ceil(sorted.length * percentile) - 1)];
 }
 
-function reportRequestDiagnostics(samples, counts, observedAt) {
-  const roundTrips = [...samples].sort((left, right) => left - right);
+function recordReportTimings(header, samples) {
+  if (typeof header !== 'string' || header.length > MAX_REPORT_TIMING_HEADER_LENGTH) return false;
+  let recorded = false;
+  const seen = new Set();
+  for (const rawEntry of header.split(',').slice(0, MAX_REPORT_TIMING_STAGES)) {
+    const match = rawEntry.trim().match(/^([a-z_]+);dur=(\d{1,6}(?:\.\d{1,3})?)$/);
+    if (!match || !REPORT_TIMING_STAGE_SET.has(match[1]) || seen.has(match[1])) continue;
+    const durationMs = Number(match[2]);
+    if (!Number.isFinite(durationMs) || durationMs > 60_000) continue;
+    seen.add(match[1]);
+    (samples[match[1]] ??= []).push(durationMs);
+    recorded = true;
+  }
+  return recorded;
+}
+
+function numericAggregate(values) {
+  const sorted = [...values].sort((left, right) => left - right);
+  return sorted.length
+    ? {
+        sampleCount: sorted.length,
+        meanMs: sorted.reduce((sum, value) => sum + value, 0) / sorted.length,
+        p50Ms: timingPercentile(sorted, 0.5),
+        p95Ms: timingPercentile(sorted, 0.95),
+        maxMs: sorted.at(-1),
+      }
+    : { sampleCount: 0, meanMs: null, p50Ms: null, p95Ms: null, maxMs: null };
+}
+
+function reportRequestDiagnostics(responseSamples, failedSamples, stageSamples, counts, observedAt) {
+  const stages = Object.fromEntries(REPORT_TIMING_STAGES.map((stage) => [stage, numericAggregate(stageSamples[stage] ?? [])]));
   return {
     schemaVersion: 1,
     observedAt,
-    measurement: 'client-fetch-through-json-decode',
+    measurement: 'client-request-through-json-decode',
     reportAttempts: counts.attempts,
     reportResponses: counts.responses,
     reportHttpSuccesses: counts.httpSuccesses,
@@ -29,16 +69,18 @@ function reportRequestDiagnostics(samples, counts, observedAt) {
     reportNoResponse: counts.attempts - counts.responses,
     reportBodyFailures: counts.bodyFailures,
     reportInvalidAggregates: counts.invalidAggregates,
-    timingSamplesMissing: counts.attempts - roundTrips.length,
-    roundTripMs: roundTrips.length
-      ? {
-          sampleCount: roundTrips.length,
-          meanMs: roundTrips.reduce((sum, value) => sum + value, 0) / roundTrips.length,
-          p50Ms: timingPercentile(roundTrips, 0.5),
-          p95Ms: timingPercentile(roundTrips, 0.95),
-          maxMs: roundTrips.at(-1),
-        }
-      : { sampleCount: 0, meanMs: null, p50Ms: null, p95Ms: null, maxMs: null },
+    timingSamplesMissing: counts.attempts - responseSamples.length - failedSamples.length,
+    roundTripMs: {
+      successfulHttpJsonResponses: numericAggregate(responseSamples),
+      failedAttempts: numericAggregate(failedSamples),
+    },
+    stageTimingCoverage: {
+      optInRequests: counts.attempts,
+      responses: counts.responses,
+      responsesWithAllowlistedStages: counts.responsesWithStages,
+      responsesWithoutAllowlistedStages: counts.responses - counts.responsesWithStages,
+    },
+    stages,
   };
 }
 
@@ -96,15 +138,22 @@ export function usageObservations(projects, snapshot) {
   });
 }
 
-export function usageFailureSnapshot(projects, now = () => new Date().toISOString()) {
+export function usageFailureSnapshot(projects, now = () => new Date().toISOString(), { captureReportDiagnostics = false } = {}) {
   const observedAt = now();
-  return {
+  const snapshot = {
     schemaVersion: 1, observedAt,
     records: Object.fromEntries(projects.filter(isCurrentPortfolioProject).map((project) => [project.id, {
       status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: observedAt,
       gap: 'App Health usage refresh failed; source remains unknown unless a last-good observation exists.',
     }])),
   };
+  if (captureReportDiagnostics) {
+    snapshot.reportRequestDiagnostics = reportRequestDiagnostics([], [], {}, {
+      attempts: 0, responses: 0, httpSuccesses: 0, httpFailures: 0,
+      bodyFailures: 0, invalidAggregates: 0, responsesWithStages: 0,
+    }, observedAt);
+  }
+  return snapshot;
 }
 
 export function summarizeUsageSnapshot(snapshot) {
@@ -139,16 +188,21 @@ export function importUsageExport(bundle, projects) {
 export async function collectUsageEvidence({ projects, credential, fetcher = fetch, now = () => new Date().toISOString(),
   monotonicNow = () => performance.now(), captureReportDiagnostics = false }) {
   if (!credential) throw Object.assign(new Error('App Health read connection is unavailable; retained observations remain visible.'), { code: 'APP_HEALTH_CONNECTION_UNAVAILABLE' });
-  const request = (path) => fetcher(`${ORIGIN}${path}`, { method: 'GET', redirect: 'error',
-    headers: { authorization: `Bearer ${credential}` }, signal: AbortSignal.timeout(15_000) });
+  const request = (path, { includeTimings = false } = {}) => fetcher(`${ORIGIN}${path}`, { method: 'GET', redirect: 'error',
+    headers: {
+      authorization: `Bearer ${credential}`,
+      ...(includeTimings ? { 'X-AppHealth-Diagnostics': 'server-timing' } : {}),
+    }, signal: AbortSignal.timeout(15_000) });
   const get = async (path) => {
     const response = await request(path);
     if (!response.ok) throw Object.assign(new Error(`App Health aggregate returned HTTP ${response.status}`), { code: 'APP_HEALTH_READ_FAILED' });
     return response.json();
   };
-  const reportSamples = [];
+  const reportResponseSamples = [];
+  const reportFailedSamples = [];
+  const stageSamples = {};
   const reportCounts = { attempts: 0, responses: 0, httpSuccesses: 0, httpFailures: 0,
-    bodyFailures: 0, invalidAggregates: 0 };
+    bodyFailures: 0, invalidAggregates: 0, responsesWithStages: 0 };
   const getReport = async (path) => {
     let startedAt = null;
     if (captureReportDiagnostics) {
@@ -156,16 +210,26 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
       if (!Number.isFinite(startedAt)) startedAt = null;
     }
     if (captureReportDiagnostics) reportCounts.attempts += 1;
+    let decoded = false;
     try {
-      const response = await request(path);
+      const response = await request(path, { includeTimings: captureReportDiagnostics });
       if (captureReportDiagnostics) reportCounts.responses += 1;
+      if (captureReportDiagnostics) {
+        let header;
+        try { header = response.headers?.get?.('server-timing'); } catch { /* Malformed diagnostics do not affect the report. */ }
+        if (recordReportTimings(header, stageSamples)) reportCounts.responsesWithStages += 1;
+      }
       if (response.ok) {
         if (captureReportDiagnostics) reportCounts.httpSuccesses += 1;
       } else {
         if (captureReportDiagnostics) reportCounts.httpFailures += 1;
         throw Object.assign(new Error(`App Health aggregate returned HTTP ${response.status}`), { code: 'APP_HEALTH_READ_FAILED' });
       }
-      try { return await response.json(); }
+      try {
+        const result = await response.json();
+        decoded = true;
+        return result;
+      }
       catch (error) {
         if (captureReportDiagnostics) reportCounts.bodyFailures += 1;
         throw error;
@@ -175,7 +239,8 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
         if (startedAt !== null) {
           try {
             const durationMs = monotonicNow() - startedAt;
-            if (Number.isFinite(durationMs) && durationMs >= 0) reportSamples.push(durationMs);
+            if (Number.isFinite(durationMs) && durationMs >= 0)
+              (decoded ? reportResponseSamples : reportFailedSamples).push(durationMs);
           } catch { /* Diagnostics must not affect the report. */ }
         }
       }
@@ -220,6 +285,8 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
     observedAt,
     records,
   };
-  if (captureReportDiagnostics) snapshot.reportRequestDiagnostics = reportRequestDiagnostics(reportSamples, reportCounts, observedAt);
+  if (captureReportDiagnostics) snapshot.reportRequestDiagnostics = reportRequestDiagnostics(
+    reportResponseSamples, reportFailedSamples, stageSamples, reportCounts, observedAt,
+  );
   return snapshot;
 }
