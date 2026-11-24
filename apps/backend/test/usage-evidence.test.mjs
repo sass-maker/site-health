@@ -49,6 +49,32 @@ test('collector rejects ambiguous mapping and redirects; only fixed-origin GET a
   assert.equal(failed.records.one.count, null);
 });
 
+test('collector keeps anonymous sessions visible when no stable browsers were observed', async () => {
+  const now = '2026-11-24T05:00:00.000Z';
+  const audiences = {
+    anonymous: { sessions: 6, audience: { visitors: 0, unidentified_sessions: 6 } },
+    mixed: { sessions: 8, audience: { visitors: 3, unidentified_sessions: 4 } },
+    zero: { sessions: 0, audience: { visitors: 0, unidentified_sessions: 0 } },
+    unknown: { sessions: 3, audience: { visitors: 0 } },
+  };
+  const projects = Object.keys(audiences).map(id => ({ id, name: id, lifecycle: { status: 'active' } }));
+  const apps = projects.map(({ id, name }) => ({ app: { id, name }, environments: [{ id: 'prod', name: 'production' }] }));
+  const fetcher = async (url) => {
+    if (url.endsWith('/v1/apps')) return Response.json({ apps });
+    const id = new URL(url).searchParams.get('app_id');
+    return Response.json({
+      from: Date.parse(now) - 30 * 86_400_000, to: Date.parse(now),
+      sampled: false, source: 'analytics-engine', events: [{ count: 9 }], ...audiences[id],
+    });
+  };
+  const { records } = await collectUsageEvidence({ projects, credential: 'fixture', fetcher, now: () => now });
+  assert.deepEqual(
+    Object.fromEntries(Object.entries(records).map(([id, row]) => [id, [row.count, row.unit, row.actionEvents]])),
+    { anonymous: [6, 'sessions', 9], mixed: [3, 'browsers', 9], zero: [0, 'browsers', 9], unknown: [0, 'browsers', 9] },
+  );
+  assert.match(records.anonymous.gap, /anonymous sessions/i);
+});
+
 test('scheduled collector measures Bearer report round trips without changing the 30-day usage contract', async () => {
   const names = ['one', 'two', 'three', 'four'];
   const projects = names.map((id) => ({ id, name: `Product ${id}`, lifecycle: { status: 'active' }, status: 'active' }));
