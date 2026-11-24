@@ -284,12 +284,18 @@ export async function collectUsageEvidence({ projects, credential, fetcher = fet
           throw new Error('Invalid aggregate report');
         }
         const browsers = number(report.audience?.visitors);
+        const sessions = number(report.sessions);
+        // App Health can count session IDs even when it saw no stable browser identifiers.
+        const anonymousSessions = browsers === 0 && sessions > 0
+          && number(report.audience?.unidentified_sessions) === sessions;
+        const useSessions = browsers === null || anonymousSessions;
+        const actionEvents = eventCount(report.events);
         records[project.id] = {
           status: 'available',
-          count: browsers ?? number(report.sessions), unit: browsers === null ? 'sessions' : 'browsers',
-          actionEvents: eventCount(report.events), sampled: report.sampled, providerSource: report.source,
+          count: useSessions ? sessions : browsers, unit: useSessions ? 'sessions' : 'browsers',
+          actionEvents, sampled: report.sampled, providerSource: report.source,
           observedAt: now(), window: `${start} to ${end}`,
-          gap: `${eventCount(report.events) === null ? 'Invalid event count; action total unknown. ' : ''}${report.sampled ? 'Sampled lower-bound/estimated aggregates. ' : ''}Browser/session proxy only; named event counts do not qualify completed core use or human adoption.`,
+          gap: `${anonymousSessions ? 'Observed anonymous sessions without stable browser identifiers. ' : ''}${actionEvents === null ? 'Invalid event count; action total unknown. ' : ''}${report.sampled ? 'Sampled lower-bound/estimated aggregates. ' : ''}Browser/session proxy only; named event counts do not qualify completed core use or human adoption.`,
         };
       } catch { records[project.id] = { status: 'failed', count: null, actionEvents: null, observedAt: null, lastAttemptAt: now(), gap: 'Aggregate report unavailable or invalid; source remains unknown unless a last-good observation exists.' }; }
     }
