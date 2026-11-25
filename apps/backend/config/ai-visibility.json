@@ -2439,52 +2439,6 @@
       "attention": "toolbox"
     },
     {
-      "slug": "every-song-is-a-website",
-      "name": "Every Song Is a Website",
-      "domain": "https://music.significanthobbies.com",
-      "aliases": [],
-      "competitors": [],
-      "promptSets": [
-        {
-          "id": "buyer-discovery",
-          "prompts": [
-            {
-              "id": "category",
-              "text": "Are there sites where each song gets its own interactive world?"
-            },
-            {
-              "id": "comparison",
-              "text": "Compare creative song-visualization web experiments."
-            }
-          ]
-        }
-      ],
-      "personas": [
-        {
-          "id": "visitor",
-          "label": "someone exploring creative web toys"
-        }
-      ],
-      "providerPolicy": {
-        "allowedProviderIds": [
-          "fixture-primary",
-          "fixture-secondary"
-        ],
-        "freeFirst": true,
-        "liveProvidersAllowed": false
-      },
-      "cacheWindowHours": 168,
-      "runBudget": {
-        "maxCalls": 4,
-        "maxConcurrency": 2,
-        "timeoutMs": 2000,
-        "retryAttempts": 1,
-        "maxEstimatedCostUsd": 0.05,
-        "maxResponseCharacters": 4000
-      },
-      "attention": "toolbox"
-    },
-    {
       "slug": "contextdaddy",
       "name": "ContextDaddy",
       "domain": "https://context.daddyrad.com",
