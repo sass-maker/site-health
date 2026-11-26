@@ -165,13 +165,25 @@
       "disposition": "ignored",
       "reason": "Inactive lifecycle: no unattended feature work, bulk enrichment, or speculative expansion. CI/deploy workflows remain for preservation and security."
     },
-    "daddyrad": {
-      "disposition": "ignored",
-      "reason": "Owner absorbed this independent project on 2026-10-09; historical policy retained in ownerRetirement.previousSystems."
-    },
     "every-song-is-a-website": {
       "disposition": "ignored",
       "reason": "Owner retired Every Song Is a Website from active Fleet work on 2026-11-26. The GitHub deployment workflow is disabled."
+    },
+    "performancedaddy": {
+      "disposition": "ignored",
+      "reason": "Native module now belongs to daddyrad."
+    },
+    "browserdaddy": {
+      "disposition": "ignored",
+      "reason": "Native module now belongs to daddyrad."
+    },
+    "storagedaddy": {
+      "disposition": "ignored",
+      "reason": "Native module now belongs to daddyrad."
+    },
+    "contextdaddy": {
+      "disposition": "ignored",
+      "reason": "Native module now belongs to daddyrad."
     }
   }
 }
